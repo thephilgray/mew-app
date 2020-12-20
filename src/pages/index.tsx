@@ -1,8 +1,7 @@
-import { Link } from 'gatsby'
 import * as React from 'react'
-import Layout from '../components/Layout'
-
 import Amplify from 'aws-amplify'
+import Layout from '../components/Layout'
+import { Link } from 'gatsby'
 import config from '../aws-exports'
 Amplify.configure(config)
 
