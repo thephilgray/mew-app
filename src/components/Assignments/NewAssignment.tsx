@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form'
 import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
 import { Editor } from '@tinymce/tinymce-react'
 import { add } from 'date-fns'
-import ImageUploader from './ImageUploader'
-import ImageCropper from './ImageCropper'
+import ImageUploader from '../lib/ImageUploader/ImageUploader'
+import ImageCropper from '../lib/ImageUploader/ImageCropper'
 
 type Inputs = {
     title: string
@@ -61,7 +61,6 @@ export default function NewAssignment(): JSX.Element {
         setValue('description', description)
         register({ name: 'description' })
     }, [description])
-    // TODO: add header image option?
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -4,8 +4,8 @@ import { Auth } from 'aws-amplify'
 import { Link } from 'gatsby'
 import { RouteComponentProps } from '@reach/router'
 import { navigate } from '@reach/router'
-import { isLoggedIn, setUser } from '../utils/auth'
-import Error from './Error'
+import { isLoggedIn, setUser } from '../../utils/auth'
+import Error from '../Error'
 
 const Login: React.FC<RouteComponentProps> = (): JSX.Element => {
     const [state, setState] = useState({
@@ -36,7 +36,7 @@ const Login: React.FC<RouteComponentProps> = (): JSX.Element => {
         }
     }
 
-    if (isLoggedIn()) navigate('/app/profile')
+    if (isLoggedIn()) navigate('/app/home')
     return (
         <div>
             <h1>Sign In</h1>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { navigate, RouteComponentProps } from '@reach/router'
 import { Link } from 'gatsby'
-import Error from './Error'
+import Error from '../Error'
 import { Auth } from 'aws-amplify'
 import { Input, Button } from '@material-ui/core'
 

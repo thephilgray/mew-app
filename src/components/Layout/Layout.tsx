@@ -2,7 +2,7 @@ import * as React from 'react'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 import { ThemeProvider } from 'styled-components'
-import theme from '../theme'
+import theme from '../../theme'
 import Header from './header'
 
 const Layout: React.FC = ({ children = [] }) => (

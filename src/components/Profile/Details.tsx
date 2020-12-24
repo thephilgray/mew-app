@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { getCurrentUser } from '../utils/auth'
+import { getCurrentUser } from '../../utils/auth'
 const Home = (): JSX.Element => {
     const user = getCurrentUser()
     if (!user) return <>{null}</>

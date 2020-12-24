@@ -1,6 +1,6 @@
 import React from 'react'
 import { navigate } from '@reach/router'
-import { isLoggedIn } from '../utils/auth'
+import { isLoggedIn } from '../../utils/auth'
 import { RouteComponentProps } from '@reach/router'
 
 interface PrivateRouteProps extends RouteComponentProps {

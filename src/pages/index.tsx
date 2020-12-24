@@ -1,11 +1,14 @@
 import * as React from 'react'
 import Amplify from 'aws-amplify'
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/Layout'
 import { Link } from 'gatsby'
 import config from '../aws-exports'
+import { isLoggedIn } from '../utils/auth'
+import { navigate } from '@reach/router'
 Amplify.configure(config)
 
 const IndexPage: React.FC = (): JSX.Element => {
+    if (isLoggedIn()) navigate('/app/home')
     return (
         <Layout>
             <title>Home Page</title>

@@ -51,3 +51,41 @@ export const assignments: Assignment[] = [
         due: add(new Date(), { weeks: -1 }),
     },
 ]
+
+export type User = {
+    id: string
+    name: string
+    roles: string[]
+}
+
+export type Workshop = {
+    id: string
+    title: string
+    members: User[]
+    admins: User[]
+    start: Date
+    status: string
+}
+
+export const workshops: Workshop[] = [
+    {
+        id: 'workshop-e6c642ec-fd72-4129-baca-59046433f2eb',
+        title: 'Spring 2021 Creative Workshop',
+        start: add(new Date(), { weeks: -4 }),
+        status: 'active',
+        members: [
+            {
+                id: '067e56ba-571b-4c3b-9851-e180faeefa8f',
+                name: 'Test User',
+                roles: ['admin'],
+            },
+        ],
+        admins: [
+            {
+                id: '067e56ba-571b-4c3b-9851-e180faeefa8f',
+                name: 'Test User',
+                roles: ['admin'],
+            },
+        ],
+    },
+]
