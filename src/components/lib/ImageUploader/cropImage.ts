@@ -1,4 +1,3 @@
-// adapted from https://dev.to/shaerins/cropping-and-resizing-images-in-react-360a
 const createImage = (url: string): Promise<HTMLImageElement> =>
     new Promise((resolve, reject) => {
         const image = new Image()
