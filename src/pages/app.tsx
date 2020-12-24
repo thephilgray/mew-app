@@ -5,6 +5,7 @@ import { Router } from '@reach/router'
 
 import Assignment from '../components/Assignments/Assignment'
 import Workshop from '../components/Workshops/Workshop'
+import NewWorkshop from '../components/Workshops/NewWorkshop'
 import Details from '../components/Profile/Details'
 import Home from '../components/Home'
 import Layout from '../components/Layout/Layout'
@@ -23,6 +24,7 @@ const App: React.FC = (): JSX.Element => (
                 <PrivateRoute path="/app/home" component={Home} />
                 <PrivateRoute path="/app/profile" component={Details} />
                 <PrivateRoute path="/app/:workshopId" component={Workshop} />
+                <PrivateRoute path="/app/workshops/new" component={NewWorkshop} />
                 <PrivateRoute path="/app/:workshopId/assignments/new" component={NewAssignment} />
                 <PrivateRoute path="/app/:workshopId/assignments/:assignmentId" component={Assignment} />
                 <PrivateRoute path="/app/:workshopId/assignments/:assignmentId/submissions" component={Submissions} />
