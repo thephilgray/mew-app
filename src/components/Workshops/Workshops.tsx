@@ -2,19 +2,31 @@ import React from 'react'
 import { workshops } from '../../data'
 import { Link } from 'gatsby'
 import { compareDesc } from 'date-fns'
+import { Card, CardContent, CardHeader, Grid } from '@material-ui/core'
 
 const Workshops = (): JSX.Element => {
     return (
-        <div>
+        <Grid container spacing={3}>
             {workshops
                 .sort((a, b) => compareDesc(a.dateEnrolled, b.dateEnrolled))
                 .map(({ id: workshopId, title }) => (
-                    <div key={workshopId}>
-                        <h3>{title}</h3>
-                        <Link to={`/app/${workshopId}`}>Assignments</Link>
-                    </div>
+                    <Grid item xs={12} md={6} key={workshopId}>
+                        <Link to={`/app/${workshopId}`}>
+                            <Card>
+                                <CardHeader title={title} />
+                                <CardContent>
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, a
+                                        asperiores soluta consectetur suscipit voluptatum ut reiciendis, minima
+                                        voluptatibus, minus reprehenderit quo necessitatibus at consequuntur tempore!
+                                        Pariatur delectus nobis dolore.
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </Link>
+                    </Grid>
                 ))}
-        </div>
+        </Grid>
     )
 }
 
