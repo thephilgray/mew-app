@@ -1,5 +1,13 @@
 import React from 'react'
+import MultimediaPostForm from '../Form/MultimediaPostForm'
 
-export default function NewSubmission({ assignmentId }: { assignmentId: string }): JSX.Element {
-    return <div>new submission form for assignment {assignmentId}</div>
+const NewSubmission: React.FC = () => {
+    return (
+        <div>
+            <h1>New Submission</h1>
+            <MultimediaPostForm headerImage editor />
+        </div>
+    )
 }
+
+export default NewSubmission
