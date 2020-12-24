@@ -69,6 +69,7 @@ export type Workshop = {
     title: string
     members: User[]
     admins: User[]
+    dateEnrolled: Date
     start: Date
     status: string
 }
@@ -77,6 +78,28 @@ export const workshops: Workshop[] = [
     {
         id: 'workshop-e6c642ec-fd72-4129-baca-59046433f2eb',
         title: 'Spring 2021 Creative Workshop',
+        dateEnrolled: new Date('03-23-2021'),
+        start: add(new Date(), { weeks: -4 }),
+        status: 'active',
+        members: [
+            {
+                id: '067e56ba-571b-4c3b-9851-e180faeefa8f',
+                name: 'Test User',
+                roles: ['admin'],
+            },
+        ],
+        admins: [
+            {
+                id: '067e56ba-571b-4c3b-9851-e180faeefa8f',
+                name: 'Test User',
+                roles: ['admin'],
+            },
+        ],
+    },
+    {
+        id: 'workshop-f34722be-072c-413d-a371-34506e80029a',
+        title: '2020 Workshop',
+        dateEnrolled: new Date('12-22-2020'),
         start: add(new Date(), { weeks: -4 }),
         status: 'active',
         members: [
