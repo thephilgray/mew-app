@@ -3,8 +3,7 @@ import * as React from 'react'
 import { Link } from 'gatsby'
 import { AssignmentTurnedIn } from '@material-ui/icons'
 import { Button, ButtonGroup } from '@material-ui/core'
-import { compareDesc } from 'date-fns'
-import { DataGrid, Columns, RowParams } from '@material-ui/data-grid'
+import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
 import { navigate } from '@reach/router'
 import { submissions } from '../../data'
 
@@ -32,7 +31,12 @@ const Submissions: React.FC<{ workshopId: string; assignmentId: string }> = ({
         },
     ]
 
-    const rows = submissions.sort((a, b) => compareDesc(a.submitted, b.submitted))
+    const sortModel = [
+        {
+            field: 'submitted',
+            sort: 'desc' as SortDirection,
+        },
+    ]
 
     return (
         <div>
@@ -46,13 +50,14 @@ const Submissions: React.FC<{ workshopId: string; assignmentId: string }> = ({
             </div>
             <div style={{ height: 375, width: '100%' }}>
                 <DataGrid
-                    rows={rows}
+                    rows={submissions}
                     columns={columns}
                     pageSize={5}
                     disableSelectionOnClick={true}
                     onRowClick={(params: RowParams) =>
                         navigate(`/app/${workshopId}/assignments/${assignmentId}/submissions/${params.row.id}`)
                     }
+                    sortModel={sortModel}
                 />
             </div>
         </div>

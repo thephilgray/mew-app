@@ -5,9 +5,15 @@ export const members = []
 
 export const submissions = [
     {
-        id: 'er213',
+        id: '8d2ff936-ff6b-472b-8b37-b51d586ce265',
         title: 'Submission 1 fgfgdgfdg',
         byline: 'sdfsdfdfds sdfdff',
+        submitted: add(new Date(), { days: -2 }),
+    },
+    {
+        id: '84438a74-067b-44ea-adfc-683e6b7bbdbb',
+        title: 'Submission 2 b51d586ce265',
+        byline: 'b51d586ce265',
         submitted: new Date(),
     },
 ]
@@ -26,11 +32,11 @@ export const assignments: Assignment[] = [
     {
         id: 1,
         required: true,
-        title: 'Week 3: Something Something',
-        submissions: 20,
-        members: 25,
-        start: new Date(),
-        due: add(new Date(), { weeks: 1 }),
+        title: 'Week 1',
+        submissions: 26,
+        members: 26,
+        start: add(new Date(), { weeks: -2 }),
+        due: add(new Date(), { weeks: -1 }),
     },
     {
         id: 2,
@@ -44,11 +50,11 @@ export const assignments: Assignment[] = [
     {
         id: 3,
         required: true,
-        title: 'Week 1',
-        submissions: 26,
-        members: 26,
-        start: add(new Date(), { weeks: -2 }),
-        due: add(new Date(), { weeks: -1 }),
+        title: 'Week 3: Something Something',
+        submissions: 20,
+        members: 25,
+        start: new Date(),
+        due: add(new Date(), { weeks: 1 }),
     },
 ]
 

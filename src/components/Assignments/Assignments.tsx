@@ -1,9 +1,8 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
-import { DataGrid, Columns, RowParams } from '@material-ui/data-grid'
+import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
 import { navigate } from '@reach/router'
 
-import { compareDesc } from 'date-fns'
 import { CheckBox } from '@material-ui/icons'
 import { assignments } from '../../data'
 
@@ -47,15 +46,21 @@ const Assignments: React.FC<{ workshopId: string }> = ({ workshopId = '' }): JSX
         },
     ]
 
-    const rows = assignments.sort((a, b) => compareDesc(a.due, b.due))
+    const sortModel = [
+        {
+            field: 'due',
+            sort: 'desc' as SortDirection,
+        },
+    ]
 
     return (
         <DataGrid
-            rows={rows}
+            rows={assignments}
             columns={columns}
             pageSize={5}
             disableSelectionOnClick={true}
             onRowClick={(params: RowParams) => navigate(`/app/${workshopId}/assignments/${params.row.id}`)}
+            sortModel={sortModel}
         />
     )
 }
