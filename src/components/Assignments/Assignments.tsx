@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
-import { Link } from 'gatsby'
-import { DataGrid, Columns } from '@material-ui/data-grid'
+import { DataGrid, Columns, RowParams } from '@material-ui/data-grid'
+import { navigate } from '@reach/router'
 
 import { compareDesc } from 'date-fns'
 import { CheckBox } from '@material-ui/icons'
@@ -13,10 +13,6 @@ const Assignments: React.FC<{ workshopId: string }> = ({ workshopId = '' }): JSX
             field: 'title',
             headerName: 'Assignment',
             width: 400,
-            // eslint-disable-next-line react/display-name
-            renderCell: (params) => {
-                return <Link to={`/app/${workshopId}/assignments/${params.row.id}`}>{params.value}</Link>
-            },
         },
         {
             field: 'submissions',
@@ -24,9 +20,9 @@ const Assignments: React.FC<{ workshopId: string }> = ({ workshopId = '' }): JSX
             width: 120,
             type: 'number',
             renderCell: ({ value = '', row = { members: '', id: '' } }) => (
-                <Link to={`/app/${workshopId}/assignments/${row.id}`}>
+                <span>
                     {value} / {row.members}
-                </Link>
+                </span>
             ),
         },
         {
@@ -53,7 +49,15 @@ const Assignments: React.FC<{ workshopId: string }> = ({ workshopId = '' }): JSX
 
     const rows = assignments.sort((a, b) => compareDesc(a.due, b.due))
 
-    return <DataGrid rows={rows} columns={columns} pageSize={5} disableSelectionOnClick={true} />
+    return (
+        <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            disableSelectionOnClick={true}
+            onRowClick={(params: RowParams) => navigate(`/app/${workshopId}/assignments/${params.row.id}`)}
+        />
+    )
 }
 
 export default Assignments

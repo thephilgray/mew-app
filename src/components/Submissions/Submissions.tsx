@@ -1,11 +1,12 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
 import { Link } from 'gatsby'
-import { submissions } from '../../data'
 import { AssignmentTurnedIn } from '@material-ui/icons'
 import { Button, ButtonGroup } from '@material-ui/core'
 import { compareDesc } from 'date-fns'
-import { DataGrid, Columns } from '@material-ui/data-grid'
+import { DataGrid, Columns, RowParams } from '@material-ui/data-grid'
+import { navigate } from '@reach/router'
+import { submissions } from '../../data'
 
 const Submissions: React.FC<{ workshopId: string; assignmentId: string }> = ({
     workshopId = '',
@@ -16,13 +17,6 @@ const Submissions: React.FC<{ workshopId: string; assignmentId: string }> = ({
             field: 'title',
             headerName: 'Title',
             width: 400,
-            renderCell: (params) => {
-                return (
-                    <Link to={`/app/${workshopId}/assignments/${assignmentId}/submissions/${params.row.id}`}>
-                        {params.value}
-                    </Link>
-                )
-            },
         },
         {
             field: 'submitted',
@@ -51,7 +45,15 @@ const Submissions: React.FC<{ workshopId: string; assignmentId: string }> = ({
                 </ButtonGroup>
             </div>
             <div style={{ height: 375, width: '100%' }}>
-                <DataGrid rows={rows} columns={columns} pageSize={5} disableSelectionOnClick={true} />
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    pageSize={5}
+                    disableSelectionOnClick={true}
+                    onRowClick={(params: RowParams) =>
+                        navigate(`/app/${workshopId}/assignments/${assignmentId}/submissions/${params.row.id}`)
+                    }
+                />
             </div>
         </div>
     )
