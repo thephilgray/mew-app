@@ -1,6 +1,6 @@
 {
     "identityPoolName": "mewapp241ca110_identitypool_241ca110",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "mewapp241ca110",
     "userPoolName": "mewapp241ca110_userpool_241ca110",
     "autoVerifiedAttributes": [
