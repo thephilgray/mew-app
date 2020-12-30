@@ -23,15 +23,15 @@
      id: ID!
      title: String!
      byline: String!
-     image: String
+     image: S3Object
      description: String
-     owner: String!
-     editors: [String]!
-     group: String!
+     owner: ID!
+     editors: [ID]!
+     group: ID!
      upload: S3Object
 #     comments: [Comment] @connection(keyName: "bySubmission", fields: ["id"])
-     assignmentId: String!
-     workshopId: String!
+     assignmentId: ID!
+     workshopId: ID!
      createdAt: AWSDateTime!
      assignment: Assignment @connection(fields: ["assignmentId"])
  }
@@ -59,9 +59,9 @@
      endDate: String!
      description: String
      status: String
-     owner: String!
-     editors: [String]!
-     group: String!
+     owner: ID!
+     editors: [ID]!
+     group: ID!
      required: Boolean
      submissions: [Submission] @connection(keyName: "byAssignment", fields: ["id"])
      createdAt: AWSDateTime!
