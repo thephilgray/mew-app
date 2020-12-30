@@ -7,7 +7,7 @@
  type Submission
      @model
      @key(fields: ["owner", "group", "createdAt"])
-     @key(name: "byAssignment", fields: ["assignmentId"])
+     @key(name: "byAssignment", fields: ["assignmentId"], queryField: "itemsByAssignment")
      @auth(
          rules: [
              # Defaults to use the "owner" field.
@@ -33,6 +33,7 @@
      assignmentId: String!
      workshopId: String!
      createdAt: AWSDateTime!
+     assignment: Assignment @connection(fields: ["assignmentId"])
  }
  
  
@@ -62,7 +63,7 @@
      editors: [String]!
      group: String!
      required: Boolean
-     submissions: [Submission] @connection(keyName: "bySubmission", fields: ["id"])
+     submissions: [Submission] @connection(keyName: "byAssignment", fields: ["id"])
      createdAt: AWSDateTime!
  }
 
