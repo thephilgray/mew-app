@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "mewapp",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authmewapp241ca110",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

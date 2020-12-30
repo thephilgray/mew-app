@@ -1,0 +1,129 @@
+ type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+ 
+ type Submission
+     @model
+     @key(fields: ["owner", "group", "createdAt"])
+     @key(name: "byAssignment", fields: ["assignmentId"])
+     @auth(
+         rules: [
+             # Defaults to use the "owner" field.
+             { allow: owner }
+             # Authorize the update mutation and both queries.
+             { allow: owner, ownerField: "editors", operations: [update] }
+             # Admin users can access any operation.
+             { allow: groups, groups: ["admin"] }
+             # Each record may specify which groups may read them.
+             { allow: groups, groupsField: "group", operations: [read] }
+         ]
+     ) {
+     id: ID!
+     title: String!
+     byline: String!
+     image: String
+     description: String
+     owner: String!
+     editors: [String]!
+     group: String!
+     upload: S3Object
+#     comments: [Comment] @connection(keyName: "bySubmission", fields: ["id"])
+     assignmentId: String!
+     workshopId: String!
+     createdAt: AWSDateTime!
+ }
+ 
+ 
+ type Assignment
+     @model
+     @key(fields: ["owner", "group", "createdAt"])
+     @auth(
+         rules: [
+             # Defaults to use the "owner" field.
+             { allow: owner }
+             # Authorize the update mutation and both queries.
+             { allow: owner, ownerField: "editors", operations: [update] }
+             # Admin users can access any operation.
+             { allow: groups, groups: ["admin"] }
+             # Each record may specify which groups may read them.
+             { allow: groups, groupsField: "group", operations: [read] }
+         ]
+     ) {
+     id: ID!
+     title: String!
+     image: String
+     startDate: String!
+     endDate: String!
+     description: String
+     status: String
+     owner: String!
+     editors: [String]!
+     group: String!
+     required: Boolean
+     submissions: [Submission] @connection(keyName: "bySubmission", fields: ["id"])
+     createdAt: AWSDateTime!
+ }
+
+
+# in progress.....
+# type Comment @model
+#   @key(name: "bySubmission", fields: ["submissionId", "content"]) 
+#       @auth(
+#         rules: [
+#             # Defaults to use the "owner" field.
+#             { allow: owner }
+#             # Authorize the update mutation and both queries.
+#             { allow: owner, ownerField: "editors", operations: [update] }
+#             # Admin users can access any operation.
+#             { allow: groups, groups: ["admin"] }
+#             # Each record may specify which groups may read them.
+#             { allow: groups, groupsField: "group", operations: [read] }
+#         ]
+#     )
+#   
+#   {
+#   id: ID!
+#   submissionId: ID!
+#   content: String!
+# }
+# 
+# # type Member
+# 
+
+# 
+# 
+# type Workshop
+#     @model
+#     @auth(
+#         rules: [
+#             # Defaults to use the "owner" field.
+#             { allow: owner }
+#             # Authorize the update mutation and both queries.
+#             { allow: owner, ownerField: "editors", operations: [update] }
+#             # Admin users can access any operation.
+#             { allow: groups, groups: ["admin"] }
+#             # Each record may specify which groups may read them.
+#             { allow: groups, groupsField: "group", operations: [read] }
+#         ]
+#     ) {
+#     id: ID!
+#     title: String!
+#     image: String
+#     startDate: String!
+#     endDate: String!
+#     description: String
+#     status: String
+#     owner: String
+#     editors: [String]!
+#     group: String!
+#     members: [String]!
+# }
+
+
+
+
+
+
+
