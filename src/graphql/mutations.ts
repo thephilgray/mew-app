@@ -2,6 +2,75 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createAssignment = /* GraphQL */ `
+  mutation CreateAssignment(
+    $input: CreateAssignmentInput!
+    $condition: ModelAssignmentConditionInput
+  ) {
+    createAssignment(input: $input, condition: $condition) {
+      id
+      owner
+      title
+      startDate
+      endDate
+      createdAt
+      required
+      details
+      artwork {
+        bucket
+        region
+        key
+      }
+      updatedAt
+    }
+  }
+`;
+export const updateAssignment = /* GraphQL */ `
+  mutation UpdateAssignment(
+    $input: UpdateAssignmentInput!
+    $condition: ModelAssignmentConditionInput
+  ) {
+    updateAssignment(input: $input, condition: $condition) {
+      id
+      owner
+      title
+      startDate
+      endDate
+      createdAt
+      required
+      details
+      artwork {
+        bucket
+        region
+        key
+      }
+      updatedAt
+    }
+  }
+`;
+export const deleteAssignment = /* GraphQL */ `
+  mutation DeleteAssignment(
+    $input: DeleteAssignmentInput!
+    $condition: ModelAssignmentConditionInput
+  ) {
+    deleteAssignment(input: $input, condition: $condition) {
+      id
+      owner
+      title
+      startDate
+      endDate
+      createdAt
+      required
+      details
+      artwork {
+        bucket
+        region
+        key
+      }
+      updatedAt
+    }
+  }
+`;
 export const createSubmission = /* GraphQL */ `
   mutation CreateSubmission(
     $input: CreateSubmissionInput!
@@ -9,42 +78,22 @@ export const createSubmission = /* GraphQL */ `
   ) {
     createSubmission(input: $input, condition: $condition) {
       id
+      assignmentId
+      memberId
+      owner
       title
       byline
-      image {
-        bucket
-        region
-        key
-      }
-      description
-      owner
-      editors
-      group
-      upload {
-        bucket
-        region
-        key
-      }
-      assignmentId
-      workshopId
+      details
       createdAt
-      assignment {
-        id
-        title
-        image
-        startDate
-        endDate
-        description
-        status
-        owner
-        editors
-        group
-        required
-        submissions {
-          nextToken
-        }
-        createdAt
-        updatedAt
+      artwork {
+        bucket
+        region
+        key
+      }
+      audio {
+        bucket
+        region
+        key
       }
       updatedAt
     }
@@ -57,42 +106,22 @@ export const updateSubmission = /* GraphQL */ `
   ) {
     updateSubmission(input: $input, condition: $condition) {
       id
+      assignmentId
+      memberId
+      owner
       title
       byline
-      image {
-        bucket
-        region
-        key
-      }
-      description
-      owner
-      editors
-      group
-      upload {
-        bucket
-        region
-        key
-      }
-      assignmentId
-      workshopId
+      details
       createdAt
-      assignment {
-        id
-        title
-        image
-        startDate
-        endDate
-        description
-        status
-        owner
-        editors
-        group
-        required
-        submissions {
-          nextToken
-        }
-        createdAt
-        updatedAt
+      artwork {
+        bucket
+        region
+        key
+      }
+      audio {
+        bucket
+        region
+        key
       }
       updatedAt
     }
@@ -105,157 +134,122 @@ export const deleteSubmission = /* GraphQL */ `
   ) {
     deleteSubmission(input: $input, condition: $condition) {
       id
+      assignmentId
+      memberId
+      owner
       title
       byline
-      image {
+      details
+      createdAt
+      artwork {
         bucket
         region
         key
       }
-      description
-      owner
-      editors
-      group
-      upload {
+      audio {
         bucket
         region
         key
       }
-      assignmentId
-      workshopId
-      createdAt
-      assignment {
-        id
-        title
-        image
-        startDate
-        endDate
-        description
-        status
-        owner
-        editors
-        group
-        required
-        submissions {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       updatedAt
     }
   }
 `;
-export const createAssignment = /* GraphQL */ `
-  mutation CreateAssignment(
-    $input: CreateAssignmentInput!
-    $condition: ModelAssignmentConditionInput
+export const createMember = /* GraphQL */ `
+  mutation CreateMember(
+    $input: CreateMemberInput!
+    $condition: ModelMemberConditionInput
   ) {
-    createAssignment(input: $input, condition: $condition) {
+    createMember(input: $input, condition: $condition) {
+      name
       id
-      title
-      image
-      startDate
-      endDate
-      description
+      email
+      artistName
       status
-      owner
-      editors
-      group
-      required
+      createdAt
+      passes
       submissions {
         items {
           id
+          assignmentId
+          memberId
+          owner
           title
           byline
-          description
-          owner
-          editors
-          group
-          assignmentId
-          workshopId
+          details
           createdAt
           updatedAt
         }
         nextToken
       }
-      createdAt
+      role
+      owner
       updatedAt
     }
   }
 `;
-export const updateAssignment = /* GraphQL */ `
-  mutation UpdateAssignment(
-    $input: UpdateAssignmentInput!
-    $condition: ModelAssignmentConditionInput
+export const updateMember = /* GraphQL */ `
+  mutation UpdateMember(
+    $input: UpdateMemberInput!
+    $condition: ModelMemberConditionInput
   ) {
-    updateAssignment(input: $input, condition: $condition) {
+    updateMember(input: $input, condition: $condition) {
+      name
       id
-      title
-      image
-      startDate
-      endDate
-      description
+      email
+      artistName
       status
-      owner
-      editors
-      group
-      required
+      createdAt
+      passes
       submissions {
         items {
           id
+          assignmentId
+          memberId
+          owner
           title
           byline
-          description
-          owner
-          editors
-          group
-          assignmentId
-          workshopId
+          details
           createdAt
           updatedAt
         }
         nextToken
       }
-      createdAt
+      role
+      owner
       updatedAt
     }
   }
 `;
-export const deleteAssignment = /* GraphQL */ `
-  mutation DeleteAssignment(
-    $input: DeleteAssignmentInput!
-    $condition: ModelAssignmentConditionInput
+export const deleteMember = /* GraphQL */ `
+  mutation DeleteMember(
+    $input: DeleteMemberInput!
+    $condition: ModelMemberConditionInput
   ) {
-    deleteAssignment(input: $input, condition: $condition) {
+    deleteMember(input: $input, condition: $condition) {
+      name
       id
-      title
-      image
-      startDate
-      endDate
-      description
+      email
+      artistName
       status
-      owner
-      editors
-      group
-      required
+      createdAt
+      passes
       submissions {
         items {
           id
+          assignmentId
+          memberId
+          owner
           title
           byline
-          description
-          owner
-          editors
-          group
-          assignmentId
-          workshopId
+          details
           createdAt
           updatedAt
         }
         nextToken
       }
-      createdAt
+      role
+      owner
       updatedAt
     }
   }

@@ -3,128 +3,76 @@
   region: String!
   key: String!
 }
- 
- type Submission
-     @model
-     @key(fields: ["owner", "group", "createdAt"])
-     @key(name: "byAssignment", fields: ["assignmentId"], queryField: "itemsByAssignment")
-     @auth(
-         rules: [
-             # Defaults to use the "owner" field.
-             { allow: owner }
-             # Authorize the update mutation and both queries.
-             { allow: owner, ownerField: "editors", operations: [update] }
-             # Admin users can access any operation.
-             { allow: groups, groups: ["admin"] }
-             # Each record may specify which groups may read them.
-             { allow: groups, groupsField: "group", operations: [read] }
-         ]
-     ) {
-     id: ID!
-     title: String!
-     byline: String!
-     image: S3Object
-     description: String
-     owner: ID!
-     editors: [ID]!
-     group: ID!
-     upload: S3Object
-#     comments: [Comment] @connection(keyName: "bySubmission", fields: ["id"])
-     assignmentId: ID!
-     workshopId: ID!
-     createdAt: AWSDateTime!
-     assignment: Assignment @connection(fields: ["assignmentId"])
- }
- 
- 
- type Assignment
-     @model
-     @key(fields: ["owner", "group", "createdAt"])
-     @auth(
-         rules: [
-             # Defaults to use the "owner" field.
-             { allow: owner }
-             # Authorize the update mutation and both queries.
-             { allow: owner, ownerField: "editors", operations: [update] }
-             # Admin users can access any operation.
-             { allow: groups, groups: ["admin"] }
-             # Each record may specify which groups may read them.
-             { allow: groups, groupsField: "group", operations: [read] }
-         ]
-     ) {
-     id: ID!
-     title: String!
-     image: String
-     startDate: String!
-     endDate: String!
-     description: String
-     status: String
-     owner: ID!
-     editors: [ID]!
-     group: ID!
-     required: Boolean
-     submissions: [Submission] @connection(keyName: "byAssignment", fields: ["id"])
-     createdAt: AWSDateTime!
- }
+
+type Assignment @model
+  # @key(name: "assignmentsByMember", fields: ["id"], queryField: "assignmentsByMember")
+  # @key(name: "byStartDate", fields: ["startDate"], queryField: "byStartDate")
+  # @key(name: "byEndDate", fields: ["endDate"], queryField: "byEndDate")
+  # @key(name: "byCreatedAt", fields: ["createdAt"], queryField: "byCreatedAt")
+     @auth(rules: [
+      {allow: owner},
+      {allow: groups, groups: ["Editors", "Admins"], mutations: [create, update, delete], queries: null},
+      {allow: groups, groups: ["Members"], mutations: null, queries: [get, list]}
+    ])
+  {
+  id: ID!
+  owner: ID!
+  title: String!
+  startDate: String!
+  endDate: String!
+  createdAt: AWSDateTime
+  required: Boolean!
+  details: String
+  artwork: S3Object
+  # members: [Member] @connection(keyName: "membersByAssignment", fields: ["id"])
+  # submissions: [Submission] @connection(keyName: "submissionsByAssignment", fields: ["id"])
+}
 
 
-# in progress.....
-# type Comment @model
-#   @key(name: "bySubmission", fields: ["submissionId", "content"]) 
-#       @auth(
-#         rules: [
-#             # Defaults to use the "owner" field.
-#             { allow: owner }
-#             # Authorize the update mutation and both queries.
-#             { allow: owner, ownerField: "editors", operations: [update] }
-#             # Admin users can access any operation.
-#             { allow: groups, groups: ["admin"] }
-#             # Each record may specify which groups may read them.
-#             { allow: groups, groupsField: "group", operations: [read] }
-#         ]
-#     )
-#   
-#   {
-#   id: ID!
-#   submissionId: ID!
-#   content: String!
-# }
-# 
-# # type Member
-# 
+type Submission @model 
+    @key(fields: ["assignmentId", "memberId"])
+    # @key(name: "submissionsByAssignment", fields: ["assignmentId"])
+    # @key(name: "submissionsByMemberId", fields: ["memberId"])
+     @auth(rules: [
+      {allow: owner},
+      {allow: groups, groups: ["Editors", "Admins"], mutations: [create, update, delete], queries: null},
+      {allow: groups, groups: ["Members"], mutations: null, queries: [get, list]}
+    ])
+{
+ id: ID!
+ assignmentId: ID!
+ memberId: ID!
+ owner: ID!
+ title: String!
+ byline: String!
+ details: String
+ createdAt: AWSDateTime
+ artwork: S3Object
+ audio: S3Object!
+}
 
-# 
-# 
-# type Workshop
-#     @model
-#     @auth(
-#         rules: [
-#             # Defaults to use the "owner" field.
-#             { allow: owner }
-#             # Authorize the update mutation and both queries.
-#             { allow: owner, ownerField: "editors", operations: [update] }
-#             # Admin users can access any operation.
-#             { allow: groups, groups: ["admin"] }
-#             # Each record may specify which groups may read them.
-#             { allow: groups, groupsField: "group", operations: [read] }
-#         ]
-#     ) {
-#     id: ID!
-#     title: String!
-#     image: String
-#     startDate: String!
-#     endDate: String!
-#     description: String
-#     status: String
-#     owner: String
-#     editors: [String]!
-#     group: String!
-#     members: [String]!
-# }
-
-
-
-
-
-
+type Member @model
+  @key(name: "memberByEmail", fields: ["email"], queryField: "memberByEmail")
+  @key(name: "membersByStatus", fields: ["status"], queryField: "membersByStatus")
+  @key(name: "membersByRoleAndStatus", fields: ["role", "status"], queryField: "membersByRoleAndStatus")
+  # @key(name: "membersByAssignment", fields: ["assignments"], queryField: "membersByAssignment")
+    @auth(rules: [
+      {allow: owner},
+      {allow: groups, groups: ["Editors", "Admins"], mutations: [create, update, delete], queries: null},
+      {allow: groups, groups: ["Members"], mutations: null, queries: [get, list]}
+    ])
+  {
+  name: String!
+  id: ID!
+  email: AWSEmail!
+  artistName: String
+  status: String!
+  createdAt: AWSDateTime
+  passes: Int
+  # assignments: [Assignment] @connection(fields: ["id"])
+  submissions: [Submission] @connection(fields: ["id"])
+  # submissionsByAssignment: [Submission] @connection(keyName: "byMemberByAssignment", fields: ["id"])
+  role: String! # contributors, editors, admins
+  owner: ID!
+}
 

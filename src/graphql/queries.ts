@@ -2,46 +2,73 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getSubmission = /* GraphQL */ `
-  query GetSubmission($owner: ID!, $group: ID!, $createdAt: AWSDateTime!) {
-    getSubmission(owner: $owner, group: $group, createdAt: $createdAt) {
+export const getAssignment = /* GraphQL */ `
+  query GetAssignment($id: ID!) {
+    getAssignment(id: $id) {
       id
-      title
-      byline
-      image {
-        bucket
-        region
-        key
-      }
-      description
       owner
-      editors
-      group
-      upload {
+      title
+      startDate
+      endDate
+      createdAt
+      required
+      details
+      artwork {
         bucket
         region
         key
       }
-      assignmentId
-      workshopId
-      createdAt
-      assignment {
+      updatedAt
+    }
+  }
+`;
+export const listAssignments = /* GraphQL */ `
+  query ListAssignments(
+    $filter: ModelAssignmentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAssignments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
         id
+        owner
         title
-        image
         startDate
         endDate
-        description
-        status
-        owner
-        editors
-        group
-        required
-        submissions {
-          nextToken
-        }
         createdAt
+        required
+        details
+        artwork {
+          bucket
+          region
+          key
+        }
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSubmission = /* GraphQL */ `
+  query GetSubmission($assignmentId: ID!, $memberId: ID!) {
+    getSubmission(assignmentId: $assignmentId, memberId: $memberId) {
+      id
+      assignmentId
+      memberId
+      owner
+      title
+      byline
+      details
+      createdAt
+      artwork {
+        bucket
+        region
+        key
+      }
+      audio {
+        bucket
+        region
+        key
       }
       updatedAt
     }
@@ -49,16 +76,16 @@ export const getSubmission = /* GraphQL */ `
 `;
 export const listSubmissions = /* GraphQL */ `
   query ListSubmissions(
-    $owner: ID
-    $groupCreatedAt: ModelSubmissionPrimaryCompositeKeyConditionInput
+    $assignmentId: ID
+    $memberId: ModelIDKeyConditionInput
     $filter: ModelSubmissionFilterInput
     $limit: Int
     $nextToken: String
     $sortDirection: ModelSortDirection
   ) {
     listSubmissions(
-      owner: $owner
-      groupCreatedAt: $groupCreatedAt
+      assignmentId: $assignmentId
+      memberId: $memberId
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -66,39 +93,22 @@ export const listSubmissions = /* GraphQL */ `
     ) {
       items {
         id
+        assignmentId
+        memberId
+        owner
         title
         byline
-        image {
-          bucket
-          region
-          key
-        }
-        description
-        owner
-        editors
-        group
-        upload {
-          bucket
-          region
-          key
-        }
-        assignmentId
-        workshopId
+        details
         createdAt
-        assignment {
-          id
-          title
-          image
-          startDate
-          endDate
-          description
-          status
-          owner
-          editors
-          group
-          required
-          createdAt
-          updatedAt
+        artwork {
+          bucket
+          region
+          key
+        }
+        audio {
+          bucket
+          region
+          key
         }
         updatedAt
       }
@@ -106,131 +116,160 @@ export const listSubmissions = /* GraphQL */ `
     }
   }
 `;
-export const getAssignment = /* GraphQL */ `
-  query GetAssignment($owner: ID!, $group: ID!, $createdAt: AWSDateTime!) {
-    getAssignment(owner: $owner, group: $group, createdAt: $createdAt) {
+export const getMember = /* GraphQL */ `
+  query GetMember($id: ID!) {
+    getMember(id: $id) {
+      name
       id
-      title
-      image
-      startDate
-      endDate
-      description
+      email
+      artistName
       status
-      owner
-      editors
-      group
-      required
+      createdAt
+      passes
       submissions {
         items {
           id
+          assignmentId
+          memberId
+          owner
           title
           byline
-          description
-          owner
-          editors
-          group
-          assignmentId
-          workshopId
+          details
           createdAt
           updatedAt
         }
         nextToken
       }
-      createdAt
+      role
+      owner
       updatedAt
     }
   }
 `;
-export const listAssignments = /* GraphQL */ `
-  query ListAssignments(
-    $owner: ID
-    $groupCreatedAt: ModelAssignmentPrimaryCompositeKeyConditionInput
-    $filter: ModelAssignmentFilterInput
+export const listMembers = /* GraphQL */ `
+  query ListMembers(
+    $filter: ModelMemberFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listAssignments(
-      owner: $owner
-      groupCreatedAt: $groupCreatedAt
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
+    listMembers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        name
         id
-        title
-        image
-        startDate
-        endDate
-        description
+        email
+        artistName
         status
-        owner
-        editors
-        group
-        required
+        createdAt
+        passes
         submissions {
           nextToken
         }
-        createdAt
+        role
+        owner
         updatedAt
       }
       nextToken
     }
   }
 `;
-export const itemsByAssignment = /* GraphQL */ `
-  query ItemsByAssignment(
-    $assignmentId: ID
+export const memberByEmail = /* GraphQL */ `
+  query MemberByEmail(
+    $email: AWSEmail
     $sortDirection: ModelSortDirection
-    $filter: ModelSubmissionFilterInput
+    $filter: ModelMemberFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    itemsByAssignment(
-      assignmentId: $assignmentId
+    memberByEmail(
+      email: $email
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
       nextToken: $nextToken
     ) {
       items {
+        name
         id
-        title
-        byline
-        image {
-          bucket
-          region
-          key
-        }
-        description
-        owner
-        editors
-        group
-        upload {
-          bucket
-          region
-          key
-        }
-        assignmentId
-        workshopId
+        email
+        artistName
+        status
         createdAt
-        assignment {
-          id
-          title
-          image
-          startDate
-          endDate
-          description
-          status
-          owner
-          editors
-          group
-          required
-          createdAt
-          updatedAt
+        passes
+        submissions {
+          nextToken
         }
+        role
+        owner
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const membersByStatus = /* GraphQL */ `
+  query MembersByStatus(
+    $status: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelMemberFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    membersByStatus(
+      status: $status
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        name
+        id
+        email
+        artistName
+        status
+        createdAt
+        passes
+        submissions {
+          nextToken
+        }
+        role
+        owner
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const membersByRoleAndStatus = /* GraphQL */ `
+  query MembersByRoleAndStatus(
+    $role: String
+    $status: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMemberFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    membersByRoleAndStatus(
+      role: $role
+      status: $status
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        name
+        id
+        email
+        artistName
+        status
+        createdAt
+        passes
+        submissions {
+          nextToken
+        }
+        role
+        owner
         updatedAt
       }
       nextToken

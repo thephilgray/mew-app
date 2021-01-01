@@ -1,10 +1,16 @@
 {
   "auth": {
-    "mewapp241ca110": {
+    "mewappacdc5d0e": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
+    }
+  },
+  "storage": {
+    "mewapp": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
     }
   },
   "api": {
@@ -16,18 +22,12 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmewapp241ca110"
+              "userPoolId": "authmewappacdc5d0e"
             }
           },
           "additionalAuthenticationProviders": []
         }
       }
-    }
-  },
-  "storage": {
-    "mewappstorage": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
     }
   }
 }

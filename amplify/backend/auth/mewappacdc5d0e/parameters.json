@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "mewapp241ca110_identitypool_241ca110",
+    "identityPoolName": "mewappacdc5d0e_identitypool_acdc5d0e",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "mewapp241ca110",
-    "userPoolName": "mewapp241ca110_userpool_241ca110",
+    "resourceNameTruncated": "mewappacdc5d0e",
+    "userPoolName": "mewappacdc5d0e_userpool_acdc5d0e",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -18,7 +18,8 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "email",
+        "name"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
@@ -28,10 +29,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "mewapp241ca110_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "mewappacdc5d0e_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "241ca110",
-    "resourceName": "mewapp241ca110",
+    "sharedId": "acdc5d0e",
+    "resourceName": "mewappacdc5d0e",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -49,7 +50,12 @@
     "usernameAttributes": [
         "email"
     ],
+    "triggers": "{}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
     "dependsOn": []
 }
