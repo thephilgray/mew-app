@@ -6,8 +6,8 @@ import { Auth } from 'aws-amplify'
 import { Input, Button } from '@material-ui/core'
 
 const initialState = {
-    username: ``,
-    password: ``,
+    name: '',
+    password: '',
     email: '',
     authCode: '',
     stage: 0,
@@ -17,13 +17,14 @@ const initialState = {
 const Signup: React.FC<RouteComponentProps> = (): JSX.Element => {
     const [state, setState] = useState(initialState)
     const handleUpdate = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        setState((prevState) => ({ ...prevState, [event.target.name]: event.target.value }))
+        const { name, value } = event.target
+        setState((prevState) => ({ ...prevState, [name]: value }))
     }
     const signUp: React.FormEventHandler = async (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault()
-        const { username, password, email } = state
+        const { password, email, name } = state
         try {
-            await Auth.signUp({ username, password, attributes: { email } })
+            await Auth.signUp({ username: email, password, attributes: { email, name } })
             setState((prevState) => ({ ...prevState, stage: 1 }))
         } catch (err) {
             setState((prevState) => ({ ...prevState, error: err }))
@@ -31,9 +32,9 @@ const Signup: React.FC<RouteComponentProps> = (): JSX.Element => {
     }
     const confirmSignUp: React.FormEventHandler = async (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault()
-        const { username, authCode } = state
+        const { email, authCode } = state
         try {
-            await Auth.confirmSignUp(username, authCode)
+            await Auth.confirmSignUp(email, authCode)
             alert('Successfully signed up!')
             navigate('/app/login')
         } catch (err) {
@@ -46,7 +47,8 @@ const Signup: React.FC<RouteComponentProps> = (): JSX.Element => {
             {state.stage === 0 && (
                 <form onSubmit={signUp}>
                     {state.error && <Error errorMessage={state.error} />}
-                    <Input onChange={handleUpdate} placeholder="Username" name="username" value={state.username} />
+                    <Input onChange={handleUpdate} placeholder="Name" name="name" value={state.name} />
+                    <Input onChange={handleUpdate} placeholder="Email" name="email" value={state.email} />
                     <Input
                         onChange={handleUpdate}
                         placeholder="Password"
@@ -54,7 +56,6 @@ const Signup: React.FC<RouteComponentProps> = (): JSX.Element => {
                         value={state.password}
                         type="password"
                     />
-                    <Input onChange={handleUpdate} placeholder="Email" name="email" value={state.email} />
                     <Button variant="contained" color="primary" type="submit">
                         Sign Up
                     </Button>
