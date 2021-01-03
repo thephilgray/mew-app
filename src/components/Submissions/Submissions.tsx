@@ -2,14 +2,11 @@
 import * as React from 'react'
 import { Link, navigate } from 'gatsby'
 import { AssignmentTurnedIn } from '@material-ui/icons'
-import { Button, ButtonGroup } from '@material-ui/core'
+import { Button, ButtonGroup, Typography } from '@material-ui/core'
 import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
 import { submissions } from '../../data'
 
-const Submissions: React.FC<{ workshopId: string; assignmentId: string }> = ({
-    workshopId = '',
-    assignmentId = '',
-}) => {
+const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const columns: Columns = [
         {
             field: 'title',
@@ -39,10 +36,12 @@ const Submissions: React.FC<{ workshopId: string; assignmentId: string }> = ({
 
     return (
         <div>
-            <h2>Submissions</h2>
+            <Typography variant="h6" component="h3">
+                Submissions
+            </Typography>
             <div style={{ textAlign: 'right' }}>
                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    <Link to={`/app/${workshopId}/assignments/${assignmentId}/submissions/new`}>
+                    <Link to={`/app/assignments/${assignmentId}/submissions/new`}>
                         <Button>New Submission</Button>
                     </Link>
                 </ButtonGroup>
@@ -54,7 +53,7 @@ const Submissions: React.FC<{ workshopId: string; assignmentId: string }> = ({
                     pageSize={5}
                     disableSelectionOnClick={true}
                     onRowClick={(params: RowParams) =>
-                        navigate(`/app/${workshopId}/assignments/${assignmentId}/submissions/${params.row.id}`)
+                        navigate(`/app/assignments/${assignmentId}/submissions/${params.row.id}`)
                     }
                     sortModel={sortModel}
                 />

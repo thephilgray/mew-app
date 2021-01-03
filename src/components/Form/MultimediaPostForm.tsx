@@ -8,7 +8,7 @@ import ImageUploader from '../lib/ImageUploader/ImageUploader'
 import ImageCropper from '../lib/ImageUploader/ImageCropper'
 
 // TODO: dynamically include field types based on props
-type Inputs = {
+export type Inputs = {
     title: string
     description: string
     startDate: Date
@@ -27,7 +27,7 @@ export default function MultimediaPostForm({
     dateInputs?: boolean
     headerImage?: boolean
     editor?: boolean
-    callback: () => void
+    callback: (inputData: Inputs) => Promise<void>
 }): JSX.Element {
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const [description, setDescription] = useState<string | null>('')

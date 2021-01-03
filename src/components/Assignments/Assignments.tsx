@@ -4,13 +4,13 @@ import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-g
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { Check } from '@material-ui/icons'
-import { assignments } from '../../data'
-import { Button, Grid } from '@material-ui/core'
+import { Button, createStyles, Grid, makeStyles } from '@material-ui/core'
 import { Link, navigate } from 'gatsby'
+import Error from '../Error'
+import format from 'date-fns/format'
 
-// This query is executed at run time by Apollo.
-const APOLLO_QUERY = gql`
-    query MyQuery {
+const LIST_ASSIGNMENTS = gql`
+    query ListAssignments {
         listAssignments {
             items {
                 id
@@ -18,14 +18,24 @@ const APOLLO_QUERY = gql`
                 details
                 required
                 startDate
+                endDate
                 createdAt
             }
         }
     }
 `
 
+const useStyles = makeStyles(() =>
+    createStyles({
+        tableWrapper: {
+            width: '100%',
+        },
+    }),
+)
+
 const Assignments: React.FC = (): JSX.Element => {
-    const { loading, error, data } = useQuery(APOLLO_QUERY)
+    const classes = useStyles()
+    const { loading, error, data } = useQuery(LIST_ASSIGNMENTS)
     console.log({ loading, error, data })
     const columns: Columns = [
         {
@@ -45,16 +55,18 @@ const Assignments: React.FC = (): JSX.Element => {
             ),
         },
         {
-            field: 'start',
+            field: 'startDate',
             headerName: 'Start',
-            type: 'date',
+            type: 'string',
             width: 130,
+            valueFormatter: ({ value = '' }) => format(new Date(String(value)), `MM-dd-yyyy`),
         },
         {
-            field: 'due',
+            field: 'endDate',
             headerName: 'Due',
-            type: 'date',
+            type: 'string',
             width: 130,
+            valueFormatter: ({ value = '' }) => format(new Date(String(value)), `MM-dd-yyyy`),
         },
         {
             field: 'required',
@@ -68,11 +80,12 @@ const Assignments: React.FC = (): JSX.Element => {
 
     const sortModel = [
         {
-            field: 'due',
+            field: 'endDate',
             sort: 'desc' as SortDirection,
         },
     ]
-
+    if (error) return <Error errorMessage={error} />
+    if (loading) return <p>Loading assignments....</p>
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} style={{ textAlign: 'right' }}>
@@ -80,11 +93,10 @@ const Assignments: React.FC = (): JSX.Element => {
                     New Assignment
                 </Button>
             </Grid>
-            <Grid item xs={12} style={{ width: '100%' }}>
+            <Grid item xs={12} className={classes.tableWrapper}>
                 <DataGrid
-                    rows={assignments}
+                    rows={data.listAssignments.items}
                     columns={columns}
-                    // pageSize={5}
                     disableSelectionOnClick={true}
                     onRowClick={(params: RowParams) => navigate(`/app/assignments/${params.row.id}`)}
                     sortModel={sortModel}

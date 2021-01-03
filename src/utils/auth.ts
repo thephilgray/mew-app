@@ -25,12 +25,10 @@ export const isLoggedIn = (): boolean => {
     return !!user.sub
 }
 
-export const getCurrentUser = (): User | false => isBrowser && getUser()
+export const getCurrentUser = (): User => getUser()
 
 export const logout = (callback: () => unknown): void => {
     if (!isBrowser) return
     setUser({})
     callback()
 }
-
-// get membership

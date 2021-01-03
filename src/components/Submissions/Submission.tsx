@@ -1,25 +1,35 @@
 import React from 'react'
+import { Typography, Paper } from '@material-ui/core'
 
 const Submission = (): JSX.Element => {
     return (
-        <div>
+        <Paper style={{ padding: '1rem' }}>
             <header>
-                <h1>Submission Title</h1>
-                <p>Byline</p>
+                <Typography variant="h5" component="h2">
+                    Submission Title
+                </Typography>
+                <Typography variant="body1">Byline</Typography>
             </header>
             <section>
-                <h2>Details</h2>
-                <p>
+                <Typography variant="h6" component="h3">
+                    Details
+                </Typography>
+
+                <Typography variant="body1">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis cupiditate qui nostrum consectetur
                     asperiores aut officia voluptas? Fuga nihil, assumenda quaerat officiis eligendi consequatur quia
                     soluta mollitia facilis at quibusdam.
-                </p>
-                <h2>Uploads</h2>
+                </Typography>
+                <Typography variant="h6" component="h3">
+                    Uploads
+                </Typography>
             </section>
             <footer>
-                <h2>Comments</h2>
+                <Typography variant="h6" component="h3">
+                    Comments
+                </Typography>
             </footer>
-        </div>
+        </Paper>
     )
 }
 

@@ -1,15 +1,17 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import { getCurrentUser } from '../../utils/auth'
+import { Typography } from '@material-ui/core'
+
 const Profile = (): JSX.Element => {
     const user = getCurrentUser()
     if (!user) return <>{null}</>
     return (
         <div>
-            <h1>Profile Details</h1>
-            <p>Email: {user.email}</p>
-            <p>Name: {user.name}</p>
-            <Link to="/app">Home</Link>
+            <Typography variant="h5" component="h2">
+                Profile Details
+            </Typography>
+            <Typography variant="body1">Email: {user.email}</Typography>
+            <Typography variant="body1">Name: {user.name}</Typography>
         </div>
     )
 }
