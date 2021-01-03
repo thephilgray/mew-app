@@ -18,6 +18,9 @@ export const getAssignment = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
@@ -43,9 +46,50 @@ export const listAssignments = /* GraphQL */ `
           region
           key
         }
+        _version
+        _deleted
+        _lastChangedAt
         updatedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncAssignments = /* GraphQL */ `
+  query SyncAssignments(
+    $filter: ModelAssignmentFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncAssignments(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        owner
+        title
+        startDate
+        endDate
+        createdAt
+        required
+        details
+        artwork {
+          bucket
+          region
+          key
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -70,6 +114,9 @@ export const getSubmission = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
@@ -110,9 +157,55 @@ export const listSubmissions = /* GraphQL */ `
           region
           key
         }
+        _version
+        _deleted
+        _lastChangedAt
         updatedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncSubmissions = /* GraphQL */ `
+  query SyncSubmissions(
+    $filter: ModelSubmissionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncSubmissions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        assignmentId
+        memberId
+        owner
+        title
+        byline
+        details
+        createdAt
+        artwork {
+          bucket
+          region
+          key
+        }
+        audio {
+          bucket
+          region
+          key
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -126,6 +219,12 @@ export const getMember = /* GraphQL */ `
       status
       createdAt
       passes
+      role
+      owner
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
       submissions {
         items {
           id
@@ -136,13 +235,14 @@ export const getMember = /* GraphQL */ `
           byline
           details
           createdAt
+          _version
+          _deleted
+          _lastChangedAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      role
-      owner
-      updatedAt
     }
   }
 `;
@@ -161,14 +261,19 @@ export const listMembers = /* GraphQL */ `
         status
         createdAt
         passes
-        submissions {
-          nextToken
-        }
         role
         owner
+        _version
+        _deleted
+        _lastChangedAt
         updatedAt
+        submissions {
+          nextToken
+          startedAt
+        }
       }
       nextToken
+      startedAt
     }
   }
 `;
@@ -195,14 +300,19 @@ export const memberByEmail = /* GraphQL */ `
         status
         createdAt
         passes
-        submissions {
-          nextToken
-        }
         role
         owner
+        _version
+        _deleted
+        _lastChangedAt
         updatedAt
+        submissions {
+          nextToken
+          startedAt
+        }
       }
       nextToken
+      startedAt
     }
   }
 `;
@@ -229,14 +339,19 @@ export const membersByStatus = /* GraphQL */ `
         status
         createdAt
         passes
-        submissions {
-          nextToken
-        }
         role
         owner
+        _version
+        _deleted
+        _lastChangedAt
         updatedAt
+        submissions {
+          nextToken
+          startedAt
+        }
       }
       nextToken
+      startedAt
     }
   }
 `;
@@ -265,14 +380,56 @@ export const membersByRoleAndStatus = /* GraphQL */ `
         status
         createdAt
         passes
-        submissions {
-          nextToken
-        }
         role
         owner
+        _version
+        _deleted
+        _lastChangedAt
         updatedAt
+        submissions {
+          nextToken
+          startedAt
+        }
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncMembers = /* GraphQL */ `
+  query SyncMembers(
+    $filter: ModelMemberFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncMembers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        name
+        id
+        email
+        artistName
+        status
+        createdAt
+        passes
+        role
+        owner
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+        submissions {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
     }
   }
 `;

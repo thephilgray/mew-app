@@ -21,6 +21,9 @@ export const createAssignment = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
@@ -44,6 +47,9 @@ export const updateAssignment = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
@@ -67,6 +73,9 @@ export const deleteAssignment = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
@@ -95,6 +104,9 @@ export const createSubmission = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
@@ -123,6 +135,9 @@ export const updateSubmission = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
@@ -151,6 +166,9 @@ export const deleteSubmission = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
@@ -168,6 +186,12 @@ export const createMember = /* GraphQL */ `
       status
       createdAt
       passes
+      role
+      owner
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
       submissions {
         items {
           id
@@ -178,13 +202,14 @@ export const createMember = /* GraphQL */ `
           byline
           details
           createdAt
+          _version
+          _deleted
+          _lastChangedAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      role
-      owner
-      updatedAt
     }
   }
 `;
@@ -201,6 +226,12 @@ export const updateMember = /* GraphQL */ `
       status
       createdAt
       passes
+      role
+      owner
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
       submissions {
         items {
           id
@@ -211,13 +242,14 @@ export const updateMember = /* GraphQL */ `
           byline
           details
           createdAt
+          _version
+          _deleted
+          _lastChangedAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      role
-      owner
-      updatedAt
     }
   }
 `;
@@ -234,6 +266,12 @@ export const deleteMember = /* GraphQL */ `
       status
       createdAt
       passes
+      role
+      owner
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
       submissions {
         items {
           id
@@ -244,13 +282,14 @@ export const deleteMember = /* GraphQL */ `
           byline
           details
           createdAt
+          _version
+          _deleted
+          _lastChangedAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      role
-      owner
-      updatedAt
     }
   }
 `;

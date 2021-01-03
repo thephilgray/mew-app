@@ -1,68 +1,100 @@
 import * as React from 'react'
-import { Link } from 'gatsby'
-import { navigate } from '@reach/router'
-
-import { logout, isLoggedIn } from '../../utils/auth'
+import { Link, navigate } from 'gatsby'
 import { Auth } from 'aws-amplify'
-import { Button } from '@material-ui/core'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core'
+import { AccountCircle } from '@material-ui/icons'
+import { logout, isLoggedIn } from '../../utils/auth'
 
-const Header: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => (
-    <div
-        style={{
-            background: 'rebeccapurple',
-            marginBottom: '1.45rem',
-        }}
-    >
-        <div
-            style={{
-                margin: '0 auto',
-                maxWidth: 960,
-                padding: '1.45rem 1.0875rem',
-            }}
-        >
-            <h1 style={{ margin: 0 }}>
-                <Link to="/" style={styles.headerTitle}>
-                    {siteTitle}
-                </Link>
-            </h1>
-            {isLoggedIn() && (
-                <nav>
-                    <ul>
-                        <li>
-                            <Button
-                                onClick={() =>
-                                    Auth.signOut()
-                                        .then(() => logout(() => navigate('/app/login')))
-                                        // tslint:disable-next-line: no-console
-                                        .catch((err) => console.log('error:', err))
-                                }
-                                style={styles.link}
-                            >
-                                Sign Out
-                            </Button>
-                        </li>
-                        <li>
-                            <Link to="/app/profile" style={styles.link}>
-                                View profile
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
-            )}
-        </div>
-    </div>
+const useStyles = makeStyles(() =>
+    createStyles({
+        title: {
+            marginRight: 'auto',
+            justifySelf: 'flex-start',
+        },
+        menuButton: {},
+        toolbar: {
+            width: '100%',
+            maxWidth: '1000px',
+            margin: '0 auto',
+        },
+    }),
 )
 
-const styles = {
-    headerTitle: {
-        color: 'white',
-        textDecoration: 'none',
-    },
-    link: {
-        cursor: 'pointer',
-        color: 'white',
-        textDecoration: 'underline',
-    },
+const Header: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
+    const classes = useStyles()
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget)
+    }
+    const open = Boolean(anchorEl)
+    const authenticated = isLoggedIn()
+
+    const handleClose = () => {
+        setAnchorEl(null)
+    }
+
+    const handleSignout = () => {
+        handleClose()
+        return (
+            Auth.signOut()
+                .then(() => logout(() => navigate('/')))
+                // tslint:disable-next-line: no-console
+                .catch((err) => console.log('error:', err))
+        )
+    }
+
+    const handleGoToProfile = () => {
+        handleClose()
+        return navigate('/app/profile')
+    }
+
+    return (
+        <AppBar position="static">
+            <Toolbar className={classes.toolbar}>
+                <div className={classes.title}>
+                    <IconButton component={Link} to={authenticated ? '/app/' : '/'} color="inherit">
+                        <Typography variant="h6" component="h1">
+                            {siteTitle}
+                        </Typography>
+                    </IconButton>
+                </div>
+                {authenticated && (
+                    <div className={classes.menuButton}>
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleMenu}
+                            color="inherit"
+                            edge="end"
+                            size="medium"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={open}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleGoToProfile}>Profile</MenuItem>
+                            <MenuItem onClick={handleSignout}>Signout</MenuItem>
+                        </Menu>
+                    </div>
+                )}
+            </Toolbar>
+        </AppBar>
+    )
 }
 
 export default Header

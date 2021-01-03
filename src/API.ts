@@ -12,6 +12,7 @@ export type CreateAssignmentInput = {
   required: boolean,
   details?: string | null,
   artwork?: S3ObjectInput | null,
+  _version?: number | null,
 };
 
 export type S3ObjectInput = {
@@ -21,6 +22,7 @@ export type S3ObjectInput = {
 };
 
 export type ModelAssignmentConditionInput = {
+  owner?: ModelIDInput | null,
   title?: ModelStringInput | null,
   startDate?: ModelStringInput | null,
   endDate?: ModelStringInput | null,
@@ -32,7 +34,7 @@ export type ModelAssignmentConditionInput = {
   not?: ModelAssignmentConditionInput | null,
 };
 
-export type ModelStringInput = {
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -72,6 +74,22 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
 export type ModelBooleanInput = {
   ne?: boolean | null,
   eq?: boolean | null,
@@ -89,10 +107,12 @@ export type UpdateAssignmentInput = {
   required?: boolean | null,
   details?: string | null,
   artwork?: S3ObjectInput | null,
+  _version?: number | null,
 };
 
 export type DeleteAssignmentInput = {
   id?: string | null,
+  _version?: number | null,
 };
 
 export type CreateSubmissionInput = {
@@ -106,9 +126,11 @@ export type CreateSubmissionInput = {
   createdAt?: string | null,
   artwork?: S3ObjectInput | null,
   audio: S3ObjectInput,
+  _version?: number | null,
 };
 
 export type ModelSubmissionConditionInput = {
+  owner?: ModelIDInput | null,
   title?: ModelStringInput | null,
   byline?: ModelStringInput | null,
   details?: ModelStringInput | null,
@@ -129,11 +151,13 @@ export type UpdateSubmissionInput = {
   createdAt?: string | null,
   artwork?: S3ObjectInput | null,
   audio?: S3ObjectInput | null,
+  _version?: number | null,
 };
 
 export type DeleteSubmissionInput = {
   assignmentId: string,
   memberId: string,
+  _version?: number | null,
 };
 
 export type CreateMemberInput = {
@@ -146,6 +170,7 @@ export type CreateMemberInput = {
   passes?: number | null,
   role: string,
   owner: string,
+  _version?: number | null,
 };
 
 export type ModelMemberConditionInput = {
@@ -156,6 +181,7 @@ export type ModelMemberConditionInput = {
   createdAt?: ModelStringInput | null,
   passes?: ModelIntInput | null,
   role?: ModelStringInput | null,
+  owner?: ModelIDInput | null,
   and?: Array< ModelMemberConditionInput | null > | null,
   or?: Array< ModelMemberConditionInput | null > | null,
   not?: ModelMemberConditionInput | null,
@@ -183,10 +209,12 @@ export type UpdateMemberInput = {
   passes?: number | null,
   role?: string | null,
   owner?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteMemberInput = {
   id?: string | null,
+  _version?: number | null,
 };
 
 export type ModelAssignmentFilterInput = {
@@ -201,22 +229,6 @@ export type ModelAssignmentFilterInput = {
   and?: Array< ModelAssignmentFilterInput | null > | null,
   or?: Array< ModelAssignmentFilterInput | null > | null,
   not?: ModelAssignmentFilterInput | null,
-};
-
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
 };
 
 export type ModelIDKeyConditionInput = {
@@ -296,6 +308,9 @@ export type CreateAssignmentMutation = {
       region: string,
       key: string,
     } | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
 };
@@ -322,6 +337,9 @@ export type UpdateAssignmentMutation = {
       region: string,
       key: string,
     } | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
 };
@@ -348,6 +366,9 @@ export type DeleteAssignmentMutation = {
       region: string,
       key: string,
     } | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
 };
@@ -380,6 +401,9 @@ export type CreateSubmissionMutation = {
       region: string,
       key: string,
     },
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
 };
@@ -412,6 +436,9 @@ export type UpdateSubmissionMutation = {
       region: string,
       key: string,
     },
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
 };
@@ -444,6 +471,9 @@ export type DeleteSubmissionMutation = {
       region: string,
       key: string,
     },
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
 };
@@ -463,6 +493,12 @@ export type CreateMemberMutation = {
     status: string,
     createdAt: string | null,
     passes: number | null,
+    role: string,
+    owner: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    updatedAt: string,
     submissions:  {
       __typename: "ModelSubmissionConnection",
       items:  Array< {
@@ -475,13 +511,14 @@ export type CreateMemberMutation = {
         byline: string,
         details: string | null,
         createdAt: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
         updatedAt: string,
       } | null > | null,
       nextToken: string | null,
+      startedAt: number | null,
     } | null,
-    role: string,
-    owner: string,
-    updatedAt: string,
   } | null,
 };
 
@@ -500,6 +537,12 @@ export type UpdateMemberMutation = {
     status: string,
     createdAt: string | null,
     passes: number | null,
+    role: string,
+    owner: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    updatedAt: string,
     submissions:  {
       __typename: "ModelSubmissionConnection",
       items:  Array< {
@@ -512,13 +555,14 @@ export type UpdateMemberMutation = {
         byline: string,
         details: string | null,
         createdAt: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
         updatedAt: string,
       } | null > | null,
       nextToken: string | null,
+      startedAt: number | null,
     } | null,
-    role: string,
-    owner: string,
-    updatedAt: string,
   } | null,
 };
 
@@ -537,6 +581,12 @@ export type DeleteMemberMutation = {
     status: string,
     createdAt: string | null,
     passes: number | null,
+    role: string,
+    owner: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    updatedAt: string,
     submissions:  {
       __typename: "ModelSubmissionConnection",
       items:  Array< {
@@ -549,13 +599,14 @@ export type DeleteMemberMutation = {
         byline: string,
         details: string | null,
         createdAt: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
         updatedAt: string,
       } | null > | null,
       nextToken: string | null,
+      startedAt: number | null,
     } | null,
-    role: string,
-    owner: string,
-    updatedAt: string,
   } | null,
 };
 
@@ -580,6 +631,9 @@ export type GetAssignmentQuery = {
       region: string,
       key: string,
     } | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
 };
@@ -609,9 +663,49 @@ export type ListAssignmentsQuery = {
         region: string,
         key: string,
       } | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
       updatedAt: string,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type SyncAssignmentsQueryVariables = {
+  filter?: ModelAssignmentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncAssignmentsQuery = {
+  syncAssignments:  {
+    __typename: "ModelAssignmentConnection",
+    items:  Array< {
+      __typename: "Assignment",
+      id: string,
+      owner: string,
+      title: string,
+      startDate: string,
+      endDate: string,
+      createdAt: string | null,
+      required: boolean,
+      details: string | null,
+      artwork:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      updatedAt: string,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
@@ -643,6 +737,9 @@ export type GetSubmissionQuery = {
       region: string,
       key: string,
     },
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
 };
@@ -681,9 +778,55 @@ export type ListSubmissionsQuery = {
         region: string,
         key: string,
       },
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
       updatedAt: string,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type SyncSubmissionsQueryVariables = {
+  filter?: ModelSubmissionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncSubmissionsQuery = {
+  syncSubmissions:  {
+    __typename: "ModelSubmissionConnection",
+    items:  Array< {
+      __typename: "Submission",
+      id: string,
+      assignmentId: string,
+      memberId: string,
+      owner: string,
+      title: string,
+      byline: string,
+      details: string | null,
+      createdAt: string | null,
+      artwork:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      audio:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      },
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      updatedAt: string,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
@@ -701,6 +844,12 @@ export type GetMemberQuery = {
     status: string,
     createdAt: string | null,
     passes: number | null,
+    role: string,
+    owner: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    updatedAt: string,
     submissions:  {
       __typename: "ModelSubmissionConnection",
       items:  Array< {
@@ -713,13 +862,14 @@ export type GetMemberQuery = {
         byline: string,
         details: string | null,
         createdAt: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
         updatedAt: string,
       } | null > | null,
       nextToken: string | null,
+      startedAt: number | null,
     } | null,
-    role: string,
-    owner: string,
-    updatedAt: string,
   } | null,
 };
 
@@ -741,15 +891,20 @@ export type ListMembersQuery = {
       status: string,
       createdAt: string | null,
       passes: number | null,
+      role: string,
+      owner: string,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      updatedAt: string,
       submissions:  {
         __typename: "ModelSubmissionConnection",
         nextToken: string | null,
+        startedAt: number | null,
       } | null,
-      role: string,
-      owner: string,
-      updatedAt: string,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
@@ -773,15 +928,20 @@ export type MemberByEmailQuery = {
       status: string,
       createdAt: string | null,
       passes: number | null,
+      role: string,
+      owner: string,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      updatedAt: string,
       submissions:  {
         __typename: "ModelSubmissionConnection",
         nextToken: string | null,
+        startedAt: number | null,
       } | null,
-      role: string,
-      owner: string,
-      updatedAt: string,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
@@ -805,15 +965,20 @@ export type MembersByStatusQuery = {
       status: string,
       createdAt: string | null,
       passes: number | null,
+      role: string,
+      owner: string,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      updatedAt: string,
       submissions:  {
         __typename: "ModelSubmissionConnection",
         nextToken: string | null,
+        startedAt: number | null,
       } | null,
-      role: string,
-      owner: string,
-      updatedAt: string,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
@@ -838,20 +1003,57 @@ export type MembersByRoleAndStatusQuery = {
       status: string,
       createdAt: string | null,
       passes: number | null,
+      role: string,
+      owner: string,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      updatedAt: string,
       submissions:  {
         __typename: "ModelSubmissionConnection",
         nextToken: string | null,
+        startedAt: number | null,
       } | null,
-      role: string,
-      owner: string,
-      updatedAt: string,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
-export type OnCreateAssignmentSubscriptionVariables = {
-  owner: string,
+export type SyncMembersQueryVariables = {
+  filter?: ModelMemberFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncMembersQuery = {
+  syncMembers:  {
+    __typename: "ModelMemberConnection",
+    items:  Array< {
+      __typename: "Member",
+      name: string,
+      id: string,
+      email: string,
+      artistName: string | null,
+      status: string,
+      createdAt: string | null,
+      passes: number | null,
+      role: string,
+      owner: string,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      updatedAt: string,
+      submissions:  {
+        __typename: "ModelSubmissionConnection",
+        nextToken: string | null,
+        startedAt: number | null,
+      } | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
 };
 
 export type OnCreateAssignmentSubscription = {
@@ -871,12 +1073,11 @@ export type OnCreateAssignmentSubscription = {
       region: string,
       key: string,
     } | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
-};
-
-export type OnUpdateAssignmentSubscriptionVariables = {
-  owner: string,
 };
 
 export type OnUpdateAssignmentSubscription = {
@@ -896,12 +1097,11 @@ export type OnUpdateAssignmentSubscription = {
       region: string,
       key: string,
     } | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
-};
-
-export type OnDeleteAssignmentSubscriptionVariables = {
-  owner: string,
 };
 
 export type OnDeleteAssignmentSubscription = {
@@ -921,12 +1121,11 @@ export type OnDeleteAssignmentSubscription = {
       region: string,
       key: string,
     } | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
-};
-
-export type OnCreateSubmissionSubscriptionVariables = {
-  owner: string,
 };
 
 export type OnCreateSubmissionSubscription = {
@@ -952,12 +1151,11 @@ export type OnCreateSubmissionSubscription = {
       region: string,
       key: string,
     },
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
-};
-
-export type OnUpdateSubmissionSubscriptionVariables = {
-  owner: string,
 };
 
 export type OnUpdateSubmissionSubscription = {
@@ -983,12 +1181,11 @@ export type OnUpdateSubmissionSubscription = {
       region: string,
       key: string,
     },
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
-};
-
-export type OnDeleteSubmissionSubscriptionVariables = {
-  owner: string,
 };
 
 export type OnDeleteSubmissionSubscription = {
@@ -1014,12 +1211,11 @@ export type OnDeleteSubmissionSubscription = {
       region: string,
       key: string,
     },
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     updatedAt: string,
   } | null,
-};
-
-export type OnCreateMemberSubscriptionVariables = {
-  owner: string,
 };
 
 export type OnCreateMemberSubscription = {
@@ -1032,6 +1228,12 @@ export type OnCreateMemberSubscription = {
     status: string,
     createdAt: string | null,
     passes: number | null,
+    role: string,
+    owner: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    updatedAt: string,
     submissions:  {
       __typename: "ModelSubmissionConnection",
       items:  Array< {
@@ -1044,18 +1246,15 @@ export type OnCreateMemberSubscription = {
         byline: string,
         details: string | null,
         createdAt: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
         updatedAt: string,
       } | null > | null,
       nextToken: string | null,
+      startedAt: number | null,
     } | null,
-    role: string,
-    owner: string,
-    updatedAt: string,
   } | null,
-};
-
-export type OnUpdateMemberSubscriptionVariables = {
-  owner: string,
 };
 
 export type OnUpdateMemberSubscription = {
@@ -1068,6 +1267,12 @@ export type OnUpdateMemberSubscription = {
     status: string,
     createdAt: string | null,
     passes: number | null,
+    role: string,
+    owner: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    updatedAt: string,
     submissions:  {
       __typename: "ModelSubmissionConnection",
       items:  Array< {
@@ -1080,18 +1285,15 @@ export type OnUpdateMemberSubscription = {
         byline: string,
         details: string | null,
         createdAt: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
         updatedAt: string,
       } | null > | null,
       nextToken: string | null,
+      startedAt: number | null,
     } | null,
-    role: string,
-    owner: string,
-    updatedAt: string,
   } | null,
-};
-
-export type OnDeleteMemberSubscriptionVariables = {
-  owner: string,
 };
 
 export type OnDeleteMemberSubscription = {
@@ -1104,6 +1306,12 @@ export type OnDeleteMemberSubscription = {
     status: string,
     createdAt: string | null,
     passes: number | null,
+    role: string,
+    owner: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    updatedAt: string,
     submissions:  {
       __typename: "ModelSubmissionConnection",
       items:  Array< {
@@ -1116,12 +1324,13 @@ export type OnDeleteMemberSubscription = {
         byline: string,
         details: string | null,
         createdAt: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
         updatedAt: string,
       } | null > | null,
       nextToken: string | null,
+      startedAt: number | null,
     } | null,
-    role: string,
-    owner: string,
-    updatedAt: string,
   } | null,
 };

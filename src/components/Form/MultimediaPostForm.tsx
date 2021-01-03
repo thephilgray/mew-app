@@ -22,10 +22,12 @@ export default function MultimediaPostForm({
     dateInputs,
     headerImage,
     editor,
+    callback,
 }: {
     dateInputs?: boolean
     headerImage?: boolean
     editor?: boolean
+    callback: () => void
 }): JSX.Element {
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const [description, setDescription] = useState<string | null>('')
@@ -58,7 +60,7 @@ export default function MultimediaPostForm({
                 payload.imageUrl = await mockUploadFn(imageBlob)
             }
         }
-        console.log(payload)
+        callback(payload)
     }
 
     useEffect(() => {

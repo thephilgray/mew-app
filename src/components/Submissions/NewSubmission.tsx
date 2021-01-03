@@ -5,7 +5,7 @@ const NewSubmission: React.FC = () => {
     return (
         <div>
             <h1>New Submission</h1>
-            <MultimediaPostForm headerImage editor />
+            <MultimediaPostForm headerImage editor callback={() => ({})} />
         </div>
     )
 }

@@ -1,7 +1,6 @@
 import React from 'react'
-import { navigate } from '@reach/router'
 import { isLoggedIn } from '../../utils/auth'
-import { RouteComponentProps } from '@reach/router'
+import { RouteComponentProps, navigate } from '@reach/router'
 
 interface PrivateRouteProps extends RouteComponentProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,7 +12,7 @@ const PrivateRoute = (props: PrivateRouteProps): JSX.Element => {
     const { component: Component, ...rest } = props
 
     if (!isLoggedIn()) {
-        navigate(`/app/login`)
+        navigate(`/signin`)
     }
     return <Component {...rest} />
 }

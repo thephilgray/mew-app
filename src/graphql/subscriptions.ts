@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateAssignment = /* GraphQL */ `
-  subscription OnCreateAssignment($owner: String!) {
-    onCreateAssignment(owner: $owner) {
+  subscription OnCreateAssignment {
+    onCreateAssignment {
       id
       owner
       title
@@ -18,13 +18,16 @@ export const onCreateAssignment = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
 `;
 export const onUpdateAssignment = /* GraphQL */ `
-  subscription OnUpdateAssignment($owner: String!) {
-    onUpdateAssignment(owner: $owner) {
+  subscription OnUpdateAssignment {
+    onUpdateAssignment {
       id
       owner
       title
@@ -38,13 +41,16 @@ export const onUpdateAssignment = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
 `;
 export const onDeleteAssignment = /* GraphQL */ `
-  subscription OnDeleteAssignment($owner: String!) {
-    onDeleteAssignment(owner: $owner) {
+  subscription OnDeleteAssignment {
+    onDeleteAssignment {
       id
       owner
       title
@@ -58,13 +64,16 @@ export const onDeleteAssignment = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
 `;
 export const onCreateSubmission = /* GraphQL */ `
-  subscription OnCreateSubmission($owner: String!) {
-    onCreateSubmission(owner: $owner) {
+  subscription OnCreateSubmission {
+    onCreateSubmission {
       id
       assignmentId
       memberId
@@ -83,13 +92,16 @@ export const onCreateSubmission = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
 `;
 export const onUpdateSubmission = /* GraphQL */ `
-  subscription OnUpdateSubmission($owner: String!) {
-    onUpdateSubmission(owner: $owner) {
+  subscription OnUpdateSubmission {
+    onUpdateSubmission {
       id
       assignmentId
       memberId
@@ -108,13 +120,16 @@ export const onUpdateSubmission = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
 `;
 export const onDeleteSubmission = /* GraphQL */ `
-  subscription OnDeleteSubmission($owner: String!) {
-    onDeleteSubmission(owner: $owner) {
+  subscription OnDeleteSubmission {
+    onDeleteSubmission {
       id
       assignmentId
       memberId
@@ -133,13 +148,16 @@ export const onDeleteSubmission = /* GraphQL */ `
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       updatedAt
     }
   }
 `;
 export const onCreateMember = /* GraphQL */ `
-  subscription OnCreateMember($owner: String!) {
-    onCreateMember(owner: $owner) {
+  subscription OnCreateMember {
+    onCreateMember {
       name
       id
       email
@@ -147,6 +165,12 @@ export const onCreateMember = /* GraphQL */ `
       status
       createdAt
       passes
+      role
+      owner
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
       submissions {
         items {
           id
@@ -157,19 +181,20 @@ export const onCreateMember = /* GraphQL */ `
           byline
           details
           createdAt
+          _version
+          _deleted
+          _lastChangedAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      role
-      owner
-      updatedAt
     }
   }
 `;
 export const onUpdateMember = /* GraphQL */ `
-  subscription OnUpdateMember($owner: String!) {
-    onUpdateMember(owner: $owner) {
+  subscription OnUpdateMember {
+    onUpdateMember {
       name
       id
       email
@@ -177,6 +202,12 @@ export const onUpdateMember = /* GraphQL */ `
       status
       createdAt
       passes
+      role
+      owner
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
       submissions {
         items {
           id
@@ -187,19 +218,20 @@ export const onUpdateMember = /* GraphQL */ `
           byline
           details
           createdAt
+          _version
+          _deleted
+          _lastChangedAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      role
-      owner
-      updatedAt
     }
   }
 `;
 export const onDeleteMember = /* GraphQL */ `
-  subscription OnDeleteMember($owner: String!) {
-    onDeleteMember(owner: $owner) {
+  subscription OnDeleteMember {
+    onDeleteMember {
       name
       id
       email
@@ -207,6 +239,12 @@ export const onDeleteMember = /* GraphQL */ `
       status
       createdAt
       passes
+      role
+      owner
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
       submissions {
         items {
           id
@@ -217,13 +255,14 @@ export const onDeleteMember = /* GraphQL */ `
           byline
           details
           createdAt
+          _version
+          _deleted
+          _lastChangedAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      role
-      owner
-      updatedAt
     }
   }
 `;

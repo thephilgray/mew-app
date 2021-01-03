@@ -1,11 +1,21 @@
 module.exports = {
     siteMetadata: {
-        title: 'app',
-        // siteUrl: `https://www.gatsbyjs.com`,
-        // description: `Blazing fast modern site generator for React`,
+        title: 'MEW 2021',
+        // siteUrl: ``,
+        // description: ``,
     },
     plugins: [
-        'gatsby-plugin-styled-components',
+        {
+            resolve: `gatsby-plugin-emotion`,
+            options: {
+                // Accepts the following options, all of which are defined by `@emotion/babel-plugin` plugin.
+                // The values for each key in this example are the defaults the plugin uses.
+                sourceMap: true,
+                autoLabel: 'dev-only',
+                labelFormat: `[local]`,
+                cssPropOptimization: true,
+            },
+        },
         // {
         //   resolve: "gatsby-plugin-google-analytics",
         //   options: {
@@ -19,15 +29,14 @@ module.exports = {
         // {
         //   resolve: "gatsby-plugin-manifest",
         //   options: {
-        //     name: `MEW-app`,
-        //     short_name: `MEW-app`,
+        //     name: `mew-app`,
+        //     short_name: `mew-app`,
         //     start_url: `/`,
         //     background_color: `#f7f0eb`,
         //     theme_color: `#a2466c`,
         //     display: `standalone`,
         //   },
         // },
-        // "gatsby-plugin-mdx",
         'gatsby-plugin-sharp',
         'gatsby-transformer-sharp',
         // {

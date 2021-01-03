@@ -4,10 +4,7 @@ import { setUser } from './src/utils/auth'
 export const onRouteUpdate = () => {
     Auth.currentAuthenticatedUser()
         .then((user) => {
-            const userInfo = {
-                ...user.attributes,
-                username: user.username,
-            }
+            const userInfo = user.attributes
             setUser(userInfo)
         })
         // eslint-disable-next-line no-unused-vars
@@ -16,3 +13,5 @@ export const onRouteUpdate = () => {
             window.localStorage.setItem('gatsbyUser', null)
         })
 }
+
+export { wrapRootElement } from './src/apollo/wrap-root-element'

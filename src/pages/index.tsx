@@ -1,23 +1,42 @@
 import * as React from 'react'
-import Amplify from 'aws-amplify'
-import Layout from '../components/Layout/Layout'
 import { Link } from 'gatsby'
-import config from '../aws-exports'
-import { isLoggedIn } from '../utils/auth'
-import { navigate } from '@reach/router'
-Amplify.configure(config)
+import { Global, css } from '@emotion/react'
+import watercolor from '../assets/watercolor.png'
+import { Button, Grid, Typography } from '@material-ui/core'
 
 const IndexPage: React.FC = (): JSX.Element => {
-    if (isLoggedIn()) navigate('/app/home')
     return (
-        <Layout>
-            <title>Home Page</title>
-            <p>
-                Create a new account: <Link to="/app/signup">Sign Up</Link>
-            </p>
-            <Link to="/app/login">Sign In</Link>
-            <br />
-        </Layout>
+        <>
+            <title>MEW HOME</title>
+            <Global
+                styles={css`
+                    body {
+                        background: url(${watercolor});
+                    }
+                `}
+            />
+            <Grid container justify="center" alignItems="center" style={{ height: '90vh' }}>
+                <Grid item>
+                    <Grid container spacing={2} justify="center" alignItems="center">
+                        <Grid item xs={12}>
+                            <Typography variant="h2" component="h1" align="center" color="primary">
+                                MEW 2021
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Button component={Link} variant="contained" color="primary" to="/signup">
+                                Signup
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button component={Link} variant="contained" color="primary" to="/signin">
+                                Sign in
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </>
     )
 }
 

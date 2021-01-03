@@ -3,9 +3,8 @@ const isBrowser = typeof window !== `undefined`
 export type User = {
     email?: string
     email_verified?: boolean
-    phone_number_verified?: boolean
+    name?: string
     sub?: string
-    username?: string
 }
 
 export const setUser = (user: User): void => {
@@ -23,7 +22,7 @@ const getUser = (): User => {
 export const isLoggedIn = (): boolean => {
     if (!isBrowser) return false
     const user = getUser()
-    return !!user.username
+    return !!user.sub
 }
 
 export const getCurrentUser = (): User | false => isBrowser && getUser()
@@ -33,3 +32,5 @@ export const logout = (callback: () => unknown): void => {
     setUser({})
     callback()
 }
+
+// get membership

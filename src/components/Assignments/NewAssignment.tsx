@@ -1,11 +1,14 @@
 import React from 'react'
+import { Typography } from '@material-ui/core'
 import MultimediaPostForm from '../Form/MultimediaPostForm'
 
 const NewAssignment: React.FC = () => {
     return (
         <div>
-            <h1>New Assignment</h1>
-            <MultimediaPostForm dateInputs headerImage editor />
+            <Typography variant="h5" component="h2">
+                New Assignment
+            </Typography>
+            <MultimediaPostForm dateInputs headerImage editor callback={() => ({})} />
         </div>
     )
 }

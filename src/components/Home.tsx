@@ -1,15 +1,16 @@
+import { Container, Typography } from '@material-ui/core'
 import * as React from 'react'
-import Workshops from './Workshops/Workshops'
+import Assignments from './Assignments/Assignments'
 
-const Home: React.FC = () => (
-    <div>
-        <h1>Workshops</h1>
-        <Workshops />
-        {/* <h2>Assignments Due</h2>
-        <p>A feed of upcoming deadlines</p>
-        <h2>Feed</h2>
-        <p>A feed of activity from all workshops the user is currently enrolled in</p> */}
-    </div>
-)
+const Home: React.FC = () => {
+    return (
+        <Container>
+            <Typography variant="h5" component="h2">
+                Assignments
+            </Typography>
+            <Assignments />
+        </Container>
+    )
+}
 
 export default Home
