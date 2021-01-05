@@ -1,9 +1,9 @@
 import React from 'react'
 import { ThemeProvider } from '@emotion/react'
-import { createMuiTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
+import { createMuiTheme, ThemeProvider as MuiThemeProvider, Theme } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core'
 
-const theme = createMuiTheme({
+const theme: Theme = createMuiTheme({
     props: {
         MuiButtonBase: {
             // The default props to change
