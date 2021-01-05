@@ -40,7 +40,7 @@ const StyledFileDropWrapper = styled.div`
     border: 1px solid black;
     width: 600;
     color: black;
-    padding: 20;
+    padding: 1rem;
 
     .file-drop {
         /* relatively position the container bc the contents are absolute */
@@ -98,7 +98,25 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const fileInputRef = useRef(null)
 
-    const ACCEPTED_FILETYPES = ['audio/wav', 'audio/aiff', 'audio/x-aiff', 'audio/mpeg', 'audio/mp4', 'audio/ogg']
+    const ACCEPTED_FILETYPES = [
+        'audio/wav',
+        'audio/s-wav',
+        'audio/x-wav',
+        'audio/aiff',
+        'audio/x-aiff',
+        'audio/mpeg',
+        'audio/mp3',
+        'audio/mpeg3',
+        'audio/mpg',
+        'audio/x-mp3',
+        'audio/x-mpeg',
+        'audio/x-mpeg3',
+        'audio/x-mpg',
+        'audio/mp4',
+        'audio/m4a',
+        'audio/x-m4a',
+        'audio/ogg',
+    ]
 
     const isValid = Boolean(expiration && !isPast(new Date(expiration)))
 
