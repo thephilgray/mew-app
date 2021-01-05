@@ -248,22 +248,22 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
                         <TextField
                             required
                             fullWidth
-                            label="Song Name"
-                            name="name"
+                            label="Artist Name"
+                            name="artist"
                             inputRef={register({ required: true })}
-                            error={!!errors.name}
-                            helperText={!!errors.name && <>Song name is required</>}
+                            error={!!errors.artist}
+                            helperText={!!errors.artist && <>Artist name is required</>}
                         />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
                             required
                             fullWidth
-                            label="Artist Name"
-                            name="artist"
+                            label="Song Name"
+                            name="name"
                             inputRef={register({ required: true })}
-                            error={!!errors.artist}
-                            helperText={!!errors.artist && <>Artist name is required</>}
+                            error={!!errors.name}
+                            helperText={!!errors.name && <>Song name is required</>}
                         />
                     </Grid>
 
