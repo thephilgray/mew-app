@@ -21,7 +21,7 @@ const useStyles = makeStyles(() =>
     }),
 )
 
-const Header: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
+const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -97,4 +97,4 @@ const Header: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
     )
 }
 
-export default Header
+export default AppHeader

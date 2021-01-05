@@ -2,7 +2,7 @@ import * as React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import Theme from './Theme'
-import Header from './Header'
+import AppHeader from './AppHeader'
 
 const Layout: React.FC = ({ children = [] }) => (
     <StaticQuery
@@ -26,7 +26,7 @@ const Layout: React.FC = ({ children = [] }) => (
                 >
                     <html lang="en" />
                 </Helmet>
-                <Header siteTitle={d.site.siteMetadata.title} />
+                <AppHeader siteTitle={d.site.siteMetadata.title} />
                 <Theme>
                     <div
                         style={{
