@@ -217,6 +217,30 @@ export type DeleteMemberInput = {
   _version?: number | null,
 };
 
+export type CreateFileRequestInput = {
+  id?: string | null,
+  expiration: string,
+  _version?: number | null,
+};
+
+export type ModelFileRequestConditionInput = {
+  expiration?: ModelStringInput | null,
+  and?: Array< ModelFileRequestConditionInput | null > | null,
+  or?: Array< ModelFileRequestConditionInput | null > | null,
+  not?: ModelFileRequestConditionInput | null,
+};
+
+export type UpdateFileRequestInput = {
+  id: string,
+  expiration?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteFileRequestInput = {
+  id?: string | null,
+  _version?: number | null,
+};
+
 export type ModelAssignmentFilterInput = {
   id?: ModelIDInput | null,
   owner?: ModelIDInput | null,
@@ -284,6 +308,14 @@ export type ModelStringKeyConditionInput = {
   gt?: string | null,
   between?: Array< string | null > | null,
   beginsWith?: string | null,
+};
+
+export type ModelFileRequestFilterInput = {
+  id?: ModelIDInput | null,
+  expiration?: ModelStringInput | null,
+  and?: Array< ModelFileRequestFilterInput | null > | null,
+  or?: Array< ModelFileRequestFilterInput | null > | null,
+  not?: ModelFileRequestFilterInput | null,
 };
 
 export type CreateAssignmentMutationVariables = {
@@ -607,6 +639,63 @@ export type DeleteMemberMutation = {
       nextToken: string | null,
       startedAt: number | null,
     } | null,
+  } | null,
+};
+
+export type CreateFileRequestMutationVariables = {
+  input: CreateFileRequestInput,
+  condition?: ModelFileRequestConditionInput | null,
+};
+
+export type CreateFileRequestMutation = {
+  createFileRequest:  {
+    __typename: "FileRequest",
+    id: string,
+    expiration: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type UpdateFileRequestMutationVariables = {
+  input: UpdateFileRequestInput,
+  condition?: ModelFileRequestConditionInput | null,
+};
+
+export type UpdateFileRequestMutation = {
+  updateFileRequest:  {
+    __typename: "FileRequest",
+    id: string,
+    expiration: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type DeleteFileRequestMutationVariables = {
+  input: DeleteFileRequestInput,
+  condition?: ModelFileRequestConditionInput | null,
+};
+
+export type DeleteFileRequestMutation = {
+  deleteFileRequest:  {
+    __typename: "FileRequest",
+    id: string,
+    expiration: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -1056,6 +1145,75 @@ export type SyncMembersQuery = {
   } | null,
 };
 
+export type GetFileRequestQueryVariables = {
+  id: string,
+};
+
+export type GetFileRequestQuery = {
+  getFileRequest:  {
+    __typename: "FileRequest",
+    id: string,
+    expiration: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type ListFileRequestsQueryVariables = {
+  filter?: ModelFileRequestFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListFileRequestsQuery = {
+  listFileRequests:  {
+    __typename: "ModelFileRequestConnection",
+    items:  Array< {
+      __typename: "FileRequest",
+      id: string,
+      expiration: string,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type SyncFileRequestsQueryVariables = {
+  filter?: ModelFileRequestFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncFileRequestsQuery = {
+  syncFileRequests:  {
+    __typename: "ModelFileRequestConnection",
+    items:  Array< {
+      __typename: "FileRequest",
+      id: string,
+      expiration: string,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
 export type OnCreateAssignmentSubscription = {
   onCreateAssignment:  {
     __typename: "Assignment",
@@ -1332,5 +1490,59 @@ export type OnDeleteMemberSubscription = {
       nextToken: string | null,
       startedAt: number | null,
     } | null,
+  } | null,
+};
+
+export type OnCreateFileRequestSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateFileRequestSubscription = {
+  onCreateFileRequest:  {
+    __typename: "FileRequest",
+    id: string,
+    expiration: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnUpdateFileRequestSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateFileRequestSubscription = {
+  onUpdateFileRequest:  {
+    __typename: "FileRequest",
+    id: string,
+    expiration: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnDeleteFileRequestSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteFileRequestSubscription = {
+  onDeleteFileRequest:  {
+    __typename: "FileRequest",
+    id: string,
+    expiration: string,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
   } | null,
 };

@@ -293,3 +293,54 @@ export const deleteMember = /* GraphQL */ `
     }
   }
 `;
+export const createFileRequest = /* GraphQL */ `
+  mutation CreateFileRequest(
+    $input: CreateFileRequestInput!
+    $condition: ModelFileRequestConditionInput
+  ) {
+    createFileRequest(input: $input, condition: $condition) {
+      id
+      expiration
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateFileRequest = /* GraphQL */ `
+  mutation UpdateFileRequest(
+    $input: UpdateFileRequestInput!
+    $condition: ModelFileRequestConditionInput
+  ) {
+    updateFileRequest(input: $input, condition: $condition) {
+      id
+      expiration
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteFileRequest = /* GraphQL */ `
+  mutation DeleteFileRequest(
+    $input: DeleteFileRequestInput!
+    $condition: ModelFileRequestConditionInput
+  ) {
+    deleteFileRequest(input: $input, condition: $condition) {
+      id
+      expiration
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;

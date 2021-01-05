@@ -433,3 +433,67 @@ export const syncMembers = /* GraphQL */ `
     }
   }
 `;
+export const getFileRequest = /* GraphQL */ `
+  query GetFileRequest($id: ID!) {
+    getFileRequest(id: $id) {
+      id
+      expiration
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listFileRequests = /* GraphQL */ `
+  query ListFileRequests(
+    $filter: ModelFileRequestFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFileRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        expiration
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncFileRequests = /* GraphQL */ `
+  query SyncFileRequests(
+    $filter: ModelFileRequestFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncFileRequests(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        expiration
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;

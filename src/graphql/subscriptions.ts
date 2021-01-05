@@ -266,3 +266,45 @@ export const onDeleteMember = /* GraphQL */ `
     }
   }
 `;
+export const onCreateFileRequest = /* GraphQL */ `
+  subscription OnCreateFileRequest($owner: String) {
+    onCreateFileRequest(owner: $owner) {
+      id
+      expiration
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateFileRequest = /* GraphQL */ `
+  subscription OnUpdateFileRequest($owner: String) {
+    onUpdateFileRequest(owner: $owner) {
+      id
+      expiration
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteFileRequest = /* GraphQL */ `
+  subscription OnDeleteFileRequest($owner: String) {
+    onDeleteFileRequest(owner: $owner) {
+      id
+      expiration
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;

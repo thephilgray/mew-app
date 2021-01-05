@@ -52,3 +52,10 @@ export declare class Member {
   constructor(init: ModelInit<Member>);
   static copyOf(source: Member, mutator: (draft: MutableModel<Member>) => MutableModel<Member> | void): Member;
 }
+
+export declare class FileRequest {
+  readonly id: string;
+  readonly expiration: string;
+  constructor(init: ModelInit<FileRequest>);
+  static copyOf(source: FileRequest, mutator: (draft: MutableModel<FileRequest>) => MutableModel<FileRequest> | void): FileRequest;
+}
