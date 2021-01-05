@@ -94,8 +94,22 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
     const [error, setError] = useState<Error | null>(null)
     const [uploadSuccess, setUploadSuccess] = useState<boolean>(false)
     const [uploadProgress, setUploadProgress] = useState({ loaded: 0, total: 1 })
+    const [uploadAreaMessage, setUploadAreaMessage] = useState('Drop your track')
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const fileInputRef = useRef(null)
+
+    const ACCEPTED_FILETYPES = [
+        'audio/wav',
+        'audio/flac',
+        'audio/x-aiff',
+        'audio/aiff',
+        'audio/mpeg',
+        'audio/aac',
+        'audio/ogg',
+        'audio/3gpp',
+        'audio/3gpp2',
+        // TODO: support complete list of mimetypes accepted by SoundCloud: WAV, FLAC, AIFF, ALAC, MP3, AAC, Ogg / Vorbis, MP4, MP2, M4A, 3GP, 3G2, MJ2, AMR, WMA
+    ]
 
     const isValid = Boolean(expiration && !isPast(new Date(expiration)))
 
@@ -146,6 +160,20 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
         const file = (e.target as HTMLInputElement).files?.[0]
         if (file) {
             setUpload(file)
+            setUploadAreaMessage(file.name)
+        }
+    }
+
+    const handleOnDrop = (files: FileList | null) => {
+        if (!files) {
+            return
+        }
+        const file = files[0]
+        if (ACCEPTED_FILETYPES.includes(file.type)) {
+            files?.length && setUpload(files[0])
+            setUploadAreaMessage(file.name)
+        } else {
+            setUploadAreaMessage(`File must be of type: ${ACCEPTED_FILETYPES.join(', ')}`)
         }
     }
 
@@ -180,8 +208,7 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
                             type="file"
                             name="filename"
                             id="audioUpload"
-                            // TODO: support complete list of mimetypes accepted by SoundCloud: WAV, FLAC, AIFF, ALAC, MP3, AAC, Ogg / Vorbis, MP4, MP2, M4A, 3GP, 3G2, MJ2, AMR, WMA
-                            accept="audio/wav,audio/flac,audio/x-aiff,audio/mpeg,audio/aac,audio/ogg,audio/3gpp,audio/3gpp2"
+                            accept={ACCEPTED_FILETYPES.join()}
                             onChange={handleFileSelected}
                             ref={fileInputRef}
                             hidden
@@ -189,16 +216,13 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
                         {!!errors.upload && <p>Upload is required</p>}
 
                         <StyledFileDropWrapper>
-                            <FileDrop
-                                onTargetClick={onTargetClick}
-                                onDrop={(files) => files?.length && setUpload(files[0])}
-                            >
+                            <FileDrop onTargetClick={onTargetClick} onDrop={handleOnDrop}>
                                 <IconButton color="primary" aria-label="audio upload" component="span">
                                     <CloudUpload fontSize="large" />
                                 </IconButton>
                                 {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                 // @ts-ignore */}
-                                {upload?.name ? upload.name : 'Drop your track'}
+                                {uploadAreaMessage}
                             </FileDrop>
                         </StyledFileDropWrapper>
                     </Grid>
