@@ -1,6 +1,5 @@
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
-import { navigate } from 'gatsby'
 import { isLoggedIn } from '../../utils/auth'
 
 interface PrivateRouteProps extends RouteComponentProps {
@@ -13,7 +12,12 @@ const PrivateRoute = (props: PrivateRouteProps): JSX.Element | null => {
     const { component: Component, ...rest } = props
 
     if (!isLoggedIn()) {
-        navigate(`/signin`)
+        if (typeof window !== 'undefined') {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            window.location = '/signin'
+        }
+
         return null
     }
     return <Component {...rest} />
