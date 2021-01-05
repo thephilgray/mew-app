@@ -180,7 +180,8 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
                             type="file"
                             name="filename"
                             id="audioUpload"
-                            accept="audio/*"
+                            // TODO: support complete list of mimetypes accepted by SoundCloud: WAV, FLAC, AIFF, ALAC, MP3, AAC, Ogg / Vorbis, MP4, MP2, M4A, 3GP, 3G2, MJ2, AMR, WMA
+                            accept="audio/wav,audio/flac,audio/x-aiff,audio/mpeg,audio/aac,audio/ogg,audio/3gpp,audio/3gpp2"
                             onChange={handleFileSelected}
                             ref={fileInputRef}
                             hidden
