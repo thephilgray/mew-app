@@ -19,6 +19,8 @@ import { green } from '@material-ui/core/colors'
 import gql from 'graphql-tag'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { isPast } from 'date-fns/esm'
+import { useBeforeUnload } from 'react-use'
+
 import Error from '../Error'
 
 const GET_FILE_REQUEST = gql`
@@ -97,7 +99,9 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
     const [uploadAreaMessage, setUploadAreaMessage] = useState('Drop your track')
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const fileInputRef = useRef(null)
+    useBeforeUnload(!!uploadProgress.loaded && loading, 'Upload in progress. Are you sure you want to exit?')
 
+    const isValid = Boolean(expiration && !isPast(new Date(expiration)))
     const ACCEPTED_FILETYPES = [
         'audio/wav',
         'audio/s-wav',
@@ -117,8 +121,6 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
         'audio/x-m4a',
         'audio/ogg',
     ]
-
-    const isValid = Boolean(expiration && !isPast(new Date(expiration)))
 
     useEffect(() => {
         async function getFileRequest() {
