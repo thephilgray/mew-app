@@ -134,10 +134,6 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
         register({ name: 'upload' })
     }, [upload])
 
-    useEffect(() => {
-        console.log({ expiration })
-    }, [expiration])
-
     const onTargetClick = () => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
