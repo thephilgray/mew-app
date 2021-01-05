@@ -88,7 +88,7 @@ const Signup: React.FC<RouteComponentProps> = (): JSX.Element => {
                                             />
                                         </Grid>
                                         <Grid item>
-                                            <Button variant="contained" color="primary" type="submit">
+                                            <Button variant="contained" color="primary" type="submit" disabled>
                                                 Sign Up
                                             </Button>
                                         </Grid>
