@@ -27,6 +27,8 @@ const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
         getFileRequest(id: $id) {
             expiration
+            title
+            details
         }
     }
 `
@@ -87,11 +89,13 @@ const StyledFileDropWrapper = styled.div`
         box-shadow: ${({ theme }: { theme?: Theme }) => `0 0 13px 3px ${theme?.palette.primary.main}`};
     }
 `
-const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: string }>>> = ({
-    fileRequestId = '',
-}) => {
+const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({ assignmentId = '' }) => {
     const [upload, setUpload] = useState<Blob | undefined>()
-    const [expiration, setExpiration] = useState<string>('')
+    const [fileRequestData, setFileRequestData] = useState<{
+        expiration: string
+        title: string
+        details: string
+    } | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<Error | null>(null)
     const [uploadSuccess, setUploadSuccess] = useState<boolean>(false)
@@ -101,7 +105,7 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
     const fileInputRef = useRef(null)
     useBeforeUnload(!!uploadProgress.loaded && loading, 'Upload in progress. Are you sure you want to exit?')
 
-    const isValid = Boolean(expiration && !isPast(new Date(expiration)))
+    const isValid = Boolean(fileRequestData?.expiration && !isPast(new Date(fileRequestData.expiration)))
     const ACCEPTED_FILETYPES = [
         'audio/wav',
         'audio/s-wav',
@@ -134,11 +138,12 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
                     // @ts-ignore
                     authMode: 'API_KEY',
                     variables: {
-                        id: fileRequestId,
+                        id: assignmentId,
                     },
                 })
+
                 if (data?.getFileRequest?.expiration) {
-                    setExpiration(data.getFileRequest.expiration)
+                    setFileRequestData(data.getFileRequest)
                 }
             } catch (err) {
                 console.log(err)
@@ -147,7 +152,7 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
             setLoading(false)
         }
 
-        if (fileRequestId) {
+        if (assignmentId) {
             getFileRequest()
         }
     }, [])
@@ -191,7 +196,7 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
         setLoading(true)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return Storage.put(`${fileRequestId}/${email}/${artist}/${name}/${upload?.name}`, upload, {
+        return Storage.put(`${assignmentId}/${email}/${artist}/${name}/${upload?.name}`, upload, {
             contentType: 'audio/*',
             progressCallback: setUploadProgress,
         })
@@ -318,14 +323,23 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ fileRequestId: s
     }
     return (
         <Paper style={{ padding: '1rem' }}>
-            <div
-                style={{
-                    textAlign: 'center',
-                    width: '100%',
-                }}
-            >
-                {content}
-            </div>
+            <Grid container spacing={2}>
+                {fileRequestData?.title && (
+                    <Grid item xs={12}>
+                        <Typography variant="h5" component="h2">
+                            {fileRequestData.title}
+                        </Typography>
+                    </Grid>
+                )}
+                {fileRequestData?.details && (
+                    <Grid item xs={12}>
+                        <div dangerouslySetInnerHTML={{ __html: fileRequestData.details }} style={{ width: '100%' }} />
+                    </Grid>
+                )}
+                <Grid item xs={12} style={{ textAlign: 'center' }}>
+                    {content}
+                </Grid>
+            </Grid>
         </Paper>
     )
 }

@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import { Typography, Grid, Button, Paper } from '@material-ui/core'
+import { Typography, Grid, Button, Paper, TextField } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
 import { add } from 'date-fns/esm'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import { Link } from 'gatsby'
+import { Editor } from '@tinymce/tinymce-react'
 import Error from './Error'
 
 const CREATE_FILE_REQUEST = gql`
-    mutation CreateFileRequest($expiration: AWSDateTime!) {
-        createFileRequest(input: { expiration: $expiration }) {
+    mutation CreateFileRequest($expiration: AWSDateTime!, $title: String, $details: String) {
+        createFileRequest(input: { expiration: $expiration, title: $title, details: $details }) {
             id
+            title
+            expiration
+            details
         }
     }
 `
 
 type Inputs = {
     expiration: Date
+    title: string
+    details: string
 }
 
 const NewFileRequestLink: React.FC = () => {
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const [createFileRequest, { error, data }] = useMutation(CREATE_FILE_REQUEST)
+    const [details, setDetails] = useState<string | null>('')
     const [expiration, setExpiration] = useState<Date | null>(add(new Date(), { weeks: 1 }))
 
     useEffect(() => {
@@ -30,10 +37,17 @@ const NewFileRequestLink: React.FC = () => {
         register({ name: 'expiration' }, { required: true })
     }, [expiration])
 
+    useEffect(() => {
+        setValue('details', details)
+        register({ name: 'details' })
+    }, [details])
+
     const onSubmit = (inputData: Inputs) => {
         return createFileRequest({
             variables: {
                 expiration: inputData.expiration?.toISOString(),
+                title: inputData.title,
+                details: inputData.details,
             },
         })
     }
@@ -41,10 +55,10 @@ const NewFileRequestLink: React.FC = () => {
     return (
         <Paper style={{ padding: '1rem' }}>
             <Typography variant="h5" component="h5" gutterBottom>
-                Create New File Request Link
+                New Assignment
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container spacing={2}>
+                <Grid container spacing={4}>
                     {error && (
                         <Grid item xs={12}>
                             <Error errorMessage={error} />
@@ -59,6 +73,36 @@ const NewFileRequestLink: React.FC = () => {
                             </Link>
                         </Grid>
                     )}
+                    <Grid item xs={12} md={9}>
+                        <TextField
+                            fullWidth
+                            label="Title"
+                            name="title"
+                            inputRef={register({ required: true })}
+                            error={!!errors.title}
+                            helperText={!!errors.title && <>Title is required</>}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Editor
+                            initialValue=""
+                            init={{
+                                height: 500,
+                                menubar: false,
+                                plugins: [
+                                    'advlist autolink lists link image charmap print preview anchor',
+                                    'searchreplace visualblocks code fullscreen emoticons',
+                                    'insertdatetime media table paste code help wordcount',
+                                ],
+                                toolbar:
+                                    'undo redo | formatselect | bold italic forecolor backcolor emoticons | \
+                                alignleft aligncenter alignright alignjustify | \
+                                bullist numlist outdent indent | removeformat | image | media | help',
+                            }}
+                            onEditorChange={setDetails}
+                            apiKey="7n5kyei3ttoxuo2wna1yhi1558x6b4e9k4jpuwrusi1ce416"
+                        />
+                    </Grid>
                     <Grid item xs={6}>
                         <KeyboardDatePicker
                             fullWidth
