@@ -60,4 +60,5 @@ type FileRequest
     ) {
     id: ID!
     expiration: AWSDateTime!
+    title: String
 }
