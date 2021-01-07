@@ -8,6 +8,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { Link } from 'gatsby'
 import { Editor } from '@tinymce/tinymce-react'
 import Error from './Error'
+import AppBreadcrumbs from './AppBreadcrumbs'
 
 const CREATE_FILE_REQUEST = gql`
     mutation CreateFileRequest($expiration: AWSDateTime!, $title: String, $details: String, $required: Boolean) {
@@ -62,105 +63,117 @@ const NewFileRequestLink: React.FC = () => {
     }
 
     return (
-        <Paper style={{ padding: '1rem' }}>
-            <Typography variant="h5" component="h5" gutterBottom>
-                New Assignment
-            </Typography>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container spacing={4}>
-                    {error && (
-                        <Grid item xs={12}>
-                            <Error errorMessage={error} />
-                        </Grid>
-                    )}
-                    {data?.createFileRequest?.id && (
-                        <Grid item xs={12}>
-                            <Link to={`/app/uploads/${data.createFileRequest.id}`}>
-                                {window
-                                    ? `${window.location.protocol}//${window.location.host}/app/uploads/${data.createFileRequest.id}`
-                                    : `/app/uploads/${data.createFileRequest.id}`}
-                            </Link>
-                        </Grid>
-                    )}
-                    <Grid item xs={12} md={9}>
-                        <TextField
-                            fullWidth
-                            label="Title"
-                            name="title"
-                            inputRef={register({ required: true })}
-                            error={!!errors.title}
-                            helperText={!!errors.title && <>Title is required</>}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={required}
-                                    onChange={(e) => setRequired(e.target.checked)}
-                                    name="required"
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <AppBreadcrumbs
+                    paths={[
+                        { path: '/app', name: 'Assignments' },
+                        { path: '/app/assignments/new', name: 'New Assignment' },
+                    ]}
+                />
+            </Grid>
+            <Grid item xs={12}>
+                <Paper style={{ padding: '1rem' }}>
+                    <Typography variant="h5" component="h5" gutterBottom>
+                        New Assignment
+                    </Typography>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Grid container spacing={4}>
+                            {error && (
+                                <Grid item xs={12}>
+                                    <Error errorMessage={error} />
+                                </Grid>
+                            )}
+                            {data?.createFileRequest?.id && (
+                                <Grid item xs={12}>
+                                    <Link to={`/app/uploads/${data.createFileRequest.id}`}>
+                                        {window
+                                            ? `${window.location.protocol}//${window.location.host}/app/uploads/${data.createFileRequest.id}`
+                                            : `/app/uploads/${data.createFileRequest.id}`}
+                                    </Link>
+                                </Grid>
+                            )}
+                            <Grid item xs={12} md={9}>
+                                <TextField
+                                    fullWidth
+                                    label="Title"
+                                    name="title"
+                                    inputRef={register({ required: true })}
+                                    error={!!errors.title}
+                                    helperText={!!errors.title && <>Title is required</>}
                                 />
-                            }
-                            label="Required"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Editor
-                            initialValue=""
-                            init={{
-                                height: 500,
-                                menubar: false,
-                                plugins: [
-                                    'advlist autolink lists link image charmap print preview anchor',
-                                    'searchreplace visualblocks code fullscreen emoticons',
-                                    'insertdatetime media table paste code help wordcount',
-                                ],
-                                toolbar:
-                                    'undo redo | formatselect | bold italic forecolor backcolor emoticons | \
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={required}
+                                            onChange={(e) => setRequired(e.target.checked)}
+                                            name="required"
+                                        />
+                                    }
+                                    label="Required"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Editor
+                                    initialValue=""
+                                    init={{
+                                        height: 500,
+                                        menubar: false,
+                                        plugins: [
+                                            'advlist autolink lists link image charmap print preview anchor',
+                                            'searchreplace visualblocks code fullscreen emoticons',
+                                            'insertdatetime media table paste code help wordcount',
+                                        ],
+                                        toolbar:
+                                            'undo redo | formatselect | bold italic forecolor backcolor emoticons | \
                                 alignleft aligncenter alignright alignjustify | \
                                 bullist numlist outdent indent | removeformat | image | media | help',
-                            }}
-                            onEditorChange={setDetails}
-                            apiKey="7n5kyei3ttoxuo2wna1yhi1558x6b4e9k4jpuwrusi1ce416"
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <KeyboardDatePicker
-                            fullWidth
-                            autoOk
-                            error={!!errors.expiration}
-                            inputVariant="outlined"
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            label="Expiration"
-                            helperText={!!errors.expiration && <>Start date is required</>}
-                            onChange={(date) => setExpiration(date)}
-                            value={expiration}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <KeyboardTimePicker
-                            id="due-time-picker"
-                            fullWidth
-                            label="Time"
-                            value={expiration}
-                            inputVariant="outlined"
-                            autoOk
-                            variant="inline"
-                            onChange={setExpiration}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change time',
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button type="submit" variant="contained" color="primary" style={{ float: 'right' }}>
-                            Create
-                        </Button>
-                    </Grid>
-                </Grid>
-            </form>
-        </Paper>
+                                    }}
+                                    onEditorChange={setDetails}
+                                    apiKey="7n5kyei3ttoxuo2wna1yhi1558x6b4e9k4jpuwrusi1ce416"
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <KeyboardDatePicker
+                                    fullWidth
+                                    autoOk
+                                    error={!!errors.expiration}
+                                    inputVariant="outlined"
+                                    variant="inline"
+                                    format="MM/dd/yyyy"
+                                    label="Expiration"
+                                    helperText={!!errors.expiration && <>Start date is required</>}
+                                    onChange={(date) => setExpiration(date)}
+                                    value={expiration}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <KeyboardTimePicker
+                                    id="due-time-picker"
+                                    fullWidth
+                                    label="Time"
+                                    value={expiration}
+                                    inputVariant="outlined"
+                                    autoOk
+                                    variant="inline"
+                                    onChange={setExpiration}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change time',
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button type="submit" variant="contained" color="primary" style={{ float: 'right' }}>
+                                    Create
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Paper>
+            </Grid>
+        </Grid>
     )
 }
 

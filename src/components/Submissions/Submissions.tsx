@@ -1,25 +1,32 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
-import { Button, ButtonGroup, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
-import { DataGrid, Columns, SortDirection } from '@material-ui/data-grid'
+import { Button, ButtonGroup, CircularProgress, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
+import { DataGrid, Columns, SortDirection, ColDef } from '@material-ui/data-grid'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
 import { FileCopy } from '@material-ui/icons'
 import Error from '../Error'
+import AppBreadcrumbs from '../AppBreadcrumbs'
 
-const SUBMISSION_BY_FILE_REQUEST_ID = gql`
-    query SubmissionByFileRequestId($fileRequestId: ID) {
-        submissionsByFileRequestId(fileRequestId: $fileRequestId) {
-            items {
-                id
-                artist
-                audio
-                email
-                createdAt
-                name
+const GET_FILE_REQUEST = gql`
+    query GetFileRequest($id: ID!) {
+        getFileRequest(id: $id) {
+            id
+            title
+            createdAt
+            expiration
+            submissions {
+                items {
+                    id
+                    artist
+                    audio
+                    email
+                    createdAt
+                    name
+                }
             }
         }
     }
@@ -27,8 +34,8 @@ const SUBMISSION_BY_FILE_REQUEST_ID = gql`
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
     const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
-    const { loading, error, data } = useQuery(SUBMISSION_BY_FILE_REQUEST_ID, {
-        variables: { fileRequestId: assignmentId },
+    const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
+        variables: { id: assignmentId },
         pollInterval: 10000,
     })
 
@@ -59,15 +66,18 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             headerName: 'Submitted',
             type: 'date',
             width: 160,
-            valueFormatter: ({ value = '' }) => value && format(new Date(value), 'MM/dd/yyyy H:mm'),
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            valueFormatter: ({ value = '' }: ColDef) => value && format(new Date(value), 'MM/dd/yyyy H:mm'),
         },
         {
             field: 'audio',
             headerName: 'Track',
             type: 'string',
             width: 200,
-            // eslint-disable-next-line react/display-name
-            renderCell: ({ value = '' }) => value && <a href={value}>{value.split('/').pop()}</a>,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            renderCell: ({ value = '' }: ColDef) => value && <a href={value}>{value.split('/').pop()}</a>,
         },
     ]
 
@@ -78,13 +88,22 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         },
     ]
 
-    if (loading || !data?.submissionsByFileRequestId?.items) return <>'Loading....'</>
     if (error) return <Error errorMessage={error} />
+    if (loading || !data?.getFileRequest?.submissions?.items) return <CircularProgress />
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
+                <AppBreadcrumbs
+                    paths={[
+                        { path: '/app', name: 'Assignments' },
+                        { path: '/app/assignments', name: 'Submissions' },
+                    ]}
+                />
+            </Grid>
+            <Grid item xs={12}>
                 <Typography variant="h6" component="h3">
                     Submissions
+                    {data?.getFileRequest.title && <em> for {data.getFileRequest.title}</em>}
                 </Typography>
             </Grid>
             <Grid item xs={12} md={9}>
@@ -126,7 +145,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             </Grid>
             <div style={{ height: 375, width: '100%' }}>
                 <DataGrid
-                    rows={data.submissionsByFileRequestId.items}
+                    rows={data.getFileRequest.submissions.items}
                     columns={columns}
                     pageSize={5}
                     disableSelectionOnClick={true}

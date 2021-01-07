@@ -7,6 +7,7 @@ import { Button, createStyles, Grid, makeStyles } from '@material-ui/core'
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
 import format from 'date-fns/format'
+import AppBreadcrumbs from '../AppBreadcrumbs'
 
 const QUERY_FILE_REQUESTS = gql`
     query LIST_FILE_REQUESTS {
@@ -35,7 +36,7 @@ const useStyles = makeStyles(() =>
     }),
 )
 
-const Assignments: React.FC = (): JSX.Element => {
+const Assignments: React.FC = (props): JSX.Element => {
     const classes = useStyles()
     const { loading, error, data, refetch } = useQuery(QUERY_FILE_REQUESTS)
     console.log({ loading, error, data })
@@ -92,6 +93,9 @@ const Assignments: React.FC = (): JSX.Element => {
     if (loading) return <p>Loading assignments....</p>
     return (
         <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <AppBreadcrumbs paths={[{ path: '/app', name: 'Assignments' }]} />
+            </Grid>
             <Grid item xs={12} style={{ textAlign: 'right' }}>
                 <Button variant="contained" color="primary" component={Link} to={'/app/assignments/new'}>
                     New Assignment
