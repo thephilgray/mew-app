@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Typography, Grid, Button, Paper, TextField, Switch, FormControlLabel, FormGroup } from '@material-ui/core'
+import {
+    Typography,
+    Grid,
+    Button,
+    Paper,
+    TextField,
+    Switch,
+    FormControlLabel,
+    Snackbar,
+    IconButton,
+} from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
 import { add } from 'date-fns/esm'
@@ -7,8 +17,10 @@ import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import { Link } from 'gatsby'
 import { Editor } from '@tinymce/tinymce-react'
-import Error from './Error'
-import AppBreadcrumbs from './AppBreadcrumbs'
+import Error from '../Error'
+import AppBreadcrumbs from '../AppBreadcrumbs'
+import { FileCopy } from '@material-ui/icons'
+import { useCopyToClipboard } from 'react-use'
 
 const CREATE_FILE_REQUEST = gql`
     mutation CreateFileRequest($expiration: AWSDateTime!, $title: String, $details: String, $required: Boolean) {
@@ -29,12 +41,20 @@ type Inputs = {
     required: boolean
 }
 
-const NewFileRequestLink: React.FC = () => {
+const NewPublicAssignment: React.FC = () => {
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const [createFileRequest, { error, data }] = useMutation(CREATE_FILE_REQUEST)
     const [details, setDetails] = useState<string | null>('')
     const [required, setRequired] = useState<boolean>(true)
     const [expiration, setExpiration] = useState<Date | null>(add(new Date(), { weeks: 1 }))
+    const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
+    const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
+
+    useEffect(() => {
+        if (copyToClipboardState.value) {
+            setShowCopySuccessAlert(true)
+        }
+    }, [copyToClipboardState])
 
     useEffect(() => {
         setValue('expiration', expiration)
@@ -85,12 +105,35 @@ const NewFileRequestLink: React.FC = () => {
                                 </Grid>
                             )}
                             {data?.createFileRequest?.id && (
-                                <Grid item xs={12}>
-                                    <Link to={`/app/uploads/${data.createFileRequest.id}`}>
-                                        {window
-                                            ? `${window.location.protocol}//${window.location.host}/app/uploads/${data.createFileRequest.id}`
-                                            : `/app/uploads/${data.createFileRequest.id}`}
+                                <Grid item xs={12} md={9}>
+                                    <Link to={`/app/submissions/${data.createFileRequest.id}`}>
+                                        {window.location.protocol}
+                                        {'//'}
+                                        {window.location.host}/app/submissions/{data.createFileRequest.id}
                                     </Link>
+                                    <Snackbar
+                                        anchorOrigin={{
+                                            vertical: 'bottom',
+                                            horizontal: 'center',
+                                        }}
+                                        open={showCopySuccessAlert}
+                                        color="success"
+                                        autoHideDuration={3000}
+                                        message="Link to assignment copied to clipboard."
+                                        onClose={() => setShowCopySuccessAlert(false)}
+                                    />
+                                    <IconButton
+                                        color="secondary"
+                                        aria-label="Close"
+                                        component="span"
+                                        onClick={() =>
+                                            copyToClipboard(
+                                                `${window.location.protocol}//${window.location.host}/app/submissions/${data.createFileRequest.id}`,
+                                            )
+                                        }
+                                    >
+                                        <FileCopy />
+                                    </IconButton>
                                 </Grid>
                             )}
                             <Grid item xs={12} md={9}>
@@ -177,4 +220,4 @@ const NewFileRequestLink: React.FC = () => {
     )
 }
 
-export default NewFileRequestLink
+export default NewPublicAssignment

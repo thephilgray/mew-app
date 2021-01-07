@@ -36,7 +36,7 @@ const useStyles = makeStyles(() =>
     }),
 )
 
-const Assignments: React.FC = (props): JSX.Element => {
+const Assignments: React.FC = (): JSX.Element => {
     const classes = useStyles()
     const { loading, error, data, refetch } = useQuery(QUERY_FILE_REQUESTS)
     console.log({ loading, error, data })

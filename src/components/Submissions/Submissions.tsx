@@ -107,10 +107,10 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 </Typography>
             </Grid>
             <Grid item xs={12} md={9}>
-                <Link to={`/app/uploads/${assignmentId}`}>
+                <Link to={`/app/submissions/${assignmentId}`}>
                     {window.location.protocol}
                     {'//'}
-                    {window.location.host}/app/uploads/{assignmentId}
+                    {window.location.host}/app/submissions/{assignmentId}
                 </Link>
                 <Snackbar
                     anchorOrigin={{
@@ -129,7 +129,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     component="span"
                     onClick={() =>
                         copyToClipboard(
-                            `${window.location.protocol}//${window.location.host}/app/uploads/${assignmentId}`,
+                            `${window.location.protocol}//${window.location.host}/app/submissions/${assignmentId}`,
                         )
                     }
                 >
@@ -138,7 +138,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             </Grid>
             <Grid item xs={12} md={3} style={{ textAlign: 'right' }}>
                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    <Button variant="contained" color="primary" component={Link} to={`/app/uploads/${assignmentId}`}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        component={Link}
+                        to={`/app/submissions/${assignmentId}`}
+                    >
                         New Submission
                     </Button>
                 </ButtonGroup>

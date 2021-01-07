@@ -114,7 +114,9 @@ const StyledFileDropWrapper = styled.div`
         box-shadow: ${({ theme }: { theme?: Theme }) => `0 0 13px 3px ${theme?.palette.primary.main}`};
     }
 `
-const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({ assignmentId = '' }) => {
+const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({
+    assignmentId = '',
+}) => {
     const [upload, setUpload] = useState<Blob | undefined>()
     const [fileRequestData, setFileRequestData] = useState<{
         expiration: string
@@ -384,4 +386,4 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: st
     )
 }
 
-export default Uploads
+export default NewPublicSubmission
