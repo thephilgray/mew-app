@@ -385,6 +385,23 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      fileRequest {
+        id
+        expiration
+        title
+        details
+        required
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        submissions {
+          nextToken
+          startedAt
+        }
+      }
       owner
     }
   }
@@ -403,6 +420,23 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      fileRequest {
+        id
+        expiration
+        title
+        details
+        required
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        submissions {
+          nextToken
+          startedAt
+        }
+      }
       owner
     }
   }
@@ -421,6 +455,23 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      fileRequest {
+        id
+        expiration
+        title
+        details
+        required
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        submissions {
+          nextToken
+          startedAt
+        }
+      }
       owner
     }
   }

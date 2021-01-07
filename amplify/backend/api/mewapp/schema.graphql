@@ -79,6 +79,7 @@ type FileRequestSubmission
     ) {
         id: ID!
         fileRequestId: ID!
+        fileRequest: FileRequest @connection(fields: ["fileRequestId"])
         artist: String
         name: String
         email: String

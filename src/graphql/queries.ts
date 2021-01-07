@@ -433,6 +433,35 @@ export const syncMembers = /* GraphQL */ `
     }
   }
 `;
+export const listFileRequests = /* GraphQL */ `
+  query ListFileRequests(
+    $filter: ModelFileRequestFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFileRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        expiration
+        title
+        details
+        required
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        submissions {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getFileRequest = /* GraphQL */ `
   query GetFileRequest($id: ID!) {
     getFileRequest(id: $id) {
@@ -465,35 +494,6 @@ export const getFileRequest = /* GraphQL */ `
         nextToken
         startedAt
       }
-    }
-  }
-`;
-export const listFileRequests = /* GraphQL */ `
-  query ListFileRequests(
-    $filter: ModelFileRequestFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listFileRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        expiration
-        title
-        details
-        required
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-        submissions {
-          nextToken
-          startedAt
-        }
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -546,6 +546,23 @@ export const getFileRequestSubmission = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      fileRequest {
+        id
+        expiration
+        title
+        details
+        required
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        submissions {
+          nextToken
+          startedAt
+        }
+      }
       owner
     }
   }
@@ -573,6 +590,19 @@ export const listFileRequestSubmissions = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        fileRequest {
+          id
+          expiration
+          title
+          details
+          required
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
         owner
       }
       nextToken
@@ -607,6 +637,19 @@ export const submissionsByFileRequestId = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        fileRequest {
+          id
+          expiration
+          title
+          details
+          required
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
         owner
       }
       nextToken
@@ -639,6 +682,19 @@ export const syncFileRequestSubmissions = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        fileRequest {
+          id
+          expiration
+          title
+          details
+          required
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
         owner
       }
       nextToken
