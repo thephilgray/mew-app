@@ -186,7 +186,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
 
     useEffect(() => {
         setValue('upload', upload)
-        register({ name: 'upload' })
+        register({ name: 'upload' }, { required: true })
     }, [upload])
 
     const onTargetClick = () => {
@@ -220,6 +220,8 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
 
     const onSubmit = async (values: Inputs) => {
         setLoading(true)
+        // TODO: replace spaces and unacceptable characters with '_'; replace '_' with spaces when zipping for download
+        // see: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
         const { name, artist, email } = values
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -283,7 +285,6 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                             ref={fileInputRef}
                             hidden
                         />
-                        {!!errors.upload && <p>Upload is required</p>}
 
                         <StyledFileDropWrapper>
                             <FileDrop onTargetClick={onTargetClick} onDrop={handleOnDrop}>
@@ -292,6 +293,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                                 </IconButton>
                                 {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                 // @ts-ignore */}
+                                {!!errors.upload && <Typography color="error">Upload is required!</Typography>}
                                 {uploadAreaMessage}
                             </FileDrop>
                         </StyledFileDropWrapper>
@@ -341,7 +343,11 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
     }
 
     if (loading) {
-        content = <CircularProgress />
+        content = (
+            <div style={{ textAlign: 'center' }}>
+                <CircularProgress />
+            </div>
+        )
     }
     if (loading && uploadProgress.loaded) {
         const progress = (uploadProgress.loaded / uploadProgress.total) * 100
