@@ -134,11 +134,11 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
 
     const isValid = Boolean(fileRequestData?.expiration && !isPast(new Date(fileRequestData.expiration)))
     const ACCEPTED_FILETYPES = [
-        'audio/wav',
-        'audio/s-wav',
-        'audio/x-wav',
-        'audio/aiff',
-        'audio/x-aiff',
+        // 'audio/wav',
+        // 'audio/s-wav',
+        // 'audio/x-wav',
+        // 'audio/aiff',
+        // 'audio/x-aiff',
         'audio/mpeg',
         'audio/mp3',
         'audio/mpeg3',
