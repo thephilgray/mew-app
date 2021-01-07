@@ -97,55 +97,57 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignment]} />
             </Grid>
             <Grid item xs={12}>
-                <Typography variant="h6" component="h3">
-                    Submissions
-                    {data?.getFileRequest.title && <em> for {data.getFileRequest.title}</em>}
-                </Typography>
-            </Grid>
-            <Grid item xs={12} md={9}>
-                <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
-                    {window.location.protocol}
-                    {'//'}
-                    {window.location.host}
-                    {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                </Link>
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
-                    open={showCopySuccessAlert}
-                    color="success"
-                    autoHideDuration={3000}
-                    message="Link to assignment copied to clipboard."
-                    onClose={() => setShowCopySuccessAlert(false)}
-                />
-                <IconButton
-                    color="secondary"
-                    aria-label="Close"
-                    component="span"
-                    onClick={() =>
-                        copyToClipboard(
-                            `${window.location.protocol}//${
-                                window.location.host
-                            }${ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}`,
-                        )
-                    }
-                >
-                    <FileCopy />
-                </IconButton>
-            </Grid>
-            <Grid item xs={12} md={3} style={{ textAlign: 'right' }}>
-                <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        component={Link}
-                        to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                    >
-                        New Submission
-                    </Button>
-                </ButtonGroup>
+                <Grid container>
+                    <Grid item xs={12} md={9}>
+                        <Typography variant="h6" component="h3">
+                            Submissions
+                            {data?.getFileRequest.title && <em> for {data.getFileRequest.title}</em>}
+                        </Typography>
+                        <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
+                            {window.location.protocol}
+                            {'//'}
+                            {window.location.host}
+                            {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                        </Link>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            open={showCopySuccessAlert}
+                            color="success"
+                            autoHideDuration={3000}
+                            message="Link to assignment copied to clipboard."
+                            onClose={() => setShowCopySuccessAlert(false)}
+                        />
+                        <IconButton
+                            color="secondary"
+                            aria-label="Close"
+                            component="span"
+                            onClick={() =>
+                                copyToClipboard(
+                                    `${window.location.protocol}//${
+                                        window.location.host
+                                    }${ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}`,
+                                )
+                            }
+                        >
+                            <FileCopy />
+                        </IconButton>
+                    </Grid>
+                    <Grid item xs={12} md={3} style={{ textAlign: 'right' }}>
+                        <ButtonGroup color="primary" aria-label="outlined primary button group">
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                component={Link}
+                                to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                            >
+                                New Submission
+                            </Button>
+                        </ButtonGroup>
+                    </Grid>
+                </Grid>
             </Grid>
             <div style={{ height: 375, width: '100%' }}>
                 <DataGrid
