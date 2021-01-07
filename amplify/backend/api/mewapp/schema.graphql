@@ -55,10 +55,32 @@ type FileRequest
             { allow: owner }
             { allow: groups, groups: ["Admin"] }
             # The public is only allowed to read posts
-            { allow: public, operations: [read] }
+            { allow: public, operations: [read, create] }
         ]
     ) {
     id: ID!
     expiration: AWSDateTime!
     title: String
+    details: String
+    required: Boolean
+    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByFileRequestId", fields: ["id"])
+}
+
+
+type FileRequestSubmission
+    @key(name: "submissionsByFileRequestId", fields: ["fileRequestId"], queryField: "submissionsByFileRequestId")
+    @model 
+    @auth(
+        rules: [
+            { allow: owner }
+            { allow: groups, groups: ["Admin"] }
+            { allow: public, operations: [read, create] }
+        ]
+    ) {
+        id: ID!
+        fileRequestId: ID!
+        artist: String
+        name: String
+        email: String
+        audio: String
 }

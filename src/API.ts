@@ -220,11 +220,17 @@ export type DeleteMemberInput = {
 export type CreateFileRequestInput = {
   id?: string | null,
   expiration: string,
+  title?: string | null,
+  details?: string | null,
+  required?: boolean | null,
   _version?: number | null,
 };
 
 export type ModelFileRequestConditionInput = {
   expiration?: ModelStringInput | null,
+  title?: ModelStringInput | null,
+  details?: ModelStringInput | null,
+  required?: ModelBooleanInput | null,
   and?: Array< ModelFileRequestConditionInput | null > | null,
   or?: Array< ModelFileRequestConditionInput | null > | null,
   not?: ModelFileRequestConditionInput | null,
@@ -233,10 +239,49 @@ export type ModelFileRequestConditionInput = {
 export type UpdateFileRequestInput = {
   id: string,
   expiration?: string | null,
+  title?: string | null,
+  details?: string | null,
+  required?: boolean | null,
   _version?: number | null,
 };
 
 export type DeleteFileRequestInput = {
+  id?: string | null,
+  _version?: number | null,
+};
+
+export type CreateFileRequestSubmissionInput = {
+  id?: string | null,
+  fileRequestId: string,
+  artist?: string | null,
+  name?: string | null,
+  email?: string | null,
+  audio?: string | null,
+  _version?: number | null,
+};
+
+export type ModelFileRequestSubmissionConditionInput = {
+  fileRequestId?: ModelIDInput | null,
+  artist?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  audio?: ModelStringInput | null,
+  and?: Array< ModelFileRequestSubmissionConditionInput | null > | null,
+  or?: Array< ModelFileRequestSubmissionConditionInput | null > | null,
+  not?: ModelFileRequestSubmissionConditionInput | null,
+};
+
+export type UpdateFileRequestSubmissionInput = {
+  id: string,
+  fileRequestId?: string | null,
+  artist?: string | null,
+  name?: string | null,
+  email?: string | null,
+  audio?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteFileRequestSubmissionInput = {
   id?: string | null,
   _version?: number | null,
 };
@@ -313,9 +358,24 @@ export type ModelStringKeyConditionInput = {
 export type ModelFileRequestFilterInput = {
   id?: ModelIDInput | null,
   expiration?: ModelStringInput | null,
+  title?: ModelStringInput | null,
+  details?: ModelStringInput | null,
+  required?: ModelBooleanInput | null,
   and?: Array< ModelFileRequestFilterInput | null > | null,
   or?: Array< ModelFileRequestFilterInput | null > | null,
   not?: ModelFileRequestFilterInput | null,
+};
+
+export type ModelFileRequestSubmissionFilterInput = {
+  id?: ModelIDInput | null,
+  fileRequestId?: ModelIDInput | null,
+  artist?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  audio?: ModelStringInput | null,
+  and?: Array< ModelFileRequestSubmissionFilterInput | null > | null,
+  or?: Array< ModelFileRequestSubmissionFilterInput | null > | null,
+  not?: ModelFileRequestSubmissionFilterInput | null,
 };
 
 export type CreateAssignmentMutationVariables = {
@@ -652,12 +712,35 @@ export type CreateFileRequestMutation = {
     __typename: "FileRequest",
     id: string,
     expiration: string,
+    title: string | null,
+    details: string | null,
+    required: boolean | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
   } | null,
 };
 
@@ -671,12 +754,35 @@ export type UpdateFileRequestMutation = {
     __typename: "FileRequest",
     id: string,
     expiration: string,
+    title: string | null,
+    details: string | null,
+    required: boolean | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
   } | null,
 };
 
@@ -690,6 +796,98 @@ export type DeleteFileRequestMutation = {
     __typename: "FileRequest",
     id: string,
     expiration: string,
+    title: string | null,
+    details: string | null,
+    required: boolean | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
+  } | null,
+};
+
+export type CreateFileRequestSubmissionMutationVariables = {
+  input: CreateFileRequestSubmissionInput,
+  condition?: ModelFileRequestSubmissionConditionInput | null,
+};
+
+export type CreateFileRequestSubmissionMutation = {
+  createFileRequestSubmission:  {
+    __typename: "FileRequestSubmission",
+    id: string,
+    fileRequestId: string,
+    artist: string | null,
+    name: string | null,
+    email: string | null,
+    audio: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type UpdateFileRequestSubmissionMutationVariables = {
+  input: UpdateFileRequestSubmissionInput,
+  condition?: ModelFileRequestSubmissionConditionInput | null,
+};
+
+export type UpdateFileRequestSubmissionMutation = {
+  updateFileRequestSubmission:  {
+    __typename: "FileRequestSubmission",
+    id: string,
+    fileRequestId: string,
+    artist: string | null,
+    name: string | null,
+    email: string | null,
+    audio: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type DeleteFileRequestSubmissionMutationVariables = {
+  input: DeleteFileRequestSubmissionInput,
+  condition?: ModelFileRequestSubmissionConditionInput | null,
+};
+
+export type DeleteFileRequestSubmissionMutation = {
+  deleteFileRequestSubmission:  {
+    __typename: "FileRequestSubmission",
+    id: string,
+    fileRequestId: string,
+    artist: string | null,
+    name: string | null,
+    email: string | null,
+    audio: string | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
@@ -1154,12 +1352,35 @@ export type GetFileRequestQuery = {
     __typename: "FileRequest",
     id: string,
     expiration: string,
+    title: string | null,
+    details: string | null,
+    required: boolean | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
   } | null,
 };
 
@@ -1176,12 +1397,20 @@ export type ListFileRequestsQuery = {
       __typename: "FileRequest",
       id: string,
       expiration: string,
+      title: string | null,
+      details: string | null,
+      required: boolean | null,
       _version: number,
       _deleted: boolean | null,
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
       owner: string | null,
+      submissions:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken: string | null,
+        startedAt: number | null,
+      } | null,
     } | null > | null,
     nextToken: string | null,
     startedAt: number | null,
@@ -1202,6 +1431,126 @@ export type SyncFileRequestsQuery = {
       __typename: "FileRequest",
       id: string,
       expiration: string,
+      title: string | null,
+      details: string | null,
+      required: boolean | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+      submissions:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken: string | null,
+        startedAt: number | null,
+      } | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type GetFileRequestSubmissionQueryVariables = {
+  id: string,
+};
+
+export type GetFileRequestSubmissionQuery = {
+  getFileRequestSubmission:  {
+    __typename: "FileRequestSubmission",
+    id: string,
+    fileRequestId: string,
+    artist: string | null,
+    name: string | null,
+    email: string | null,
+    audio: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type ListFileRequestSubmissionsQueryVariables = {
+  filter?: ModelFileRequestSubmissionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListFileRequestSubmissionsQuery = {
+  listFileRequestSubmissions:  {
+    __typename: "ModelFileRequestSubmissionConnection",
+    items:  Array< {
+      __typename: "FileRequestSubmission",
+      id: string,
+      fileRequestId: string,
+      artist: string | null,
+      name: string | null,
+      email: string | null,
+      audio: string | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type SubmissionsByFileRequestIdQueryVariables = {
+  fileRequestId?: string | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFileRequestSubmissionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type SubmissionsByFileRequestIdQuery = {
+  submissionsByFileRequestId:  {
+    __typename: "ModelFileRequestSubmissionConnection",
+    items:  Array< {
+      __typename: "FileRequestSubmission",
+      id: string,
+      fileRequestId: string,
+      artist: string | null,
+      name: string | null,
+      email: string | null,
+      audio: string | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type SyncFileRequestSubmissionsQueryVariables = {
+  filter?: ModelFileRequestSubmissionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncFileRequestSubmissionsQuery = {
+  syncFileRequestSubmissions:  {
+    __typename: "ModelFileRequestSubmissionConnection",
+    items:  Array< {
+      __typename: "FileRequestSubmission",
+      id: string,
+      fileRequestId: string,
+      artist: string | null,
+      name: string | null,
+      email: string | null,
+      audio: string | null,
       _version: number,
       _deleted: boolean | null,
       _lastChangedAt: number,
@@ -1502,12 +1851,35 @@ export type OnCreateFileRequestSubscription = {
     __typename: "FileRequest",
     id: string,
     expiration: string,
+    title: string | null,
+    details: string | null,
+    required: boolean | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
   } | null,
 };
 
@@ -1520,12 +1892,35 @@ export type OnUpdateFileRequestSubscription = {
     __typename: "FileRequest",
     id: string,
     expiration: string,
+    title: string | null,
+    details: string | null,
+    required: boolean | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
   } | null,
 };
 
@@ -1538,6 +1933,95 @@ export type OnDeleteFileRequestSubscription = {
     __typename: "FileRequest",
     id: string,
     expiration: string,
+    title: string | null,
+    details: string | null,
+    required: boolean | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
+  } | null,
+};
+
+export type OnCreateFileRequestSubmissionSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateFileRequestSubmissionSubscription = {
+  onCreateFileRequestSubmission:  {
+    __typename: "FileRequestSubmission",
+    id: string,
+    fileRequestId: string,
+    artist: string | null,
+    name: string | null,
+    email: string | null,
+    audio: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnUpdateFileRequestSubmissionSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateFileRequestSubmissionSubscription = {
+  onUpdateFileRequestSubmission:  {
+    __typename: "FileRequestSubmission",
+    id: string,
+    fileRequestId: string,
+    artist: string | null,
+    name: string | null,
+    email: string | null,
+    audio: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnDeleteFileRequestSubmissionSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteFileRequestSubmissionSubscription = {
+  onDeleteFileRequestSubmission:  {
+    __typename: "FileRequestSubmission",
+    id: string,
+    fileRequestId: string,
+    artist: string | null,
+    name: string | null,
+    email: string | null,
+    audio: string | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,

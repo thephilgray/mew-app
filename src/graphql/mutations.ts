@@ -301,12 +301,33 @@ export const createFileRequest = /* GraphQL */ `
     createFileRequest(input: $input, condition: $condition) {
       id
       expiration
+      title
+      details
+      required
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
       owner
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -318,12 +339,33 @@ export const updateFileRequest = /* GraphQL */ `
     updateFileRequest(input: $input, condition: $condition) {
       id
       expiration
+      title
+      details
+      required
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
       owner
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -335,6 +377,90 @@ export const deleteFileRequest = /* GraphQL */ `
     deleteFileRequest(input: $input, condition: $condition) {
       id
       expiration
+      title
+      details
+      required
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const createFileRequestSubmission = /* GraphQL */ `
+  mutation CreateFileRequestSubmission(
+    $input: CreateFileRequestSubmissionInput!
+    $condition: ModelFileRequestSubmissionConditionInput
+  ) {
+    createFileRequestSubmission(input: $input, condition: $condition) {
+      id
+      fileRequestId
+      artist
+      name
+      email
+      audio
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateFileRequestSubmission = /* GraphQL */ `
+  mutation UpdateFileRequestSubmission(
+    $input: UpdateFileRequestSubmissionInput!
+    $condition: ModelFileRequestSubmissionConditionInput
+  ) {
+    updateFileRequestSubmission(input: $input, condition: $condition) {
+      id
+      fileRequestId
+      artist
+      name
+      email
+      audio
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteFileRequestSubmission = /* GraphQL */ `
+  mutation DeleteFileRequestSubmission(
+    $input: DeleteFileRequestSubmissionInput!
+    $condition: ModelFileRequestSubmissionConditionInput
+  ) {
+    deleteFileRequestSubmission(input: $input, condition: $condition) {
+      id
+      fileRequestId
+      artist
+      name
+      email
+      audio
       _version
       _deleted
       _lastChangedAt

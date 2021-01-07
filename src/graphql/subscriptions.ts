@@ -271,12 +271,33 @@ export const onCreateFileRequest = /* GraphQL */ `
     onCreateFileRequest(owner: $owner) {
       id
       expiration
+      title
+      details
+      required
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
       owner
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -285,6 +306,80 @@ export const onUpdateFileRequest = /* GraphQL */ `
     onUpdateFileRequest(owner: $owner) {
       id
       expiration
+      title
+      details
+      required
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onDeleteFileRequest = /* GraphQL */ `
+  subscription OnDeleteFileRequest($owner: String) {
+    onDeleteFileRequest(owner: $owner) {
+      id
+      expiration
+      title
+      details
+      required
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onCreateFileRequestSubmission = /* GraphQL */ `
+  subscription OnCreateFileRequestSubmission($owner: String) {
+    onCreateFileRequestSubmission(owner: $owner) {
+      id
+      fileRequestId
+      artist
+      name
+      email
+      audio
       _version
       _deleted
       _lastChangedAt
@@ -294,11 +389,33 @@ export const onUpdateFileRequest = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteFileRequest = /* GraphQL */ `
-  subscription OnDeleteFileRequest($owner: String) {
-    onDeleteFileRequest(owner: $owner) {
+export const onUpdateFileRequestSubmission = /* GraphQL */ `
+  subscription OnUpdateFileRequestSubmission($owner: String) {
+    onUpdateFileRequestSubmission(owner: $owner) {
       id
-      expiration
+      fileRequestId
+      artist
+      name
+      email
+      audio
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteFileRequestSubmission = /* GraphQL */ `
+  subscription OnDeleteFileRequestSubmission($owner: String) {
+    onDeleteFileRequestSubmission(owner: $owner) {
+      id
+      fileRequestId
+      artist
+      name
+      email
+      audio
       _version
       _deleted
       _lastChangedAt
