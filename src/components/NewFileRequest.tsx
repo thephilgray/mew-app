@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Typography, Grid, Button, Paper, TextField } from '@material-ui/core'
+import { Typography, Grid, Button, Paper, TextField, Switch, FormControlLabel, FormGroup } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
 import { add } from 'date-fns/esm'
@@ -10,12 +10,13 @@ import { Editor } from '@tinymce/tinymce-react'
 import Error from './Error'
 
 const CREATE_FILE_REQUEST = gql`
-    mutation CreateFileRequest($expiration: AWSDateTime!, $title: String, $details: String) {
-        createFileRequest(input: { expiration: $expiration, title: $title, details: $details }) {
+    mutation CreateFileRequest($expiration: AWSDateTime!, $title: String, $details: String, $required: Boolean) {
+        createFileRequest(input: { expiration: $expiration, title: $title, details: $details, required: $required }) {
             id
             title
             expiration
             details
+            required
         }
     }
 `
@@ -24,12 +25,14 @@ type Inputs = {
     expiration: Date
     title: string
     details: string
+    required: boolean
 }
 
 const NewFileRequestLink: React.FC = () => {
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const [createFileRequest, { error, data }] = useMutation(CREATE_FILE_REQUEST)
     const [details, setDetails] = useState<string | null>('')
+    const [required, setRequired] = useState<boolean>(true)
     const [expiration, setExpiration] = useState<Date | null>(add(new Date(), { weeks: 1 }))
 
     useEffect(() => {
@@ -42,12 +45,18 @@ const NewFileRequestLink: React.FC = () => {
         register({ name: 'details' })
     }, [details])
 
+    useEffect(() => {
+        setValue('required', required)
+        register({ name: 'required' })
+    }, [required])
+
     const onSubmit = (inputData: Inputs) => {
         return createFileRequest({
             variables: {
                 expiration: inputData.expiration?.toISOString(),
                 title: inputData.title,
                 details: inputData.details,
+                required: inputData.required,
             },
         })
     }
@@ -81,6 +90,18 @@ const NewFileRequestLink: React.FC = () => {
                             inputRef={register({ required: true })}
                             error={!!errors.title}
                             helperText={!!errors.title && <>Title is required</>}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    checked={required}
+                                    onChange={(e) => setRequired(e.target.checked)}
+                                    name="required"
+                                />
+                            }
+                            label="Required"
                         />
                     </Grid>
                     <Grid item xs={12}>

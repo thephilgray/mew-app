@@ -1,64 +1,139 @@
 /* eslint-disable react/display-name */
-import * as React from 'react'
-import { Link, navigate } from 'gatsby'
-import { AssignmentTurnedIn } from '@material-ui/icons'
-import { Button, ButtonGroup, Typography } from '@material-ui/core'
-import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
-import { submissions } from '../../data'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'gatsby'
+import { Button, ButtonGroup, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
+import { DataGrid, Columns, SortDirection } from '@material-ui/data-grid'
+import gql from 'graphql-tag'
+import { useQuery } from '@apollo/react-hooks'
+import { format } from 'date-fns'
+import { useCopyToClipboard } from 'react-use'
+import { FileCopy } from '@material-ui/icons'
+import Error from '../Error'
 
+const SUBMISSION_BY_FILE_REQUEST_ID = gql`
+    query SubmissionByFileRequestId($fileRequestId: ID) {
+        submissionsByFileRequestId(fileRequestId: $fileRequestId) {
+            items {
+                id
+                artist
+                audio
+                email
+                createdAt
+                name
+            }
+        }
+    }
+`
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
+    const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
+    const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
+    const { loading, error, data } = useQuery(SUBMISSION_BY_FILE_REQUEST_ID, {
+        variables: { fileRequestId: assignmentId },
+        pollInterval: 10000,
+    })
+
+    useEffect(() => {
+        if (copyToClipboardState.value) {
+            setShowCopySuccessAlert(true)
+        }
+    }, [copyToClipboardState])
+
     const columns: Columns = [
         {
-            field: 'title',
-            headerName: 'Title',
-            width: 400,
+            field: 'artist',
+            headerName: 'Artist',
+            width: 170,
         },
         {
-            field: 'submitted',
+            field: 'name',
+            headerName: 'Title',
+            width: 200,
+        },
+        {
+            field: 'email',
+            headerName: 'Email',
+            width: 200,
+        },
+        {
+            field: 'createdAt',
             headerName: 'Submitted',
             type: 'date',
-            width: 130,
+            width: 160,
+            valueFormatter: ({ value = '' }) => value && format(new Date(value), 'MM/dd/yyyy H:mm'),
         },
         {
-            field: 'complete',
-            headerName: 'Complete',
-            renderCell: ({ row = { submitted: false } }) => (row.submitted ? <AssignmentTurnedIn /> : <></>),
-            width: 100,
+            field: 'audio',
+            headerName: 'Track',
+            type: 'string',
+            width: 200,
+            // eslint-disable-next-line react/display-name
+            renderCell: ({ value = '' }) => value && <a href={value}>{value.split('/').pop()}</a>,
         },
     ]
 
     const sortModel = [
         {
-            field: 'submitted',
+            field: 'createdAt',
             sort: 'desc' as SortDirection,
         },
     ]
 
+    if (loading || !data?.submissionsByFileRequestId?.items) return <>'Loading....'</>
+    if (error) return <Error errorMessage={error} />
     return (
-        <div>
-            <Typography variant="h6" component="h3">
-                Submissions
-            </Typography>
-            <div style={{ textAlign: 'right' }}>
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+                <Typography variant="h6" component="h3">
+                    Submissions
+                </Typography>
+            </Grid>
+            <Grid item xs={12} md={9}>
+                <Link to={`/app/uploads/${assignmentId}`}>
+                    {window.location.protocol}
+                    {'//'}
+                    {window.location.host}/app/uploads/{assignmentId}
+                </Link>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    open={showCopySuccessAlert}
+                    color="success"
+                    autoHideDuration={3000}
+                    message="Link to assignment copied to clipboard."
+                    onClose={() => setShowCopySuccessAlert(false)}
+                />
+                <IconButton
+                    color="secondary"
+                    aria-label="Close"
+                    component="span"
+                    onClick={() =>
+                        copyToClipboard(
+                            `${window.location.protocol}//${window.location.host}/app/uploads/${assignmentId}`,
+                        )
+                    }
+                >
+                    <FileCopy />
+                </IconButton>
+            </Grid>
+            <Grid item xs={12} md={3} style={{ textAlign: 'right' }}>
                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    <Link to={`/app/assignments/${assignmentId}/submissions/new`}>
-                        <Button>New Submission</Button>
-                    </Link>
+                    <Button variant="contained" color="primary" component={Link} to={`/app/uploads/${assignmentId}`}>
+                        New Submission
+                    </Button>
                 </ButtonGroup>
-            </div>
+            </Grid>
             <div style={{ height: 375, width: '100%' }}>
                 <DataGrid
-                    rows={submissions}
+                    rows={data.submissionsByFileRequestId.items}
                     columns={columns}
                     pageSize={5}
                     disableSelectionOnClick={true}
-                    onRowClick={(params: RowParams) =>
-                        navigate(`/app/assignments/${assignmentId}/submissions/${params.row.id}`)
-                    }
                     sortModel={sortModel}
                 />
             </div>
-        </div>
+        </Grid>
     )
 }
 

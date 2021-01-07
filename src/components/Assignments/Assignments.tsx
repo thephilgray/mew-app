@@ -1,25 +1,27 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
 import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
+import { gql, useQuery } from '@apollo/react-hooks'
 import { Check } from '@material-ui/icons'
 import { Button, createStyles, Grid, makeStyles } from '@material-ui/core'
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
 import format from 'date-fns/format'
 
-const LIST_ASSIGNMENTS = gql`
-    query ListAssignments {
-        listAssignments {
+const QUERY_FILE_REQUESTS = gql`
+    query LIST_FILE_REQUESTS {
+        listFileRequests {
             items {
-                id
                 title
-                details
-                required
-                startDate
-                endDate
+                id
+                submissions {
+                    items {
+                        id
+                    }
+                }
+                expiration
                 createdAt
+                required
             }
         }
     }
@@ -35,8 +37,12 @@ const useStyles = makeStyles(() =>
 
 const Assignments: React.FC = (): JSX.Element => {
     const classes = useStyles()
-    const { loading, error, data } = useQuery(LIST_ASSIGNMENTS)
+    const { loading, error, data, refetch } = useQuery(QUERY_FILE_REQUESTS)
     console.log({ loading, error, data })
+
+    React.useEffect(() => {
+        refetch()
+    }, [])
     const columns: Columns = [
         {
             field: 'title',
@@ -48,21 +54,19 @@ const Assignments: React.FC = (): JSX.Element => {
             headerName: 'Submissions',
             width: 120,
             type: 'number',
-            renderCell: ({ value = '', row = { members: '', id: '' } }) => (
-                <span>
-                    {value} / {row.members}
-                </span>
-            ),
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            renderCell: ({ value = { items: [] } }) => value?.items && <span>{value.items.length}</span>,
         },
         {
-            field: 'startDate',
-            headerName: 'Start',
+            field: 'createdAt',
+            headerName: 'Created',
             type: 'string',
             width: 130,
             valueFormatter: ({ value = '' }) => format(new Date(String(value)), `MM-dd-yyyy`),
         },
         {
-            field: 'endDate',
+            field: 'expiration',
             headerName: 'Due',
             type: 'string',
             width: 130,
@@ -80,7 +84,7 @@ const Assignments: React.FC = (): JSX.Element => {
 
     const sortModel = [
         {
-            field: 'endDate',
+            field: 'expiration',
             sort: 'desc' as SortDirection,
         },
     ]
@@ -95,7 +99,7 @@ const Assignments: React.FC = (): JSX.Element => {
             </Grid>
             <Grid item xs={12} className={classes.tableWrapper}>
                 <DataGrid
-                    rows={data.listAssignments.items}
+                    rows={data.listFileRequests.items}
                     columns={columns}
                     disableSelectionOnClick={true}
                     onRowClick={(params: RowParams) => navigate(`/app/assignments/${params.row.id}`)}

@@ -9,7 +9,7 @@ import {
     CircularProgress,
     LinearProgress,
 } from '@material-ui/core'
-import { API, Storage } from 'aws-amplify'
+import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
 import { CloudUpload, CheckCircle, WarningRounded } from '@material-ui/icons'
 import { useForm } from 'react-hook-form'
@@ -21,6 +21,14 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { isPast } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import awsconfig from '../../aws-exports.js'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const { aws_user_files_s3_bucket_region: region, aws_user_files_s3_bucket: bucket } = awsconfig
+
 import Error from '../Error'
 
 const GET_FILE_REQUEST = gql`
@@ -29,6 +37,23 @@ const GET_FILE_REQUEST = gql`
             expiration
             title
             details
+        }
+    }
+`
+
+const CREATE_PUBLIC_SUBMISSION = gql`
+    mutation CreateFileRequestSubmission(
+        $audio: String = ""
+        $fileRequestId: ID = ""
+        $email: String = ""
+        $artist: String = ""
+        $name: String = ""
+    ) {
+        createFileRequestSubmission(
+            input: { fileRequestId: $fileRequestId, audio: $audio, email: $email, artist: $artist, name: $name }
+        ) {
+            id
+            audio
         }
     }
 `
@@ -191,24 +216,38 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: st
         }
     }
 
-    const onSubmit = (values: Inputs) => {
-        const { name, artist, email } = values
+    const onSubmit = async (values: Inputs) => {
         setLoading(true)
+        const { name, artist, email } = values
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return Storage.put(`${assignmentId}/${email}/${artist}/${name}/${upload?.name}`, upload, {
-            contentType: 'audio/*',
-            progressCallback: setUploadProgress,
-        })
-            .then(() => {
-                setUploadSuccess(true)
+        const key = `${assignmentId}/${email}/${artist}/${name}/${upload?.name}`
+
+        try {
+            await Storage.put(key, upload, {
+                contentType: upload?.type,
+                progressCallback: setUploadProgress,
             })
-            .catch((err) => {
-                setError(err)
+
+            await API.graphql({
+                ...graphqlOperation(CREATE_PUBLIC_SUBMISSION, {
+                    fileRequestId: assignmentId,
+                    artist,
+                    name,
+                    email,
+                    audio: `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`,
+                }),
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                authMode: 'API_KEY',
             })
-            .finally(() => {
-                setLoading(false)
-            })
+
+            setUploadSuccess(true)
+        } catch (err) {
+            setError(err)
+        }
+
+        setLoading(false)
     }
 
     let content
@@ -217,6 +256,21 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: st
         content = (
             <form id="upload-form" onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={3}>
+                    {fileRequestData?.title && (
+                        <Grid item xs={12}>
+                            <Typography variant="h5" component="h2">
+                                {fileRequestData.title}
+                            </Typography>
+                        </Grid>
+                    )}
+                    {fileRequestData?.details && (
+                        <Grid item xs={12}>
+                            <div
+                                dangerouslySetInnerHTML={{ __html: fileRequestData.details }}
+                                style={{ width: '100%' }}
+                            />
+                        </Grid>
+                    )}
                     <Grid item xs={12}>
                         <input
                             type="file"
@@ -290,57 +344,43 @@ const Uploads: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: st
     if (loading && uploadProgress.loaded) {
         const progress = (uploadProgress.loaded / uploadProgress.total) * 100
         content = (
-            <>
+            <div style={{ textAlign: 'center', padding: '1rem' }}>
                 <Typography variant="h6">Upload in progress. Please be patient.</Typography>
                 <LinearProgress value={progress || 0} variant="determinate" />
-            </>
+            </div>
         )
     }
 
     if (error && !loading) {
         content = (
-            <>
+            <div style={{ textAlign: 'center' }}>
                 <Error errorMessage={error} />
-            </>
+            </div>
         )
     }
 
     if (uploadSuccess && !loading) {
         content = (
-            <>
+            <div style={{ textAlign: 'center' }}>
                 <CheckCircle fontSize="large" htmlColor={green[500]} />
                 <Typography variant="h6">Success</Typography>
-            </>
+            </div>
         )
     }
     if (!isValid && !loading) {
         content = (
-            <>
+            <div style={{ textAlign: 'center' }}>
                 <WarningRounded fontSize="large" color="error" />
                 <Typography variant="h6">That link is not valid or has expired.</Typography>
-            </>
+            </div>
         )
     }
     return (
-        <Paper style={{ padding: '1rem' }}>
-            <Grid container spacing={2}>
-                {fileRequestData?.title && (
-                    <Grid item xs={12}>
-                        <Typography variant="h5" component="h2">
-                            {fileRequestData.title}
-                        </Typography>
-                    </Grid>
-                )}
-                {fileRequestData?.details && (
-                    <Grid item xs={12}>
-                        <div dangerouslySetInnerHTML={{ __html: fileRequestData.details }} style={{ width: '100%' }} />
-                    </Grid>
-                )}
-                <Grid item xs={12} style={{ textAlign: 'center' }}>
-                    {content}
-                </Grid>
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <Paper style={{ padding: '1rem' }}>{content}</Paper>
             </Grid>
-        </Paper>
+        </Grid>
     )
 }
 
