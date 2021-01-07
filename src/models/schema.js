@@ -359,6 +359,41 @@ export const schema = {
                     "type": "AWSDateTime",
                     "isRequired": true,
                     "attributes": []
+                },
+                "title": {
+                    "name": "title",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "details": {
+                    "name": "details",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "required": {
+                    "name": "required",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "submissions": {
+                    "name": "submissions",
+                    "isArray": true,
+                    "type": {
+                        "model": "FileRequestSubmission"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "fileRequestId"
+                    }
                 }
             },
             "syncable": true,
@@ -401,7 +436,113 @@ export const schema = {
                             {
                                 "allow": "public",
                                 "operations": [
+                                    "read",
+                                    "create"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "FileRequestSubmission": {
+            "name": "FileRequestSubmission",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "fileRequestId": {
+                    "name": "fileRequestId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "artist": {
+                    "name": "artist",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "audio": {
+                    "name": "audio",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "FileRequestSubmissions",
+            "attributes": [
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "submissionsByFileRequestId",
+                        "fields": [
+                            "fileRequestId"
+                        ],
+                        "queryField": "submissionsByFileRequestId"
+                    }
+                },
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
                                     "read"
+                                ]
+                            },
+                            {
+                                "groupClaim": "cognito:groups",
+                                "provider": "userPools",
+                                "allow": "groups",
+                                "groups": [
+                                    "Admin"
+                                ],
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            },
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "read",
+                                    "create"
                                 ]
                             }
                         ]
@@ -439,5 +580,5 @@ export const schema = {
             }
         }
     },
-    "version": "aed0bb3fd059da150f8473ba6d695c87"
+    "version": "2df35c186e73a7ac0d4c281978776277"
 };

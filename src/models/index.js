@@ -4,12 +4,13 @@ import { schema } from './schema';
 
 
 
-const { Assignment, Submission, Member, FileRequest, S3Object } = initSchema(schema);
+const { Assignment, Submission, Member, FileRequest, FileRequestSubmission, S3Object } = initSchema(schema);
 
 export {
   Assignment,
   Submission,
   Member,
   FileRequest,
+  FileRequestSubmission,
   S3Object
 };
