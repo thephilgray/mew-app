@@ -5,6 +5,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import { logout, isLoggedIn } from '../../utils/auth'
+import { ROUTE_NAMES } from '../../pages/app'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -46,7 +47,7 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
 
     const handleGoToProfile = () => {
         handleClose()
-        return navigate('/app/profile')
+        return navigate(ROUTE_NAMES.profile.path)
     }
 
     return (

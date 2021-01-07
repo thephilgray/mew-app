@@ -21,6 +21,7 @@ import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { FileCopy } from '@material-ui/icons'
 import { useCopyToClipboard } from 'react-use'
+import { ROUTE_NAMES } from '../../pages/app'
 
 const CREATE_FILE_REQUEST = gql`
     mutation CreateFileRequest($expiration: AWSDateTime!, $title: String, $details: String, $required: Boolean) {
@@ -85,12 +86,7 @@ const NewPublicAssignment: React.FC = () => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
-                <AppBreadcrumbs
-                    paths={[
-                        { path: '/app', name: 'Assignments' },
-                        { path: '/app/assignments/new', name: 'New Assignment' },
-                    ]}
-                />
+                <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.newAssignment]} />
             </Grid>
             <Grid item xs={12}>
                 <Paper style={{ padding: '1rem' }}>
@@ -106,10 +102,17 @@ const NewPublicAssignment: React.FC = () => {
                             )}
                             {data?.createFileRequest?.id && (
                                 <Grid item xs={12} md={9}>
-                                    <Link to={`/app/submissions/${data.createFileRequest.id}`}>
+                                    <Link
+                                        to={ROUTE_NAMES.newPublicSubmission.getPath({
+                                            assignmentId: data.createFileRequest.id,
+                                        })}
+                                    >
                                         {window.location.protocol}
                                         {'//'}
-                                        {window.location.host}/app/submissions/{data.createFileRequest.id}
+                                        {window.location.host}
+                                        {ROUTE_NAMES.newPublicSubmission.getPath({
+                                            assignmentId: data.createFileRequest.id,
+                                        })}
                                     </Link>
                                     <Snackbar
                                         anchorOrigin={{
@@ -128,7 +131,11 @@ const NewPublicAssignment: React.FC = () => {
                                         component="span"
                                         onClick={() =>
                                             copyToClipboard(
-                                                `${window.location.protocol}//${window.location.host}/app/submissions/${data.createFileRequest.id}`,
+                                                `${window.location.protocol}//${
+                                                    window.location.host
+                                                }${ROUTE_NAMES.newPublicSubmission.getPath({
+                                                    assignmentId: data.createFileRequest.id,
+                                                })}`,
                                             )
                                         }
                                     >

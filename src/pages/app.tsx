@@ -12,16 +12,41 @@ import NotFound from '../components/NotFound'
 import Submissions from '../components/Submissions/Submissions'
 import Assignments from '../components/Assignments/Assignments'
 
+export const ROUTE_NAMES = {
+    home: {
+        path: '/app',
+        name: 'Home',
+    },
+    assignment: {
+        path: '/app/assignments/:assignmentId',
+        getPath: ({ assignmentId = '' }): string => `/app/assignments/${assignmentId}`,
+        name: 'Assignment',
+    },
+    newAssignment: {
+        path: '/app/assignments/new',
+        name: 'New Assignment',
+    },
+    profile: {
+        path: '/app/profile',
+        name: 'Profile',
+    },
+    newPublicSubmission: {
+        path: '/app/submissions/:assignmentId',
+        getPath: ({ assignmentId = '' }): string => `/app/submissions/${assignmentId}`,
+        name: 'New Submission',
+    },
+}
+
 const App: React.FC = (): JSX.Element => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Layout>
             <Router>
                 <NotFound default />
-                <PrivateRoute path="/app" component={Assignments} />
-                <PrivateRoute path="/app/assignments/new" component={NewPublicAssignment} />
-                <PrivateRoute path="/app/assignments/:assignmentId" component={Submissions} />
-                <PrivateRoute path="/app/profile" component={Profile} />
-                <NewPublicSubmission path="/app/submissions/:assignmentId" />
+                <PrivateRoute path={ROUTE_NAMES.home.path} component={Assignments} />
+                <PrivateRoute path={ROUTE_NAMES.newAssignment.path} component={NewPublicAssignment} />
+                <PrivateRoute path={ROUTE_NAMES.assignment.path} component={Submissions} />
+                <PrivateRoute path={ROUTE_NAMES.profile.path} component={Profile} />
+                <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmission.path} />
             </Router>
         </Layout>
     </MuiPickersUtilsProvider>

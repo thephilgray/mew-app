@@ -10,6 +10,7 @@ import { useCopyToClipboard } from 'react-use'
 import { FileCopy } from '@material-ui/icons'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
+import { ROUTE_NAMES } from '../../pages/app'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -93,12 +94,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
-                <AppBreadcrumbs
-                    paths={[
-                        { path: '/app', name: 'Assignments' },
-                        { path: '/app/assignments', name: 'Submissions' },
-                    ]}
-                />
+                <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignment]} />
             </Grid>
             <Grid item xs={12}>
                 <Typography variant="h6" component="h3">
@@ -107,10 +103,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 </Typography>
             </Grid>
             <Grid item xs={12} md={9}>
-                <Link to={`/app/submissions/${assignmentId}`}>
+                <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
                     {window.location.protocol}
                     {'//'}
-                    {window.location.host}/app/submissions/{assignmentId}
+                    {window.location.host}
+                    {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
                 </Link>
                 <Snackbar
                     anchorOrigin={{
@@ -129,7 +126,9 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     component="span"
                     onClick={() =>
                         copyToClipboard(
-                            `${window.location.protocol}//${window.location.host}/app/submissions/${assignmentId}`,
+                            `${window.location.protocol}//${
+                                window.location.host
+                            }${ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}`,
                         )
                     }
                 >
@@ -142,7 +141,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         variant="contained"
                         color="primary"
                         component={Link}
-                        to={`/app/submissions/${assignmentId}`}
+                        to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
                     >
                         New Submission
                     </Button>
