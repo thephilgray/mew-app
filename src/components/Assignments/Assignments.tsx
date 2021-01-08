@@ -9,6 +9,7 @@ import Error from '../Error'
 import format from 'date-fns/format'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
+import { isPast } from 'date-fns/esm'
 
 const QUERY_FILE_REQUESTS = gql`
     query LIST_FILE_REQUESTS {
@@ -48,7 +49,7 @@ const Assignments: React.FC = (): JSX.Element => {
         {
             field: 'title',
             headerName: 'Assignment',
-            width: 400,
+            width: 320,
         },
         {
             field: 'submissions',
@@ -70,8 +71,8 @@ const Assignments: React.FC = (): JSX.Element => {
             field: 'expiration',
             headerName: 'Due',
             type: 'string',
-            width: 130,
-            valueFormatter: ({ value = '' }) => format(new Date(String(value)), `MM-dd-yyyy`),
+            width: 150,
+            valueFormatter: ({ value = '' }) => format(new Date(String(value)), `MM-dd-yyyy hh:mm`),
         },
         {
             field: 'required',
@@ -79,6 +80,15 @@ const Assignments: React.FC = (): JSX.Element => {
             type: 'boolean',
             // eslint-disable-next-line react/display-name
             renderCell: ({ value = '' }) => (value ? <Check /> : <></>),
+            width: 100,
+        },
+        {
+            field: 'expiration',
+            headerName: 'Status',
+            type: 'string',
+            // eslint-disable-next-line react/display-name
+            renderCell: ({ value = '' }) =>
+                value && Boolean(!isPast(new Date(value as string))) ? 'ACTIVE' : 'EXPIRED',
             width: 100,
         },
     ]
