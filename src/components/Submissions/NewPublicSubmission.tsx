@@ -210,8 +210,8 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
             return
         }
         const file = files[0]
-        if (ACCEPTED_FILETYPES.includes(file.type)) {
-            files?.length && setUpload(files[0])
+        if (ACCEPTED_FILETYPES.includes(file.type) && files?.length) {
+            setUpload(files[0])
             setUploadAreaMessage(file.name)
         } else {
             setUploadAreaMessage(`File must be of type: ${ACCEPTED_FILETYPES.join(', ')}`)
@@ -220,12 +220,14 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
 
     const onSubmit = async (values: Inputs) => {
         setLoading(true)
-        // TODO: replace spaces and unacceptable characters with '_'; replace '_' with spaces when zipping for download
+        // encode spaces and unacceptable characters
         // see: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
         const { name, artist, email } = values
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const key = `${assignmentId}/${email}/${artist}/${name}/${upload?.name}`
+        const keyValues = [assignmentId, email, artist, name, upload?.name]
+
+        const key = keyValues.map(encodeURIComponent).join('/')
 
         try {
             await Storage.put(key, upload, {
@@ -293,8 +295,10 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                                 </IconButton>
                                 {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                 // @ts-ignore */}
-                                {!!errors.upload && <Typography color="error">Upload is required!</Typography>}
-                                {uploadAreaMessage}
+                                {!!errors.upload && !upload && (
+                                    <Typography color="error">Upload is required!</Typography>
+                                )}
+                                <Typography>{uploadAreaMessage}</Typography>
                             </FileDrop>
                         </StyledFileDropWrapper>
                     </Grid>
