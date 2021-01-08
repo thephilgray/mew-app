@@ -107,9 +107,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                         data.getFileRequest.title
                                     ) : (
                                         <>
-                                            {window.location.protocol}
-                                            {'//'}
-                                            {window.location.host}
+                                            {window.origin}
                                             {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
                                         </>
                                     )}
@@ -132,9 +130,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                 component="span"
                                 onClick={() =>
                                     copyToClipboard(
-                                        `${window.location.protocol}//${
-                                            window.location.host
-                                        }${ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}`,
+                                        `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}`,
                                     )
                                 }
                             >
