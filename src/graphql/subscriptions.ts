@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateFileRequest = /* GraphQL */ `
-  subscription OnCreateFileRequest($owner: String) {
-    onCreateFileRequest(owner: $owner) {
+  subscription OnCreateFileRequest {
+    onCreateFileRequest {
       id
       expiration
       title
@@ -15,7 +15,6 @@ export const onCreateFileRequest = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       submissions {
         items {
           id
@@ -38,8 +37,8 @@ export const onCreateFileRequest = /* GraphQL */ `
   }
 `;
 export const onUpdateFileRequest = /* GraphQL */ `
-  subscription OnUpdateFileRequest($owner: String) {
-    onUpdateFileRequest(owner: $owner) {
+  subscription OnUpdateFileRequest {
+    onUpdateFileRequest {
       id
       expiration
       title
@@ -50,7 +49,6 @@ export const onUpdateFileRequest = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       submissions {
         items {
           id
@@ -73,8 +71,8 @@ export const onUpdateFileRequest = /* GraphQL */ `
   }
 `;
 export const onDeleteFileRequest = /* GraphQL */ `
-  subscription OnDeleteFileRequest($owner: String) {
-    onDeleteFileRequest(owner: $owner) {
+  subscription OnDeleteFileRequest {
+    onDeleteFileRequest {
       id
       expiration
       title
@@ -85,7 +83,6 @@ export const onDeleteFileRequest = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       submissions {
         items {
           id
@@ -132,7 +129,6 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         submissions {
           nextToken
           startedAt
@@ -167,7 +163,6 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         submissions {
           nextToken
           startedAt
@@ -202,7 +197,6 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         submissions {
           nextToken
           startedAt

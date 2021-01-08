@@ -181,7 +181,6 @@ export type CreateFileRequestMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    owner: string | null,
     submissions:  {
       __typename: "ModelFileRequestSubmissionConnection",
       items:  Array< {
@@ -223,7 +222,6 @@ export type UpdateFileRequestMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    owner: string | null,
     submissions:  {
       __typename: "ModelFileRequestSubmissionConnection",
       items:  Array< {
@@ -265,7 +263,6 @@ export type DeleteFileRequestMutation = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    owner: string | null,
     submissions:  {
       __typename: "ModelFileRequestSubmissionConnection",
       items:  Array< {
@@ -320,7 +317,6 @@ export type CreateFileRequestSubmissionMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      owner: string | null,
       submissions:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken: string | null,
@@ -362,7 +358,6 @@ export type UpdateFileRequestSubmissionMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      owner: string | null,
       submissions:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken: string | null,
@@ -404,7 +399,6 @@ export type DeleteFileRequestSubmissionMutation = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      owner: string | null,
       submissions:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken: string | null,
@@ -436,7 +430,6 @@ export type ListFileRequestsQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      owner: string | null,
       submissions:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken: string | null,
@@ -465,7 +458,6 @@ export type GetFileRequestQuery = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    owner: string | null,
     submissions:  {
       __typename: "ModelFileRequestSubmissionConnection",
       items:  Array< {
@@ -511,7 +503,6 @@ export type SyncFileRequestsQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      owner: string | null,
       submissions:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken: string | null,
@@ -553,7 +544,6 @@ export type GetFileRequestSubmissionQuery = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      owner: string | null,
       submissions:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken: string | null,
@@ -598,7 +588,6 @@ export type ListFileRequestSubmissionsQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
       owner: string | null,
     } | null > | null,
@@ -643,7 +632,6 @@ export type SubmissionsByFileRequestIdQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
       owner: string | null,
     } | null > | null,
@@ -687,17 +675,12 @@ export type SyncFileRequestSubmissionsQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
       owner: string | null,
     } | null > | null,
     nextToken: string | null,
     startedAt: number | null,
   } | null,
-};
-
-export type OnCreateFileRequestSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnCreateFileRequestSubscription = {
@@ -713,7 +696,6 @@ export type OnCreateFileRequestSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    owner: string | null,
     submissions:  {
       __typename: "ModelFileRequestSubmissionConnection",
       items:  Array< {
@@ -735,10 +717,6 @@ export type OnCreateFileRequestSubscription = {
       startedAt: number | null,
     } | null,
   } | null,
-};
-
-export type OnUpdateFileRequestSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnUpdateFileRequestSubscription = {
@@ -754,7 +732,6 @@ export type OnUpdateFileRequestSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    owner: string | null,
     submissions:  {
       __typename: "ModelFileRequestSubmissionConnection",
       items:  Array< {
@@ -778,10 +755,6 @@ export type OnUpdateFileRequestSubscription = {
   } | null,
 };
 
-export type OnDeleteFileRequestSubscriptionVariables = {
-  owner?: string | null,
-};
-
 export type OnDeleteFileRequestSubscription = {
   onDeleteFileRequest:  {
     __typename: "FileRequest",
@@ -795,7 +768,6 @@ export type OnDeleteFileRequestSubscription = {
     _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-    owner: string | null,
     submissions:  {
       __typename: "ModelFileRequestSubmissionConnection",
       items:  Array< {
@@ -849,7 +821,6 @@ export type OnCreateFileRequestSubmissionSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      owner: string | null,
       submissions:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken: string | null,
@@ -890,7 +861,6 @@ export type OnUpdateFileRequestSubmissionSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      owner: string | null,
       submissions:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken: string | null,
@@ -931,7 +901,6 @@ export type OnDeleteFileRequestSubmissionSubscription = {
       _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
-      owner: string | null,
       submissions:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken: string | null,

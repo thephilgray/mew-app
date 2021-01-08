@@ -20,7 +20,6 @@ export const listFileRequests = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         submissions {
           nextToken
           startedAt
@@ -44,7 +43,6 @@ export const getFileRequest = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       submissions {
         items {
           id
@@ -90,7 +88,6 @@ export const syncFileRequests = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         submissions {
           nextToken
           startedAt
@@ -126,7 +123,6 @@ export const getFileRequestSubmission = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         submissions {
           nextToken
           startedAt
@@ -170,7 +166,6 @@ export const listFileRequestSubmissions = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         owner
       }
@@ -217,7 +212,6 @@ export const submissionsByFileRequestId = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         owner
       }
@@ -262,7 +256,6 @@ export const syncFileRequestSubmissions = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-          owner
         }
         owner
       }

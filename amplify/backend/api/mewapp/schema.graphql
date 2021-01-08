@@ -2,11 +2,9 @@ type FileRequest
     @model
     @auth(
         rules: [
-            # The owner is allowed to do everything
-            { allow: owner }
             { allow: groups, groups: ["Admin"] }
             # The public is only allowed to read posts
-            { allow: public, operations: [read, create] }
+            { allow: public, operations: [read] }
         ]
     ) {
     id: ID!
@@ -25,7 +23,7 @@ type FileRequestSubmission
         rules: [
             { allow: owner }
             { allow: groups, groups: ["Admin"] }
-            { allow: public, operations: [read, create] }
+            { allow: public, operations: [create] }
         ]
     ) {
         id: ID!

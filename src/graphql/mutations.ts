@@ -18,7 +18,6 @@ export const createFileRequest = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       submissions {
         items {
           id
@@ -56,7 +55,6 @@ export const updateFileRequest = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       submissions {
         items {
           id
@@ -94,7 +92,6 @@ export const deleteFileRequest = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       submissions {
         items {
           id
@@ -144,7 +141,6 @@ export const createFileRequestSubmission = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         submissions {
           nextToken
           startedAt
@@ -182,7 +178,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         submissions {
           nextToken
           startedAt
@@ -220,7 +215,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        owner
         submissions {
           nextToken
           startedAt
