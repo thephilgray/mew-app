@@ -77,8 +77,8 @@ const NewPublicAssignment: React.FC = () => {
             variables: {
                 expiration: inputData.expiration?.toISOString(),
                 title: inputData.title,
-                details: inputData.details,
-                required: inputData.required,
+                details: details,
+                required: required,
             },
         })
     }
