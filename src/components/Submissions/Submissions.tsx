@@ -78,7 +78,10 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             width: 200,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
-            renderCell: ({ value = '' }: ColDef) => value && <a href={value}>{value.split('/').pop()}</a>,
+            renderCell: ({ value = '' }: ColDef) => {
+                const filename = decodeURIComponent(value.split('/').slice(-1))
+                return filename
+            },
         },
     ]
 
@@ -152,11 +155,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     </Grid>
                 </Grid>
             </Grid>
-            <div style={{ height: 375, width: '100%' }}>
+            <div style={{ height: 500, width: '100%' }}>
                 <DataGrid
                     rows={data.getFileRequest.submissions.items}
                     columns={columns}
-                    pageSize={5}
+                    autoHeight
+                    autoPageSize
                     disableSelectionOnClick={true}
                     sortModel={sortModel}
                 />
