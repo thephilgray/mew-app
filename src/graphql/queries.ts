@@ -220,6 +220,52 @@ export const submissionsByFileRequestId = /* GraphQL */ `
     }
   }
 `;
+export const submissionsByEmail = /* GraphQL */ `
+  query SubmissionsByEmail(
+    $email: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelFileRequestSubmissionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    submissionsByEmail(
+      email: $email
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        audio
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        fileRequest {
+          id
+          expiration
+          title
+          details
+          required
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const syncFileRequestSubmissions = /* GraphQL */ `
   query SyncFileRequestSubmissions(
     $filter: ModelFileRequestSubmissionFilterInput
@@ -256,6 +302,104 @@ export const syncFileRequestSubmissions = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
+        }
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getMember = /* GraphQL */ `
+  query GetMember($email: String!) {
+    getMember(email: $email) {
+      email
+      artist
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;
+export const listMembers = /* GraphQL */ `
+  query ListMembers(
+    $email: String
+    $filter: ModelMemberFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listMembers(
+      email: $email
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        email
+        artist
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        submissions {
+          nextToken
+          startedAt
+        }
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncMembers = /* GraphQL */ `
+  query SyncMembers(
+    $filter: ModelMemberFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncMembers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        email
+        artist
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        submissions {
+          nextToken
+          startedAt
         }
         owner
       }

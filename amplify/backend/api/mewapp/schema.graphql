@@ -18,6 +18,7 @@ type FileRequest
 
 type FileRequestSubmission
     @key(name: "submissionsByFileRequestId", fields: ["fileRequestId"], queryField: "submissionsByFileRequestId")
+    @key(name: "submissionsByEmail", fields: ["email"], queryField: "submissionsByEmail")
     @model 
     @auth(
         rules: [
@@ -35,6 +36,23 @@ type FileRequestSubmission
         audio: String
 }
 
+type Member
+    @model
+    @key(fields: ["email"])
+    @auth(
+        rules: [
+            { allow: owner }
+            { allow: groups, groups: ["Admin"] }
+            { allow: public, operations: [create] }
+        ]
+    )
+{
+    email: String!
+    artist: String
+    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByEmail", fields: ["email"])  
+
+}
+
 type Mutation {
-      processDownload(assignmentId: ID!): String @function(name: "zipmewsubmissions-${env}")
+      processDownload(assignmentId: ID!): String @function(name: "zipmewsubmissions-${env}") 
 }

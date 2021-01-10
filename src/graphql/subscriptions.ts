@@ -206,3 +206,99 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
     }
   }
 `;
+export const onCreateMember = /* GraphQL */ `
+  subscription OnCreateMember($owner: String) {
+    onCreateMember(owner: $owner) {
+      email
+      artist
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;
+export const onUpdateMember = /* GraphQL */ `
+  subscription OnUpdateMember($owner: String) {
+    onUpdateMember(owner: $owner) {
+      email
+      artist
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;
+export const onDeleteMember = /* GraphQL */ `
+  subscription OnDeleteMember($owner: String) {
+    onDeleteMember(owner: $owner) {
+      email
+      artist
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;

@@ -134,6 +134,30 @@ export type DeleteFileRequestSubmissionInput = {
   _version?: number | null,
 };
 
+export type CreateMemberInput = {
+  email: string,
+  artist?: string | null,
+  _version?: number | null,
+};
+
+export type ModelMemberConditionInput = {
+  artist?: ModelStringInput | null,
+  and?: Array< ModelMemberConditionInput | null > | null,
+  or?: Array< ModelMemberConditionInput | null > | null,
+  not?: ModelMemberConditionInput | null,
+};
+
+export type UpdateMemberInput = {
+  email: string,
+  artist?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteMemberInput = {
+  email: string,
+  _version?: number | null,
+};
+
 export type ModelFileRequestFilterInput = {
   id?: ModelIDInput | null,
   expiration?: ModelStringInput | null,
@@ -162,6 +186,14 @@ export enum ModelSortDirection {
   DESC = "DESC",
 }
 
+
+export type ModelMemberFilterInput = {
+  email?: ModelStringInput | null,
+  artist?: ModelStringInput | null,
+  and?: Array< ModelMemberFilterInput | null > | null,
+  or?: Array< ModelMemberFilterInput | null > | null,
+  not?: ModelMemberFilterInput | null,
+};
 
 export type ProcessDownloadMutationVariables = {
   assignmentId: string,
@@ -417,6 +449,123 @@ export type DeleteFileRequestSubmissionMutation = {
   } | null,
 };
 
+export type CreateMemberMutationVariables = {
+  input: CreateMemberInput,
+  condition?: ModelMemberConditionInput | null,
+};
+
+export type CreateMemberMutation = {
+  createMember:  {
+    __typename: "Member",
+    email: string,
+    artist: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type UpdateMemberMutationVariables = {
+  input: UpdateMemberInput,
+  condition?: ModelMemberConditionInput | null,
+};
+
+export type UpdateMemberMutation = {
+  updateMember:  {
+    __typename: "Member",
+    email: string,
+    artist: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type DeleteMemberMutationVariables = {
+  input: DeleteMemberInput,
+  condition?: ModelMemberConditionInput | null,
+};
+
+export type DeleteMemberMutation = {
+  deleteMember:  {
+    __typename: "Member",
+    email: string,
+    artist: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
 export type ListFileRequestsQueryVariables = {
   filter?: ModelFileRequestFilterInput | null,
   limit?: number | null,
@@ -648,6 +797,50 @@ export type SubmissionsByFileRequestIdQuery = {
   } | null,
 };
 
+export type SubmissionsByEmailQueryVariables = {
+  email?: string | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFileRequestSubmissionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type SubmissionsByEmailQuery = {
+  submissionsByEmail:  {
+    __typename: "ModelFileRequestSubmissionConnection",
+    items:  Array< {
+      __typename: "FileRequestSubmission",
+      id: string,
+      fileRequestId: string,
+      artist: string | null,
+      name: string | null,
+      email: string | null,
+      audio: string | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      fileRequest:  {
+        __typename: "FileRequest",
+        id: string,
+        expiration: string,
+        title: string | null,
+        details: string | null,
+        required: boolean | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
 export type SyncFileRequestSubmissionsQueryVariables = {
   filter?: ModelFileRequestSubmissionFilterInput | null,
   limit?: number | null,
@@ -683,6 +876,107 @@ export type SyncFileRequestSubmissionsQuery = {
         _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+      } | null,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type GetMemberQueryVariables = {
+  email: string,
+};
+
+export type GetMemberQuery = {
+  getMember:  {
+    __typename: "Member",
+    email: string,
+    artist: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type ListMembersQueryVariables = {
+  email?: string | null,
+  filter?: ModelMemberFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListMembersQuery = {
+  listMembers:  {
+    __typename: "ModelMemberConnection",
+    items:  Array< {
+      __typename: "Member",
+      email: string,
+      artist: string | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      submissions:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken: string | null,
+        startedAt: number | null,
+      } | null,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type SyncMembersQueryVariables = {
+  filter?: ModelMemberFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncMembersQuery = {
+  syncMembers:  {
+    __typename: "ModelMemberConnection",
+    items:  Array< {
+      __typename: "Member",
+      email: string,
+      artist: string | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      submissions:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken: string | null,
+        startedAt: number | null,
       } | null,
       owner: string | null,
     } | null > | null,
@@ -914,6 +1208,120 @@ export type OnDeleteFileRequestSubmissionSubscription = {
         nextToken: string | null,
         startedAt: number | null,
       } | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type OnCreateMemberSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateMemberSubscription = {
+  onCreateMember:  {
+    __typename: "Member",
+    email: string,
+    artist: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type OnUpdateMemberSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateMemberSubscription = {
+  onUpdateMember:  {
+    __typename: "Member",
+    email: string,
+    artist: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type OnDeleteMemberSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteMemberSubscription = {
+  onDeleteMember:  {
+    __typename: "Member",
+    email: string,
+    artist: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+    submissions:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist: string | null,
+        name: string | null,
+        email: string | null,
+        audio: string | null,
+        _version: number,
+        _deleted: boolean | null,
+        _lastChangedAt: number,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+      startedAt: number | null,
     } | null,
     owner: string | null,
   } | null,

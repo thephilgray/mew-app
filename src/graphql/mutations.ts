@@ -229,3 +229,108 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
     }
   }
 `;
+export const createMember = /* GraphQL */ `
+  mutation CreateMember(
+    $input: CreateMemberInput!
+    $condition: ModelMemberConditionInput
+  ) {
+    createMember(input: $input, condition: $condition) {
+      email
+      artist
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;
+export const updateMember = /* GraphQL */ `
+  mutation UpdateMember(
+    $input: UpdateMemberInput!
+    $condition: ModelMemberConditionInput
+  ) {
+    updateMember(input: $input, condition: $condition) {
+      email
+      artist
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;
+export const deleteMember = /* GraphQL */ `
+  mutation DeleteMember(
+    $input: DeleteMemberInput!
+    $condition: ModelMemberConditionInput
+  ) {
+    deleteMember(input: $input, condition: $condition) {
+      email
+      artist
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          audio
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;
