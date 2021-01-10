@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "storage": {
+      "mewapp": [
+        "create",
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

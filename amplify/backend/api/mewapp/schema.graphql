@@ -34,3 +34,7 @@ type FileRequestSubmission
         email: String
         audio: String
 }
+
+type Mutation {
+      processDownload(assignmentId: ID!): String @function(name: "zipmewsubmissions-${env}")
+}

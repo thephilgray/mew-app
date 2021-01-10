@@ -2,6 +2,11 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const processDownload = /* GraphQL */ `
+  mutation ProcessDownload($assignmentId: ID!) {
+    processDownload(assignmentId: $assignmentId)
+  }
+`;
 export const createFileRequest = /* GraphQL */ `
   mutation CreateFileRequest(
     $input: CreateFileRequestInput!

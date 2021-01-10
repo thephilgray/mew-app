@@ -163,6 +163,14 @@ export enum ModelSortDirection {
 }
 
 
+export type ProcessDownloadMutationVariables = {
+  assignmentId: string,
+};
+
+export type ProcessDownloadMutation = {
+  processDownload: string | null,
+};
+
 export type CreateFileRequestMutationVariables = {
   input: CreateFileRequestInput,
   condition?: ModelFileRequestConditionInput | null,

@@ -41,5 +41,20 @@
       }
     }
   },
-  "function": {}
+  "function": {
+    "zipmewsubmissions": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "mewapp",
+          "attributes": [
+            "BucketName"
+          ]
+        }
+      ]
+    }
+  }
 }
