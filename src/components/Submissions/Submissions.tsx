@@ -11,6 +11,7 @@ import { FileCopy } from '@material-ui/icons'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
+import { API, Storage, graphqlOperation } from 'aws-amplify'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -32,9 +33,16 @@ const GET_FILE_REQUEST = gql`
         }
     }
 `
+const PROCESS_DOWNLOAD = gql`
+    mutation ProcessDownload($assignmentId: ID!) {
+        processDownload(assignmentId: $assignmentId)
+    }
+`
+
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
     const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
+    const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
     const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
         pollInterval: 10000,
@@ -45,6 +53,41 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             setShowCopySuccessAlert(true)
         }
     }, [copyToClipboardState])
+
+    const downloadBlob = (blob: Blob, filename: string) => {
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = filename || 'download'
+        const clickHandler = () => {
+            setTimeout(() => {
+                URL.revokeObjectURL(url)
+                a.removeEventListener('click', clickHandler)
+            }, 150)
+        }
+        a.addEventListener('click', clickHandler, false)
+        a.click()
+        return a
+    }
+
+    const onDownloadAll = async () => {
+        setDownloadLoading(true)
+        try {
+            await API.graphql({
+                ...graphqlOperation(PROCESS_DOWNLOAD, {
+                    assignmentId,
+                }),
+            })
+            const submissionsZip = await Storage.get(`downloads/${assignmentId}.zip`, { download: true })
+            const filename = data?.getFileRequest?.title ? data.getFileRequest.title : assignmentId
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            downloadBlob(submissionsZip.Body, `${filename}.zip`)
+        } catch (error) {
+            console.error(error)
+        }
+        setDownloadLoading(false)
+    }
 
     const columns: Columns = [
         {
@@ -101,7 +144,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             </Grid>
             <Grid item xs={12}>
                 <Grid container>
-                    <Grid item xs={12} md={9}>
+                    <Grid item xs={12} md={12}>
                         <Typography variant="h6" component="h3">
                             Submissions for{' '}
                             <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
@@ -141,8 +184,20 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             </IconButton>
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} md={3} style={{ textAlign: 'right' }}>
-                        <ButtonGroup color="primary" aria-label="outlined primary button group">
+                    <Grid item xs={12} md={12} style={{ textAlign: 'right' }}>
+                        <ButtonGroup color="primary" aria-label="contained primary button group">
+                            {data.getFileRequest.submissions.items.length && (
+                                <Button variant="outlined" color="primary" onClick={onDownloadAll}>
+                                    {downloadLoading ? (
+                                        <>
+                                            Downloading...
+                                            <CircularProgress size={20} />
+                                        </>
+                                    ) : (
+                                        'Download All'
+                                    )}
+                                </Button>
+                            )}
                             <Button
                                 variant="contained"
                                 color="primary"
