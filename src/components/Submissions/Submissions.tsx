@@ -7,7 +7,7 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
-import { FileCopy } from '@material-ui/icons'
+import { CloudDownload, FileCopy, Add } from '@material-ui/icons'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
@@ -194,7 +194,10 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                             <CircularProgress size={20} />
                                         </>
                                     ) : (
-                                        'Download All'
+                                        <>
+                                            <CloudDownload style={{ marginRight: '.25em' }} />
+                                            Download All
+                                        </>
                                     )}
                                 </Button>
                             )}
@@ -204,6 +207,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                 component={Link}
                                 to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
                             >
+                                <Add />
                                 New Submission
                             </Button>
                         </ButtonGroup>
