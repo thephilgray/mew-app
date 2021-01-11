@@ -1,11 +1,11 @@
 {
-    "AppSyncApiName": "mewapp",
-    "DynamoDBBillingMode": "PAY_PER_REQUEST",
-    "DynamoDBEnableServerSideEncryption": false,
-    "AuthCognitoUserPoolId": {
-        "Fn::GetAtt": [
-            "authmewappacdc5d0e",
-            "Outputs.UserPoolId"
-        ]
-    }
+  "AppSyncApiName": "mewapp",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authmewappacdc5d0e",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

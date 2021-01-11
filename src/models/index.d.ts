@@ -25,3 +25,13 @@ export declare class FileRequestSubmission {
   constructor(init: ModelInit<FileRequestSubmission>);
   static copyOf(source: FileRequestSubmission, mutator: (draft: MutableModel<FileRequestSubmission>) => MutableModel<FileRequestSubmission> | void): FileRequestSubmission;
 }
+
+export declare class Member {
+  readonly id: string;
+  readonly email: string;
+  readonly artist?: string;
+  readonly submissions?: (FileRequestSubmission | null)[];
+  readonly status?: string;
+  constructor(init: ModelInit<Member>);
+  static copyOf(source: Member, mutator: (draft: MutableModel<Member>) => MutableModel<Member> | void): Member;
+}
