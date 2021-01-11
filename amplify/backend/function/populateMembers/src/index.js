@@ -24,11 +24,18 @@ const listSubmissions = gql`
     }
 `
 
+// export enum MemberStatus {
+//     ENROLLED
+//     UNENROLLED
+//     PENDING
+// }
+
 const createMember = gql`
-    mutation CreateMember($email: String!, $artist: String) {
-        createMember(input: { email: $email, artist: $artist }) {
+    mutation CreateMember($email: String!, $artist: String, $status: String) {
+        createMember(input: { email: $email, artist: $artist, status: $status }) {
             email
             artist
+            status
         }
     }
 `
@@ -59,6 +66,7 @@ exports.handler = async (event) => {
                     variables: {
                         email,
                         artist,
+                        status: 'ENROLLED',
                     },
                 },
             })
@@ -66,6 +74,7 @@ exports.handler = async (event) => {
         const promises = _.uniqBy(items, 'email').map(createMembers)
         const data = await Promise.all(promises)
 
+        return data.map((d) => d.data.errors)
         return data.map((d) => d.data.data.email)
     } catch (error) {
         console.error(error)

@@ -36,11 +36,7 @@ type FileRequestSubmission
         audio: String
 }
 
-enum MemberStatus {
-    ENROLLED
-    UNENROLLED
-    PENDING
-}
+
 
 type Member
     @model
@@ -56,7 +52,7 @@ type Member
     email: String!
     artist: String
     submissions: [FileRequestSubmission] @connection(keyName: "submissionsByEmail", fields: ["email"])
-    status: MemberStatus
+    status: String
 
 }
 

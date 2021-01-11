@@ -137,34 +137,22 @@ export type DeleteFileRequestSubmissionInput = {
 export type CreateMemberInput = {
   email: string,
   artist?: string | null,
-  status?: MemberStatus | null,
+  status?: string | null,
   _version?: number | null,
 };
 
-export enum MemberStatus {
-  ENROLLED = "ENROLLED",
-  UNENROLLED = "UNENROLLED",
-  PENDING = "PENDING",
-}
-
-
 export type ModelMemberConditionInput = {
   artist?: ModelStringInput | null,
-  status?: ModelMemberStatusInput | null,
+  status?: ModelStringInput | null,
   and?: Array< ModelMemberConditionInput | null > | null,
   or?: Array< ModelMemberConditionInput | null > | null,
   not?: ModelMemberConditionInput | null,
 };
 
-export type ModelMemberStatusInput = {
-  eq?: MemberStatus | null,
-  ne?: MemberStatus | null,
-};
-
 export type UpdateMemberInput = {
   email: string,
   artist?: string | null,
-  status?: MemberStatus | null,
+  status?: string | null,
   _version?: number | null,
 };
 
@@ -205,7 +193,7 @@ export enum ModelSortDirection {
 export type ModelMemberFilterInput = {
   email?: ModelStringInput | null,
   artist?: ModelStringInput | null,
-  status?: ModelMemberStatusInput | null,
+  status?: ModelStringInput | null,
   and?: Array< ModelMemberFilterInput | null > | null,
   or?: Array< ModelMemberFilterInput | null > | null,
   not?: ModelMemberFilterInput | null,
@@ -479,7 +467,7 @@ export type CreateMemberMutation = {
     __typename: "Member",
     email: string,
     artist: string | null,
-    status: MemberStatus | null,
+    status: string | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
@@ -519,7 +507,7 @@ export type UpdateMemberMutation = {
     __typename: "Member",
     email: string,
     artist: string | null,
-    status: MemberStatus | null,
+    status: string | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
@@ -559,7 +547,7 @@ export type DeleteMemberMutation = {
     __typename: "Member",
     email: string,
     artist: string | null,
-    status: MemberStatus | null,
+    status: string | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
@@ -916,7 +904,7 @@ export type GetMemberQuery = {
     __typename: "Member",
     email: string,
     artist: string | null,
-    status: MemberStatus | null,
+    status: string | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
@@ -961,7 +949,7 @@ export type ListMembersQuery = {
       __typename: "Member",
       email: string,
       artist: string | null,
-      status: MemberStatus | null,
+      status: string | null,
       _version: number,
       _deleted: boolean | null,
       _lastChangedAt: number,
@@ -993,7 +981,7 @@ export type SyncMembersQuery = {
       __typename: "Member",
       email: string,
       artist: string | null,
-      status: MemberStatus | null,
+      status: string | null,
       _version: number,
       _deleted: boolean | null,
       _lastChangedAt: number,
@@ -1248,7 +1236,7 @@ export type OnCreateMemberSubscription = {
     __typename: "Member",
     email: string,
     artist: string | null,
-    status: MemberStatus | null,
+    status: string | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
@@ -1287,7 +1275,7 @@ export type OnUpdateMemberSubscription = {
     __typename: "Member",
     email: string,
     artist: string | null,
-    status: MemberStatus | null,
+    status: string | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
@@ -1326,7 +1314,7 @@ export type OnDeleteMemberSubscription = {
     __typename: "Member",
     email: string,
     artist: string | null,
-    status: MemberStatus | null,
+    status: string | null,
     _version: number,
     _deleted: boolean | null,
     _lastChangedAt: number,
