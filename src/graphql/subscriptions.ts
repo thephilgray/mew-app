@@ -211,6 +211,7 @@ export const onCreateMember = /* GraphQL */ `
     onCreateMember(owner: $owner) {
       email
       artist
+      status
       _version
       _deleted
       _lastChangedAt
@@ -243,6 +244,7 @@ export const onUpdateMember = /* GraphQL */ `
     onUpdateMember(owner: $owner) {
       email
       artist
+      status
       _version
       _deleted
       _lastChangedAt
@@ -275,6 +277,7 @@ export const onDeleteMember = /* GraphQL */ `
     onDeleteMember(owner: $owner) {
       email
       artist
+      status
       _version
       _deleted
       _lastChangedAt

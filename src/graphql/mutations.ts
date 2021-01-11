@@ -7,6 +7,11 @@ export const processDownload = /* GraphQL */ `
     processDownload(assignmentId: $assignmentId)
   }
 `;
+export const populateMembers = /* GraphQL */ `
+  mutation PopulateMembers {
+    populateMembers
+  }
+`;
 export const createFileRequest = /* GraphQL */ `
   mutation CreateFileRequest(
     $input: CreateFileRequestInput!
@@ -237,6 +242,7 @@ export const createMember = /* GraphQL */ `
     createMember(input: $input, condition: $condition) {
       email
       artist
+      status
       _version
       _deleted
       _lastChangedAt
@@ -272,6 +278,7 @@ export const updateMember = /* GraphQL */ `
     updateMember(input: $input, condition: $condition) {
       email
       artist
+      status
       _version
       _deleted
       _lastChangedAt
@@ -307,6 +314,7 @@ export const deleteMember = /* GraphQL */ `
     deleteMember(input: $input, condition: $condition) {
       email
       artist
+      status
       _version
       _deleted
       _lastChangedAt

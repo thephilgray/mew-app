@@ -24,7 +24,7 @@ type FileRequestSubmission
         rules: [
             { allow: owner }
             { allow: groups, groups: ["Admin"] }
-            { allow: public, operations: [create] }
+            { allow: public, operations: [create, read] }
         ]
     ) {
         id: ID!
@@ -34,6 +34,12 @@ type FileRequestSubmission
         name: String
         email: String
         audio: String
+}
+
+enum MemberStatus {
+    ENROLLED
+    UNENROLLED
+    PENDING
 }
 
 type Member
@@ -49,10 +55,12 @@ type Member
 {
     email: String!
     artist: String
-    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByEmail", fields: ["email"])  
+    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByEmail", fields: ["email"])
+    status: MemberStatus
 
 }
 
 type Mutation {
-      processDownload(assignmentId: ID!): String @function(name: "zipmewsubmissions-${env}") 
+      processDownload(assignmentId: ID!): String @function(name: "zipmewsubmissions-${env}")
+      populateMembers: [String] @function(name: "populateMembers-${env}")
 }

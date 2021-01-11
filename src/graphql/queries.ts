@@ -315,6 +315,7 @@ export const getMember = /* GraphQL */ `
     getMember(email: $email) {
       email
       artist
+      status
       _version
       _deleted
       _lastChangedAt
@@ -360,6 +361,7 @@ export const listMembers = /* GraphQL */ `
       items {
         email
         artist
+        status
         _version
         _deleted
         _lastChangedAt
@@ -392,6 +394,7 @@ export const syncMembers = /* GraphQL */ `
       items {
         email
         artist
+        status
         _version
         _deleted
         _lastChangedAt

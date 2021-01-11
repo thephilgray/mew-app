@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "api": {
+      "mewapp": [
+        "create",
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
