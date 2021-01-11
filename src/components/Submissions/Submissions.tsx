@@ -7,7 +7,7 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
-import { CloudDownload, FileCopy, Add } from '@material-ui/icons'
+import { CloudDownload, FileCopy, Add, Assessment } from '@material-ui/icons'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
@@ -43,6 +43,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
     const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
     const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
+
     const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
         pollInterval: 10000,
@@ -89,21 +90,52 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         setDownloadLoading(false)
     }
 
+    const downloadReport = () => {
+        const filename = data?.getFileRequest?.title ? data.getFileRequest.title : assignmentId
+        const rows =
+            data?.getFileRequest?.submissions?.items &&
+            data.getFileRequest.submissions.items
+                .map(
+                    ({
+                        artist,
+                        email,
+                        name,
+                        createdAt,
+                    }: {
+                        artist: string
+                        email: string
+                        name: string
+                        createdAt: Date
+                    }) =>
+                        [artist, email, name, format(new Date(createdAt), 'MM/dd/yyyy hh:MM')].map((str?: string) =>
+                            str === null ? '' : `\"${str}\"`,
+                        ),
+                )
+                .join('\r\n')
+
+        const headings = ['Artist', 'Email', 'Song', 'Uploaded'].join() + '\r\n'
+
+        const content = headings.concat(rows)
+
+        const file = new File([content], `${filename}.csv`, { type: 'data:text/csv;charset=utf-8' })
+        downloadBlob(file, `${filename}.csv`)
+    }
+
     const columns: Columns = [
         {
             field: 'artist',
             headerName: 'Artist',
-            width: 170,
+            width: 200,
         },
         {
             field: 'name',
             headerName: 'Title',
-            width: 200,
+            width: 300,
         },
         {
             field: 'email',
             headerName: 'Email',
-            width: 200,
+            width: 300,
         },
         {
             field: 'createdAt',
@@ -114,18 +146,18 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             //@ts-ignore
             valueFormatter: ({ value = '' }: ColDef) => value && format(new Date(value), 'MM/dd/yyyy H:mm'),
         },
-        {
-            field: 'audio',
-            headerName: 'Track',
-            type: 'string',
-            width: 200,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            renderCell: ({ value = '' }: ColDef) => {
-                const filename = decodeURIComponent(value.split('/').slice(-1))
-                return filename
-            },
-        },
+        // {
+        //     field: 'audio',
+        //     headerName: 'Track',
+        //     type: 'string',
+        //     width: 200,
+        //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //     //@ts-ignore
+        //     renderCell: ({ value = '' }: ColDef) => {
+        //         const filename = decodeURIComponent(value.split('/').slice(-1))
+        //         return filename
+        //     },
+        // },
     ]
 
     const sortModel = [
@@ -186,6 +218,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     </Grid>
                     <Grid item xs={12} md={12} style={{ textAlign: 'right' }}>
                         <ButtonGroup color="primary" aria-label="contained primary button group">
+                            {data.getFileRequest.submissions.items.length && (
+                                <Button variant="outlined" color="primary" onClick={downloadReport}>
+                                    <Assessment style={{ marginRight: '.25em' }} />
+                                    Download Report
+                                </Button>
+                            )}
                             {data.getFileRequest.submissions.items.length && (
                                 <Button variant="outlined" color="primary" onClick={onDownloadAll}>
                                     {downloadLoading ? (
