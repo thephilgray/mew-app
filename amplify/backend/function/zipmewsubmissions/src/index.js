@@ -35,7 +35,10 @@ exports.handler = async (event) => {
         const filename = item.substr(folder.length)
         filesArray.push(filename)
 
-        const [, artist, title, originalFileName] = filename.split('/').map(decodeURIComponent)
+        const [, artist, title, originalFileName] = filename
+            .split('/')
+            .map(decodeURIComponent)
+            .map((str) => str.replace(/\//g, ''))
         const extension = originalFileName.split('.').slice(-1)
         filenames.push(`${artist} - ${title}.${extension}`)
     })
