@@ -33,7 +33,6 @@ type FileRequestSubmission
         artist: String
         name: String
         email: String
-        audio: String
 }
 
 

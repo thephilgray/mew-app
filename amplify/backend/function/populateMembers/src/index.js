@@ -39,7 +39,7 @@ const createMember = gql`
         }
     }
 `
-exports.handler = async (event) => {
+exports.handler = async () => {
     try {
         const graphqlData = await axios({
             url: process.env.API_MEWAPP_GRAPHQLAPIENDPOINTOUTPUT,

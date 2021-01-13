@@ -21,14 +21,6 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { isPast } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import awsconfig from '../../aws-exports.js'
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const { aws_user_files_s3_bucket_region: region, aws_user_files_s3_bucket: bucket } = awsconfig
-
 import Error from '../Error'
 
 const GET_FILE_REQUEST = gql`
@@ -43,17 +35,15 @@ const GET_FILE_REQUEST = gql`
 
 const CREATE_PUBLIC_SUBMISSION = gql`
     mutation CreateFileRequestSubmission(
-        $audio: String = ""
         $fileRequestId: ID = ""
         $email: String = ""
         $artist: String = ""
         $name: String = ""
     ) {
         createFileRequestSubmission(
-            input: { fileRequestId: $fileRequestId, audio: $audio, email: $email, artist: $artist, name: $name }
+            input: { fileRequestId: $fileRequestId, email: $email, artist: $artist, name: $name }
         ) {
             id
-            audio
         }
     }
 `
@@ -256,7 +246,6 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                     artist,
                     name,
                     email,
-                    audio: `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`,
                 }),
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore

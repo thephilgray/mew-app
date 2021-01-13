@@ -24,7 +24,6 @@ const GET_FILE_REQUEST = gql`
                 items {
                     id
                     artist
-                    audio
                     email
                     createdAt
                     name
@@ -146,18 +145,6 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             //@ts-ignore
             valueFormatter: ({ value = '' }: ColDef) => value && format(new Date(value), 'MM/dd/yyyy H:mm'),
         },
-        // {
-        //     field: 'audio',
-        //     headerName: 'Track',
-        //     type: 'string',
-        //     width: 200,
-        //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //     //@ts-ignore
-        //     renderCell: ({ value = '' }: ColDef) => {
-        //         const filename = decodeURIComponent(value.split('/').slice(-1))
-        //         return filename
-        //     },
-        // },
     ]
 
     const sortModel = [
