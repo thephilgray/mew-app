@@ -132,6 +132,21 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
     const fileInputRef = useRef(null)
     useBeforeUnload(!!uploadProgress.loaded && loading, 'Upload in progress. Are you sure you want to exit?')
 
+    const validationMessages = {
+        email: {
+            required: <>Email is required.</>,
+            pattern: <>Must be a valid email.</>,
+        },
+        artist: {
+            required: <>Artist name is required</>,
+            pattern: <>Artist name cannot contain the following characters: /</>,
+        },
+        name: {
+            required: <>Song name is required</>,
+            pattern: <>Song name cannot contain the following characters: /</>,
+        },
+    }
+
     const isValid = Boolean(fileRequestData?.expiration && !isPast(new Date(fileRequestData.expiration)))
     const ACCEPTED_FILETYPES = [
         // 'audio/wav',
@@ -308,9 +323,14 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                             fullWidth
                             label="Email"
                             name="email"
-                            inputRef={register({ required: true })}
+                            inputRef={register({
+                                required: true,
+                                pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                            })}
                             error={!!errors.email}
-                            helperText={!!errors.email && <>Email is required</>}
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
+                            helperText={!!errors.email && validationMessages.email[errors.email.type]}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -319,9 +339,11 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                             fullWidth
                             label="Artist Name"
                             name="artist"
-                            inputRef={register({ required: true })}
+                            inputRef={register({ required: true, pattern: /^((?!\/).)*$/i })}
                             error={!!errors.artist}
-                            helperText={!!errors.artist && <>Artist name is required</>}
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
+                            helperText={!!errors.artist && validationMessages.artist[errors.artist.type]}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -330,9 +352,11 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                             fullWidth
                             label="Song Name"
                             name="name"
-                            inputRef={register({ required: true })}
+                            inputRef={register({ required: true, pattern: /^((?!\/).)*$/i })}
                             error={!!errors.name}
-                            helperText={!!errors.name && <>Song name is required</>}
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
+                            helperText={!!errors.name && validationMessages.name[errors.name.type]}
                         />
                     </Grid>
 
