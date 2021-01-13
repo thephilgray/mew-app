@@ -17,7 +17,7 @@ const QUERY_FILE_REQUESTS = gql`
             items {
                 title
                 id
-                submissions {
+                submissions(limit: 200) {
                     items {
                         id
                     }

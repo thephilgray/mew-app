@@ -20,7 +20,7 @@ const GET_FILE_REQUEST = gql`
             title
             createdAt
             expiration
-            submissions {
+            submissions(limit: 200) {
                 items {
                     id
                     artist
