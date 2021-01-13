@@ -90,7 +90,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-mewapp-dev-224539-deployment",
-          "S3Key": "amplify-builds/populateMembers-4a685652592f41676537-build.zip"
+          "S3Key": "amplify-builds/populateMembers-505530475664766b5379-build.zip"
         }
       }
     },

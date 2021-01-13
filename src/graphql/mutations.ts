@@ -35,7 +35,6 @@ export const createFileRequest = /* GraphQL */ `
           artist
           name
           email
-          audio
           _version
           _deleted
           _lastChangedAt
@@ -72,7 +71,6 @@ export const updateFileRequest = /* GraphQL */ `
           artist
           name
           email
-          audio
           _version
           _deleted
           _lastChangedAt
@@ -109,7 +107,6 @@ export const deleteFileRequest = /* GraphQL */ `
           artist
           name
           email
-          audio
           _version
           _deleted
           _lastChangedAt
@@ -134,7 +131,6 @@ export const createFileRequestSubmission = /* GraphQL */ `
       artist
       name
       email
-      audio
       _version
       _deleted
       _lastChangedAt
@@ -171,7 +167,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `
       artist
       name
       email
-      audio
       _version
       _deleted
       _lastChangedAt
@@ -208,7 +203,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
       artist
       name
       email
-      audio
       _version
       _deleted
       _lastChangedAt
@@ -255,7 +249,6 @@ export const createMember = /* GraphQL */ `
           artist
           name
           email
-          audio
           _version
           _deleted
           _lastChangedAt
@@ -291,7 +284,6 @@ export const updateMember = /* GraphQL */ `
           artist
           name
           email
-          audio
           _version
           _deleted
           _lastChangedAt
@@ -327,7 +319,6 @@ export const deleteMember = /* GraphQL */ `
           artist
           name
           email
-          audio
           _version
           _deleted
           _lastChangedAt

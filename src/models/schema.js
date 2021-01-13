@@ -132,13 +132,6 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
-                },
-                "audio": {
-                    "name": "audio",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -315,5 +308,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "d3260173a6a137811f5b8a39cd88ef3a"
+    "version": "9945d2cec1cc697508db378c24c51787"
 };

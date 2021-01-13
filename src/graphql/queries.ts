@@ -50,7 +50,6 @@ export const getFileRequest = /* GraphQL */ `
           artist
           name
           email
-          audio
           _version
           _deleted
           _lastChangedAt
@@ -106,7 +105,6 @@ export const getFileRequestSubmission = /* GraphQL */ `
       artist
       name
       email
-      audio
       _version
       _deleted
       _lastChangedAt
@@ -149,7 +147,6 @@ export const listFileRequestSubmissions = /* GraphQL */ `
         artist
         name
         email
-        audio
         _version
         _deleted
         _lastChangedAt
@@ -195,7 +192,6 @@ export const submissionsByFileRequestId = /* GraphQL */ `
         artist
         name
         email
-        audio
         _version
         _deleted
         _lastChangedAt
@@ -241,7 +237,6 @@ export const submissionsByEmail = /* GraphQL */ `
         artist
         name
         email
-        audio
         _version
         _deleted
         _lastChangedAt
@@ -285,7 +280,6 @@ export const syncFileRequestSubmissions = /* GraphQL */ `
         artist
         name
         email
-        audio
         _version
         _deleted
         _lastChangedAt
@@ -328,7 +322,6 @@ export const getMember = /* GraphQL */ `
           artist
           name
           email
-          audio
           _version
           _deleted
           _lastChangedAt
