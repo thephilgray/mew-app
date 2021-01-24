@@ -90,7 +90,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-mewapp-dev-224539-deployment",
-          "S3Key": "amplify-builds/populateMembers-505530475664766b5379-build.zip"
+          "S3Key": "amplify-builds/populateMembers-5a545846336f66366d71-build.zip"
         }
       }
     },
@@ -100,12 +100,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "mewappLambdaRole74498ca2",
+            "mewappLambdaRolea3307878",
             {
               "Fn::Join": [
                 "",
                 [
-                  "mewappLambdaRole74498ca2",
+                  "mewappLambdaRolea3307878",
                   "-",
                   {
                     "Ref": "env"
@@ -198,7 +198,8 @@
                 "appsync:StartSchemaCreation",
                 "appsync:GraphQL",
                 "appsync:Get*",
-                "appsync:List*"
+                "appsync:List*",
+                "appsync:Update*"
               ],
               "Resource": [
                 {

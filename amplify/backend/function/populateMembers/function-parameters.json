@@ -3,7 +3,8 @@
     "api": {
       "mewapp": [
         "create",
-        "read"
+        "read",
+        "update"
       ]
     }
   },

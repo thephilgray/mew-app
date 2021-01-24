@@ -54,8 +54,7 @@ type Member
     status: String
 
 }
-
 type Mutation {
-      processDownload(assignmentId: ID!): String @function(name: "zipmewsubmissions-${env}")
+      downloadSubmissions(assignmentId: ID!): String @function(name: "downloadAllSubmissions-${env}")
       populateMembers: [String] @function(name: "populateMembers-${env}")
-}
+}  

@@ -195,12 +195,12 @@ export type ModelMemberFilterInput = {
   not?: ModelMemberFilterInput | null,
 };
 
-export type ProcessDownloadMutationVariables = {
+export type DownloadSubmissionsMutationVariables = {
   assignmentId: string,
 };
 
-export type ProcessDownloadMutation = {
-  processDownload: string | null,
+export type DownloadSubmissionsMutation = {
+  downloadSubmissions: string | null,
 };
 
 export type PopulateMembersMutation = {

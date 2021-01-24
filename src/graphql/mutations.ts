@@ -2,9 +2,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const processDownload = /* GraphQL */ `
-  mutation ProcessDownload($assignmentId: ID!) {
-    processDownload(assignmentId: $assignmentId)
+export const downloadSubmissions = /* GraphQL */ `
+  mutation DownloadSubmissions($assignmentId: ID!) {
+    downloadSubmissions(assignmentId: $assignmentId)
   }
 `;
 export const populateMembers = /* GraphQL */ `

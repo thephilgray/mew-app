@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* Amplify Params - DO NOT EDIT
-	API_MEWAPP_GRAPHQLAPIENDPOINTOUTPUT
-	API_MEWAPP_GRAPHQLAPIIDOUTPUT
-	API_MEWAPP_GRAPHQLAPIKEYOUTPUT
-	ENV
-	REGION
+API_MEWAPP_GRAPHQLAPIENDPOINTOUTPUT
+API_MEWAPP_GRAPHQLAPIIDOUTPUT
+API_MEWAPP_GRAPHQLAPIKEYOUTPUT
+ENV
+REGION
 Amplify Params - DO NOT EDIT */
 
+/* eslint-disable @typescript-eslint/no-var-requires */
 const axios = require('axios')
 const gql = require('graphql-tag')
 const graphql = require('graphql')
