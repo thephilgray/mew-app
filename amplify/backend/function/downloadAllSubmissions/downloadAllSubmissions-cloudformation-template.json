@@ -37,12 +37,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "zipmewsubmissions",
+            "downloadAllSubmissions",
             {
               "Fn::Join": [
                 "",
                 [
-                  "zipmewsubmissions",
+                  "downloadAllSubmissions",
                   "-",
                   {
                     "Ref": "env"
@@ -76,7 +76,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-mewapp-dev-224539-deployment",
-          "S3Key": "amplify-builds/zipmewsubmissions-636a2b4333497359354f-build.zip"
+          "S3Key": "amplify-builds/downloadAllSubmissions-47434a364636396d4c42-build.zip"
         }
       }
     },
@@ -86,12 +86,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "mewappLambdaRole4e41a4e9",
+            "mewappLambdaRole2ab53bec",
             {
               "Fn::Join": [
                 "",
                 [
-                  "mewappLambdaRole4e41a4e9",
+                  "mewappLambdaRole2ab53bec",
                   "-",
                   {
                     "Ref": "env"
@@ -181,7 +181,7 @@
               "Effect": "Allow",
               "Action": [
                 "s3:PutObject",
-                "s3:GetObject",
+                "s3:GetObject*",
                 "s3:ListBucket"
               ],
               "Resource": [
@@ -194,6 +194,17 @@
                         "Ref": "storagemewappBucketName"
                       },
                       "/*"
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "storagemewappBucketName"
+                      }
                     ]
                   ]
                 }

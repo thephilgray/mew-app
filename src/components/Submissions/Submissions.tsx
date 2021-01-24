@@ -33,8 +33,8 @@ const GET_FILE_REQUEST = gql`
     }
 `
 const PROCESS_DOWNLOAD = gql`
-    mutation ProcessDownload($assignmentId: ID!) {
-        processDownload(assignmentId: $assignmentId)
+    mutation DownloadSubmissions($assignmentId: ID!) {
+        downloadSubmissions(assignmentId: $assignmentId)
     }
 `
 
@@ -73,11 +73,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     const onDownloadAll = async () => {
         setDownloadLoading(true)
         try {
-            await API.graphql({
+            const operation = await API.graphql({
                 ...graphqlOperation(PROCESS_DOWNLOAD, {
                     assignmentId,
                 }),
             })
+            if (!operation?.data?.downloadSubmissions || operation?.data?.downloadSubmissions.includes('Failure')) {
+                throw 'Failure'
+            }
             const submissionsZip = await Storage.get(`downloads/${assignmentId}.zip`, { download: true })
             const filename = data?.getFileRequest?.title ? data.getFileRequest.title : assignmentId
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
