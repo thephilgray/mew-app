@@ -1,0 +1,21 @@
+{
+  "name": "process-submissions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "thephilgray",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^5.2.0",
+    "async-ffmetadata": "^0.1.9",
+    "aws-sdk": "^2.854.0",
+    "ffmetadata": "^1.6.0",
+    "fs-extra": "^9.1.0",
+    "glob": "^7.1.6",
+    "s3-node": "0.0.1"
+  }
+}
