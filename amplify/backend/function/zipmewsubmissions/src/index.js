@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* Amplify Params - DO NOT EDIT
-	ENV
-	REGION
-	STORAGE_MEWAPP_BUCKETNAME
+    ENV
+    REGION
+    STORAGE_MEWAPP_BUCKETNAME
 Amplify Params - DO NOT EDIT */
 const AWS = require('aws-sdk')
 const s3Zip = require('s3-zip')
