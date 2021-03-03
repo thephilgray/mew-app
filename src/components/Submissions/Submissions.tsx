@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
-import { Button, ButtonGroup, CircularProgress, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
+import { Button, ButtonGroup, CircularProgress, Grid, IconButton, Snackbar, Typography, useTheme, useMediaQuery } from '@material-ui/core'
 import { DataGrid, Columns, SortDirection, ColDef } from '@material-ui/data-grid'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
@@ -11,7 +11,7 @@ import { CloudDownload, FileCopy, Add, Assessment } from '@material-ui/icons'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
-import { API, Storage, graphqlOperation } from 'aws-amplify'
+import { Storage } from 'aws-amplify'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -32,16 +32,13 @@ const GET_FILE_REQUEST = gql`
         }
     }
 `
-const PROCESS_DOWNLOAD = gql`
-    mutation ProcessDownload($assignmentId: ID!) {
-        processDownload(assignmentId: $assignmentId)
-    }
-`
 
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
     const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
     const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
+    const theme = useTheme();
+    const sm = useMediaQuery(theme.breakpoints.up('sm'));
 
     const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
@@ -72,20 +69,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
     const onDownloadAll = async () => {
         setDownloadLoading(true)
-        try {
-            await API.graphql({
-                ...graphqlOperation(PROCESS_DOWNLOAD, {
-                    assignmentId,
-                }),
-            })
-            const submissionsZip = await Storage.get(`downloads/${assignmentId}.zip`, { download: true })
-            const filename = data?.getFileRequest?.title ? data.getFileRequest.title : assignmentId
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            downloadBlob(submissionsZip.Body, `${filename}.zip`)
-        } catch (error) {
-            console.error(error)
-        }
+        const submissionsZip = await Storage.get(`downloads/${assignmentId}.zip`, { download: true })
+        const filename = data?.getFileRequest?.title ? data.getFileRequest.title : assignmentId
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        downloadBlob(submissionsZip.Body, `${filename}.zip`)
         setDownloadLoading(false)
     }
 
@@ -113,9 +101,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 .join('\r\n')
 
         const headings = ['Artist', 'Email', 'Song', 'Uploaded'].join() + '\r\n'
-
         const content = headings.concat(rows)
-
         const file = new File([content], `${filename}.csv`, { type: 'data:text/csv;charset=utf-8' })
         downloadBlob(file, `${filename}.csv`)
     }
@@ -171,11 +157,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                     {data?.getFileRequest.title ? (
                                         data.getFileRequest.title
                                     ) : (
-                                        <>
-                                            {window.origin}
-                                            {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                                        </>
-                                    )}
+                                            <>
+                                                {window.origin}
+                                                {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                            </>
+                                        )}
                                 </em>
                             </Link>
                             <Snackbar
@@ -204,7 +190,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         </Typography>
                     </Grid>
                     <Grid item xs={12} md={12} style={{ textAlign: 'right' }}>
-                        <ButtonGroup color="primary" aria-label="contained primary button group">
+                        <ButtonGroup color="primary" aria-label="contained primary button group" fullWidth={!sm} style={{ flexWrap: 'wrap', justifyContent: 'center' }}>
                             {data.getFileRequest.submissions.items.length && (
                                 <Button variant="outlined" color="primary" onClick={downloadReport}>
                                     <Assessment style={{ marginRight: '.25em' }} />
@@ -219,11 +205,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                             <CircularProgress size={20} />
                                         </>
                                     ) : (
-                                        <>
-                                            <CloudDownload style={{ marginRight: '.25em' }} />
+                                            <>
+                                                <CloudDownload style={{ marginRight: '.25em' }} />
                                             Download All
-                                        </>
-                                    )}
+                                            </>
+                                        )}
                                 </Button>
                             )}
                             <Button
