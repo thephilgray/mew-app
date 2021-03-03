@@ -21,16 +21,16 @@ module.exports = (([env = 'dev', assignmentId]) => {
     const Bucket = process.env[`MEW_BUCKET_${env.toUpperCase()}`]
     const region = 'us-east-1'
 
+    AWS.config.update({ region, signatureVersion: 'v4' });
+
     if (!assignmentId) {
         console.error(`Error: assignmentId required.`)
         return process.exit(9)
     }
 
 
-    const awsS3Client = new AWS.S3({ region: region })
-    const client = s3.createClient({
-        s3Client: awsS3Client,
-    })
+    const awsS3Client = new AWS.S3({ region })
+    const client = s3.createClient({ s3Client: awsS3Client })
 
     // ensure and empty temp directory
     fs.emptyDirSync(tempDir)
@@ -133,6 +133,12 @@ module.exports = (([env = 'dev', assignmentId]) => {
                         })
                         uploader.on('end', function () {
                             console.log('done uploading')
+                            const url = awsS3Client.getSignedUrl('getObject', {
+                                Bucket,
+                                Key: `public/${CONSTANTS.downloads}/${assignmentId}.zip`,
+                                Expires: 604800,
+                            })
+                            console.log(url);
                         })
                     })
 
