@@ -15,47 +15,33 @@ type FileRequest
     submissions: [FileRequestSubmission] @connection(keyName: "submissionsByFileRequestId", fields: ["id"])
 }
 
-
 type FileRequestSubmission
     @key(name: "submissionsByFileRequestId", fields: ["fileRequestId"], queryField: "submissionsByFileRequestId")
     @key(name: "submissionsByEmail", fields: ["email"], queryField: "submissionsByEmail")
-    @model 
+    @model
     @auth(
-        rules: [
-            { allow: owner }
-            { allow: groups, groups: ["Admin"] }
-            { allow: public, operations: [create, read] }
-        ]
+        rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read] }]
     ) {
-        id: ID!
-        fileRequestId: ID!
-        fileRequest: FileRequest @connection(fields: ["fileRequestId"])
-        artist: String
-        name: String
-        email: String
+    id: ID!
+    fileRequestId: ID!
+    fileRequest: FileRequest @connection(fields: ["fileRequestId"])
+    artist: String
+    name: String
+    email: String
+    fileId: String
 }
-
-
 
 type Member
     @model
     @key(fields: ["email"])
-    @auth(
-        rules: [
-            { allow: owner }
-            { allow: groups, groups: ["Admin"] }
-            { allow: public, operations: [create] }
-        ]
-    )
-{
+    @auth(rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }, { allow: public, operations: [create] }]) {
     email: String!
     artist: String
     submissions: [FileRequestSubmission] @connection(keyName: "submissionsByEmail", fields: ["email"])
     status: String
-
 }
 
 type Mutation {
-      processDownload(assignmentId: ID!): String @function(name: "zipmewsubmissions-${env}")
-      populateMembers: [String] @function(name: "populateMembers-${env}")
+    processDownload(assignmentId: ID!): String @function(name: "zipmewsubmissions-${env}")
+    populateMembers: [String] @function(name: "populateMembers-${env}")
 }

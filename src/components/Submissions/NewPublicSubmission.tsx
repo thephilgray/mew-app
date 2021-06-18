@@ -20,6 +20,7 @@ import gql from 'graphql-tag'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { isPast } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
+import { v4 as uuidv4 } from 'uuid'
 
 import Error from '../Error'
 
@@ -39,11 +40,13 @@ const CREATE_PUBLIC_SUBMISSION = gql`
         $email: String = ""
         $artist: String = ""
         $name: String = ""
+        $fileId: String = ""
     ) {
         createFileRequestSubmission(
-            input: { fileRequestId: $fileRequestId, email: $email, artist: $artist, name: $name }
+            input: { fileId: $fileId, fileRequestId: $fileRequestId, email: $email, artist: $artist, name: $name }
         ) {
             id
+            fileId
         }
     }
 `
@@ -125,7 +128,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
     const validationMessages = {
         email: {
             required: <>Email is required.</>,
-            pattern: <>Must be a valid email.</>,
+            pattern: <>Must be valid email or emails separated by commas.</>,
         },
         artist: {
             required: <>Artist name is required</>,
@@ -225,38 +228,45 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
 
     const onSubmit = async (values: Inputs) => {
         setLoading(true)
-        // encode spaces and unacceptable characters
-        // see: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
         const { name, artist, email } = values
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const keyValues = [assignmentId, email, artist, name, upload?.name]
-
+        const fileId = uuidv4()
+        const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
+        const emails = email.split(',').map((email) => email.trim())
 
         try {
             await Storage.put(key, upload, {
                 contentType: upload?.type,
                 progressCallback: setUploadProgress,
             })
-
-            await API.graphql({
-                ...graphqlOperation(CREATE_PUBLIC_SUBMISSION, {
-                    fileRequestId: assignmentId,
-                    artist,
-                    name,
-                    email,
-                }),
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                authMode: 'API_KEY',
-            })
-
-            setUploadSuccess(true)
         } catch (err) {
+            setLoading(false)
             setError(err)
+            return
         }
 
+        for (let index = 0; index < emails.length; index++) {
+            try {
+                await API.graphql({
+                    ...graphqlOperation(CREATE_PUBLIC_SUBMISSION, {
+                        fileId,
+                        fileRequestId: assignmentId,
+                        artist,
+                        name,
+                        email: emails[index],
+                    }),
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    authMode: 'API_KEY',
+                })
+            } catch (err) {
+                setLoading(false)
+                setError(err)
+                return
+            }
+        }
+
+        setUploadSuccess(true)
         setLoading(false)
     }
 
@@ -314,12 +324,20 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                             name="email"
                             inputRef={register({
                                 required: true,
-                                pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                pattern: /^([\w+-.%]+@[\w-.]+\.[A-Za-z]+)(, ?[\w+-.%]+@[\w-.]+\.[A-Za-z]+)*$/,
                             })}
                             error={!!errors.email}
-                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                            // @ts-ignore
-                            helperText={!!errors.email && validationMessages.email[errors.email.type]}
+                            helperText={
+                                !!errors.email ? (
+                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                    // @ts-ignore
+                                    validationMessages.email[errors.email.type]
+                                ) : (
+                                    <>
+                                        Separate multiple email addresses with a comma (<kbd>,</kbd>)
+                                    </>
+                                )
+                            }
                         />
                     </Grid>
                     <Grid item xs={6}>

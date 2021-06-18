@@ -106,7 +106,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         name: string
                         createdAt: Date
                     }) =>
-                        [artist, email, name, format(new Date(createdAt), 'MM/dd/yyyy hh:MM')].map((str?: string) =>
+                        [artist, email, name, format(new Date(createdAt), 'MM/dd/yyyy H:mm')].map((str?: string) =>
                             str === null ? '' : `\"${str}\"`,
                         ),
                 )
