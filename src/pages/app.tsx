@@ -7,6 +7,7 @@ import Profile from '../components/Profile/Profile'
 import Layout from '../components/Layout/Layout'
 import PrivateRoute from '../components/Auth/PrivateRoute'
 import NewPublicAssignment from '../components/Assignments/NewPublicAssignment'
+import EditPublicAssignment from '../components/Assignments/EditPublicAssignment'
 import NewPublicSubmission from '../components/Submissions/NewPublicSubmission'
 import NotFound from '../components/NotFound'
 import Submissions from '../components/Submissions/Submissions'
@@ -26,6 +27,10 @@ export const ROUTE_NAMES = {
         path: '/app/assignments/new',
         name: 'New Assignment',
     },
+    editAssignment: {
+        path: '/app/assignments/:assignmentId/edit',
+        name: 'Edit',
+    },
     profile: {
         path: '/app/profile',
         name: 'Profile',
@@ -44,6 +49,7 @@ const App: React.FC = (): JSX.Element => (
                 <NotFound default />
                 <PrivateRoute path={ROUTE_NAMES.home.path} component={Assignments} />
                 <PrivateRoute path={ROUTE_NAMES.newAssignment.path} component={NewPublicAssignment} />
+                <PrivateRoute path={ROUTE_NAMES.editAssignment.path} component={EditPublicAssignment} />
                 <PrivateRoute path={ROUTE_NAMES.assignment.path} component={Submissions} />
                 <PrivateRoute path={ROUTE_NAMES.profile.path} component={Profile} />
                 <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmission.path} />

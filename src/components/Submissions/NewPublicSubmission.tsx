@@ -30,6 +30,7 @@ const GET_FILE_REQUEST = gql`
             expiration
             title
             details
+            _deleted
         }
     }
 `
@@ -115,6 +116,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         expiration: string
         title: string
         details: string
+        _deleted: boolean
     } | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<Error | null>(null)
@@ -140,7 +142,9 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         },
     }
 
-    const isValid = Boolean(fileRequestData?.expiration && !isPast(new Date(fileRequestData.expiration)))
+    const isValid = Boolean(
+        !fileRequestData?._deleted && fileRequestData?.expiration && !isPast(new Date(fileRequestData.expiration)),
+    )
     const ACCEPTED_FILETYPES = [
         // 'audio/wav',
         // 'audio/s-wav',
@@ -344,7 +348,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                         <TextField
                             required
                             fullWidth
-                            label="Artist Name"
+                            label="Artist Byline"
                             name="artist"
                             inputRef={register({ required: true, pattern: /^((?!\/).)*$/i })}
                             error={!!errors.artist}
@@ -357,7 +361,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                         <TextField
                             required
                             fullWidth
-                            label="Song Name"
+                            label="Song Title"
                             name="name"
                             inputRef={register({ required: true, pattern: /^((?!\/).)*$/i })}
                             error={!!errors.name}

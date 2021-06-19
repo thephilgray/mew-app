@@ -7,7 +7,7 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
-import { CloudDownload, FileCopy, Add, Assessment } from '@material-ui/icons'
+import { CloudDownload, FileCopy, Add, Assessment, Edit } from '@material-ui/icons'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
@@ -20,6 +20,7 @@ const GET_FILE_REQUEST = gql`
             title
             createdAt
             expiration
+            _deleted
             submissions(limit: 200) {
                 items {
                     id
@@ -123,12 +124,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     const columns: Columns = [
         {
             field: 'artist',
-            headerName: 'Artist',
+            headerName: 'Artist Byline',
             width: 200,
         },
         {
             field: 'name',
-            headerName: 'Title',
+            headerName: 'Song Title',
             width: 300,
         },
         {
@@ -161,94 +162,108 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             <Grid item xs={12}>
                 <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignment]} />
             </Grid>
-            <Grid item xs={12}>
-                <Grid container>
-                    <Grid item xs={12} md={12}>
-                        <Typography variant="h6" component="h3">
-                            Submissions for{' '}
-                            <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
-                                <em>
-                                    {data?.getFileRequest.title ? (
-                                        data.getFileRequest.title
-                                    ) : (
-                                        <>
-                                            {window.origin}
-                                            {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                                        </>
-                                    )}
-                                </em>
-                            </Link>
-                            <Snackbar
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'center',
-                                }}
-                                open={showCopySuccessAlert}
-                                color="success"
-                                autoHideDuration={3000}
-                                message="Link to assignment copied to clipboard."
-                                onClose={() => setShowCopySuccessAlert(false)}
-                            />
-                            <IconButton
-                                color="secondary"
-                                aria-label="Close"
-                                component="span"
-                                onClick={() =>
-                                    copyToClipboard(
-                                        `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}`,
-                                    )
-                                }
-                            >
-                                <FileCopy />
-                            </IconButton>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} md={12} style={{ textAlign: 'right' }}>
-                        <ButtonGroup color="primary" aria-label="contained primary button group">
-                            {data.getFileRequest.submissions.items.length && (
-                                <Button variant="outlined" color="primary" onClick={downloadReport}>
-                                    <Assessment style={{ marginRight: '.25em' }} />
-                                    Download Report
-                                </Button>
-                            )}
-                            {data.getFileRequest.submissions.items.length && (
-                                <Button variant="outlined" color="primary" onClick={onDownloadAll}>
-                                    {downloadLoading ? (
-                                        <>
-                                            Downloading...
-                                            <CircularProgress size={20} />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <CloudDownload style={{ marginRight: '.25em' }} />
-                                            Download All
-                                        </>
-                                    )}
-                                </Button>
-                            )}
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                component={Link}
-                                to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                            >
-                                <Add />
-                                New Submission
-                            </Button>
-                        </ButtonGroup>
-                    </Grid>
+            {data?.getFileRequest?._deleted ? (
+                <Grid item xs={12}>
+                    <p>This assignment has been deleted.</p>
                 </Grid>
-            </Grid>
-            <div style={{ height: 500, width: '100%' }}>
-                <DataGrid
-                    rows={data.getFileRequest.submissions.items}
-                    columns={columns}
-                    autoHeight
-                    autoPageSize
-                    disableSelectionOnClick={true}
-                    sortModel={sortModel}
-                />
-            </div>
+            ) : (
+                <>
+                    <Grid item xs={12}>
+                        <Grid container>
+                            <Grid item xs={12} md={12}>
+                                <Typography variant="h6" component="h3">
+                                    Submissions for{' '}
+                                    <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
+                                        <em>
+                                            {data?.getFileRequest.title ? (
+                                                data.getFileRequest.title
+                                            ) : (
+                                                <>
+                                                    {window.origin}
+                                                    {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                                </>
+                                            )}
+                                        </em>
+                                    </Link>
+                                    <Snackbar
+                                        anchorOrigin={{
+                                            vertical: 'bottom',
+                                            horizontal: 'center',
+                                        }}
+                                        open={showCopySuccessAlert}
+                                        color="success"
+                                        autoHideDuration={3000}
+                                        message="Link to assignment copied to clipboard."
+                                        onClose={() => setShowCopySuccessAlert(false)}
+                                    />
+                                    <IconButton
+                                        color="secondary"
+                                        aria-label="Close"
+                                        component="span"
+                                        onClick={() =>
+                                            copyToClipboard(
+                                                `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({
+                                                    assignmentId,
+                                                })}`,
+                                            )
+                                        }
+                                    >
+                                        <FileCopy />
+                                    </IconButton>
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={12} style={{ textAlign: 'right' }}>
+                                <ButtonGroup color="primary" aria-label="contained primary button group">
+                                    <Button variant="outlined" color="primary" component={Link} to={`edit`}>
+                                        <Edit style={{ marginRight: '.25em' }} />
+                                        Edit
+                                    </Button>
+                                    {data.getFileRequest.submissions.items.length && (
+                                        <Button variant="outlined" color="primary" onClick={downloadReport}>
+                                            <Assessment style={{ marginRight: '.25em' }} />
+                                            Download Report
+                                        </Button>
+                                    )}
+                                    {data.getFileRequest.submissions.items.length && (
+                                        <Button variant="outlined" color="primary" onClick={onDownloadAll}>
+                                            {downloadLoading ? (
+                                                <>
+                                                    Downloading...
+                                                    <CircularProgress size={20} />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <CloudDownload style={{ marginRight: '.25em' }} />
+                                                    Download All
+                                                </>
+                                            )}
+                                        </Button>
+                                    )}
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        component={Link}
+                                        to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                    >
+                                        <Add />
+                                        New Submission
+                                    </Button>
+                                </ButtonGroup>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <div style={{ height: 500, width: '100%' }}>
+                        <DataGrid
+                            rows={data.getFileRequest.submissions.items}
+                            columns={columns}
+                            autoHeight
+                            autoPageSize
+                            disableSelectionOnClick={true}
+                            sortModel={sortModel}
+                        />
+                    </div>
+                </>
+            )}
         </Grid>
     )
 }

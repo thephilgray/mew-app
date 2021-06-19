@@ -25,6 +25,7 @@ const QUERY_FILE_REQUESTS = gql`
                 expiration
                 createdAt
                 required
+                _deleted
             }
         }
     }
@@ -127,7 +128,7 @@ const Assignments: React.FC = (): JSX.Element => {
             </Grid>
             <Grid item xs={12} className={classes.tableWrapper}>
                 <DataGrid
-                    rows={data.listFileRequests.items}
+                    rows={data.listFileRequests.items.filter(({ _deleted }) => !_deleted)}
                     columns={columns}
                     disableSelectionOnClick={true}
                     onRowClick={(params: RowParams) =>

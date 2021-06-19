@@ -21,6 +21,7 @@ export declare class FileRequestSubmission {
   readonly artist?: string;
   readonly name?: string;
   readonly email?: string;
+  readonly fileId?: string;
   constructor(init: ModelInit<FileRequestSubmission>);
   static copyOf(source: FileRequestSubmission, mutator: (draft: MutableModel<FileRequestSubmission>) => MutableModel<FileRequestSubmission> | void): FileRequestSubmission;
 }
