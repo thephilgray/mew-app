@@ -84,12 +84,9 @@ const Assignments: React.FC = (): JSX.Element => {
             width: 100,
         },
         {
-            field: 'expiration',
+            field: 'status',
             headerName: 'Status',
             type: 'string',
-            // eslint-disable-next-line react/display-name
-            renderCell: ({ value = '' }) =>
-                value && Boolean(!isPast(new Date(value as string))) ? 'ACTIVE' : 'EXPIRED',
             width: 100,
         },
     ]
@@ -100,8 +97,17 @@ const Assignments: React.FC = (): JSX.Element => {
             sort: 'desc' as SortDirection,
         },
     ]
+
     if (error) return <Error errorMessage={error} />
     if (loading) return <p>Loading assignments....</p>
+
+    const items = data?.listFileRequests?.items || []
+    const rows = items
+        .filter(({ _deleted }: { _deleted: boolean }) => !_deleted)
+        .map((item: { title: string; expiration: string; required: boolean; createdAt: string; submissions: [] }) => ({
+            ...item,
+            status: Boolean(!isPast(new Date(item.expiration as string))) ? 'ACTIVE' : 'EXPIRED',
+        }))
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -128,7 +134,7 @@ const Assignments: React.FC = (): JSX.Element => {
             </Grid>
             <Grid item xs={12} className={classes.tableWrapper}>
                 <DataGrid
-                    rows={data.listFileRequests.items.filter(({ _deleted }: { _deleted: boolean }) => !_deleted)}
+                    rows={rows}
                     columns={columns}
                     disableSelectionOnClick={true}
                     onRowClick={(params: RowParams) =>
