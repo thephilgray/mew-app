@@ -8,10 +8,13 @@ import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
 import { CloudDownload, FileCopy, Add, Assessment, Edit } from '@material-ui/icons'
+import { API, Storage, graphqlOperation } from 'aws-amplify'
+import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
+import 'react-jinke-music-player/assets/index.css'
+
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
-import { API, Storage, graphqlOperation } from 'aws-amplify'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -28,6 +31,7 @@ const GET_FILE_REQUEST = gql`
                     email
                     createdAt
                     name
+                    fileId
                 }
             }
         }
@@ -43,6 +47,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
     const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
     const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
+    // const [songs, setSongs] = useState({})
+    const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
 
     const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
@@ -54,6 +60,24 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             setShowCopySuccessAlert(true)
         }
     }, [copyToClipboardState])
+
+    useEffect(() => {
+        async function addSongsToPlaylist() {
+            const songs: Array<ReactJkMusicPlayerAudioListProps> = []
+            if (!audioLists.length && data?.getFileRequest?.submissions?.items) {
+                for (let index = 0; index < data.getFileRequest.submissions.items.length; index++) {
+                    const { name, fileId, artist } = data.getFileRequest.submissions.items[index]
+                    if (fileId) {
+                        const songFilePath = `${assignmentId}/${fileId}`
+                        const fileAccessURL = await Storage.get(songFilePath, { expires: 60 })
+                        songs.push({ musicSrc: fileAccessURL.toString(), name, cover: '', singer: artist })
+                    }
+                }
+                setAudioLists(songs)
+            }
+        }
+        addSongsToPlaylist()
+    }, [data])
 
     const downloadBlob = (blob: Blob, filename: string) => {
         const url = URL.createObjectURL(blob)
@@ -161,6 +185,25 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         return <p>Assignment does not exist or has been deleted.</p>
     return (
         <Grid container spacing={3}>
+            {audioLists.length ? (
+                <ReactJkMusicPlayer
+                    mode="full"
+                    preload
+                    audioLists={audioLists}
+                    autoHiddenCover
+                    autoPlay={false}
+                    autoPlayInitLoadPlayList={false}
+                    quietUpdate
+                    spaceBar
+                    showMediaSession
+                    showThemeSwitch={false}
+                    showDownload={false}
+                    showPlayMode={false}
+                    defaultVolume={1}
+                    // volumeFade={{ fadeIn: 0, fadeOut: 0 }}
+                    showMiniProcessBar={false}
+                />
+            ) : null}
             <Grid item xs={12}>
                 <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignment]} />
             </Grid>
