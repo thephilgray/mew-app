@@ -156,7 +156,9 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     ]
 
     if (error) return <Error errorMessage={error} />
-    if (loading || !data?.getFileRequest?.submissions?.items) return <CircularProgress />
+    if (loading) return <CircularProgress />
+    if (!loading && !data?.getFileRequest?.submissions?.items)
+        return <p>Assignment does not exist or has been deleted.</p>
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>

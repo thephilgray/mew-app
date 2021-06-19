@@ -128,7 +128,7 @@ const Assignments: React.FC = (): JSX.Element => {
             </Grid>
             <Grid item xs={12} className={classes.tableWrapper}>
                 <DataGrid
-                    rows={data.listFileRequests.items.filter(({ _deleted }) => !_deleted)}
+                    rows={data.listFileRequests.items.filter(({ _deleted }: { _deleted: boolean }) => !_deleted)}
                     columns={columns}
                     disableSelectionOnClick={true}
                     onRowClick={(params: RowParams) =>

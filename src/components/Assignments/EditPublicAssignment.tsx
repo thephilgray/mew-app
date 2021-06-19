@@ -142,7 +142,8 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
 
     if (error) return <Error errorMessage={error} />
     if (loading) return <CircularProgress />
-    if (getFileRequest._deleted) return <p>This assignment has been deleted.</p>
+    if (getFileRequest?._deleted || (!loading && !getFileRequest?.submissions?.items))
+        return <p>Assignment does not exist or has been deleted.</p>
 
     return (
         <Grid container spacing={2}>
