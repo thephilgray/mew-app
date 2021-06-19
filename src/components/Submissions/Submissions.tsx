@@ -64,13 +64,16 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     useEffect(() => {
         async function addSongsToPlaylist() {
             const songs: Array<ReactJkMusicPlayerAudioListProps> = []
+            const seenFileIds: string[] = []
             if (!audioLists.length && data?.getFileRequest?.submissions?.items) {
                 for (let index = 0; index < data.getFileRequest.submissions.items.length; index++) {
                     const { name, fileId, artist } = data.getFileRequest.submissions.items[index]
-                    if (fileId) {
+                    // don't add nonexistent or duplicate files to the playlist
+                    if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
                         const fileAccessURL = await Storage.get(songFilePath, { expires: 60 })
                         songs.push({ musicSrc: fileAccessURL.toString(), name, cover: '', singer: artist })
+                        seenFileIds.push(fileId)
                     }
                 }
                 setAudioLists(songs)
