@@ -90,9 +90,6 @@ const NewPublicAssignment: React.FC = () => {
             </Grid>
             <Grid item xs={12}>
                 <Paper style={{ padding: '1rem' }}>
-                    <Typography variant="h5" component="h5" gutterBottom>
-                        New Assignment
-                    </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Grid container spacing={4}>
                             {error && (

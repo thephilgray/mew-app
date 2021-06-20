@@ -16,7 +16,14 @@
         "mewappacdc5d0e": {}
       },
       "function": {
-        "zipmewsubmissions": {}
+        "zipmewsubmissions": {
+          "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
+          "s3Key": "amplify-builds/zipmewsubmissions-7565364d7a6f476c6c37-build.zip"
+        },
+        "populateMembers": {
+          "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
+          "s3Key": "amplify-builds/populateMembers-505530475664766b5379-build.zip"
+        }
       }
     }
   }

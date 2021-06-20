@@ -23,6 +23,7 @@ import { useBeforeUnload } from 'react-use'
 import { v4 as uuidv4 } from 'uuid'
 
 import Error from '../Error'
+import { createFileRequestSubmission } from '../../graphql/mutations'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -35,28 +36,11 @@ const GET_FILE_REQUEST = gql`
     }
 `
 
-const CREATE_PUBLIC_SUBMISSION = gql`
-    mutation CreateFileRequestSubmission(
-        $fileRequestId: ID = ""
-        $email: String = ""
-        $artist: String = ""
-        $name: String = ""
-        $fileId: String = ""
-    ) {
-        createFileRequestSubmission(
-            input: { fileId: $fileId, fileRequestId: $fileRequestId, email: $email, artist: $artist, name: $name }
-        ) {
-            id
-            fileId
-        }
-    }
-`
-
 type Inputs = {
     name: string
     artist: string
     email: string
-    upload: Blob
+    upload: AudioFileBlob
 }
 
 const StyledFileDropWrapper = styled.div`
@@ -108,10 +92,13 @@ const StyledFileDropWrapper = styled.div`
         box-shadow: ${({ theme }: { theme?: Theme }) => `0 0 13px 3px ${theme?.palette.primary.main}`};
     }
 `
+
+type AudioFileBlob = Blob & { name: string }
+
 const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({
     assignmentId = '',
 }) => {
-    const [upload, setUpload] = useState<Blob | undefined>()
+    const [upload, setUpload] = useState<AudioFileBlob | undefined>()
     const [fileRequestData, setFileRequestData] = useState<{
         expiration: string
         title: string
@@ -211,7 +198,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         if (!(e.target as HTMLInputElement).files && !(e.target as HTMLInputElement).files?.length) return
         // convert image file to base64 string
         const file = (e.target as HTMLInputElement).files?.[0]
-        if (file) {
+        if (file && ACCEPTED_FILETYPES.includes(file.type)) {
             setUpload(file)
             setUploadAreaMessage(file.name)
         }
@@ -223,7 +210,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         }
         const file = files[0]
         if (ACCEPTED_FILETYPES.includes(file.type) && files?.length) {
-            setUpload(files[0])
+            setUpload(file)
             setUploadAreaMessage(file.name)
         } else {
             setUploadAreaMessage(`File must be of type: ${ACCEPTED_FILETYPES.join(', ')}`)
@@ -237,6 +224,8 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
         const emails = email.split(',').map((email) => email.trim())
+        const fileExtension = upload?.name.split('.').pop()
+        console.log({ fileExtension })
 
         try {
             await Storage.put(key, upload, {
@@ -252,12 +241,15 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         for (let index = 0; index < emails.length; index++) {
             try {
                 await API.graphql({
-                    ...graphqlOperation(CREATE_PUBLIC_SUBMISSION, {
-                        fileId,
-                        fileRequestId: assignmentId,
-                        artist,
-                        name,
-                        email: emails[index],
+                    ...graphqlOperation(createFileRequestSubmission, {
+                        input: {
+                            fileId,
+                            fileRequestId: assignmentId,
+                            artist,
+                            name,
+                            email: emails[index],
+                            fileExtension,
+                        },
                     }),
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore

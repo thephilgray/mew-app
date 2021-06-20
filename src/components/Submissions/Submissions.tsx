@@ -2,19 +2,21 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
 import { Button, ButtonGroup, CircularProgress, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
-import { DataGrid, Columns, SortDirection, ColDef } from '@material-ui/data-grid'
+import { DataGrid, Columns, SortDirection, ColDef, SelectionChangeParams } from '@material-ui/data-grid'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
 import { CloudDownload, FileCopy, Add, Assessment, Edit } from '@material-ui/icons'
 import { API, Storage, graphqlOperation } from 'aws-amplify'
+import { uniqBy, pipe, map } from 'lodash/fp'
 import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
 
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
+import { processDownload } from '../../graphql/mutations'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -32,14 +34,10 @@ const GET_FILE_REQUEST = gql`
                     createdAt
                     name
                     fileId
+                    fileExtension
                 }
             }
         }
-    }
-`
-const PROCESS_DOWNLOAD = gql`
-    mutation ProcessDownload($assignmentId: ID!) {
-        processDownload(assignmentId: $assignmentId)
     }
 `
 
@@ -49,11 +47,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
     // const [songs, setSongs] = useState({})
     const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
+    const [selectedRows, setSelectedRows] = useState<string[]>([])
 
     const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
         pollInterval: 10000,
     })
+
+    const rows = data?.getFileRequest?.submissions?.items || []
 
     useEffect(() => {
         if (copyToClipboardState.value) {
@@ -98,14 +99,26 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         return a
     }
 
-    const onDownloadAll = async () => {
+    const onDownloadSelected = async () => {
         setDownloadLoading(true)
+        const uniqByFileId = uniqBy('fileId')
+        const mapFields = map(({ fileId = '', artist = '', name = '', fileExtension = '' }) => ({
+            fileId,
+            title: `${artist} - ${name}.${fileExtension}`,
+        }))
+        const rowData = rows.filter((row: { id: string }) => selectedRows.includes(row.id))
+        const selectFileData = pipe(uniqByFileId, mapFields)
+        const songData = selectFileData(rowData)
+        console.log({ songData })
+
         try {
             await API.graphql({
-                ...graphqlOperation(PROCESS_DOWNLOAD, {
+                ...graphqlOperation(processDownload, {
                     assignmentId,
+                    songData,
                 }),
             })
+
             const submissionsZip = await Storage.get(`downloads/${assignmentId}.zip`, { download: true })
             const filename = data?.getFileRequest?.title ? data.getFileRequest.title : assignmentId
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -273,7 +286,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                         </Button>
                                     )}
                                     {data.getFileRequest.submissions.items.length && (
-                                        <Button variant="outlined" color="primary" onClick={onDownloadAll}>
+                                        <Button variant="outlined" color="primary" onClick={onDownloadSelected}>
                                             {downloadLoading ? (
                                                 <>
                                                     Downloading...
@@ -282,7 +295,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                             ) : (
                                                 <>
                                                     <CloudDownload style={{ marginRight: '.25em' }} />
-                                                    Download All
+                                                    Download Selected
                                                 </>
                                             )}
                                         </Button>
@@ -300,16 +313,21 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             </Grid>
                         </Grid>
                     </Grid>
-                    <div style={{ height: 500, width: '100%' }}>
+                    <Grid item xs={12} style={{ height: 600, width: '100%' }}>
                         <DataGrid
-                            rows={data.getFileRequest.submissions.items}
+                            checkboxSelection
+                            rows={rows}
                             columns={columns}
-                            autoHeight
-                            autoPageSize
+                            pageSize={25}
                             disableSelectionOnClick={true}
                             sortModel={sortModel}
+                            // eslint-disable-next-line
+                            // tslint:disable-next-line
+                            onSelectionChange={(selection: SelectionChangeParams) =>
+                                setSelectedRows(selection.rowIds.map(String))
+                            }
                         />
-                    </div>
+                    </Grid>
                 </>
             )}
         </Grid>

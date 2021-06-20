@@ -62,7 +62,7 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
     const { data: { getFileRequest } = {}, loading, error } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
     })
-    const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
+    const { register, handleSubmit, errors, setValue, getValues } = useForm<Inputs>()
     const [details, setDetails] = useState<string>('')
     const [required, setRequired] = useState<boolean>(true)
     const [expiration, setExpiration] = useState<Date | null>(add(new Date(), { weeks: 1 }))
@@ -173,7 +173,7 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
                 <AppBreadcrumbs
                     paths={[
                         ROUTE_NAMES.home,
-                        { path: ROUTE_NAMES.assignment.getPath({ assignmentId }), name: assignmentId },
+                        { path: ROUTE_NAMES.assignment.getPath({ assignmentId }), name: getValues().title },
                         ROUTE_NAMES.editAssignment,
                     ]}
                 />

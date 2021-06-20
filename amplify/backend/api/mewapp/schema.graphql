@@ -29,6 +29,7 @@ type FileRequestSubmission
     name: String
     email: String
     fileId: String
+    fileExtension: String
 }
 
 type Member
@@ -41,7 +42,12 @@ type Member
     status: String
 }
 
+input SongData {
+    fileId: String
+    title: String
+}
+
 type Mutation {
-    processDownload(assignmentId: ID!): String @function(name: "zipmewsubmissions-${env}")
+    processDownload(assignmentId: ID!, songData: [SongData]): String @function(name: "zipmewsubmissions-${env}")
     populateMembers: [String] @function(name: "populateMembers-${env}")
 }

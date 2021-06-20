@@ -23,6 +23,7 @@ export const onCreateFileRequest = /* GraphQL */ `
           name
           email
           fileId
+          fileExtension
           _version
           _deleted
           _lastChangedAt
@@ -57,6 +58,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
           name
           email
           fileId
+          fileExtension
           _version
           _deleted
           _lastChangedAt
@@ -91,6 +93,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
           name
           email
           fileId
+          fileExtension
           _version
           _deleted
           _lastChangedAt
@@ -113,6 +116,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
       name
       email
       fileId
+      fileExtension
       _version
       _deleted
       _lastChangedAt
@@ -147,6 +151,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
       name
       email
       fileId
+      fileExtension
       _version
       _deleted
       _lastChangedAt
@@ -181,6 +186,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
       name
       email
       fileId
+      fileExtension
       _version
       _deleted
       _lastChangedAt
@@ -225,6 +231,7 @@ export const onCreateMember = /* GraphQL */ `
           name
           email
           fileId
+          fileExtension
           _version
           _deleted
           _lastChangedAt
@@ -258,6 +265,7 @@ export const onUpdateMember = /* GraphQL */ `
           name
           email
           fileId
+          fileExtension
           _version
           _deleted
           _lastChangedAt
@@ -291,6 +299,7 @@ export const onDeleteMember = /* GraphQL */ `
           name
           email
           fileId
+          fileExtension
           _version
           _deleted
           _lastChangedAt
