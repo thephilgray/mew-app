@@ -3,7 +3,8 @@
     "storage": {
       "mewapp": [
         "create",
-        "read"
+        "read",
+        "update"
       ]
     }
   },

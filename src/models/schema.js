@@ -132,6 +132,20 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "fileId": {
+                    "name": "fileId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "fileExtension": {
+                    "name": "fileExtension",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -308,5 +322,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "9945d2cec1cc697508db378c24c51787"
+    "version": "7b37cc4b90717a3c84abe7f7a4a42a8f"
 };

@@ -13,6 +13,12 @@
     "storagemewappBucketName": {
       "Type": "String",
       "Default": "storagemewappBucketName"
+    },
+    "deploymentBucketName": {
+      "Type": "String"
+    },
+    "s3Key": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -33,6 +39,8 @@
         "aws:asset:property": "Code"
       },
       "Properties": {
+        "MemorySize": "1024",
+        "Timeout": "120",
         "Handler": "index.handler",
         "FunctionName": {
           "Fn::If": [
@@ -73,10 +81,13 @@
         },
         "Runtime": "nodejs12.x",
         "Layers": [],
-        "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-mewapp-dev-224539-deployment",
-          "S3Key": "amplify-builds/zipmewsubmissions-636a2b4333497359354f-build.zip"
+          "S3Bucket": {
+            "Ref": "deploymentBucketName"
+          },
+          "S3Key": {
+            "Ref": "s3Key"
+          }
         }
       }
     },
@@ -179,10 +190,26 @@
           "Statement": [
             {
               "Effect": "Allow",
+              "Action": "s3:ListBucket",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "storagemewappBucketName"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
               "Action": [
                 "s3:PutObject",
-                "s3:GetObject",
-                "s3:ListBucket"
+                "s3:GetObject"
               ],
               "Resource": [
                 {
@@ -194,6 +221,17 @@
                         "Ref": "storagemewappBucketName"
                       },
                       "/*"
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "storagemewappBucketName"
+                      }
                     ]
                   ]
                 }

@@ -20,8 +20,10 @@ import gql from 'graphql-tag'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { isPast } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
+import { v4 as uuidv4 } from 'uuid'
 
 import Error from '../Error'
+import { createFileRequestSubmission } from '../../graphql/mutations'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -29,21 +31,7 @@ const GET_FILE_REQUEST = gql`
             expiration
             title
             details
-        }
-    }
-`
-
-const CREATE_PUBLIC_SUBMISSION = gql`
-    mutation CreateFileRequestSubmission(
-        $fileRequestId: ID = ""
-        $email: String = ""
-        $artist: String = ""
-        $name: String = ""
-    ) {
-        createFileRequestSubmission(
-            input: { fileRequestId: $fileRequestId, email: $email, artist: $artist, name: $name }
-        ) {
-            id
+            _deleted
         }
     }
 `
@@ -52,7 +40,7 @@ type Inputs = {
     name: string
     artist: string
     email: string
-    upload: Blob
+    upload: AudioFileBlob
 }
 
 const StyledFileDropWrapper = styled.div`
@@ -104,14 +92,18 @@ const StyledFileDropWrapper = styled.div`
         box-shadow: ${({ theme }: { theme?: Theme }) => `0 0 13px 3px ${theme?.palette.primary.main}`};
     }
 `
+
+type AudioFileBlob = Blob & { name: string }
+
 const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({
     assignmentId = '',
 }) => {
-    const [upload, setUpload] = useState<Blob | undefined>()
+    const [upload, setUpload] = useState<AudioFileBlob | undefined>()
     const [fileRequestData, setFileRequestData] = useState<{
         expiration: string
         title: string
         details: string
+        _deleted: boolean
     } | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<Error | null>(null)
@@ -125,7 +117,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
     const validationMessages = {
         email: {
             required: <>Email is required.</>,
-            pattern: <>Must be a valid email.</>,
+            pattern: <>Must be valid email or emails separated by commas.</>,
         },
         artist: {
             required: <>Artist name is required</>,
@@ -137,7 +129,9 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         },
     }
 
-    const isValid = Boolean(fileRequestData?.expiration && !isPast(new Date(fileRequestData.expiration)))
+    const isValid = Boolean(
+        !fileRequestData?._deleted && fileRequestData?.expiration && !isPast(new Date(fileRequestData.expiration)),
+    )
     const ACCEPTED_FILETYPES = [
         // 'audio/wav',
         // 'audio/s-wav',
@@ -204,7 +198,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         if (!(e.target as HTMLInputElement).files && !(e.target as HTMLInputElement).files?.length) return
         // convert image file to base64 string
         const file = (e.target as HTMLInputElement).files?.[0]
-        if (file) {
+        if (file && ACCEPTED_FILETYPES.includes(file.type)) {
             setUpload(file)
             setUploadAreaMessage(file.name)
         }
@@ -216,7 +210,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         }
         const file = files[0]
         if (ACCEPTED_FILETYPES.includes(file.type) && files?.length) {
-            setUpload(files[0])
+            setUpload(file)
             setUploadAreaMessage(file.name)
         } else {
             setUploadAreaMessage(`File must be of type: ${ACCEPTED_FILETYPES.join(', ')}`)
@@ -225,38 +219,50 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
 
     const onSubmit = async (values: Inputs) => {
         setLoading(true)
-        // encode spaces and unacceptable characters
-        // see: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
         const { name, artist, email } = values
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const keyValues = [assignmentId, email, artist, name, upload?.name]
-
+        const fileId = uuidv4()
+        const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
+        const emails = email.split(',').map((email) => email.trim())
+        const fileExtension = upload?.name.split('.').pop()
+        console.log({ fileExtension })
 
         try {
             await Storage.put(key, upload, {
                 contentType: upload?.type,
                 progressCallback: setUploadProgress,
             })
-
-            await API.graphql({
-                ...graphqlOperation(CREATE_PUBLIC_SUBMISSION, {
-                    fileRequestId: assignmentId,
-                    artist,
-                    name,
-                    email,
-                }),
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                authMode: 'API_KEY',
-            })
-
-            setUploadSuccess(true)
         } catch (err) {
+            setLoading(false)
             setError(err)
+            return
         }
 
+        for (let index = 0; index < emails.length; index++) {
+            try {
+                await API.graphql({
+                    ...graphqlOperation(createFileRequestSubmission, {
+                        input: {
+                            fileId,
+                            fileRequestId: assignmentId,
+                            artist,
+                            name,
+                            email: emails[index],
+                            fileExtension,
+                        },
+                    }),
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    authMode: 'API_KEY',
+                })
+            } catch (err) {
+                setLoading(false)
+                setError(err)
+                return
+            }
+        }
+
+        setUploadSuccess(true)
         setLoading(false)
     }
 
@@ -314,19 +320,27 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                             name="email"
                             inputRef={register({
                                 required: true,
-                                pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                pattern: /^([\w+-.%]+@[\w-.]+\.[A-Za-z]+)(, ?[\w+-.%]+@[\w-.]+\.[A-Za-z]+)*$/,
                             })}
                             error={!!errors.email}
-                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                            // @ts-ignore
-                            helperText={!!errors.email && validationMessages.email[errors.email.type]}
+                            helperText={
+                                !!errors.email ? (
+                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                    // @ts-ignore
+                                    validationMessages.email[errors.email.type]
+                                ) : (
+                                    <>
+                                        Separate multiple email addresses with a comma (<kbd>,</kbd>)
+                                    </>
+                                )
+                            }
                         />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
                             required
                             fullWidth
-                            label="Artist Name"
+                            label="Artist Byline"
                             name="artist"
                             inputRef={register({ required: true, pattern: /^((?!\/).)*$/i })}
                             error={!!errors.artist}
@@ -339,7 +353,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                         <TextField
                             required
                             fullWidth
-                            label="Song Name"
+                            label="Song Title"
                             name="name"
                             inputRef={register({ required: true, pattern: /^((?!\/).)*$/i })}
                             error={!!errors.name}

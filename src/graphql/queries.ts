@@ -2,6 +2,41 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getFileRequest = /* GraphQL */ `
+  query GetFileRequest($id: ID!) {
+    getFileRequest(id: $id) {
+      id
+      expiration
+      title
+      details
+      required
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
 export const listFileRequests = /* GraphQL */ `
   query ListFileRequests(
     $filter: ModelFileRequestFilterInput
@@ -27,39 +62,6 @@ export const listFileRequests = /* GraphQL */ `
       }
       nextToken
       startedAt
-    }
-  }
-`;
-export const getFileRequest = /* GraphQL */ `
-  query GetFileRequest($id: ID!) {
-    getFileRequest(id: $id) {
-      id
-      expiration
-      title
-      details
-      required
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      submissions {
-        items {
-          id
-          fileRequestId
-          artist
-          name
-          email
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
     }
   }
 `;
@@ -105,6 +107,8 @@ export const getFileRequestSubmission = /* GraphQL */ `
       artist
       name
       email
+      fileId
+      fileExtension
       _version
       _deleted
       _lastChangedAt
@@ -147,6 +151,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `
         artist
         name
         email
+        fileId
+        fileExtension
         _version
         _deleted
         _lastChangedAt
@@ -192,6 +198,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `
         artist
         name
         email
+        fileId
+        fileExtension
         _version
         _deleted
         _lastChangedAt
@@ -237,6 +245,8 @@ export const submissionsByEmail = /* GraphQL */ `
         artist
         name
         email
+        fileId
+        fileExtension
         _version
         _deleted
         _lastChangedAt
@@ -280,6 +290,8 @@ export const syncFileRequestSubmissions = /* GraphQL */ `
         artist
         name
         email
+        fileId
+        fileExtension
         _version
         _deleted
         _lastChangedAt
@@ -322,6 +334,8 @@ export const getMember = /* GraphQL */ `
           artist
           name
           email
+          fileId
+          fileExtension
           _version
           _deleted
           _lastChangedAt

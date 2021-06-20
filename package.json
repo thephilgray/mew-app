@@ -62,12 +62,15 @@
     "react-file-drop": "^3.1.2",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^6.13.1",
-    "react-use": "^15.3.4"
+    "react-jinke-music-player": "^4.24.1",
+    "react-use": "^15.3.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
     "eslint": "^7.15.0",

@@ -21,6 +21,12 @@
     "apimewappGraphQLAPIKeyOutput": {
       "Type": "String",
       "Default": "apimewappGraphQLAPIKeyOutput"
+    },
+    "deploymentBucketName": {
+      "Type": "String"
+    },
+    "s3Key": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -89,8 +95,12 @@
         "Layers": [],
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-mewapp-dev-224539-deployment",
-          "S3Key": "amplify-builds/populateMembers-505530475664766b5379-build.zip"
+          "S3Bucket": {
+            "Ref": "deploymentBucketName"
+          },
+          "S3Key": {
+            "Ref": "s3Key"
+          }
         }
       }
     },
