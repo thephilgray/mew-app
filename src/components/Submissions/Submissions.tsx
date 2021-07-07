@@ -72,7 +72,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
-                        const fileAccessURL = await Storage.get(songFilePath, { expires: 60 })
+                        const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
                         songs.push({ musicSrc: fileAccessURL.toString(), name, cover: '', singer: artist })
                         seenFileIds.push(fileId)
                     }
