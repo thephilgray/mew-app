@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
-import { Button, ButtonGroup, CircularProgress, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
+import { CircularProgress, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
 import { DataGrid, Columns, SortDirection, ColDef, SelectionChangeParams } from '@material-ui/data-grid'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
@@ -13,10 +13,11 @@ import { uniqBy, pipe, map } from 'lodash/fp'
 import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
 
-import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
-import { ROUTE_NAMES } from '../../pages/app'
+import Error from '../Error'
+import Menu from '../Menu'
 import { processDownload } from '../../graphql/mutations'
+import { ROUTE_NAMES } from '../../pages/app'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -199,6 +200,40 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     if (loading) return <CircularProgress />
     if (!loading && !data?.getFileRequest?.submissions?.items)
         return <p>Assignment does not exist or has been deleted.</p>
+
+    const menuItems = [
+        {
+            icon: <Edit />,
+            text: 'Edit',
+            show: true,
+            key: 'editButton',
+            to: `edit`,
+        },
+        {
+            icon: <Assessment />,
+            text: 'Download Report',
+            show: data.getFileRequest.submissions.items.length,
+            key: 'downloadReport',
+            onClick: downloadReport,
+        },
+        {
+            icon: downloadLoading ? <CircularProgress size={20} color="secondary" /> : <CloudDownload />,
+            text: downloadLoading ? 'Downloading...' : 'Download Selected',
+            show: data.getFileRequest.submissions.items.length,
+            key: 'downloadSelected',
+            onClick: onDownloadSelected,
+        },
+        {
+            icon: <Add />,
+            text: 'New Submission',
+            show: true,
+            key: 'newSubmission',
+            to: ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId }),
+        },
+    ]
+        .filter(({ show }) => !!show)
+        .map(({ icon, text, key, onClick, to }) => ({ icon, text, key, onClick, to }))
+
     return (
         <Grid container spacing={3}>
             {audioLists.length ? (
@@ -231,7 +266,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 <>
                     <Grid item xs={12}>
                         <Grid container>
-                            <Grid item xs={12} md={12}>
+                            <Grid item xs={10}>
                                 <Typography variant="h6" component="h3">
                                     Submissions for{' '}
                                     <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
@@ -273,43 +308,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                     </IconButton>
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12} md={12} style={{ textAlign: 'right' }}>
-                                <ButtonGroup color="primary" aria-label="contained primary button group">
-                                    <Button variant="outlined" color="primary" component={Link} to={`edit`}>
-                                        <Edit style={{ marginRight: '.25em' }} />
-                                        Edit
-                                    </Button>
-                                    {data.getFileRequest.submissions.items.length && (
-                                        <Button variant="outlined" color="primary" onClick={downloadReport}>
-                                            <Assessment style={{ marginRight: '.25em' }} />
-                                            Download Report
-                                        </Button>
-                                    )}
-                                    {data.getFileRequest.submissions.items.length && (
-                                        <Button variant="outlined" color="primary" onClick={onDownloadSelected}>
-                                            {downloadLoading ? (
-                                                <>
-                                                    Downloading...
-                                                    <CircularProgress size={20} />
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <CloudDownload style={{ marginRight: '.25em' }} />
-                                                    Download Selected
-                                                </>
-                                            )}
-                                        </Button>
-                                    )}
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        component={Link}
-                                        to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                                    >
-                                        <Add />
-                                        New Submission
-                                    </Button>
-                                </ButtonGroup>
+                            <Grid item xs={2} style={{ textAlign: 'right' }}>
+                                <Menu items={menuItems} />
                             </Grid>
                         </Grid>
                     </Grid>

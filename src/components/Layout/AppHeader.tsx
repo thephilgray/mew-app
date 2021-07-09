@@ -2,10 +2,11 @@ import * as React from 'react'
 import { Link, navigate } from 'gatsby'
 import { Auth } from 'aws-amplify'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import { logout, isLoggedIn } from '../../utils/auth'
 import { ROUTE_NAMES } from '../../pages/app'
+import mewAppLogo from '../../assets/mewlogo.png'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -54,11 +55,9 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
         <AppBar position="static">
             <Toolbar className={classes.toolbar}>
                 <div className={classes.title}>
-                    <IconButton component={Link} to={authenticated ? '/app/' : '/'} color="inherit">
-                        <Typography variant="h6" component="h1">
-                            {siteTitle}
-                        </Typography>
-                    </IconButton>
+                    <Link to={authenticated ? '/app/' : '/'}>
+                        <img src={mewAppLogo} alt={siteTitle} width="25%" style={{ padding: '.25rem' }} />
+                    </Link>
                 </div>
                 {authenticated && (
                     <div className={classes.menuButton}>
@@ -68,7 +67,6 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
                             aria-haspopup="true"
                             onClick={handleMenu}
                             color="inherit"
-                            edge="end"
                             size="medium"
                         >
                             <AccountCircle />

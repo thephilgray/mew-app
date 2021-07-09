@@ -26,8 +26,8 @@ const Layout: React.FC = ({ children = [] }) => (
                 >
                     <html lang="en" />
                 </Helmet>
-                <AppHeader siteTitle={d.site.siteMetadata.title} />
                 <Theme>
+                    <AppHeader siteTitle={d.site.siteMetadata.title} />
                     <div
                         style={{
                             margin: '0 auto',

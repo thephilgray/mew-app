@@ -1,6 +1,6 @@
 module.exports = {
     siteMetadata: {
-        title: 'MEW 2021',
+        title: 'MEW App',
         // siteUrl: ``,
         // description: ``,
     },
@@ -31,17 +31,18 @@ module.exports = {
         'gatsby-plugin-react-helmet',
         // "gatsby-plugin-sitemap",
         'gatsby-plugin-offline',
-        // {
-        //   resolve: "gatsby-plugin-manifest",
-        //   options: {
-        //     name: `mew-app`,
-        //     short_name: `mew-app`,
-        //     start_url: `/`,
-        //     background_color: `#f7f0eb`,
-        //     theme_color: `#a2466c`,
-        //     display: `standalone`,
-        //   },
-        // },
+        {
+            resolve: 'gatsby-plugin-manifest',
+            options: {
+                name: `mew-app`,
+                short_name: `mew-app`,
+                start_url: `/`,
+                background_color: `#63625E`,
+                theme_color: `#E092A2`,
+                display: `standalone`,
+                icon: 'src/assets/mewlogo.png',
+            },
+        },
         'gatsby-plugin-sharp',
         'gatsby-transformer-sharp',
         // {
@@ -61,5 +62,6 @@ module.exports = {
             __key: 'pages',
         },
         'gatsby-plugin-typescript',
+        `gatsby-plugin-less`,
     ],
 }
