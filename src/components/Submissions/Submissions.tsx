@@ -24,6 +24,7 @@ const GET_FILE_REQUEST = gql`
         getFileRequest(id: $id) {
             id
             title
+            details
             createdAt
             expiration
             _deleted
@@ -45,6 +46,8 @@ const GET_FILE_REQUEST = gql`
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
     const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
+    const [showDownloadSelectedSuccessAlert, setShowDownloadSelectedSuccessAlert] = useState<boolean>(false)
+    const [showDownloadReportSuccessAlert, setShowDownloadReportSuccessAlert] = useState<boolean>(false)
     const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
     // const [songs, setSongs] = useState({})
     const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
@@ -110,7 +113,6 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         const rowData = rows.filter((row: { id: string }) => selectedRows.includes(row.id))
         const selectFileData = pipe(uniqByFileId, mapFields)
         const songData = selectFileData(rowData)
-        console.log({ songData })
 
         try {
             await API.graphql({
@@ -129,6 +131,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             console.error(error)
         }
         setDownloadLoading(false)
+        setShowDownloadSelectedSuccessAlert(true)
     }
 
     const downloadReport = () => {
@@ -160,6 +163,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
         const file = new File([content], `${filename}.csv`, { type: 'data:text/csv;charset=utf-8' })
         downloadBlob(file, `${filename}.csv`)
+        setShowDownloadReportSuccessAlert(true)
     }
 
     const columns: Columns = [
@@ -203,36 +207,18 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
     const menuItems = [
         {
-            icon: <Edit />,
-            text: 'Edit',
-            show: true,
-            key: 'editButton',
-            to: `edit`,
-        },
-        {
             icon: <Assessment />,
             text: 'Download Report',
-            show: data.getFileRequest.submissions.items.length,
             key: 'downloadReport',
             onClick: downloadReport,
         },
         {
             icon: downloadLoading ? <CircularProgress size={20} color="secondary" /> : <CloudDownload />,
             text: downloadLoading ? 'Downloading...' : 'Download Selected',
-            show: data.getFileRequest.submissions.items.length,
             key: 'downloadSelected',
             onClick: onDownloadSelected,
         },
-        {
-            icon: <Add />,
-            text: 'New Submission',
-            show: true,
-            key: 'newSubmission',
-            to: ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId }),
-        },
     ]
-        .filter(({ show }) => !!show)
-        .map(({ icon, text, key, onClick, to }) => ({ icon, text, key, onClick, to }))
 
     return (
         <Grid container spacing={3}>
@@ -264,11 +250,43 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 </Grid>
             ) : (
                 <>
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        open={showCopySuccessAlert}
+                        color="success"
+                        autoHideDuration={3000}
+                        message="Link to assignment copied to clipboard."
+                        onClose={() => setShowCopySuccessAlert(false)}
+                    />
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        open={showDownloadSelectedSuccessAlert}
+                        color="success"
+                        autoHideDuration={3000}
+                        message="Successfully downloaded selected tracks."
+                        onClose={() => setShowDownloadSelectedSuccessAlert(false)}
+                    />
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        open={showDownloadReportSuccessAlert}
+                        color="success"
+                        autoHideDuration={3000}
+                        message="Successfully downloaded report."
+                        onClose={() => setShowDownloadReportSuccessAlert(false)}
+                    />
                     <Grid item xs={12}>
                         <Grid container>
-                            <Grid item xs={10}>
+                            <Grid item xs={8}>
                                 <Typography variant="h6" component="h3">
-                                    Submissions for{' '}
                                     <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
                                         <em>
                                             {data?.getFileRequest.title ? (
@@ -281,35 +299,50 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                             )}
                                         </em>
                                     </Link>
-                                    <Snackbar
-                                        anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'center',
-                                        }}
-                                        open={showCopySuccessAlert}
-                                        color="success"
-                                        autoHideDuration={3000}
-                                        message="Link to assignment copied to clipboard."
-                                        onClose={() => setShowCopySuccessAlert(false)}
-                                    />
-                                    <IconButton
-                                        color="secondary"
-                                        aria-label="Close"
-                                        component="span"
-                                        onClick={() =>
-                                            copyToClipboard(
-                                                `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({
-                                                    assignmentId,
-                                                })}`,
-                                            )
-                                        }
-                                    >
-                                        <FileCopy />
-                                    </IconButton>
                                 </Typography>
                             </Grid>
-                            <Grid item xs={2} style={{ textAlign: 'right' }}>
-                                <Menu items={menuItems} />
+                            <Grid item xs={4} style={{ textAlign: 'right' }}>
+                                <IconButton
+                                    color="secondary"
+                                    aria-label="Copy"
+                                    component="span"
+                                    onClick={() =>
+                                        copyToClipboard(
+                                            `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({
+                                                assignmentId,
+                                            })}`,
+                                        )
+                                    }
+                                >
+                                    <FileCopy />
+                                </IconButton>
+                                <IconButton color="secondary" aria-label="Edit" component={Link} to="edit">
+                                    <Edit />
+                                </IconButton>
+                            </Grid>
+                            {data?.getFileRequest?.details && (
+                                <Grid item xs={12}>
+                                    <div
+                                        dangerouslySetInnerHTML={{ __html: data?.getFileRequest.details }}
+                                        style={{ width: '100%' }}
+                                    />
+                                </Grid>
+                            )}
+                            <Grid item xs={6}>
+                                <Typography variant="h6" component="h3">
+                                    Submissions
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={6} style={{ textAlign: 'right' }}>
+                                <IconButton
+                                    color="secondary"
+                                    aria-label="New Submission"
+                                    component={Link}
+                                    to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                >
+                                    <Add />
+                                </IconButton>
+                                {data.getFileRequest.submissions.items.length && <Menu items={menuItems} />}
                             </Grid>
                         </Grid>
                     </Grid>
