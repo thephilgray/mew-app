@@ -40,24 +40,20 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
         pollInterval: 10000,
     })
 
-    // const downloadBlob = (blob: Blob, filename: string) => {
-    //     const url = URL.createObjectURL(blob)
+    // TODO: figure out how to download from player with filename
+    // const downloadPresignedUrl = ({ src, filename }: { src: string; filename: string }) => {
     //     const a = document.createElement('a')
-    //     a.href = url
+    //     a.href = src
     //     a.download = filename || 'download'
     //     const clickHandler = () => {
     //         setTimeout(() => {
-    //             URL.revokeObjectURL(url)
+    //             URL.revokeObjectURL(src)
     //             a.removeEventListener('click', clickHandler)
     //         }, 150)
     //     }
     //     a.addEventListener('click', clickHandler, false)
     //     a.click()
     //     return a
-    // }
-
-    // const customDownloader = (downloadInfo) => {
-    //     console.log(downloadInfo)
     // }
 
     useEffect(() => {
@@ -99,12 +95,12 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
                     spaceBar
                     showMediaSession
                     showThemeSwitch={false}
-                    showDownload
                     showPlayMode={true}
                     defaultVolume={1}
                     // volumeFade={{ fadeIn: 0, fadeOut: 0 }}
                     showMiniProcessBar={false}
-                    // customDownloader={customDownloader}
+                    showDownload={false}
+                    // customDownloader={downloadPresignedUrl}
                 />
             ) : null}
             <Grid item xs={12}>

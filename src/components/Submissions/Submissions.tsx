@@ -306,7 +306,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                 >
                                     <Add />
                                 </IconButton>
-                                {data.getFileRequest.submissions.items.length && <Menu items={menuItems} />}
+                                {data.getFileRequest.submissions.items.length ? <Menu items={menuItems} /> : null}
                             </Grid>
                         </Grid>
                     </Grid>
