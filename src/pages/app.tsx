@@ -11,6 +11,7 @@ import EditPublicAssignment from '../components/Assignments/EditPublicAssignment
 import NewPublicSubmission from '../components/Submissions/NewPublicSubmission'
 import NotFound from '../components/NotFound'
 import Submissions from '../components/Submissions/Submissions'
+import Playlist from '../components/Submissions/Playlist'
 import Assignments from '../components/Assignments/Assignments'
 
 export const ROUTE_NAMES = {
@@ -22,6 +23,11 @@ export const ROUTE_NAMES = {
         path: '/app/assignments/:assignmentId',
         getPath: ({ assignmentId = '' }): string => `/app/assignments/${assignmentId}`,
         name: 'Assignment',
+    },
+    playlist: {
+        path: '/app/assignments/:assignmentId/playlist',
+        getPath: ({ assignmentId = '' }): string => `/app/assignments/${assignmentId}/playlist`,
+        name: 'Playlist',
     },
     newAssignment: {
         path: '/app/assignments/new',
@@ -51,6 +57,7 @@ const App: React.FC = (): JSX.Element => (
                 <PrivateRoute path={ROUTE_NAMES.newAssignment.path} component={NewPublicAssignment} />
                 <PrivateRoute path={ROUTE_NAMES.editAssignment.path} component={EditPublicAssignment} />
                 <PrivateRoute path={ROUTE_NAMES.assignment.path} component={Submissions} />
+                <PrivateRoute path={ROUTE_NAMES.playlist.path} component={Playlist} />
                 <PrivateRoute path={ROUTE_NAMES.profile.path} component={Profile} />
                 <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmission.path} />
             </Router>

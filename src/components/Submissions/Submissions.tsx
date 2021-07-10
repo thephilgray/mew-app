@@ -7,11 +7,9 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
-import { CloudDownload, FileCopy, Add, Assessment, Edit } from '@material-ui/icons'
+import { CloudDownload, FileCopy, Add, Assessment, Edit, PlayArrowTwoTone } from '@material-ui/icons'
 import { API, Storage, graphqlOperation } from 'aws-amplify'
 import { uniqBy, pipe, map } from 'lodash/fp'
-import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
-import 'react-jinke-music-player/assets/index.css'
 
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
@@ -49,8 +47,6 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     const [showDownloadSelectedSuccessAlert, setShowDownloadSelectedSuccessAlert] = useState<boolean>(false)
     const [showDownloadReportSuccessAlert, setShowDownloadReportSuccessAlert] = useState<boolean>(false)
     const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
-    // const [songs, setSongs] = useState({})
-    const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
     const [selectedRows, setSelectedRows] = useState<string[]>([])
 
     const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
@@ -65,27 +61,6 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             setShowCopySuccessAlert(true)
         }
     }, [copyToClipboardState])
-
-    useEffect(() => {
-        async function addSongsToPlaylist() {
-            const songs: Array<ReactJkMusicPlayerAudioListProps> = []
-            const seenFileIds: string[] = []
-            if (!audioLists.length && data?.getFileRequest?.submissions?.items) {
-                for (let index = 0; index < data.getFileRequest.submissions.items.length; index++) {
-                    const { name, fileId, artist } = data.getFileRequest.submissions.items[index]
-                    // don't add nonexistent or duplicate files to the playlist
-                    if (fileId && !seenFileIds.includes(fileId)) {
-                        const songFilePath = `${assignmentId}/${fileId}`
-                        const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
-                        songs.push({ musicSrc: fileAccessURL.toString(), name, cover: '', singer: artist })
-                        seenFileIds.push(fileId)
-                    }
-                }
-                setAudioLists(songs)
-            }
-        }
-        addSongsToPlaylist()
-    }, [data])
 
     const downloadBlob = (blob: Blob, filename: string) => {
         const url = URL.createObjectURL(blob)
@@ -222,25 +197,6 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
     return (
         <Grid container spacing={3}>
-            {audioLists.length ? (
-                <ReactJkMusicPlayer
-                    mode="full"
-                    preload
-                    audioLists={audioLists}
-                    autoHiddenCover
-                    autoPlay={false}
-                    autoPlayInitLoadPlayList={false}
-                    quietUpdate
-                    spaceBar
-                    showMediaSession
-                    showThemeSwitch={false}
-                    showDownload={false}
-                    showPlayMode={false}
-                    defaultVolume={1}
-                    // volumeFade={{ fadeIn: 0, fadeOut: 0 }}
-                    showMiniProcessBar={false}
-                />
-            ) : null}
             <Grid item xs={12}>
                 <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignment]} />
             </Grid>
@@ -336,6 +292,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             <Grid item xs={6} style={{ textAlign: 'right' }}>
                                 <IconButton
                                     color="secondary"
+                                    aria-label="Playlist"
+                                    component={Link}
+                                    to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
+                                >
+                                    <PlayArrowTwoTone />
+                                </IconButton>
+                                <IconButton
+                                    color="secondary"
                                     aria-label="New Submission"
                                     component={Link}
                                     to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
@@ -346,12 +310,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} style={{ height: 600, width: '100%' }}>
+                    <Grid item xs={12} style={{ minHeight: 600, width: '100%' }}>
                         <DataGrid
                             checkboxSelection
                             rows={rows}
                             columns={columns}
-                            pageSize={25}
+                            pageSize={100}
                             disableSelectionOnClick={true}
                             sortModel={sortModel}
                             // eslint-disable-next-line
