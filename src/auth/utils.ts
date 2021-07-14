@@ -9,11 +9,13 @@ export type User = {
 }
 
 export const setUser = (user: User): void => {
-    window.localStorage.gatsbyUser = JSON.stringify(user)
+    if (typeof window !== 'undefined') {
+        window.localStorage.gatsbyUser = JSON.stringify(user)
+    }
 }
 
 const getUser = (): User => {
-    if (window.localStorage.gatsbyUser) {
+    if (typeof window !== 'undefined' && window.localStorage.gatsbyUser) {
         const user = JSON.parse(window.localStorage.gatsbyUser)
         return user ? user : {}
     }
