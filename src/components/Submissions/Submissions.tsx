@@ -49,10 +49,13 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
     const [selectedRows, setSelectedRows] = useState<string[]>([])
 
-    const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
+    const { loading, error, data, refetch } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
-        pollInterval: 10000,
     })
+
+    React.useEffect(() => {
+        refetch()
+    }, [])
 
     const rows = data?.getFileRequest?.submissions?.items || []
 
@@ -284,33 +287,33 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                     />
                                 </Grid>
                             )}
-                            <Grid item xs={6}>
-                                <Typography variant="h6" component="h3">
-                                    Submissions
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={6} style={{ textAlign: 'right' }}>
-                                <IconButton
-                                    color="secondary"
-                                    aria-label="Playlist"
-                                    component={Link}
-                                    to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
-                                >
-                                    <PlayArrowTwoTone />
-                                </IconButton>
-                                <IconButton
-                                    color="secondary"
-                                    aria-label="New Submission"
-                                    component={Link}
-                                    to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                                >
-                                    <Add />
-                                </IconButton>
-                                {data.getFileRequest.submissions.items.length ? <Menu items={menuItems} /> : null}
-                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} style={{ minHeight: 600, width: '100%' }}>
+                    <Grid item xs={6}>
+                        <Typography variant="h6" component="h3">
+                            Submissions
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6} style={{ textAlign: 'right' }}>
+                        <IconButton
+                            color="secondary"
+                            aria-label="Playlist"
+                            component={Link}
+                            to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
+                        >
+                            <PlayArrowTwoTone />
+                        </IconButton>
+                        <IconButton
+                            color="secondary"
+                            aria-label="New Submission"
+                            component={Link}
+                            to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                        >
+                            <Add />
+                        </IconButton>
+                        {data.getFileRequest.submissions.items.length ? <Menu items={menuItems} /> : null}
+                    </Grid>
+                    <Grid item xs={12} style={{ minHeight: 600, width: '100%', paddingTop: 0 }}>
                         <DataGrid
                             checkboxSelection
                             rows={rows}

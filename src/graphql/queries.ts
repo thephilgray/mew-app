@@ -10,6 +10,15 @@ export const getFileRequest = /* GraphQL */ `
       title
       details
       required
+      playlistArtwork {
+        id
+        credit {
+          id
+          title
+          artist
+          artistLinks
+        }
+      }
       _version
       _deleted
       _lastChangedAt
@@ -50,6 +59,9 @@ export const listFileRequests = /* GraphQL */ `
         title
         details
         required
+        playlistArtwork {
+          id
+        }
         _version
         _deleted
         _lastChangedAt
@@ -84,6 +96,9 @@ export const syncFileRequests = /* GraphQL */ `
         title
         details
         required
+        playlistArtwork {
+          id
+        }
         _version
         _deleted
         _lastChangedAt
@@ -120,6 +135,9 @@ export const getFileRequestSubmission = /* GraphQL */ `
         title
         details
         required
+        playlistArtwork {
+          id
+        }
         _version
         _deleted
         _lastChangedAt

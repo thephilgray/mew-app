@@ -2,7 +2,19 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class Credit {
+  readonly id: string;
+  readonly title?: string;
+  readonly artist?: string;
+  readonly artistLinks?: (string | null)[];
+  constructor(init: ModelInit<Credit>);
+}
 
+export declare class Artwork {
+  readonly id: string;
+  readonly credit?: (Credit | null)[];
+  constructor(init: ModelInit<Artwork>);
+}
 
 export declare class FileRequest {
   readonly id: string;
@@ -10,6 +22,7 @@ export declare class FileRequest {
   readonly title?: string;
   readonly details?: string;
   readonly required?: boolean;
+  readonly playlistArtwork?: Artwork;
   readonly submissions?: (FileRequestSubmission | null)[];
   constructor(init: ModelInit<FileRequest>);
   static copyOf(source: FileRequest, mutator: (draft: MutableModel<FileRequest>) => MutableModel<FileRequest> | void): FileRequest;

@@ -10,6 +10,15 @@ export const onCreateFileRequest = /* GraphQL */ `
       title
       details
       required
+      playlistArtwork {
+        id
+        credit {
+          id
+          title
+          artist
+          artistLinks
+        }
+      }
       _version
       _deleted
       _lastChangedAt
@@ -45,6 +54,15 @@ export const onUpdateFileRequest = /* GraphQL */ `
       title
       details
       required
+      playlistArtwork {
+        id
+        credit {
+          id
+          title
+          artist
+          artistLinks
+        }
+      }
       _version
       _deleted
       _lastChangedAt
@@ -80,6 +98,15 @@ export const onDeleteFileRequest = /* GraphQL */ `
       title
       details
       required
+      playlistArtwork {
+        id
+        credit {
+          id
+          title
+          artist
+          artistLinks
+        }
+      }
       _version
       _deleted
       _lastChangedAt
@@ -128,6 +155,9 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
         title
         details
         required
+        playlistArtwork {
+          id
+        }
         _version
         _deleted
         _lastChangedAt
@@ -163,6 +193,9 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
         title
         details
         required
+        playlistArtwork {
+          id
+        }
         _version
         _deleted
         _lastChangedAt
@@ -198,6 +231,9 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
         title
         details
         required
+        playlistArtwork {
+          id
+        }
         _version
         _deleted
         _lastChangedAt

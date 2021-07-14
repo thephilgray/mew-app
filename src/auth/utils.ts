@@ -5,6 +5,7 @@ export type User = {
     email_verified?: boolean
     name?: string
     sub?: string
+    groups?: [string?]
 }
 
 export const setUser = (user: User): void => {
@@ -17,6 +18,12 @@ const getUser = (): User => {
         return user ? user : {}
     }
     return {}
+}
+
+export const isAdmin = (): boolean => {
+    if (!isBrowser) return false
+    const user = getUser()
+    return !!user.groups?.includes('Admin')
 }
 
 export const isLoggedIn = (): boolean => {

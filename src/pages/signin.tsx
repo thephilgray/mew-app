@@ -3,7 +3,7 @@ import { Button, Grid, Input } from '@material-ui/core'
 import { Auth } from 'aws-amplify'
 import { Link, navigate } from 'gatsby'
 import { RouteComponentProps } from '@reach/router'
-import { isLoggedIn, setUser } from '../utils/auth'
+import { isLoggedIn, setUser } from '../auth/utils'
 import Error from '../components/Error'
 import Layout from '../components/Layout/Layout'
 

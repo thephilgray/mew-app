@@ -123,7 +123,7 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
             },
         })
         // then redirect
-        navigate(ROUTE_NAMES.home.path)
+        navigate(ROUTE_NAMES.assignment.getPath({ assignmentId }))
     }
 
     const deleteAssignment = async () => {

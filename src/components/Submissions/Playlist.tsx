@@ -18,6 +18,14 @@ const GET_FILE_REQUEST = gql`
             title
             expiration
             _deleted
+            playlistArtwork {
+                id
+                credit {
+                    artist
+                    title
+                    artistLinks
+                }
+            }
             submissions(limit: 200) {
                 items {
                     id
