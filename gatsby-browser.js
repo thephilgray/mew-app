@@ -1,10 +1,14 @@
 import Auth from '@aws-amplify/auth'
-import { setUser } from './src/utils/auth'
+import { setUser } from './src/auth/utils'
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const onRouteUpdate = () => {
     Auth.currentAuthenticatedUser()
         .then((user) => {
-            const userInfo = user.attributes
+            const userInfo = {
+                ...user.attributes,
+                groups: user.signInUserSession.accessToken.payload['cognito:groups'],
+            }
+
             setUser(userInfo)
         })
         // eslint-disable-next-line no-unused-vars

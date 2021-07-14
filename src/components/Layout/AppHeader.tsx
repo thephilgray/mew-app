@@ -2,9 +2,8 @@ import * as React from 'react'
 import { Link, navigate } from 'gatsby'
 import { Auth } from 'aws-amplify'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { AppBar, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core'
-import { AccountCircle } from '@material-ui/icons'
-import { logout, isLoggedIn } from '../../utils/auth'
+import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core'
+import { logout, isLoggedIn } from '../../auth/utils'
 import { ROUTE_NAMES } from '../../pages/app'
 import mewAppLogo from '../../assets/mewlogo.png'
 
@@ -69,7 +68,7 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
                             color="inherit"
                             size="medium"
                         >
-                            <AccountCircle />
+                            <Avatar />
                         </IconButton>
                         <Menu
                             id="menu-appbar"

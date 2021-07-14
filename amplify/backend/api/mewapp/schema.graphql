@@ -1,3 +1,15 @@
+type Credit {
+    id: ID!
+    title: String
+    artist: String
+    artistLinks: [String]
+}
+
+type Artwork {
+    id: ID!
+    credit: [Credit]
+}
+
 type FileRequest
     @model
     @auth(
@@ -12,6 +24,7 @@ type FileRequest
     title: String
     details: String
     required: Boolean
+    playlistArtwork: Artwork
     submissions: [FileRequestSubmission] @connection(keyName: "submissionsByFileRequestId", fields: ["id"])
 }
 
@@ -30,6 +43,7 @@ type FileRequestSubmission
     email: String
     fileId: String
     fileExtension: String
+    rating: Int
 }
 
 type Member

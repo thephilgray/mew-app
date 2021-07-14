@@ -4,10 +4,12 @@ import { schema } from './schema';
 
 
 
-const { FileRequest, FileRequestSubmission, Member } = initSchema(schema);
+const { FileRequest, FileRequestSubmission, Member, Credit, Artwork } = initSchema(schema);
 
 export {
   FileRequest,
   FileRequestSubmission,
-  Member
+  Member,
+  Credit,
+  Artwork
 };

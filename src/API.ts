@@ -13,7 +13,20 @@ export type CreateFileRequestInput = {
   title?: string | null,
   details?: string | null,
   required?: boolean | null,
+  playlistArtwork?: ArtworkInput | null,
   _version?: number | null,
+};
+
+export type ArtworkInput = {
+  id: string,
+  credit?: Array< CreditInput | null > | null,
+};
+
+export type CreditInput = {
+  id: string,
+  title?: string | null,
+  artist?: string | null,
+  artistLinks?: Array< string | null > | null,
 };
 
 export type ModelFileRequestConditionInput = {
@@ -80,12 +93,27 @@ export type FileRequest = {
   title?: string | null,
   details?: string | null,
   required?: boolean | null,
+  playlistArtwork?: Artwork,
   _version?: number,
   _deleted?: boolean | null,
   _lastChangedAt?: number,
   createdAt?: string,
   updatedAt?: string,
   submissions?: ModelFileRequestSubmissionConnection,
+};
+
+export type Artwork = {
+  __typename: "Artwork",
+  id?: string,
+  credit?:  Array<Credit | null > | null,
+};
+
+export type Credit = {
+  __typename: "Credit",
+  id?: string,
+  title?: string | null,
+  artist?: string | null,
+  artistLinks?: Array< string | null > | null,
 };
 
 export type ModelFileRequestSubmissionConnection = {
@@ -119,6 +147,7 @@ export type UpdateFileRequestInput = {
   title?: string | null,
   details?: string | null,
   required?: boolean | null,
+  playlistArtwork?: ArtworkInput | null,
   _version?: number | null,
 };
 
@@ -302,6 +331,17 @@ export type CreateFileRequestMutation = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
+    playlistArtwork?:  {
+      __typename: "Artwork",
+      id: string,
+      credit?:  Array< {
+        __typename: "Credit",
+        id: string,
+        title?: string | null,
+        artist?: string | null,
+        artistLinks?: Array< string | null > | null,
+      } | null > | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -344,6 +384,17 @@ export type UpdateFileRequestMutation = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
+    playlistArtwork?:  {
+      __typename: "Artwork",
+      id: string,
+      credit?:  Array< {
+        __typename: "Credit",
+        id: string,
+        title?: string | null,
+        artist?: string | null,
+        artistLinks?: Array< string | null > | null,
+      } | null > | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -386,6 +437,17 @@ export type DeleteFileRequestMutation = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
+    playlistArtwork?:  {
+      __typename: "Artwork",
+      id: string,
+      credit?:  Array< {
+        __typename: "Credit",
+        id: string,
+        title?: string | null,
+        artist?: string | null,
+        artistLinks?: Array< string | null > | null,
+      } | null > | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -442,6 +504,10 @@ export type CreateFileRequestSubmissionMutation = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
+      playlistArtwork?:  {
+        __typename: "Artwork",
+        id: string,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
@@ -484,6 +550,10 @@ export type UpdateFileRequestSubmissionMutation = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
+      playlistArtwork?:  {
+        __typename: "Artwork",
+        id: string,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
@@ -526,6 +596,10 @@ export type DeleteFileRequestSubmissionMutation = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
+      playlistArtwork?:  {
+        __typename: "Artwork",
+        id: string,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
@@ -676,6 +750,17 @@ export type GetFileRequestQuery = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
+    playlistArtwork?:  {
+      __typename: "Artwork",
+      id: string,
+      credit?:  Array< {
+        __typename: "Credit",
+        id: string,
+        title?: string | null,
+        artist?: string | null,
+        artistLinks?: Array< string | null > | null,
+      } | null > | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -721,6 +806,10 @@ export type ListFileRequestsQuery = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
+      playlistArtwork?:  {
+        __typename: "Artwork",
+        id: string,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
@@ -754,6 +843,10 @@ export type SyncFileRequestsQuery = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
+      playlistArtwork?:  {
+        __typename: "Artwork",
+        id: string,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
@@ -796,6 +889,10 @@ export type GetFileRequestSubmissionQuery = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
+      playlistArtwork?:  {
+        __typename: "Artwork",
+        id: string,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
@@ -1101,6 +1198,17 @@ export type OnCreateFileRequestSubscription = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
+    playlistArtwork?:  {
+      __typename: "Artwork",
+      id: string,
+      credit?:  Array< {
+        __typename: "Credit",
+        id: string,
+        title?: string | null,
+        artist?: string | null,
+        artistLinks?: Array< string | null > | null,
+      } | null > | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -1138,6 +1246,17 @@ export type OnUpdateFileRequestSubscription = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
+    playlistArtwork?:  {
+      __typename: "Artwork",
+      id: string,
+      credit?:  Array< {
+        __typename: "Credit",
+        id: string,
+        title?: string | null,
+        artist?: string | null,
+        artistLinks?: Array< string | null > | null,
+      } | null > | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -1175,6 +1294,17 @@ export type OnDeleteFileRequestSubscription = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
+    playlistArtwork?:  {
+      __typename: "Artwork",
+      id: string,
+      credit?:  Array< {
+        __typename: "Credit",
+        id: string,
+        title?: string | null,
+        artist?: string | null,
+        artistLinks?: Array< string | null > | null,
+      } | null > | null,
+    } | null,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
@@ -1230,6 +1360,10 @@ export type OnCreateFileRequestSubmissionSubscription = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
+      playlistArtwork?:  {
+        __typename: "Artwork",
+        id: string,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
@@ -1271,6 +1405,10 @@ export type OnUpdateFileRequestSubmissionSubscription = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
+      playlistArtwork?:  {
+        __typename: "Artwork",
+        id: string,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
@@ -1312,6 +1450,10 @@ export type OnDeleteFileRequestSubmissionSubscription = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
+      playlistArtwork?:  {
+        __typename: "Artwork",
+        id: string,
+      } | null,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,

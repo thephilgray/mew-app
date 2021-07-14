@@ -38,6 +38,15 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "playlistArtwork": {
+                    "name": "playlistArtwork",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "Artwork"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "submissions": {
                     "name": "submissions",
                     "isArray": true,
@@ -321,6 +330,63 @@ export const schema = {
         }
     },
     "enums": {},
-    "nonModels": {},
-    "version": "7b37cc4b90717a3c84abe7f7a4a42a8f"
+    "nonModels": {
+        "Credit": {
+            "name": "Credit",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "title": {
+                    "name": "title",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "artist": {
+                    "name": "artist",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "artistLinks": {
+                    "name": "artistLinks",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                }
+            }
+        },
+        "Artwork": {
+            "name": "Artwork",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "credit": {
+                    "name": "credit",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "Credit"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                }
+            }
+        }
+    },
+    "version": "743b82a7667772efa327a9fbd884137e"
 };

@@ -2,14 +2,15 @@
 import * as React from 'react'
 import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
 import { gql, useQuery } from '@apollo/react-hooks'
-import { Check } from '@material-ui/icons'
-import { Button, createStyles, Grid, makeStyles, Typography } from '@material-ui/core'
+import { Add, Check, People } from '@material-ui/icons'
+import { createStyles, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
 import format from 'date-fns/format'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
 import { isPast } from 'date-fns/esm'
+import { RoleGuard } from '../../auth/auth.context'
 
 const QUERY_FILE_REQUESTS = gql`
     query LIST_FILE_REQUESTS {
@@ -113,38 +114,50 @@ const Assignments: React.FC = (): JSX.Element => {
             <Grid item xs={12}>
                 <AppBreadcrumbs paths={[ROUTE_NAMES.home]} />
             </Grid>
-            <Grid item xs={12}>
-                <Grid container>
-                    <Grid item xs={12} md={9}>
-                        <Typography variant="h5" component="h5" gutterBottom>
-                            Assignments
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} md={3} style={{ textAlign: 'right' }}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            component={Link}
-                            to={ROUTE_NAMES.newAssignment.path}
-                        >
-                            New Assignment
-                        </Button>
+            <RoleGuard roles={['Admin']}>
+                <Grid item xs={12} style={{ paddingBottom: 0 }}>
+                    <Grid container>
+                        <Grid item xs={8}>
+                            <Typography variant="h5" component="h5" gutterBottom>
+                                Assignments
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4} style={{ textAlign: 'right' }}>
+                            <IconButton
+                                color="secondary"
+                                aria-label="Members"
+                                component={Link}
+                                to={ROUTE_NAMES.members.path}
+                            >
+                                <People />
+                            </IconButton>
+                            <IconButton
+                                color="secondary"
+                                aria-label="New Assignment"
+                                component={Link}
+                                to={ROUTE_NAMES.newAssignment.path}
+                            >
+                                <Add />
+                            </IconButton>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-            <Grid item xs={12} className={classes.tableWrapper}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    disableSelectionOnClick={true}
-                    onRowClick={(params: RowParams) =>
-                        navigate(ROUTE_NAMES.assignment.getPath({ assignmentId: String(params.row.id) }))
-                    }
-                    sortModel={sortModel}
-                    autoHeight
-                    autoPageSize
-                />
-            </Grid>
+            </RoleGuard>
+            <RoleGuard roles={['Admin']}>
+                <Grid item xs={12} className={classes.tableWrapper}>
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        disableSelectionOnClick={true}
+                        onRowClick={(params: RowParams) =>
+                            navigate(ROUTE_NAMES.assignment.getPath({ assignmentId: String(params.row.id) }))
+                        }
+                        sortModel={sortModel}
+                        autoHeight
+                        autoPageSize
+                    />
+                </Grid>
+            </RoleGuard>
         </Grid>
     )
 }

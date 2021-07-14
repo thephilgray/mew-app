@@ -4,7 +4,7 @@ import { RouteComponentProps } from '@reach/router'
 import { Auth } from 'aws-amplify'
 import { Input, Button } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
-import { isLoggedIn } from '../utils/auth'
+import { isLoggedIn } from '../auth/utils'
 import Error from '../components/Error'
 import Layout from '../components/Layout/Layout'
 

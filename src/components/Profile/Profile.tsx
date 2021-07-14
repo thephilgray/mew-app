@@ -1,5 +1,5 @@
 import React from 'react'
-import { getCurrentUser } from '../../utils/auth'
+import { getCurrentUser } from '../../auth/utils'
 import { Typography } from '@material-ui/core'
 
 const Profile = (): JSX.Element => {
