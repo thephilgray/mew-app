@@ -7,6 +7,11 @@ export const processDownload = /* GraphQL */ `
     processDownload(assignmentId: $assignmentId, songData: $songData)
   }
 `;
+export const runProcessAudioTask = /* GraphQL */ `
+  mutation RunProcessAudioTask($assignmentId: ID!) {
+    runProcessAudioTask(assignmentId: $assignmentId)
+  }
+`;
 export const populateMembers = /* GraphQL */ `
   mutation PopulateMembers {
     populateMembers
@@ -46,6 +51,7 @@ export const createFileRequest = /* GraphQL */ `
           email
           fileId
           fileExtension
+          rating
           _version
           _deleted
           _lastChangedAt
@@ -93,6 +99,7 @@ export const updateFileRequest = /* GraphQL */ `
           email
           fileId
           fileExtension
+          rating
           _version
           _deleted
           _lastChangedAt
@@ -140,6 +147,7 @@ export const deleteFileRequest = /* GraphQL */ `
           email
           fileId
           fileExtension
+          rating
           _version
           _deleted
           _lastChangedAt
@@ -166,6 +174,7 @@ export const createFileRequestSubmission = /* GraphQL */ `
       email
       fileId
       fileExtension
+      rating
       _version
       _deleted
       _lastChangedAt
@@ -207,6 +216,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `
       email
       fileId
       fileExtension
+      rating
       _version
       _deleted
       _lastChangedAt
@@ -248,6 +258,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
       email
       fileId
       fileExtension
+      rating
       _version
       _deleted
       _lastChangedAt
@@ -299,6 +310,7 @@ export const createMember = /* GraphQL */ `
           email
           fileId
           fileExtension
+          rating
           _version
           _deleted
           _lastChangedAt
@@ -336,6 +348,7 @@ export const updateMember = /* GraphQL */ `
           email
           fileId
           fileExtension
+          rating
           _version
           _deleted
           _lastChangedAt
@@ -373,6 +386,7 @@ export const deleteMember = /* GraphQL */ `
           email
           fileId
           fileExtension
+          rating
           _version
           _deleted
           _lastChangedAt

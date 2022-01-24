@@ -7,14 +7,14 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
-import { CloudDownload, FileCopy, Add, Assessment, Edit, PlayArrowTwoTone } from '@material-ui/icons'
+import { CloudDownload, FileCopy, Add, Assessment, Email, Edit, PlayArrowTwoTone } from '@material-ui/icons'
 import { API, Storage, graphqlOperation } from 'aws-amplify'
 import { uniqBy, pipe, map } from 'lodash/fp'
 
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
 import Menu from '../Menu'
-import { processDownload } from '../../graphql/mutations'
+import { processDownload, runProcessAudioTask } from '../../graphql/mutations'
 import { ROUTE_NAMES } from '../../pages/app'
 
 const GET_FILE_REQUEST = gql`
@@ -144,6 +144,21 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         setShowDownloadReportSuccessAlert(true)
     }
 
+    const emailDownloadLink = async () => {
+
+        try {
+            await API.graphql({
+                ...graphqlOperation(runProcessAudioTask, {
+                    assignmentId
+                })
+            })
+            console.log('successfully generated and emailed download link!');
+        }
+        catch (err) {
+            console.error(`could not invoke task to generate and email download link :(`, err);
+        }
+    }
+
     const columns: Columns = [
         {
             field: 'artist',
@@ -189,6 +204,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             text: 'Download Report',
             key: 'downloadReport',
             onClick: downloadReport,
+        },
+        {
+            icon: <Email />,
+            text: 'Email Download Link',
+            key: 'emailDownloadLink',
+            onClick: emailDownloadLink,
         },
         {
             icon: downloadLoading ? <CircularProgress size={20} color="secondary" /> : <CloudDownload />,

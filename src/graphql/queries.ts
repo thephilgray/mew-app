@@ -33,6 +33,7 @@ export const getFileRequest = /* GraphQL */ `
           email
           fileId
           fileExtension
+          rating
           _version
           _deleted
           _lastChangedAt
@@ -124,6 +125,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
       email
       fileId
       fileExtension
+      rating
       _version
       _deleted
       _lastChangedAt
@@ -171,6 +173,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
         email
         fileId
         fileExtension
+        rating
         _version
         _deleted
         _lastChangedAt
@@ -218,6 +221,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
         email
         fileId
         fileExtension
+        rating
         _version
         _deleted
         _lastChangedAt
@@ -265,6 +269,7 @@ export const submissionsByEmail = /* GraphQL */ `
         email
         fileId
         fileExtension
+        rating
         _version
         _deleted
         _lastChangedAt
@@ -310,6 +315,7 @@ export const syncFileRequestSubmissions = /* GraphQL */ `
         email
         fileId
         fileExtension
+        rating
         _version
         _deleted
         _lastChangedAt
@@ -354,6 +360,7 @@ export const getMember = /* GraphQL */ `
           email
           fileId
           fileExtension
+          rating
           _version
           _deleted
           _lastChangedAt
