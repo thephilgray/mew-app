@@ -63,5 +63,6 @@ input SongData {
 
 type Mutation {
     processDownload(assignmentId: ID!, songData: [SongData]): String @function(name: "zipmewsubmissions-${env}")
+    runProcessAudioTask(assignmentId: ID!): String @function(name: "runProcessAudioTask-${env}")
     populateMembers: [String] @function(name: "populateMembers-${env}")
 }

@@ -36,6 +36,7 @@ export declare class FileRequestSubmission {
   readonly email?: string;
   readonly fileId?: string;
   readonly fileExtension?: string;
+  readonly rating?: number;
   constructor(init: ModelInit<FileRequestSubmission>);
   static copyOf(source: FileRequestSubmission, mutator: (draft: MutableModel<FileRequestSubmission>) => MutableModel<FileRequestSubmission> | void): FileRequestSubmission;
 }

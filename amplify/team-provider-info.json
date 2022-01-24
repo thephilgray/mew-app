@@ -23,6 +23,10 @@
         "populateMembers": {
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
           "s3Key": "amplify-builds/populateMembers-505530475664766b5379-build.zip"
+        },
+        "runProcessAudioTask": {
+          "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
+          "s3Key": "amplify-builds/runProcessAudioTask-736331472f767a67384a-build.zip"
         }
       }
     }

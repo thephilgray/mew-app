@@ -4,6 +4,9 @@
       "addmissingownerfields": true,
       "validatetypenamereservedwords": true,
       "useexperimentalpipelinedtransformer": false
+    },
+    "project": {
+      "overrides": true
     }
   }
 }

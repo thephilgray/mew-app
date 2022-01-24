@@ -155,6 +155,13 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "rating": {
+                    "name": "rating",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -388,5 +395,5 @@ export const schema = {
             }
         }
     },
-    "version": "743b82a7667772efa327a9fbd884137e"
+    "version": "06378114d9058d0a3b15854c09f6eec2"
 };
