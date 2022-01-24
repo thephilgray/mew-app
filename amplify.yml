@@ -12,6 +12,7 @@ frontend:
         - yarn install
     build:
       commands:
+        - echo $AMPLIFY_CONFIG_SETTINGS > ./src/aws-exports.js        
         - yarn run build
   artifacts:
     baseDirectory: public
