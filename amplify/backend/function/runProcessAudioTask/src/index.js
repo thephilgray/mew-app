@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 var ecs = new AWS.ECS()
 
 exports.handler = async (event) => {
-    const { assignmentId } = event;
+    const { assignmentId } = event.arguments;
     const params = {
         cluster: "mew-process-audio",
         group: "family:mew-process-audio-task",
