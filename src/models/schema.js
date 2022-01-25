@@ -47,19 +47,21 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "submissions": {
-                    "name": "submissions",
-                    "isArray": true,
-                    "type": {
-                        "model": "FileRequestSubmission"
-                    },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "fileRequest"
-                    }
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
@@ -108,18 +110,12 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "fileRequest": {
-                    "name": "fileRequest",
+                "fileRequestId": {
+                    "name": "fileRequestId",
                     "isArray": false,
-                    "type": {
-                        "model": "FileRequest"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "fileRequestId"
-                    }
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
                 },
                 "artist": {
                     "name": "artist",
@@ -162,6 +158,22 @@ export const schema = {
                     "type": "Int",
                     "isRequired": false,
                     "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
@@ -257,26 +269,28 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "submissions": {
-                    "name": "submissions",
-                    "isArray": true,
-                    "type": {
-                        "model": "FileRequestSubmission"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "email"
-                    }
-                },
                 "status": {
                     "name": "status",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
@@ -395,5 +409,5 @@ export const schema = {
             }
         }
     },
-    "version": "06378114d9058d0a3b15854c09f6eec2"
+    "version": "538664bffc2e77eebb2c1870b58bbfc6"
 };

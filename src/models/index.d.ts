@@ -16,6 +16,18 @@ export declare class Artwork {
   constructor(init: ModelInit<Artwork>);
 }
 
+type FileRequestMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type FileRequestSubmissionMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type MemberMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 export declare class FileRequest {
   readonly id: string;
   readonly expiration: string;
@@ -23,30 +35,34 @@ export declare class FileRequest {
   readonly details?: string;
   readonly required?: boolean;
   readonly playlistArtwork?: Artwork;
-  readonly submissions?: (FileRequestSubmission | null)[];
-  constructor(init: ModelInit<FileRequest>);
-  static copyOf(source: FileRequest, mutator: (draft: MutableModel<FileRequest>) => MutableModel<FileRequest> | void): FileRequest;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<FileRequest, FileRequestMetaData>);
+  static copyOf(source: FileRequest, mutator: (draft: MutableModel<FileRequest, FileRequestMetaData>) => MutableModel<FileRequest, FileRequestMetaData> | void): FileRequest;
 }
 
 export declare class FileRequestSubmission {
   readonly id: string;
-  readonly fileRequest?: FileRequest;
+  readonly fileRequestId: string;
   readonly artist?: string;
   readonly name?: string;
   readonly email?: string;
   readonly fileId?: string;
   readonly fileExtension?: string;
   readonly rating?: number;
-  constructor(init: ModelInit<FileRequestSubmission>);
-  static copyOf(source: FileRequestSubmission, mutator: (draft: MutableModel<FileRequestSubmission>) => MutableModel<FileRequestSubmission> | void): FileRequestSubmission;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<FileRequestSubmission, FileRequestSubmissionMetaData>);
+  static copyOf(source: FileRequestSubmission, mutator: (draft: MutableModel<FileRequestSubmission, FileRequestSubmissionMetaData>) => MutableModel<FileRequestSubmission, FileRequestSubmissionMetaData> | void): FileRequestSubmission;
 }
 
 export declare class Member {
   readonly id: string;
   readonly email: string;
   readonly artist?: string;
-  readonly submissions?: (FileRequestSubmission | null)[];
   readonly status?: string;
-  constructor(init: ModelInit<Member>);
-  static copyOf(source: Member, mutator: (draft: MutableModel<Member>) => MutableModel<Member> | void): Member;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Member, MemberMetaData>);
+  static copyOf(source: Member, mutator: (draft: MutableModel<Member, MemberMetaData>) => MutableModel<Member, MemberMetaData> | void): Member;
 }

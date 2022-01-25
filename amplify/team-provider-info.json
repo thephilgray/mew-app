@@ -12,9 +12,6 @@
       "AmplifyAppId": "d1yi6qc6rnncji"
     },
     "categories": {
-      "auth": {
-        "mewappacdc5d0e": {}
-      },
       "function": {
         "zipmewsubmissions": {
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
@@ -28,6 +25,9 @@
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
           "s3Key": "amplify-builds/runProcessAudioTask-736331472f767a67384a-build.zip"
         }
+      },
+      "auth": {
+        "mewappacdc5d0e": {}
       }
     }
   }
