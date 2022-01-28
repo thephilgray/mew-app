@@ -23,6 +23,7 @@ const StyledMenu = withStyles({
             vertical: 'top',
             horizontal: 'center',
         }}
+
         {...props}
     />
 ))
@@ -66,6 +67,7 @@ const CustomMenu: React.FC<{
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
+                onClick={handleClose}
                 onClose={handleClose}
             >
                 {items.map(({ key, icon, text, onClick }) => (

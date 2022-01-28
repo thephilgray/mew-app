@@ -8,8 +8,16 @@ export const processDownload = /* GraphQL */ `
   }
 `;
 export const runProcessAudioTask = /* GraphQL */ `
-  mutation RunProcessAudioTask($assignmentId: ID!) {
-    runProcessAudioTask(assignmentId: $assignmentId)
+  mutation RunProcessAudioTask(
+    $assignmentId: ID!
+    $email: String!
+    $options: DownloadLinkOptions
+  ) {
+    runProcessAudioTask(
+      assignmentId: $assignmentId
+      email: $email
+      options: $options
+    )
   }
 `;
 export const populateMembers = /* GraphQL */ `

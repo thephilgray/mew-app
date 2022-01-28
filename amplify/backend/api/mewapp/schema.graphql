@@ -61,8 +61,13 @@ input SongData {
     title: String
 }
 
+input DownloadLinkOptions {
+    stripMetadataForSoundCloud: Boolean
+}
+
 type Mutation {
     processDownload(assignmentId: ID!, songData: [SongData]): String @function(name: "zipmewsubmissions-${env}")
-    runProcessAudioTask(assignmentId: ID!): String @function(name: "runProcessAudioTask-${env}")
+    runProcessAudioTask(assignmentId: ID!, email: String!, options: DownloadLinkOptions): String
+        @function(name: "runProcessAudioTask-${env}")
     populateMembers: [String] @function(name: "populateMembers-${env}")
 }

@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
-import { CircularProgress, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
+import { Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormGroup, Grid, IconButton, Modal, Snackbar, Typography } from '@material-ui/core'
 import { DataGrid, Columns, SortDirection, ColDef, SelectionChangeParams } from '@material-ui/data-grid'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
@@ -16,6 +16,7 @@ import Error from '../Error'
 import Menu from '../Menu'
 import { processDownload, runProcessAudioTask } from '../../graphql/mutations'
 import { ROUTE_NAMES } from '../../pages/app'
+import { getCurrentUser } from '../../auth/utils'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -43,11 +44,34 @@ const GET_FILE_REQUEST = gql`
 
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
-    const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
-    const [showDownloadSelectedSuccessAlert, setShowDownloadSelectedSuccessAlert] = useState<boolean>(false)
-    const [showDownloadReportSuccessAlert, setShowDownloadReportSuccessAlert] = useState<boolean>(false)
     const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
     const [selectedRows, setSelectedRows] = useState<string[]>([])
+    const [snackbarToggles, setSnackbarToggles] = useState<{ [key: string]: boolean }>({})
+    const [dialogToggles, setDialogToggles] = useState<{ [key: string]: boolean }>({})
+    const [downloadLinkOptions, setDownloadLinkOptions] = useState<{ [key: string]: boolean }>({
+        stripMetadataForSoundCloud: true
+    })
+
+    const dialogConstants = {
+        CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link'
+    }
+
+    const snackbarConstants = {
+        COPY_SUCCESS: 'copy-success',
+        TRACKS_SUCCESS: 'tracks-success',
+        REPORT_SUCCESS: 'report-success',
+        EMAIL_SUCCESS: 'email-success',
+        EMAIL_FAILURE: 'email-failure'
+    }
+
+
+    const snackbarConfigs = [
+        { message: 'Link to assignment copied to clipboard.', key: snackbarConstants.COPY_SUCCESS },
+        { message: 'Successfully downloaded selected tracks.', key: snackbarConstants.TRACKS_SUCCESS },
+        { message: 'Successfully downloaded report.', key: snackbarConstants.REPORT_SUCCESS },
+        { message: 'Successfully requested download link (all tracks included) to your email. Please wait up to 30 minutes to receive email.', delay: 5000, key: snackbarConstants.EMAIL_SUCCESS },
+        { message: 'Requesting a download link failed. Please wait and then try again or contact support.', delay: 5000, key: snackbarConstants.EMAIL_FAILURE },
+    ];
 
     const { loading, error, data, refetch } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
@@ -61,7 +85,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
     useEffect(() => {
         if (copyToClipboardState.value) {
-            setShowCopySuccessAlert(true)
+            setSnackbarToggles({ [snackbarConstants.COPY_SUCCESS]: true })
         }
     }, [copyToClipboardState])
 
@@ -109,7 +133,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             console.error(error)
         }
         setDownloadLoading(false)
-        setShowDownloadSelectedSuccessAlert(true)
+        setSnackbarToggles({ [snackbarConstants.TRACKS_SUCCESS]: true })
     }
 
     const downloadReport = () => {
@@ -141,22 +165,30 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
         const file = new File([content], `${filename}.csv`, { type: 'data:text/csv;charset=utf-8' })
         downloadBlob(file, `${filename}.csv`)
-        setShowDownloadReportSuccessAlert(true)
+        setSnackbarToggles({ [snackbarConstants.REPORT_SUCCESS]: true })
+    }
+
+    const confirmEmailDownloadLink = () => {
+        setDialogToggles({ [dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]: true })
     }
 
     const emailDownloadLink = async () => {
-
         try {
+            const email = getCurrentUser()?.email
             await API.graphql({
                 ...graphqlOperation(runProcessAudioTask, {
-                    assignmentId
+                    assignmentId,
+                    email,
+                    options: { stripMetadataForSoundCloud: downloadLinkOptions.stripMetadataForSoundCloud }
                 })
             })
-            console.log('successfully generated and emailed download link!');
+            setSnackbarToggles({ [snackbarConstants.EMAIL_SUCCESS]: true })
         }
         catch (err) {
-            console.error(`could not invoke task to generate and email download link :(`, err);
+            console.error(err)
+            setSnackbarToggles({ [snackbarConstants.EMAIL_FAILURE]: true })
         }
+        setDialogToggles({});
     }
 
     const columns: Columns = [
@@ -209,7 +241,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             icon: <Email />,
             text: 'Email Download Link',
             key: 'emailDownloadLink',
-            onClick: emailDownloadLink,
+            onClick: confirmEmailDownloadLink,
         },
         {
             icon: downloadLoading ? <CircularProgress size={20} color="secondary" /> : <CloudDownload />,
@@ -230,39 +262,49 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 </Grid>
             ) : (
                 <>
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        open={showCopySuccessAlert}
-                        color="success"
-                        autoHideDuration={3000}
-                        message="Link to assignment copied to clipboard."
-                        onClose={() => setShowCopySuccessAlert(false)}
-                    />
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        open={showDownloadSelectedSuccessAlert}
-                        color="success"
-                        autoHideDuration={3000}
-                        message="Successfully downloaded selected tracks."
-                        onClose={() => setShowDownloadSelectedSuccessAlert(false)}
-                    />
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        open={showDownloadReportSuccessAlert}
-                        color="success"
-                        autoHideDuration={3000}
-                        message="Successfully downloaded report."
-                        onClose={() => setShowDownloadReportSuccessAlert(false)}
-                    />
+                    <Dialog
+                        maxWidth="xs"
+                        open={dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}
+                    >
+                        <DialogTitle>Email yourself a download link</DialogTitle>
+
+                        <DialogContent dividers>
+                            <Typography>This will process and zip all tracks for this submission and send you ({getCurrentUser()?.email || ''}) a temporary download link.</Typography>
+                        </DialogContent>
+                        <DialogContent dividers>
+                            <FormGroup>
+                                <FormControlLabel
+                                    control={<Checkbox
+                                        disabled
+                                        checked={downloadLinkOptions.stripMetadataForSoundCloud}
+                                        defaultChecked
+                                        onChange={(e) => setDownloadLinkOptions((prevState) => ({ ...prevState, stripMetadataForSoundCloud: !downloadLinkOptions.stripMetadataForSoundCloud }))} />}
+                                    label="Strip artist and title metadata (currently required for SoundCloud uploads)" />
+                            </FormGroup>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button autoFocus onClick={() => setDialogToggles({})}>
+                                Cancel
+                            </Button>
+                            <Button onClick={emailDownloadLink}>Ok</Button>
+                        </DialogActions>
+                    </Dialog>
+
+                    {snackbarConfigs.map(({ message = '', key = '', delay = 0 }) => (
+                        < Snackbar
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            key={key}
+                            open={snackbarToggles[key]}
+                            color="success"
+                            autoHideDuration={3000 + delay}
+                            message={message}
+                            onClose={() => setSnackbarToggles({ [key]: false })}
+                        />
+                    ))}
+
                     <Grid item xs={12}>
                         <Grid container>
                             <Grid item xs={8}>
