@@ -7,6 +7,10 @@ export type SongData = {
   title?: string | null,
 };
 
+export type DownloadLinkOptions = {
+  stripMetadataForSoundCloud?: boolean | null,
+};
+
 export type CreateFileRequestInput = {
   id?: string | null,
   expiration: string,
@@ -333,6 +337,8 @@ export type ProcessDownloadMutation = {
 
 export type RunProcessAudioTaskMutationVariables = {
   assignmentId?: string,
+  email?: string,
+  options?: DownloadLinkOptions | null,
 };
 
 export type RunProcessAudioTaskMutation = {
