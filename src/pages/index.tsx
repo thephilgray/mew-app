@@ -20,7 +20,7 @@ const IndexPage: React.FC = (): JSX.Element => {
                     <Grid container spacing={2} justify="center" alignItems="center">
                         <Grid item xs={12}>
                             <Typography variant="h2" component="h1" align="center" color="primary">
-                                MEW 2021
+                                MEW {new Date().getFullYear()}
                             </Typography>
                         </Grid>
                         <Grid item>
