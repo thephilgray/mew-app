@@ -5,7 +5,7 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 export declare class Credit {
   readonly id: string;
   readonly title?: string;
-  readonly artist?: string;
+  readonly artists?: (string | null)[];
   readonly artistLinks?: (string | null)[];
   constructor(init: ModelInit<Credit>);
 }
@@ -23,29 +23,39 @@ export declare class FileRequest {
   readonly details?: string;
   readonly required?: boolean;
   readonly playlistArtwork?: Artwork;
-  readonly submissions?: (FileRequestSubmission | null)[];
+  readonly workshopId?: string;
   constructor(init: ModelInit<FileRequest>);
   static copyOf(source: FileRequest, mutator: (draft: MutableModel<FileRequest>) => MutableModel<FileRequest> | void): FileRequest;
 }
 
 export declare class FileRequestSubmission {
   readonly id: string;
-  readonly fileRequest?: FileRequest;
+  readonly fileRequestId: string;
   readonly artist?: string;
   readonly name?: string;
   readonly email?: string;
   readonly fileId?: string;
   readonly fileExtension?: string;
   readonly rating?: number;
+  readonly comments?: string;
+  readonly workshopId?: string;
   constructor(init: ModelInit<FileRequestSubmission>);
   static copyOf(source: FileRequestSubmission, mutator: (draft: MutableModel<FileRequestSubmission>) => MutableModel<FileRequestSubmission> | void): FileRequestSubmission;
+}
+
+export declare class Workshop {
+  readonly id: string;
+  readonly name?: string;
+  readonly status?: string;
+  readonly passes?: number;
+  constructor(init: ModelInit<Workshop>);
+  static copyOf(source: Workshop, mutator: (draft: MutableModel<Workshop>) => MutableModel<Workshop> | void): Workshop;
 }
 
 export declare class Member {
   readonly id: string;
   readonly email: string;
   readonly artist?: string;
-  readonly submissions?: (FileRequestSubmission | null)[];
   readonly status?: string;
   constructor(init: ModelInit<Member>);
   static copyOf(source: Member, mutator: (draft: MutableModel<Member>) => MutableModel<Member> | void): Member;

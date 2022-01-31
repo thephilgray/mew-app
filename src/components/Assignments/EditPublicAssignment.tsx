@@ -30,26 +30,8 @@ import { FileCopy } from '@material-ui/icons'
 import { useCopyToClipboard } from 'react-use'
 import { ROUTE_NAMES } from '../../pages/app'
 import * as mutations from '../../graphql/mutations'
+import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
 
-const GET_FILE_REQUEST = gql`
-    query GetFileRequest($id: ID!) {
-        getFileRequest(id: $id) {
-            id
-            title
-            createdAt
-            expiration
-            required
-            details
-            _version
-            _deleted
-            submissions {
-                items {
-                    fileRequestId
-                }
-            }
-        }
-    }
-`
 
 type Inputs = {
     expiration: Date
@@ -59,7 +41,7 @@ type Inputs = {
 }
 
 const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
-    const { data: { getFileRequest } = {}, loading, error } = useQuery(GET_FILE_REQUEST, {
+    const { data: { getFileRequest } = {}, loading, error } = useQuery(gql(getFileRequestQuery), {
         variables: { id: assignmentId },
     })
     const { register, handleSubmit, errors, setValue, getValues } = useForm<Inputs>()
@@ -173,9 +155,12 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
                 <AppBreadcrumbs
                     paths={[
                         ROUTE_NAMES.home,
+                        ROUTE_NAMES.assignments,
                         { path: ROUTE_NAMES.assignment.getPath({ assignmentId }), name: getValues().title },
                         ROUTE_NAMES.editAssignment,
                     ]}
+                    assignmentId={assignmentId}
+                    workshopId={getFileRequest?.workshopId}
                 />
             </Grid>
             <Grid item xs={12}>

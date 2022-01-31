@@ -1,0 +1,135 @@
+import React, { useState } from 'react';
+import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+
+
+export default function WorkshopForm({ onSubmit, setFormState, formState }) {
+
+  const updateForm = (newValues) => setFormState((prevState) => ({
+    ...prevState,
+    ...newValues
+  }))
+
+  const onFieldChange = e => {
+    return updateForm({
+      [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
+    })
+  }
+
+  const apiKeys = []; // TODO: fetch from profile when enableMailchimpIntegration
+
+  return <Grid item xs={8}>
+    <form onSubmit={onSubmit}>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <Typography variant="h6" component="h6">
+            General
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            name='name'
+            label="Name"
+            value={formState.name}
+            onChange={onFieldChange}
+          ></TextField>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl fullWidth required>
+            <InputLabel>Status</InputLabel>
+            <Select
+              name="status"
+              value={formState.status}
+              onChange={onFieldChange}
+            >
+              <MenuItem value="Active">Active</MenuItem>
+              <MenuItem value="Inactive">Inactive</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            id="outlined-number"
+            label="Passes"
+            type="number"
+            name="passes"
+            value={formState.passes}
+            onChange={onFieldChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant="h6" component="h6">
+            Mailchimp Integration
+          </Typography>
+        </Grid>
+        {!!formState.enableMailchimpIntegration && <>
+          <Grid item xs={12}>
+            <FormControl fullWidth required>
+              <InputLabel>API Key</InputLabel>
+              <Select
+                name="apiKey"
+                value={formState.apiKey}
+                onChange={onFieldChange}
+              >
+
+                {apiKeys.length > 0 ? apiKeys.map(({ secretName }) => (
+                  <MenuItem
+                    key={secretName}
+                    value={secretName}>
+                >{secretName}</MenuItem>
+                )) : <MenuItem disabled value="">
+                  <em>No API Keys Saved to Your Profile</em>
+                </MenuItem>}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required={!!formState.enableMailchimpIntegration}
+              name='listId'
+              label="List ID"
+              value={formState.listId}
+              onChange={onFieldChange}
+            ></TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required={!!formState.enableMailchimpIntegration}
+              name='serverPrefix'
+              label="Server Prefix"
+              value={formState.serverPrefix}
+              onChange={onFieldChange}
+            ></TextField>
+          </Grid>
+        </>}
+        <Grid item xs={12}>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox disabled name="enableMailchimpIntegration" checked={formState.enableMailchimpIntegration} onChange={onFieldChange} />}
+              label="Enable Mailchimp Integration"
+            ></FormControlLabel>
+          </FormGroup>
+
+        </Grid>
+
+        <Grid item xs={6}>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Save
+          </Button>
+
+        </Grid>
+
+
+      </Grid>
+
+    </form >
+  </Grid >
+}

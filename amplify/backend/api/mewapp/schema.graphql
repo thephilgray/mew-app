@@ -1,7 +1,7 @@
 type Credit {
     id: ID!
     title: String
-    artist: String
+    artists: [String]
     artistLinks: [String]
 }
 
@@ -10,49 +10,53 @@ type Artwork {
     credit: [Credit]
 }
 
-type FileRequest
-    @model
-    @auth(
-        rules: [
-            { allow: groups, groups: ["Admin"] }
-            # The public is only allowed to read posts
-            { allow: public, operations: [read] }
-        ]
-    ) {
+type FileRequest @model @auth(rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [read] }]) {
     id: ID!
     expiration: AWSDateTime!
     title: String
     details: String
     required: Boolean
     playlistArtwork: Artwork
-    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByFileRequestId", fields: ["id"])
+    submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByFileRequestId", fields: ["id"])
+    workshop: Workshop @belongsTo(fields: ["workshopId"])
+    workshopId: ID
+        @index(name: "fileRequestsByWorkshopId", queryField: "fileRequestsByWorkshopId")
+        @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
 }
 
 type FileRequestSubmission
-    @key(name: "submissionsByFileRequestId", fields: ["fileRequestId"], queryField: "submissionsByFileRequestId")
-    @key(name: "submissionsByEmail", fields: ["email"], queryField: "submissionsByEmail")
     @model
-    @auth(
-        rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read] }]
-    ) {
+    @auth(rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read] }]) {
     id: ID!
-    fileRequestId: ID!
-    fileRequest: FileRequest @connection(fields: ["fileRequestId"])
+    fileRequestId: ID! @index(name: "submissionsByFileRequestId", queryField: "submissionsByFileRequestId")
+    fileRequest: FileRequest @belongsTo(fields: ["fileRequestId"])
     artist: String
     name: String
-    email: String
+    email: String @index(name: "submissionsByEmail", queryField: "submissionsByEmail")
     fileId: String
     fileExtension: String
     rating: Int
+    comments: String
+    workshopId: ID
+        @index(name: "submissionsByWorkshopId", queryField: "submissionsByWorkshopId")
+        @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
 }
 
-type Member
+type Workshop
     @model
-    @key(fields: ["email"])
-    @auth(rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }, { allow: public, operations: [create] }]) {
-    email: String!
+    @auth(rules: [{ allow: groups, groups: ["Admin", "Curators"] }, { allow: public, operations: [read] }]) {
+    id: ID!
+    name: String
+    fileRequests: [FileRequest] @hasMany(indexName: "fileRequestsByWorkshopId", fields: ["id"])
+    submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByWorkshopId", fields: ["id"])
+    status: String
+    passes: Int
+}
+
+type Member @model @auth(rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create] }]) {
+    email: String! @primaryKey
     artist: String
-    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByEmail", fields: ["email"])
+    submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByEmail", fields: ["email"])
     status: String
 }
 
@@ -71,3 +75,4 @@ type Mutation {
         @function(name: "runProcessAudioTask-${env}")
     populateMembers: [String] @function(name: "populateMembers-${env}")
 }
+ 

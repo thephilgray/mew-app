@@ -15,13 +15,14 @@ const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
         getFileRequest(id: $id) {
             id
+            workshopId
             title
             expiration
             _deleted
             playlistArtwork {
                 id
                 credit {
-                    artist
+                    artists
                     title
                     artistLinks
                 }
@@ -108,19 +109,21 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
                     // volumeFade={{ fadeIn: 0, fadeOut: 0 }}
                     showMiniProcessBar={false}
                     showDownload={false}
-                    // customDownloader={downloadPresignedUrl}
+                // customDownloader={downloadPresignedUrl}
                 />
             ) : null}
             <Grid item xs={12}>
                 <AppBreadcrumbs
                     paths={[
                         ROUTE_NAMES.home,
+                        ROUTE_NAMES.assignments,
                         {
                             path: ROUTE_NAMES.assignment.getPath({ assignmentId }),
                             name: data?.getFileRequest?.title || assignmentId,
                         },
                         ROUTE_NAMES.playlist,
                     ]}
+                    workshopId={data?.getFileRequest?.workshopId}
                 />
             </Grid>
             {data?.getFileRequest?._deleted ? (

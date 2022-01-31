@@ -31,6 +31,7 @@ const GET_FILE_REQUEST = gql`
             expiration
             title
             details
+            workshopId
             _deleted
         }
     }
@@ -103,6 +104,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         expiration: string
         title: string
         details: string
+        workshopId: string
         _deleted: boolean
     } | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
@@ -234,6 +236,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
             })
         } catch (err) {
             setLoading(false)
+            // @ts-ignore
             setError(err)
             return
         }
@@ -249,6 +252,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                             name,
                             email: emails[index],
                             fileExtension,
+                            workshopId: fileRequestData?.workshopId
                         },
                     }),
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -257,6 +261,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                 })
             } catch (err) {
                 setLoading(false)
+                // @ts-ignore
                 setError(err)
                 return
             }

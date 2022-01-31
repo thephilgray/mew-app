@@ -3,7 +3,9 @@
     "graphqltransformer": {
       "addmissingownerfields": true,
       "validatetypenamereservedwords": true,
-      "useexperimentalpipelinedtransformer": false
+      "useexperimentalpipelinedtransformer": true,
+      "transformerversion": 2,
+      "suppressschemamigrationprompt": true
     },
     "project": {
       "overrides": true

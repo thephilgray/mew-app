@@ -15,15 +15,10 @@ export const onCreateFileRequest = /* GraphQL */ `
         credit {
           id
           title
-          artist
+          artists
           artistLinks
         }
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       submissions {
         items {
           id
@@ -34,16 +29,42 @@ export const onCreateFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          owner
         }
         nextToken
         startedAt
       }
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      workshopId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -60,15 +81,10 @@ export const onUpdateFileRequest = /* GraphQL */ `
         credit {
           id
           title
-          artist
+          artists
           artistLinks
         }
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       submissions {
         items {
           id
@@ -79,16 +95,42 @@ export const onUpdateFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          owner
         }
         nextToken
         startedAt
       }
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      workshopId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -105,15 +147,10 @@ export const onDeleteFileRequest = /* GraphQL */ `
         credit {
           id
           title
-          artist
+          artists
           artistLinks
         }
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       submissions {
         items {
           id
@@ -124,35 +161,50 @@ export const onDeleteFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          owner
         }
         nextToken
         startedAt
       }
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      workshopId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
 export const onCreateFileRequestSubmission = /* GraphQL */ `
-  subscription OnCreateFileRequestSubmission($owner: String) {
-    onCreateFileRequestSubmission(owner: $owner) {
+  subscription OnCreateFileRequestSubmission {
+    onCreateFileRequestSubmission {
       id
       fileRequestId
-      artist
-      name
-      email
-      fileId
-      fileExtension
-      rating
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       fileRequest {
         id
         expiration
@@ -162,36 +214,49 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
         playlistArtwork {
           id
         }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
         submissions {
           nextToken
           startedAt
         }
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        workshopId
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
-      owner
+      artist
+      name
+      email
+      fileId
+      fileExtension
+      rating
+      comments
+      workshopId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
 export const onUpdateFileRequestSubmission = /* GraphQL */ `
-  subscription OnUpdateFileRequestSubmission($owner: String) {
-    onUpdateFileRequestSubmission(owner: $owner) {
+  subscription OnUpdateFileRequestSubmission {
+    onUpdateFileRequestSubmission {
       id
       fileRequestId
-      artist
-      name
-      email
-      fileId
-      fileExtension
-      rating
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       fileRequest {
         id
         expiration
@@ -201,36 +266,49 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
         playlistArtwork {
           id
         }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
         submissions {
           nextToken
           startedAt
         }
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        workshopId
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
-      owner
+      artist
+      name
+      email
+      fileId
+      fileExtension
+      rating
+      comments
+      workshopId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
 export const onDeleteFileRequestSubmission = /* GraphQL */ `
-  subscription OnDeleteFileRequestSubmission($owner: String) {
-    onDeleteFileRequestSubmission(owner: $owner) {
+  subscription OnDeleteFileRequestSubmission {
+    onDeleteFileRequestSubmission {
       id
       fileRequestId
-      artist
-      name
-      email
-      fileId
-      fileExtension
-      rating
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       fileRequest {
         id
         expiration
@@ -240,31 +318,208 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
         playlistArtwork {
           id
         }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
         submissions {
           nextToken
           startedAt
         }
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        workshopId
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
-      owner
+      artist
+      name
+      email
+      fileId
+      fileExtension
+      rating
+      comments
+      workshopId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onCreateWorkshop = /* GraphQL */ `
+  subscription OnCreateWorkshop {
+    onCreateWorkshop {
+      id
+      name
+      fileRequests {
+        items {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      status
+      passes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateWorkshop = /* GraphQL */ `
+  subscription OnUpdateWorkshop {
+    onUpdateWorkshop {
+      id
+      name
+      fileRequests {
+        items {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      status
+      passes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteWorkshop = /* GraphQL */ `
+  subscription OnDeleteWorkshop {
+    onDeleteWorkshop {
+      id
+      name
+      fileRequests {
+        items {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      status
+      passes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
 export const onCreateMember = /* GraphQL */ `
-  subscription OnCreateMember($owner: String) {
-    onCreateMember(owner: $owner) {
+  subscription OnCreateMember {
+    onCreateMember {
       email
       artist
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       submissions {
         items {
           id
@@ -275,31 +530,31 @@ export const onCreateMember = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          owner
         }
         nextToken
         startedAt
       }
-      owner
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
 export const onUpdateMember = /* GraphQL */ `
-  subscription OnUpdateMember($owner: String) {
-    onUpdateMember(owner: $owner) {
+  subscription OnUpdateMember {
+    onUpdateMember {
       email
       artist
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       submissions {
         items {
           id
@@ -310,31 +565,31 @@ export const onUpdateMember = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          owner
         }
         nextToken
         startedAt
       }
-      owner
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
 export const onDeleteMember = /* GraphQL */ `
-  subscription OnDeleteMember($owner: String) {
-    onDeleteMember(owner: $owner) {
+  subscription OnDeleteMember {
+    onDeleteMember {
       email
       artist
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       submissions {
         items {
           id
@@ -345,17 +600,23 @@ export const onDeleteMember = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
           _version
           _deleted
           _lastChangedAt
-          createdAt
-          updatedAt
-          owner
         }
         nextToken
         startedAt
       }
-      owner
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
