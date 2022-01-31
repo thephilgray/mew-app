@@ -15,10 +15,11 @@ export const getFileRequest = /* GraphQL */ `
         credit {
           id
           title
-          artist
+          artists
           artistLinks
         }
       }
+      workshopId
       _version
       _deleted
       _lastChangedAt
@@ -34,6 +35,8 @@ export const getFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
           _version
           _deleted
           _lastChangedAt
@@ -43,6 +46,26 @@ export const getFileRequest = /* GraphQL */ `
         }
         nextToken
         startedAt
+      }
+      workshop {
+        id
+        name
+        status
+        passes
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        owner
       }
     }
   }
@@ -63,6 +86,7 @@ export const listFileRequests = /* GraphQL */ `
         playlistArtwork {
           id
         }
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -71,6 +95,70 @@ export const listFileRequests = /* GraphQL */ `
         submissions {
           nextToken
           startedAt
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const fileRequestsByWorkshopId = /* GraphQL */ `
+  query FileRequestsByWorkshopId(
+    $workshopId: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelFileRequestFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    fileRequestsByWorkshopId(
+      workshopId: $workshopId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        expiration
+        title
+        details
+        required
+        playlistArtwork {
+          id
+        }
+        workshopId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        submissions {
+          nextToken
+          startedAt
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
         }
       }
       nextToken
@@ -100,6 +188,7 @@ export const syncFileRequests = /* GraphQL */ `
         playlistArtwork {
           id
         }
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -108,6 +197,18 @@ export const syncFileRequests = /* GraphQL */ `
         submissions {
           nextToken
           startedAt
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
         }
       }
       nextToken
@@ -126,6 +227,8 @@ export const getFileRequestSubmission = /* GraphQL */ `
       fileId
       fileExtension
       rating
+      comments
+      workshopId
       _version
       _deleted
       _lastChangedAt
@@ -140,6 +243,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
         playlistArtwork {
           id
         }
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -148,6 +252,18 @@ export const getFileRequestSubmission = /* GraphQL */ `
         submissions {
           nextToken
           startedAt
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
         }
       }
       owner
@@ -174,6 +290,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `
         fileId
         fileExtension
         rating
+        comments
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -185,6 +303,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
           title
           details
           required
+          workshopId
           _version
           _deleted
           _lastChangedAt
@@ -222,6 +341,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `
         fileId
         fileExtension
         rating
+        comments
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -233,6 +354,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
           title
           details
           required
+          workshopId
           _version
           _deleted
           _lastChangedAt
@@ -270,6 +392,8 @@ export const submissionsByEmail = /* GraphQL */ `
         fileId
         fileExtension
         rating
+        comments
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -281,6 +405,58 @@ export const submissionsByEmail = /* GraphQL */ `
           title
           details
           required
+          workshopId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const submissionsByWorkshopId = /* GraphQL */ `
+  query SubmissionsByWorkshopId(
+    $workshopId: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelFileRequestSubmissionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    submissionsByWorkshopId(
+      workshopId: $workshopId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        comments
+        workshopId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        fileRequest {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
           _version
           _deleted
           _lastChangedAt
@@ -316,6 +492,8 @@ export const syncFileRequestSubmissions = /* GraphQL */ `
         fileId
         fileExtension
         rating
+        comments
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -327,11 +505,145 @@ export const syncFileRequestSubmissions = /* GraphQL */ `
           title
           details
           required
+          workshopId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+        }
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getWorkshop = /* GraphQL */ `
+  query GetWorkshop($id: ID!) {
+    getWorkshop(id: $id) {
+      id
+      name
+      status
+      integrations {
+        mailchimp {
+          enabled
+          apiKey
+          listId
+          serverPrefix
+        }
+      }
+      passes
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      fileRequests {
+        items {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;
+export const listWorkshops = /* GraphQL */ `
+  query ListWorkshops(
+    $filter: ModelWorkshopFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listWorkshops(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        status
+        passes
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncWorkshops = /* GraphQL */ `
+  query SyncWorkshops(
+    $filter: ModelWorkshopFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncWorkshops(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        status
+        passes
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
         }
         owner
       }
@@ -361,6 +673,8 @@ export const getMember = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
           _version
           _deleted
           _lastChangedAt

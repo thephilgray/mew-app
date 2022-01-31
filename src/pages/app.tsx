@@ -16,16 +16,29 @@ import Assignments from '../components/Assignments/Assignments'
 import Members from '../components/Members/Members'
 import { getCurrentUser } from '../auth/utils'
 import { AuthProvider } from '../auth/auth.context'
+import Workshops from '../components/Workshops/Workshops'
+import EditWorkshop from '../components/Workshops/EditWorkshop'
+import NewWorkshop from '../components/Workshops/NewWorkshop'
+
+
 
 export const ROUTE_NAMES = {
     home: {
-        path: '/app',
-        name: 'Home',
+        path: '/app/',
+        name: 'Workshops',
     },
     assignment: {
         path: '/app/assignments/:assignmentId',
         getPath: ({ assignmentId = '' }): string => `/app/assignments/${assignmentId}`,
+        getName: ({ title = '' }): string => title,
         name: 'Assignment',
+        roles: ['Admin'],
+    },
+    assignments: {
+        path: '/app/workshops/:workshopId',
+        getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}`,
+        getName: ({ name = '' }): string => name,
+        name: 'Assignments',
         roles: ['Admin'],
     },
     playlist: {
@@ -35,9 +48,10 @@ export const ROUTE_NAMES = {
         roles: ['Admin'],
     },
     newAssignment: {
-        path: '/app/assignments/new',
+        path: '/app/workshops/:workshopId/new-assignment',
         name: 'New Assignment',
         roles: ['Admin'],
+        getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/new-assignment`,
     },
     editAssignment: {
         path: '/app/assignments/:assignmentId/edit',
@@ -45,9 +59,10 @@ export const ROUTE_NAMES = {
         roles: ['Admin'],
     },
     members: {
-        path: '/app/members',
+        path: '/app/workshops/:workshopId/members',
         name: 'Members',
         roles: ['Admin'],
+        getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/members`,
     },
     profile: {
         path: '/app/profile',
@@ -58,6 +73,17 @@ export const ROUTE_NAMES = {
         getPath: ({ assignmentId = '' }): string => `/app/submissions/${assignmentId}`,
         name: 'New Submission',
     },
+    editWorkshop: {
+        path: '/app/workshops/:workshopId/settings',
+        getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/settings`,
+        name: 'Settings',
+        roles: ['Admin'],
+    },
+    newWorkshop: {
+        path: '/app/workshops/new',
+        name: 'New Workshop',
+        roles: ['Admin'],
+    }
 }
 const user = getCurrentUser()
 const App: React.FC = (): JSX.Element => (
@@ -66,7 +92,7 @@ const App: React.FC = (): JSX.Element => (
             <Layout>
                 <Router>
                     <NotFound default />
-                    <PrivateRoute path={ROUTE_NAMES.home.path} component={Assignments} />
+                    <PrivateRoute path={ROUTE_NAMES.home.path} component={Workshops} />
                     <PrivateRoute
                         path={ROUTE_NAMES.newAssignment.path}
                         component={NewPublicAssignment}
@@ -83,6 +109,11 @@ const App: React.FC = (): JSX.Element => (
                         roles={ROUTE_NAMES.assignment.roles}
                     />
                     <PrivateRoute
+                        path={ROUTE_NAMES.assignments.path}
+                        component={Assignments}
+                        roles={ROUTE_NAMES.assignments.roles}
+                    />
+                    <PrivateRoute
                         path={ROUTE_NAMES.playlist.path}
                         component={Playlist}
                         roles={ROUTE_NAMES.playlist.roles}
@@ -92,6 +123,16 @@ const App: React.FC = (): JSX.Element => (
                         path={ROUTE_NAMES.members.path}
                         component={Members}
                         roles={ROUTE_NAMES.members.roles}
+                    />
+                    <PrivateRoute
+                        path={ROUTE_NAMES.editWorkshop.path}
+                        component={EditWorkshop}
+                        roles={ROUTE_NAMES.editWorkshop.roles}
+                    />
+                    <PrivateRoute
+                        path={ROUTE_NAMES.newWorkshop.path}
+                        component={NewWorkshop}
+                        roles={ROUTE_NAMES.newWorkshop.roles}
                     />
                     <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmission.path} />
                 </Router>

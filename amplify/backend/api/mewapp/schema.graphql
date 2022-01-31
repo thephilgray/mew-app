@@ -1,7 +1,7 @@
 type Credit {
     id: ID!
     title: String
-    artist: String
+    artists: [String]
     artistLinks: [String]
 }
 
@@ -11,6 +11,7 @@ type Artwork {
 }
 
 type FileRequest
+    @key(name: "fileRequestsByWorkshopId", fields: ["workshopId"], queryField: "fileRequestsByWorkshopId")
     @model
     @auth(
         rules: [
@@ -26,11 +27,14 @@ type FileRequest
     required: Boolean
     playlistArtwork: Artwork
     submissions: [FileRequestSubmission] @connection(keyName: "submissionsByFileRequestId", fields: ["id"])
+    workshop: Workshop @connection(fields: ["workshopId"])
+    workshopId: ID
 }
 
 type FileRequestSubmission
     @key(name: "submissionsByFileRequestId", fields: ["fileRequestId"], queryField: "submissionsByFileRequestId")
     @key(name: "submissionsByEmail", fields: ["email"], queryField: "submissionsByEmail")
+    @key(name: "submissionsByWorkshopId", fields: ["workshopId"], queryField: "submissionsByWorkshopId")
     @model
     @auth(
         rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read] }]
@@ -44,6 +48,37 @@ type FileRequestSubmission
     fileId: String
     fileExtension: String
     rating: Int
+    comments: String
+    workshopId: ID
+}
+
+type mailchimpIntegration {
+    enabled: Boolean
+    apiKey: String
+    listId: String
+    serverPrefix: String
+}
+
+type Integrations {
+    mailchimp: mailchimpIntegration
+}
+
+type Workshop
+    @model
+    @auth(
+        rules: [
+            { allow: owner }
+            { allow: groups, groups: ["Admin", "Curators"] }
+            { allow: public, operations: [read] }
+        ]
+    ) {
+    id: ID!
+    name: String
+    fileRequests: [FileRequest] @connection(keyName: "fileRequestsByWorkshopId", fields: ["id"])
+    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByWorkshopId", fields: ["id"])
+    status: String
+    integrations: Integrations
+    passes: Int
 }
 
 type Member

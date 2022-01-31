@@ -4,12 +4,15 @@ import { schema } from './schema';
 
 
 
-const { FileRequest, FileRequestSubmission, Member, Credit, Artwork } = initSchema(schema);
+const { FileRequest, FileRequestSubmission, Workshop, Member, Credit, Artwork, Integrations, mailchimpIntegration } = initSchema(schema);
 
 export {
   FileRequest,
   FileRequestSubmission,
+  Workshop,
   Member,
   Credit,
-  Artwork
+  Artwork,
+  Integrations,
+  mailchimpIntegration
 };

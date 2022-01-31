@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
 import { gql, useQuery } from '@apollo/react-hooks'
-import { Add, Check, People } from '@material-ui/icons'
+import { Add, Check, People, Settings } from '@material-ui/icons'
 import { createStyles, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
@@ -11,26 +11,7 @@ import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
 import { isPast } from 'date-fns/esm'
 import { RoleGuard } from '../../auth/auth.context'
-
-const QUERY_FILE_REQUESTS = gql`
-    query LIST_FILE_REQUESTS {
-        listFileRequests {
-            items {
-                title
-                id
-                submissions(limit: 200) {
-                    items {
-                        id
-                    }
-                }
-                expiration
-                createdAt
-                required
-                _deleted
-            }
-        }
-    }
-`
+import { getWorkshop } from '../../graphql/queries'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -40,13 +21,20 @@ const useStyles = makeStyles(() =>
     }),
 )
 
-const Assignments: React.FC = (): JSX.Element => {
+const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     const classes = useStyles()
-    const { loading, error, data, refetch } = useQuery(QUERY_FILE_REQUESTS)
+    const { loading, error, data, refetch } = useQuery(gql(getWorkshop), {
+        variables: { id: workshopId }
+    })
+    let workshop;
+    if (data && data.getWorkshop) {
+        workshop = data.getWorkshop
+    }
 
     React.useEffect(() => {
         refetch()
     }, [])
+
     const columns: Columns = [
         {
             field: 'title',
@@ -60,7 +48,7 @@ const Assignments: React.FC = (): JSX.Element => {
             type: 'number',
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            renderCell: ({ value = { items: [] } }) => value?.items && <span>{value.items.length}</span>,
+            renderCell: ({ value = [] }) => value && <span>{value.length}</span>,
         },
         {
             field: 'createdAt',
@@ -102,17 +90,20 @@ const Assignments: React.FC = (): JSX.Element => {
     if (error) return <Error errorMessage={error} />
     if (loading) return <p>Loading assignments....</p>
 
-    const items = data?.listFileRequests?.items || []
+    const items = data?.getWorkshop?.fileRequests?.items || []
     const rows = items
         .filter(({ _deleted }: { _deleted: boolean }) => !_deleted)
-        .map((item: { title: string; expiration: string; required: boolean; createdAt: string; submissions: [] }) => ({
+        .map((item: { id: string; title: string; expiration: string; required: boolean; createdAt: string; }) => ({
             ...item,
+            submissions: data?.getWorkshop?.submissions?.items ? data.getWorkshop.submissions.items
+                // @ts-ignore
+                .filter((submission) => submission?.fileRequestId === item.id) : [],
             status: Boolean(!isPast(new Date(item.expiration as string))) ? 'ACTIVE' : 'EXPIRED',
         }))
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
-                <AppBreadcrumbs paths={[ROUTE_NAMES.home]} />
+                <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments]} workshop={workshop} />
             </Grid>
             <RoleGuard roles={['Admin']}>
                 <Grid item xs={12} style={{ paddingBottom: 0 }}>
@@ -125,9 +116,17 @@ const Assignments: React.FC = (): JSX.Element => {
                         <Grid item xs={4} style={{ textAlign: 'right' }}>
                             <IconButton
                                 color="secondary"
+                                aria-label="Workshop Settings"
+                                component={Link}
+                                to={ROUTE_NAMES.editWorkshop.getPath({ workshopId })}
+                            >
+                                <Settings />
+                            </IconButton>
+                            <IconButton
+                                color="secondary"
                                 aria-label="Members"
                                 component={Link}
-                                to={ROUTE_NAMES.members.path}
+                                to={ROUTE_NAMES.members.getPath({ workshopId })}
                             >
                                 <People />
                             </IconButton>
@@ -135,7 +134,7 @@ const Assignments: React.FC = (): JSX.Element => {
                                 color="secondary"
                                 aria-label="New Assignment"
                                 component={Link}
-                                to={ROUTE_NAMES.newAssignment.path}
+                                to={ROUTE_NAMES.newAssignment.getPath({ workshopId })}
                             >
                                 <Add />
                             </IconButton>

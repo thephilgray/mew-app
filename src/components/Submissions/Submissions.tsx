@@ -1,13 +1,13 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
-import { Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormGroup, Grid, IconButton, Modal, Snackbar, Typography } from '@material-ui/core'
+import { Badge, Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormGroup, Grid, IconButton, Modal, Snackbar, Typography } from '@material-ui/core'
 import { DataGrid, Columns, SortDirection, ColDef, SelectionChangeParams } from '@material-ui/data-grid'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
-import { CloudDownload, FileCopy, Add, Assessment, Email, Edit, PlayArrowTwoTone } from '@material-ui/icons'
+import { AssignmentTurnedIn, CloudDownload, FileCopy, Add, Assessment, Email, Edit, PlayArrowTwoTone } from '@material-ui/icons'
 import { API, Storage, graphqlOperation } from 'aws-amplify'
 import { uniqBy, pipe, map } from 'lodash/fp'
 
@@ -17,30 +17,8 @@ import Menu from '../Menu'
 import { processDownload, runProcessAudioTask } from '../../graphql/mutations'
 import { ROUTE_NAMES } from '../../pages/app'
 import { getCurrentUser } from '../../auth/utils'
+import { getFileRequest } from '../../graphql/queries'
 
-const GET_FILE_REQUEST = gql`
-    query GetFileRequest($id: ID!) {
-        getFileRequest(id: $id) {
-            id
-            title
-            details
-            createdAt
-            expiration
-            _deleted
-            submissions(limit: 200) {
-                items {
-                    id
-                    artist
-                    email
-                    createdAt
-                    name
-                    fileId
-                    fileExtension
-                }
-            }
-        }
-    }
-`
 
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
@@ -73,7 +51,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         { message: 'Requesting a download link failed. Please wait and then try again or contact support.', delay: 5000, key: snackbarConstants.EMAIL_FAILURE },
     ];
 
-    const { loading, error, data, refetch } = useQuery(GET_FILE_REQUEST, {
+    const { loading, error, data, refetch } = useQuery(gql(getFileRequest), {
         variables: { id: assignmentId },
     })
 
@@ -254,7 +232,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
-                <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignment]} />
+                <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.assignment]} workshopId={data?.getFileRequest?.workshopId} assignment={data?.getFileRequest} />
             </Grid>
             {data?.getFileRequest?._deleted ? (
                 <Grid item xs={12}>
@@ -354,8 +332,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     </Grid>
                     <Grid item xs={6}>
                         <Typography variant="h6" component="h3">
-                            Submissions
+                            Submissions <Badge badgeContent={data?.getFileRequest?.submissions?.items?.length || 0} color="secondary">
+                                <AssignmentTurnedIn />
+                            </Badge>
                         </Typography>
+
                     </Grid>
                     <Grid item xs={6} style={{ textAlign: 'right' }}>
                         <IconButton

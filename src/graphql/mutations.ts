@@ -41,10 +41,11 @@ export const createFileRequest = /* GraphQL */ `
         credit {
           id
           title
-          artist
+          artists
           artistLinks
         }
       }
+      workshopId
       _version
       _deleted
       _lastChangedAt
@@ -60,6 +61,8 @@ export const createFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
           _version
           _deleted
           _lastChangedAt
@@ -69,6 +72,26 @@ export const createFileRequest = /* GraphQL */ `
         }
         nextToken
         startedAt
+      }
+      workshop {
+        id
+        name
+        status
+        passes
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        owner
       }
     }
   }
@@ -89,10 +112,11 @@ export const updateFileRequest = /* GraphQL */ `
         credit {
           id
           title
-          artist
+          artists
           artistLinks
         }
       }
+      workshopId
       _version
       _deleted
       _lastChangedAt
@@ -108,6 +132,8 @@ export const updateFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
           _version
           _deleted
           _lastChangedAt
@@ -117,6 +143,26 @@ export const updateFileRequest = /* GraphQL */ `
         }
         nextToken
         startedAt
+      }
+      workshop {
+        id
+        name
+        status
+        passes
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        owner
       }
     }
   }
@@ -137,10 +183,11 @@ export const deleteFileRequest = /* GraphQL */ `
         credit {
           id
           title
-          artist
+          artists
           artistLinks
         }
       }
+      workshopId
       _version
       _deleted
       _lastChangedAt
@@ -156,6 +203,8 @@ export const deleteFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
           _version
           _deleted
           _lastChangedAt
@@ -165,6 +214,26 @@ export const deleteFileRequest = /* GraphQL */ `
         }
         nextToken
         startedAt
+      }
+      workshop {
+        id
+        name
+        status
+        passes
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        owner
       }
     }
   }
@@ -183,6 +252,8 @@ export const createFileRequestSubmission = /* GraphQL */ `
       fileId
       fileExtension
       rating
+      comments
+      workshopId
       _version
       _deleted
       _lastChangedAt
@@ -197,6 +268,7 @@ export const createFileRequestSubmission = /* GraphQL */ `
         playlistArtwork {
           id
         }
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -205,6 +277,18 @@ export const createFileRequestSubmission = /* GraphQL */ `
         submissions {
           nextToken
           startedAt
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
         }
       }
       owner
@@ -225,6 +309,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `
       fileId
       fileExtension
       rating
+      comments
+      workshopId
       _version
       _deleted
       _lastChangedAt
@@ -239,6 +325,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `
         playlistArtwork {
           id
         }
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -247,6 +334,18 @@ export const updateFileRequestSubmission = /* GraphQL */ `
         submissions {
           nextToken
           startedAt
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
         }
       }
       owner
@@ -267,6 +366,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
       fileId
       fileExtension
       rating
+      comments
+      workshopId
       _version
       _deleted
       _lastChangedAt
@@ -281,6 +382,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
         playlistArtwork {
           id
         }
+        workshopId
         _version
         _deleted
         _lastChangedAt
@@ -290,6 +392,216 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
           nextToken
           startedAt
         }
+        workshop {
+          id
+          name
+          status
+          passes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+      }
+      owner
+    }
+  }
+`;
+export const createWorkshop = /* GraphQL */ `
+  mutation CreateWorkshop(
+    $input: CreateWorkshopInput!
+    $condition: ModelWorkshopConditionInput
+  ) {
+    createWorkshop(input: $input, condition: $condition) {
+      id
+      name
+      status
+      integrations {
+        mailchimp {
+          enabled
+          apiKey
+          listId
+          serverPrefix
+        }
+      }
+      passes
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      fileRequests {
+        items {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;
+export const updateWorkshop = /* GraphQL */ `
+  mutation UpdateWorkshop(
+    $input: UpdateWorkshopInput!
+    $condition: ModelWorkshopConditionInput
+  ) {
+    updateWorkshop(input: $input, condition: $condition) {
+      id
+      name
+      status
+      integrations {
+        mailchimp {
+          enabled
+          apiKey
+          listId
+          serverPrefix
+        }
+      }
+      passes
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      fileRequests {
+        items {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      owner
+    }
+  }
+`;
+export const deleteWorkshop = /* GraphQL */ `
+  mutation DeleteWorkshop(
+    $input: DeleteWorkshopInput!
+    $condition: ModelWorkshopConditionInput
+  ) {
+    deleteWorkshop(input: $input, condition: $condition) {
+      id
+      name
+      status
+      integrations {
+        mailchimp {
+          enabled
+          apiKey
+          listId
+          serverPrefix
+        }
+      }
+      passes
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      fileRequests {
+        items {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
       }
       owner
     }
@@ -319,6 +631,8 @@ export const createMember = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
           _version
           _deleted
           _lastChangedAt
@@ -357,6 +671,8 @@ export const updateMember = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
           _version
           _deleted
           _lastChangedAt
@@ -395,6 +711,8 @@ export const deleteMember = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          comments
+          workshopId
           _version
           _deleted
           _lastChangedAt

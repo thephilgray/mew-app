@@ -14,13 +14,14 @@ import { useCopyToClipboard } from 'react-use'
 import { ROUTE_NAMES } from '../../pages/app'
 
 const CREATE_FILE_REQUEST = gql`
-    mutation CreateFileRequest($expiration: AWSDateTime!, $title: String, $details: String, $required: Boolean) {
-        createFileRequest(input: { expiration: $expiration, title: $title, details: $details, required: $required }) {
+    mutation CreateFileRequest($expiration: AWSDateTime!, $title: String, $details: String, $required: Boolean, $workshopId: ID!) {
+        createFileRequest(input: { expiration: $expiration, title: $title, details: $details, required: $required, workshopId: $workshopId }) {
             id
             title
             expiration
             details
             required
+            workshopId
         }
     }
 `
@@ -32,7 +33,7 @@ type Inputs = {
     required: boolean
 }
 
-const NewPublicAssignment: React.FC = () => {
+const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const [createFileRequest, { error, data }] = useMutation(CREATE_FILE_REQUEST)
     const [details, setDetails] = useState<string | null>('')
@@ -69,6 +70,7 @@ const NewPublicAssignment: React.FC = () => {
                 title: inputData.title,
                 details: details,
                 required: required,
+                workshopId
             },
         })
     }
@@ -76,7 +78,7 @@ const NewPublicAssignment: React.FC = () => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
-                <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.newAssignment]} />
+                <AppBreadcrumbs workshopId={workshopId} paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.newAssignment]} />
             </Grid>
             <Grid item xs={12}>
                 <Paper style={{ padding: '1rem' }}>
