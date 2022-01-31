@@ -1,0 +1,108 @@
+type Credit {
+    id: ID!
+    title: String
+    artists: [String]
+    artistLinks: [String]
+}
+
+type Artwork {
+    id: ID!
+    credit: [Credit]
+}
+
+type FileRequest
+    @key(name: "fileRequestsByWorkshopId", fields: ["workshopId"], queryField: "fileRequestsByWorkshopId")
+    @model
+    @auth(
+        rules: [
+            { allow: groups, groups: ["Admin"] }
+            # The public is only allowed to read posts
+            { allow: public, operations: [read] }
+        ]
+    ) {
+    id: ID!
+    expiration: AWSDateTime!
+    title: String
+    details: String
+    required: Boolean
+    playlistArtwork: Artwork
+    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByFileRequestId", fields: ["id"])
+    workshop: Workshop @connection(fields: ["workshopId"])
+    workshopId: ID
+}
+
+type FileRequestSubmission
+    @key(name: "submissionsByFileRequestId", fields: ["fileRequestId"], queryField: "submissionsByFileRequestId")
+    @key(name: "submissionsByEmail", fields: ["email"], queryField: "submissionsByEmail")
+    @key(name: "submissionsByWorkshopId", fields: ["workshopId"], queryField: "submissionsByWorkshopId")
+    @model
+    @auth(
+        rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read] }]
+    ) {
+    id: ID!
+    fileRequestId: ID!
+    fileRequest: FileRequest @connection(fields: ["fileRequestId"])
+    artist: String
+    name: String
+    email: String
+    fileId: String
+    fileExtension: String
+    rating: Int
+    comments: String
+    workshopId: ID
+}
+
+type mailchimpIntegration {
+    enabled: Boolean
+    apiKey: String
+    listId: String
+    serverPrefix: String
+}
+
+type Integrations {
+    mailchimp: mailchimpIntegration
+}
+
+type Workshop
+    @model
+    @auth(
+        rules: [
+            { allow: owner }
+            { allow: groups, groups: ["Admin", "Curators"] }
+            { allow: public, operations: [read] }
+        ]
+    ) {
+    id: ID!
+    name: String
+    fileRequests: [FileRequest] @connection(keyName: "fileRequestsByWorkshopId", fields: ["id"])
+    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByWorkshopId", fields: ["id"])
+    status: String
+    integrations: Integrations
+    passes: Int
+}
+
+type Member
+    @model
+    @key(fields: ["email"])
+    @auth(rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }, { allow: public, operations: [create] }]) {
+    email: String!
+    artist: String
+    submissions: [FileRequestSubmission] @connection(keyName: "submissionsByEmail", fields: ["email"])
+    status: String
+}
+
+input SongData {
+    fileId: String
+    title: String
+}
+
+input DownloadLinkOptions {
+    stripMetadataForSoundCloud: Boolean
+}
+
+type Mutation {
+    processDownload(assignmentId: ID!, songData: [SongData]): String @function(name: "zipmewsubmissions-${env}")
+    runProcessAudioTask(assignmentId: ID!, email: String!, options: DownloadLinkOptions): String
+        @function(name: "runProcessAudioTask-${env}")
+    populateMembers: [String] @function(name: "populateMembers-${env}")
+}

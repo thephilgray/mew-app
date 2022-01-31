@@ -47,47 +47,17 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "submissions": {
-                    "name": "submissions",
-                    "isArray": true,
-                    "type": {
-                        "model": "FileRequestSubmission"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "fileRequest"
-                    }
-                },
-                "workshop": {
-                    "name": "workshop",
+                "workshopId": {
+                    "name": "workshopId",
                     "isArray": false,
-                    "type": {
-                        "model": "Workshop"
-                    },
+                    "type": "ID",
                     "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "workshopId"
-                    }
+                    "attributes": []
                 }
             },
             "syncable": true,
             "pluralName": "FileRequests",
             "attributes": [
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "fileRequestsByWorkshopId",
-                        "fields": [
-                            "workshopId"
-                        ],
-                        "queryField": "fileRequestsByWorkshopId"
-                    }
-                },
                 {
                     "type": "model",
                     "properties": {}
@@ -131,18 +101,12 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "fileRequest": {
-                    "name": "fileRequest",
+                "fileRequestId": {
+                    "name": "fileRequestId",
                     "isArray": false,
-                    "type": {
-                        "model": "FileRequest"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "fileRequestId"
-                    }
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
                 },
                 "artist": {
                     "name": "artist",
@@ -205,36 +169,6 @@ export const schema = {
             "pluralName": "FileRequestSubmissions",
             "attributes": [
                 {
-                    "type": "key",
-                    "properties": {
-                        "name": "submissionsByFileRequestId",
-                        "fields": [
-                            "fileRequestId"
-                        ],
-                        "queryField": "submissionsByFileRequestId"
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "submissionsByEmail",
-                        "fields": [
-                            "email"
-                        ],
-                        "queryField": "submissionsByEmail"
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "submissionsByWorkshopId",
-                        "fields": [
-                            "workshopId"
-                        ],
-                        "queryField": "submissionsByWorkshopId"
-                    }
-                },
-                {
                     "type": "model",
                     "properties": {}
                 },
@@ -242,18 +176,6 @@ export const schema = {
                     "type": "auth",
                     "properties": {
                         "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "identityClaim": "cognito:username",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            },
                             {
                                 "groupClaim": "cognito:groups",
                                 "provider": "userPools",
@@ -297,47 +219,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "fileRequests": {
-                    "name": "fileRequests",
-                    "isArray": true,
-                    "type": {
-                        "model": "FileRequest"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "workshop"
-                    }
-                },
-                "submissions": {
-                    "name": "submissions",
-                    "isArray": true,
-                    "type": {
-                        "model": "FileRequestSubmission"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "workshopId"
-                    }
-                },
                 "status": {
                     "name": "status",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "integrations": {
-                    "name": "integrations",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "Integrations"
-                    },
                     "isRequired": false,
                     "attributes": []
                 },
@@ -360,18 +245,6 @@ export const schema = {
                     "type": "auth",
                     "properties": {
                         "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "identityClaim": "cognito:username",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            },
                             {
                                 "groupClaim": "cognito:groups",
                                 "provider": "userPools",
@@ -422,20 +295,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "submissions": {
-                    "name": "submissions",
-                    "isArray": true,
-                    "type": {
-                        "model": "FileRequestSubmission"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "email"
-                    }
-                },
                 "status": {
                     "name": "status",
                     "isArray": false,
@@ -452,29 +311,9 @@ export const schema = {
                     "properties": {}
                 },
                 {
-                    "type": "key",
-                    "properties": {
-                        "fields": [
-                            "email"
-                        ]
-                    }
-                },
-                {
                     "type": "auth",
                     "properties": {
                         "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "identityClaim": "cognito:username",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            },
                             {
                                 "groupClaim": "cognito:groups",
                                 "provider": "userPools",
@@ -559,54 +398,7 @@ export const schema = {
                     "isArrayNullable": true
                 }
             }
-        },
-        "Integrations": {
-            "name": "Integrations",
-            "fields": {
-                "mailchimp": {
-                    "name": "mailchimp",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "mailchimpIntegration"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                }
-            }
-        },
-        "mailchimpIntegration": {
-            "name": "mailchimpIntegration",
-            "fields": {
-                "enabled": {
-                    "name": "enabled",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "apiKey": {
-                    "name": "apiKey",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "listId": {
-                    "name": "listId",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "serverPrefix": {
-                    "name": "serverPrefix",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            }
         }
     },
-    "version": "db6eba48dc01adeecb38483560416457"
+    "version": "b8a6367c371d11c006d54e41a530aee1"
 };
