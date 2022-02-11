@@ -11,7 +11,60 @@ import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
 import { isPast } from 'date-fns/esm'
 import { RoleGuard } from '../../auth/auth.context'
-import { getWorkshop } from '../../graphql/queries'
+// import { getWorkshop } from '../../graphql/queries'
+
+// getWorkshop is hard-coded here to add the submissions(limit: 5000); can also be achieved with .replace
+const GET_WORKSHOP = gql`  query GetWorkshop($id: ID!) {
+    getWorkshop(id: $id) {
+      id
+      name
+      fileRequests {
+        items {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      submissions(limit: 5000) {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      status
+      passes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }`
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -23,7 +76,7 @@ const useStyles = makeStyles(() =>
 
 const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     const classes = useStyles()
-    const { loading, error, data, refetch } = useQuery(gql(getWorkshop), {
+    const { loading, error, data, refetch } = useQuery(GET_WORKSHOP, {
         variables: { id: workshopId }
     })
     let workshop;

@@ -10,7 +10,11 @@ type Artwork {
     credit: [Credit]
 }
 
-type FileRequest @model @auth(rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [read] }]) {
+type FileRequest
+    @model
+    @auth(
+        rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read, update, delete] }]
+    ) {
     id: ID!
     expiration: AWSDateTime!
     title: String
@@ -26,7 +30,9 @@ type FileRequest @model @auth(rules: [{ allow: groups, groups: ["Admin"] }, { al
 
 type FileRequestSubmission
     @model
-    @auth(rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read] }]) {
+    @auth(
+        rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read, update, delete] }]
+    ) {
     id: ID!
     fileRequestId: ID! @index(name: "submissionsByFileRequestId", queryField: "submissionsByFileRequestId")
     fileRequest: FileRequest @belongsTo(fields: ["fileRequestId"])
@@ -44,7 +50,12 @@ type FileRequestSubmission
 
 type Workshop
     @model
-    @auth(rules: [{ allow: groups, groups: ["Admin", "Curators"] }, { allow: public, operations: [read] }]) {
+    @auth(
+        rules: [
+            { allow: groups, groups: ["Admin", "Curators"] }
+            { allow: public, operations: [create, read, update, delete] }
+        ]
+    ) {
     id: ID!
     name: String
     fileRequests: [FileRequest] @hasMany(indexName: "fileRequestsByWorkshopId", fields: ["id"])
@@ -53,7 +64,11 @@ type Workshop
     passes: Int
 }
 
-type Member @model @auth(rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create] }]) {
+type Member
+    @model
+    @auth(
+        rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read, update, delete] }]
+    ) {
     email: String! @primaryKey
     artist: String
     submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByEmail", fields: ["email"])
@@ -75,4 +90,4 @@ type Mutation {
         @function(name: "runProcessAudioTask-${env}")
     populateMembers: [String] @function(name: "populateMembers-${env}")
 }
- 
+   
