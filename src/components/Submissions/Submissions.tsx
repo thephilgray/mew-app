@@ -1,13 +1,13 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
-import { Badge, Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormGroup, Grid, IconButton, Modal, Snackbar, Typography } from '@material-ui/core'
+import { Badge, Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormGroup, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
 import { DataGrid, Columns, SortDirection, ColDef, SelectionChangeParams } from '@material-ui/data-grid'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
-import { AssignmentTurnedIn, CloudDownload, FileCopy, Add, Assessment, Email, Edit, PlayArrowTwoTone } from '@material-ui/icons'
+import { AssignmentTurnedIn, CloudDownload, FileCopy, Add, Assessment, Email, Edit, PlayArrowTwoTone, MoreTime } from '@mui/icons-material'
 import { API, Storage, graphqlOperation } from 'aws-amplify'
 import { uniqBy, pipe, map } from 'lodash/fp'
 
@@ -18,6 +18,7 @@ import { processDownload, runProcessAudioTask } from '../../graphql/mutations'
 import { ROUTE_NAMES } from '../../pages/app'
 import { getCurrentUser } from '../../auth/utils'
 import { getFileRequest } from '../../graphql/queries'
+import ExtensionsDialog from './ExtensionsDialog'
 
 
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
@@ -31,7 +32,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     })
 
     const dialogConstants = {
-        CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link'
+        CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link',
+        EDIT_EXTENSIONS: 'edit-extensions'
     }
 
     const snackbarConstants = {
@@ -268,6 +270,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         </DialogActions>
                     </Dialog>
 
+                    <ExtensionsDialog assignmentId={assignmentId} open={dialogToggles[dialogConstants.EDIT_EXTENSIONS]} onCloseDialog={() => setDialogToggles({})} />
+
                     {snackbarConfigs.map(({ message = '', key = '', delay = 0 }) => (
                         < Snackbar
                             anchorOrigin={{
@@ -315,6 +319,9 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                     }
                                 >
                                     <FileCopy />
+                                </IconButton>
+                                <IconButton color="secondary" aria-label="Extensions" onClick={() => setDialogToggles({ [dialogConstants.EDIT_EXTENSIONS]: true })}>
+                                    <MoreTime />
                                 </IconButton>
                                 <IconButton color="secondary" aria-label="Edit" component={Link} to="edit">
                                     <Edit />

@@ -73,6 +73,11 @@ export const ROUTE_NAMES = {
         getPath: ({ assignmentId = '' }): string => `/app/submissions/${assignmentId}`,
         name: 'New Submission',
     },
+    newPublicSubmissionExtension: {
+        path: '/app/submissions/:assignmentId/:extensionCode',
+        getPath: ({ assignmentId = '', extensionCode = '' }): string => `/app/submissions/${assignmentId}/${extensionCode}`,
+        name: 'New Submission (Extension)',
+    },
     editWorkshop: {
         path: '/app/workshops/:workshopId/settings',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/settings`,
@@ -135,6 +140,7 @@ const App: React.FC = (): JSX.Element => (
                         roles={ROUTE_NAMES.newWorkshop.roles}
                     />
                     <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmission.path} />
+                    <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmissionExtension.path} />
                 </Router>
             </Layout>
         </MuiPickersUtilsProvider>

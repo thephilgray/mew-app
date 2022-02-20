@@ -2,6 +2,100 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getExtension = /* GraphQL */ `
+  query GetExtension($id: ID!) {
+    getExtension(id: $id) {
+      id
+      expiration
+      assignmentId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listExtensions = /* GraphQL */ `
+  query ListExtensions(
+    $filter: ModelExtensionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listExtensions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        expiration
+        assignmentId
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncExtensions = /* GraphQL */ `
+  query SyncExtensions(
+    $filter: ModelExtensionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncExtensions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        expiration
+        assignmentId
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const extensionsByFileRequestId = /* GraphQL */ `
+  query ExtensionsByFileRequestId(
+    $assignmentId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelExtensionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    extensionsByFileRequestId(
+      assignmentId: $assignmentId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        expiration
+        assignmentId
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getFileRequest = /* GraphQL */ `
   query GetFileRequest($id: ID!) {
     getFileRequest(id: $id) {
@@ -60,6 +154,20 @@ export const getFileRequest = /* GraphQL */ `
         _lastChangedAt
       }
       workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -100,6 +208,10 @@ export const listFileRequests = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -149,6 +261,10 @@ export const syncFileRequests = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -200,6 +316,10 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -241,6 +361,10 @@ export const getFileRequestSubmission = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version

@@ -16,7 +16,6 @@ import { useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import styled from '@emotion/styled'
 import { green } from '@material-ui/core/colors'
-import gql from 'graphql-tag'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { isPast } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
@@ -24,18 +23,9 @@ import { v4 as uuidv4 } from 'uuid'
 
 import Error from '../Error'
 import { createFileRequestSubmission } from '../../graphql/mutations'
+import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
 
-const GET_FILE_REQUEST = gql`
-    query GetFileRequest($id: ID!) {
-        getFileRequest(id: $id) {
-            expiration
-            title
-            details
-            workshopId
-            _deleted
-        }
-    }
-`
+
 
 type Inputs = {
     name: string
@@ -96,8 +86,9 @@ const StyledFileDropWrapper = styled.div`
 
 type AudioFileBlob = Blob & { name: string }
 
-const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({
+const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string, extensionCode?: string }>>> = ({
     assignmentId = '',
+    extensionCode = ''
 }) => {
     const [upload, setUpload] = useState<AudioFileBlob | undefined>()
     const [fileRequestData, setFileRequestData] = useState<{
@@ -112,6 +103,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
     const [uploadSuccess, setUploadSuccess] = useState<boolean>(false)
     const [uploadProgress, setUploadProgress] = useState({ loaded: 0, total: 1 })
     const [uploadAreaMessage, setUploadAreaMessage] = useState('Drop your track')
+    const [expiration, setExpiration] = useState('')
     const { register, handleSubmit, errors, setValue } = useForm<Inputs>()
     const fileInputRef = useRef(null)
     useBeforeUnload(!!uploadProgress.loaded && loading, 'Upload in progress. Are you sure you want to exit?')
@@ -132,8 +124,9 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
     }
 
     const isValid = Boolean(
-        !fileRequestData?._deleted && fileRequestData?.expiration && !isPast(new Date(fileRequestData.expiration)),
+        !fileRequestData?._deleted && expiration && !isPast(new Date(expiration)),
     )
+
     const ACCEPTED_FILETYPES = [
         // 'audio/wav',
         // 'audio/s-wav',
@@ -161,7 +154,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 const { data } = await API.graphql({
-                    query: GET_FILE_REQUEST,
+                    query: getFileRequestQuery,
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     authMode: 'API_KEY',
@@ -172,6 +165,15 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
 
                 if (data?.getFileRequest?.expiration) {
                     setFileRequestData(data.getFileRequest)
+
+                    // validate extension code
+                    if (extensionCode) {
+                        const [currentExtension] = data?.getFileRequest?.extensions?.items.filter((x: { _deleted: any; id: string }) => !x._deleted && x.id === extensionCode);
+                        setExpiration(currentExtension.expiration || data.getFileRequest.expiration)
+                    } else {
+                        setExpiration(data.getFileRequest.expiration)
+                    }
+
                 }
             } catch (err) {
                 console.log(err)
@@ -227,7 +229,6 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         const key = keyValues.map(encodeURIComponent).join('/')
         const emails = email.split(',').map((email) => email.trim())
         const fileExtension = upload?.name.split('.').pop()
-        console.log({ fileExtension })
 
         try {
             await Storage.put(key, upload, {

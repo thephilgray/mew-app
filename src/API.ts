@@ -11,38 +11,19 @@ export type DownloadLinkOptions = {
   stripMetadataForSoundCloud?: boolean | null,
 };
 
-export type CreateFileRequestInput = {
+export type CreateExtensionInput = {
   id?: string | null,
   expiration: string,
-  title?: string | null,
-  details?: string | null,
-  required?: boolean | null,
-  playlistArtwork?: ArtworkInput | null,
-  workshopId?: string | null,
+  assignmentId: string,
   _version?: number | null,
 };
 
-export type ArtworkInput = {
-  id?: string | null,
-  credit?: Array< CreditInput | null > | null,
-};
-
-export type CreditInput = {
-  id?: string | null,
-  title?: string | null,
-  artists?: Array< string | null > | null,
-  artistLinks?: Array< string | null > | null,
-};
-
-export type ModelFileRequestConditionInput = {
+export type ModelExtensionConditionInput = {
   expiration?: ModelStringInput | null,
-  title?: ModelStringInput | null,
-  details?: ModelStringInput | null,
-  required?: ModelBooleanInput | null,
-  workshopId?: ModelIDInput | null,
-  and?: Array< ModelFileRequestConditionInput | null > | null,
-  or?: Array< ModelFileRequestConditionInput | null > | null,
-  not?: ModelFileRequestConditionInput | null,
+  assignmentId?: ModelIDInput | null,
+  and?: Array< ModelExtensionConditionInput | null > | null,
+  or?: Array< ModelExtensionConditionInput | null > | null,
+  not?: ModelExtensionConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -85,13 +66,6 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
 export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
@@ -108,6 +82,71 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type Extension = {
+  __typename: "Extension",
+  id?: string,
+  expiration?: string,
+  assignmentId?: string,
+  createdAt?: string,
+  updatedAt?: string,
+  _version?: number,
+  _deleted?: boolean | null,
+  _lastChangedAt?: number,
+};
+
+export type UpdateExtensionInput = {
+  id: string,
+  expiration?: string | null,
+  assignmentId?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteExtensionInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateFileRequestInput = {
+  id?: string | null,
+  expiration: string,
+  title?: string | null,
+  details?: string | null,
+  required?: boolean | null,
+  playlistArtwork?: ArtworkInput | null,
+  workshopId?: string | null,
+  _version?: number | null,
+};
+
+export type ArtworkInput = {
+  id?: string | null,
+  credit?: Array< CreditInput | null > | null,
+};
+
+export type CreditInput = {
+  id?: string | null,
+  title?: string | null,
+  artists?: Array< string | null > | null,
+  artistLinks?: Array< string | null > | null,
+};
+
+export type ModelFileRequestConditionInput = {
+  expiration?: ModelStringInput | null,
+  title?: ModelStringInput | null,
+  details?: ModelStringInput | null,
+  required?: ModelBooleanInput | null,
+  workshopId?: ModelIDInput | null,
+  and?: Array< ModelFileRequestConditionInput | null > | null,
+  or?: Array< ModelFileRequestConditionInput | null > | null,
+  not?: ModelFileRequestConditionInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type FileRequest = {
   __typename: "FileRequest",
   id?: string,
@@ -119,6 +158,7 @@ export type FileRequest = {
   submissions?: ModelFileRequestSubmissionConnection,
   workshop?: Workshop,
   workshopId?: string | null,
+  extensions?: ModelExtensionConnection,
   createdAt?: string,
   updatedAt?: string,
   _version?: number,
@@ -185,6 +225,13 @@ export type Workshop = {
 export type ModelFileRequestConnection = {
   __typename: "ModelFileRequestConnection",
   items?:  Array<FileRequest | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelExtensionConnection = {
+  __typename: "ModelExtensionConnection",
+  items?:  Array<Extension | null >,
   nextToken?: string | null,
   startedAt?: number | null,
 };
@@ -335,6 +382,21 @@ export type DeleteMemberInput = {
   _version?: number | null,
 };
 
+export type ModelExtensionFilterInput = {
+  id?: ModelIDInput | null,
+  expiration?: ModelStringInput | null,
+  assignmentId?: ModelIDInput | null,
+  and?: Array< ModelExtensionFilterInput | null > | null,
+  or?: Array< ModelExtensionFilterInput | null > | null,
+  not?: ModelExtensionFilterInput | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelFileRequestFilterInput = {
   id?: ModelIDInput | null,
   expiration?: ModelStringInput | null,
@@ -346,12 +408,6 @@ export type ModelFileRequestFilterInput = {
   or?: Array< ModelFileRequestFilterInput | null > | null,
   not?: ModelFileRequestFilterInput | null,
 };
-
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
 
 export type ModelFileRequestSubmissionFilterInput = {
   id?: ModelIDInput | null,
@@ -425,6 +481,63 @@ export type PopulateMembersMutation = {
   populateMembers?: Array< string | null > | null,
 };
 
+export type CreateExtensionMutationVariables = {
+  input?: CreateExtensionInput,
+  condition?: ModelExtensionConditionInput | null,
+};
+
+export type CreateExtensionMutation = {
+  createExtension?:  {
+    __typename: "Extension",
+    id: string,
+    expiration: string,
+    assignmentId: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateExtensionMutationVariables = {
+  input?: UpdateExtensionInput,
+  condition?: ModelExtensionConditionInput | null,
+};
+
+export type UpdateExtensionMutation = {
+  updateExtension?:  {
+    __typename: "Extension",
+    id: string,
+    expiration: string,
+    assignmentId: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteExtensionMutationVariables = {
+  input?: DeleteExtensionInput,
+  condition?: ModelExtensionConditionInput | null,
+};
+
+export type DeleteExtensionMutation = {
+  deleteExtension?:  {
+    __typename: "Extension",
+    id: string,
+    expiration: string,
+    assignmentId: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type CreateFileRequestMutationVariables = {
   input?: CreateFileRequestInput,
   condition?: ModelFileRequestConditionInput | null,
@@ -495,6 +608,22 @@ export type CreateFileRequestMutation = {
       _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
+    extensions?:  {
+      __typename: "ModelExtensionConnection",
+      items:  Array< {
+        __typename: "Extension",
+        id: string,
+        expiration: string,
+        assignmentId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -573,6 +702,22 @@ export type UpdateFileRequestMutation = {
       _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
+    extensions?:  {
+      __typename: "ModelExtensionConnection",
+      items:  Array< {
+        __typename: "Extension",
+        id: string,
+        expiration: string,
+        assignmentId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -651,6 +796,22 @@ export type DeleteFileRequestMutation = {
       _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
+    extensions?:  {
+      __typename: "ModelExtensionConnection",
+      items:  Array< {
+        __typename: "Extension",
+        id: string,
+        expiration: string,
+        assignmentId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -698,6 +859,11 @@ export type CreateFileRequestSubmissionMutation = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -759,6 +925,11 @@ export type UpdateFileRequestSubmissionMutation = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -820,6 +991,11 @@ export type DeleteFileRequestSubmissionMutation = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1154,6 +1330,102 @@ export type DeleteMemberMutation = {
   } | null,
 };
 
+export type GetExtensionQueryVariables = {
+  id?: string,
+};
+
+export type GetExtensionQuery = {
+  getExtension?:  {
+    __typename: "Extension",
+    id: string,
+    expiration: string,
+    assignmentId: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListExtensionsQueryVariables = {
+  filter?: ModelExtensionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListExtensionsQuery = {
+  listExtensions?:  {
+    __typename: "ModelExtensionConnection",
+    items:  Array< {
+      __typename: "Extension",
+      id: string,
+      expiration: string,
+      assignmentId: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncExtensionsQueryVariables = {
+  filter?: ModelExtensionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncExtensionsQuery = {
+  syncExtensions?:  {
+    __typename: "ModelExtensionConnection",
+    items:  Array< {
+      __typename: "Extension",
+      id: string,
+      expiration: string,
+      assignmentId: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type ExtensionsByFileRequestIdQueryVariables = {
+  assignmentId?: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelExtensionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ExtensionsByFileRequestIdQuery = {
+  extensionsByFileRequestId?:  {
+    __typename: "ModelExtensionConnection",
+    items:  Array< {
+      __typename: "Extension",
+      id: string,
+      expiration: string,
+      assignmentId: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type GetFileRequestQueryVariables = {
   id?: string,
 };
@@ -1223,6 +1495,22 @@ export type GetFileRequestQuery = {
       _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
+    extensions?:  {
+      __typename: "ModelExtensionConnection",
+      items:  Array< {
+        __typename: "Extension",
+        id: string,
+        expiration: string,
+        assignmentId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1269,6 +1557,11 @@ export type ListFileRequestsQuery = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1319,6 +1612,11 @@ export type SyncFileRequestsQuery = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1370,6 +1668,11 @@ export type FileRequestsByWorkshopIdQuery = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1419,6 +1722,11 @@ export type GetFileRequestSubmissionQuery = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1916,6 +2224,48 @@ export type SyncMembersQuery = {
   } | null,
 };
 
+export type OnCreateExtensionSubscription = {
+  onCreateExtension?:  {
+    __typename: "Extension",
+    id: string,
+    expiration: string,
+    assignmentId: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateExtensionSubscription = {
+  onUpdateExtension?:  {
+    __typename: "Extension",
+    id: string,
+    expiration: string,
+    assignmentId: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteExtensionSubscription = {
+  onDeleteExtension?:  {
+    __typename: "Extension",
+    id: string,
+    expiration: string,
+    assignmentId: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type OnCreateFileRequestSubscription = {
   onCreateFileRequest?:  {
     __typename: "FileRequest",
@@ -1981,6 +2331,22 @@ export type OnCreateFileRequestSubscription = {
       _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
+    extensions?:  {
+      __typename: "ModelExtensionConnection",
+      items:  Array< {
+        __typename: "Extension",
+        id: string,
+        expiration: string,
+        assignmentId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2054,6 +2420,22 @@ export type OnUpdateFileRequestSubscription = {
       _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
+    extensions?:  {
+      __typename: "ModelExtensionConnection",
+      items:  Array< {
+        __typename: "Extension",
+        id: string,
+        expiration: string,
+        assignmentId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2127,6 +2509,22 @@ export type OnDeleteFileRequestSubscription = {
       _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
+    extensions?:  {
+      __typename: "ModelExtensionConnection",
+      items:  Array< {
+        __typename: "Extension",
+        id: string,
+        expiration: string,
+        assignmentId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2169,6 +2567,11 @@ export type OnCreateFileRequestSubmissionSubscription = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2225,6 +2628,11 @@ export type OnUpdateFileRequestSubmissionSubscription = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2281,6 +2689,11 @@ export type OnDeleteFileRequestSubmissionSubscription = {
         _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
+      extensions?:  {
+        __typename: "ModelExtensionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,

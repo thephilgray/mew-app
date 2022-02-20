@@ -10,6 +10,16 @@ type Artwork {
     credit: [Credit]
 }
 
+type Extension
+    @model
+    @auth(
+        rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read, update, delete] }]
+    ) {
+    id: ID!
+    expiration: AWSDateTime!
+    assignmentId: ID! @index(name: "extensionsByFileRequestId", queryField: "extensionsByFileRequestId")
+}
+
 type FileRequest
     @model
     @auth(
@@ -26,6 +36,7 @@ type FileRequest
     workshopId: ID
         @index(name: "fileRequestsByWorkshopId", queryField: "fileRequestsByWorkshopId")
         @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
+    extensions: [Extension] @hasMany(indexName: "extensionsByFileRequestId", fields: ["id"])
 }
 
 type FileRequestSubmission
@@ -90,4 +101,4 @@ type Mutation {
         @function(name: "runProcessAudioTask-${env}")
     populateMembers: [String] @function(name: "populateMembers-${env}")
 }
-   
+ 

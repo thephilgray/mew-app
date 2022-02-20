@@ -1,6 +1,17 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
-
+import React from 'react';
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
+} from '@material-ui/core';
 
 export default function WorkshopForm({ onSubmit, setFormState, formState }) {
 
@@ -64,6 +75,9 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
         <Grid item xs={12}>
           <Typography variant="h6" component="h6">
             Mailchimp Integration
+          </Typography>
+          <Typography>
+            With this enabled, the members in the Members section will be populated from the Mailchimp list you specify. Only users in your list will appear.
           </Typography>
         </Grid>
         {!!formState.enableMailchimpIntegration && <>
