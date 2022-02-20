@@ -2,6 +2,48 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateExtension = /* GraphQL */ `
+  subscription OnCreateExtension {
+    onCreateExtension {
+      id
+      expiration
+      assignmentId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateExtension = /* GraphQL */ `
+  subscription OnUpdateExtension {
+    onUpdateExtension {
+      id
+      expiration
+      assignmentId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteExtension = /* GraphQL */ `
+  subscription OnDeleteExtension {
+    onDeleteExtension {
+      id
+      expiration
+      assignmentId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const onCreateFileRequest = /* GraphQL */ `
   subscription OnCreateFileRequest {
     onCreateFileRequest {
@@ -60,6 +102,20 @@ export const onCreateFileRequest = /* GraphQL */ `
         _lastChangedAt
       }
       workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -126,6 +182,20 @@ export const onUpdateFileRequest = /* GraphQL */ `
         _lastChangedAt
       }
       workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -192,6 +262,20 @@ export const onDeleteFileRequest = /* GraphQL */ `
         _lastChangedAt
       }
       workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -230,6 +314,10 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -282,6 +370,10 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -334,6 +426,10 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version

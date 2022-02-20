@@ -16,6 +16,14 @@ export declare class Artwork {
   constructor(init: ModelInit<Artwork>);
 }
 
+export declare class Extension {
+  readonly id: string;
+  readonly expiration: string;
+  readonly assignmentId: string;
+  constructor(init: ModelInit<Extension>);
+  static copyOf(source: Extension, mutator: (draft: MutableModel<Extension>) => MutableModel<Extension> | void): Extension;
+}
+
 export declare class FileRequest {
   readonly id: string;
   readonly expiration: string;

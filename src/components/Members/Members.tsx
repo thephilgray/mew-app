@@ -98,8 +98,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const expiredAndDueAssignments = mappedArray.filter((item) => item && item.expired && item.required).length;
-    const workshopPasses = data.getWorkshop.passes || 3;
-
+    const workshopPasses = data.getWorkshop.passes;
 
     const userRows = Object.keys(submissionsGroupedByEmail)
         .map(email => ({
@@ -119,7 +118,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             field: 'required', headerName: 'Required', width: 150,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            renderCell: ({ value }) => <span>{value}/{workshopRequiredAssignments}</span>,
+            renderCell: ({ value }) => <span>{value}/{expiredAndDueAssignments}</span>,
         },
         {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -127,7 +126,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             field: 'passes', headerName: 'Passes Remaining', width: 200,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            valueGetter: (user) => workshopRequiredAssignments > user.required ? workshopPasses - (workshopRequiredAssignments - user.required) : workshopPasses
+            valueFormatter: ({ row }) => expiredAndDueAssignments > row.required ? (workshopPasses - (expiredAndDueAssignments - row.required)) : workshopPasses
         },
     ]
 

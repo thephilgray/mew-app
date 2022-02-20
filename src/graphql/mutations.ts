@@ -25,6 +25,57 @@ export const populateMembers = /* GraphQL */ `
     populateMembers
   }
 `;
+export const createExtension = /* GraphQL */ `
+  mutation CreateExtension(
+    $input: CreateExtensionInput!
+    $condition: ModelExtensionConditionInput
+  ) {
+    createExtension(input: $input, condition: $condition) {
+      id
+      expiration
+      assignmentId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateExtension = /* GraphQL */ `
+  mutation UpdateExtension(
+    $input: UpdateExtensionInput!
+    $condition: ModelExtensionConditionInput
+  ) {
+    updateExtension(input: $input, condition: $condition) {
+      id
+      expiration
+      assignmentId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteExtension = /* GraphQL */ `
+  mutation DeleteExtension(
+    $input: DeleteExtensionInput!
+    $condition: ModelExtensionConditionInput
+  ) {
+    deleteExtension(input: $input, condition: $condition) {
+      id
+      expiration
+      assignmentId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const createFileRequest = /* GraphQL */ `
   mutation CreateFileRequest(
     $input: CreateFileRequestInput!
@@ -86,6 +137,20 @@ export const createFileRequest = /* GraphQL */ `
         _lastChangedAt
       }
       workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -155,6 +220,20 @@ export const updateFileRequest = /* GraphQL */ `
         _lastChangedAt
       }
       workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -224,6 +303,20 @@ export const deleteFileRequest = /* GraphQL */ `
         _lastChangedAt
       }
       workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -265,6 +358,10 @@ export const createFileRequestSubmission = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -320,6 +417,10 @@ export const updateFileRequestSubmission = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -375,6 +476,10 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
           _lastChangedAt
         }
         workshopId
+        extensions {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
