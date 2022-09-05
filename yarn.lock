@@ -2278,7 +2278,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.17.0":
+"@babel/runtime@^7.16.7", "@babel/runtime@^7.17.0":
   version "7.17.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
   integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
@@ -2515,6 +2515,11 @@
     lodash "^4.17.19"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
+
+"@fontsource/roboto-serif@^4.5.1":
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto-serif/-/roboto-serif-4.5.1.tgz#2f0f894d1be39a22c40f5ec0f85cc13c2591737e"
+  integrity sha512-VDsrVF5oKflcxKELu1g4wLD2Y8Mkq6HJ3d2Bhf6V37LVY27DJNHkX7dcLjDyWqcUoyikjc0lCk6uTz/FlCSKhQ==
 
 "@graphql-tools/batch-execute@^7.0.0":
   version "7.0.0"
@@ -13067,6 +13072,13 @@ pnp-webpack-plugin@^1.6.4:
   integrity sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==
   dependencies:
     ts-pnp "^1.1.6"
+
+polished@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-4.1.4.tgz#640293ba834109614961a700fdacbb6599fb12d0"
+  integrity sha512-Nq5Mbza+Auo7N3sQb1QMFaQiDO+4UexWuSGR7Cjb4Sw11SZIJcrrFtiZ+L0jT9MBsUsxDboHVASbCLbE1rnECg==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
 
 popper.js@1.16.1-lts:
   version "1.16.1-lts"

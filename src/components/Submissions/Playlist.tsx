@@ -1,15 +1,18 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
-import { CircularProgress, Grid } from '@material-ui/core'
+import { CircularProgress, Grid, Typography, useTheme, Card, CardContent, CardMedia } from '@material-ui/core'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { Storage } from 'aws-amplify'
 import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import 'react-jinke-music-player/lib/styles/index.less'
+import mewAppLogo from '../../assets/mewlogo.png'
 
+import { EXTENSIONS_BY_FILETYPE } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
+import { ColorModeContext } from '../Layout/Theme'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -43,27 +46,33 @@ const GET_FILE_REQUEST = gql`
 
 const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
+    const [currentIndex, setCurrentIndex] = useState(0)
+    const theme = useTheme();
+    const { togglePalette } = React.useContext(ColorModeContext);
 
     const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
         pollInterval: 10000,
     })
 
-    // TODO: figure out how to download from player with filename
-    // const downloadPresignedUrl = ({ src, filename }: { src: string; filename: string }) => {
-    //     const a = document.createElement('a')
-    //     a.href = src
-    //     a.download = filename || 'download'
-    //     const clickHandler = () => {
-    //         setTimeout(() => {
-    //             URL.revokeObjectURL(src)
-    //             a.removeEventListener('click', clickHandler)
-    //         }, 150)
-    //     }
-    //     a.addEventListener('click', clickHandler, false)
-    //     a.click()
-    //     return a
-    // }
+    const downloadPresignedUrl = ({ src, filename }: { src: string; filename: string }) => {
+        const metaData = audioLists[currentIndex]
+        if (!metaData.musicSrc) return;
+        // @ts-ignore
+        return fetch(metaData.musicSrc)
+            .then(response => {
+                return response.blob().then(blob => {
+                    let url = window.URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    const contentType = response.headers.get("Content-Type")
+                    // @ts-ignore
+                    const extension = EXTENSIONS_BY_FILETYPE[contentType || 'audio/mpeg']
+                    a.href = url;
+                    a.download = `${metaData.name} - ${metaData.singer}${extension}`
+                    a.click();
+                });
+            });
+    }
 
     useEffect(() => {
         async function addSongsToPlaylist() {
@@ -76,7 +85,7 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
                         const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
-                        songs.push({ musicSrc: fileAccessURL.toString(), name, cover: '', singer: artist })
+                        songs.push({ musicSrc: fileAccessURL.toString(), name, cover: mewAppLogo, singer: artist })
                         seenFileIds.push(fileId)
                     }
                 }
@@ -91,7 +100,7 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
     if (!loading && !data?.getFileRequest?.submissions?.items)
         return <p>Assignment does not exist or has been deleted.</p>
     return (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} style={{ minHeight: '90 vh' }}>
             {audioLists.length ? (
                 <ReactJkMusicPlayer
                     mode="full"
@@ -102,14 +111,16 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
                     autoPlayInitLoadPlayList={false}
                     quietUpdate
                     spaceBar
+                    onPlayIndexChange={setCurrentIndex}
                     showMediaSession
                     showThemeSwitch={false}
                     showPlayMode={true}
                     defaultVolume={1}
                     // volumeFade={{ fadeIn: 0, fadeOut: 0 }}
                     showMiniProcessBar={false}
-                    showDownload={false}
-                // customDownloader={downloadPresignedUrl}
+                    showDownload={true}
+                    // @ts-ignore
+                    customDownloader={downloadPresignedUrl}
                 />
             ) : null}
             <Grid item xs={12}>
@@ -132,7 +143,24 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
                 </Grid>
             ) : (
                 <Grid item xs={12}>
-                    <p>Playlist page</p>
+                    <Card>
+                        <CardMedia
+                            component="img"
+                            alt="Song cover image"
+                            height="200"
+                            image={audioLists?.[currentIndex]?.cover?.toString()}
+                            title={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[currentIndex]?.singer?.toString()}`}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {audioLists?.[currentIndex]?.name?.toString()}
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {audioLists?.[currentIndex]?.singer?.toString()}
+                            </Typography>
+                        </CardContent>
+
+                    </Card>
                 </Grid>
             )}
         </Grid>

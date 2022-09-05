@@ -1,5 +1,5 @@
 import React from 'react'
-import { Breadcrumbs, Typography } from '@material-ui/core'
+import { Breadcrumbs, Typography, Link as MaterialLink } from '@material-ui/core'
 import { Link } from 'gatsby'
 
 const AppBreadcrumbs: React.FC<{
@@ -26,8 +26,10 @@ const AppBreadcrumbs: React.FC<{
                         )
                     }
                     return (
-                        <Link color="inherit" to={getPath ? getPath({ workshopId: workshopId || workshop?.id || assignment?.workshopId, assignmentId: assignmentId || assignment?.id }) : path} key={path}>
-                            {getName && getName({ ...workshop, ...assignment }) ? getName({ ...workshop, ...assignment }) : name}
+                        <Link color="textSecondary" to={getPath ? getPath({ workshopId: workshopId || workshop?.id || assignment?.workshopId, assignmentId: assignmentId || assignment?.id }) : path} key={path}>
+                            <MaterialLink>
+                                {getName && getName({ ...workshop, ...assignment }) ? getName({ ...workshop, ...assignment }) : name}
+                            </MaterialLink>
                         </Link>
                     )
                 })}
