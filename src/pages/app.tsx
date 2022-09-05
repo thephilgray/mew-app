@@ -42,8 +42,8 @@ export const ROUTE_NAMES = {
         roles: ['Admin'],
     },
     playlist: {
-        path: '/app/assignments/:assignmentId/playlist',
-        getPath: ({ assignmentId = '' }): string => `/app/assignments/${assignmentId}/playlist`,
+        path: '/app/playlists/:assignmentId',
+        getPath: ({ assignmentId = '' }): string => `/app/playlists/${assignmentId}`,
         name: 'Playlist',
     },
     newAssignment: {
