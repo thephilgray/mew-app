@@ -70,9 +70,9 @@ const Login: React.FC<RouteComponentProps> = (): JSX.Element => {
                                             <span>Sign In</span>
                                         </Button>
                                     </Grid>
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <Link to="/signup">Signup</Link>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             </form>
                         </Grid>

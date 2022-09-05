@@ -45,7 +45,6 @@ export const ROUTE_NAMES = {
         path: '/app/assignments/:assignmentId/playlist',
         getPath: ({ assignmentId = '' }): string => `/app/assignments/${assignmentId}/playlist`,
         name: 'Playlist',
-        roles: ['Admin'],
     },
     newAssignment: {
         path: '/app/workshops/:workshopId/new-assignment',
@@ -118,11 +117,6 @@ const App: React.FC = (): JSX.Element => (
                         component={Assignments}
                         roles={ROUTE_NAMES.assignments.roles}
                     />
-                    <PrivateRoute
-                        path={ROUTE_NAMES.playlist.path}
-                        component={Playlist}
-                        roles={ROUTE_NAMES.playlist.roles}
-                    />
                     <PrivateRoute path={ROUTE_NAMES.profile.path} component={Profile} />
                     <PrivateRoute
                         path={ROUTE_NAMES.members.path}
@@ -139,6 +133,7 @@ const App: React.FC = (): JSX.Element => (
                         component={NewWorkshop}
                         roles={ROUTE_NAMES.newWorkshop.roles}
                     />
+                    <Playlist path={ROUTE_NAMES.playlist.path} />
                     <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmission.path} />
                     <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmissionExtension.path} />
                 </Router>

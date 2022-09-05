@@ -1,9 +1,10 @@
 /* eslint-disable react/display-name */
-import React, { useEffect, useState } from 'react'
-import { CircularProgress, Grid, Typography, useTheme, Card, CardContent, CardMedia } from '@material-ui/core'
+import React, { useEffect, useState, PropsWithChildren } from 'react'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia } from '@material-ui/core'
+import { RouteComponentProps } from '@reach/router'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
-import { Storage } from 'aws-amplify'
+import { API, Storage } from 'aws-amplify'
 import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import 'react-jinke-music-player/lib/styles/index.less'
 import mewAppLogo from '../../assets/mewlogo.png'
@@ -12,7 +13,7 @@ import { EXTENSIONS_BY_FILETYPE } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
-import { ColorModeContext } from '../Layout/Theme'
+import { isLoggedIn } from '../../auth/utils'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -44,16 +45,72 @@ const GET_FILE_REQUEST = gql`
     }
 `
 
-const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
+const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({ assignmentId = '' }) => {
     const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
     const [currentIndex, setCurrentIndex] = useState(0)
-    const theme = useTheme();
-    const { togglePalette } = React.useContext(ColorModeContext);
+    const [loading, setLoading] = useState(true)
+    const [data, setData] = useState<{
+        expiration: string
+        title: string
+        details: string
+        workshopId: string
+        _deleted: boolean
+    } | null>(null)
+    const [error, setError] = useState(null)
+    const loggedIn = isLoggedIn()
 
-    const { loading, error, data } = useQuery(GET_FILE_REQUEST, {
+    // Authenticated user access
+    const { loading: authLoading, error: authError, data: authData } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
         pollInterval: 10000,
     })
+
+    // Authenticated user access
+    useEffect(() => {
+        if (loggedIn) {
+            if (authData?.getFileRequest && !data) {
+                setData(authData.getFileRequest)
+            }
+            if (authError && !error) {
+                // @ts-ignore
+                setError(authError)
+            }
+            if (loading) {
+                setLoading(authLoading)
+            }
+        }
+    }, [authLoading, authError, authData])
+
+    // Anonymous access
+    useEffect(() => {
+        async function getFileRequest() {
+            // Switch authMode to API_KEY
+            try {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                const { data: fileRequestData } = await API.graphql({
+                    query: GET_FILE_REQUEST,
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    authMode: 'API_KEY',
+                    variables: {
+                        id: assignmentId,
+                    },
+                })
+                setData(fileRequestData?.getFileRequest);
+
+            } catch (err) {
+                // @ts-ignore
+                setError(err)
+            }
+
+            setLoading(false)
+        }
+
+        if (assignmentId && !loggedIn) {
+            getFileRequest()
+        }
+    }, [])
 
     const downloadPresignedUrl = ({ src, filename }: { src: string; filename: string }) => {
         const metaData = audioLists[currentIndex]
@@ -78,9 +135,12 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
         async function addSongsToPlaylist() {
             const songs: Array<ReactJkMusicPlayerAudioListProps> = []
             const seenFileIds: string[] = []
-            if (!audioLists.length && data?.getFileRequest?.submissions?.items) {
-                for (let index = 0; index < data.getFileRequest.submissions.items.length; index++) {
-                    const { name, fileId, artist } = data.getFileRequest.submissions.items[index]
+            // @ts-ignore
+            if (!audioLists.length && data?.submissions?.items) {
+                // @ts-ignore
+                for (let index = 0; index < data.submissions.items.length; index++) {
+                    // @ts-ignore
+                    const { name, fileId, artist } = data.submissions.items[index]
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -97,7 +157,8 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
 
     if (error) return <Error errorMessage={error} />
     if (loading) return <CircularProgress />
-    if (!loading && !data?.getFileRequest?.submissions?.items)
+    // @ts-ignore
+    if (!loading && !data?.submissions?.items)
         return <p>Assignment does not exist or has been deleted.</p>
     return (
         <Grid container spacing={3} style={{ minHeight: '90 vh' }}>
@@ -123,34 +184,34 @@ const Playlist: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => 
                     customDownloader={downloadPresignedUrl}
                 />
             ) : null}
-            <Grid item xs={12}>
+            {loggedIn ? <Grid item xs={12}>
                 <AppBreadcrumbs
                     paths={[
                         ROUTE_NAMES.home,
                         ROUTE_NAMES.assignments,
                         {
                             path: ROUTE_NAMES.assignment.getPath({ assignmentId }),
-                            name: data?.getFileRequest?.title || assignmentId,
+                            name: data?.title || assignmentId,
                         },
                         ROUTE_NAMES.playlist,
                     ]}
-                    workshopId={data?.getFileRequest?.workshopId}
+                    workshopId={data?.workshopId}
                 />
-            </Grid>
-            {data?.getFileRequest?._deleted ? (
+            </Grid> : null}
+            {data?._deleted ? (
                 <Grid item xs={12}>
                     <p>This assignment has been deleted.</p>
                 </Grid>
             ) : (
                 <Grid item xs={12}>
                     <Card>
-                        <CardMedia
+                        {audioLists?.[currentIndex]?.cover?.toString() ? <CardMedia
                             component="img"
                             alt="Song cover image"
                             height="200"
                             image={audioLists?.[currentIndex]?.cover?.toString()}
                             title={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[currentIndex]?.singer?.toString()}`}
-                        />
+                        /> : null}
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
                                 {audioLists?.[currentIndex]?.name?.toString()}
