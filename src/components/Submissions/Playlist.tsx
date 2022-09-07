@@ -112,23 +112,28 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         }
     }, [])
 
-    const downloadPresignedUrl = ({ src, filename }: { src: string; filename: string }) => {
+    const download = async () => {
         const metaData = audioLists[currentIndex]
-        if (!metaData.musicSrc) return;
+        if (!metaData.fileId) return;
+        const songFilePath = `${assignmentId}/${metaData.fileId}`
+        const result = await Storage.get(songFilePath, { download: true });
         // @ts-ignore
-        return fetch(metaData.musicSrc)
-            .then(response => {
-                return response.blob().then(blob => {
-                    let url = window.URL.createObjectURL(blob);
-                    let a = document.createElement('a');
-                    const contentType = response.headers.get("Content-Type")
-                    // @ts-ignore
-                    const extension = EXTENSIONS_BY_FILETYPE[contentType || 'audio/mpeg']
-                    a.href = url;
-                    a.download = `${metaData.name} - ${metaData.singer}${extension}`
-                    a.click();
-                });
-            });
+        let url = window.URL.createObjectURL(result.Body);
+        let a = document.createElement('a');
+        // @ts-ignore
+        const contentType = result.ContentType
+        // @ts-ignore
+        const extension = EXTENSIONS_BY_FILETYPE[contentType || 'audio/mpeg']
+        a.href = url;
+        a.download = `${metaData.name} - ${metaData.singer}${extension}`
+        const clickHandler = () => {
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+                a.removeEventListener('click', clickHandler);
+            }, 150);
+        };
+        a.addEventListener('click', clickHandler, false);
+        a.click();
     }
 
     useEffect(() => {
@@ -145,7 +150,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
                         const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
-                        songs.push({ musicSrc: fileAccessURL.toString(), name, cover: mewAppLogo, singer: artist })
+                        songs.push({ musicSrc: fileAccessURL.toString(), name, cover: mewAppLogo, singer: artist, fileId })
                         seenFileIds.push(fileId)
                     }
                 }
@@ -181,7 +186,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     showMiniProcessBar={false}
                     showDownload={true}
                     // @ts-ignore
-                    customDownloader={downloadPresignedUrl}
+                    customDownloader={download}
                 />
             ) : null}
             {loggedIn ? <Grid item xs={12}>
