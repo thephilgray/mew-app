@@ -12,4 +12,4 @@ projects:
                 docsFilePath: src/graphql
 extensions:
     amplify:
-        version: 3
+        version: 5

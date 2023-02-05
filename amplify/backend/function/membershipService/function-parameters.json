@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "auth": {
+      "mewappacdc5d0e": [
+        "create",
+        "read",
+        "update"
+      ]
+    },
+    "api": {
+      "mewapp": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "function": {
+      "mewProfileService": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

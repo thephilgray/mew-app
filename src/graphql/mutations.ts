@@ -7,6 +7,38 @@ export const processDownload = /* GraphQL */ `
     processDownload(assignmentId: $assignmentId, songData: $songData)
   }
 `;
+export const updateProfileService = /* GraphQL */ `
+  mutation UpdateProfileService(
+    $email: String!
+    $sub: ID
+    $id: ID
+    $name: String
+    $bio: String
+    $apiKeyUpdate: ApiKeyUpdate
+    $avatar: String
+  ) {
+    updateProfileService(
+      email: $email
+      sub: $sub
+      id: $id
+      name: $name
+      bio: $bio
+      apiKeyUpdate: $apiKeyUpdate
+      avatar: $avatar
+    ) {
+      statusCode
+      body
+    }
+  }
+`;
+export const updateMembershipService = /* GraphQL */ `
+  mutation UpdateMembershipService($workshopId: ID!, $action: String) {
+    updateMembershipService(workshopId: $workshopId, action: $action) {
+      statusCode
+      body
+    }
+  }
+`;
 export const runProcessAudioTask = /* GraphQL */ `
   mutation RunProcessAudioTask(
     $assignmentId: ID!
@@ -23,6 +55,123 @@ export const runProcessAudioTask = /* GraphQL */ `
 export const populateMembers = /* GraphQL */ `
   mutation PopulateMembers {
     populateMembers
+  }
+`;
+export const createAPIKey = /* GraphQL */ `
+  mutation CreateAPIKey(
+    $input: CreateAPIKeyInput!
+    $condition: ModelAPIKeyConditionInput
+  ) {
+    createAPIKey(input: $input, condition: $condition) {
+      id
+      keyName
+      createdAt
+      profileID
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateAPIKey = /* GraphQL */ `
+  mutation UpdateAPIKey(
+    $input: UpdateAPIKeyInput!
+    $condition: ModelAPIKeyConditionInput
+  ) {
+    updateAPIKey(input: $input, condition: $condition) {
+      id
+      keyName
+      createdAt
+      profileID
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteAPIKey = /* GraphQL */ `
+  mutation DeleteAPIKey(
+    $input: DeleteAPIKeyInput!
+    $condition: ModelAPIKeyConditionInput
+  ) {
+    deleteAPIKey(input: $input, condition: $condition) {
+      id
+      keyName
+      createdAt
+      profileID
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
   }
 `;
 export const createExtension = /* GraphQL */ `
@@ -130,6 +279,10 @@ export const createFileRequest = /* GraphQL */ `
         }
         status
         passes
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -213,6 +366,10 @@ export const updateFileRequest = /* GraphQL */ `
         }
         status
         passes
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -296,6 +453,10 @@ export const deleteFileRequest = /* GraphQL */ `
         }
         status
         passes
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -502,6 +663,279 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
     }
   }
 `;
+export const createMembership = /* GraphQL */ `
+  mutation CreateMembership(
+    $input: CreateMembershipInput!
+    $condition: ModelMembershipConditionInput
+  ) {
+    createMembership(input: $input, condition: $condition) {
+      id
+      workshopId
+      email
+      status
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateMembership = /* GraphQL */ `
+  mutation UpdateMembership(
+    $input: UpdateMembershipInput!
+    $condition: ModelMembershipConditionInput
+  ) {
+    updateMembership(input: $input, condition: $condition) {
+      id
+      workshopId
+      email
+      status
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteMembership = /* GraphQL */ `
+  mutation DeleteMembership(
+    $input: DeleteMembershipInput!
+    $condition: ModelMembershipConditionInput
+  ) {
+    deleteMembership(input: $input, condition: $condition) {
+      id
+      workshopId
+      email
+      status
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const createWorkshop = /* GraphQL */ `
   mutation CreateWorkshop(
     $input: CreateWorkshopInput!
@@ -550,6 +984,29 @@ export const createWorkshop = /* GraphQL */ `
       }
       status
       passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -606,6 +1063,29 @@ export const updateWorkshop = /* GraphQL */ `
       }
       status
       passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -662,34 +1142,20 @@ export const deleteWorkshop = /* GraphQL */ `
       }
       status
       passes
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const createMember = /* GraphQL */ `
-  mutation CreateMember(
-    $input: CreateMemberInput!
-    $condition: ModelMemberConditionInput
-  ) {
-    createMember(input: $input, condition: $condition) {
-      email
-      artist
-      submissions {
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+      memberships {
         items {
           id
-          fileRequestId
-          artist
-          name
-          email
-          fileId
-          fileExtension
-          rating
-          comments
           workshopId
+          email
+          status
           createdAt
           updatedAt
           _version
@@ -699,7 +1165,6 @@ export const createMember = /* GraphQL */ `
         nextToken
         startedAt
       }
-      status
       createdAt
       updatedAt
       _version
@@ -708,26 +1173,39 @@ export const createMember = /* GraphQL */ `
     }
   }
 `;
-export const updateMember = /* GraphQL */ `
-  mutation UpdateMember(
-    $input: UpdateMemberInput!
-    $condition: ModelMemberConditionInput
+export const createProfile = /* GraphQL */ `
+  mutation CreateProfile(
+    $input: CreateProfileInput!
+    $condition: ModelProfileConditionInput
   ) {
-    updateMember(input: $input, condition: $condition) {
+    createProfile(input: $input, condition: $condition) {
       email
-      artist
-      submissions {
+      id
+      name
+      avatar
+      bio
+      sub
+      apiKeys {
         items {
           id
-          fileRequestId
-          artist
-          name
+          keyName
+          createdAt
+          profileID
           email
-          fileId
-          fileExtension
-          rating
-          comments
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      memberships {
+        items {
+          id
           workshopId
+          email
+          status
           createdAt
           updatedAt
           _version
@@ -737,7 +1215,6 @@ export const updateMember = /* GraphQL */ `
         nextToken
         startedAt
       }
-      status
       createdAt
       updatedAt
       _version
@@ -746,26 +1223,39 @@ export const updateMember = /* GraphQL */ `
     }
   }
 `;
-export const deleteMember = /* GraphQL */ `
-  mutation DeleteMember(
-    $input: DeleteMemberInput!
-    $condition: ModelMemberConditionInput
+export const updateProfile = /* GraphQL */ `
+  mutation UpdateProfile(
+    $input: UpdateProfileInput!
+    $condition: ModelProfileConditionInput
   ) {
-    deleteMember(input: $input, condition: $condition) {
+    updateProfile(input: $input, condition: $condition) {
       email
-      artist
-      submissions {
+      id
+      name
+      avatar
+      bio
+      sub
+      apiKeys {
         items {
           id
-          fileRequestId
-          artist
-          name
+          keyName
+          createdAt
+          profileID
           email
-          fileId
-          fileExtension
-          rating
-          comments
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      memberships {
+        items {
+          id
           workshopId
+          email
+          status
           createdAt
           updatedAt
           _version
@@ -775,7 +1265,56 @@ export const deleteMember = /* GraphQL */ `
         nextToken
         startedAt
       }
-      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteProfile = /* GraphQL */ `
+  mutation DeleteProfile(
+    $input: DeleteProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    deleteProfile(input: $input, condition: $condition) {
+      email
+      id
+      name
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version

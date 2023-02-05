@@ -1,0 +1,16 @@
+[
+  {
+    "Effect": "Allow",
+    "Action": [
+      "ssm:GetParameter",
+      "ssm:GetParameters",
+      "ssm:GetParametersByPath",
+      "ssm:PutParameter",
+      "ssm:DeleteParameter",
+      "ssm:DeleteParameters"
+    ],
+    "Resource": [
+      "arn:aws:ssm:us-east-1:856562418824:parameter/mewapp-*"
+    ]
+}
+]

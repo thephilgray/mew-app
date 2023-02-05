@@ -14,12 +14,14 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "type-check": "tsc --noEmit",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "updateAppsyncOperations": "amplify api gql-compile && amplify codegen && babel src/graphql --config-file ./amplify/backend/function/mewappappsyncOperations/lib/babel.config.json -d ./amplify/backend/function/mewappappsyncOperations/opt/graphql/"
   },
   "license": "0BSD",
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
-    "@aws-amplify/auth": "^3.4.14",
+    "@aws-amplify/auth": "^5.1.6",
+    "@aws-amplify/ui-react": "^4.0.1",
     "@date-io/date-fns": "1.x",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.1.4",
@@ -37,7 +39,7 @@
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "2.6.4",
     "apollo-link-http": "^1.5.17",
-    "aws-amplify": "^3.3.11",
+    "aws-amplify": "^5.0.2",
     "aws-appsync": "^4.0.1",
     "aws-appsync-react": "^4.0.1",
     "aws-sdk": "^2.824.0",
@@ -61,6 +63,7 @@
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
     "less": "^4.1.1",
+    "lodash": "^4.17.21",
     "polished": "^4.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

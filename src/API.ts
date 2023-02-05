@@ -7,23 +7,40 @@ export type SongData = {
   title?: string | null,
 };
 
+export type ApiKeyUpdate = {
+  action: string,
+  keyName: string,
+  key?: string | null,
+  keyId?: string | null,
+};
+
+export type Response = {
+  __typename: "Response",
+  statusCode?: number | null,
+  body?: string | null,
+};
+
 export type DownloadLinkOptions = {
   stripMetadataForSoundCloud?: boolean | null,
 };
 
-export type CreateExtensionInput = {
+export type CreateAPIKeyInput = {
   id?: string | null,
-  expiration: string,
-  assignmentId: string,
+  keyName: string,
+  createdAt?: string | null,
+  profileID: string,
+  email: string,
   _version?: number | null,
 };
 
-export type ModelExtensionConditionInput = {
-  expiration?: ModelStringInput | null,
-  assignmentId?: ModelIDInput | null,
-  and?: Array< ModelExtensionConditionInput | null > | null,
-  or?: Array< ModelExtensionConditionInput | null > | null,
-  not?: ModelExtensionConditionInput | null,
+export type ModelAPIKeyConditionInput = {
+  keyName?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  profileID?: ModelIDInput | null,
+  email?: ModelStringInput | null,
+  and?: Array< ModelAPIKeyConditionInput | null > | null,
+  or?: Array< ModelAPIKeyConditionInput | null > | null,
+  not?: ModelAPIKeyConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -82,16 +99,221 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type APIKey = {
+  __typename: "APIKey",
+  id: string,
+  keyName: string,
+  createdAt?: string | null,
+  profileID: string,
+  email: string,
+  profile?: Profile | null,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type Profile = {
+  __typename: "Profile",
+  email: string,
+  id: string,
+  name?: string | null,
+  avatar?: string | null,
+  bio?: string | null,
+  sub?: string | null,
+  apiKeys?: ModelAPIKeyConnection | null,
+  memberships?: ModelMembershipConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type ModelAPIKeyConnection = {
+  __typename: "ModelAPIKeyConnection",
+  items:  Array<APIKey | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelMembershipConnection = {
+  __typename: "ModelMembershipConnection",
+  items:  Array<Membership | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type Membership = {
+  __typename: "Membership",
+  id: string,
+  workshopId: string,
+  email: string,
+  status?: string | null,
+  workshop?: Workshop | null,
+  profile?: Profile | null,
+  mailchimp?: MailchimpUserInfo | null,
+  submissions?: ModelFileRequestSubmissionConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type Workshop = {
+  __typename: "Workshop",
+  id: string,
+  name?: string | null,
+  fileRequests?: ModelFileRequestConnection | null,
+  submissions?: ModelFileRequestSubmissionConnection | null,
+  status?: string | null,
+  passes?: number | null,
+  features?: Features | null,
+  memberships?: ModelMembershipConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type ModelFileRequestConnection = {
+  __typename: "ModelFileRequestConnection",
+  items:  Array<FileRequest | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type FileRequest = {
+  __typename: "FileRequest",
+  id: string,
+  expiration: string,
+  title?: string | null,
+  details?: string | null,
+  required?: boolean | null,
+  playlistArtwork?: Artwork | null,
+  submissions?: ModelFileRequestSubmissionConnection | null,
+  workshop?: Workshop | null,
+  workshopId?: string | null,
+  extensions?: ModelExtensionConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type Artwork = {
+  __typename: "Artwork",
+  id: string,
+  credit?:  Array<Credit | null > | null,
+};
+
+export type Credit = {
+  __typename: "Credit",
+  id: string,
+  title?: string | null,
+  artists?: Array< string | null > | null,
+  artistLinks?: Array< string | null > | null,
+};
+
+export type ModelFileRequestSubmissionConnection = {
+  __typename: "ModelFileRequestSubmissionConnection",
+  items:  Array<FileRequestSubmission | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type FileRequestSubmission = {
+  __typename: "FileRequestSubmission",
+  id: string,
+  fileRequestId: string,
+  fileRequest?: FileRequest | null,
+  artist?: string | null,
+  name?: string | null,
+  email?: string | null,
+  fileId?: string | null,
+  fileExtension?: string | null,
+  rating?: number | null,
+  comments?: string | null,
+  workshopId?: string | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type ModelExtensionConnection = {
+  __typename: "ModelExtensionConnection",
+  items:  Array<Extension | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
 export type Extension = {
   __typename: "Extension",
-  id?: string,
-  expiration?: string,
-  assignmentId?: string,
-  createdAt?: string,
-  updatedAt?: string,
-  _version?: number,
+  id: string,
+  expiration: string,
+  assignmentId: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
   _deleted?: boolean | null,
-  _lastChangedAt?: number,
+  _lastChangedAt: number,
+};
+
+export type Features = {
+  __typename: "Features",
+  mailchimp?: MailchimpIntegration | null,
+};
+
+export type MailchimpIntegration = {
+  __typename: "MailchimpIntegration",
+  enabled?: boolean | null,
+  apiKeyName?: string | null,
+  listId?: string | null,
+  serverPrefix?: string | null,
+};
+
+export type MailchimpUserInfo = {
+  __typename: "MailchimpUserInfo",
+  id?: string | null,
+  emailAddress?: string | null,
+  status?: string | null,
+  fullName?: string | null,
+  uniqueEmailId?: string | null,
+  contactId?: string | null,
+};
+
+export type UpdateAPIKeyInput = {
+  id: string,
+  keyName?: string | null,
+  createdAt?: string | null,
+  profileID?: string | null,
+  email?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteAPIKeyInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateExtensionInput = {
+  id?: string | null,
+  expiration: string,
+  assignmentId: string,
+  _version?: number | null,
+};
+
+export type ModelExtensionConditionInput = {
+  expiration?: ModelStringInput | null,
+  assignmentId?: ModelIDInput | null,
+  and?: Array< ModelExtensionConditionInput | null > | null,
+  or?: Array< ModelExtensionConditionInput | null > | null,
+  not?: ModelExtensionConditionInput | null,
 };
 
 export type UpdateExtensionInput = {
@@ -145,95 +367,6 @@ export type ModelBooleanInput = {
   eq?: boolean | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
-};
-
-export type FileRequest = {
-  __typename: "FileRequest",
-  id?: string,
-  expiration?: string,
-  title?: string | null,
-  details?: string | null,
-  required?: boolean | null,
-  playlistArtwork?: Artwork,
-  submissions?: ModelFileRequestSubmissionConnection,
-  workshop?: Workshop,
-  workshopId?: string | null,
-  extensions?: ModelExtensionConnection,
-  createdAt?: string,
-  updatedAt?: string,
-  _version?: number,
-  _deleted?: boolean | null,
-  _lastChangedAt?: number,
-};
-
-export type Artwork = {
-  __typename: "Artwork",
-  id?: string,
-  credit?:  Array<Credit | null > | null,
-};
-
-export type Credit = {
-  __typename: "Credit",
-  id?: string,
-  title?: string | null,
-  artists?: Array< string | null > | null,
-  artistLinks?: Array< string | null > | null,
-};
-
-export type ModelFileRequestSubmissionConnection = {
-  __typename: "ModelFileRequestSubmissionConnection",
-  items?:  Array<FileRequestSubmission | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type FileRequestSubmission = {
-  __typename: "FileRequestSubmission",
-  id?: string,
-  fileRequestId?: string,
-  fileRequest?: FileRequest,
-  artist?: string | null,
-  name?: string | null,
-  email?: string | null,
-  fileId?: string | null,
-  fileExtension?: string | null,
-  rating?: number | null,
-  comments?: string | null,
-  workshopId?: string | null,
-  createdAt?: string,
-  updatedAt?: string,
-  _version?: number,
-  _deleted?: boolean | null,
-  _lastChangedAt?: number,
-};
-
-export type Workshop = {
-  __typename: "Workshop",
-  id?: string,
-  name?: string | null,
-  fileRequests?: ModelFileRequestConnection,
-  submissions?: ModelFileRequestSubmissionConnection,
-  status?: string | null,
-  passes?: number | null,
-  createdAt?: string,
-  updatedAt?: string,
-  _version?: number,
-  _deleted?: boolean | null,
-  _lastChangedAt?: number,
-};
-
-export type ModelFileRequestConnection = {
-  __typename: "ModelFileRequestConnection",
-  items?:  Array<FileRequest | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type ModelExtensionConnection = {
-  __typename: "ModelExtensionConnection",
-  items?:  Array<Extension | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type UpdateFileRequestInput = {
@@ -312,12 +445,65 @@ export type DeleteFileRequestSubmissionInput = {
   _version?: number | null,
 };
 
+export type CreateMembershipInput = {
+  id?: string | null,
+  workshopId: string,
+  email: string,
+  status?: string | null,
+  mailchimp?: MailchimpUserInfoInput | null,
+  _version?: number | null,
+};
+
+export type MailchimpUserInfoInput = {
+  id?: string | null,
+  emailAddress?: string | null,
+  status?: string | null,
+  fullName?: string | null,
+  uniqueEmailId?: string | null,
+  contactId?: string | null,
+};
+
+export type ModelMembershipConditionInput = {
+  workshopId?: ModelIDInput | null,
+  email?: ModelStringInput | null,
+  status?: ModelStringInput | null,
+  and?: Array< ModelMembershipConditionInput | null > | null,
+  or?: Array< ModelMembershipConditionInput | null > | null,
+  not?: ModelMembershipConditionInput | null,
+};
+
+export type UpdateMembershipInput = {
+  id: string,
+  workshopId?: string | null,
+  email?: string | null,
+  status?: string | null,
+  mailchimp?: MailchimpUserInfoInput | null,
+  _version?: number | null,
+};
+
+export type DeleteMembershipInput = {
+  id: string,
+  _version?: number | null,
+};
+
 export type CreateWorkshopInput = {
   id?: string | null,
   name?: string | null,
   status?: string | null,
   passes?: number | null,
+  features?: FeaturesInput | null,
   _version?: number | null,
+};
+
+export type FeaturesInput = {
+  mailchimp?: MailchimpIntegrationInput | null,
+};
+
+export type MailchimpIntegrationInput = {
+  enabled?: boolean | null,
+  apiKeyName?: string | null,
+  listId?: string | null,
+  serverPrefix?: string | null,
 };
 
 export type ModelWorkshopConditionInput = {
@@ -334,6 +520,7 @@ export type UpdateWorkshopInput = {
   name?: string | null,
   status?: string | null,
   passes?: number | null,
+  features?: FeaturesInput | null,
   _version?: number | null,
 };
 
@@ -342,44 +529,50 @@ export type DeleteWorkshopInput = {
   _version?: number | null,
 };
 
-export type CreateMemberInput = {
+export type CreateProfileInput = {
   email: string,
-  artist?: string | null,
-  status?: string | null,
+  id?: string | null,
+  name?: string | null,
+  avatar?: string | null,
+  bio?: string | null,
+  sub?: string | null,
   _version?: number | null,
 };
 
-export type ModelMemberConditionInput = {
-  artist?: ModelStringInput | null,
-  status?: ModelStringInput | null,
-  and?: Array< ModelMemberConditionInput | null > | null,
-  or?: Array< ModelMemberConditionInput | null > | null,
-  not?: ModelMemberConditionInput | null,
+export type ModelProfileConditionInput = {
+  name?: ModelStringInput | null,
+  avatar?: ModelStringInput | null,
+  bio?: ModelStringInput | null,
+  sub?: ModelStringInput | null,
+  and?: Array< ModelProfileConditionInput | null > | null,
+  or?: Array< ModelProfileConditionInput | null > | null,
+  not?: ModelProfileConditionInput | null,
 };
 
-export type Member = {
-  __typename: "Member",
-  email?: string,
-  artist?: string | null,
-  submissions?: ModelFileRequestSubmissionConnection,
-  status?: string | null,
-  createdAt?: string,
-  updatedAt?: string,
-  _version?: number,
-  _deleted?: boolean | null,
-  _lastChangedAt?: number,
-};
-
-export type UpdateMemberInput = {
+export type UpdateProfileInput = {
   email: string,
-  artist?: string | null,
-  status?: string | null,
+  id?: string | null,
+  name?: string | null,
+  avatar?: string | null,
+  bio?: string | null,
+  sub?: string | null,
   _version?: number | null,
 };
 
-export type DeleteMemberInput = {
+export type DeleteProfileInput = {
   email: string,
   _version?: number | null,
+};
+
+export type ModelAPIKeyFilterInput = {
+  id?: ModelIDInput | null,
+  keyName?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  profileID?: ModelIDInput | null,
+  email?: ModelStringInput | null,
+  and?: Array< ModelAPIKeyFilterInput | null > | null,
+  or?: Array< ModelAPIKeyFilterInput | null > | null,
+  not?: ModelAPIKeyFilterInput | null,
 };
 
 export type ModelExtensionFilterInput = {
@@ -425,6 +618,16 @@ export type ModelFileRequestSubmissionFilterInput = {
   not?: ModelFileRequestSubmissionFilterInput | null,
 };
 
+export type ModelMembershipFilterInput = {
+  id?: ModelIDInput | null,
+  workshopId?: ModelIDInput | null,
+  email?: ModelStringInput | null,
+  status?: ModelStringInput | null,
+  and?: Array< ModelMembershipFilterInput | null > | null,
+  or?: Array< ModelMembershipFilterInput | null > | null,
+  not?: ModelMembershipFilterInput | null,
+};
+
 export type ModelWorkshopFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -437,29 +640,32 @@ export type ModelWorkshopFilterInput = {
 
 export type ModelWorkshopConnection = {
   __typename: "ModelWorkshopConnection",
-  items?:  Array<Workshop | null >,
+  items:  Array<Workshop | null >,
   nextToken?: string | null,
   startedAt?: number | null,
 };
 
-export type ModelMemberFilterInput = {
+export type ModelProfileFilterInput = {
   email?: ModelStringInput | null,
-  artist?: ModelStringInput | null,
-  status?: ModelStringInput | null,
-  and?: Array< ModelMemberFilterInput | null > | null,
-  or?: Array< ModelMemberFilterInput | null > | null,
-  not?: ModelMemberFilterInput | null,
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  avatar?: ModelStringInput | null,
+  bio?: ModelStringInput | null,
+  sub?: ModelStringInput | null,
+  and?: Array< ModelProfileFilterInput | null > | null,
+  or?: Array< ModelProfileFilterInput | null > | null,
+  not?: ModelProfileFilterInput | null,
 };
 
-export type ModelMemberConnection = {
-  __typename: "ModelMemberConnection",
-  items?:  Array<Member | null >,
+export type ModelProfileConnection = {
+  __typename: "ModelProfileConnection",
+  items:  Array<Profile | null >,
   nextToken?: string | null,
   startedAt?: number | null,
 };
 
 export type ProcessDownloadMutationVariables = {
-  assignmentId?: string,
+  assignmentId: string,
   songData?: Array< SongData | null > | null,
 };
 
@@ -467,9 +673,40 @@ export type ProcessDownloadMutation = {
   processDownload?: string | null,
 };
 
+export type UpdateProfileServiceMutationVariables = {
+  email: string,
+  sub?: string | null,
+  id?: string | null,
+  name?: string | null,
+  bio?: string | null,
+  apiKeyUpdate?: ApiKeyUpdate | null,
+  avatar?: string | null,
+};
+
+export type UpdateProfileServiceMutation = {
+  updateProfileService?:  {
+    __typename: "Response",
+    statusCode?: number | null,
+    body?: string | null,
+  } | null,
+};
+
+export type UpdateMembershipServiceMutationVariables = {
+  workshopId: string,
+  action?: string | null,
+};
+
+export type UpdateMembershipServiceMutation = {
+  updateMembershipService?:  {
+    __typename: "Response",
+    statusCode?: number | null,
+    body?: string | null,
+  } | null,
+};
+
 export type RunProcessAudioTaskMutationVariables = {
-  assignmentId?: string,
-  email?: string,
+  assignmentId: string,
+  email: string,
   options?: DownloadLinkOptions | null,
 };
 
@@ -481,8 +718,140 @@ export type PopulateMembersMutation = {
   populateMembers?: Array< string | null > | null,
 };
 
+export type CreateAPIKeyMutationVariables = {
+  input: CreateAPIKeyInput,
+  condition?: ModelAPIKeyConditionInput | null,
+};
+
+export type CreateAPIKeyMutation = {
+  createAPIKey?:  {
+    __typename: "APIKey",
+    id: string,
+    keyName: string,
+    createdAt?: string | null,
+    profileID: string,
+    email: string,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateAPIKeyMutationVariables = {
+  input: UpdateAPIKeyInput,
+  condition?: ModelAPIKeyConditionInput | null,
+};
+
+export type UpdateAPIKeyMutation = {
+  updateAPIKey?:  {
+    __typename: "APIKey",
+    id: string,
+    keyName: string,
+    createdAt?: string | null,
+    profileID: string,
+    email: string,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteAPIKeyMutationVariables = {
+  input: DeleteAPIKeyInput,
+  condition?: ModelAPIKeyConditionInput | null,
+};
+
+export type DeleteAPIKeyMutation = {
+  deleteAPIKey?:  {
+    __typename: "APIKey",
+    id: string,
+    keyName: string,
+    createdAt?: string | null,
+    profileID: string,
+    email: string,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type CreateExtensionMutationVariables = {
-  input?: CreateExtensionInput,
+  input: CreateExtensionInput,
   condition?: ModelExtensionConditionInput | null,
 };
 
@@ -501,7 +870,7 @@ export type CreateExtensionMutation = {
 };
 
 export type UpdateExtensionMutationVariables = {
-  input?: UpdateExtensionInput,
+  input: UpdateExtensionInput,
   condition?: ModelExtensionConditionInput | null,
 };
 
@@ -520,7 +889,7 @@ export type UpdateExtensionMutation = {
 };
 
 export type DeleteExtensionMutationVariables = {
-  input?: DeleteExtensionInput,
+  input: DeleteExtensionInput,
   condition?: ModelExtensionConditionInput | null,
 };
 
@@ -539,7 +908,7 @@ export type DeleteExtensionMutation = {
 };
 
 export type CreateFileRequestMutationVariables = {
-  input?: CreateFileRequestInput,
+  input: CreateFileRequestInput,
   condition?: ModelFileRequestConditionInput | null,
 };
 
@@ -601,6 +970,11 @@ export type CreateFileRequestMutation = {
       } | null,
       status?: string | null,
       passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -633,7 +1007,7 @@ export type CreateFileRequestMutation = {
 };
 
 export type UpdateFileRequestMutationVariables = {
-  input?: UpdateFileRequestInput,
+  input: UpdateFileRequestInput,
   condition?: ModelFileRequestConditionInput | null,
 };
 
@@ -695,6 +1069,11 @@ export type UpdateFileRequestMutation = {
       } | null,
       status?: string | null,
       passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -727,7 +1106,7 @@ export type UpdateFileRequestMutation = {
 };
 
 export type DeleteFileRequestMutationVariables = {
-  input?: DeleteFileRequestInput,
+  input: DeleteFileRequestInput,
   condition?: ModelFileRequestConditionInput | null,
 };
 
@@ -789,6 +1168,11 @@ export type DeleteFileRequestMutation = {
       } | null,
       status?: string | null,
       passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -821,7 +1205,7 @@ export type DeleteFileRequestMutation = {
 };
 
 export type CreateFileRequestSubmissionMutationVariables = {
-  input?: CreateFileRequestSubmissionInput,
+  input: CreateFileRequestSubmissionInput,
   condition?: ModelFileRequestSubmissionConditionInput | null,
 };
 
@@ -887,7 +1271,7 @@ export type CreateFileRequestSubmissionMutation = {
 };
 
 export type UpdateFileRequestSubmissionMutationVariables = {
-  input?: UpdateFileRequestSubmissionInput,
+  input: UpdateFileRequestSubmissionInput,
   condition?: ModelFileRequestSubmissionConditionInput | null,
 };
 
@@ -953,7 +1337,7 @@ export type UpdateFileRequestSubmissionMutation = {
 };
 
 export type DeleteFileRequestSubmissionMutationVariables = {
-  input?: DeleteFileRequestSubmissionInput,
+  input: DeleteFileRequestSubmissionInput,
   condition?: ModelFileRequestSubmissionConditionInput | null,
 };
 
@@ -1018,8 +1402,317 @@ export type DeleteFileRequestSubmissionMutation = {
   } | null,
 };
 
+export type CreateMembershipMutationVariables = {
+  input: CreateMembershipInput,
+  condition?: ModelMembershipConditionInput | null,
+};
+
+export type CreateMembershipMutation = {
+  createMembership?:  {
+    __typename: "Membership",
+    id: string,
+    workshopId: string,
+    email: string,
+    status?: string | null,
+    workshop?:  {
+      __typename: "Workshop",
+      id: string,
+      name?: string | null,
+      fileRequests?:  {
+        __typename: "ModelFileRequestConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      status?: string | null,
+      passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    mailchimp?:  {
+      __typename: "MailchimpUserInfo",
+      id?: string | null,
+      emailAddress?: string | null,
+      status?: string | null,
+      fullName?: string | null,
+      uniqueEmailId?: string | null,
+      contactId?: string | null,
+    } | null,
+    submissions?:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist?: string | null,
+        name?: string | null,
+        email?: string | null,
+        fileId?: string | null,
+        fileExtension?: string | null,
+        rating?: number | null,
+        comments?: string | null,
+        workshopId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateMembershipMutationVariables = {
+  input: UpdateMembershipInput,
+  condition?: ModelMembershipConditionInput | null,
+};
+
+export type UpdateMembershipMutation = {
+  updateMembership?:  {
+    __typename: "Membership",
+    id: string,
+    workshopId: string,
+    email: string,
+    status?: string | null,
+    workshop?:  {
+      __typename: "Workshop",
+      id: string,
+      name?: string | null,
+      fileRequests?:  {
+        __typename: "ModelFileRequestConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      status?: string | null,
+      passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    mailchimp?:  {
+      __typename: "MailchimpUserInfo",
+      id?: string | null,
+      emailAddress?: string | null,
+      status?: string | null,
+      fullName?: string | null,
+      uniqueEmailId?: string | null,
+      contactId?: string | null,
+    } | null,
+    submissions?:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist?: string | null,
+        name?: string | null,
+        email?: string | null,
+        fileId?: string | null,
+        fileExtension?: string | null,
+        rating?: number | null,
+        comments?: string | null,
+        workshopId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteMembershipMutationVariables = {
+  input: DeleteMembershipInput,
+  condition?: ModelMembershipConditionInput | null,
+};
+
+export type DeleteMembershipMutation = {
+  deleteMembership?:  {
+    __typename: "Membership",
+    id: string,
+    workshopId: string,
+    email: string,
+    status?: string | null,
+    workshop?:  {
+      __typename: "Workshop",
+      id: string,
+      name?: string | null,
+      fileRequests?:  {
+        __typename: "ModelFileRequestConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      status?: string | null,
+      passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    mailchimp?:  {
+      __typename: "MailchimpUserInfo",
+      id?: string | null,
+      emailAddress?: string | null,
+      status?: string | null,
+      fullName?: string | null,
+      uniqueEmailId?: string | null,
+      contactId?: string | null,
+    } | null,
+    submissions?:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist?: string | null,
+        name?: string | null,
+        email?: string | null,
+        fileId?: string | null,
+        fileExtension?: string | null,
+        rating?: number | null,
+        comments?: string | null,
+        workshopId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type CreateWorkshopMutationVariables = {
-  input?: CreateWorkshopInput,
+  input: CreateWorkshopInput,
   condition?: ModelWorkshopConditionInput | null,
 };
 
@@ -1072,6 +1765,33 @@ export type CreateWorkshopMutation = {
     } | null,
     status?: string | null,
     passes?: number | null,
+    features?:  {
+      __typename: "Features",
+      mailchimp?:  {
+        __typename: "MailchimpIntegration",
+        enabled?: boolean | null,
+        apiKeyName?: string | null,
+        listId?: string | null,
+        serverPrefix?: string | null,
+      } | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1081,7 +1801,7 @@ export type CreateWorkshopMutation = {
 };
 
 export type UpdateWorkshopMutationVariables = {
-  input?: UpdateWorkshopInput,
+  input: UpdateWorkshopInput,
   condition?: ModelWorkshopConditionInput | null,
 };
 
@@ -1134,6 +1854,33 @@ export type UpdateWorkshopMutation = {
     } | null,
     status?: string | null,
     passes?: number | null,
+    features?:  {
+      __typename: "Features",
+      mailchimp?:  {
+        __typename: "MailchimpIntegration",
+        enabled?: boolean | null,
+        apiKeyName?: string | null,
+        listId?: string | null,
+        serverPrefix?: string | null,
+      } | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1143,7 +1890,7 @@ export type UpdateWorkshopMutation = {
 };
 
 export type DeleteWorkshopMutationVariables = {
-  input?: DeleteWorkshopInput,
+  input: DeleteWorkshopInput,
   condition?: ModelWorkshopConditionInput | null,
 };
 
@@ -1196,38 +1943,24 @@ export type DeleteWorkshopMutation = {
     } | null,
     status?: string | null,
     passes?: number | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type CreateMemberMutationVariables = {
-  input?: CreateMemberInput,
-  condition?: ModelMemberConditionInput | null,
-};
-
-export type CreateMemberMutation = {
-  createMember?:  {
-    __typename: "Member",
-    email: string,
-    artist?: string | null,
-    submissions?:  {
-      __typename: "ModelFileRequestSubmissionConnection",
+    features?:  {
+      __typename: "Features",
+      mailchimp?:  {
+        __typename: "MailchimpIntegration",
+        enabled?: boolean | null,
+        apiKeyName?: string | null,
+        listId?: string | null,
+        serverPrefix?: string | null,
+      } | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
       items:  Array< {
-        __typename: "FileRequestSubmission",
+        __typename: "Membership",
         id: string,
-        fileRequestId: string,
-        artist?: string | null,
-        name?: string | null,
-        email?: string | null,
-        fileId?: string | null,
-        fileExtension?: string | null,
-        rating?: number | null,
-        comments?: string | null,
-        workshopId?: string | null,
+        workshopId: string,
+        email: string,
+        status?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -1237,7 +1970,6 @@ export type CreateMemberMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    status?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1246,30 +1978,45 @@ export type CreateMemberMutation = {
   } | null,
 };
 
-export type UpdateMemberMutationVariables = {
-  input?: UpdateMemberInput,
-  condition?: ModelMemberConditionInput | null,
+export type CreateProfileMutationVariables = {
+  input: CreateProfileInput,
+  condition?: ModelProfileConditionInput | null,
 };
 
-export type UpdateMemberMutation = {
-  updateMember?:  {
-    __typename: "Member",
+export type CreateProfileMutation = {
+  createProfile?:  {
+    __typename: "Profile",
     email: string,
-    artist?: string | null,
-    submissions?:  {
-      __typename: "ModelFileRequestSubmissionConnection",
+    id: string,
+    name?: string | null,
+    avatar?: string | null,
+    bio?: string | null,
+    sub?: string | null,
+    apiKeys?:  {
+      __typename: "ModelAPIKeyConnection",
       items:  Array< {
-        __typename: "FileRequestSubmission",
+        __typename: "APIKey",
         id: string,
-        fileRequestId: string,
-        artist?: string | null,
-        name?: string | null,
-        email?: string | null,
-        fileId?: string | null,
-        fileExtension?: string | null,
-        rating?: number | null,
-        comments?: string | null,
-        workshopId?: string | null,
+        keyName: string,
+        createdAt?: string | null,
+        profileID: string,
+        email: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -1279,7 +2026,6 @@ export type UpdateMemberMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    status?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1288,30 +2034,45 @@ export type UpdateMemberMutation = {
   } | null,
 };
 
-export type DeleteMemberMutationVariables = {
-  input?: DeleteMemberInput,
-  condition?: ModelMemberConditionInput | null,
+export type UpdateProfileMutationVariables = {
+  input: UpdateProfileInput,
+  condition?: ModelProfileConditionInput | null,
 };
 
-export type DeleteMemberMutation = {
-  deleteMember?:  {
-    __typename: "Member",
+export type UpdateProfileMutation = {
+  updateProfile?:  {
+    __typename: "Profile",
     email: string,
-    artist?: string | null,
-    submissions?:  {
-      __typename: "ModelFileRequestSubmissionConnection",
+    id: string,
+    name?: string | null,
+    avatar?: string | null,
+    bio?: string | null,
+    sub?: string | null,
+    apiKeys?:  {
+      __typename: "ModelAPIKeyConnection",
       items:  Array< {
-        __typename: "FileRequestSubmission",
+        __typename: "APIKey",
         id: string,
-        fileRequestId: string,
-        artist?: string | null,
-        name?: string | null,
-        email?: string | null,
-        fileId?: string | null,
-        fileExtension?: string | null,
-        rating?: number | null,
-        comments?: string | null,
-        workshopId?: string | null,
+        keyName: string,
+        createdAt?: string | null,
+        profileID: string,
+        email: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -1321,17 +2082,196 @@ export type DeleteMemberMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    status?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteProfileMutationVariables = {
+  input: DeleteProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type DeleteProfileMutation = {
+  deleteProfile?:  {
+    __typename: "Profile",
+    email: string,
+    id: string,
+    name?: string | null,
+    avatar?: string | null,
+    bio?: string | null,
+    sub?: string | null,
+    apiKeys?:  {
+      __typename: "ModelAPIKeyConnection",
+      items:  Array< {
+        __typename: "APIKey",
+        id: string,
+        keyName: string,
+        createdAt?: string | null,
+        profileID: string,
+        email: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type GetAPIKeyQueryVariables = {
+  id: string,
+};
+
+export type GetAPIKeyQuery = {
+  getAPIKey?:  {
+    __typename: "APIKey",
+    id: string,
+    keyName: string,
+    createdAt?: string | null,
+    profileID: string,
+    email: string,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListAPIKeysQueryVariables = {
+  filter?: ModelAPIKeyFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListAPIKeysQuery = {
+  listAPIKeys?:  {
+    __typename: "ModelAPIKeyConnection",
+    items:  Array< {
+      __typename: "APIKey",
+      id: string,
+      keyName: string,
+      createdAt?: string | null,
+      profileID: string,
+      email: string,
+      profile?:  {
+        __typename: "Profile",
+        email: string,
+        id: string,
+        name?: string | null,
+        avatar?: string | null,
+        bio?: string | null,
+        sub?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncAPIKeysQueryVariables = {
+  filter?: ModelAPIKeyFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncAPIKeysQuery = {
+  syncAPIKeys?:  {
+    __typename: "ModelAPIKeyConnection",
+    items:  Array< {
+      __typename: "APIKey",
+      id: string,
+      keyName: string,
+      createdAt?: string | null,
+      profileID: string,
+      email: string,
+      profile?:  {
+        __typename: "Profile",
+        email: string,
+        id: string,
+        name?: string | null,
+        avatar?: string | null,
+        bio?: string | null,
+        sub?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
 export type GetExtensionQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetExtensionQuery = {
@@ -1400,7 +2340,7 @@ export type SyncExtensionsQuery = {
 };
 
 export type ExtensionsByFileRequestIdQueryVariables = {
-  assignmentId?: string,
+  assignmentId: string,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelExtensionFilterInput | null,
   limit?: number | null,
@@ -1427,7 +2367,7 @@ export type ExtensionsByFileRequestIdQuery = {
 };
 
 export type GetFileRequestQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetFileRequestQuery = {
@@ -1488,6 +2428,11 @@ export type GetFileRequestQuery = {
       } | null,
       status?: string | null,
       passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1629,7 +2574,7 @@ export type SyncFileRequestsQuery = {
 };
 
 export type FileRequestsByWorkshopIdQueryVariables = {
-  workshopId?: string,
+  workshopId: string,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFileRequestFilterInput | null,
   limit?: number | null,
@@ -1685,7 +2630,7 @@ export type FileRequestsByWorkshopIdQuery = {
 };
 
 export type GetFileRequestSubmissionQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetFileRequestSubmissionQuery = {
@@ -1843,7 +2788,7 @@ export type SyncFileRequestSubmissionsQuery = {
 };
 
 export type SubmissionsByFileRequestIdQueryVariables = {
-  fileRequestId?: string,
+  fileRequestId: string,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFileRequestSubmissionFilterInput | null,
   limit?: number | null,
@@ -1891,7 +2836,7 @@ export type SubmissionsByFileRequestIdQuery = {
 };
 
 export type SubmissionsByEmailQueryVariables = {
-  email?: string,
+  email: string,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFileRequestSubmissionFilterInput | null,
   limit?: number | null,
@@ -1939,7 +2884,7 @@ export type SubmissionsByEmailQuery = {
 };
 
 export type SubmissionsByWorkshopIdQueryVariables = {
-  workshopId?: string,
+  workshopId: string,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFileRequestSubmissionFilterInput | null,
   limit?: number | null,
@@ -1986,8 +2931,379 @@ export type SubmissionsByWorkshopIdQuery = {
   } | null,
 };
 
+export type GetMembershipQueryVariables = {
+  id: string,
+};
+
+export type GetMembershipQuery = {
+  getMembership?:  {
+    __typename: "Membership",
+    id: string,
+    workshopId: string,
+    email: string,
+    status?: string | null,
+    workshop?:  {
+      __typename: "Workshop",
+      id: string,
+      name?: string | null,
+      fileRequests?:  {
+        __typename: "ModelFileRequestConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      status?: string | null,
+      passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    mailchimp?:  {
+      __typename: "MailchimpUserInfo",
+      id?: string | null,
+      emailAddress?: string | null,
+      status?: string | null,
+      fullName?: string | null,
+      uniqueEmailId?: string | null,
+      contactId?: string | null,
+    } | null,
+    submissions?:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist?: string | null,
+        name?: string | null,
+        email?: string | null,
+        fileId?: string | null,
+        fileExtension?: string | null,
+        rating?: number | null,
+        comments?: string | null,
+        workshopId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListMembershipsQueryVariables = {
+  filter?: ModelMembershipFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMembershipsQuery = {
+  listMemberships?:  {
+    __typename: "ModelMembershipConnection",
+    items:  Array< {
+      __typename: "Membership",
+      id: string,
+      workshopId: string,
+      email: string,
+      status?: string | null,
+      workshop?:  {
+        __typename: "Workshop",
+        id: string,
+        name?: string | null,
+        status?: string | null,
+        passes?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      profile?:  {
+        __typename: "Profile",
+        email: string,
+        id: string,
+        name?: string | null,
+        avatar?: string | null,
+        bio?: string | null,
+        sub?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      mailchimp?:  {
+        __typename: "MailchimpUserInfo",
+        id?: string | null,
+        emailAddress?: string | null,
+        status?: string | null,
+        fullName?: string | null,
+        uniqueEmailId?: string | null,
+        contactId?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncMembershipsQueryVariables = {
+  filter?: ModelMembershipFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncMembershipsQuery = {
+  syncMemberships?:  {
+    __typename: "ModelMembershipConnection",
+    items:  Array< {
+      __typename: "Membership",
+      id: string,
+      workshopId: string,
+      email: string,
+      status?: string | null,
+      workshop?:  {
+        __typename: "Workshop",
+        id: string,
+        name?: string | null,
+        status?: string | null,
+        passes?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      profile?:  {
+        __typename: "Profile",
+        email: string,
+        id: string,
+        name?: string | null,
+        avatar?: string | null,
+        bio?: string | null,
+        sub?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      mailchimp?:  {
+        __typename: "MailchimpUserInfo",
+        id?: string | null,
+        emailAddress?: string | null,
+        status?: string | null,
+        fullName?: string | null,
+        uniqueEmailId?: string | null,
+        contactId?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type MembershipsByWorkshopIdQueryVariables = {
+  workshopId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelMembershipFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type MembershipsByWorkshopIdQuery = {
+  membershipsByWorkshopId?:  {
+    __typename: "ModelMembershipConnection",
+    items:  Array< {
+      __typename: "Membership",
+      id: string,
+      workshopId: string,
+      email: string,
+      status?: string | null,
+      workshop?:  {
+        __typename: "Workshop",
+        id: string,
+        name?: string | null,
+        status?: string | null,
+        passes?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      profile?:  {
+        __typename: "Profile",
+        email: string,
+        id: string,
+        name?: string | null,
+        avatar?: string | null,
+        bio?: string | null,
+        sub?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      mailchimp?:  {
+        __typename: "MailchimpUserInfo",
+        id?: string | null,
+        emailAddress?: string | null,
+        status?: string | null,
+        fullName?: string | null,
+        uniqueEmailId?: string | null,
+        contactId?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type MembershipsByEmailQueryVariables = {
+  email: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelMembershipFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type MembershipsByEmailQuery = {
+  membershipsByEmail?:  {
+    __typename: "ModelMembershipConnection",
+    items:  Array< {
+      __typename: "Membership",
+      id: string,
+      workshopId: string,
+      email: string,
+      status?: string | null,
+      workshop?:  {
+        __typename: "Workshop",
+        id: string,
+        name?: string | null,
+        status?: string | null,
+        passes?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      profile?:  {
+        __typename: "Profile",
+        email: string,
+        id: string,
+        name?: string | null,
+        avatar?: string | null,
+        bio?: string | null,
+        sub?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null,
+      mailchimp?:  {
+        __typename: "MailchimpUserInfo",
+        id?: string | null,
+        emailAddress?: string | null,
+        status?: string | null,
+        fullName?: string | null,
+        uniqueEmailId?: string | null,
+        contactId?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type GetWorkshopQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetWorkshopQuery = {
@@ -2039,6 +3355,33 @@ export type GetWorkshopQuery = {
     } | null,
     status?: string | null,
     passes?: number | null,
+    features?:  {
+      __typename: "Features",
+      mailchimp?:  {
+        __typename: "MailchimpIntegration",
+        enabled?: boolean | null,
+        apiKeyName?: string | null,
+        listId?: string | null,
+        serverPrefix?: string | null,
+      } | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2072,6 +3415,11 @@ export type ListWorkshopsQuery = {
       } | null,
       status?: string | null,
       passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2109,6 +3457,11 @@ export type SyncWorkshopsQuery = {
       } | null,
       status?: string | null,
       passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2120,29 +3473,44 @@ export type SyncWorkshopsQuery = {
   } | null,
 };
 
-export type GetMemberQueryVariables = {
-  email?: string,
+export type GetProfileQueryVariables = {
+  email: string,
 };
 
-export type GetMemberQuery = {
-  getMember?:  {
-    __typename: "Member",
+export type GetProfileQuery = {
+  getProfile?:  {
+    __typename: "Profile",
     email: string,
-    artist?: string | null,
-    submissions?:  {
-      __typename: "ModelFileRequestSubmissionConnection",
+    id: string,
+    name?: string | null,
+    avatar?: string | null,
+    bio?: string | null,
+    sub?: string | null,
+    apiKeys?:  {
+      __typename: "ModelAPIKeyConnection",
       items:  Array< {
-        __typename: "FileRequestSubmission",
+        __typename: "APIKey",
         id: string,
-        fileRequestId: string,
-        artist?: string | null,
-        name?: string | null,
-        email?: string | null,
-        fileId?: string | null,
-        fileExtension?: string | null,
-        rating?: number | null,
-        comments?: string | null,
-        workshopId?: string | null,
+        keyName: string,
+        createdAt?: string | null,
+        profileID: string,
+        email: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -2152,7 +3520,6 @@ export type GetMemberQuery = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    status?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2161,27 +3528,35 @@ export type GetMemberQuery = {
   } | null,
 };
 
-export type ListMembersQueryVariables = {
+export type ListProfilesQueryVariables = {
   email?: string | null,
-  filter?: ModelMemberFilterInput | null,
+  filter?: ModelProfileFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
   sortDirection?: ModelSortDirection | null,
 };
 
-export type ListMembersQuery = {
-  listMembers?:  {
-    __typename: "ModelMemberConnection",
+export type ListProfilesQuery = {
+  listProfiles?:  {
+    __typename: "ModelProfileConnection",
     items:  Array< {
-      __typename: "Member",
+      __typename: "Profile",
       email: string,
-      artist?: string | null,
-      submissions?:  {
-        __typename: "ModelFileRequestSubmissionConnection",
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
         startedAt?: number | null,
       } | null,
-      status?: string | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2193,26 +3568,34 @@ export type ListMembersQuery = {
   } | null,
 };
 
-export type SyncMembersQueryVariables = {
-  filter?: ModelMemberFilterInput | null,
+export type SyncProfilesQueryVariables = {
+  filter?: ModelProfileFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
   lastSync?: number | null,
 };
 
-export type SyncMembersQuery = {
-  syncMembers?:  {
-    __typename: "ModelMemberConnection",
+export type SyncProfilesQuery = {
+  syncProfiles?:  {
+    __typename: "ModelProfileConnection",
     items:  Array< {
-      __typename: "Member",
+      __typename: "Profile",
       email: string,
-      artist?: string | null,
-      submissions?:  {
-        __typename: "ModelFileRequestSubmissionConnection",
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
         startedAt?: number | null,
       } | null,
-      status?: string | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2221,6 +3604,123 @@ export type SyncMembersQuery = {
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
+  } | null,
+};
+
+export type OnCreateAPIKeySubscription = {
+  onCreateAPIKey?:  {
+    __typename: "APIKey",
+    id: string,
+    keyName: string,
+    createdAt?: string | null,
+    profileID: string,
+    email: string,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateAPIKeySubscription = {
+  onUpdateAPIKey?:  {
+    __typename: "APIKey",
+    id: string,
+    keyName: string,
+    createdAt?: string | null,
+    profileID: string,
+    email: string,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteAPIKeySubscription = {
+  onDeleteAPIKey?:  {
+    __typename: "APIKey",
+    id: string,
+    keyName: string,
+    createdAt?: string | null,
+    profileID: string,
+    email: string,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -2324,6 +3824,11 @@ export type OnCreateFileRequestSubscription = {
       } | null,
       status?: string | null,
       passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2413,6 +3918,11 @@ export type OnUpdateFileRequestSubscription = {
       } | null,
       status?: string | null,
       passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2502,6 +4012,11 @@ export type OnDeleteFileRequestSubscription = {
       } | null,
       status?: string | null,
       passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2716,6 +4231,300 @@ export type OnDeleteFileRequestSubmissionSubscription = {
   } | null,
 };
 
+export type OnCreateMembershipSubscription = {
+  onCreateMembership?:  {
+    __typename: "Membership",
+    id: string,
+    workshopId: string,
+    email: string,
+    status?: string | null,
+    workshop?:  {
+      __typename: "Workshop",
+      id: string,
+      name?: string | null,
+      fileRequests?:  {
+        __typename: "ModelFileRequestConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      status?: string | null,
+      passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    mailchimp?:  {
+      __typename: "MailchimpUserInfo",
+      id?: string | null,
+      emailAddress?: string | null,
+      status?: string | null,
+      fullName?: string | null,
+      uniqueEmailId?: string | null,
+      contactId?: string | null,
+    } | null,
+    submissions?:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist?: string | null,
+        name?: string | null,
+        email?: string | null,
+        fileId?: string | null,
+        fileExtension?: string | null,
+        rating?: number | null,
+        comments?: string | null,
+        workshopId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateMembershipSubscription = {
+  onUpdateMembership?:  {
+    __typename: "Membership",
+    id: string,
+    workshopId: string,
+    email: string,
+    status?: string | null,
+    workshop?:  {
+      __typename: "Workshop",
+      id: string,
+      name?: string | null,
+      fileRequests?:  {
+        __typename: "ModelFileRequestConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      status?: string | null,
+      passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    mailchimp?:  {
+      __typename: "MailchimpUserInfo",
+      id?: string | null,
+      emailAddress?: string | null,
+      status?: string | null,
+      fullName?: string | null,
+      uniqueEmailId?: string | null,
+      contactId?: string | null,
+    } | null,
+    submissions?:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist?: string | null,
+        name?: string | null,
+        email?: string | null,
+        fileId?: string | null,
+        fileExtension?: string | null,
+        rating?: number | null,
+        comments?: string | null,
+        workshopId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteMembershipSubscription = {
+  onDeleteMembership?:  {
+    __typename: "Membership",
+    id: string,
+    workshopId: string,
+    email: string,
+    status?: string | null,
+    workshop?:  {
+      __typename: "Workshop",
+      id: string,
+      name?: string | null,
+      fileRequests?:  {
+        __typename: "ModelFileRequestConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      status?: string | null,
+      passes?: number | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    profile?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null,
+    mailchimp?:  {
+      __typename: "MailchimpUserInfo",
+      id?: string | null,
+      emailAddress?: string | null,
+      status?: string | null,
+      fullName?: string | null,
+      uniqueEmailId?: string | null,
+      contactId?: string | null,
+    } | null,
+    submissions?:  {
+      __typename: "ModelFileRequestSubmissionConnection",
+      items:  Array< {
+        __typename: "FileRequestSubmission",
+        id: string,
+        fileRequestId: string,
+        artist?: string | null,
+        name?: string | null,
+        email?: string | null,
+        fileId?: string | null,
+        fileExtension?: string | null,
+        rating?: number | null,
+        comments?: string | null,
+        workshopId?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type OnCreateWorkshopSubscription = {
   onCreateWorkshop?:  {
     __typename: "Workshop",
@@ -2765,6 +4574,33 @@ export type OnCreateWorkshopSubscription = {
     } | null,
     status?: string | null,
     passes?: number | null,
+    features?:  {
+      __typename: "Features",
+      mailchimp?:  {
+        __typename: "MailchimpIntegration",
+        enabled?: boolean | null,
+        apiKeyName?: string | null,
+        listId?: string | null,
+        serverPrefix?: string | null,
+      } | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2822,6 +4658,33 @@ export type OnUpdateWorkshopSubscription = {
     } | null,
     status?: string | null,
     passes?: number | null,
+    features?:  {
+      __typename: "Features",
+      mailchimp?:  {
+        __typename: "MailchimpIntegration",
+        enabled?: boolean | null,
+        apiKeyName?: string | null,
+        listId?: string | null,
+        serverPrefix?: string | null,
+      } | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2879,33 +4742,24 @@ export type OnDeleteWorkshopSubscription = {
     } | null,
     status?: string | null,
     passes?: number | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnCreateMemberSubscription = {
-  onCreateMember?:  {
-    __typename: "Member",
-    email: string,
-    artist?: string | null,
-    submissions?:  {
-      __typename: "ModelFileRequestSubmissionConnection",
+    features?:  {
+      __typename: "Features",
+      mailchimp?:  {
+        __typename: "MailchimpIntegration",
+        enabled?: boolean | null,
+        apiKeyName?: string | null,
+        listId?: string | null,
+        serverPrefix?: string | null,
+      } | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
       items:  Array< {
-        __typename: "FileRequestSubmission",
+        __typename: "Membership",
         id: string,
-        fileRequestId: string,
-        artist?: string | null,
-        name?: string | null,
-        email?: string | null,
-        fileId?: string | null,
-        fileExtension?: string | null,
-        rating?: number | null,
-        comments?: string | null,
-        workshopId?: string | null,
+        workshopId: string,
+        email: string,
+        status?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -2915,7 +4769,6 @@ export type OnCreateMemberSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    status?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2924,25 +4777,40 @@ export type OnCreateMemberSubscription = {
   } | null,
 };
 
-export type OnUpdateMemberSubscription = {
-  onUpdateMember?:  {
-    __typename: "Member",
+export type OnCreateProfileSubscription = {
+  onCreateProfile?:  {
+    __typename: "Profile",
     email: string,
-    artist?: string | null,
-    submissions?:  {
-      __typename: "ModelFileRequestSubmissionConnection",
+    id: string,
+    name?: string | null,
+    avatar?: string | null,
+    bio?: string | null,
+    sub?: string | null,
+    apiKeys?:  {
+      __typename: "ModelAPIKeyConnection",
       items:  Array< {
-        __typename: "FileRequestSubmission",
+        __typename: "APIKey",
         id: string,
-        fileRequestId: string,
-        artist?: string | null,
-        name?: string | null,
-        email?: string | null,
-        fileId?: string | null,
-        fileExtension?: string | null,
-        rating?: number | null,
-        comments?: string | null,
-        workshopId?: string | null,
+        keyName: string,
+        createdAt?: string | null,
+        profileID: string,
+        email: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -2952,7 +4820,6 @@ export type OnUpdateMemberSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    status?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2961,25 +4828,40 @@ export type OnUpdateMemberSubscription = {
   } | null,
 };
 
-export type OnDeleteMemberSubscription = {
-  onDeleteMember?:  {
-    __typename: "Member",
+export type OnUpdateProfileSubscription = {
+  onUpdateProfile?:  {
+    __typename: "Profile",
     email: string,
-    artist?: string | null,
-    submissions?:  {
-      __typename: "ModelFileRequestSubmissionConnection",
+    id: string,
+    name?: string | null,
+    avatar?: string | null,
+    bio?: string | null,
+    sub?: string | null,
+    apiKeys?:  {
+      __typename: "ModelAPIKeyConnection",
       items:  Array< {
-        __typename: "FileRequestSubmission",
+        __typename: "APIKey",
         id: string,
-        fileRequestId: string,
-        artist?: string | null,
-        name?: string | null,
-        email?: string | null,
-        fileId?: string | null,
-        fileExtension?: string | null,
-        rating?: number | null,
-        comments?: string | null,
-        workshopId?: string | null,
+        keyName: string,
+        createdAt?: string | null,
+        profileID: string,
+        email: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -2989,7 +4871,57 @@ export type OnDeleteMemberSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    status?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteProfileSubscription = {
+  onDeleteProfile?:  {
+    __typename: "Profile",
+    email: string,
+    id: string,
+    name?: string | null,
+    avatar?: string | null,
+    bio?: string | null,
+    sub?: string | null,
+    apiKeys?:  {
+      __typename: "ModelAPIKeyConnection",
+      items:  Array< {
+        __typename: "APIKey",
+        id: string,
+        keyName: string,
+        createdAt?: string | null,
+        profileID: string,
+        email: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    memberships?:  {
+      __typename: "ModelMembershipConnection",
+      items:  Array< {
+        __typename: "Membership",
+        id: string,
+        workshopId: string,
+        email: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,

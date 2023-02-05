@@ -50,7 +50,7 @@ const ImageUploader = ({
             ) : (
                 <Tooltip title="Select Image">
                     <label htmlFor="imagePicker">
-                        Add Header Image
+                        Update
                         <IconButton color="primary" aria-label="upload picture" component="span">
                             <PhotoCamera fontSize="large" />
                         </IconButton>

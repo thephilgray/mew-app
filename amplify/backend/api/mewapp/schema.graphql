@@ -10,6 +10,37 @@ type Artwork {
     credit: [Credit]
 }
 
+type MailchimpIntegration {
+    enabled: Boolean
+    apiKeyName: String
+    listId: String
+    serverPrefix: String
+}
+
+type Features {
+    mailchimp: MailchimpIntegration
+}
+
+type APIKey
+    @model
+    @auth(
+        rules: [
+            { allow: private, provider: iam, operations: [create, read, update, delete] } # IAM user can update, delete, and read
+            # { allow: groups, groups: ["Admin"], operations: [create, read, update, delete] }
+            # { allow: private, operations: [create, read, update] } # signed in users who are not the owner can read
+            # { allow: public, operations: [read] } # unauthenticated users can read
+            { allow: groups, groups: ["Admin", "Curators"] }
+            { allow: public, operations: [create, read, update, delete] }
+        ]
+    ) {
+    id: ID!
+    keyName: String!
+    createdAt: AWSDateTime
+    profileID: ID!
+    email: String! @index(name: "apiKeysByEmail")
+    profile: Profile @belongsTo(fields: ["email"])
+}
+
 type Extension
     @model
     @auth(
@@ -59,6 +90,35 @@ type FileRequestSubmission
         @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
 }
 
+
+type MailchimpUserInfo {
+    id: String
+    emailAddress: String
+    status: String
+    fullName: String
+    uniqueEmailId: String
+    contactId: String
+}
+
+
+type Membership 
+    @model
+    @auth(
+        rules: [
+            { allow: groups, groups: ["Admin", "Curators"] }
+            { allow: public, operations: [create, read, update, delete] }
+        ]
+    ) {
+        id: ID!
+        workshopId: ID! @index(name: "membershipsByWorkshopId", queryField: "membershipsByWorkshopId")
+        email: String! @index(name: "membershipsByEmail", queryField: "membershipsByEmail")
+        status: String
+        workshop: Workshop @belongsTo(fields: ["workshopId"])
+        profile: Profile @belongsTo(fields: ["email"])
+        mailchimp: MailchimpUserInfo
+        submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByEmail", fields: ["email"])
+}
+
 type Workshop
     @model
     @auth(
@@ -73,17 +133,30 @@ type Workshop
     submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByWorkshopId", fields: ["id"])
     status: String
     passes: Int
+    features: Features
+    memberships: [Membership] @hasMany(indexName: "membershipsByWorkshopId", fields: ["id"])
 }
 
-type Member
+type Profile
     @model
     @auth(
-        rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read, update, delete] }]
+        rules: [
+            { allow: private, provider: iam, operations: [create, read, update, delete] } # IAM user can update, delete, and read
+            # { allow: groups, groups: ["Admin"], operations: [create, read, update, delete] }
+            # { allow: private, operations: [create, read, update] } # signed in users who are not the owner can read
+            # { allow: public, operations: [read] } # unauthenticated users can read
+            { allow: groups, groups: ["Admin", "Curators"] }
+            { allow: public, operations: [create, read, update, delete] }
+        ]
     ) {
     email: String! @primaryKey
-    artist: String
-    submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByEmail", fields: ["email"])
-    status: String
+    id: ID!
+    name: String
+    avatar: String
+    bio: String
+    sub: String
+    apiKeys: [APIKey] @hasMany(indexName: "apiKeysByEmail", fields: ["email"])
+    memberships: [Membership] @hasMany(indexName: "membershipsByEmail", fields: ["email"])
 }
 
 input SongData {
@@ -95,10 +168,39 @@ input DownloadLinkOptions {
     stripMetadataForSoundCloud: Boolean
 }
 
+input ApiKeyUpdate {
+    action: String!
+    keyName: String!
+    key: String
+    keyId: String
+}
+
+type Response {
+    statusCode: Int
+    body: String
+}
+
 type Mutation {
     processDownload(assignmentId: ID!, songData: [SongData]): String @function(name: "zipmewsubmissions-${env}")
+
+    updateProfileService(
+        email: String!
+        sub: ID
+        id: ID
+        name: String
+        bio: String
+        apiKeyUpdate: ApiKeyUpdate
+        avatar: String
+    ): Response @aws_api_key @aws_iam @aws_cognito_user_pools @function(name: "mewProfileService-${env}")
+
+    updateMembershipService(
+        workshopId: ID!
+        action: String
+    ): Response @aws_api_key @aws_iam @aws_cognito_user_pools @function(name: "membershipService-${env}")
+
     runProcessAudioTask(assignmentId: ID!, email: String!, options: DownloadLinkOptions): String
         @function(name: "runProcessAudioTask-${env}")
+
     populateMembers: [String] @function(name: "populateMembers-${env}")
 }
  

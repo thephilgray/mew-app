@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Amplify, { Auth } from 'aws-amplify'
+import { Amplify, Auth } from 'aws-amplify'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { ApolloLink } from 'apollo-link'
 import { createAuthLink } from 'aws-appsync-auth-link'

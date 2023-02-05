@@ -31,7 +31,7 @@ const GET_FILE_REQUEST = gql`
                     artistLinks
                 }
             }
-            submissions(limit: 200) {
+            submissions(limit: 1000) {
                 items {
                     id
                     artist
@@ -45,7 +45,9 @@ const GET_FILE_REQUEST = gql`
     }
 `
 
-const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({ assignmentId = '' }) => {
+const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({
+    assignmentId = '',
+}) => {
     const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
     const [currentIndex, setCurrentIndex] = useState(0)
     const [loading, setLoading] = useState(true)
@@ -97,8 +99,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         id: assignmentId,
                     },
                 })
-                setData(fileRequestData?.getFileRequest);
-
+                setData(fileRequestData?.getFileRequest)
             } catch (err) {
                 // @ts-ignore
                 setError(err)
@@ -114,26 +115,26 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
     const download = async () => {
         const metaData = audioLists[currentIndex]
-        if (!metaData.fileId) return;
+        if (!metaData.fileId) return
         const songFilePath = `${assignmentId}/${metaData.fileId}`
-        const result = await Storage.get(songFilePath, { download: true });
+        const result = await Storage.get(songFilePath, { download: true })
         // @ts-ignore
-        let url = window.URL.createObjectURL(result.Body);
-        let a = document.createElement('a');
+        const url = window.URL.createObjectURL(result.Body)
+        const a = document.createElement('a')
         // @ts-ignore
         const contentType = result.ContentType
         // @ts-ignore
         const extension = EXTENSIONS_BY_FILETYPE[contentType || 'audio/mpeg']
-        a.href = url;
+        a.href = url
         a.download = `${metaData.name} - ${metaData.singer}${extension}`
         const clickHandler = () => {
             setTimeout(() => {
-                URL.revokeObjectURL(url);
-                a.removeEventListener('click', clickHandler);
-            }, 150);
-        };
-        a.addEventListener('click', clickHandler, false);
-        a.click();
+                URL.revokeObjectURL(url)
+                a.removeEventListener('click', clickHandler)
+            }, 150)
+        }
+        a.addEventListener('click', clickHandler, false)
+        a.click()
     }
 
     useEffect(() => {
@@ -150,7 +151,13 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
                         const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
-                        songs.push({ musicSrc: fileAccessURL.toString(), name, cover: mewAppLogo, singer: artist, fileId })
+                        songs.push({
+                            musicSrc: fileAccessURL.toString(),
+                            name,
+                            cover: mewAppLogo,
+                            singer: artist,
+                            fileId,
+                        })
                         seenFileIds.push(fileId)
                     }
                 }
@@ -163,8 +170,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     if (error) return <Error errorMessage={error} />
     if (loading) return <CircularProgress />
     // @ts-ignore
-    if (!loading && !data?.submissions?.items)
-        return <p>Assignment does not exist or has been deleted.</p>
+    if (!loading && !data?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
     return (
         <Grid container spacing={3} style={{ minHeight: '90 vh' }}>
             {audioLists.length ? (
@@ -189,20 +195,22 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     customDownloader={download}
                 />
             ) : null}
-            {loggedIn ? <Grid item xs={12}>
-                <AppBreadcrumbs
-                    paths={[
-                        ROUTE_NAMES.home,
-                        ROUTE_NAMES.assignments,
-                        {
-                            path: ROUTE_NAMES.assignment.getPath({ assignmentId }),
-                            name: data?.title || assignmentId,
-                        },
-                        ROUTE_NAMES.playlist,
-                    ]}
-                    workshopId={data?.workshopId}
-                />
-            </Grid> : null}
+            {loggedIn ? (
+                <Grid item xs={12}>
+                    <AppBreadcrumbs
+                        paths={[
+                            ROUTE_NAMES.home,
+                            ROUTE_NAMES.assignments,
+                            {
+                                path: ROUTE_NAMES.assignment.getPath({ assignmentId }),
+                                name: data?.title || assignmentId,
+                            },
+                            ROUTE_NAMES.playlist,
+                        ]}
+                        workshopId={data?.workshopId}
+                    />
+                </Grid>
+            ) : null}
             {data?._deleted ? (
                 <Grid item xs={12}>
                     <p>This assignment has been deleted.</p>
@@ -210,13 +218,17 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             ) : (
                 <Grid item xs={12}>
                     <Card>
-                        {audioLists?.[currentIndex]?.cover?.toString() ? <CardMedia
-                            component="img"
-                            alt="Song cover image"
-                            height="200"
-                            image={audioLists?.[currentIndex]?.cover?.toString()}
-                            title={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[currentIndex]?.singer?.toString()}`}
-                        /> : null}
+                        {audioLists?.[currentIndex]?.cover?.toString() ? (
+                            <CardMedia
+                                component="img"
+                                alt="Song cover image"
+                                height="200"
+                                image={audioLists?.[currentIndex]?.cover?.toString()}
+                                title={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
+                                    currentIndex
+                                ]?.singer?.toString()}`}
+                            />
+                        ) : null}
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
                                 {audioLists?.[currentIndex]?.name?.toString()}
@@ -225,7 +237,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 {audioLists?.[currentIndex]?.singer?.toString()}
                             </Typography>
                         </CardContent>
-
                     </Card>
                 </Grid>
             )}

@@ -32,16 +32,20 @@ import { ROUTE_NAMES } from '../../pages/app'
 import * as mutations from '../../graphql/mutations'
 import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
 
+const getFileRequestWithNoLimit = getFileRequestQuery.replace('submissions {', 'submissions(limit: 1000) {')
 
 type Inputs = {
     expiration: Date
     title: string
     details: string
     required: boolean
+    userContent: boolean
+    userImage: boolean
+    userFeedback: boolean
 }
 
 const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
-    const { data: { getFileRequest } = {}, loading, error } = useQuery(gql(getFileRequestQuery), {
+    const { data: { getFileRequest } = {}, loading, error } = useQuery(gql(getFileRequestWithNoLimit), {
         variables: { id: assignmentId },
     })
     const { register, handleSubmit, errors, setValue, getValues } = useForm<Inputs>()

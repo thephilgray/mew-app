@@ -2,6 +2,120 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getAPIKey = /* GraphQL */ `
+  query GetAPIKey($id: ID!) {
+    getAPIKey(id: $id) {
+      id
+      keyName
+      createdAt
+      profileID
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listAPIKeys = /* GraphQL */ `
+  query ListAPIKeys(
+    $filter: ModelAPIKeyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAPIKeys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        keyName
+        createdAt
+        profileID
+        email
+        profile {
+          email
+          id
+          name
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncAPIKeys = /* GraphQL */ `
+  query SyncAPIKeys(
+    $filter: ModelAPIKeyFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncAPIKeys(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        keyName
+        createdAt
+        profileID
+        email
+        profile {
+          email
+          id
+          name
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getExtension = /* GraphQL */ `
   query GetExtension($id: ID!) {
     getExtension(id: $id) {
@@ -147,6 +261,10 @@ export const getFileRequest = /* GraphQL */ `
         }
         status
         passes
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -631,6 +749,352 @@ export const submissionsByWorkshopId = /* GraphQL */ `
     }
   }
 `;
+export const getMembership = /* GraphQL */ `
+  query GetMembership($id: ID!) {
+    getMembership(id: $id) {
+      id
+      workshopId
+      email
+      status
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listMemberships = /* GraphQL */ `
+  query ListMemberships(
+    $filter: ModelMembershipFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMemberships(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        profile {
+          email
+          id
+          name
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncMemberships = /* GraphQL */ `
+  query SyncMemberships(
+    $filter: ModelMembershipFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncMemberships(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        profile {
+          email
+          id
+          name
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const membershipsByWorkshopId = /* GraphQL */ `
+  query MembershipsByWorkshopId(
+    $workshopId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelMembershipFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    membershipsByWorkshopId(
+      workshopId: $workshopId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        profile {
+          email
+          id
+          name
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const membershipsByEmail = /* GraphQL */ `
+  query MembershipsByEmail(
+    $email: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelMembershipFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    membershipsByEmail(
+      email: $email
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        profile {
+          email
+          id
+          name
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getWorkshop = /* GraphQL */ `
   query GetWorkshop($id: ID!) {
     getWorkshop(id: $id) {
@@ -676,6 +1140,29 @@ export const getWorkshop = /* GraphQL */ `
       }
       status
       passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -704,6 +1191,10 @@ export const listWorkshops = /* GraphQL */ `
         }
         status
         passes
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -741,6 +1232,10 @@ export const syncWorkshops = /* GraphQL */ `
         }
         status
         passes
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -752,23 +1247,36 @@ export const syncWorkshops = /* GraphQL */ `
     }
   }
 `;
-export const getMember = /* GraphQL */ `
-  query GetMember($email: String!) {
-    getMember(email: $email) {
+export const getProfile = /* GraphQL */ `
+  query GetProfile($email: String!) {
+    getProfile(email: $email) {
       email
-      artist
-      submissions {
+      id
+      name
+      avatar
+      bio
+      sub
+      apiKeys {
         items {
           id
-          fileRequestId
-          artist
-          name
+          keyName
+          createdAt
+          profileID
           email
-          fileId
-          fileExtension
-          rating
-          comments
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      memberships {
+        items {
+          id
           workshopId
+          email
+          status
           createdAt
           updatedAt
           _version
@@ -778,7 +1286,6 @@ export const getMember = /* GraphQL */ `
         nextToken
         startedAt
       }
-      status
       createdAt
       updatedAt
       _version
@@ -787,15 +1294,15 @@ export const getMember = /* GraphQL */ `
     }
   }
 `;
-export const listMembers = /* GraphQL */ `
-  query ListMembers(
+export const listProfiles = /* GraphQL */ `
+  query ListProfiles(
     $email: String
-    $filter: ModelMemberFilterInput
+    $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
     $sortDirection: ModelSortDirection
   ) {
-    listMembers(
+    listProfiles(
       email: $email
       filter: $filter
       limit: $limit
@@ -804,12 +1311,19 @@ export const listMembers = /* GraphQL */ `
     ) {
       items {
         email
-        artist
-        submissions {
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
           nextToken
           startedAt
         }
-        status
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -821,14 +1335,14 @@ export const listMembers = /* GraphQL */ `
     }
   }
 `;
-export const syncMembers = /* GraphQL */ `
-  query SyncMembers(
-    $filter: ModelMemberFilterInput
+export const syncProfiles = /* GraphQL */ `
+  query SyncProfiles(
+    $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
     $lastSync: AWSTimestamp
   ) {
-    syncMembers(
+    syncProfiles(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -836,12 +1350,19 @@ export const syncMembers = /* GraphQL */ `
     ) {
       items {
         email
-        artist
-        submissions {
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
           nextToken
           startedAt
         }
-        status
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version

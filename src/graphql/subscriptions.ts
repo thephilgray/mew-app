@@ -2,6 +2,114 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateAPIKey = /* GraphQL */ `
+  subscription OnCreateAPIKey {
+    onCreateAPIKey {
+      id
+      keyName
+      createdAt
+      profileID
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateAPIKey = /* GraphQL */ `
+  subscription OnUpdateAPIKey {
+    onUpdateAPIKey {
+      id
+      keyName
+      createdAt
+      profileID
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteAPIKey = /* GraphQL */ `
+  subscription OnDeleteAPIKey {
+    onDeleteAPIKey {
+      id
+      keyName
+      createdAt
+      profileID
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const onCreateExtension = /* GraphQL */ `
   subscription OnCreateExtension {
     onCreateExtension {
@@ -95,6 +203,10 @@ export const onCreateFileRequest = /* GraphQL */ `
         }
         status
         passes
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -175,6 +287,10 @@ export const onUpdateFileRequest = /* GraphQL */ `
         }
         status
         passes
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -255,6 +371,10 @@ export const onDeleteFileRequest = /* GraphQL */ `
         }
         status
         passes
+        memberships {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -452,6 +572,270 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
     }
   }
 `;
+export const onCreateMembership = /* GraphQL */ `
+  subscription OnCreateMembership {
+    onCreateMembership {
+      id
+      workshopId
+      email
+      status
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateMembership = /* GraphQL */ `
+  subscription OnUpdateMembership {
+    onUpdateMembership {
+      id
+      workshopId
+      email
+      status
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteMembership = /* GraphQL */ `
+  subscription OnDeleteMembership {
+    onDeleteMembership {
+      id
+      workshopId
+      email
+      status
+      workshop {
+        id
+        name
+        fileRequests {
+          nextToken
+          startedAt
+        }
+        submissions {
+          nextToken
+          startedAt
+        }
+        status
+        passes
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+          startedAt
+        }
+        memberships {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          comments
+          workshopId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const onCreateWorkshop = /* GraphQL */ `
   subscription OnCreateWorkshop {
     onCreateWorkshop {
@@ -497,6 +881,29 @@ export const onCreateWorkshop = /* GraphQL */ `
       }
       status
       passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -550,6 +957,29 @@ export const onUpdateWorkshop = /* GraphQL */ `
       }
       status
       passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -603,31 +1033,20 @@ export const onDeleteWorkshop = /* GraphQL */ `
       }
       status
       passes
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onCreateMember = /* GraphQL */ `
-  subscription OnCreateMember {
-    onCreateMember {
-      email
-      artist
-      submissions {
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+      memberships {
         items {
           id
-          fileRequestId
-          artist
-          name
-          email
-          fileId
-          fileExtension
-          rating
-          comments
           workshopId
+          email
+          status
           createdAt
           updatedAt
           _version
@@ -637,7 +1056,6 @@ export const onCreateMember = /* GraphQL */ `
         nextToken
         startedAt
       }
-      status
       createdAt
       updatedAt
       _version
@@ -646,23 +1064,36 @@ export const onCreateMember = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateMember = /* GraphQL */ `
-  subscription OnUpdateMember {
-    onUpdateMember {
+export const onCreateProfile = /* GraphQL */ `
+  subscription OnCreateProfile {
+    onCreateProfile {
       email
-      artist
-      submissions {
+      id
+      name
+      avatar
+      bio
+      sub
+      apiKeys {
         items {
           id
-          fileRequestId
-          artist
-          name
+          keyName
+          createdAt
+          profileID
           email
-          fileId
-          fileExtension
-          rating
-          comments
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      memberships {
+        items {
+          id
           workshopId
+          email
+          status
           createdAt
           updatedAt
           _version
@@ -672,7 +1103,6 @@ export const onUpdateMember = /* GraphQL */ `
         nextToken
         startedAt
       }
-      status
       createdAt
       updatedAt
       _version
@@ -681,23 +1111,36 @@ export const onUpdateMember = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteMember = /* GraphQL */ `
-  subscription OnDeleteMember {
-    onDeleteMember {
+export const onUpdateProfile = /* GraphQL */ `
+  subscription OnUpdateProfile {
+    onUpdateProfile {
       email
-      artist
-      submissions {
+      id
+      name
+      avatar
+      bio
+      sub
+      apiKeys {
         items {
           id
-          fileRequestId
-          artist
-          name
+          keyName
+          createdAt
+          profileID
           email
-          fileId
-          fileExtension
-          rating
-          comments
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      memberships {
+        items {
+          id
           workshopId
+          email
+          status
           createdAt
           updatedAt
           _version
@@ -707,7 +1150,53 @@ export const onDeleteMember = /* GraphQL */ `
         nextToken
         startedAt
       }
-      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteProfile = /* GraphQL */ `
+  subscription OnDeleteProfile {
+    onDeleteProfile {
+      email
+      id
+      name
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
