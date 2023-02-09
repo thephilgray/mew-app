@@ -5,9 +5,17 @@ import { getCroppedImg } from './cropImage'
 const ImageCropper = ({
     getBlob,
     inputImg,
+    height = '300px',
+    width = '100%',
+    cropShape = 'rect',
+    aspect = 3
 }: {
     getBlob: (b: Blob) => void
-    inputImg: string | undefined
+    inputImg: string | undefined,
+    height: string | undefined,
+    width: string | undefined
+    cropShape: 'rect' | 'round',
+    aspect: number | undefined
 }): JSX.Element => {
     const [crop, setCrop] = useState({ x: 0, y: 0 })
     const [zoom, setZoom] = useState(2)
@@ -29,18 +37,21 @@ const ImageCropper = ({
     to prevent cropper taking up whole page */
         <div>
             <Cropper
+                restrictPosition={false}
+                minZoom={0}
+                cropShape={cropShape}
                 image={inputImg}
                 crop={crop}
                 zoom={zoom}
-                aspect={3}
+                aspect={aspect}
                 onCropChange={setCrop}
                 onCropComplete={onCropComplete}
                 onZoomChange={setZoom}
                 style={{
                     containerStyle: {
                         position: 'relative',
-                        height: '300px',
-                        width: '100%',
+                        height,
+                        width,
                     },
                 }}
             />

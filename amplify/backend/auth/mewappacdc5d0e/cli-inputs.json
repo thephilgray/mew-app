@@ -1,0 +1,46 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "authSelections": "identityPoolAndUserPool",
+    "requiredAttributes": [
+      "email",
+      "name"
+    ],
+    "resourceName": "mewappacdc5d0e",
+    "serviceName": "Cognito",
+    "useDefault": "default",
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
+    "userpoolClientWriteAttributes": [
+      "email"
+    ],
+    "resourceNameTruncated": "mewappacdc5d0e",
+    "sharedId": "acdc5d0e",
+    "userPoolGroupList": [],
+    "userPoolName": "mewappacdc5d0e_userpool_acdc5d0e",
+    "usernameAttributes": [
+      "email"
+    ],
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientSetAttributes": false,
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientLambdaRole": "mewappacdc5d0e_userpoolclient_lambda_role",
+    "passwordPolicyCharacters": [],
+    "passwordPolicyMinLength": 8,
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+      "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "identityPoolName": "mewappacdc5d0e_identitypool_acdc5d0e",
+    "allowUnauthenticatedIdentities": true,
+    "triggers": {}
+  }
+} 

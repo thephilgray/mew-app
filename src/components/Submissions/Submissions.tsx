@@ -1,13 +1,38 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
-import { Badge, Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormGroup, Grid, IconButton, Snackbar, Typography } from '@material-ui/core'
+import {
+    Badge,
+    Button,
+    Checkbox,
+    CircularProgress,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControlLabel,
+    FormGroup,
+    Grid,
+    IconButton,
+    Snackbar,
+    Typography,
+} from '@material-ui/core'
 import { DataGrid, Columns, SortDirection, ColDef, SelectionChangeParams } from '@material-ui/data-grid'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
-import { AssignmentTurnedIn, CloudDownload, FileCopy, Add, Assessment, Email, Edit, PlayArrowTwoTone, MoreTime } from '@mui/icons-material'
+import {
+    AssignmentTurnedIn,
+    CloudDownload,
+    FileCopy,
+    Add,
+    Assessment,
+    Email,
+    Edit,
+    PlayArrowTwoTone,
+    MoreTime,
+} from '@mui/icons-material'
 import { API, Storage, graphqlOperation } from 'aws-amplify'
 import { uniqBy, pipe, map } from 'lodash/fp'
 
@@ -20,6 +45,7 @@ import { getCurrentUser } from '../../auth/utils'
 import { getFileRequest } from '../../graphql/queries'
 import ExtensionsDialog from './ExtensionsDialog'
 
+const getFileRequestWithNoLimit = getFileRequest.replace('submissions {', 'submissions(limit: 1000) {')
 
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
@@ -28,12 +54,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     const [snackbarToggles, setSnackbarToggles] = useState<{ [key: string]: boolean }>({})
     const [dialogToggles, setDialogToggles] = useState<{ [key: string]: boolean }>({})
     const [downloadLinkOptions, setDownloadLinkOptions] = useState<{ [key: string]: boolean }>({
-        stripMetadataForSoundCloud: true
+        stripMetadataForSoundCloud: true,
     })
 
     const dialogConstants = {
         CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link',
-        EDIT_EXTENSIONS: 'edit-extensions'
+        EDIT_EXTENSIONS: 'edit-extensions',
     }
 
     const snackbarConstants = {
@@ -41,19 +67,27 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         TRACKS_SUCCESS: 'tracks-success',
         REPORT_SUCCESS: 'report-success',
         EMAIL_SUCCESS: 'email-success',
-        EMAIL_FAILURE: 'email-failure'
+        EMAIL_FAILURE: 'email-failure',
     }
-
 
     const snackbarConfigs = [
         { message: 'Link to assignment copied to clipboard.', key: snackbarConstants.COPY_SUCCESS },
         { message: 'Successfully downloaded selected tracks.', key: snackbarConstants.TRACKS_SUCCESS },
         { message: 'Successfully downloaded report.', key: snackbarConstants.REPORT_SUCCESS },
-        { message: 'Successfully requested download link (all tracks included) to your email. Please wait up to 30 minutes to receive email.', delay: 5000, key: snackbarConstants.EMAIL_SUCCESS },
-        { message: 'Requesting a download link failed. Please wait and then try again or contact support.', delay: 5000, key: snackbarConstants.EMAIL_FAILURE },
-    ];
+        {
+            message:
+                'Successfully requested download link (all tracks included) to your email. Please wait up to 30 minutes to receive email.',
+            delay: 5000,
+            key: snackbarConstants.EMAIL_SUCCESS,
+        },
+        {
+            message: 'Requesting a download link failed. Please wait and then try again or contact support.',
+            delay: 5000,
+            key: snackbarConstants.EMAIL_FAILURE,
+        },
+    ]
 
-    const { loading, error, data, refetch } = useQuery(gql(getFileRequest), {
+    const { loading, error, data, refetch } = useQuery(gql(getFileRequestWithNoLimit), {
         variables: { id: assignmentId },
     })
 
@@ -159,16 +193,15 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 ...graphqlOperation(runProcessAudioTask, {
                     assignmentId,
                     email,
-                    options: { stripMetadataForSoundCloud: downloadLinkOptions.stripMetadataForSoundCloud }
-                })
+                    options: { stripMetadataForSoundCloud: downloadLinkOptions.stripMetadataForSoundCloud },
+                }),
             })
             setSnackbarToggles({ [snackbarConstants.EMAIL_SUCCESS]: true })
-        }
-        catch (err) {
+        } catch (err) {
             console.error(err)
             setSnackbarToggles({ [snackbarConstants.EMAIL_FAILURE]: true })
         }
-        setDialogToggles({});
+        setDialogToggles({})
     }
 
     const columns: Columns = [
@@ -234,7 +267,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
-                <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.assignment]} workshopId={data?.getFileRequest?.workshopId} assignment={data?.getFileRequest} />
+                <AppBreadcrumbs
+                    paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.assignment]}
+                    workshopId={data?.getFileRequest?.workshopId}
+                    assignment={data?.getFileRequest}
+                />
             </Grid>
             {data?.getFileRequest?._deleted ? (
                 <Grid item xs={12}>
@@ -242,24 +279,33 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 </Grid>
             ) : (
                 <>
-                    <Dialog
-                        maxWidth="xs"
-                        open={dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}
-                    >
+                    <Dialog maxWidth="xs" open={dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}>
                         <DialogTitle>Email yourself a download link</DialogTitle>
 
                         <DialogContent dividers>
-                            <Typography>This will process and zip all tracks for this submission and send you ({getCurrentUser()?.email || ''}) a temporary download link.</Typography>
+                            <Typography>
+                                This will process and zip all tracks for this submission and send you (
+                                {getCurrentUser()?.email || ''}) a temporary download link.
+                            </Typography>
                         </DialogContent>
                         <DialogContent dividers>
                             <FormGroup>
                                 <FormControlLabel
-                                    control={<Checkbox
-                                        disabled
-                                        checked={downloadLinkOptions.stripMetadataForSoundCloud}
-                                        defaultChecked
-                                        onChange={(e) => setDownloadLinkOptions((prevState) => ({ ...prevState, stripMetadataForSoundCloud: !downloadLinkOptions.stripMetadataForSoundCloud }))} />}
-                                    label="Strip artist and title metadata (currently required for SoundCloud uploads)" />
+                                    control={
+                                        <Checkbox
+                                            disabled
+                                            checked={downloadLinkOptions.stripMetadataForSoundCloud}
+                                            defaultChecked
+                                            onChange={(e) =>
+                                                setDownloadLinkOptions((prevState) => ({
+                                                    ...prevState,
+                                                    stripMetadataForSoundCloud: !downloadLinkOptions.stripMetadataForSoundCloud,
+                                                }))
+                                            }
+                                        />
+                                    }
+                                    label="Strip artist and title metadata (currently required for SoundCloud uploads)"
+                                />
                             </FormGroup>
                         </DialogContent>
                         <DialogActions>
@@ -270,10 +316,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         </DialogActions>
                     </Dialog>
 
-                    <ExtensionsDialog assignmentId={assignmentId} open={dialogToggles[dialogConstants.EDIT_EXTENSIONS]} onCloseDialog={() => setDialogToggles({})} />
+                    <ExtensionsDialog
+                        assignmentId={assignmentId}
+                        open={dialogToggles[dialogConstants.EDIT_EXTENSIONS]}
+                        onCloseDialog={() => setDialogToggles({})}
+                    />
 
                     {snackbarConfigs.map(({ message = '', key = '', delay = 0 }) => (
-                        < Snackbar
+                        <Snackbar
                             anchorOrigin={{
                                 vertical: 'bottom',
                                 horizontal: 'center',
@@ -320,7 +370,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                 >
                                     <FileCopy />
                                 </IconButton>
-                                <IconButton color="secondary" aria-label="Extensions" onClick={() => setDialogToggles({ [dialogConstants.EDIT_EXTENSIONS]: true })}>
+                                <IconButton
+                                    color="secondary"
+                                    aria-label="Extensions"
+                                    onClick={() => setDialogToggles({ [dialogConstants.EDIT_EXTENSIONS]: true })}
+                                >
                                     <MoreTime />
                                 </IconButton>
                                 <IconButton color="secondary" aria-label="Edit" component={Link} to="edit">
@@ -339,11 +393,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     </Grid>
                     <Grid item xs={6}>
                         <Typography variant="h6" component="h3">
-                            Submissions <Badge badgeContent={data?.getFileRequest?.submissions?.items?.length || 0} color="secondary">
+                            Submissions{' '}
+                            <Badge
+                                badgeContent={data?.getFileRequest?.submissions?.items?.length || 0}
+                                color="secondary"
+                            >
                                 <AssignmentTurnedIn />
                             </Badge>
                         </Typography>
-
                     </Grid>
                     <Grid item xs={6} style={{ textAlign: 'right' }}>
                         <IconButton

@@ -55,3 +55,8 @@ yarn start
 -   `amplify push` to update the backend resources on AWS
 -   `amplify pull` to update the local backend config
 -   `amplify mock api` to start a full mock API of the backend resources
+
+
+# Other Repos
+
+mew-playlist-downloader (fargate)

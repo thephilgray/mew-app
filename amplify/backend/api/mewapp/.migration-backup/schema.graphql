@@ -63,6 +63,11 @@ type Integrations {
     mailchimp: mailchimpIntegration
 }
 
+type APIKey {
+    id: ID!
+    keyName: String!
+}
+
 type Workshop
     @model
     @auth(
@@ -84,11 +89,26 @@ type Workshop
 type Member
     @model
     @key(fields: ["email"])
+    @key(name: "membershipsByEmail", fields: ["email"], queryField: "membershipsByEmail")
     @auth(rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }, { allow: public, operations: [create] }]) {
     email: String!
     artist: String
     submissions: [FileRequestSubmission] @connection(keyName: "submissionsByEmail", fields: ["email"])
-    status: String
+    workshop: Workshop @connection(fields: ["workshopId"])
+    workshopId: ID
+    active: Boolean
+}
+
+type Profile
+    @model
+    @key(fields: ["email"])
+    @auth(rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }, { allow: public, operations: [create] }]) {
+    email: String!
+    name: String
+    avatar: String
+    bio: String
+    memberships: [Member] @connection(keyName: "membershipsByEmail", fields: ["email"])
+    apiKeys: [APIKey]
 }
 
 input SongData {

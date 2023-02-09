@@ -1,0 +1,16 @@
+{
+  "resourceName": "mewapp",
+  "bucketName": "mewappb0c0340356884342a4e3f5f748e233e1",
+  "policyUUID": "ff8b5239",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE"
+}

@@ -25,8 +25,6 @@ import Error from '../Error'
 import { createFileRequestSubmission } from '../../graphql/mutations'
 import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
 
-
-
 type Inputs = {
     name: string
     artist: string
@@ -86,10 +84,9 @@ const StyledFileDropWrapper = styled.div`
 
 type AudioFileBlob = Blob & { name: string }
 
-const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string, extensionCode?: string }>>> = ({
-    assignmentId = '',
-    extensionCode = ''
-}) => {
+const NewPublicSubmission: React.FC<
+    PropsWithChildren<RouteComponentProps<{ assignmentId: string; extensionCode?: string }>>
+> = ({ assignmentId = '', extensionCode = '' }) => {
     const [upload, setUpload] = useState<AudioFileBlob | undefined>()
     const [fileRequestData, setFileRequestData] = useState<{
         expiration: string
@@ -123,9 +120,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
         },
     }
 
-    const isValid = Boolean(
-        !fileRequestData?._deleted && expiration && !isPast(new Date(expiration)),
-    )
+    const isValid = Boolean(!fileRequestData?._deleted && expiration && !isPast(new Date(expiration)))
 
     const ACCEPTED_FILETYPES = [
         // 'audio/wav',
@@ -168,12 +163,13 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
 
                     // validate extension code
                     if (extensionCode) {
-                        const [currentExtension] = data?.getFileRequest?.extensions?.items.filter((x: { _deleted: any; id: string }) => !x._deleted && x.id === extensionCode);
+                        const [currentExtension] = data?.getFileRequest?.extensions?.items.filter(
+                            (x: { _deleted: any; id: string }) => !x._deleted && x.id === extensionCode,
+                        )
                         setExpiration(currentExtension.expiration || data.getFileRequest.expiration)
                     } else {
                         setExpiration(data.getFileRequest.expiration)
                     }
-
                 }
             } catch (err) {
                 console.log(err)
@@ -253,7 +249,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                             name,
                             email: emails[index],
                             fileExtension,
-                            workshopId: fileRequestData?.workshopId
+                            workshopId: fileRequestData?.workshopId,
                         },
                     }),
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -330,7 +326,7 @@ const NewPublicSubmission: React.FC<PropsWithChildren<RouteComponentProps<{ assi
                             })}
                             error={!!errors.email}
                             helperText={
-                                !!errors.email ? (
+                                errors.email ? (
                                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                     // @ts-ignore
                                     validationMessages.email[errors.email.type]

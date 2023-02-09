@@ -1,66 +1,105 @@
 {
-  "auth": {
-    "mewappacdc5d0e": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
-  "storage": {
-    "mewapp": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    }
-  },
   "api": {
     "mewapp": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
       "output": {
         "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 180,
+                "description": "for public queries"
+              },
+              "authenticationType": "API_KEY"
+            },
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
               "userPoolId": "authmewappacdc5d0e"
             }
-          },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "API_KEY",
-              "apiKeyConfig": {
-                "apiKeyExpirationDays": 180,
-                "description": "for public queries"
-              }
-            },
-            {
-              "authenticationType": "AWS_IAM"
-            }
-          ]
+          }
         }
-      }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "auth": {
+    "mewappacdc5d0e": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
     }
   },
   "function": {
+    "mewProfileService": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "mewapp"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "populateMembers": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "mewapp"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "runProcessAudioTask": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "zipmewsubmissions": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "mewapp"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "membershipService": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
       "dependsOn": [
         {
-          "category": "storage",
-          "resourceName": "mewapp",
+          "category": "auth",
+          "resourceName": "mewappacdc5d0e",
           "attributes": [
-            "BucketName"
+            "UserPoolId"
           ]
-        }
-      ]
-    },
-    "populateMembers": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
+        },
         {
           "category": "api",
           "resourceName": "mewapp",
@@ -69,14 +108,88 @@
             "GraphQLAPIEndpointOutput",
             "GraphQLAPIKeyOutput"
           ]
+        },
+        {
+          "category": "function",
+          "resourceName": "mewProfileService",
+          "attributes": [
+            "Name"
+          ]
+        }
+      ]
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_mewProfileService_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewProfileService"
         }
       ]
     },
-    "runProcessAudioTask": {
-      "build": true,
+    "AMPLIFY_function_mewProfileService_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewProfileService"
+        }
+      ]
+    },
+    "AMPLIFY_function_populateMembers_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "populateMembers"
+        }
+      ]
+    },
+    "AMPLIFY_function_populateMembers_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "populateMembers"
+        }
+      ]
+    },
+    "AMPLIFY_function_runProcessAudioTask_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "runProcessAudioTask"
+        }
+      ]
+    },
+    "AMPLIFY_function_runProcessAudioTask_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "runProcessAudioTask"
+        }
+      ]
+    },
+    "AMPLIFY_function_zipmewsubmissions_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "zipmewsubmissions"
+        }
+      ]
+    },
+    "AMPLIFY_function_zipmewsubmissions_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "zipmewsubmissions"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "mewapp": {
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
+      "service": "S3"
     }
   }
 }

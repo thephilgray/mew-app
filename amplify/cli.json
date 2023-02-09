@@ -5,10 +5,15 @@
       "validatetypenamereservedwords": true,
       "useexperimentalpipelinedtransformer": true,
       "transformerversion": 2,
-      "suppressschemamigrationprompt": true
+      "suppressschemamigrationprompt": true,
+      "securityEnhancementNotification": false,
+      "showfieldauthnotification": false
     },
     "project": {
       "overrides": true
     }
+  },
+  "debug": {
+    "shareProjectConfig": true
   }
 }

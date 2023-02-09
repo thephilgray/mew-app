@@ -1,0 +1,32 @@
+{
+  "typeName": "Mutation",
+  "fieldName": "updateProfileService",
+  "arguments": {
+    "email": "philgrayphilgray@gmail.com",
+    "sub": "7d8ca528-4931-4254-9273-ea5ee853f271",
+    "apiKeyUpdate": {
+        "action": "ADD",
+        "keyName": "keyName",
+        "key": "key"
+    }
+  },
+  "source": null,
+  "request": {
+    "headers": {
+      "host": "192.168.86.20:20002",
+      "connection": "keep-alive",
+      "content-length": "172",
+      "accept": "application/json",
+      "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZDhjYTUyOC00OTMxLTQyNTQtOTI3My1lYTVlZTg1M2YyNzEiLCJjb2duaXRvOmdyb3VwcyI6WyJBZG1pbiJdLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYWxnb3JpdGhtIjoiSFMyNTYiLCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tL3VzLWVhc3QtMV9mYWtlX2lkcCIsInBob25lX251bWJlcl92ZXJpZmllZCI6dHJ1ZSwiY29nbml0bzp1c2VybmFtZSI6InVzZXIxIiwiY29nbml0bzpyb2xlcyI6W10sImF1ZCI6IjJoaWZhMDk2YjNhMjRtdm0zcGhza3VhcWkzIiwiZXZlbnRfaWQiOiIxOGY0MDY3ZS05OTg1LTRlYWUtOWYzMy1mNDVmNDk1NDcwZDAiLCJ0b2tlbl91c2UiOiJpZCIsInBob25lX251bWJlciI6IisxMjA2MjA2MjAxNiIsImV4cCI6MTY3MzgyMjU0MjUsImVtYWlsIjoidXNlckBkb21haW4uY29tIiwiYXV0aF90aW1lIjoxNjczNDk2NjI2LCJpYXQiOjE2NzM0OTY2MjZ9.mHhlg50w6aNfNZegIr76og0Z-snAj5oV5B3odDE-LJg",
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+      "content-type": "application/json",
+      "origin": "http://192.168.86.20:20002",
+      "referer": "http://192.168.86.20:20002/",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "en-US,en;q=0.9,ko-KR;q=0.8,ko;q=0.7"
+    }
+  },
+  "prev": {
+    "result": {}
+  }
+}

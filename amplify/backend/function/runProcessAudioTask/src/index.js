@@ -7,7 +7,7 @@ exports.handler = async (event) => {
         cluster: "mew-process-audio",
         group: "family:mew-process-audio-task",
         launchType: "FARGATE",
-        taskDefinition: "mew-process-audio-task:1",
+        taskDefinition: "mew-process-audio-task:2",
         networkConfiguration: {
             awsvpcConfiguration: {
                 subnets: [
