@@ -37,9 +37,9 @@ const GET_WORKSHOP = gql`
                     workshopId
                     createdAt
                     updatedAt
-                    # _version
-                    # _deleted
-                    # _lastChangedAt
+                    _version
+                    _deleted
+                    _lastChangedAt
                 }
                 nextToken
                 startedAt
@@ -58,9 +58,9 @@ const GET_WORKSHOP = gql`
                     workshopId
                     createdAt
                     updatedAt
-                    # _version
-                    # _deleted
-                    # _lastChangedAt
+                    _version
+                    _deleted
+                    _lastChangedAt
                 }
                 nextToken
                 startedAt
@@ -110,9 +110,9 @@ const GET_WORKSHOP = gql`
                     _deleted
                 }
             }
-            # _version
-            # _deleted
-            # _lastChangedAt
+            _version
+            _deleted
+            _lastChangedAt
         }
     }
 `
@@ -134,12 +134,12 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
 
     const [requestUpdateMembershipService, updateMembershipServiceResponse] = useMutation(updateMembershipService)
 
-    const [sortModel, setSortModel] = React.useState([
-        {
-            field: 'status',
-            sort: 'asc',
-        },
-    ])
+    // const [sortModel, setSortModel] = React.useState([
+    //     {
+    //         field: 'status',
+    //         sort: 'asc',
+    //     },
+    // ])
 
     useEffect(() => {
         if (data?.getWorkshop?.features?.mailchimp?.enabled) {
@@ -323,7 +323,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                     disableSelectionOnClick={true}
                     autoHeight
                     autoPageSize
-                    sortModel={sortModel}
+                    // sortModel={sortModel}
                 />
             </Grid>
         </Grid>
