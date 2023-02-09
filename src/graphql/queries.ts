@@ -807,6 +807,10 @@ export const getMembership = /* GraphQL */ `
         fullName
         uniqueEmailId
         contactId
+        tags {
+          id
+          name
+        }
       }
       submissions {
         items {

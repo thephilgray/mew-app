@@ -4,7 +4,7 @@ import { schema } from './schema';
 
 
 
-const { APIKey, Profile, Membership, Workshop, FileRequest, FileRequestSubmission, Extension, Response, Credit, Artwork, MailchimpIntegration, Features, MailchimpUserInfo } = initSchema(schema);
+const { APIKey, Profile, Membership, Workshop, FileRequest, FileRequestSubmission, Extension, Response, Credit, Artwork, MailchimpIntegration, Features, MailchimpUserInfo, MailchimpTag } = initSchema(schema);
 
 export {
   APIKey,
@@ -19,5 +19,6 @@ export {
   Artwork,
   MailchimpIntegration,
   Features,
-  MailchimpUserInfo
+  MailchimpUserInfo,
+  MailchimpTag
 };

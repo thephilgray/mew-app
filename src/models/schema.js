@@ -1017,9 +1017,38 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "tags": {
+                    "name": "tags",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "MailchimpTag"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                }
+            }
+        },
+        "MailchimpTag": {
+            "name": "MailchimpTag",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             }
         }
     },
-    "version": "a98facebd254d30ffccdb9849d712537"
+    "version": "aaac4dcfd354dd8eecb8a065a0551b72"
 };

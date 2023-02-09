@@ -90,6 +90,10 @@ type FileRequestSubmission
         @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
 }
 
+type MailchimpTag {
+    id: Int!
+    name: String
+}
 
 type MailchimpUserInfo {
     id: String
@@ -98,6 +102,7 @@ type MailchimpUserInfo {
     fullName: String
     uniqueEmailId: String
     contactId: String
+    tags: [MailchimpTag]
 }
 
 

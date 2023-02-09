@@ -42,7 +42,14 @@ export declare class MailchimpUserInfo {
   readonly fullName?: string | null;
   readonly uniqueEmailId?: string | null;
   readonly contactId?: string | null;
+  readonly tags?: (MailchimpTag | null)[] | null;
   constructor(init: ModelInit<MailchimpUserInfo>);
+}
+
+export declare class MailchimpTag {
+  readonly id: number;
+  readonly name?: string | null;
+  constructor(init: ModelInit<MailchimpTag>);
 }
 
 export declare class APIKey {

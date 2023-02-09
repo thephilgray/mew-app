@@ -285,6 +285,13 @@ export type MailchimpUserInfo = {
   fullName?: string | null,
   uniqueEmailId?: string | null,
   contactId?: string | null,
+  tags?:  Array<MailchimpTag | null > | null,
+};
+
+export type MailchimpTag = {
+  __typename: "MailchimpTag",
+  id: number,
+  name?: string | null,
 };
 
 export type UpdateAPIKeyInput = {
@@ -461,6 +468,12 @@ export type MailchimpUserInfoInput = {
   fullName?: string | null,
   uniqueEmailId?: string | null,
   contactId?: string | null,
+  tags?: Array< MailchimpTagInput | null > | null,
+};
+
+export type MailchimpTagInput = {
+  id: number,
+  name?: string | null,
 };
 
 export type ModelMembershipConditionInput = {
@@ -1473,6 +1486,11 @@ export type CreateMembershipMutation = {
       fullName?: string | null,
       uniqueEmailId?: string | null,
       contactId?: string | null,
+      tags?:  Array< {
+        __typename: "MailchimpTag",
+        id: number,
+        name?: string | null,
+      } | null > | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -1576,6 +1594,11 @@ export type UpdateMembershipMutation = {
       fullName?: string | null,
       uniqueEmailId?: string | null,
       contactId?: string | null,
+      tags?:  Array< {
+        __typename: "MailchimpTag",
+        id: number,
+        name?: string | null,
+      } | null > | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -1679,6 +1702,11 @@ export type DeleteMembershipMutation = {
       fullName?: string | null,
       uniqueEmailId?: string | null,
       contactId?: string | null,
+      tags?:  Array< {
+        __typename: "MailchimpTag",
+        id: number,
+        name?: string | null,
+      } | null > | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -3001,6 +3029,11 @@ export type GetMembershipQuery = {
       fullName?: string | null,
       uniqueEmailId?: string | null,
       contactId?: string | null,
+      tags?:  Array< {
+        __typename: "MailchimpTag",
+        id: number,
+        name?: string | null,
+      } | null > | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -4297,6 +4330,11 @@ export type OnCreateMembershipSubscription = {
       fullName?: string | null,
       uniqueEmailId?: string | null,
       contactId?: string | null,
+      tags?:  Array< {
+        __typename: "MailchimpTag",
+        id: number,
+        name?: string | null,
+      } | null > | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -4395,6 +4433,11 @@ export type OnUpdateMembershipSubscription = {
       fullName?: string | null,
       uniqueEmailId?: string | null,
       contactId?: string | null,
+      tags?:  Array< {
+        __typename: "MailchimpTag",
+        id: number,
+        name?: string | null,
+      } | null > | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -4493,6 +4536,11 @@ export type OnDeleteMembershipSubscription = {
       fullName?: string | null,
       uniqueEmailId?: string | null,
       contactId?: string | null,
+      tags?:  Array< {
+        __typename: "MailchimpTag",
+        id: number,
+        name?: string | null,
+      } | null > | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",

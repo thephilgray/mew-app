@@ -91,6 +91,10 @@ const GET_WORKSHOP = gql`
                         fullName
                         emailAddress
                         status
+                        tags {
+                            id
+                            name
+                        }
                     }
                     submissions(limit: 1000) {
                         items {
@@ -103,6 +107,7 @@ const GET_WORKSHOP = gql`
                             }
                         }
                     }
+                    _deleted
                 }
             }
             # _version
@@ -128,6 +133,13 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     })
 
     const [requestUpdateMembershipService, updateMembershipServiceResponse] = useMutation(updateMembershipService)
+
+    const [sortModel, setSortModel] = React.useState([
+        {
+            field: 'status',
+            sort: 'asc',
+        },
+    ])
 
     useEffect(() => {
         if (data?.getWorkshop?.features?.mailchimp?.enabled) {
@@ -205,24 +217,27 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         }
     })
 
-    const userRowsByMembership = data?.getWorkshop?.memberships?.items.map((member) => {
-        const required = uniq(member.submissions.items, 'fileRequestId').filter((item) => item?.fileRequest?.required)
-            .length
+    const userRowsByMembership = data?.getWorkshop?.memberships?.items
+        .filter((member) => !member._deleted)
+        .map((member) => {
+            const required = uniq(member.submissions.items, 'fileRequestId').filter(
+                (item) => item?.fileRequest?.required,
+            ).length
 
-        const passes = workshopPasses - (expiredAndDueAssignments - required)
+            const passes = workshopPasses - (expiredAndDueAssignments - required)
 
-        return {
-            id: member.id,
-            email: member.email,
-            status: member?.status,
-            profileEnabled: !!member.profile,
-            mailchimpSubscribed: !!(member.mailchimp && member.mailchimp.status === 'subscribed'),
-            submissions: member.submissions.items.length,
-            required,
-            passes,
-            loginEnabled: !!member?.profile?.sub,
-        }
-    })
+            return {
+                id: member.id,
+                email: member.email,
+                status: member?.status,
+                profileEnabled: !!member.profile,
+                mailchimpSubscribed: !!(member.mailchimp && member.mailchimp.status === 'subscribed'),
+                submissions: member.submissions.items.length,
+                required,
+                passes,
+                loginEnabled: !!member?.profile?.sub,
+            }
+        })
 
     const userRows = data?.getWorkshop?.features?.mailchimp?.enabled
         ? unionBy(userRowsBySubmissions, userRowsByMembership, 'email')
@@ -308,6 +323,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                     disableSelectionOnClick={true}
                     autoHeight
                     autoPageSize
+                    sortModel={sortModel}
                 />
             </Grid>
         </Grid>

@@ -630,6 +630,10 @@ export const onCreateMembership = /* GraphQL */ `
         fullName
         uniqueEmailId
         contactId
+        tags {
+          id
+          name
+        }
       }
       submissions {
         items {
@@ -718,6 +722,10 @@ export const onUpdateMembership = /* GraphQL */ `
         fullName
         uniqueEmailId
         contactId
+        tags {
+          id
+          name
+        }
       }
       submissions {
         items {
@@ -806,6 +814,10 @@ export const onDeleteMembership = /* GraphQL */ `
         fullName
         uniqueEmailId
         contactId
+        tags {
+          id
+          name
+        }
       }
       submissions {
         items {

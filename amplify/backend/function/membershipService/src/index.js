@@ -80,7 +80,14 @@ query GetWorkshop($id: ID!) {
             status
             fullName
             uniqueEmailId
-            contactId}
+            contactId
+            tags {
+              id
+              name
+            }
+            }
+            _version
+            _deleted
         }
       },
     }
@@ -88,14 +95,15 @@ query GetWorkshop($id: ID!) {
 `;
 
 const createMembership = /* GraphQL */ gql`
-mutation CreateMembership($workshopId: ID!, $emailAddress:String!, $status: String, $contactId:String, $fullName:String, $mailchimpId:String, $mailchimpStatus: String, $uniqueEmailId:String) {
+mutation CreateMembership($workshopId: ID!, $emailAddress:String!, $status: String, $contactId:String, $fullName:String, $mailchimpId:String, $mailchimpStatus: String, $uniqueEmailId:String, $tags: [MailchimpTagInput]) {
     createMembership(input: {workshopId: $workshopId, email: $emailAddress, status: $status, mailchimp: {
       contactId:$contactId,
       emailAddress:$emailAddress,
       fullName:$fullName,
       id:$mailchimpId,
       status:$mailchimpStatus,
-      uniqueEmailId:$uniqueEmailId
+      uniqueEmailId:$uniqueEmailId,
+      tags: $tags
     }}) {
       id
       email
@@ -111,9 +119,9 @@ mutation CreateMembership($workshopId: ID!, $emailAddress:String!, $status: Stri
 
 
 const updateMembership = /* GraphQL */ gql`
-mutation UpdateMembership($membershipId: ID!, $status: String, $contactId: String, $emailAddress: String, $fullName: String, $mailchimpId: String, $mailchimpStatus: String, $uniqueEmailId: String) {
+mutation UpdateMembership($membershipId: ID!, $status: String, $version: Int, $contactId: String, $emailAddress: String, $fullName: String, $mailchimpId: String, $mailchimpStatus: String, $uniqueEmailId: String, $tags: [MailchimpTagInput]) {
   updateMembership(
-    input: {id: $membershipId, status: $status, mailchimp: {contactId: $contactId, emailAddress: $emailAddress, fullName: $fullName, id: $mailchimpId, status: $mailchimpStatus, uniqueEmailId: $uniqueEmailId}}
+    input: {id: $membershipId, status: $status, _version: $version, mailchimp: {contactId: $contactId, emailAddress: $emailAddress, fullName: $fullName, id: $mailchimpId, status: $mailchimpStatus, uniqueEmailId: $uniqueEmailId, tags: $tags}}
   ) {
     id
     status
@@ -264,9 +272,10 @@ exports.handler = async (event) => {
             mailchimpMembers = await getMailchimpMembers({apiKeyName, serverPrefix, listId})
             console.log({mailchimpMembers})
 
-            for await (const {id: mailchimpId, email_address: emailAddress, unique_email_id: uniqueEmailId, contact_id: contactId, full_name: fullName, status: mailchimpStatus} of mailchimpMembers) {
+            for await (const {id: mailchimpId, tags: mailchimpTags, email_address: emailAddress, unique_email_id: uniqueEmailId, contact_id: contactId, full_name: fullName, status: mailchimpStatus} of mailchimpMembers) {
 
                     const member = getWorkshopResult.data.getWorkshop.memberships.items.find(item => item.email === emailAddress)
+                    console.log(apiKeyName)
 
                     const baseMembershipVariables = {                       
                         contactId,
@@ -276,17 +285,12 @@ exports.handler = async (event) => {
                         // "subscribed", "unsubscribed", "cleaned", "pending", "transactional", or "archived"
                         mailchimpStatus,
                         uniqueEmailId,
-                        status: mailchimpStatus
-                    }
-                    
-                    if(member && !member.profile){
-                        console.log('ensure profile')
-                        // ensure profile
-                        const ensureProfileResult = await ensureProfile({email: emailAddress, name: fullName});
-                        console.log({ensureProfileResult});
+                        // MEW specifically uses mailchimp tags for membership status
+                        status: mailchimpTags.some(item => item.name && item.name.toUpperCase() === 'OUT') ? 'OUT' : 'ACTIVE',
+                        tags: mailchimpTags
                     }
 
-                    if(!member){
+                    if(!member || member._deleted){
                         // if not a member, 
                         // maybe ensure auth signup first
                         const ensureProfileResult = await ensureProfile({email: emailAddress, name: fullName});
@@ -302,13 +306,22 @@ exports.handler = async (event) => {
                         console.log({createMembershipResult});
                     }
 
+                    if(member && !member.profile){
+                      console.log('ensure profile')
+                      // ensure profile
+                      const ensureProfileResult = await ensureProfile({email: emailAddress, name: fullName});
+                      console.log({ensureProfileResult});
+                  }
+
                     
-                    // if a member but mailchimp info not saved
-                    if(member && !member.mailchimp){
+                    // if a member but mailchimp info not saved && !member.mailchimp
+                    // or just update membership
+                    if(member){
                         // update membership
                         const updateMembershipVariables = {
                             ...baseMembershipVariables,
-                            membershipId: member.id
+                            membershipId: member.id,
+                            version: member._version
                         }
 
                         const updateMembershipResult = await appSyncClient.mutate({mutation: updateMembership, variables: updateMembershipVariables})
