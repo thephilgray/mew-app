@@ -174,13 +174,17 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         })
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const mappedArray = data.getWorkshop.fileRequests.items.map(({ id, required, expiration }) => ({
-        id,
-        required,
-        expired: Boolean(isPast(new Date(expiration as string))),
-    }))
+    const mappedArray = data.getWorkshop.fileRequests.items
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .filter((item) => !item._deleted)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .map(({ id, required, expiration }) => ({
+            id,
+            required,
+            expired: Boolean(isPast(new Date(expiration as string))),
+        }))
     const assignmentMap = keyBy(mappedArray, 'id')
     const submissionsGroupedByEmail = groupBy(data.getWorkshop.submissions.items, 'email')
 
