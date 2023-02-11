@@ -273,171 +273,162 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     assignment={data?.getFileRequest}
                 />
             </Grid>
-            {data?.getFileRequest?._deleted ? (
-                <Grid item xs={12}>
-                    <p>This assignment has been deleted.</p>
-                </Grid>
-            ) : (
-                <>
-                    <Dialog maxWidth="xs" open={dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}>
-                        <DialogTitle>Email yourself a download link</DialogTitle>
+            <>
+                <Dialog maxWidth="xs" open={dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}>
+                    <DialogTitle>Email yourself a download link</DialogTitle>
 
-                        <DialogContent dividers>
-                            <Typography>
-                                This will process and zip all tracks for this submission and send you (
-                                {getCurrentUser()?.email || ''}) a temporary download link.
-                            </Typography>
-                        </DialogContent>
-                        <DialogContent dividers>
-                            <FormGroup>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            disabled
-                                            checked={downloadLinkOptions.stripMetadataForSoundCloud}
-                                            defaultChecked
-                                            onChange={(e) =>
-                                                setDownloadLinkOptions((prevState) => ({
-                                                    ...prevState,
-                                                    stripMetadataForSoundCloud: !downloadLinkOptions.stripMetadataForSoundCloud,
-                                                }))
-                                            }
-                                        />
-                                    }
-                                    label="Strip artist and title metadata (currently required for SoundCloud uploads)"
-                                />
-                            </FormGroup>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button autoFocus onClick={() => setDialogToggles({})}>
-                                Cancel
-                            </Button>
-                            <Button onClick={emailDownloadLink}>Ok</Button>
-                        </DialogActions>
-                    </Dialog>
-
-                    <ExtensionsDialog
-                        assignmentId={assignmentId}
-                        open={dialogToggles[dialogConstants.EDIT_EXTENSIONS]}
-                        onCloseDialog={() => setDialogToggles({})}
-                    />
-
-                    {snackbarConfigs.map(({ message = '', key = '', delay = 0 }) => (
-                        <Snackbar
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'center',
-                            }}
-                            key={key}
-                            open={snackbarToggles[key]}
-                            color="success"
-                            autoHideDuration={3000 + delay}
-                            message={message}
-                            onClose={() => setSnackbarToggles({ [key]: false })}
-                        />
-                    ))}
-
-                    <Grid item xs={12}>
-                        <Grid container>
-                            <Grid item xs={8}>
-                                <Typography variant="h6" component="h3">
-                                    <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
-                                        <em>
-                                            {data?.getFileRequest.title ? (
-                                                data.getFileRequest.title
-                                            ) : (
-                                                <>
-                                                    {window.origin}
-                                                    {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                                                </>
-                                            )}
-                                        </em>
-                                    </Link>
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={4} style={{ textAlign: 'right' }}>
-                                <IconButton
-                                    color="secondary"
-                                    aria-label="Copy"
-                                    component="span"
-                                    onClick={() =>
-                                        copyToClipboard(
-                                            `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({
-                                                assignmentId,
-                                            })}`,
-                                        )
-                                    }
-                                >
-                                    <FileCopy />
-                                </IconButton>
-                                <IconButton
-                                    color="secondary"
-                                    aria-label="Extensions"
-                                    onClick={() => setDialogToggles({ [dialogConstants.EDIT_EXTENSIONS]: true })}
-                                >
-                                    <MoreTime />
-                                </IconButton>
-                                <IconButton color="secondary" aria-label="Edit" component={Link} to="edit">
-                                    <Edit />
-                                </IconButton>
-                            </Grid>
-                            {data?.getFileRequest?.details && (
-                                <Grid item xs={12}>
-                                    <div
-                                        dangerouslySetInnerHTML={{ __html: data?.getFileRequest.details }}
-                                        style={{ width: '100%' }}
-                                    />
-                                </Grid>
-                            )}
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Typography variant="h6" component="h3">
-                            Submissions{' '}
-                            <Badge
-                                badgeContent={data?.getFileRequest?.submissions?.items?.length || 0}
-                                color="secondary"
-                            >
-                                <AssignmentTurnedIn />
-                            </Badge>
+                    <DialogContent dividers>
+                        <Typography>
+                            This will process and zip all tracks for this submission and send you (
+                            {getCurrentUser()?.email || ''}) a temporary download link.
                         </Typography>
+                    </DialogContent>
+                    <DialogContent dividers>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        disabled
+                                        checked={downloadLinkOptions.stripMetadataForSoundCloud}
+                                        defaultChecked
+                                        onChange={(e) =>
+                                            setDownloadLinkOptions((prevState) => ({
+                                                ...prevState,
+                                                stripMetadataForSoundCloud: !downloadLinkOptions.stripMetadataForSoundCloud,
+                                            }))
+                                        }
+                                    />
+                                }
+                                label="Strip artist and title metadata (currently required for SoundCloud uploads)"
+                            />
+                        </FormGroup>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button autoFocus onClick={() => setDialogToggles({})}>
+                            Cancel
+                        </Button>
+                        <Button onClick={emailDownloadLink}>Ok</Button>
+                    </DialogActions>
+                </Dialog>
+
+                <ExtensionsDialog
+                    assignmentId={assignmentId}
+                    open={dialogToggles[dialogConstants.EDIT_EXTENSIONS]}
+                    onCloseDialog={() => setDialogToggles({})}
+                />
+
+                {snackbarConfigs.map(({ message = '', key = '', delay = 0 }) => (
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        key={key}
+                        open={snackbarToggles[key]}
+                        color="success"
+                        autoHideDuration={3000 + delay}
+                        message={message}
+                        onClose={() => setSnackbarToggles({ [key]: false })}
+                    />
+                ))}
+
+                <Grid item xs={12}>
+                    <Grid container>
+                        <Grid item xs={8}>
+                            <Typography variant="h6" component="h3">
+                                <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
+                                    <em>
+                                        {data?.getFileRequest.title ? (
+                                            data.getFileRequest.title
+                                        ) : (
+                                            <>
+                                                {window.origin}
+                                                {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                            </>
+                                        )}
+                                    </em>
+                                </Link>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4} style={{ textAlign: 'right' }}>
+                            <IconButton
+                                color="secondary"
+                                aria-label="Copy"
+                                component="span"
+                                onClick={() =>
+                                    copyToClipboard(
+                                        `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({
+                                            assignmentId,
+                                        })}`,
+                                    )
+                                }
+                            >
+                                <FileCopy />
+                            </IconButton>
+                            <IconButton
+                                color="secondary"
+                                aria-label="Extensions"
+                                onClick={() => setDialogToggles({ [dialogConstants.EDIT_EXTENSIONS]: true })}
+                            >
+                                <MoreTime />
+                            </IconButton>
+                            <IconButton color="secondary" aria-label="Edit" component={Link} to="edit">
+                                <Edit />
+                            </IconButton>
+                        </Grid>
+                        {data?.getFileRequest?.details && (
+                            <Grid item xs={12}>
+                                <div
+                                    dangerouslySetInnerHTML={{ __html: data?.getFileRequest.details }}
+                                    style={{ width: '100%' }}
+                                />
+                            </Grid>
+                        )}
                     </Grid>
-                    <Grid item xs={6} style={{ textAlign: 'right' }}>
-                        <IconButton
-                            color="secondary"
-                            aria-label="Playlist"
-                            component={Link}
-                            to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
-                        >
-                            <PlayArrowTwoTone />
-                        </IconButton>
-                        <IconButton
-                            color="secondary"
-                            aria-label="New Submission"
-                            component={Link}
-                            to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                        >
-                            <Add />
-                        </IconButton>
-                        {data.getFileRequest.submissions.items.length ? <Menu items={menuItems} /> : null}
-                    </Grid>
-                    <Grid item xs={12} style={{ minHeight: 600, width: '100%', paddingTop: 0 }}>
-                        <DataGrid
-                            checkboxSelection
-                            rows={rows}
-                            columns={columns}
-                            pageSize={100}
-                            disableSelectionOnClick={true}
-                            sortModel={sortModel}
-                            // eslint-disable-next-line
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography variant="h6" component="h3">
+                        Submissions{' '}
+                        <Badge badgeContent={data?.getFileRequest?.submissions?.items?.length || 0} color="secondary">
+                            <AssignmentTurnedIn />
+                        </Badge>
+                    </Typography>
+                </Grid>
+                <Grid item xs={6} style={{ textAlign: 'right' }}>
+                    <IconButton
+                        color="secondary"
+                        aria-label="Playlist"
+                        component={Link}
+                        to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
+                    >
+                        <PlayArrowTwoTone />
+                    </IconButton>
+                    <IconButton
+                        color="secondary"
+                        aria-label="New Submission"
+                        component={Link}
+                        to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                    >
+                        <Add />
+                    </IconButton>
+                    {data.getFileRequest.submissions.items.length ? <Menu items={menuItems} /> : null}
+                </Grid>
+                <Grid item xs={12} style={{ minHeight: 600, width: '100%', paddingTop: 0 }}>
+                    <DataGrid
+                        checkboxSelection
+                        rows={rows}
+                        columns={columns}
+                        pageSize={100}
+                        disableSelectionOnClick={true}
+                        sortModel={sortModel}
+                        // eslint-disable-next-line
                             // tslint:disable-next-line
-                            onSelectionChange={(selection: SelectionChangeParams) =>
-                                setSelectedRows(selection.rowIds.map(String))
-                            }
-                        />
-                    </Grid>
-                </>
-            )}
+                        onSelectionChange={(selection: SelectionChangeParams) =>
+                            setSelectedRows(selection.rowIds.map(String))
+                        }
+                    />
+                </Grid>
+            </>
         </Grid>
     )
 }

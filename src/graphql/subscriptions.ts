@@ -19,22 +19,14 @@ export const onCreateAPIKey = /* GraphQL */ `
         sub
         apiKeys {
           nextToken
-          startedAt
         }
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -55,22 +47,14 @@ export const onUpdateAPIKey = /* GraphQL */ `
         sub
         apiKeys {
           nextToken
-          startedAt
         }
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -91,22 +75,14 @@ export const onDeleteAPIKey = /* GraphQL */ `
         sub
         apiKeys {
           nextToken
-          startedAt
         }
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -118,9 +94,6 @@ export const onCreateExtension = /* GraphQL */ `
       assignmentId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -132,9 +105,6 @@ export const onUpdateExtension = /* GraphQL */ `
       assignmentId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -146,9 +116,6 @@ export const onDeleteExtension = /* GraphQL */ `
       assignmentId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -183,35 +150,25 @@ export const onCreateFileRequest = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       workshop {
         id
         name
         fileRequests {
           nextToken
-          startedAt
         }
         submissions {
           nextToken
-          startedAt
         }
         status
         passes
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       workshopId
       extensions {
@@ -221,18 +178,11 @@ export const onCreateFileRequest = /* GraphQL */ `
           assignmentId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -267,35 +217,25 @@ export const onUpdateFileRequest = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       workshop {
         id
         name
         fileRequests {
           nextToken
-          startedAt
         }
         submissions {
           nextToken
-          startedAt
         }
         status
         passes
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       workshopId
       extensions {
@@ -305,18 +245,11 @@ export const onUpdateFileRequest = /* GraphQL */ `
           assignmentId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -351,35 +284,25 @@ export const onDeleteFileRequest = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       workshop {
         id
         name
         fileRequests {
           nextToken
-          startedAt
         }
         submissions {
           nextToken
-          startedAt
         }
         status
         passes
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       workshopId
       extensions {
@@ -389,18 +312,11 @@ export const onDeleteFileRequest = /* GraphQL */ `
           assignmentId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -420,7 +336,6 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
         }
         submissions {
           nextToken
-          startedAt
         }
         workshop {
           id
@@ -429,20 +344,13 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
           passes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         workshopId
         extensions {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       artist
       name
@@ -454,9 +362,6 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
       workshopId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -476,7 +381,6 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
         }
         submissions {
           nextToken
-          startedAt
         }
         workshop {
           id
@@ -485,20 +389,13 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
           passes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         workshopId
         extensions {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       artist
       name
@@ -510,9 +407,6 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
       workshopId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -532,7 +426,6 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
         }
         submissions {
           nextToken
-          startedAt
         }
         workshop {
           id
@@ -541,20 +434,13 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
           passes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         workshopId
         extensions {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       artist
       name
@@ -566,9 +452,6 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
       workshopId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -584,23 +467,17 @@ export const onCreateMembership = /* GraphQL */ `
         name
         fileRequests {
           nextToken
-          startedAt
         }
         submissions {
           nextToken
-          startedAt
         }
         status
         passes
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       profile {
         email
@@ -611,17 +488,12 @@ export const onCreateMembership = /* GraphQL */ `
         sub
         apiKeys {
           nextToken
-          startedAt
         }
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       mailchimp {
         id
@@ -649,18 +521,11 @@ export const onCreateMembership = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -676,23 +541,17 @@ export const onUpdateMembership = /* GraphQL */ `
         name
         fileRequests {
           nextToken
-          startedAt
         }
         submissions {
           nextToken
-          startedAt
         }
         status
         passes
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       profile {
         email
@@ -703,17 +562,12 @@ export const onUpdateMembership = /* GraphQL */ `
         sub
         apiKeys {
           nextToken
-          startedAt
         }
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       mailchimp {
         id
@@ -741,18 +595,11 @@ export const onUpdateMembership = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -768,23 +615,17 @@ export const onDeleteMembership = /* GraphQL */ `
         name
         fileRequests {
           nextToken
-          startedAt
         }
         submissions {
           nextToken
-          startedAt
         }
         status
         passes
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       profile {
         email
@@ -795,17 +636,12 @@ export const onDeleteMembership = /* GraphQL */ `
         sub
         apiKeys {
           nextToken
-          startedAt
         }
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       mailchimp {
         id
@@ -833,18 +669,11 @@ export const onDeleteMembership = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -863,12 +692,8 @@ export const onCreateWorkshop = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       submissions {
         items {
@@ -884,12 +709,8 @@ export const onCreateWorkshop = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       status
       passes
@@ -909,18 +730,11 @@ export const onCreateWorkshop = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -939,12 +753,8 @@ export const onUpdateWorkshop = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       submissions {
         items {
@@ -960,12 +770,8 @@ export const onUpdateWorkshop = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       status
       passes
@@ -985,18 +791,11 @@ export const onUpdateWorkshop = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -1015,12 +814,8 @@ export const onDeleteWorkshop = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       submissions {
         items {
@@ -1036,12 +831,8 @@ export const onDeleteWorkshop = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       status
       passes
@@ -1061,18 +852,11 @@ export const onDeleteWorkshop = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -1093,12 +877,8 @@ export const onCreateProfile = /* GraphQL */ `
           profileID
           email
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       memberships {
         items {
@@ -1108,18 +888,11 @@ export const onCreateProfile = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -1140,12 +913,8 @@ export const onUpdateProfile = /* GraphQL */ `
           profileID
           email
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       memberships {
         items {
@@ -1155,18 +924,11 @@ export const onUpdateProfile = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -1187,12 +949,8 @@ export const onDeleteProfile = /* GraphQL */ `
           profileID
           email
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       memberships {
         items {
@@ -1202,18 +960,11 @@ export const onDeleteProfile = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

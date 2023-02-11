@@ -3,28 +3,37 @@
     "mewapp": {
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [
-            {
-              "apiKeyConfig": {
-                "apiKeyExpirationDays": 180,
-                "description": "for public queries"
-              },
-              "authenticationType": "API_KEY"
-            },
-            {
-              "authenticationType": "AWS_IAM"
-            }
-          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
               "userPoolId": "authmewappacdc5d0e"
             }
-          }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 180,
+                "description": "for public queries"
+              }
+            },
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
         }
       },
       "providerPlugin": "awscloudformation",
-      "service": "AppSync"
+      "service": "AppSync",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "mewappacdc5d0e",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
     }
   },
   "auth": {

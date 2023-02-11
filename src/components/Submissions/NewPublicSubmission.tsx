@@ -93,7 +93,6 @@ const NewPublicSubmission: React.FC<
         title: string
         details: string
         workshopId: string
-        _deleted: boolean
     } | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<Error | null>(null)
@@ -120,7 +119,7 @@ const NewPublicSubmission: React.FC<
         },
     }
 
-    const isValid = Boolean(!fileRequestData?._deleted && expiration && !isPast(new Date(expiration)))
+    const isValid = Boolean(expiration && !isPast(new Date(expiration)))
 
     const ACCEPTED_FILETYPES = [
         // 'audio/wav',
@@ -164,7 +163,7 @@ const NewPublicSubmission: React.FC<
                     // validate extension code
                     if (extensionCode) {
                         const [currentExtension] = data?.getFileRequest?.extensions?.items.filter(
-                            (x: { _deleted: any; id: string }) => !x._deleted && x.id === extensionCode,
+                            (x: { id: string }) => x.id === extensionCode,
                         )
                         setExpiration(currentExtension.expiration || data.getFileRequest.expiration)
                     } else {
@@ -223,7 +222,7 @@ const NewPublicSubmission: React.FC<
         const fileId = uuidv4()
         const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
-        const emails = email.split(',').map((email) => email.trim())
+        const emails = email.split(',').map((email) => email.toLowerCase().trim())
         const fileExtension = upload?.name.split('.').pop()
 
         try {

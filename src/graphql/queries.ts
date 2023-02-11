@@ -19,22 +19,14 @@ export const getAPIKey = /* GraphQL */ `
         sub
         apiKeys {
           nextToken
-          startedAt
         }
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -60,59 +52,10 @@ export const listAPIKeys = /* GraphQL */ `
           sub
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncAPIKeys = /* GraphQL */ `
-  query SyncAPIKeys(
-    $filter: ModelAPIKeyFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncAPIKeys(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        keyName
-        createdAt
-        profileID
-        email
-        profile {
-          email
-          id
-          name
-          avatar
-          bio
-          sub
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -124,9 +67,6 @@ export const getExtension = /* GraphQL */ `
       assignmentId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -143,40 +83,8 @@ export const listExtensions = /* GraphQL */ `
         assignmentId
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncExtensions = /* GraphQL */ `
-  query SyncExtensions(
-    $filter: ModelExtensionFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncExtensions(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        expiration
-        assignmentId
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -201,12 +109,8 @@ export const extensionsByFileRequestId = /* GraphQL */ `
         assignmentId
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -241,35 +145,25 @@ export const getFileRequest = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       workshop {
         id
         name
         fileRequests {
           nextToken
-          startedAt
         }
         submissions {
           nextToken
-          startedAt
         }
         status
         passes
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       workshopId
       extensions {
@@ -279,18 +173,11 @@ export const getFileRequest = /* GraphQL */ `
           assignmentId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -312,7 +199,6 @@ export const listFileRequests = /* GraphQL */ `
         }
         submissions {
           nextToken
-          startedAt
         }
         workshop {
           id
@@ -321,76 +207,15 @@ export const listFileRequests = /* GraphQL */ `
           passes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         workshopId
         extensions {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncFileRequests = /* GraphQL */ `
-  query SyncFileRequests(
-    $filter: ModelFileRequestFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncFileRequests(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        expiration
-        title
-        details
-        required
-        playlistArtwork {
-          id
-        }
-        submissions {
-          nextToken
-          startedAt
-        }
-        workshop {
-          id
-          name
-          status
-          passes
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        workshopId
-        extensions {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -420,7 +245,6 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
         }
         submissions {
           nextToken
-          startedAt
         }
         workshop {
           id
@@ -429,23 +253,15 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
           passes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         workshopId
         extensions {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -465,7 +281,6 @@ export const getFileRequestSubmission = /* GraphQL */ `
         }
         submissions {
           nextToken
-          startedAt
         }
         workshop {
           id
@@ -474,20 +289,13 @@ export const getFileRequestSubmission = /* GraphQL */ `
           passes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         workshopId
         extensions {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       artist
       name
@@ -499,9 +307,6 @@ export const getFileRequestSubmission = /* GraphQL */ `
       workshopId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -528,9 +333,6 @@ export const listFileRequestSubmissions = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         artist
         name
@@ -542,60 +344,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `
         workshopId
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncFileRequestSubmissions = /* GraphQL */ `
-  query SyncFileRequestSubmissions(
-    $filter: ModelFileRequestSubmissionFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncFileRequestSubmissions(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        fileRequestId
-        fileRequest {
-          id
-          expiration
-          title
-          details
-          required
-          workshopId
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        artist
-        name
-        email
-        fileId
-        fileExtension
-        rating
-        comments
-        workshopId
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -626,9 +376,6 @@ export const submissionsByFileRequestId = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         artist
         name
@@ -640,12 +387,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `
         workshopId
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -676,9 +419,6 @@ export const submissionsByEmail = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         artist
         name
@@ -690,12 +430,8 @@ export const submissionsByEmail = /* GraphQL */ `
         workshopId
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -726,9 +462,6 @@ export const submissionsByWorkshopId = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         artist
         name
@@ -740,12 +473,8 @@ export const submissionsByWorkshopId = /* GraphQL */ `
         workshopId
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -761,23 +490,17 @@ export const getMembership = /* GraphQL */ `
         name
         fileRequests {
           nextToken
-          startedAt
         }
         submissions {
           nextToken
-          startedAt
         }
         status
         passes
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       profile {
         email
@@ -788,17 +511,12 @@ export const getMembership = /* GraphQL */ `
         sub
         apiKeys {
           nextToken
-          startedAt
         }
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       mailchimp {
         id
@@ -826,18 +544,11 @@ export const getMembership = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -860,9 +571,6 @@ export const listMemberships = /* GraphQL */ `
           passes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         profile {
           email
@@ -873,9 +581,6 @@ export const listMemberships = /* GraphQL */ `
           sub
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         mailchimp {
           id
@@ -887,81 +592,11 @@ export const listMemberships = /* GraphQL */ `
         }
         submissions {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncMemberships = /* GraphQL */ `
-  query SyncMemberships(
-    $filter: ModelMembershipFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncMemberships(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        workshopId
-        email
-        status
-        workshop {
-          id
-          name
-          status
-          passes
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        profile {
-          email
-          id
-          name
-          avatar
-          bio
-          sub
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        mailchimp {
-          id
-          emailAddress
-          status
-          fullName
-          uniqueEmailId
-          contactId
-        }
-        submissions {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -992,9 +627,6 @@ export const membershipsByWorkshopId = /* GraphQL */ `
           passes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         profile {
           email
@@ -1005,9 +637,6 @@ export const membershipsByWorkshopId = /* GraphQL */ `
           sub
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         mailchimp {
           id
@@ -1019,16 +648,11 @@ export const membershipsByWorkshopId = /* GraphQL */ `
         }
         submissions {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -1059,9 +683,6 @@ export const membershipsByEmail = /* GraphQL */ `
           passes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         profile {
           email
@@ -1072,9 +693,6 @@ export const membershipsByEmail = /* GraphQL */ `
           sub
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         mailchimp {
           id
@@ -1086,16 +704,11 @@ export const membershipsByEmail = /* GraphQL */ `
         }
         submissions {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -1114,12 +727,8 @@ export const getWorkshop = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       submissions {
         items {
@@ -1135,12 +744,8 @@ export const getWorkshop = /* GraphQL */ `
           workshopId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       status
       passes
@@ -1160,18 +765,11 @@ export const getWorkshop = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -1187,67 +785,19 @@ export const listWorkshops = /* GraphQL */ `
         name
         fileRequests {
           nextToken
-          startedAt
         }
         submissions {
           nextToken
-          startedAt
         }
         status
         passes
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncWorkshops = /* GraphQL */ `
-  query SyncWorkshops(
-    $filter: ModelWorkshopFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncWorkshops(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        fileRequests {
-          nextToken
-          startedAt
-        }
-        submissions {
-          nextToken
-          startedAt
-        }
-        status
-        passes
-        memberships {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -1268,12 +818,8 @@ export const getProfile = /* GraphQL */ `
           profileID
           email
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       memberships {
         items {
@@ -1283,18 +829,11 @@ export const getProfile = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -1322,59 +861,14 @@ export const listProfiles = /* GraphQL */ `
         sub
         apiKeys {
           nextToken
-          startedAt
         }
         memberships {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncProfiles = /* GraphQL */ `
-  query SyncProfiles(
-    $filter: ModelProfileFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncProfiles(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        email
-        id
-        name
-        avatar
-        bio
-        sub
-        apiKeys {
-          nextToken
-          startedAt
-        }
-        memberships {
-          nextToken
-          startedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;

@@ -78,7 +78,6 @@ export default function EditWorkshop({ workshopId = '' }) {
                                 },
                             },
                         }),
-                    _version: data.getWorkshop._version,
                 },
             },
         })

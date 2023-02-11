@@ -104,7 +104,6 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
                     title: inputData.title,
                     details: details,
                     required: required,
-                    _version: getFileRequest._version,
                 },
             },
         })
@@ -118,7 +117,6 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
             variables: {
                 input: {
                     id: assignmentId,
-                    _version: getFileRequest._version,
                 },
             },
         })
@@ -128,8 +126,7 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
 
     if (error) return <Error errorMessage={error} />
     if (loading) return <CircularProgress />
-    if (getFileRequest?._deleted || (!loading && !getFileRequest?.submissions?.items))
-        return <p>Assignment does not exist or has been deleted.</p>
+    if (!loading && !getFileRequest?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
 
     return (
         <Grid container spacing={2}>

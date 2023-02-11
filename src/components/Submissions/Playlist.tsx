@@ -22,7 +22,6 @@ const GET_FILE_REQUEST = gql`
             workshopId
             title
             expiration
-            _deleted
             playlistArtwork {
                 id
                 credit {
@@ -56,7 +55,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         title: string
         details: string
         workshopId: string
-        _deleted: boolean
     } | null>(null)
     const [error, setError] = useState(null)
     const loggedIn = isLoggedIn()
@@ -211,35 +209,29 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     />
                 </Grid>
             ) : null}
-            {data?._deleted ? (
-                <Grid item xs={12}>
-                    <p>This assignment has been deleted.</p>
-                </Grid>
-            ) : (
-                <Grid item xs={12}>
-                    <Card>
-                        {audioLists?.[currentIndex]?.cover?.toString() ? (
-                            <CardMedia
-                                component="img"
-                                alt="Song cover image"
-                                height="200"
-                                image={audioLists?.[currentIndex]?.cover?.toString()}
-                                title={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
-                                    currentIndex
-                                ]?.singer?.toString()}`}
-                            />
-                        ) : null}
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                                {audioLists?.[currentIndex]?.name?.toString()}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                {audioLists?.[currentIndex]?.singer?.toString()}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            )}
+            <Grid item xs={12}>
+                <Card>
+                    {audioLists?.[currentIndex]?.cover?.toString() ? (
+                        <CardMedia
+                            component="img"
+                            alt="Song cover image"
+                            height="200"
+                            image={audioLists?.[currentIndex]?.cover?.toString()}
+                            title={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
+                                currentIndex
+                            ]?.singer?.toString()}`}
+                        />
+                    ) : null}
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {audioLists?.[currentIndex]?.name?.toString()}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {audioLists?.[currentIndex]?.singer?.toString()}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Grid>
         </Grid>
     )
 }

@@ -4,12 +4,14 @@ import { Button, Chip, Grid, Typography } from '@material-ui/core'
 import { DataGrid } from '@material-ui/data-grid'
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
-import { groupBy, keyBy, uniq, unionBy } from 'lodash'
+import { groupBy, keyBy, uniqBy } from 'lodash'
 import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
 import styled from '@emotion/styled'
 import { Sync } from '@material-ui/icons'
+
+const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
 const StyledChip = styled(Chip)`
     margin: 0.25rem;
@@ -37,12 +39,8 @@ const GET_WORKSHOP = gql`
                     workshopId
                     createdAt
                     updatedAt
-                    _version
-                    _deleted
-                    _lastChangedAt
                 }
                 nextToken
-                startedAt
             }
             submissions(limit: 1000) {
                 items {
@@ -58,12 +56,8 @@ const GET_WORKSHOP = gql`
                     workshopId
                     createdAt
                     updatedAt
-                    _version
-                    _deleted
-                    _lastChangedAt
                 }
                 nextToken
-                startedAt
             }
             status
             passes
@@ -96,7 +90,7 @@ const GET_WORKSHOP = gql`
                             name
                         }
                     }
-                    submissions(limit: 1000) {
+                    submissions(limit: 1000, filter: { workshopId: { eq: $id } }) {
                         items {
                             id
                             fileRequestId
@@ -107,12 +101,8 @@ const GET_WORKSHOP = gql`
                             }
                         }
                     }
-                    _deleted
                 }
             }
-            _version
-            _deleted
-            _lastChangedAt
         }
     }
 `
@@ -173,17 +163,13 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             },
         })
     }
-
-    const mappedArray = data.getWorkshop.fileRequests.items
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        .filter((item) => !item._deleted)
+    const mappedArray = data.getWorkshop?.fileRequests?.items
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         .map(({ id, required, expiration }) => ({
             id,
             required,
-            expired: Boolean(isPast(new Date(expiration as string))),
+            expired: isExpired(expiration),
         }))
     const assignmentMap = keyBy(mappedArray, 'id')
     const submissionsGroupedByEmail = groupBy(data.getWorkshop.submissions.items, 'email')
@@ -204,10 +190,10 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     const workshopPasses = data.getWorkshop.passes
 
     const userRowsBySubmissions = Object.keys(submissionsGroupedByEmail).map((email) => {
-        const required = uniq(
+        const required = uniqBy(
             submissionsGroupedByEmail[email].map(({ fileRequestId }) => assignmentMap[fileRequestId]),
             'fileRequestId',
-        ).filter((item) => item && item.required).length
+        ).filter((item) => item && item.required && item.expired).length
 
         const passes = workshopPasses - (expiredAndDueAssignments - required)
 
@@ -221,31 +207,30 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         }
     })
 
-    const userRowsByMembership = data?.getWorkshop?.memberships?.items
-        .filter((member) => !member._deleted)
-        .map((member) => {
-            const required = uniq(member.submissions.items, 'fileRequestId').filter(
-                (item) => item?.fileRequest?.required,
-            ).length
+    const userRowsByMembership = data?.getWorkshop?.memberships?.items.map((member) => {
+        const requiredItems = uniqBy(member.submissions.items, 'fileRequestId').filter(
+            (item) =>
+                item?.fileRequest?.required && item.fileRequest?.expiration && isExpired(item.fileRequest.expiration),
+        )
 
-            const passes = workshopPasses - (expiredAndDueAssignments - required)
+        const required = requiredItems.length
 
-            return {
-                id: member.id,
-                email: member.email,
-                status: member?.status,
-                profileEnabled: !!member.profile,
-                mailchimpSubscribed: !!(member.mailchimp && member.mailchimp.status === 'subscribed'),
-                submissions: member.submissions.items.length,
-                required,
-                passes,
-                loginEnabled: !!member?.profile?.sub,
-            }
-        })
+        const passes = workshopPasses - (expiredAndDueAssignments - required)
 
-    const userRows = data?.getWorkshop?.features?.mailchimp?.enabled
-        ? unionBy(userRowsBySubmissions, userRowsByMembership, 'email')
-        : userRowsBySubmissions
+        return {
+            id: member.id,
+            email: member.email,
+            status: member?.status,
+            profileEnabled: !!member.profile,
+            mailchimpSubscribed: !!(member.mailchimp && member.mailchimp.status === 'subscribed'),
+            submissions: member.submissions.items.length,
+            required,
+            passes,
+            loginEnabled: !!member?.profile?.sub,
+        }
+    })
+
+    const userRows = data?.getWorkshop?.features?.mailchimp?.enabled ? userRowsByMembership : userRowsBySubmissions
 
     const columns = [
         { field: 'email', headerName: 'Email', width: 300 },

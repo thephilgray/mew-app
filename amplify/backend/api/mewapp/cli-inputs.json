@@ -16,11 +16,7 @@
         "mode": "AWS_IAM"
       }
     ],
-    "conflictResolution": {
-      "defaultResolutionStrategy": {
-        "type": "AUTOMERGE"
-      }
-    },
+    "conflictResolution": {},
     "apiName": "mewapp",
     "gqlSchemaPath": "/Users/phillipgray/Code/mew-app-2/amplify/backend/api/mewapp/schema.graphql"
   }
