@@ -190,11 +190,11 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     const workshopPasses = data.getWorkshop.passes
 
     const userRowsBySubmissions = Object.keys(submissionsGroupedByEmail).map((email) => {
-        const required = uniqBy(
+        const requiredItems = uniqBy(
             submissionsGroupedByEmail[email].map(({ fileRequestId }) => assignmentMap[fileRequestId]),
-            'fileRequestId',
-        ).filter((item) => item && item.required && item.expired).length
-
+            'id',
+        ).filter((item) => item && item.required && item.expired)
+        const required = requiredItems.length
         const passes = workshopPasses - (expiredAndDueAssignments - required)
 
         return {
