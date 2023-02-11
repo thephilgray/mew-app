@@ -24,10 +24,12 @@ const useStyles = makeStyles(() =>
 const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     const classes = useStyles()
     const { loading, error, data, refetch } = useQuery(
-        gql(getWorkshop.replace('submissions {', 'submissions(limit: 5000) {')), {
-        variables: { id: workshopId }
-    })
-    let workshop;
+        gql(getWorkshop.replace('submissions {', 'submissions(limit: 5000) {')),
+        {
+            variables: { id: workshopId },
+        },
+    )
+    let workshop
     if (data && data.getWorkshop) {
         workshop = data.getWorkshop
     }
@@ -92,15 +94,17 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
     if (loading) return <p>Loading assignments....</p>
 
     const items = data?.getWorkshop?.fileRequests?.items || []
-    const rows = items
-        .filter(({ _deleted }: { _deleted: boolean }) => !_deleted)
-        .map((item: { id: string; title: string; expiration: string; required: boolean; createdAt: string; }) => ({
+    const rows = items.map(
+        (item: { id: string; title: string; expiration: string; required: boolean; createdAt: string }) => ({
             ...item,
-            submissions: data?.getWorkshop?.submissions?.items ? data.getWorkshop.submissions.items
-                // @ts-ignore
-                .filter((submission) => submission?.fileRequestId === item.id) : [],
-            status: Boolean(!isPast(new Date(item.expiration as string))) ? 'ACTIVE' : 'EXPIRED',
-        }))
+            submissions: data?.getWorkshop?.submissions?.items
+                ? data.getWorkshop.submissions.items
+                      // @ts-ignore
+                      .filter((submission) => submission?.fileRequestId === item.id)
+                : [],
+            status: !isPast(new Date(item.expiration as string)) ? 'ACTIVE' : 'EXPIRED',
+        }),
+    )
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>

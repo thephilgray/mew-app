@@ -30,7 +30,6 @@ export type CreateAPIKeyInput = {
   createdAt?: string | null,
   profileID: string,
   email: string,
-  _version?: number | null,
 };
 
 export type ModelAPIKeyConditionInput = {
@@ -108,9 +107,6 @@ export type APIKey = {
   email: string,
   profile?: Profile | null,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type Profile = {
@@ -125,23 +121,18 @@ export type Profile = {
   memberships?: ModelMembershipConnection | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type ModelAPIKeyConnection = {
   __typename: "ModelAPIKeyConnection",
   items:  Array<APIKey | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelMembershipConnection = {
   __typename: "ModelMembershipConnection",
   items:  Array<Membership | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type Membership = {
@@ -156,9 +147,6 @@ export type Membership = {
   submissions?: ModelFileRequestSubmissionConnection | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type Workshop = {
@@ -173,16 +161,12 @@ export type Workshop = {
   memberships?: ModelMembershipConnection | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type ModelFileRequestConnection = {
   __typename: "ModelFileRequestConnection",
   items:  Array<FileRequest | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type FileRequest = {
@@ -199,9 +183,6 @@ export type FileRequest = {
   extensions?: ModelExtensionConnection | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type Artwork = {
@@ -222,7 +203,6 @@ export type ModelFileRequestSubmissionConnection = {
   __typename: "ModelFileRequestSubmissionConnection",
   items:  Array<FileRequestSubmission | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type FileRequestSubmission = {
@@ -240,16 +220,12 @@ export type FileRequestSubmission = {
   workshopId?: string | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type ModelExtensionConnection = {
   __typename: "ModelExtensionConnection",
   items:  Array<Extension | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type Extension = {
@@ -259,9 +235,6 @@ export type Extension = {
   assignmentId: string,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type Features = {
@@ -300,19 +273,16 @@ export type UpdateAPIKeyInput = {
   createdAt?: string | null,
   profileID?: string | null,
   email?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteAPIKeyInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateExtensionInput = {
   id?: string | null,
   expiration: string,
   assignmentId: string,
-  _version?: number | null,
 };
 
 export type ModelExtensionConditionInput = {
@@ -327,12 +297,10 @@ export type UpdateExtensionInput = {
   id: string,
   expiration?: string | null,
   assignmentId?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteExtensionInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateFileRequestInput = {
@@ -343,7 +311,6 @@ export type CreateFileRequestInput = {
   required?: boolean | null,
   playlistArtwork?: ArtworkInput | null,
   workshopId?: string | null,
-  _version?: number | null,
 };
 
 export type ArtworkInput = {
@@ -384,12 +351,10 @@ export type UpdateFileRequestInput = {
   required?: boolean | null,
   playlistArtwork?: ArtworkInput | null,
   workshopId?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteFileRequestInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateFileRequestSubmissionInput = {
@@ -403,7 +368,6 @@ export type CreateFileRequestSubmissionInput = {
   rating?: number | null,
   comments?: string | null,
   workshopId?: string | null,
-  _version?: number | null,
 };
 
 export type ModelFileRequestSubmissionConditionInput = {
@@ -444,12 +408,10 @@ export type UpdateFileRequestSubmissionInput = {
   rating?: number | null,
   comments?: string | null,
   workshopId?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteFileRequestSubmissionInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateMembershipInput = {
@@ -458,7 +420,6 @@ export type CreateMembershipInput = {
   email: string,
   status?: string | null,
   mailchimp?: MailchimpUserInfoInput | null,
-  _version?: number | null,
 };
 
 export type MailchimpUserInfoInput = {
@@ -491,12 +452,10 @@ export type UpdateMembershipInput = {
   email?: string | null,
   status?: string | null,
   mailchimp?: MailchimpUserInfoInput | null,
-  _version?: number | null,
 };
 
 export type DeleteMembershipInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateWorkshopInput = {
@@ -505,7 +464,6 @@ export type CreateWorkshopInput = {
   status?: string | null,
   passes?: number | null,
   features?: FeaturesInput | null,
-  _version?: number | null,
 };
 
 export type FeaturesInput = {
@@ -534,12 +492,10 @@ export type UpdateWorkshopInput = {
   status?: string | null,
   passes?: number | null,
   features?: FeaturesInput | null,
-  _version?: number | null,
 };
 
 export type DeleteWorkshopInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateProfileInput = {
@@ -549,7 +505,6 @@ export type CreateProfileInput = {
   avatar?: string | null,
   bio?: string | null,
   sub?: string | null,
-  _version?: number | null,
 };
 
 export type ModelProfileConditionInput = {
@@ -569,12 +524,10 @@ export type UpdateProfileInput = {
   avatar?: string | null,
   bio?: string | null,
   sub?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteProfileInput = {
   email: string,
-  _version?: number | null,
 };
 
 export type ModelAPIKeyFilterInput = {
@@ -655,7 +608,6 @@ export type ModelWorkshopConnection = {
   __typename: "ModelWorkshopConnection",
   items:  Array<Workshop | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelProfileFilterInput = {
@@ -674,7 +626,6 @@ export type ModelProfileConnection = {
   __typename: "ModelProfileConnection",
   items:  Array<Profile | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ProcessDownloadMutationVariables = {
@@ -755,23 +706,15 @@ export type CreateAPIKeyMutation = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -799,23 +742,15 @@ export type UpdateAPIKeyMutation = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -843,23 +778,15 @@ export type DeleteAPIKeyMutation = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -876,9 +803,6 @@ export type CreateExtensionMutation = {
     assignmentId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -895,9 +819,6 @@ export type UpdateExtensionMutation = {
     assignmentId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -914,9 +835,6 @@ export type DeleteExtensionMutation = {
     assignmentId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -960,12 +878,8 @@ export type CreateFileRequestMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     workshop?:  {
       __typename: "Workshop",
@@ -974,25 +888,19 @@ export type CreateFileRequestMutation = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
     extensions?:  {
@@ -1004,18 +912,11 @@ export type CreateFileRequestMutation = {
         assignmentId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1059,12 +960,8 @@ export type UpdateFileRequestMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     workshop?:  {
       __typename: "Workshop",
@@ -1073,25 +970,19 @@ export type UpdateFileRequestMutation = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
     extensions?:  {
@@ -1103,18 +994,11 @@ export type UpdateFileRequestMutation = {
         assignmentId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1158,12 +1042,8 @@ export type DeleteFileRequestMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     workshop?:  {
       __typename: "Workshop",
@@ -1172,25 +1052,19 @@ export type DeleteFileRequestMutation = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
     extensions?:  {
@@ -1202,18 +1076,11 @@ export type DeleteFileRequestMutation = {
         assignmentId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1241,7 +1108,6 @@ export type CreateFileRequestSubmissionMutation = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       workshop?:  {
         __typename: "Workshop",
@@ -1251,21 +1117,14 @@ export type CreateFileRequestSubmissionMutation = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
       extensions?:  {
         __typename: "ModelExtensionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     artist?: string | null,
     name?: string | null,
@@ -1277,9 +1136,6 @@ export type CreateFileRequestSubmissionMutation = {
     workshopId?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1307,7 +1163,6 @@ export type UpdateFileRequestSubmissionMutation = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       workshop?:  {
         __typename: "Workshop",
@@ -1317,21 +1172,14 @@ export type UpdateFileRequestSubmissionMutation = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
       extensions?:  {
         __typename: "ModelExtensionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     artist?: string | null,
     name?: string | null,
@@ -1343,9 +1191,6 @@ export type UpdateFileRequestSubmissionMutation = {
     workshopId?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1373,7 +1218,6 @@ export type DeleteFileRequestSubmissionMutation = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       workshop?:  {
         __typename: "Workshop",
@@ -1383,21 +1227,14 @@ export type DeleteFileRequestSubmissionMutation = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
       extensions?:  {
         __typename: "ModelExtensionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     artist?: string | null,
     name?: string | null,
@@ -1409,9 +1246,6 @@ export type DeleteFileRequestSubmissionMutation = {
     workshopId?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1434,25 +1268,19 @@ export type CreateMembershipMutation = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     profile?:  {
       __typename: "Profile",
@@ -1465,18 +1293,13 @@ export type CreateMembershipMutation = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     mailchimp?:  {
       __typename: "MailchimpUserInfo",
@@ -1508,18 +1331,11 @@ export type CreateMembershipMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1542,25 +1358,19 @@ export type UpdateMembershipMutation = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     profile?:  {
       __typename: "Profile",
@@ -1573,18 +1383,13 @@ export type UpdateMembershipMutation = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     mailchimp?:  {
       __typename: "MailchimpUserInfo",
@@ -1616,18 +1421,11 @@ export type UpdateMembershipMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1650,25 +1448,19 @@ export type DeleteMembershipMutation = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     profile?:  {
       __typename: "Profile",
@@ -1681,18 +1473,13 @@ export type DeleteMembershipMutation = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     mailchimp?:  {
       __typename: "MailchimpUserInfo",
@@ -1724,18 +1511,11 @@ export type DeleteMembershipMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1761,12 +1541,8 @@ export type CreateWorkshopMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -1784,12 +1560,8 @@ export type CreateWorkshopMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     status?: string | null,
     passes?: number | null,
@@ -1813,18 +1585,11 @@ export type CreateWorkshopMutation = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1850,12 +1615,8 @@ export type UpdateWorkshopMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -1873,12 +1634,8 @@ export type UpdateWorkshopMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     status?: string | null,
     passes?: number | null,
@@ -1902,18 +1659,11 @@ export type UpdateWorkshopMutation = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1939,12 +1689,8 @@ export type DeleteWorkshopMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -1962,12 +1708,8 @@ export type DeleteWorkshopMutation = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     status?: string | null,
     passes?: number | null,
@@ -1991,18 +1733,11 @@ export type DeleteWorkshopMutation = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2030,12 +1765,8 @@ export type CreateProfileMutation = {
         profileID: string,
         email: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     memberships?:  {
       __typename: "ModelMembershipConnection",
@@ -2047,18 +1778,11 @@ export type CreateProfileMutation = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2086,12 +1810,8 @@ export type UpdateProfileMutation = {
         profileID: string,
         email: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     memberships?:  {
       __typename: "ModelMembershipConnection",
@@ -2103,18 +1823,11 @@ export type UpdateProfileMutation = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2142,12 +1855,8 @@ export type DeleteProfileMutation = {
         profileID: string,
         email: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     memberships?:  {
       __typename: "ModelMembershipConnection",
@@ -2159,18 +1868,11 @@ export type DeleteProfileMutation = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2197,23 +1899,15 @@ export type GetAPIKeyQuery = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2243,58 +1937,10 @@ export type ListAPIKeysQuery = {
         sub?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncAPIKeysQueryVariables = {
-  filter?: ModelAPIKeyFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncAPIKeysQuery = {
-  syncAPIKeys?:  {
-    __typename: "ModelAPIKeyConnection",
-    items:  Array< {
-      __typename: "APIKey",
-      id: string,
-      keyName: string,
-      createdAt?: string | null,
-      profileID: string,
-      email: string,
-      profile?:  {
-        __typename: "Profile",
-        email: string,
-        id: string,
-        name?: string | null,
-        avatar?: string | null,
-        bio?: string | null,
-        sub?: string | null,
-        createdAt: string,
-        updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-      } | null,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2310,9 +1956,6 @@ export type GetExtensionQuery = {
     assignmentId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2332,38 +1975,8 @@ export type ListExtensionsQuery = {
       assignmentId: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncExtensionsQueryVariables = {
-  filter?: ModelExtensionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncExtensionsQuery = {
-  syncExtensions?:  {
-    __typename: "ModelExtensionConnection",
-    items:  Array< {
-      __typename: "Extension",
-      id: string,
-      expiration: string,
-      assignmentId: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2385,12 +1998,8 @@ export type ExtensionsByFileRequestIdQuery = {
       assignmentId: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2433,12 +2042,8 @@ export type GetFileRequestQuery = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     workshop?:  {
       __typename: "Workshop",
@@ -2447,25 +2052,19 @@ export type GetFileRequestQuery = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
     extensions?:  {
@@ -2477,18 +2076,11 @@ export type GetFileRequestQuery = {
         assignmentId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2515,7 +2107,6 @@ export type ListFileRequestsQuery = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       workshop?:  {
         __typename: "Workshop",
@@ -2525,79 +2116,16 @@ export type ListFileRequestsQuery = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
       extensions?:  {
         __typename: "ModelExtensionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncFileRequestsQueryVariables = {
-  filter?: ModelFileRequestFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncFileRequestsQuery = {
-  syncFileRequests?:  {
-    __typename: "ModelFileRequestConnection",
-    items:  Array< {
-      __typename: "FileRequest",
-      id: string,
-      expiration: string,
-      title?: string | null,
-      details?: string | null,
-      required?: boolean | null,
-      playlistArtwork?:  {
-        __typename: "Artwork",
-        id: string,
-      } | null,
-      submissions?:  {
-        __typename: "ModelFileRequestSubmissionConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      workshop?:  {
-        __typename: "Workshop",
-        id: string,
-        name?: string | null,
-        status?: string | null,
-        passes?: number | null,
-        createdAt: string,
-        updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-      } | null,
-      workshopId?: string | null,
-      extensions?:  {
-        __typename: "ModelExtensionConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2626,7 +2154,6 @@ export type FileRequestsByWorkshopIdQuery = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       workshop?:  {
         __typename: "Workshop",
@@ -2636,24 +2163,16 @@ export type FileRequestsByWorkshopIdQuery = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
       extensions?:  {
         __typename: "ModelExtensionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2680,7 +2199,6 @@ export type GetFileRequestSubmissionQuery = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       workshop?:  {
         __typename: "Workshop",
@@ -2690,21 +2208,14 @@ export type GetFileRequestSubmissionQuery = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
       extensions?:  {
         __typename: "ModelExtensionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     artist?: string | null,
     name?: string | null,
@@ -2716,9 +2227,6 @@ export type GetFileRequestSubmissionQuery = {
     workshopId?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -2745,9 +2253,6 @@ export type ListFileRequestSubmissionsQuery = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       artist?: string | null,
       name?: string | null,
@@ -2759,59 +2264,8 @@ export type ListFileRequestSubmissionsQuery = {
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncFileRequestSubmissionsQueryVariables = {
-  filter?: ModelFileRequestSubmissionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncFileRequestSubmissionsQuery = {
-  syncFileRequestSubmissions?:  {
-    __typename: "ModelFileRequestSubmissionConnection",
-    items:  Array< {
-      __typename: "FileRequestSubmission",
-      id: string,
-      fileRequestId: string,
-      fileRequest?:  {
-        __typename: "FileRequest",
-        id: string,
-        expiration: string,
-        title?: string | null,
-        details?: string | null,
-        required?: boolean | null,
-        workshopId?: string | null,
-        createdAt: string,
-        updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-      } | null,
-      artist?: string | null,
-      name?: string | null,
-      email?: string | null,
-      fileId?: string | null,
-      fileExtension?: string | null,
-      rating?: number | null,
-      comments?: string | null,
-      workshopId?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2840,9 +2294,6 @@ export type SubmissionsByFileRequestIdQuery = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       artist?: string | null,
       name?: string | null,
@@ -2854,12 +2305,8 @@ export type SubmissionsByFileRequestIdQuery = {
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2888,9 +2335,6 @@ export type SubmissionsByEmailQuery = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       artist?: string | null,
       name?: string | null,
@@ -2902,12 +2346,8 @@ export type SubmissionsByEmailQuery = {
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2936,9 +2376,6 @@ export type SubmissionsByWorkshopIdQuery = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       artist?: string | null,
       name?: string | null,
@@ -2950,12 +2387,8 @@ export type SubmissionsByWorkshopIdQuery = {
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -2977,25 +2410,19 @@ export type GetMembershipQuery = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     profile?:  {
       __typename: "Profile",
@@ -3008,18 +2435,13 @@ export type GetMembershipQuery = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     mailchimp?:  {
       __typename: "MailchimpUserInfo",
@@ -3051,18 +2473,11 @@ export type GetMembershipQuery = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3089,9 +2504,6 @@ export type ListMembershipsQuery = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       profile?:  {
         __typename: "Profile",
@@ -3103,9 +2515,6 @@ export type ListMembershipsQuery = {
         sub?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       mailchimp?:  {
         __typename: "MailchimpUserInfo",
@@ -3119,83 +2528,11 @@ export type ListMembershipsQuery = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncMembershipsQueryVariables = {
-  filter?: ModelMembershipFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncMembershipsQuery = {
-  syncMemberships?:  {
-    __typename: "ModelMembershipConnection",
-    items:  Array< {
-      __typename: "Membership",
-      id: string,
-      workshopId: string,
-      email: string,
-      status?: string | null,
-      workshop?:  {
-        __typename: "Workshop",
-        id: string,
-        name?: string | null,
-        status?: string | null,
-        passes?: number | null,
-        createdAt: string,
-        updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-      } | null,
-      profile?:  {
-        __typename: "Profile",
-        email: string,
-        id: string,
-        name?: string | null,
-        avatar?: string | null,
-        bio?: string | null,
-        sub?: string | null,
-        createdAt: string,
-        updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-      } | null,
-      mailchimp?:  {
-        __typename: "MailchimpUserInfo",
-        id?: string | null,
-        emailAddress?: string | null,
-        status?: string | null,
-        fullName?: string | null,
-        uniqueEmailId?: string | null,
-        contactId?: string | null,
-      } | null,
-      submissions?:  {
-        __typename: "ModelFileRequestSubmissionConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -3224,9 +2561,6 @@ export type MembershipsByWorkshopIdQuery = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       profile?:  {
         __typename: "Profile",
@@ -3238,9 +2572,6 @@ export type MembershipsByWorkshopIdQuery = {
         sub?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       mailchimp?:  {
         __typename: "MailchimpUserInfo",
@@ -3254,16 +2585,11 @@ export type MembershipsByWorkshopIdQuery = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -3292,9 +2618,6 @@ export type MembershipsByEmailQuery = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       profile?:  {
         __typename: "Profile",
@@ -3306,9 +2629,6 @@ export type MembershipsByEmailQuery = {
         sub?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       mailchimp?:  {
         __typename: "MailchimpUserInfo",
@@ -3322,16 +2642,11 @@ export type MembershipsByEmailQuery = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -3356,12 +2671,8 @@ export type GetWorkshopQuery = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -3379,12 +2690,8 @@ export type GetWorkshopQuery = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     status?: string | null,
     passes?: number | null,
@@ -3408,18 +2715,11 @@ export type GetWorkshopQuery = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3439,70 +2739,21 @@ export type ListWorkshopsQuery = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncWorkshopsQueryVariables = {
-  filter?: ModelWorkshopFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncWorkshopsQuery = {
-  syncWorkshops?:  {
-    __typename: "ModelWorkshopConnection",
-    items:  Array< {
-      __typename: "Workshop",
-      id: string,
-      name?: string | null,
-      fileRequests?:  {
-        __typename: "ModelFileRequestConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      submissions?:  {
-        __typename: "ModelFileRequestSubmissionConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      status?: string | null,
-      passes?: number | null,
-      memberships?:  {
-        __typename: "ModelMembershipConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -3529,12 +2780,8 @@ export type GetProfileQuery = {
         profileID: string,
         email: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     memberships?:  {
       __typename: "ModelMembershipConnection",
@@ -3546,18 +2793,11 @@ export type GetProfileQuery = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3583,60 +2823,15 @@ export type ListProfilesQuery = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncProfilesQueryVariables = {
-  filter?: ModelProfileFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncProfilesQuery = {
-  syncProfiles?:  {
-    __typename: "ModelProfileConnection",
-    items:  Array< {
-      __typename: "Profile",
-      email: string,
-      id: string,
-      name?: string | null,
-      avatar?: string | null,
-      bio?: string | null,
-      sub?: string | null,
-      apiKeys?:  {
-        __typename: "ModelAPIKeyConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      memberships?:  {
-        __typename: "ModelMembershipConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -3659,23 +2854,15 @@ export type OnCreateAPIKeySubscription = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3698,23 +2885,15 @@ export type OnUpdateAPIKeySubscription = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3737,23 +2916,15 @@ export type OnDeleteAPIKeySubscription = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3765,9 +2936,6 @@ export type OnCreateExtensionSubscription = {
     assignmentId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3779,9 +2947,6 @@ export type OnUpdateExtensionSubscription = {
     assignmentId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3793,9 +2958,6 @@ export type OnDeleteExtensionSubscription = {
     assignmentId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3834,12 +2996,8 @@ export type OnCreateFileRequestSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     workshop?:  {
       __typename: "Workshop",
@@ -3848,25 +3006,19 @@ export type OnCreateFileRequestSubscription = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
     extensions?:  {
@@ -3878,18 +3030,11 @@ export type OnCreateFileRequestSubscription = {
         assignmentId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -3928,12 +3073,8 @@ export type OnUpdateFileRequestSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     workshop?:  {
       __typename: "Workshop",
@@ -3942,25 +3083,19 @@ export type OnUpdateFileRequestSubscription = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
     extensions?:  {
@@ -3972,18 +3107,11 @@ export type OnUpdateFileRequestSubscription = {
         assignmentId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4022,12 +3150,8 @@ export type OnDeleteFileRequestSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     workshop?:  {
       __typename: "Workshop",
@@ -4036,25 +3160,19 @@ export type OnDeleteFileRequestSubscription = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     workshopId?: string | null,
     extensions?:  {
@@ -4066,18 +3184,11 @@ export type OnDeleteFileRequestSubscription = {
         assignmentId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4100,7 +3211,6 @@ export type OnCreateFileRequestSubmissionSubscription = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       workshop?:  {
         __typename: "Workshop",
@@ -4110,21 +3220,14 @@ export type OnCreateFileRequestSubmissionSubscription = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
       extensions?:  {
         __typename: "ModelExtensionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     artist?: string | null,
     name?: string | null,
@@ -4136,9 +3239,6 @@ export type OnCreateFileRequestSubmissionSubscription = {
     workshopId?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4161,7 +3261,6 @@ export type OnUpdateFileRequestSubmissionSubscription = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       workshop?:  {
         __typename: "Workshop",
@@ -4171,21 +3270,14 @@ export type OnUpdateFileRequestSubmissionSubscription = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
       extensions?:  {
         __typename: "ModelExtensionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     artist?: string | null,
     name?: string | null,
@@ -4197,9 +3289,6 @@ export type OnUpdateFileRequestSubmissionSubscription = {
     workshopId?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4222,7 +3311,6 @@ export type OnDeleteFileRequestSubmissionSubscription = {
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       workshop?:  {
         __typename: "Workshop",
@@ -4232,21 +3320,14 @@ export type OnDeleteFileRequestSubmissionSubscription = {
         passes?: number | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null,
       workshopId?: string | null,
       extensions?:  {
         __typename: "ModelExtensionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     artist?: string | null,
     name?: string | null,
@@ -4258,9 +3339,6 @@ export type OnDeleteFileRequestSubmissionSubscription = {
     workshopId?: string | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4278,25 +3356,19 @@ export type OnCreateMembershipSubscription = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     profile?:  {
       __typename: "Profile",
@@ -4309,18 +3381,13 @@ export type OnCreateMembershipSubscription = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     mailchimp?:  {
       __typename: "MailchimpUserInfo",
@@ -4352,18 +3419,11 @@ export type OnCreateMembershipSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4381,25 +3441,19 @@ export type OnUpdateMembershipSubscription = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     profile?:  {
       __typename: "Profile",
@@ -4412,18 +3466,13 @@ export type OnUpdateMembershipSubscription = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     mailchimp?:  {
       __typename: "MailchimpUserInfo",
@@ -4455,18 +3504,11 @@ export type OnUpdateMembershipSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4484,25 +3526,19 @@ export type OnDeleteMembershipSubscription = {
       fileRequests?:  {
         __typename: "ModelFileRequestConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       status?: string | null,
       passes?: number | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     profile?:  {
       __typename: "Profile",
@@ -4515,18 +3551,13 @@ export type OnDeleteMembershipSubscription = {
       apiKeys?:  {
         __typename: "ModelAPIKeyConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       memberships?:  {
         __typename: "ModelMembershipConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null,
     mailchimp?:  {
       __typename: "MailchimpUserInfo",
@@ -4558,18 +3589,11 @@ export type OnDeleteMembershipSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4590,12 +3614,8 @@ export type OnCreateWorkshopSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -4613,12 +3633,8 @@ export type OnCreateWorkshopSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     status?: string | null,
     passes?: number | null,
@@ -4642,18 +3658,11 @@ export type OnCreateWorkshopSubscription = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4674,12 +3683,8 @@ export type OnUpdateWorkshopSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -4697,12 +3702,8 @@ export type OnUpdateWorkshopSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     status?: string | null,
     passes?: number | null,
@@ -4726,18 +3727,11 @@ export type OnUpdateWorkshopSubscription = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4758,12 +3752,8 @@ export type OnDeleteWorkshopSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -4781,12 +3771,8 @@ export type OnDeleteWorkshopSubscription = {
         workshopId?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     status?: string | null,
     passes?: number | null,
@@ -4810,18 +3796,11 @@ export type OnDeleteWorkshopSubscription = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4844,12 +3823,8 @@ export type OnCreateProfileSubscription = {
         profileID: string,
         email: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     memberships?:  {
       __typename: "ModelMembershipConnection",
@@ -4861,18 +3836,11 @@ export type OnCreateProfileSubscription = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4895,12 +3863,8 @@ export type OnUpdateProfileSubscription = {
         profileID: string,
         email: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     memberships?:  {
       __typename: "ModelMembershipConnection",
@@ -4912,18 +3876,11 @@ export type OnUpdateProfileSubscription = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -4946,12 +3903,8 @@ export type OnDeleteProfileSubscription = {
         profileID: string,
         email: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     memberships?:  {
       __typename: "ModelMembershipConnection",
@@ -4963,17 +3916,10 @@ export type OnDeleteProfileSubscription = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };

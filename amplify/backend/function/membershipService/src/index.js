@@ -86,8 +86,6 @@ query GetWorkshop($id: ID!) {
               name
             }
             }
-            _version
-            _deleted
         }
       },
     }
@@ -121,7 +119,7 @@ mutation CreateMembership($workshopId: ID!, $emailAddress:String!, $status: Stri
 const updateMembership = /* GraphQL */ gql`
 mutation UpdateMembership($membershipId: ID!, $status: String, $version: Int, $contactId: String, $emailAddress: String, $fullName: String, $mailchimpId: String, $mailchimpStatus: String, $uniqueEmailId: String, $tags: [MailchimpTagInput]) {
   updateMembership(
-    input: {id: $membershipId, status: $status, _version: $version, mailchimp: {contactId: $contactId, emailAddress: $emailAddress, fullName: $fullName, id: $mailchimpId, status: $mailchimpStatus, uniqueEmailId: $uniqueEmailId, tags: $tags}}
+    input: {id: $membershipId, status: $status, mailchimp: {contactId: $contactId, emailAddress: $emailAddress, fullName: $fullName, id: $mailchimpId, status: $mailchimpStatus, uniqueEmailId: $uniqueEmailId, tags: $tags}}
   ) {
     id
     status
@@ -274,7 +272,7 @@ exports.handler = async (event) => {
 
             for await (const {id: mailchimpId, tags: mailchimpTags, email_address: emailAddress, unique_email_id: uniqueEmailId, contact_id: contactId, full_name: fullName, status: mailchimpStatus} of mailchimpMembers) {
 
-                    const member = getWorkshopResult.data.getWorkshop.memberships.items.find(item => item.email === emailAddress && !item._deleted)
+                    const member = getWorkshopResult.data.getWorkshop.memberships.items.find(item => item.email === emailAddress)
                     console.log(apiKeyName)
 
                     const baseMembershipVariables = {                       
@@ -320,8 +318,7 @@ exports.handler = async (event) => {
                         // update membership
                         const updateMembershipVariables = {
                             ...baseMembershipVariables,
-                            membershipId: member.id,
-                            version: member._version
+                            membershipId: member.id
                         }
 
                         const updateMembershipResult = await appSyncClient.mutate({mutation: updateMembership, variables: updateMembershipVariables})

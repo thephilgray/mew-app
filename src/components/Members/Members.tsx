@@ -39,12 +39,8 @@ const GET_WORKSHOP = gql`
                     workshopId
                     createdAt
                     updatedAt
-                    _version
-                    _deleted
-                    _lastChangedAt
                 }
                 nextToken
-                startedAt
             }
             submissions(limit: 1000) {
                 items {
@@ -60,12 +56,8 @@ const GET_WORKSHOP = gql`
                     workshopId
                     createdAt
                     updatedAt
-                    _version
-                    _deleted
-                    _lastChangedAt
                 }
                 nextToken
-                startedAt
             }
             status
             passes
@@ -106,16 +98,11 @@ const GET_WORKSHOP = gql`
                                 required
                                 expiration
                                 id
-                                _deleted
                             }
                         }
                     }
-                    _deleted
                 }
             }
-            _version
-            _deleted
-            _lastChangedAt
         }
     }
 `
@@ -176,11 +163,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             },
         })
     }
-
-    const mappedArray = data.getWorkshop.fileRequests.items
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        .filter((item) => !item._deleted)
+    const mappedArray = data.getWorkshop?.fileRequests?.items
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         .map(({ id, required, expiration }) => ({
@@ -224,33 +207,28 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         }
     })
 
-    const userRowsByMembership = data?.getWorkshop?.memberships?.items
-        .filter((member) => !member._deleted)
-        .map((member) => {
-            const requiredItems = uniqBy(member.submissions.items, 'fileRequestId').filter(
-                (item) =>
-                    !item?.fileRequest?._deleted &&
-                    item?.fileRequest?.required &&
-                    item.fileRequest?.expiration &&
-                    isExpired(item.fileRequest.expiration),
-            )
+    const userRowsByMembership = data?.getWorkshop?.memberships?.items.map((member) => {
+        const requiredItems = uniqBy(member.submissions.items, 'fileRequestId').filter(
+            (item) =>
+                item?.fileRequest?.required && item.fileRequest?.expiration && isExpired(item.fileRequest.expiration),
+        )
 
-            const required = requiredItems.length
+        const required = requiredItems.length
 
-            const passes = workshopPasses - (expiredAndDueAssignments - required)
+        const passes = workshopPasses - (expiredAndDueAssignments - required)
 
-            return {
-                id: member.id,
-                email: member.email,
-                status: member?.status,
-                profileEnabled: !!member.profile,
-                mailchimpSubscribed: !!(member.mailchimp && member.mailchimp.status === 'subscribed'),
-                submissions: member.submissions.items.length,
-                required,
-                passes,
-                loginEnabled: !!member?.profile?.sub,
-            }
-        })
+        return {
+            id: member.id,
+            email: member.email,
+            status: member?.status,
+            profileEnabled: !!member.profile,
+            mailchimpSubscribed: !!(member.mailchimp && member.mailchimp.status === 'subscribed'),
+            submissions: member.submissions.items.length,
+            required,
+            passes,
+            loginEnabled: !!member?.profile?.sub,
+        }
+    })
 
     const userRows = data?.getWorkshop?.features?.mailchimp?.enabled ? userRowsByMembership : userRowsBySubmissions
 
