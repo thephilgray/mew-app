@@ -223,7 +223,7 @@ const NewPublicSubmission: React.FC<
         const fileId = uuidv4()
         const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
-        const emails = email.split(',').map((email) => email.trim())
+        const emails = email.split(',').map((email) => email.toLowerCase().trim())
         const fileExtension = upload?.name.split('.').pop()
 
         try {
