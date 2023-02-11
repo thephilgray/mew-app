@@ -274,7 +274,7 @@ exports.handler = async (event) => {
 
             for await (const {id: mailchimpId, tags: mailchimpTags, email_address: emailAddress, unique_email_id: uniqueEmailId, contact_id: contactId, full_name: fullName, status: mailchimpStatus} of mailchimpMembers) {
 
-                    const member = getWorkshopResult.data.getWorkshop.memberships.items.find(item => item.email === emailAddress)
+                    const member = getWorkshopResult.data.getWorkshop.memberships.items.find(item => item.email === emailAddress && !item._deleted)
                     console.log(apiKeyName)
 
                     const baseMembershipVariables = {                       
@@ -290,7 +290,7 @@ exports.handler = async (event) => {
                         tags: mailchimpTags
                     }
 
-                    if(!member || member._deleted){
+                    if(!member){
                         // if not a member, 
                         // maybe ensure auth signup first
                         const ensureProfileResult = await ensureProfile({email: emailAddress, name: fullName});
