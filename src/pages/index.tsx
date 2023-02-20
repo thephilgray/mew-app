@@ -24,12 +24,7 @@ const IndexPage: React.FC = (): JSX.Element => {
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Button component={Link} variant="contained" color="primary" to="/signup" disabled>
-                                Signup
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button component={Link} variant="contained" color="primary" to="/signin">
+                            <Button component={Link} variant="contained" color="primary" to="/app">
                                 Sign in
                             </Button>
                         </Grid>

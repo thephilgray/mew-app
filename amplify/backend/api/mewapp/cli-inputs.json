@@ -9,7 +9,8 @@
     "additionalAuthTypes": [
       {
         "mode": "API_KEY",
-        "expirationTime": 180,
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2024-02-16T13:42:34.489Z",
         "keyDescription": "for public queries"
       },
       {
@@ -17,7 +18,6 @@
       }
     ],
     "conflictResolution": {},
-    "apiName": "mewapp",
-    "gqlSchemaPath": "/Users/phillipgray/Code/mew-app-2/amplify/backend/api/mewapp/schema.graphql"
+    "apiName": "mewapp"
   }
 }

@@ -41,9 +41,9 @@ import Error from '../Error'
 import Menu from '../Menu'
 import { processDownload, runProcessAudioTask } from '../../graphql/mutations'
 import { ROUTE_NAMES } from '../../pages/app'
-import { getCurrentUser } from '../../auth/utils'
 import { getFileRequest } from '../../graphql/queries'
 import ExtensionsDialog from './ExtensionsDialog'
+import { useUser } from '../../auth/hooks'
 
 const getFileRequestWithNoLimit = getFileRequest.replace('submissions {', 'submissions(limit: 1000) {')
 
@@ -56,6 +56,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     const [downloadLinkOptions, setDownloadLinkOptions] = useState<{ [key: string]: boolean }>({
         stripMetadataForSoundCloud: true,
     })
+    const user = useUser()
 
     const dialogConstants = {
         CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link',
@@ -188,7 +189,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
     const emailDownloadLink = async () => {
         try {
-            const email = getCurrentUser()?.email
+            const email = user?.email
             await API.graphql({
                 ...graphqlOperation(runProcessAudioTask, {
                     assignmentId,
@@ -279,8 +280,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
                     <DialogContent dividers>
                         <Typography>
-                            This will process and zip all tracks for this submission and send you (
-                            {getCurrentUser()?.email || ''}) a temporary download link.
+                            This will process and zip all tracks for this submission and send you ({user?.email || ''})
+                            a temporary download link.
                         </Typography>
                     </DialogContent>
                     <DialogContent dividers>

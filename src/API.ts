@@ -628,6 +628,126 @@ export type ModelProfileConnection = {
   nextToken?: string | null,
 };
 
+export type ModelSubscriptionAPIKeyFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  keyName?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  profileID?: ModelSubscriptionIDInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAPIKeyFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAPIKeyFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionExtensionFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  expiration?: ModelSubscriptionStringInput | null,
+  assignmentId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionExtensionFilterInput | null > | null,
+  or?: Array< ModelSubscriptionExtensionFilterInput | null > | null,
+};
+
+export type ModelSubscriptionFileRequestFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  expiration?: ModelSubscriptionStringInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  details?: ModelSubscriptionStringInput | null,
+  required?: ModelSubscriptionBooleanInput | null,
+  workshopId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionFileRequestFilterInput | null > | null,
+  or?: Array< ModelSubscriptionFileRequestFilterInput | null > | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+};
+
+export type ModelSubscriptionFileRequestSubmissionFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  fileRequestId?: ModelSubscriptionIDInput | null,
+  artist?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  fileId?: ModelSubscriptionStringInput | null,
+  fileExtension?: ModelSubscriptionStringInput | null,
+  rating?: ModelSubscriptionIntInput | null,
+  comments?: ModelSubscriptionStringInput | null,
+  workshopId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionFileRequestSubmissionFilterInput | null > | null,
+  or?: Array< ModelSubscriptionFileRequestSubmissionFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionMembershipFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  workshopId?: ModelSubscriptionIDInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMembershipFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMembershipFilterInput | null > | null,
+};
+
+export type ModelSubscriptionWorkshopFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  passes?: ModelSubscriptionIntInput | null,
+  and?: Array< ModelSubscriptionWorkshopFilterInput | null > | null,
+  or?: Array< ModelSubscriptionWorkshopFilterInput | null > | null,
+};
+
+export type ModelSubscriptionProfileFilterInput = {
+  email?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  avatar?: ModelSubscriptionStringInput | null,
+  bio?: ModelSubscriptionStringInput | null,
+  sub?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionProfileFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProfileFilterInput | null > | null,
+};
+
 export type ProcessDownloadMutationVariables = {
   assignmentId: string,
   songData?: Array< SongData | null > | null,
@@ -2835,6 +2955,10 @@ export type ListProfilesQuery = {
   } | null,
 };
 
+export type OnCreateAPIKeySubscriptionVariables = {
+  filter?: ModelSubscriptionAPIKeyFilterInput | null,
+};
+
 export type OnCreateAPIKeySubscription = {
   onCreateAPIKey?:  {
     __typename: "APIKey",
@@ -2864,6 +2988,10 @@ export type OnCreateAPIKeySubscription = {
     } | null,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateAPIKeySubscriptionVariables = {
+  filter?: ModelSubscriptionAPIKeyFilterInput | null,
 };
 
 export type OnUpdateAPIKeySubscription = {
@@ -2897,6 +3025,10 @@ export type OnUpdateAPIKeySubscription = {
   } | null,
 };
 
+export type OnDeleteAPIKeySubscriptionVariables = {
+  filter?: ModelSubscriptionAPIKeyFilterInput | null,
+};
+
 export type OnDeleteAPIKeySubscription = {
   onDeleteAPIKey?:  {
     __typename: "APIKey",
@@ -2928,6 +3060,10 @@ export type OnDeleteAPIKeySubscription = {
   } | null,
 };
 
+export type OnCreateExtensionSubscriptionVariables = {
+  filter?: ModelSubscriptionExtensionFilterInput | null,
+};
+
 export type OnCreateExtensionSubscription = {
   onCreateExtension?:  {
     __typename: "Extension",
@@ -2937,6 +3073,10 @@ export type OnCreateExtensionSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateExtensionSubscriptionVariables = {
+  filter?: ModelSubscriptionExtensionFilterInput | null,
 };
 
 export type OnUpdateExtensionSubscription = {
@@ -2950,6 +3090,10 @@ export type OnUpdateExtensionSubscription = {
   } | null,
 };
 
+export type OnDeleteExtensionSubscriptionVariables = {
+  filter?: ModelSubscriptionExtensionFilterInput | null,
+};
+
 export type OnDeleteExtensionSubscription = {
   onDeleteExtension?:  {
     __typename: "Extension",
@@ -2959,6 +3103,10 @@ export type OnDeleteExtensionSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateFileRequestSubscriptionVariables = {
+  filter?: ModelSubscriptionFileRequestFilterInput | null,
 };
 
 export type OnCreateFileRequestSubscription = {
@@ -3038,6 +3186,10 @@ export type OnCreateFileRequestSubscription = {
   } | null,
 };
 
+export type OnUpdateFileRequestSubscriptionVariables = {
+  filter?: ModelSubscriptionFileRequestFilterInput | null,
+};
+
 export type OnUpdateFileRequestSubscription = {
   onUpdateFileRequest?:  {
     __typename: "FileRequest",
@@ -3113,6 +3265,10 @@ export type OnUpdateFileRequestSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteFileRequestSubscriptionVariables = {
+  filter?: ModelSubscriptionFileRequestFilterInput | null,
 };
 
 export type OnDeleteFileRequestSubscription = {
@@ -3192,6 +3348,10 @@ export type OnDeleteFileRequestSubscription = {
   } | null,
 };
 
+export type OnCreateFileRequestSubmissionSubscriptionVariables = {
+  filter?: ModelSubscriptionFileRequestSubmissionFilterInput | null,
+};
+
 export type OnCreateFileRequestSubmissionSubscription = {
   onCreateFileRequestSubmission?:  {
     __typename: "FileRequestSubmission",
@@ -3240,6 +3400,10 @@ export type OnCreateFileRequestSubmissionSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateFileRequestSubmissionSubscriptionVariables = {
+  filter?: ModelSubscriptionFileRequestSubmissionFilterInput | null,
 };
 
 export type OnUpdateFileRequestSubmissionSubscription = {
@@ -3292,6 +3456,10 @@ export type OnUpdateFileRequestSubmissionSubscription = {
   } | null,
 };
 
+export type OnDeleteFileRequestSubmissionSubscriptionVariables = {
+  filter?: ModelSubscriptionFileRequestSubmissionFilterInput | null,
+};
+
 export type OnDeleteFileRequestSubmissionSubscription = {
   onDeleteFileRequestSubmission?:  {
     __typename: "FileRequestSubmission",
@@ -3340,6 +3508,10 @@ export type OnDeleteFileRequestSubmissionSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateMembershipSubscriptionVariables = {
+  filter?: ModelSubscriptionMembershipFilterInput | null,
 };
 
 export type OnCreateMembershipSubscription = {
@@ -3427,6 +3599,10 @@ export type OnCreateMembershipSubscription = {
   } | null,
 };
 
+export type OnUpdateMembershipSubscriptionVariables = {
+  filter?: ModelSubscriptionMembershipFilterInput | null,
+};
+
 export type OnUpdateMembershipSubscription = {
   onUpdateMembership?:  {
     __typename: "Membership",
@@ -3510,6 +3686,10 @@ export type OnUpdateMembershipSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteMembershipSubscriptionVariables = {
+  filter?: ModelSubscriptionMembershipFilterInput | null,
 };
 
 export type OnDeleteMembershipSubscription = {
@@ -3597,6 +3777,10 @@ export type OnDeleteMembershipSubscription = {
   } | null,
 };
 
+export type OnCreateWorkshopSubscriptionVariables = {
+  filter?: ModelSubscriptionWorkshopFilterInput | null,
+};
+
 export type OnCreateWorkshopSubscription = {
   onCreateWorkshop?:  {
     __typename: "Workshop",
@@ -3664,6 +3848,10 @@ export type OnCreateWorkshopSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateWorkshopSubscriptionVariables = {
+  filter?: ModelSubscriptionWorkshopFilterInput | null,
 };
 
 export type OnUpdateWorkshopSubscription = {
@@ -3735,6 +3923,10 @@ export type OnUpdateWorkshopSubscription = {
   } | null,
 };
 
+export type OnDeleteWorkshopSubscriptionVariables = {
+  filter?: ModelSubscriptionWorkshopFilterInput | null,
+};
+
 export type OnDeleteWorkshopSubscription = {
   onDeleteWorkshop?:  {
     __typename: "Workshop",
@@ -3804,6 +3996,10 @@ export type OnDeleteWorkshopSubscription = {
   } | null,
 };
 
+export type OnCreateProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionProfileFilterInput | null,
+};
+
 export type OnCreateProfileSubscription = {
   onCreateProfile?:  {
     __typename: "Profile",
@@ -3844,6 +4040,10 @@ export type OnCreateProfileSubscription = {
   } | null,
 };
 
+export type OnUpdateProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionProfileFilterInput | null,
+};
+
 export type OnUpdateProfileSubscription = {
   onUpdateProfile?:  {
     __typename: "Profile",
@@ -3882,6 +4082,10 @@ export type OnUpdateProfileSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionProfileFilterInput | null,
 };
 
 export type OnDeleteProfileSubscription = {

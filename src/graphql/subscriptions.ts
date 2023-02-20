@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateAPIKey = /* GraphQL */ `
-  subscription OnCreateAPIKey {
-    onCreateAPIKey {
+  subscription OnCreateAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
+    onCreateAPIKey(filter: $filter) {
       id
       keyName
       createdAt
@@ -31,8 +31,8 @@ export const onCreateAPIKey = /* GraphQL */ `
   }
 `;
 export const onUpdateAPIKey = /* GraphQL */ `
-  subscription OnUpdateAPIKey {
-    onUpdateAPIKey {
+  subscription OnUpdateAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
+    onUpdateAPIKey(filter: $filter) {
       id
       keyName
       createdAt
@@ -59,8 +59,8 @@ export const onUpdateAPIKey = /* GraphQL */ `
   }
 `;
 export const onDeleteAPIKey = /* GraphQL */ `
-  subscription OnDeleteAPIKey {
-    onDeleteAPIKey {
+  subscription OnDeleteAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
+    onDeleteAPIKey(filter: $filter) {
       id
       keyName
       createdAt
@@ -87,8 +87,10 @@ export const onDeleteAPIKey = /* GraphQL */ `
   }
 `;
 export const onCreateExtension = /* GraphQL */ `
-  subscription OnCreateExtension {
-    onCreateExtension {
+  subscription OnCreateExtension(
+    $filter: ModelSubscriptionExtensionFilterInput
+  ) {
+    onCreateExtension(filter: $filter) {
       id
       expiration
       assignmentId
@@ -98,8 +100,10 @@ export const onCreateExtension = /* GraphQL */ `
   }
 `;
 export const onUpdateExtension = /* GraphQL */ `
-  subscription OnUpdateExtension {
-    onUpdateExtension {
+  subscription OnUpdateExtension(
+    $filter: ModelSubscriptionExtensionFilterInput
+  ) {
+    onUpdateExtension(filter: $filter) {
       id
       expiration
       assignmentId
@@ -109,8 +113,10 @@ export const onUpdateExtension = /* GraphQL */ `
   }
 `;
 export const onDeleteExtension = /* GraphQL */ `
-  subscription OnDeleteExtension {
-    onDeleteExtension {
+  subscription OnDeleteExtension(
+    $filter: ModelSubscriptionExtensionFilterInput
+  ) {
+    onDeleteExtension(filter: $filter) {
       id
       expiration
       assignmentId
@@ -120,8 +126,10 @@ export const onDeleteExtension = /* GraphQL */ `
   }
 `;
 export const onCreateFileRequest = /* GraphQL */ `
-  subscription OnCreateFileRequest {
-    onCreateFileRequest {
+  subscription OnCreateFileRequest(
+    $filter: ModelSubscriptionFileRequestFilterInput
+  ) {
+    onCreateFileRequest(filter: $filter) {
       id
       expiration
       title
@@ -187,8 +195,10 @@ export const onCreateFileRequest = /* GraphQL */ `
   }
 `;
 export const onUpdateFileRequest = /* GraphQL */ `
-  subscription OnUpdateFileRequest {
-    onUpdateFileRequest {
+  subscription OnUpdateFileRequest(
+    $filter: ModelSubscriptionFileRequestFilterInput
+  ) {
+    onUpdateFileRequest(filter: $filter) {
       id
       expiration
       title
@@ -254,8 +264,10 @@ export const onUpdateFileRequest = /* GraphQL */ `
   }
 `;
 export const onDeleteFileRequest = /* GraphQL */ `
-  subscription OnDeleteFileRequest {
-    onDeleteFileRequest {
+  subscription OnDeleteFileRequest(
+    $filter: ModelSubscriptionFileRequestFilterInput
+  ) {
+    onDeleteFileRequest(filter: $filter) {
       id
       expiration
       title
@@ -321,8 +333,10 @@ export const onDeleteFileRequest = /* GraphQL */ `
   }
 `;
 export const onCreateFileRequestSubmission = /* GraphQL */ `
-  subscription OnCreateFileRequestSubmission {
-    onCreateFileRequestSubmission {
+  subscription OnCreateFileRequestSubmission(
+    $filter: ModelSubscriptionFileRequestSubmissionFilterInput
+  ) {
+    onCreateFileRequestSubmission(filter: $filter) {
       id
       fileRequestId
       fileRequest {
@@ -366,8 +380,10 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
   }
 `;
 export const onUpdateFileRequestSubmission = /* GraphQL */ `
-  subscription OnUpdateFileRequestSubmission {
-    onUpdateFileRequestSubmission {
+  subscription OnUpdateFileRequestSubmission(
+    $filter: ModelSubscriptionFileRequestSubmissionFilterInput
+  ) {
+    onUpdateFileRequestSubmission(filter: $filter) {
       id
       fileRequestId
       fileRequest {
@@ -411,8 +427,10 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
   }
 `;
 export const onDeleteFileRequestSubmission = /* GraphQL */ `
-  subscription OnDeleteFileRequestSubmission {
-    onDeleteFileRequestSubmission {
+  subscription OnDeleteFileRequestSubmission(
+    $filter: ModelSubscriptionFileRequestSubmissionFilterInput
+  ) {
+    onDeleteFileRequestSubmission(filter: $filter) {
       id
       fileRequestId
       fileRequest {
@@ -456,8 +474,10 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
   }
 `;
 export const onCreateMembership = /* GraphQL */ `
-  subscription OnCreateMembership {
-    onCreateMembership {
+  subscription OnCreateMembership(
+    $filter: ModelSubscriptionMembershipFilterInput
+  ) {
+    onCreateMembership(filter: $filter) {
       id
       workshopId
       email
@@ -530,8 +550,10 @@ export const onCreateMembership = /* GraphQL */ `
   }
 `;
 export const onUpdateMembership = /* GraphQL */ `
-  subscription OnUpdateMembership {
-    onUpdateMembership {
+  subscription OnUpdateMembership(
+    $filter: ModelSubscriptionMembershipFilterInput
+  ) {
+    onUpdateMembership(filter: $filter) {
       id
       workshopId
       email
@@ -604,8 +626,10 @@ export const onUpdateMembership = /* GraphQL */ `
   }
 `;
 export const onDeleteMembership = /* GraphQL */ `
-  subscription OnDeleteMembership {
-    onDeleteMembership {
+  subscription OnDeleteMembership(
+    $filter: ModelSubscriptionMembershipFilterInput
+  ) {
+    onDeleteMembership(filter: $filter) {
       id
       workshopId
       email
@@ -678,8 +702,8 @@ export const onDeleteMembership = /* GraphQL */ `
   }
 `;
 export const onCreateWorkshop = /* GraphQL */ `
-  subscription OnCreateWorkshop {
-    onCreateWorkshop {
+  subscription OnCreateWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
+    onCreateWorkshop(filter: $filter) {
       id
       name
       fileRequests {
@@ -739,8 +763,8 @@ export const onCreateWorkshop = /* GraphQL */ `
   }
 `;
 export const onUpdateWorkshop = /* GraphQL */ `
-  subscription OnUpdateWorkshop {
-    onUpdateWorkshop {
+  subscription OnUpdateWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
+    onUpdateWorkshop(filter: $filter) {
       id
       name
       fileRequests {
@@ -800,8 +824,8 @@ export const onUpdateWorkshop = /* GraphQL */ `
   }
 `;
 export const onDeleteWorkshop = /* GraphQL */ `
-  subscription OnDeleteWorkshop {
-    onDeleteWorkshop {
+  subscription OnDeleteWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
+    onDeleteWorkshop(filter: $filter) {
       id
       name
       fileRequests {
@@ -861,8 +885,8 @@ export const onDeleteWorkshop = /* GraphQL */ `
   }
 `;
 export const onCreateProfile = /* GraphQL */ `
-  subscription OnCreateProfile {
-    onCreateProfile {
+  subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
+    onCreateProfile(filter: $filter) {
       email
       id
       name
@@ -897,8 +921,8 @@ export const onCreateProfile = /* GraphQL */ `
   }
 `;
 export const onUpdateProfile = /* GraphQL */ `
-  subscription OnUpdateProfile {
-    onUpdateProfile {
+  subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
+    onUpdateProfile(filter: $filter) {
       email
       id
       name
@@ -933,8 +957,8 @@ export const onUpdateProfile = /* GraphQL */ `
   }
 `;
 export const onDeleteProfile = /* GraphQL */ `
-  subscription OnDeleteProfile {
-    onDeleteProfile {
+  subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
+    onDeleteProfile(filter: $filter) {
       email
       id
       name

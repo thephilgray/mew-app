@@ -1,4 +1,3 @@
-
 /* Amplify Params - DO NOT EDIT
 	API_MEWAPP_GRAPHQLAPIENDPOINTOUTPUT
 	API_MEWAPP_GRAPHQLAPIIDOUTPUT
@@ -9,22 +8,97 @@
 	REGION
 Amplify Params - DO NOT EDIT */
 
+const crypto = require('crypto')
 const AWS = require('aws-sdk')
-const mailchimp = require("@mailchimp/mailchimp_marketing");
+const mailchimp = require("@mailchimp/mailchimp_marketing")
 const AWSAppSyncClient = require('aws-appsync').default
 require('cross-fetch/polyfill')
 const GRAPHQL_ENDPOINT = process.env.API_MEWAPP_GRAPHQLAPIENDPOINTOUTPUT
 const gql = require('graphql-tag')
+
+const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
+
+AWS.config.update({
+  region: AWS_REGION,
+  credentials: new AWS.Credentials(
+    process.env.AWS_ACCESS_KEY_ID,
+    process.env.AWS_SECRET_ACCESS_KEY,
+    process.env.AWS_SESSION_TOKEN
+  ),
+});
+
+const credentials = AWS.config.credentials;
+
+const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
+  region: process.env.REGION
+});
+
+const listCognitoUsers = async () => {
+  // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listUsers-property
+  
+  const listUsersParams =  {
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID, /* required */
+    AttributesToGet: [
+      'email',
+      'sub',
+      'name'
+    ],
+    // Filter: 'STRING_VALUE',
+    // Limit: 'NUMBER_VALUE',
+    // PaginationToken: 'STRING_VALUE'
+  };
+  const response = await cognitoidentityserviceprovider.listUsers(listUsersParams).promise();
+  return response.Users;
+}
+
+const signupUser = async ({email, name}) => {
+  
+  var params = {
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID,
+    Username: email, /* required */
+    MessageAction: 'SUPPRESS',
+    UserAttributes: [
+      {
+        Name: 'name',
+        Value: name 
+    },
+     {
+        Name: 'email',
+        Value: email
+    },
+     {
+        Name: 'email_verified',
+        Value: 'true'
+    }
+    ]
+  };
+  const result =  await cognitoidentityserviceprovider.adminCreateUser(params).promise();
+
+  // maybe we need to adminSetUserPassword?
+  return result;
+}
+
+const addUserToGroup = async ({groupName, userName}) => {
+  var params = {
+    GroupName: groupName, /* required */
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID, /* required */
+    Username: userName /* required */
+  };
+  const result = await cognitoidentityserviceprovider.adminAddUserToGroup(params).promise();
+  return result;
+}
+
+
 
 
 const appSyncClient = new AWSAppSyncClient({
     url: GRAPHQL_ENDPOINT,
     region: process.env.REGION,
     auth: {
-        // type: 'AWS_IAM',
-        // credentials,
-        type: 'API_KEY',
-        apiKey: process.env.API_MEWAPP_GRAPHQLAPIKEYOUTPUT,
+        type: 'AWS_IAM',
+        credentials,
+        // type: 'API_KEY',
+        // apiKey: process.env.API_MEWAPP_GRAPHQLAPIKEYOUTPUT,
     },
     disableOffline: true,
 })
@@ -117,7 +191,7 @@ mutation CreateMembership($workshopId: ID!, $emailAddress:String!, $status: Stri
 
 
 const updateMembership = /* GraphQL */ gql`
-mutation UpdateMembership($membershipId: ID!, $status: String, $version: Int, $contactId: String, $emailAddress: String, $fullName: String, $mailchimpId: String, $mailchimpStatus: String, $uniqueEmailId: String, $tags: [MailchimpTagInput]) {
+mutation UpdateMembership($membershipId: ID!, $status: String, $contactId: String, $emailAddress: String, $fullName: String, $mailchimpId: String, $mailchimpStatus: String, $uniqueEmailId: String, $tags: [MailchimpTagInput]) {
   updateMembership(
     input: {id: $membershipId, status: $status, mailchimp: {contactId: $contactId, emailAddress: $emailAddress, fullName: $fullName, id: $mailchimpId, status: $mailchimpStatus, uniqueEmailId: $uniqueEmailId, tags: $tags}}
   ) {
@@ -235,6 +309,50 @@ async function ensureProfile({email, sub, name}){
 }
 
 
+let cognitoUsers
+async function ensureCognitoUser({email, name}){
+  if(!cognitoUsers){
+    try {
+      console.log('getting cognito users')
+      cognitoUsers = await listCognitoUsers()
+      console.log('success: getting cognito users')
+    } catch (error) {
+      console.log('error getting cognito users')
+      console.log(error)
+      return undefined;
+    }
+  }
+
+  let currentCognitoUser = cognitoUsers.find(user => user.Attributes.some(attribute => attribute.Value ===  email))
+
+  if(!currentCognitoUser){
+    try {
+      console.log('attempting to sign up user.')
+      const currentCognitoUserResult = await signupUser({email, name})
+      currentCognitoUser = currentCognitoUserResult.User
+      console.log('success: sign up user.')
+      
+    } catch (error) {
+      console.log('error signing up user')
+      console.log(error);
+      return undefined;
+    }
+    // push into local state
+    cognitoUsers.push(currentCognitoUser)
+  }
+  return currentCognitoUser;
+}
+
+async function setUserPassword({userName}){
+  var params = {
+    Password: crypto.randomBytes(30).toString('hex'), /* required */
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID, /* required */
+    Username: userName, /* required */
+    Permanent: true
+  };
+  await cognitoidentityserviceprovider.adminSetUserPassword(params).promise();
+}
+
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -243,6 +361,7 @@ exports.handler = async (event) => {
     console.log(`EVENT: ${JSON.stringify(event)}`);
 
     const {action, workshopId} = event.arguments;
+
 
     const variables = {
         id: workshopId
@@ -256,6 +375,7 @@ exports.handler = async (event) => {
     let serverPrefix
     let listId
     let mailchimpMembers
+    
 
     if(enableMailchimpIntegration){
         const mailchimpSettings = getWorkshopResult.data.getWorkshop.features.mailchimp;
@@ -268,12 +388,35 @@ exports.handler = async (event) => {
         case 'SYNC_MEMBERS_WITH_MAILCHIMP':
             if(!enableMailchimpIntegration) break;
             mailchimpMembers = await getMailchimpMembers({apiKeyName, serverPrefix, listId})
-            console.log({mailchimpMembers})
 
             for await (const {id: mailchimpId, tags: mailchimpTags, email_address: emailAddress, unique_email_id: uniqueEmailId, contact_id: contactId, full_name: fullName, status: mailchimpStatus} of mailchimpMembers) {
 
                     const member = getWorkshopResult.data.getWorkshop.memberships.items.find(item => item.email === emailAddress)
-                    console.log(apiKeyName)
+                    const status = mailchimpTags.some(item => item.name && item.name.toUpperCase() === 'OUT') ? 'OUT' : 'ACTIVE'
+                    const isActive = status === 'ACTIVE'
+                    console.log({member, status})
+                    let cognitoUser;
+                    
+                    if(isActive){
+                      cognitoUser = await ensureCognitoUser({email:emailAddress, name: fullName })
+                      if(cognitoUser && cognitoUser.UserStatus != 'CONFIRMED'){
+                        console.log('a user exists but is not confirmed.')
+                        console.log({cognitoUser})
+                        try {
+                          await setUserPassword({userName:cognitoUser.Username})
+                        } catch (error) {
+                          console.log('error with setting user password')
+                          console.log(error)
+                        }
+                        try {
+                          await addUserToGroup({groupName: 'member', userName:cognitoUser.Username})
+                        } catch (error) {
+                          console.log('error with adding user to member group')
+                          console.log(error)
+                        }
+                      }
+                      console.log('could not add user member group')
+                    }
 
                     const baseMembershipVariables = {                       
                         contactId,
@@ -284,14 +427,17 @@ exports.handler = async (event) => {
                         mailchimpStatus,
                         uniqueEmailId,
                         // MEW specifically uses mailchimp tags for membership status
-                        status: mailchimpTags.some(item => item.name && item.name.toUpperCase() === 'OUT') ? 'OUT' : 'ACTIVE',
+                        status,
                         tags: mailchimpTags
                     }
+
 
                     if(!member){
                         // if not a member, 
                         // maybe ensure auth signup first
-                        const ensureProfileResult = await ensureProfile({email: emailAddress, name: fullName});
+                        
+                        const ensureProfileResult = await ensureProfile({email: emailAddress, name: fullName, ...cognitoUser && {sub: cognitoUser.Username}});
+
                         console.log({ensureProfileResult});
                         
                         // create membership
@@ -307,10 +453,9 @@ exports.handler = async (event) => {
                     if(member && !member.profile){
                       console.log('ensure profile')
                       // ensure profile
-                      const ensureProfileResult = await ensureProfile({email: emailAddress, name: fullName});
+                      const ensureProfileResult = await ensureProfile({email: emailAddress, name: fullName, ...cognitoUser && {sub: cognitoUser.Username}});
                       console.log({ensureProfileResult});
                   }
-
                     
                     // if a member but mailchimp info not saved && !member.mailchimp
                     // or just update membership

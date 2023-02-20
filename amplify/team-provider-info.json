@@ -24,6 +24,9 @@
         "runProcessAudioTask": {
           "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
           "s3Key": "amplify-builds/runProcessAudioTask-436547654c62375a3735-build.zip"
+        },
+        "mewappacdc5d0eCreateAuthChallenge": {
+          "sesSenderEmail": "mewismusiceveryweek@gmail.com"
         }
       },
       "auth": {
@@ -63,17 +66,40 @@
         },
         "membershipService": {
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
-          "s3Key": "amplify-builds/membershipService-6558506f786874484a72-build.zip"
+          "s3Key": "amplify-builds/membershipService-4b68522f456661747677-build.zip"
+        },
+        "mewappacdc5d0eCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0eCreateAuthChallenge-797a4c4837576f763773-build.zip",
+          "secretsPathAmplifyAppId": "d1yi6qc6rnncji"
+        },
+        "mewappacdc5d0eDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0eDefineAuthChallenge-64613336706238486c59-build.zip"
+        },
+        "mewappacdc5d0ePreSignup": {
+          "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0ePreSignup-4e484f564143384c4c6f-build.zip"
+        },
+        "mewappacdc5d0eVerifyAuthChallengeResponse": {
+          "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0eVerifyAuthChallengeResponse-55616c6f2b6674774955-build.zip"
+        },
+        "AdminQueriesd92d7feb": {
+          "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
+          "s3Key": "amplify-builds/AdminQueriesd92d7feb-784864504e3634723267-build.zip"
         }
       },
       "auth": {
-        "mewappacdc5d0e": {}
+        "mewappacdc5d0e": {},
+        "userPoolGroups": {}
       },
       "storage": {
         "mewapp": {}
       },
       "api": {
-        "mewapp": {}
+        "mewapp": {},
+        "AdminQueries": {}
       }
     }
   }

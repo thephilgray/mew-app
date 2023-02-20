@@ -13,7 +13,7 @@ import { EXTENSIONS_BY_FILETYPE } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
-import { isLoggedIn } from '../../auth/utils'
+import { useUser } from '../../auth/hooks'
 
 const GET_FILE_REQUEST = gql`
     query GetFileRequest($id: ID!) {
@@ -57,7 +57,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         workshopId: string
     } | null>(null)
     const [error, setError] = useState(null)
-    const loggedIn = isLoggedIn()
+    const user = useUser()
+    const loggedIn = !!user
 
     // Authenticated user access
     const { loading: authLoading, error: authError, data: authData } = useQuery(GET_FILE_REQUEST, {
