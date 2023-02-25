@@ -2,16 +2,28 @@
 import * as React from 'react'
 import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
 import { gql, useQuery } from '@apollo/react-hooks'
-import { Add, Check, People, Settings } from '@material-ui/icons'
-import { createStyles, Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
+import { Add, Check, MusicNote, People, PlayArrowTwoTone, Settings } from '@material-ui/icons'
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    createStyles,
+    Grid,
+    IconButton,
+    makeStyles,
+    Typography,
+} from '@material-ui/core'
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
 import format from 'date-fns/format'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
 import { isPast } from 'date-fns/esm'
-import { RoleGuard } from '../../auth/auth.context'
 import { getWorkshop } from '../../graphql/queries'
+import GroupGuard from '../Auth/GroupGuard'
+import { Group } from '../../constants'
+import { compareDesc } from 'date-fns'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -105,12 +117,101 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
             status: !isPast(new Date(item.expiration as string)) ? 'ACTIVE' : 'EXPIRED',
         }),
     )
+
+    const AssignmentList = ({ items }) =>
+        items.map((row) => (
+            <Grid item xs={12} key={row.id}>
+                <Card>
+                    <CardContent>
+                        <Grid container>
+                            <Grid item xs={8}>
+                                <Typography gutterBottom variant="h5" component="h3">
+                                    {row.title}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={4} justify="flex-end" style={{ textAlign: 'right' }}>
+                                Due: {format(new Date(String(row.expiration)), `E, MM/dd/yy hh:mm`)}
+                            </Grid>
+                            <Grid item xs={12}>
+                                <div dangerouslySetInnerHTML={{ __html: row.details }} style={{ width: '100%' }} />
+                            </Grid>
+                        </Grid>
+                    </CardContent>
+                    <CardActions>
+                        {row.status === 'ACTIVE' ? (
+                            <Button
+                                color="secondary"
+                                aria-label="New Submission"
+                                // component={Link}
+                                onClick={() =>
+                                    navigate(ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId: row.id }))
+                                }
+                                startIcon={<Add />}
+                            >
+                                Submit
+                            </Button>
+                        ) : null}
+                        {row.status === 'EXPIRED' ? (
+                            <Button
+                                color="secondary"
+                                aria-label="Playlist"
+                                onClick={() => navigate(ROUTE_NAMES.playlist.getPath({ assignmentId: row.id }))}
+                                startIcon={<MusicNote />}
+                            >
+                                Listen
+                            </Button>
+                        ) : null}
+                    </CardActions>
+                </Card>
+            </Grid>
+        ))
+
+    const upcomingAssignments = rows
+        .filter((row) => row.status === 'ACTIVE')
+        .sort((a, b) => compareDesc(new Date(a.expiration), new Date(b.expiration)))
+    const pastDueAssignments = rows
+        .filter((row) => row.status != 'ACTIVE')
+        .sort((a, b) => compareDesc(new Date(a.expiration), new Date(b.expiration)))
+
+    const assignmentsView = (
+        <>
+            <Grid item xs={12}>
+                <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                        <Typography variant="h5" component="h2">
+                            Upcoming
+                        </Typography>
+                    </Grid>
+                    {upcomingAssignments.length > 0 ? (
+                        <AssignmentList items={upcomingAssignments} />
+                    ) : (
+                        <Grid item xs={12}>
+                            <Typography>There are currently no upcoming assignments.</Typography>
+                        </Grid>
+                    )}
+                </Grid>
+            </Grid>
+            {pastDueAssignments.length > 0 ? (
+                <Grid item xs={12}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Typography variant="h5" component="h2">
+                                Past Due
+                            </Typography>
+                        </Grid>
+                        <AssignmentList items={pastDueAssignments} />
+                    </Grid>
+                </Grid>
+            ) : null}
+        </>
+    )
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
                 <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments]} workshop={workshop} />
             </Grid>
-            <RoleGuard roles={['Admin']}>
+            <GroupGuard groups={[Group.admin]}>
                 <Grid item xs={12} style={{ paddingBottom: 0 }}>
                     <Grid container>
                         <Grid item xs={8}>
@@ -146,8 +247,8 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                         </Grid>
                     </Grid>
                 </Grid>
-            </RoleGuard>
-            <RoleGuard roles={['Admin']}>
+            </GroupGuard>
+            <GroupGuard groups={[Group.admin]} fallbackContent={assignmentsView}>
                 <Grid item xs={12} className={classes.tableWrapper}>
                     <DataGrid
                         rows={rows}
@@ -161,7 +262,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                         autoPageSize
                     />
                 </Grid>
-            </RoleGuard>
+            </GroupGuard>
         </Grid>
     )
 }

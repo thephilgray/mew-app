@@ -1,24 +1,34 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react'
-import { User } from './utils'
+import { CognitoUser } from '@aws-amplify/auth'
 
-const AuthContext = React.createContext({})
+import { useAuth } from './hooks'
+import { AnswerCustomChallengeInput, SignInInput } from './types'
+import { Profile } from '../API'
 
-export const AuthProvider = ({ children, user }: { children: React.ReactNode; user: User }) => {
-    const [currentUser, setCurrentUser] = React.useState(user)
-    return <AuthContext.Provider value={{ currentUser }}>{children}</AuthContext.Provider>
+interface AuthState {
+    user: CognitoUser | null
+    userProfile: Profile | null
+    signIn(input: SignInInput): Promise<void>
+    answerCustomChallenge(input: AnswerCustomChallengeInput): Promise<void>
+    signOut(): Promise<void>
+    deleteUser(): Promise<void>
 }
 
-export const useAuth = () => React.useContext(AuthContext)
+export const AuthContext = React.createContext<AuthState>({
+    user: null,
+    userProfile: null,
+    signIn: async (input) => {},
+    answerCustomChallenge: async (input) => {},
+    signOut: async () => {},
+    deleteUser: async () => {},
+})
 
-export const useHasRoles = (roles: [string?] = []): boolean => {
-    const { currentUser } = useAuth()
-    return roles.some((role) => currentUser?.groups?.includes(role))
+interface AuthProps {
+    children: React.ReactNode
 }
 
-export const RoleGuard = (props: { roles: [string?]; children: JSX.Element }) => {
-    const { roles, children } = props
-    const hasRole = useHasRoles(roles)
-    return hasRole ? children : null
+export const AuthProvider = ({ children }: AuthProps) => {
+    const auth = useAuth()
+
+    return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
 }

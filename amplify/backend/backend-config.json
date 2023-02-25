@@ -1,50 +1,191 @@
 {
   "api": {
+    "AdminQueries": {
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "mewappacdc5d0e"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "AdminQueriesd92d7feb"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "mewapp": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "mewappacdc5d0e"
+        }
+      ],
       "output": {
         "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2024-02-16T13:42:34.489Z",
+                "apiKeyExpirationDays": 365,
+                "description": "for public queries"
+              },
+              "authenticationType": "API_KEY"
+            },
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
               "userPoolId": "authmewappacdc5d0e"
             }
-          },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "API_KEY",
-              "apiKeyConfig": {
-                "apiKeyExpirationDays": 180,
-                "description": "for public queries"
-              }
-            },
-            {
-              "authenticationType": "AWS_IAM"
-            }
-          ]
+          }
         }
       },
       "providerPlugin": "awscloudformation",
-      "service": "AppSync",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "mewappacdc5d0e",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ]
+      "service": "AppSync"
     }
   },
   "auth": {
     "mewappacdc5d0e": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "mewappacdc5d0eCreateAuthChallenge",
+          "triggerProvider": "Cognito"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "mewappacdc5d0eDefineAuthChallenge",
+          "triggerProvider": "Cognito"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "mewappacdc5d0ePreSignup",
+          "triggerProvider": "Cognito"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "mewappacdc5d0eVerifyAuthChallengeResponse",
+          "triggerProvider": "Cognito"
+        }
+      ],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL",
+          "NAME"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "mewappacdc5d0e"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
     }
   },
   "function": {
+    "AdminQueriesd92d7feb": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "mewappacdc5d0e"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "membershipService": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "mewappacdc5d0e"
+        },
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "mewapp"
+        },
+        {
+          "attributes": [
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "mewProfileService"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "mewProfileService": {
       "build": true,
       "dependsOn": [
@@ -58,6 +199,26 @@
           "resourceName": "mewapp"
         }
       ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mewappacdc5d0eCreateAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mewappacdc5d0eDefineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mewappacdc5d0ePreSignup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mewappacdc5d0eVerifyAuthChallengeResponse": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -96,39 +257,41 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "membershipService": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "mewappacdc5d0e",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "api",
-          "resourceName": "mewapp",
-          "attributes": [
-            "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput",
-            "GraphQLAPIKeyOutput"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "mewProfileService",
-          "attributes": [
-            "Name"
-          ]
-        }
-      ]
     }
   },
   "parameters": {
+    "AMPLIFY_function_AdminQueriesd92d7feb_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AdminQueriesd92d7feb"
+        }
+      ]
+    },
+    "AMPLIFY_function_AdminQueriesd92d7feb_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AdminQueriesd92d7feb"
+        }
+      ]
+    },
+    "AMPLIFY_function_membershipService_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "membershipService"
+        }
+      ]
+    },
+    "AMPLIFY_function_membershipService_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "membershipService"
+        }
+      ]
+    },
     "AMPLIFY_function_mewProfileService_deploymentBucketName": {
       "usedBy": [
         {
@@ -142,6 +305,78 @@
         {
           "category": "function",
           "resourceName": "mewProfileService"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eCreateAuthChallenge_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eCreateAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eCreateAuthChallenge_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eCreateAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eCreateAuthChallenge_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eCreateAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eDefineAuthChallenge_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eDefineAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eDefineAuthChallenge_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eDefineAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0ePreSignup_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0ePreSignup"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0ePreSignup_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0ePreSignup"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eVerifyAuthChallengeResponse_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eVerifyAuthChallengeResponse"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eVerifyAuthChallengeResponse_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eVerifyAuthChallengeResponse"
         }
       ]
     },

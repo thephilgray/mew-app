@@ -7,7 +7,8 @@
       "transformerversion": 2,
       "suppressschemamigrationprompt": true,
       "securityEnhancementNotification": false,
-      "showfieldauthnotification": false
+      "showfieldauthnotification": false,
+      "enableIterativeGsiUpdates": true
     },
     "project": {
       "overrides": true

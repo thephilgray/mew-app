@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Button, Chip, Grid, Typography } from '@material-ui/core'
+import { Button, Chip, Grid, IconButton, Typography } from '@material-ui/core'
 import { DataGrid } from '@material-ui/data-grid'
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
@@ -9,7 +9,8 @@ import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
 import styled from '@emotion/styled'
-import { Sync } from '@material-ui/icons'
+import { Add, Delete, Sync } from '@material-ui/icons'
+import { updateMembershipService } from '../../graphql/mutations'
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -107,22 +108,13 @@ const GET_WORKSHOP = gql`
     }
 `
 
-const updateMembershipService = /* GraphQL */ gql`
-    mutation UpdateMembershipService($workshopId: ID!, $action: String) {
-        updateMembershipService(workshopId: $workshopId, action: $action) {
-            statusCode
-            body
-        }
-    }
-`
-
 const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     // query all submissions and mailchimp audience and join data by email address
     const { loading, error, data, refetch } = useQuery(GET_WORKSHOP, {
         variables: { id: workshopId },
     })
 
-    const [requestUpdateMembershipService, updateMembershipServiceResponse] = useMutation(updateMembershipService)
+    const [requestUpdateMembershipService, updateMembershipServiceResponse] = useMutation(gql(updateMembershipService))
 
     // const [sortModel, setSortModel] = React.useState([
     //     {
@@ -135,7 +127,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         if (data?.getWorkshop?.features?.mailchimp?.enabled) {
             // and sync not called
             // call syncMembers
-            console.log('syncMembers')
+            // console.log('syncMembers')
         }
     }, [data])
 
@@ -163,6 +155,17 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             },
         })
     }
+
+    const onUpdateMembershipService = async ({ action, membershipPayload }) => {
+        await requestUpdateMembershipService({
+            variables: {
+                workshopId,
+                action,
+                ...(membershipPayload && { payloads: [membershipPayload] }),
+            },
+        })
+    }
+
     const mappedArray = data.getWorkshop?.fileRequests?.items
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -200,10 +203,15 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         return {
             id: email,
             email,
+            name: '',
+            status: 'not synced',
             submissions: submissionsGroupedByEmail[email].length,
             required,
             passes,
-            status: 'not synced',
+            mailchimpSubscribed: false,
+            profileEnabled: false,
+            loginEnabled: false,
+            membership: false,
         }
     })
 
@@ -220,24 +228,70 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         return {
             id: member.id,
             email: member.email,
+            name: member?.profile?.name || '',
             status: member?.status,
-            profileEnabled: !!member.profile,
-            mailchimpSubscribed: !!(member.mailchimp && member.mailchimp.status === 'subscribed'),
             submissions: member.submissions.items.length,
             required,
             passes,
+            mailchimpSubscribed: !!(
+                member.mailchimp &&
+                member.mailchimp.status === 'subscribed' &&
+                !member.mailchimp.tags.some((t) => t.name === 'OUT')
+            ),
+            profileEnabled: !!member.profile,
             loginEnabled: !!member?.profile?.sub,
+            membership: !!(member?.status === 'ACTIVE'),
         }
     })
 
-    const userRows = data?.getWorkshop?.features?.mailchimp?.enabled ? userRowsByMembership : userRowsBySubmissions
+    // merge users
+    // matched = []
+    // unmatchedSubmissionMembers = userRowsBySubmissions
+    // unmatchedMembershipMembers = userRowsByMembership
+
+    // iterate through unmatchedSubmissionMembers
+    // if theres a membership user with the same email
+    // remove from unmatchedSubmissionMembers
+    // remove from unmatchedMembershipMembers
+    // add membership to matched
+
+    const mergedUsersMap = userRowsBySubmissions.reduce(
+        (acc, curr) => {
+            // is curr in matched, do nothing
+            const alreadyMatched = acc.matched.find((m) => m.email === curr.email)
+            if (alreadyMatched) return acc
+            // is curr in unmatchedMembershipMembers,
+            const matchIndex = acc.unmatchedMembershipMembers.findIndex((m) => m.email === curr.email)
+            if (matchIndex > -1) {
+                // remove item from unmatchedMembershipMembers and put it in matched
+                const [match] = acc.unmatchedMembershipMembers.splice(matchIndex, 1)
+                acc.matched.push(match)
+            } else {
+                // else push to unmatchedSubmissionMembers
+                acc.unmatchedSubmissionMembers.push(curr)
+            }
+            return acc
+        },
+        {
+            matched: [],
+            unmatchedSubmissionMembers: [],
+            unmatchedMembershipMembers: [...userRowsByMembership],
+        },
+    )
+
+    const userRows = [
+        ...mergedUsersMap.matched,
+        ...mergedUsersMap.unmatchedSubmissionMembers,
+        ...mergedUsersMap.unmatchedSubmissionMembers,
+    ]
 
     const columns = [
         { field: 'email', headerName: 'Email', width: 300 },
-        { field: 'submissions', headerName: 'Submitted', width: 150 },
+        { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'submissions', headerName: 'Submitted', width: 120 },
         {
             field: 'required',
-            headerName: 'Required',
+            headerName: 'Deadlines Met',
             width: 150,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
@@ -252,24 +306,86 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             headerName: 'Passes',
             width: 100,
         },
+        {
+            field: 'status',
+            headerName: 'Status',
+            width: 150,
+        },
+        {
+            field: 'membership',
+            headerName: 'Membership',
+            renderCell: ({ row, value = '' }) => (
+                <>
+                    {value ? 'Yes' : 'No'}
+                    <IconButton
+                        onClick={() =>
+                            onUpdateMembershipService({
+                                action: value ? 'DISABLE_MEMBERSHIP' : 'ADD_MEMBERSHIP',
+                                membershipPayload: {
+                                    emailAddress: row.email,
+                                    ...(row.name && { fullName: row.name }),
+                                },
+                            })
+                        }
+                    >
+                        {value ? <Delete /> : <Add />}
+                    </IconButton>
+                </>
+            ),
+            width: 150,
+        },
+        {
+            field: 'profileEnabled',
+            headerName: 'Profile',
+            renderCell: ({ value }) => (value ? 'Yes' : 'No'),
+        },
+        {
+            field: 'loginEnabled',
+            headerName: 'Login',
+            renderCell: ({ row, value = '' }) => (
+                <>
+                    {value ? 'Yes' : 'No'}
+                    <IconButton
+                        onClick={() =>
+                            onUpdateMembershipService({
+                                action: value ? 'DISABLE_LOGIN' : 'ADD_LOGIN',
+                                membershipPayload: {
+                                    emailAddress: row.email,
+                                    ...(row.name && { fullName: row.name }),
+                                },
+                            })
+                        }
+                    >
+                        {value ? <Delete /> : <Add />}
+                    </IconButton>
+                </>
+            ),
+        },
         ...(data?.getWorkshop?.features?.mailchimp?.enabled
             ? [
                   {
-                      field: 'status',
-                      headerName: 'Status',
-                      width: 150,
-                  },
-                  {
-                      field: 'profileEnabled',
-                      headerName: 'Profile',
-                  },
-                  {
                       field: 'mailchimpSubscribed',
                       headerName: 'Mailchimp',
-                  },
-                  {
-                      field: 'loginEnabled',
-                      headerName: 'Login',
+                      renderCell: ({ row, value = '' }) => (
+                          <>
+                              {value ? 'Yes' : 'No'}
+                              <IconButton
+                                  onClick={() =>
+                                      onUpdateMembershipService({
+                                          action: value
+                                              ? 'DISABLE_MAILCHIMP_SUBSCRIPTION'
+                                              : 'ADD_MAILCHIMP_SUBSCRIPTION',
+                                          membershipPayload: {
+                                              emailAddress: row.email,
+                                              ...(row.name && { fullName: row.name }),
+                                          },
+                                      })
+                                  }
+                              >
+                                  {value ? <Delete /> : <Add />}
+                              </IconButton>
+                          </>
+                      ),
                   },
               ]
             : []),

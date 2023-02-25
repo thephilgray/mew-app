@@ -32,8 +32,16 @@ export const updateProfileService = /* GraphQL */ `
   }
 `;
 export const updateMembershipService = /* GraphQL */ `
-  mutation UpdateMembershipService($workshopId: ID!, $action: String) {
-    updateMembershipService(workshopId: $workshopId, action: $action) {
+  mutation UpdateMembershipService(
+    $workshopId: ID!
+    $action: String
+    $payloads: [MembershipServicePayload]
+  ) {
+    updateMembershipService(
+      workshopId: $workshopId
+      action: $action
+      payloads: $payloads
+    ) {
       statusCode
       body
     }

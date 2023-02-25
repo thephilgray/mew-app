@@ -25,12 +25,9 @@ type APIKey
     @model
     @auth(
         rules: [
-            { allow: private, provider: iam, operations: [create, read, update, delete] } # IAM user can update, delete, and read
-            # { allow: groups, groups: ["Admin"], operations: [create, read, update, delete] }
-            # { allow: private, operations: [create, read, update] } # signed in users who are not the owner can read
-            # { allow: public, operations: [read] } # unauthenticated users can read
-            { allow: groups, groups: ["Admin", "Curators"] }
-            { allow: public, operations: [create, read, update, delete] }
+            { allow: private, operations: [read, create, update, delete] }
+            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
         ]
     ) {
     id: ID!
@@ -44,7 +41,11 @@ type APIKey
 type Extension
     @model
     @auth(
-        rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read, update, delete] }]
+        rules: [
+            { allow: private, operations: [read, create, update, delete] }
+            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+            ], 
     ) {
     id: ID!
     expiration: AWSDateTime!
@@ -54,7 +55,11 @@ type Extension
 type FileRequest
     @model
     @auth(
-        rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read, update, delete] }]
+        rules: [
+            { allow: private, operations: [read, create, update, delete] }
+            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+        ]
     ) {
     id: ID!
     expiration: AWSDateTime!
@@ -73,7 +78,11 @@ type FileRequest
 type FileRequestSubmission
     @model
     @auth(
-        rules: [{ allow: groups, groups: ["Admin"] }, { allow: public, operations: [create, read, update, delete] }]
+        rules: [
+            { allow: private, operations: [read, create, update, delete] }
+            { allow: public, operations: [read, create] } # todo turn off public access once transition to auth-only complete
+            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+        ] 
     ) {
     id: ID!
     fileRequestId: ID! @index(name: "submissionsByFileRequestId", queryField: "submissionsByFileRequestId")
@@ -110,8 +119,10 @@ type Membership
     @model
     @auth(
         rules: [
-            { allow: groups, groups: ["Admin", "Curators"] }
-            { allow: public, operations: [create, read, update, delete] }
+            { allow: private, provider: iam }
+            { allow: private, operations: [read, create, update, delete] }
+            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
         ]
     ) {
         id: ID!
@@ -128,8 +139,9 @@ type Workshop
     @model
     @auth(
         rules: [
-            { allow: groups, groups: ["Admin", "Curators"] }
-            { allow: public, operations: [create, read, update, delete] }
+            { allow: private, operations: [read, create, update, delete] }
+            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
         ]
     ) {
     id: ID!
@@ -143,17 +155,16 @@ type Workshop
 }
 
 type Profile
-    @model
-    @auth(
+    @model 
+      @auth(
         rules: [
-            { allow: private, provider: iam, operations: [create, read, update, delete] } # IAM user can update, delete, and read
-            # { allow: groups, groups: ["Admin"], operations: [create, read, update, delete] }
-            # { allow: private, operations: [create, read, update] } # signed in users who are not the owner can read
-            # { allow: public, operations: [read] } # unauthenticated users can read
-            { allow: groups, groups: ["Admin", "Curators"] }
-            { allow: public, operations: [create, read, update, delete] }
+            { allow: private, provider: iam }
+            { allow: private, operations: [read, create, update, delete] }
+            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
         ]
-    ) {
+    )
+    @aws_cognito_user_pools {
     email: String! @primaryKey
     id: ID!
     name: String
@@ -185,6 +196,23 @@ type Response {
     body: String
 }
 
+input MailchimpTagInput {
+    id: Int!
+    name: String
+}
+
+input MembershipServicePayload {
+    emailAddress: String
+    groupName: String
+    fullName: String
+    status: String
+    mailchimpStatus: String
+    contactId: String
+    mailchimpId: String
+    mailchimpTags: [MailchimpTagInput]
+    uniqueEmailId: String
+}
+
 type Mutation {
     processDownload(assignmentId: ID!, songData: [SongData]): String @function(name: "zipmewsubmissions-${env}")
 
@@ -201,6 +229,7 @@ type Mutation {
     updateMembershipService(
         workshopId: ID!
         action: String
+        payloads: [MembershipServicePayload]
     ): Response @aws_api_key @aws_iam @aws_cognito_user_pools @function(name: "membershipService-${env}")
 
     runProcessAudioTask(assignmentId: ID!, email: String!, options: DownloadLinkOptions): String

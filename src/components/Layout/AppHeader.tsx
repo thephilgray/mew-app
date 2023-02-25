@@ -1,11 +1,10 @@
 import * as React from 'react'
 import { Link, navigate } from 'gatsby'
-import { Auth } from 'aws-amplify'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core'
-import { logout, isLoggedIn } from '../../auth/utils'
 import { ROUTE_NAMES } from '../../pages/app'
 import mewAppLogo from '../../assets/mewlogo.png'
+import { useSignOut, useUser } from '../../auth/hooks'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -28,8 +27,11 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
     }
+    const user = useUser()
     const open = Boolean(anchorEl)
-    const authenticated = isLoggedIn()
+
+    const authenticated = !!user
+    const signout = useSignOut()
 
     const handleClose = () => {
         setAnchorEl(null)
@@ -37,12 +39,8 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
 
     const handleSignout = () => {
         handleClose()
-        return (
-            Auth.signOut()
-                .then(() => logout(() => navigate('/')))
-                // tslint:disable-next-line: no-console
-                .catch((err) => console.log('error:', err))
-        )
+        navigate('/')
+        signout()
     }
 
     const handleGoToProfile = () => {

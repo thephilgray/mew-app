@@ -1,31 +1,29 @@
 import React from 'react'
-import { Redirect, RouteComponentProps } from '@reach/router'
-import { isLoggedIn } from '../../auth/utils'
-import { useAuth } from '../../auth/auth.context'
+import { RouteComponentProps } from '@reach/router'
+import { Group } from '../../constants'
+import AuthenticateForm from './AuthenticateForm'
+import { navigate } from 'gatsby'
+import { useUser, useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks'
 
 interface PrivateRouteProps extends RouteComponentProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: any
-    roles?: string[]
+    groups?: Group[]
 }
 
 const PrivateRoute = (props: PrivateRouteProps): JSX.Element | null => {
     // eslint-disable-next-line react/prop-types
-    const { component: Component, roles, ...rest } = props
-    const { currentUser } = useAuth()
+    const { component: Component, groups, ...rest } = props
 
-    if (!isLoggedIn()) {
-        if (typeof window !== 'undefined') {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            window.location = '/signin'
-        }
+    const user = useUser()
 
-        return null
+    if (!user) {
+        return <AuthenticateForm />
     }
 
-    if (roles && !roles.some((role) => currentUser?.groups?.includes(role))) {
-        return <Redirect to="/app" />
+    if (groups && !useUserInAtLeastOneOfTheseGroups(groups)) {
+        navigate('/app/')
+        return null
     }
 
     return <Component {...rest} />

@@ -1,0 +1,21 @@
+{
+  "trigger": true,
+  "modules": [
+    "boilerplate-create-challenge"
+  ],
+  "parentResource": "mewappacdc5d0e",
+  "functionName": "mewappacdc5d0eCreateAuthChallenge",
+  "resourceName": "mewappacdc5d0eCreateAuthChallenge",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "/snapshot/repo/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/CreateAuthChallenge",
+  "triggerTemplate": "CreateAuthChallenge.json.ejs",
+  "triggerEventPath": "CreateAuthChallenge.event.json",
+  "roleName": "mewappacdc5d0eCreateAuthChallenge",
+  "skipEdit": true,
+  "enableCors": false,
+  "environmentVariableList": [],
+  "secretNames": [
+    "MAILER_SEND_API_KEY"
+  ]
+}
