@@ -114,7 +114,6 @@ type MailchimpUserInfo {
     tags: [MailchimpTag]
 }
 
-
 type Membership 
     @model
     @auth(
