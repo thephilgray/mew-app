@@ -20,6 +20,23 @@ export type Response = {
   body?: string | null,
 };
 
+export type MembershipServicePayload = {
+  emailAddress?: string | null,
+  groupName?: string | null,
+  fullName?: string | null,
+  status?: string | null,
+  mailchimpStatus?: string | null,
+  contactId?: string | null,
+  mailchimpId?: string | null,
+  mailchimpTags?: Array< MailchimpTagInput | null > | null,
+  uniqueEmailId?: string | null,
+};
+
+export type MailchimpTagInput = {
+  id: number,
+  name?: string | null,
+};
+
 export type DownloadLinkOptions = {
   stripMetadataForSoundCloud?: boolean | null,
 };
@@ -432,11 +449,6 @@ export type MailchimpUserInfoInput = {
   tags?: Array< MailchimpTagInput | null > | null,
 };
 
-export type MailchimpTagInput = {
-  id: number,
-  name?: string | null,
-};
-
 export type ModelMembershipConditionInput = {
   workshopId?: ModelIDInput | null,
   email?: ModelStringInput | null,
@@ -778,6 +790,7 @@ export type UpdateProfileServiceMutation = {
 export type UpdateMembershipServiceMutationVariables = {
   workshopId: string,
   action?: string | null,
+  payloads?: Array< MembershipServicePayload | null > | null,
 };
 
 export type UpdateMembershipServiceMutation = {

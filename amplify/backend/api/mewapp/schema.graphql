@@ -196,6 +196,23 @@ type Response {
     body: String
 }
 
+input MailchimpTagInput {
+    id: Int!
+    name: String
+}
+
+input MembershipServicePayload {
+    emailAddress: String
+    groupName: String
+    fullName: String
+    status: String
+    mailchimpStatus: String
+    contactId: String
+    mailchimpId: String
+    mailchimpTags: [MailchimpTagInput]
+    uniqueEmailId: String
+}
+
 type Mutation {
     processDownload(assignmentId: ID!, songData: [SongData]): String @function(name: "zipmewsubmissions-${env}")
 
@@ -212,6 +229,7 @@ type Mutation {
     updateMembershipService(
         workshopId: ID!
         action: String
+        payloads: [MembershipServicePayload]
     ): Response @aws_api_key @aws_iam @aws_cognito_user_pools @function(name: "membershipService-${env}")
 
     runProcessAudioTask(assignmentId: ID!, email: String!, options: DownloadLinkOptions): String
