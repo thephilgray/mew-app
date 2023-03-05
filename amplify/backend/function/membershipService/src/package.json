@@ -12,6 +12,8 @@
     "aws-appsync": "^4.1.9",
     "aws-sdk": "^2.1309.0",
     "cross-fetch": "^3.1.5",
+    "gatsby": "^5.7.0",
+    "gatsby-plugin-sharp": "^5.7.0",
     "graphql-tag": "^2.12.6"
   }
 }
