@@ -16,7 +16,7 @@ import {
     IconButton,
     Snackbar,
     Typography,
-} from '@material-ui/core'
+} from '@mui/material'
 import { DataGrid, Columns, SortDirection, ColDef, SelectionChangeParams } from '@material-ui/data-grid'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
@@ -363,17 +363,22 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                         })}`,
                                     )
                                 }
-                            >
+                                size="large">
                                 <FileCopy />
                             </IconButton>
                             <IconButton
                                 color="secondary"
                                 aria-label="Extensions"
                                 onClick={() => setDialogToggles({ [dialogConstants.EDIT_EXTENSIONS]: true })}
-                            >
+                                size="large">
                                 <MoreTime />
                             </IconButton>
-                            <IconButton color="secondary" aria-label="Edit" component={Link} to="edit">
+                            <IconButton
+                                color="secondary"
+                                aria-label="Edit"
+                                component={Link}
+                                to="edit"
+                                size="large">
                                 <Edit />
                             </IconButton>
                         </Grid>
@@ -401,7 +406,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         aria-label="Playlist"
                         component={Link}
                         to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
-                    >
+                        size="large">
                         <PlayArrowTwoTone />
                     </IconButton>
                     <IconButton
@@ -409,7 +414,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         aria-label="New Submission"
                         component={Link}
                         to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                    >
+                        size="large">
                         <Add />
                     </IconButton>
                     {data.getFileRequest.submissions.items.length ? <Menu items={menuItems} /> : null}
@@ -431,7 +436,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 </Grid>
             </>
         </Grid>
-    )
+    );
 }
 
 export default Submissions

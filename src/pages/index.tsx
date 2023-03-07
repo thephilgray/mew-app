@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link } from 'gatsby'
 import { Global, css } from '@emotion/react'
 import watercolor from '../assets/watercolor.png'
-import { Button, Grid, Typography } from '@material-ui/core'
+import { Button, Grid, Typography } from '@mui/material'
 
 const IndexPage: React.FC = (): JSX.Element => {
     return (
@@ -15,9 +15,9 @@ const IndexPage: React.FC = (): JSX.Element => {
                     }
                 `}
             />
-            <Grid container justify="center" alignItems="center" style={{ height: '90vh' }}>
+            <Grid container justifyContent="center" alignItems="center" style={{ height: '90vh' }}>
                 <Grid item>
-                    <Grid container spacing={2} justify="center" alignItems="center">
+                    <Grid container spacing={2} justifyContent="center" alignItems="center">
                         <Grid item xs={12}>
                             <Typography variant="h2" component="h1" align="center" color="primary">
                                 MEW {new Date().getFullYear()}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Breadcrumbs, Typography, Link as MaterialLink } from '@material-ui/core'
+import { Breadcrumbs, Typography, Link as MaterialLink } from '@mui/material'
 import { Link } from 'gatsby'
 
 const AppBreadcrumbs: React.FC<{
@@ -45,7 +45,7 @@ const AppBreadcrumbs: React.FC<{
                         }
                         key={path}
                     >
-                        <MaterialLink>
+                        <MaterialLink underline="hover">
                             {getName && getName({ ...workshop, ...assignment })
                                 ? getName({ ...workshop, ...assignment })
                                 : name}

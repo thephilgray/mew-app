@@ -1,11 +1,11 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import IconButton from '@material-ui/core/IconButton'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Menu, { MenuProps } from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
+import { withStyles } from '@mui/styles'
+import IconButton from '@mui/material/IconButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import Menu, { MenuProps } from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 const StyledMenu = withStyles({
     paper: {
@@ -14,7 +14,6 @@ const StyledMenu = withStyles({
 })((props: MenuProps) => (
     <Menu
         elevation={0}
-        getContentAnchorEl={null}
         anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'center',
@@ -23,7 +22,6 @@ const StyledMenu = withStyles({
             vertical: 'top',
             horizontal: 'center',
         }}
-
         {...props}
     />
 ))
@@ -59,7 +57,13 @@ const CustomMenu: React.FC<{
 
     return (
         <>
-            <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleClick}>
+            <IconButton
+                aria-label="more"
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+                size="large"
+            >
                 <MoreVertIcon />
             </IconButton>
             <StyledMenu

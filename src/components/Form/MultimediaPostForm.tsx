@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, TextField, Grid } from '@material-ui/core'
+import { Button, TextField, Grid } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
 import { Editor } from '@tinymce/tinymce-react'
@@ -83,13 +83,13 @@ export default function MultimediaPostForm({
             <Grid container spacing={3}>
                 <Grid item xs={12} md={9}>
                     <TextField
+                        variant="standard"
                         fullWidth
                         label="Title"
                         name="title"
                         inputRef={register({ required: true })}
                         error={!!errors.title}
-                        helperText={!!errors.title && <>Title is required</>}
-                    />
+                        helperText={!!errors.title && <>Title is required</>} />
                 </Grid>
                 {headerImage && (
                     <>
@@ -195,5 +195,5 @@ export default function MultimediaPostForm({
                 </Grid>
             </Grid>
         </form>
-    )
+    );
 }

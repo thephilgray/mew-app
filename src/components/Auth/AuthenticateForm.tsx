@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Grid, Input, Link, Typography } from '@material-ui/core'
+import { Button, Grid, Input, Link, Typography } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import { useAnswerCustomChallenge, useSignIn, useSignUp } from '../../auth/hooks'
 
@@ -68,7 +68,7 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                 e.preventDefault()
                 setState((prevState) => ({ ...prevState, stage: 0, error: null }))
             }}
-        >
+            underline="hover">
             Sign up?
         </Link>
     )
@@ -81,13 +81,13 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                 e.preventDefault()
                 setState((prevState) => ({ ...prevState, stage: 1, error: null }))
             }}
-        >
+            underline="hover">
             {state.stage === 2 ? `Try again?` : `Sign in?`}
         </Link>
     )
 
     return (
-        <Grid container spacing={0} direction="row" justify="center">
+        <Grid container spacing={0} direction="row" justifyContent="center">
             <Grid item xs={12} md={6}>
                 <Grid container>
                     <Grid item xs={12}>
@@ -182,7 +182,7 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                 </Grid>
             </Grid>
         </Grid>
-    )
+    );
 }
 
 export default AuthenticateForm

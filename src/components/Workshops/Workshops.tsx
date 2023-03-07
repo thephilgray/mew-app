@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material'
 import { Link } from 'gatsby'
 import React from 'react'
 import { Group } from '../../constants'

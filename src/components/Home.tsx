@@ -1,4 +1,4 @@
-import { Container, Typography } from '@material-ui/core'
+import { Container, Typography } from '@mui/material'
 import * as React from 'react'
 import { Group } from '../constants'
 import Assignments from './Assignments/Assignments'

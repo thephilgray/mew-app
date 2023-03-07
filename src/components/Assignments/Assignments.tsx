@@ -2,18 +2,9 @@
 import * as React from 'react'
 import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
 import { gql, useQuery } from '@apollo/react-hooks'
-import { Add, Check, MusicNote, People, PlayArrowTwoTone, Settings } from '@material-ui/icons'
-import {
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    createStyles,
-    Grid,
-    IconButton,
-    makeStyles,
-    Typography,
-} from '@material-ui/core'
+import { Add, Check, MusicNote, People, PlayArrowTwoTone, Settings } from '@mui/icons-material'
+import { Button, Card, CardActions, CardContent, createStyles, Grid, IconButton, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
 import format from 'date-fns/format'
@@ -129,7 +120,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                                     {row.title}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={4} justify="flex-end" style={{ textAlign: 'right' }}>
+                            <Grid item xs={4} justifyContent="flex-end" style={{ textAlign: 'right' }}>
                                 Due: {format(new Date(String(row.expiration)), `E, MM/dd/yy hh:mm`)}
                             </Grid>
                             <Grid item xs={12}>
@@ -225,7 +216,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                                 aria-label="Workshop Settings"
                                 component={Link}
                                 to={ROUTE_NAMES.editWorkshop.getPath({ workshopId })}
-                            >
+                                size="large">
                                 <Settings />
                             </IconButton>
                             <IconButton
@@ -233,7 +224,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                                 aria-label="Members"
                                 component={Link}
                                 to={ROUTE_NAMES.members.getPath({ workshopId })}
-                            >
+                                size="large">
                                 <People />
                             </IconButton>
                             <IconButton
@@ -241,7 +232,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                                 aria-label="New Assignment"
                                 component={Link}
                                 to={ROUTE_NAMES.newAssignment.getPath({ workshopId })}
-                            >
+                                size="large">
                                 <Add />
                             </IconButton>
                         </Grid>
@@ -264,7 +255,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                 </Grid>
             </GroupGuard>
         </Grid>
-    )
+    );
 }
 
 export default Assignments
