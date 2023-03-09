@@ -11,7 +11,7 @@ import {
     Select,
     TextField,
     Typography,
-} from '@material-ui/core'
+} from '@mui/material'
 import { getProfile } from '../../graphql/queries'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
@@ -59,12 +59,19 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField required name="name" label="Name" value={formState.name} onChange={onFieldChange} />
+                        <TextField
+                            variant="standard"
+                            required
+                            name="name"
+                            label="Name"
+                            value={formState.name}
+                            onChange={onFieldChange}
+                        />
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControl fullWidth required>
+                        <FormControl variant="standard" fullWidth required>
                             <InputLabel>Status</InputLabel>
-                            <Select name="status" value={formState.status} onChange={onFieldChange}>
+                            <Select variant="standard" name="status" value={formState.status} onChange={onFieldChange}>
                                 <MenuItem value="Active">Active</MenuItem>
                                 <MenuItem value="Inactive">Inactive</MenuItem>
                             </Select>
@@ -72,6 +79,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            variant="standard"
                             id="outlined-number"
                             label="Passes"
                             type="number"
@@ -96,9 +104,14 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                         {!!formState.enableMailchimpIntegration && (
                             <>
                                 <Grid item xs={12}>
-                                    <FormControl fullWidth required>
+                                    <FormControl variant="standard" fullWidth required>
                                         <InputLabel>API Key</InputLabel>
-                                        <Select name="apiKeyName" value={formState.apiKeyName} onChange={onFieldChange}>
+                                        <Select
+                                            variant="standard"
+                                            name="apiKeyName"
+                                            value={formState.apiKeyName}
+                                            onChange={onFieldChange}
+                                        >
                                             {apiKeys.length > 0 ? (
                                                 apiKeys.map(({ keyName, id }) => (
                                                     <MenuItem key={id} value={keyName}>
@@ -115,6 +128,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
+                                        variant="standard"
                                         required={!!formState.enableMailchimpIntegration}
                                         name="listId"
                                         label="List ID"
@@ -124,6 +138,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
+                                        variant="standard"
                                         required={!!formState.enableMailchimpIntegration}
                                         name="serverPrefix"
                                         label="Server Prefix"

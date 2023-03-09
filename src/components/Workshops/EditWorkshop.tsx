@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid, Typography } from '@mui/material'
 import { navigate } from 'gatsby'
 import gql from 'graphql-tag'
 import React, { useEffect, useState } from 'react'

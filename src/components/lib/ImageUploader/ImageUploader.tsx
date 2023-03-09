@@ -1,6 +1,6 @@
 import React from 'react'
-import { IconButton, Tooltip } from '@material-ui/core'
-import { PhotoCamera, Close } from '@material-ui/icons'
+import { IconButton, Tooltip } from '@mui/material'
+import { PhotoCamera, Close } from '@mui/icons-material'
 
 const ImageUploader = ({
     inputImg,
@@ -42,7 +42,7 @@ const ImageUploader = ({
                             aria-label="Close"
                             component="span"
                             onClick={() => setInputImg(undefined)}
-                        >
+                            size="large">
                             <Close fontSize="large" />
                         </IconButton>
                     </span>
@@ -51,14 +51,14 @@ const ImageUploader = ({
                 <Tooltip title="Select Image">
                     <label htmlFor="imagePicker">
                         Update
-                        <IconButton color="primary" aria-label="upload picture" component="span">
+                        <IconButton color="primary" aria-label="upload picture" component="span" size="large">
                             <PhotoCamera fontSize="large" />
                         </IconButton>
                     </label>
                 </Tooltip>
             )}
         </div>
-    )
+    );
 }
 
 export default ImageUploader

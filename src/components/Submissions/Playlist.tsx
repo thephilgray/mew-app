@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState, PropsWithChildren } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia } from '@material-ui/core'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'

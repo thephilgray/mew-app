@@ -1,22 +1,13 @@
 import React, { useState, useEffect, useRef, PropsWithChildren } from 'react'
-import {
-    Grid,
-    TextField,
-    IconButton,
-    Button,
-    Paper,
-    Typography,
-    CircularProgress,
-    LinearProgress,
-} from '@material-ui/core'
+import { Grid, TextField, IconButton, Button, Paper, Typography, CircularProgress, LinearProgress } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
-import { CloudUpload, CheckCircle, WarningRounded } from '@material-ui/icons'
+import { CloudUpload, CheckCircle, WarningRounded } from '@mui/icons-material'
 import { useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import styled from '@emotion/styled'
-import { green } from '@material-ui/core/colors'
-import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { green } from '@mui/material/colors'
+import { Theme } from '@mui/material/styles'
 import { isPast } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
 import { v4 as uuidv4 } from 'uuid'
@@ -301,7 +292,7 @@ const NewPublicSubmission: React.FC<
 
                         <StyledFileDropWrapper>
                             <FileDrop onTargetClick={onTargetClick} onDrop={handleOnDrop}>
-                                <IconButton color="primary" aria-label="audio upload" component="span">
+                                <IconButton color="primary" aria-label="audio upload" component="span" size="large">
                                     <CloudUpload fontSize="large" />
                                 </IconButton>
                                 {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -315,6 +306,7 @@ const NewPublicSubmission: React.FC<
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            variant="standard"
                             required
                             fullWidth
                             label="Email"
@@ -339,6 +331,7 @@ const NewPublicSubmission: React.FC<
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
+                            variant="standard"
                             required
                             fullWidth
                             label="Artist Byline"
@@ -352,6 +345,7 @@ const NewPublicSubmission: React.FC<
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
+                            variant="standard"
                             required
                             fullWidth
                             label="Song Title"

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks'
-import { Box, Grid, Paper, Typography } from '@material-ui/core'
+import { Box, Grid, Paper, Typography } from '@mui/material'
 import { Link } from 'gatsby'
 import gql from 'graphql-tag'
 import * as React from 'react'

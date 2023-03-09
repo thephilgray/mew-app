@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Button, Chip, Grid, IconButton, Typography } from '@material-ui/core'
+import { Button, Chip, Grid, IconButton, Typography } from '@mui/material'
 import { DataGrid } from '@material-ui/data-grid'
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
@@ -9,7 +9,7 @@ import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
 import styled from '@emotion/styled'
-import { Add, Delete, Sync } from '@material-ui/icons'
+import { Add, Delete, Sync } from '@mui/icons-material'
 import { updateMembershipService } from '../../graphql/mutations'
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
@@ -327,7 +327,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                                 },
                             })
                         }
-                    >
+                        size="large">
                         {value ? <Delete /> : <Add />}
                     </IconButton>
                 </>
@@ -355,7 +355,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                                 },
                             })
                         }
-                    >
+                        size="large">
                         {value ? <Delete /> : <Add />}
                     </IconButton>
                 </>
@@ -381,7 +381,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                                           },
                                       })
                                   }
-                              >
+                                  size="large">
                                   {value ? <Delete /> : <Add />}
                               </IconButton>
                           </>

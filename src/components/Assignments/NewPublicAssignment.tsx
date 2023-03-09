@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Button, Paper, TextField, Switch, FormControlLabel, Snackbar, IconButton } from '@material-ui/core'
+import { Grid, Button, Paper, TextField, Switch, FormControlLabel, Snackbar, IconButton } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
 import { add } from 'date-fns/esm'
@@ -9,7 +9,7 @@ import { Link } from 'gatsby'
 import { Editor } from '@tinymce/tinymce-react'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
-import { FileCopy } from '@material-ui/icons'
+import { FileCopy } from '@mui/icons-material'
 import { useCopyToClipboard } from 'react-use'
 import { ROUTE_NAMES } from '../../pages/app'
 
@@ -123,20 +123,20 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({ workshopId = '
                                                 })}`,
                                             )
                                         }
-                                    >
+                                        size="large">
                                         <FileCopy />
                                     </IconButton>
                                 </Grid>
                             )}
                             <Grid item xs={12} md={9}>
                                 <TextField
+                                    variant="standard"
                                     fullWidth
                                     label="Title"
                                     name="title"
                                     inputRef={register({ required: true })}
                                     error={!!errors.title}
-                                    helperText={!!errors.title && <>Title is required</>}
-                                />
+                                    helperText={!!errors.title && <>Title is required</>} />
                             </Grid>
                             <Grid item xs={12} md={3}>
                                 <FormControlLabel
@@ -209,7 +209,7 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({ workshopId = '
                 </Paper>
             </Grid>
         </Grid>
-    )
+    );
 }
 
 export default NewPublicAssignment

@@ -16,14 +16,14 @@ import {
     TableContainer,
     Table,
     Snackbar,
-} from '@material-ui/core'
+} from '@mui/material'
 import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { Link } from 'gatsby'
 import { API } from 'aws-amplify'
 import Error from '../Error'
-import { Delete, FileCopy, Save } from '@material-ui/icons'
+import { Delete, FileCopy, Save } from '@mui/icons-material'
 import { useCopyToClipboard, usePrevious } from 'react-use'
 import { ROUTE_NAMES } from '../../pages/app'
 import {
@@ -124,160 +124,158 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
     if (error) return <Error errorMessage={error} />
     if (loading) return <CircularProgress />
 
-    return (
-        <>
-            <Snackbar
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                }}
-                open={showCopySuccessAlert}
-                color="success"
-                autoHideDuration={3000}
-                message="Link to extension copied to clipboard."
-                onClose={() => setShowCopySuccessAlert(false)}
-            />
+    return <>
+        <Snackbar
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+            }}
+            open={showCopySuccessAlert}
+            color="success"
+            autoHideDuration={3000}
+            message="Link to extension copied to clipboard."
+            onClose={() => setShowCopySuccessAlert(false)}
+        />
 
-            <Dialog
-                open={open}
-                onClose={onCloseDialog}
-                aria-labelledby="extensions-modal"
-                aria-describedby="extensions-modal"
-                maxWidth="md"
-            >
-                <DialogTitle>Extensions</DialogTitle>
+        <Dialog
+            open={open}
+            onClose={onCloseDialog}
+            aria-labelledby="extensions-modal"
+            aria-describedby="extensions-modal"
+            maxWidth="md"
+        >
+            <DialogTitle>Extensions</DialogTitle>
 
-                <DialogContent>
-                    <DialogContentText>Secret links that give people a little more time to submit.</DialogContentText>
-                    <Grid container>
-                        {extensions.length > 0 && (
-                            <Grid xs={12}>
-                                <TableContainer component={Paper}>
-                                    <Table aria-label="simple table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell>Link</TableCell>
-                                                <TableCell align="center">Code</TableCell>
-                                                <TableCell align="center">Expiration</TableCell>
-                                                <TableCell align="center">Action</TableCell>
+            <DialogContent>
+                <DialogContentText>Secret links that give people a little more time to submit.</DialogContentText>
+                <Grid container>
+                    {extensions.length > 0 && (
+                        <Grid xs={12}>
+                            <TableContainer component={Paper}>
+                                <Table aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Link</TableCell>
+                                            <TableCell align="center">Code</TableCell>
+                                            <TableCell align="center">Expiration</TableCell>
+                                            <TableCell align="center">Action</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {extensions.map((row) => (
+                                            <TableRow key={row.id}>
+                                                <TableCell>
+                                                    <Link
+                                                        to={ROUTE_NAMES.newPublicSubmissionExtension.getPath({
+                                                            assignmentId,
+                                                            extensionCode: row.id,
+                                                        })}
+                                                        style={{ fontSize: '.75em' }}
+                                                    >
+                                                        {window.origin}
+                                                        {ROUTE_NAMES.newPublicSubmissionExtension.getPath({
+                                                            assignmentId,
+                                                            extensionCode: row.id,
+                                                        })}
+                                                    </Link>
+                                                </TableCell>
+                                                <TableCell align="center">{row.id}</TableCell>
+                                                <TableCell align="center">
+                                                    {format(new Date(row.expiration), 'MM/dd/yyyy H:mm')}
+                                                </TableCell>
+                                                <TableCell align="right">
+                                                    <IconButton
+                                                        color="secondary"
+                                                        aria-label="Close"
+                                                        component="span"
+                                                        onClick={() =>
+                                                            copyToClipboard(
+                                                                `${
+                                                                    window.origin
+                                                                }${ROUTE_NAMES.newPublicSubmissionExtension.getPath(
+                                                                    {
+                                                                        assignmentId,
+                                                                        // @ts-ignore
+                                                                        extensionCode: row.id,
+                                                                    },
+                                                                )}`,
+                                                            )
+                                                        }
+                                                        size="large">
+                                                        <FileCopy />
+                                                    </IconButton>
+                                                    <IconButton
+                                                        style={{ float: 'right' }}
+                                                        color="secondary"
+                                                        aria-label="Delete extension"
+                                                        // @ts-ignore
+                                                        onClick={() => onDeleteExtension(row.id)}
+                                                        size="large">
+                                                        <Delete />
+                                                    </IconButton>
+                                                </TableCell>
                                             </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {extensions.map((row) => (
-                                                <TableRow key={row.id}>
-                                                    <TableCell>
-                                                        <Link
-                                                            to={ROUTE_NAMES.newPublicSubmissionExtension.getPath({
-                                                                assignmentId,
-                                                                extensionCode: row.id,
-                                                            })}
-                                                            style={{ fontSize: '.75em' }}
-                                                        >
-                                                            {window.origin}
-                                                            {ROUTE_NAMES.newPublicSubmissionExtension.getPath({
-                                                                assignmentId,
-                                                                extensionCode: row.id,
-                                                            })}
-                                                        </Link>
-                                                    </TableCell>
-                                                    <TableCell align="center">{row.id}</TableCell>
-                                                    <TableCell align="center">
-                                                        {format(new Date(row.expiration), 'MM/dd/yyyy H:mm')}
-                                                    </TableCell>
-                                                    <TableCell align="right">
-                                                        <IconButton
-                                                            color="secondary"
-                                                            aria-label="Close"
-                                                            component="span"
-                                                            onClick={() =>
-                                                                copyToClipboard(
-                                                                    `${
-                                                                        window.origin
-                                                                    }${ROUTE_NAMES.newPublicSubmissionExtension.getPath(
-                                                                        {
-                                                                            assignmentId,
-                                                                            // @ts-ignore
-                                                                            extensionCode: row.id,
-                                                                        },
-                                                                    )}`,
-                                                                )
-                                                            }
-                                                        >
-                                                            <FileCopy />
-                                                        </IconButton>
-                                                        <IconButton
-                                                            style={{ float: 'right' }}
-                                                            color="secondary"
-                                                            aria-label="Delete extension"
-                                                            // @ts-ignore
-                                                            onClick={() => onDeleteExtension(row.id)}
-                                                        >
-                                                            <Delete />
-                                                        </IconButton>
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
+                    )}
+                    <Grid item xs={12} style={{ marginTop: '1rem' }}>
+                        <Grid container alignItems="center" spacing={2}>
+                            <Grid item xs={5}>
+                                <KeyboardDatePicker
+                                    fullWidth
+                                    autoOk
+                                    // error={!!errors.expiration}
+                                    inputVariant="outlined"
+                                    variant="inline"
+                                    format="MM/dd/yyyy"
+                                    label="Expiration"
+                                    // helperText={!!errors.expiration && <>Start date is required</>}
+                                    // @ts-ignore
+                                    onChange={(date) =>
+                                        setCurrentExtension((prev) => ({ ...prev, expiration: date }))
+                                    }
+                                    value={currentExtension.expiration}
+                                />
                             </Grid>
-                        )}
-                        <Grid item xs={12} style={{ marginTop: '1rem' }}>
-                            <Grid container alignItems="center" spacing={2}>
-                                <Grid item xs={5}>
-                                    <KeyboardDatePicker
-                                        fullWidth
-                                        autoOk
-                                        // error={!!errors.expiration}
-                                        inputVariant="outlined"
-                                        variant="inline"
-                                        format="MM/dd/yyyy"
-                                        label="Expiration"
-                                        // helperText={!!errors.expiration && <>Start date is required</>}
-                                        // @ts-ignore
-                                        onChange={(date) =>
-                                            setCurrentExtension((prev) => ({ ...prev, expiration: date }))
-                                        }
-                                        value={currentExtension.expiration}
-                                    />
-                                </Grid>
-                                <Grid xs={5} item>
-                                    <KeyboardTimePicker
-                                        id="due-time-picker"
-                                        fullWidth
-                                        label="Time"
-                                        value={currentExtension.expiration}
-                                        inputVariant="outlined"
-                                        autoOk
-                                        variant="inline"
-                                        // @ts-ignore
-                                        onChange={(date) =>
-                                            setCurrentExtension((prev) => ({ ...prev, expiration: date }))
-                                        }
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change time',
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <Button
-                                        fullWidth
-                                        color="primary"
-                                        variant="contained"
-                                        aria-label="Create extension"
-                                        onClick={onSaveNewExtension}
-                                        startIcon={<Save />}
-                                    >
-                                        Add
-                                    </Button>
-                                </Grid>
+                            <Grid xs={5} item>
+                                <KeyboardTimePicker
+                                    id="due-time-picker"
+                                    fullWidth
+                                    label="Time"
+                                    value={currentExtension.expiration}
+                                    inputVariant="outlined"
+                                    autoOk
+                                    variant="inline"
+                                    // @ts-ignore
+                                    onChange={(date) =>
+                                        setCurrentExtension((prev) => ({ ...prev, expiration: date }))
+                                    }
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change time',
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Button
+                                    fullWidth
+                                    color="primary"
+                                    variant="contained"
+                                    aria-label="Create extension"
+                                    onClick={onSaveNewExtension}
+                                    startIcon={<Save />}
+                                >
+                                    Add
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>
-                </DialogContent>
-            </Dialog>
-        </>
-    )
+                </Grid>
+            </DialogContent>
+        </Dialog>
+    </>;
 }
 
 export default ExtensionsDialog
