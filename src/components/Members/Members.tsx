@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { Button, Chip, Grid, IconButton, Typography } from '@mui/material'
-import { DataGrid } from '@material-ui/data-grid'
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
-import { groupBy, keyBy, uniqBy } from 'lodash'
+import { groupBy, keyBy, uniqBy, uniqueId } from 'lodash'
 import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
@@ -264,8 +264,8 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             const matchIndex = acc.unmatchedMembershipMembers.findIndex((m) => m.email === curr.email)
             if (matchIndex > -1) {
                 // remove item from unmatchedMembershipMembers and put it in matched
-                const [match] = acc.unmatchedMembershipMembers.splice(matchIndex, 1)
-                acc.matched.push(match)
+                acc.matched.push(acc.unmatchedMembershipMembers[matchIndex])
+                acc.unmatchedMembershipMembers = acc.unmatchedMembershipMembers.filter(m => m.email !== curr.email)
             } else {
                 // else push to unmatchedSubmissionMembers
                 acc.unmatchedSubmissionMembers.push(curr)
@@ -275,17 +275,17 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         {
             matched: [],
             unmatchedSubmissionMembers: [],
-            unmatchedMembershipMembers: [...userRowsByMembership],
+            unmatchedMembershipMembers: userRowsByMembership
         },
     )
 
     const userRows = [
         ...mergedUsersMap.matched,
         ...mergedUsersMap.unmatchedSubmissionMembers,
-        ...mergedUsersMap.unmatchedSubmissionMembers,
+        ...mergedUsersMap.unmatchedMembershipMembers,
     ]
 
-    const columns = [
+    const columns: GridColDef[] = [
         { field: 'email', headerName: 'Email', width: 300 },
         { field: 'name', headerName: 'Name', width: 200 },
         { field: 'submissions', headerName: 'Submitted', width: 120 },
@@ -363,31 +363,31 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         },
         ...(data?.getWorkshop?.features?.mailchimp?.enabled
             ? [
-                  {
-                      field: 'mailchimpSubscribed',
-                      headerName: 'Mailchimp',
-                      renderCell: ({ row, value = '' }) => (
-                          <>
-                              {value ? 'Yes' : 'No'}
-                              <IconButton
-                                  onClick={() =>
-                                      onUpdateMembershipService({
-                                          action: value
-                                              ? 'DISABLE_MAILCHIMP_SUBSCRIPTION'
-                                              : 'ADD_MAILCHIMP_SUBSCRIPTION',
-                                          membershipPayload: {
-                                              emailAddress: row.email,
-                                              ...(row.name && { fullName: row.name }),
-                                          },
-                                      })
-                                  }
-                                  size="large">
-                                  {value ? <Delete /> : <Add />}
-                              </IconButton>
-                          </>
-                      ),
-                  },
-              ]
+                {
+                    field: 'mailchimpSubscribed',
+                    headerName: 'Mailchimp',
+                    renderCell: ({ row, value = '' }) => (
+                        <>
+                            {value ? 'Yes' : 'No'}
+                            <IconButton
+                                onClick={() =>
+                                    onUpdateMembershipService({
+                                        action: value
+                                            ? 'DISABLE_MAILCHIMP_SUBSCRIPTION'
+                                            : 'ADD_MAILCHIMP_SUBSCRIPTION',
+                                        membershipPayload: {
+                                            emailAddress: row.email,
+                                            ...(row.name && { fullName: row.name }),
+                                        },
+                                    })
+                                }
+                                size="large">
+                                {value ? <Delete /> : <Add />}
+                            </IconButton>
+                        </>
+                    ),
+                },
+            ]
             : []),
     ]
 
@@ -422,13 +422,14 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 <DataGrid
                     // checkboxSelection
                     rows={userRows}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
                     columns={columns}
-                    disableSelectionOnClick={true}
+                    disableRowSelectionOnClick={true}
+                    initialState={{
+                        sorting: {
+                            sortModel: [{ field: 'required', sort: 'desc' }],
+                        },
+                    }}
                     autoHeight
-                    autoPageSize
-                    // sortModel={sortModel}
                 />
             </Grid>
         </Grid>

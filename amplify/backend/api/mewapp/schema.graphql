@@ -26,7 +26,7 @@ type APIKey
     @auth(
         rules: [
             { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
             { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
         ]
     ) {
@@ -43,9 +43,9 @@ type Extension
     @auth(
         rules: [
             { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
             { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
-            ], 
+        ]
     ) {
     id: ID!
     expiration: AWSDateTime!
@@ -57,7 +57,7 @@ type FileRequest
     @auth(
         rules: [
             { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
             { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
         ]
     ) {
@@ -80,9 +80,9 @@ type FileRequestSubmission
     @auth(
         rules: [
             { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [read, create] } # todo turn off public access once transition to auth-only complete
+            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
             { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
-        ] 
+        ]
     ) {
     id: ID!
     fileRequestId: ID! @index(name: "submissionsByFileRequestId", queryField: "submissionsByFileRequestId")
@@ -114,24 +114,24 @@ type MailchimpUserInfo {
     tags: [MailchimpTag]
 }
 
-type Membership 
+type Membership
     @model
     @auth(
         rules: [
             { allow: private, provider: iam }
             { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
             { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
         ]
     ) {
-        id: ID!
-        workshopId: ID! @index(name: "membershipsByWorkshopId", queryField: "membershipsByWorkshopId")
-        email: String! @index(name: "membershipsByEmail", queryField: "membershipsByEmail")
-        status: String
-        workshop: Workshop @belongsTo(fields: ["workshopId"])
-        profile: Profile @belongsTo(fields: ["email"])
-        mailchimp: MailchimpUserInfo
-        submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByEmail", fields: ["email"])
+    id: ID!
+    workshopId: ID! @index(name: "membershipsByWorkshopId", queryField: "membershipsByWorkshopId")
+    email: String! @index(name: "membershipsByEmail", queryField: "membershipsByEmail")
+    status: String
+    workshop: Workshop @belongsTo(fields: ["workshopId"])
+    profile: Profile @belongsTo(fields: ["email"])
+    mailchimp: MailchimpUserInfo
+    submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByEmail", fields: ["email"])
 }
 
 type Workshop
@@ -139,7 +139,7 @@ type Workshop
     @auth(
         rules: [
             { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
             { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
         ]
     ) {
@@ -154,12 +154,12 @@ type Workshop
 }
 
 type Profile
-    @model 
-      @auth(
+    @model
+    @auth(
         rules: [
             { allow: private, provider: iam }
             { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [read] } # todo turn off public access once transition to auth-only complete
+            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
             { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
         ]
     )
@@ -225,15 +225,14 @@ type Mutation {
         avatar: String
     ): Response @aws_api_key @aws_iam @aws_cognito_user_pools @function(name: "mewProfileService-${env}")
 
-    updateMembershipService(
-        workshopId: ID!
-        action: String
-        payloads: [MembershipServicePayload]
-    ): Response @aws_api_key @aws_iam @aws_cognito_user_pools @function(name: "membershipService-${env}")
+    updateMembershipService(workshopId: ID!, action: String, payloads: [MembershipServicePayload]): Response
+        @aws_api_key
+        @aws_iam
+        @aws_cognito_user_pools
+        @function(name: "membershipService-${env}")
 
     runProcessAudioTask(assignmentId: ID!, email: String!, options: DownloadLinkOptions): String
         @function(name: "runProcessAudioTask-${env}")
 
     populateMembers: [String] @function(name: "populateMembers-${env}")
 }
- 

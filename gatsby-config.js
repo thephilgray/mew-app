@@ -64,7 +64,4 @@ module.exports = {
         'gatsby-plugin-typescript',
         `gatsby-plugin-less`,
     ],
-    flags: {
-        PRESERVE_WEBPACK_CACHE: true,
-    }
 }

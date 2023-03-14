@@ -17,7 +17,8 @@ import {
     Table,
     Snackbar,
 } from '@mui/material'
-import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { Link } from 'gatsby'
@@ -190,8 +191,7 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
                                                         component="span"
                                                         onClick={() =>
                                                             copyToClipboard(
-                                                                `${
-                                                                    window.origin
+                                                                `${window.origin
                                                                 }${ROUTE_NAMES.newPublicSubmissionExtension.getPath(
                                                                     {
                                                                         assignmentId,
@@ -224,13 +224,13 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
                     <Grid item xs={12} style={{ marginTop: '1rem' }}>
                         <Grid container alignItems="center" spacing={2}>
                             <Grid item xs={5}>
-                                <KeyboardDatePicker
+                                <DatePicker
                                     fullWidth
                                     autoOk
                                     // error={!!errors.expiration}
                                     inputVariant="outlined"
                                     variant="inline"
-                                    format="MM/dd/yyyy"
+                                    inputFormat="MM/dd/yyyy"
                                     label="Expiration"
                                     // helperText={!!errors.expiration && <>Start date is required</>}
                                     // @ts-ignore
@@ -241,7 +241,7 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
                                 />
                             </Grid>
                             <Grid xs={5} item>
-                                <KeyboardTimePicker
+                                <TimePicker
                                     id="due-time-picker"
                                     fullWidth
                                     label="Time"

@@ -1,28 +1,29 @@
 import * as React from 'react'
 import { Link, navigate } from 'gatsby'
-import { createStyles, makeStyles } from '@mui/styles'
+import { makeStyles } from 'tss-react/mui';
 import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar } from '@mui/material'
 import { ROUTE_NAMES } from '../../pages/app'
 import mewAppLogo from '../../assets/mewlogo.png'
 import { useSignOut, useUser } from '../../auth/hooks'
 
-const useStyles = makeStyles(() =>
-    createStyles({
+const useStyles = makeStyles()(() =>
+    ({
         title: {
             marginRight: 'auto',
             justifySelf: 'flex-start',
         },
+
         menuButton: {},
+
         toolbar: {
             width: '100%',
             maxWidth: '1000px',
             margin: '0 auto',
-        },
-    }),
-)
+        }
+    }));
 
 const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
-    const classes = useStyles()
+    const { classes } = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)

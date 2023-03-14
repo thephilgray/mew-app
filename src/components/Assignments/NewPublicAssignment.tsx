@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, Button, Paper, TextField, Switch, FormControlLabel, Snackbar, IconButton } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { add } from 'date-fns/esm'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
@@ -171,13 +172,13 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({ workshopId = '
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <KeyboardDatePicker
+                                <DatePicker
                                     fullWidth
                                     autoOk
                                     error={!!errors.expiration}
                                     inputVariant="outlined"
                                     variant="inline"
-                                    format="MM/dd/yyyy"
+                                    inputFormat="MM/dd/yyyy"
                                     label="Expiration"
                                     helperText={!!errors.expiration && <>Start date is required</>}
                                     onChange={(date) => setExpiration(date)}
@@ -185,7 +186,7 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({ workshopId = '
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <KeyboardTimePicker
+                                <TimePicker
                                     id="due-time-picker"
                                     fullWidth
                                     label="Time"
