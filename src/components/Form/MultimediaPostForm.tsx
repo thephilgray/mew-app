@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Button, TextField, Grid } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+
 import { Editor } from '@tinymce/tinymce-react'
 import { add } from 'date-fns'
 import ImageUploader from '../lib/ImageUploader/ImageUploader'
@@ -128,7 +130,7 @@ export default function MultimediaPostForm({
                 {dateInputs && (
                     <>
                         <Grid item xs={6}>
-                            <KeyboardDatePicker
+                            <DatePicker
                                 fullWidth
                                 autoOk
                                 error={!!errors.startDate}
@@ -142,7 +144,7 @@ export default function MultimediaPostForm({
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <KeyboardTimePicker
+                            <TimePicker
                                 id="start-time-picker"
                                 label="Time"
                                 fullWidth
@@ -157,7 +159,7 @@ export default function MultimediaPostForm({
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <KeyboardDatePicker
+                            <DatePicker
                                 fullWidth
                                 autoOk
                                 error={!!errors.endDate}
@@ -171,7 +173,7 @@ export default function MultimediaPostForm({
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <KeyboardTimePicker
+                            <TimePicker
                                 id="due-time-picker"
                                 fullWidth
                                 label="Time"

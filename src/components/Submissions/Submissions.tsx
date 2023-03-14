@@ -17,7 +17,7 @@ import {
     Snackbar,
     Typography,
 } from '@mui/material'
-import { DataGrid, Columns, SortDirection, ColDef, SelectionChangeParams } from '@material-ui/data-grid'
+import { DataGrid, GridColDef, GridRowParams, GridRowSelectionModel } from '@mui/x-data-grid';
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { format } from 'date-fns'
@@ -50,7 +50,7 @@ const getFileRequestWithNoLimit = getFileRequest.replace('submissions {', 'submi
 const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
     const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
-    const [selectedRows, setSelectedRows] = useState<string[]>([])
+    const [selectedRows, setSelectedRows] = useState<GridRowSelectionModel>([])
     const [snackbarToggles, setSnackbarToggles] = useState<{ [key: string]: boolean }>({})
     const [dialogToggles, setDialogToggles] = useState<{ [key: string]: boolean }>({})
     const [downloadLinkOptions, setDownloadLinkOptions] = useState<{ [key: string]: boolean }>({
@@ -205,7 +205,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         setDialogToggles({})
     }
 
-    const columns: Columns = [
+    const columns: GridColDef[] = [
         {
             field: 'artist',
             headerName: 'Artist Byline',
@@ -424,14 +424,16 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         checkboxSelection
                         rows={rows}
                         columns={columns}
-                        pageSize={100}
-                        disableSelectionOnClick={true}
                         sortModel={sortModel}
-                        // eslint-disable-next-line
-                            // tslint:disable-next-line
-                        onSelectionChange={(selection: SelectionChangeParams) =>
-                            setSelectedRows(selection.rowIds.map(String))
+                        onRowSelectionModelChange={(selection: GridRowSelectionModel) => {
+                            setSelectedRows(selection)
                         }
+                        }
+                        initialState={{
+                            sorting: {
+                                sortModel: [{ field: 'createdAt', sort: 'desc' }],
+                            },
+                        }}
                     />
                 </Grid>
             </>

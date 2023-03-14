@@ -117,8 +117,7 @@ export function useUser() {
 
 export function useProfile() {
     const { userProfile } = React.useContext(AuthContext)
-    if (!userProfile) return null
-    return userProfile
+    return userProfile || null
 }
 
 export function useSignIn() {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles } from '@mui/styles'
+import { withStyles } from 'tss-react/mui';
 import IconButton from '@mui/material/IconButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
@@ -7,11 +7,7 @@ import Menu, { MenuProps } from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 
-const StyledMenu = withStyles({
-    paper: {
-        border: '1px solid #d3d4d5',
-    },
-})((props: MenuProps) => (
+const StyledMenu = withStyles((props: MenuProps) => (
     <Menu
         elevation={0}
         anchorOrigin={{
@@ -24,9 +20,13 @@ const StyledMenu = withStyles({
         }}
         {...props}
     />
-))
+), {
+    paper: {
+        border: '1px solid #d3d4d5',
+    },
+});
 
-const StyledMenuItem = withStyles((theme) => ({
+const StyledMenuItem = withStyles(MenuItem, (theme) => ({
     root: {
         '&:focus': {
             backgroundColor: theme.palette.primary.main,
@@ -35,7 +35,7 @@ const StyledMenuItem = withStyles((theme) => ({
             },
         },
     },
-}))(MenuItem)
+}));
 
 const CustomMenu: React.FC<{
     items: Array<{

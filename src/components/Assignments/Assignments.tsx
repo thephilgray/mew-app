@@ -1,10 +1,10 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
-import { DataGrid, Columns, RowParams, SortDirection } from '@material-ui/data-grid'
+import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { gql, useQuery } from '@apollo/react-hooks'
 import { Add, Check, MusicNote, People, PlayArrowTwoTone, Settings } from '@mui/icons-material'
 import { Button, Card, CardActions, CardContent, createStyles, Grid, IconButton, Typography } from '@mui/material'
-import { makeStyles } from '@mui/styles'
+import { makeStyles } from 'tss-react/mui';
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
 import format from 'date-fns/format'
@@ -16,16 +16,16 @@ import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
 import { compareDesc } from 'date-fns'
 
-const useStyles = makeStyles(() =>
-    createStyles({
+const useStyles = makeStyles()(() => (
+    {
         tableWrapper: {
             width: '100%',
-        },
+        }
     }),
-)
+);
 
 const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
-    const classes = useStyles()
+    const { classes } = useStyles()
     const { loading, error, data, refetch } = useQuery(
         gql(getWorkshop.replace('submissions {', 'submissions(limit: 5000) {')),
         {
@@ -41,7 +41,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
         refetch()
     }, [])
 
-    const columns: Columns = [
+    const columns: GridColDef[] = [
         {
             field: 'title',
             headerName: 'Assignment',
@@ -68,7 +68,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
             headerName: 'Due',
             type: 'string',
             width: 150,
-            valueFormatter: ({ value = '' }) => format(new Date(String(value)), `MM - dd - yyyy hh: mm`),
+            valueFormatter: ({ value = '' }) => format(new Date(String(value)), `MM-dd-yyyy hh:mm`),
         },
         {
             field: 'required',
@@ -86,13 +86,6 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
         },
     ]
 
-    const sortModel = [
-        {
-            field: 'expiration',
-            sort: 'desc' as SortDirection,
-        },
-    ]
-
     if (error) return <Error errorMessage={error} />
     if (loading) return <p>Loading assignments....</p>
 
@@ -102,8 +95,8 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
             ...item,
             submissions: data?.getWorkshop?.submissions?.items
                 ? data.getWorkshop.submissions.items
-                      // @ts-ignore
-                      .filter((submission) => submission?.fileRequestId === item.id)
+                    // @ts-ignore
+                    .filter((submission) => submission?.fileRequestId === item.id)
                 : [],
             status: !isPast(new Date(item.expiration as string)) ? 'ACTIVE' : 'EXPIRED',
         }),
@@ -244,13 +237,16 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                     <DataGrid
                         rows={rows}
                         columns={columns}
-                        disableSelectionOnClick={true}
-                        onRowClick={(params: RowParams) =>
+                        disableRowSelectionOnClick={true}
+                        onRowClick={(params: GridRowParams) =>
                             navigate(ROUTE_NAMES.assignment.getPath({ assignmentId: String(params.row.id) }))
                         }
-                        sortModel={sortModel}
+                        initialState={{
+                            sorting: {
+                                sortModel: [{ field: 'expiration', sort: 'desc' }],
+                            },
+                        }}
                         autoHeight
-                        autoPageSize
                     />
                 </Grid>
             </GroupGuard>

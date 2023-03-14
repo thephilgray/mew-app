@@ -1,8 +1,7 @@
 import React from 'react'
-import DateFnsUtils from '@date-io/date-fns'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { Router } from '@reach/router'
-
 import Profile from '../components/Profile/Profile'
 import Layout from '../components/Layout/Layout'
 import PrivateRoute from '../components/Auth/PrivateRoute'
@@ -90,7 +89,7 @@ export const ROUTE_NAMES = {
 }
 const App: React.FC = (): JSX.Element => (
     <AuthProvider>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Layout>
                 <Router>
                     <NotFound default />
@@ -136,7 +135,7 @@ const App: React.FC = (): JSX.Element => (
                     <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmissionExtension.path} />
                 </Router>
             </Layout>
-        </MuiPickersUtilsProvider>
+        </LocalizationProvider>
     </AuthProvider>
 )
 

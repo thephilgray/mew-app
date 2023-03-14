@@ -1,14 +1,11 @@
 import * as React from 'react'
 import { Amplify, Auth } from 'aws-amplify'
-import { ApolloProvider } from '@apollo/react-hooks'
-import { ApolloLink } from 'apollo-link'
 import { createAuthLink } from 'aws-appsync-auth-link'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { createHttpLink } from 'apollo-link-http'
+import { createSubscriptionHandshakeLink } from "aws-appsync-subscription-link";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import awsconfig from '../aws-exports'
-import ApolloClient from 'apollo-client'
+import { ApolloClient, ApolloLink, InMemoryCache, HttpLink, ApolloProvider } from '@apollo/client'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -21,7 +18,12 @@ export const wrapRootElement = ({ element }) => {
         type: awsconfig.aws_appsync_authenticationType,
         jwtToken: async () => (await Auth.currentSession()).getAccessToken().getJwtToken(),
     }
-    const link = ApolloLink.from([createAuthLink({ url, region, auth }), createHttpLink({ uri: url })])
+    const httpLink = new HttpLink({ uri: url });
+
+    const link = ApolloLink.from([
+        createAuthLink({ url, region, auth }),
+        createSubscriptionHandshakeLink({ url, region, auth }, httpLink),
+    ]);
     const client = new ApolloClient({
         link,
         cache: new InMemoryCache(),

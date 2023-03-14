@@ -1,68 +1,69 @@
 import React, { useEffect, useState } from 'react'
 import { Avatar, Badge, Grid, IconButton, TextField, Typography } from '@mui/material'
-import { withStyles, makeStyles } from '@mui/styles'
+import { withStyles, makeStyles } from 'tss-react/mui';
 // import ImageUploader from '../lib/ImageUploader/ImageUploader'
 // import ImageCropper from '../lib/ImageUploader/ImageCropper'
 // import mewAppLogo from '../../assets/mewlogo.png'
 // import { EditRounded } from '@mui/icons-material'
 import { updateProfileService } from '../../graphql/mutations'
 import gql from 'graphql-tag'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import { useForm } from 'react-hook-form'
-import { DataGrid, ColDef } from '@material-ui/data-grid'
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Box, Button, Divider } from '@mui/material'
 import { Close, Delete, Save } from '@mui/icons-material'
 import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
 import { useProfile, useUser } from '../../auth/hooks'
+import { getProfile } from '../../graphql/queries';
 
 type APIKeyForm = {
     keyName: string
     key: string
 }
 
-const StyledBadge = withStyles((theme) => ({
-    badge: {
-        // backgroundColor: '#44b700',
-        // color: '#44b700',
-        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+// const StyledBadge = withStyles(Badge, (theme) => ({
+//     badge: {
+//         // backgroundColor: '#44b700',
+//         // color: '#44b700',
+//         boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
 
-        '&::after': {
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            borderRadius: '50%',
-            border: '1px solid currentColor',
-            content: '""',
-        },
-        '&:hover:after': {
-            animation: '$ripple 1.2s infinite ease-in-out',
-        },
-    },
-    '@keyframes ripple': {
-        '0%': {
-            transform: 'scale(.8)',
-            opacity: 1,
-        },
-        '100%': {
-            transform: 'scale(2.4)',
-            opacity: 0,
-        },
-    },
-}))(Badge)
+//         '&::after': {
+//             position: 'absolute',
+//             top: 0,
+//             left: 0,
+//             width: '100%',
+//             height: '100%',
+//             borderRadius: '50%',
+//             border: '1px solid currentColor',
+//             content: '""',
+//         },
+//         '&:hover:after': {
+//             animation: '$ripple 1.2s infinite ease-in-out',
+//         },
+//     },
+//     '@keyframes ripple': {
+//         '0%': {
+//             transform: 'scale(.8)',
+//             opacity: 1,
+//         },
+//         '100%': {
+//             transform: 'scale(2.4)',
+//             opacity: 0,
+//         },
+//     },
+// }));
 
-const SmallAvatar = withStyles((theme) => ({
-    root: {
-        width: 22,
-        height: 22,
-        border: `2px solid ${theme.palette.background.paper}`,
-    },
-}))(Avatar)
+// const SmallAvatar = withStyles(Avatar, (theme) => ({
+//     root: {
+//         width: 22,
+//         height: 22,
+//         border: `2px solid ${theme.palette.background.paper}`,
+//     },
+// }));
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
         display: 'flex',
         '& > *': {
@@ -72,20 +73,31 @@ const useStyles = makeStyles((theme) => ({
     section: {
         marginBottom: theme.spacing(2),
     },
-    tableWrapper: {
-        height: '400px',
-    },
-}))
+    // tableWrapper: {
+    //     height: '400px',
+    // },
+}));
 
 const Profile = (): JSX.Element => {
-    const classes = useStyles()
+    const { classes } = useStyles()
     const user = useUser()
-    const profile = useProfile()
+
+    const {
+        loading: getProfileLoading,
+        error: getProfileError,
+        data: getProfileData,
+        refetch: getProfileRefetch,
+    } = useQuery(gql(getProfile), {
+        variables: { email: user.email },
+    })
 
     const [
         updateProfileServiceRequest,
         { error: updateProfileServiceError, data: updateProfileServiceData },
     ] = useMutation(gql(updateProfileService))
+
+    const profileInState = useProfile()
+    const profile = getProfileData?.getProfile || profileInState
 
     const {
         register: registerApiKeyField,
@@ -109,8 +121,8 @@ const Profile = (): JSX.Element => {
 
     useEffect(() => {
         if (updateProfileServiceData) {
-            console.log({ updateProfileServiceData })
             onDismissApiKeyForm()
+            getProfileRefetch()
         }
     }, [updateProfileServiceData])
 
@@ -150,11 +162,11 @@ const Profile = (): JSX.Element => {
         return updateProfileServiceRequest({ variables })
     }
 
-    const columns = [
+    const columns: GridColDef[] = [
         {
             field: 'keyName',
             headerName: 'Key Name',
-            width: 600,
+            width: 500,
             valueFormatter: ({ value = '' }) => value.split('/').splice(-1)[0],
         },
         {
@@ -166,18 +178,20 @@ const Profile = (): JSX.Element => {
             //@ts-ignore
             valueFormatter: ({ value = '' }: ColDef) => value && format(new Date(value), 'MM/dd/yyyy H:mm'),
         },
-        {
-            field: 'actions',
-            headerName: 'Actions',
-            width: 200,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            renderCell: ({ row }) => (
-                <IconButton onClick={() => onDeleteApiKey(row.keyName, row.id)} size="large">
-                    <Delete />
-                </IconButton>
-            ),
-        },
+        // {
+        //     field: 'actions',
+        //     headerName: 'Actions',
+        //     width: 200,
+        //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //     // @ts-ignore
+        //     renderCell: ({ row }) => {
+        //         return (
+        //             <IconButton onClick={() => onDeleteApiKey(row.keyName, row.id)} size="large">
+        //                 <Delete />
+        //             </IconButton>
+        //         )
+        //     },
+        // },
     ]
 
     const keyNameFormatter = (str: string) => str.toUpperCase().replace(/[^a-zA-Z0-9_.-]/g, '_')
@@ -244,13 +258,11 @@ const Profile = (): JSX.Element => {
                     {profile && profile.apiKeys && profile.apiKeys.items.length > 0 && (
                         <Grid item xs={12} className={classes.tableWrapper}>
                             <DataGrid
-                                rows={profile.apiKeys.items}
+                                rows={profile?.apiKeys?.items || []}
                                 columns={columns}
-                                // autoHeight
-                                autoPageSize
-                                disableMultipleSelection
-                                disableSelectionOnClick
+                                disableRowSelectionOnClick={true}
                                 disableColumnSelector
+                                autoHeight
                             />
                         </Grid>
                     )}
