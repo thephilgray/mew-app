@@ -3,12 +3,7 @@ import { createTheme, ThemeProvider, Theme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
 import '@fontsource/roboto-serif'
 
-declare module '@mui/styles/defaultTheme' {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface DefaultTheme extends Theme {}
-}
-
-export const ColorModeContext = React.createContext({ togglePalette: () => {} })
+export const ColorModeContext = React.createContext({ togglePalette: () => { } })
 
 const getTheme = (palette = {}): Theme =>
     createTheme({

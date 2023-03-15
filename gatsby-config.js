@@ -16,20 +16,8 @@ module.exports = {
                 cssPropOptimization: true,
             },
         },
-        // {
-        //   resolve: "gatsby-plugin-google-analytics",
-        //   options: {
-        //     trackingId: "",
-        //   },
-        // },
-        {
-            resolve: 'gatsby-plugin-material-ui',
-            // If you want to use styled components you should change the injection order.
-            options: { stylesProvider: { injectFirst: true } },
-        },
         'gatsby-plugin-image',
         'gatsby-plugin-react-helmet',
-        // "gatsby-plugin-sitemap",
         'gatsby-plugin-offline',
         {
             resolve: 'gatsby-plugin-manifest',
@@ -45,14 +33,6 @@ module.exports = {
         },
         'gatsby-plugin-sharp',
         'gatsby-transformer-sharp',
-        // {
-        //   resolve: "gatsby-source-filesystem",
-        //   options: {
-        //     name: "images",
-        //     path: "./src/images/",
-        //   },
-        //   __key: "images",
-        // },
         {
             resolve: 'gatsby-source-filesystem',
             options: {

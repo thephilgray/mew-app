@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Amplify, Auth } from 'aws-amplify'
 import { createAuthLink } from 'aws-appsync-auth-link'
-import { createSubscriptionHandshakeLink } from "aws-appsync-subscription-link";
+import { createSubscriptionHandshakeLink } from 'aws-appsync-subscription-link';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import awsconfig from '../aws-exports'
