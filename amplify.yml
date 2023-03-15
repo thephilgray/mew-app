@@ -10,9 +10,10 @@ frontend:
         preBuild:
             commands:
                 - yarn
+                - yarn global add gatsby
         build:
             commands:
-                - yarn build
+                - yarn build --verbose
     artifacts:
         baseDirectory: public
         files:
