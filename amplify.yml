@@ -1,23 +1,23 @@
 version: 1
 backend:
-    phases:
-        build:
-            commands:
-                - '# Execute Amplify CLI with the helper script'
-                - amplifyPush --simple
+  phases:
+    build:
+      commands:
+        - '# Execute Amplify CLI with the helper script'
+        - amplifyPush --simple
 frontend:
-    phases:
-        preBuild:
-            commands:
-                - yarn
-                - yarn global add gatsby
-        build:
-            commands:
-                - yarn build --verbose
-    artifacts:
-        baseDirectory: public
-        files:
-            - '**/*'
-    cache:
-        paths:
-            - node_modules/**/*
+  phases:
+    preBuild:
+      commands:
+        - cd frontend
+        - yarn
+    build:
+      commands:
+        - yarn build --verbose
+  artifacts:
+    baseDirectory: frontend/public
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
