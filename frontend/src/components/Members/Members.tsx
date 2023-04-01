@@ -1,0 +1,439 @@
+import React, { useEffect } from 'react'
+import { useMutation, useQuery } from '@apollo/react-hooks'
+import { Button, Chip, Grid, IconButton, Typography } from '@mui/material'
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { isPast } from 'date-fns/esm'
+import gql from 'graphql-tag'
+import { groupBy, keyBy, uniqBy, uniqueId } from 'lodash'
+import { ROUTE_NAMES } from '../../pages/app'
+import AppBreadcrumbs from '../AppBreadcrumbs'
+import Error from '../Error'
+import styled from '@emotion/styled'
+import { Add, Delete, Sync } from '@mui/icons-material'
+import { updateMembershipService } from '../../../../src/graphql/mutations'
+
+const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
+
+const StyledChip = styled(Chip)`
+    margin: 0.25rem;
+`
+
+// get workshop
+// if workshop features mailchimp enabled
+// sync mallchimp members 'SYNC' action to mewMemberService
+// then refetch workshop
+
+// import { getWorkshop } from '../../graphql/queries'
+// TODO: add types
+const GET_WORKSHOP = gql`
+    query GetWorkshop($id: ID!) {
+        getWorkshop(id: $id) {
+            id
+            name
+            fileRequests {
+                items {
+                    id
+                    expiration
+                    title
+                    details
+                    required
+                    workshopId
+                    createdAt
+                    updatedAt
+                }
+                nextToken
+            }
+            submissions(limit: 1000) {
+                items {
+                    id
+                    fileRequestId
+                    artist
+                    name
+                    email
+                    fileId
+                    fileExtension
+                    rating
+                    comments
+                    workshopId
+                    createdAt
+                    updatedAt
+                }
+                nextToken
+            }
+            status
+            passes
+            features {
+                mailchimp {
+                    enabled
+                    apiKeyName
+                    listId
+                    serverPrefix
+                }
+            }
+            createdAt
+            updatedAt
+            memberships(limit: 1000) {
+                items {
+                    id
+                    email
+                    status
+                    profile {
+                        name
+                        email
+                        sub
+                    }
+                    mailchimp {
+                        fullName
+                        emailAddress
+                        status
+                        tags {
+                            id
+                            name
+                        }
+                    }
+                    submissions(limit: 1000, filter: { workshopId: { eq: $id } }) {
+                        items {
+                            id
+                            fileRequestId
+                            fileRequest {
+                                required
+                                expiration
+                                id
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
+
+const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
+    // query all submissions and mailchimp audience and join data by email address
+    const { loading, error, data, refetch } = useQuery(GET_WORKSHOP, {
+        variables: { id: workshopId },
+    })
+
+    const [requestUpdateMembershipService, updateMembershipServiceResponse] = useMutation(gql(updateMembershipService))
+
+    // const [sortModel, setSortModel] = React.useState([
+    //     {
+    //         field: 'status',
+    //         sort: 'asc',
+    //     },
+    // ])
+
+    useEffect(() => {
+        if (data?.getWorkshop?.features?.mailchimp?.enabled) {
+            // and sync not called
+            // call syncMembers
+            // console.log('syncMembers')
+        }
+    }, [data])
+
+    useEffect(() => {
+        if (
+            updateMembershipServiceResponse &&
+            updateMembershipServiceResponse.called &&
+            updateMembershipServiceResponse.data &&
+            updateMembershipServiceResponse.data.updateMembershipService &&
+            updateMembershipServiceResponse.data.updateMembershipService.statusCode &&
+            updateMembershipServiceResponse.data.updateMembershipService.statusCode === 200
+        ) {
+            refetch()
+        }
+    }, [updateMembershipServiceResponse])
+
+    if (error) return <Error errorMessage={error} />
+    if (loading) return <p>Loading users....</p>
+
+    const onSyncWithMailchimp = async () => {
+        await requestUpdateMembershipService({
+            variables: {
+                workshopId,
+                action: 'SYNC_MEMBERS_WITH_MAILCHIMP',
+            },
+        })
+    }
+
+    const onUpdateMembershipService = async ({ action, membershipPayload }) => {
+        await requestUpdateMembershipService({
+            variables: {
+                workshopId,
+                action,
+                ...(membershipPayload && { payloads: [membershipPayload] }),
+            },
+        })
+    }
+
+    const mappedArray = data.getWorkshop?.fileRequests?.items
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .map(({ id, required, expiration }) => ({
+            id,
+            required,
+            expired: isExpired(expiration),
+        }))
+    const assignmentMap = keyBy(mappedArray, 'id')
+    const submissionsGroupedByEmail = groupBy(data.getWorkshop.submissions.items, 'email')
+
+    const totalAssignments = mappedArray.length
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const workshopRequiredAssignments = mappedArray.filter((item) => item && item.required).length
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const expiredAssignments = mappedArray.filter((item) => item && item.expired).length
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const activeAssignments = mappedArray.filter((item) => item && !item.expired).length
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const expiredAndDueAssignments = mappedArray.filter((item) => item && item.expired && item.required).length
+    const workshopPasses = data.getWorkshop.passes
+
+    const userRowsBySubmissions = Object.keys(submissionsGroupedByEmail).map((email) => {
+        const requiredItems = uniqBy(
+            submissionsGroupedByEmail[email].map(({ fileRequestId }) => assignmentMap[fileRequestId]),
+            'id',
+        ).filter((item) => item && item.required && item.expired)
+        const required = requiredItems.length
+        const passes = workshopPasses - (expiredAndDueAssignments - required)
+
+        return {
+            id: email,
+            email,
+            name: '',
+            status: 'not synced',
+            submissions: submissionsGroupedByEmail[email].length,
+            required,
+            passes,
+            mailchimpSubscribed: false,
+            profileEnabled: false,
+            loginEnabled: false,
+            membership: false,
+        }
+    })
+
+    const userRowsByMembership = data?.getWorkshop?.memberships?.items.map((member) => {
+        const requiredItems = uniqBy(member.submissions.items, 'fileRequestId').filter(
+            (item) =>
+                item?.fileRequest?.required && item.fileRequest?.expiration && isExpired(item.fileRequest.expiration),
+        )
+
+        const required = requiredItems.length
+
+        const passes = workshopPasses - (expiredAndDueAssignments - required)
+
+        return {
+            id: member.id,
+            email: member.email,
+            name: member?.profile?.name || '',
+            status: member?.status,
+            submissions: member.submissions.items.length,
+            required,
+            passes,
+            mailchimpSubscribed: !!(
+                member.mailchimp &&
+                member.mailchimp.status === 'subscribed' &&
+                !member.mailchimp.tags.some((t) => t.name === 'OUT')
+            ),
+            profileEnabled: !!member.profile,
+            loginEnabled: !!member?.profile?.sub,
+            membership: !!(member?.status === 'ACTIVE'),
+        }
+    })
+
+    // merge users
+    // matched = []
+    // unmatchedSubmissionMembers = userRowsBySubmissions
+    // unmatchedMembershipMembers = userRowsByMembership
+
+    // iterate through unmatchedSubmissionMembers
+    // if theres a membership user with the same email
+    // remove from unmatchedSubmissionMembers
+    // remove from unmatchedMembershipMembers
+    // add membership to matched
+
+    const mergedUsersMap = userRowsBySubmissions.reduce(
+        (acc, curr) => {
+            // is curr in matched, do nothing
+            const alreadyMatched = acc.matched.find((m) => m.email === curr.email)
+            if (alreadyMatched) return acc
+            // is curr in unmatchedMembershipMembers,
+            const matchIndex = acc.unmatchedMembershipMembers.findIndex((m) => m.email === curr.email)
+            if (matchIndex > -1) {
+                // remove item from unmatchedMembershipMembers and put it in matched
+                acc.matched.push(acc.unmatchedMembershipMembers[matchIndex])
+                acc.unmatchedMembershipMembers = acc.unmatchedMembershipMembers.filter(m => m.email !== curr.email)
+            } else {
+                // else push to unmatchedSubmissionMembers
+                acc.unmatchedSubmissionMembers.push(curr)
+            }
+            return acc
+        },
+        {
+            matched: [],
+            unmatchedSubmissionMembers: [],
+            unmatchedMembershipMembers: userRowsByMembership
+        },
+    )
+
+    const userRows = [
+        ...mergedUsersMap.matched,
+        ...mergedUsersMap.unmatchedSubmissionMembers,
+        ...mergedUsersMap.unmatchedMembershipMembers,
+    ]
+
+    const columns: GridColDef[] = [
+        { field: 'email', headerName: 'Email', width: 300 },
+        { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'submissions', headerName: 'Submitted', width: 120 },
+        {
+            field: 'required',
+            headerName: 'Deadlines Met',
+            width: 150,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            renderCell: ({ value }) => (
+                <span>
+                    {value}/{expiredAndDueAssignments}
+                </span>
+            ),
+        },
+        {
+            field: 'passes',
+            headerName: 'Passes',
+            width: 100,
+        },
+        {
+            field: 'status',
+            headerName: 'Status',
+            width: 150,
+        },
+        {
+            field: 'membership',
+            headerName: 'Membership',
+            renderCell: ({ row, value = '' }) => (
+                <>
+                    {value ? 'Yes' : 'No'}
+                    <IconButton
+                        onClick={() =>
+                            onUpdateMembershipService({
+                                action: value ? 'DISABLE_MEMBERSHIP' : 'ADD_MEMBERSHIP',
+                                membershipPayload: {
+                                    emailAddress: row.email,
+                                    ...(row.name && { fullName: row.name }),
+                                },
+                            })
+                        }
+                        size="large">
+                        {value ? <Delete /> : <Add />}
+                    </IconButton>
+                </>
+            ),
+            width: 150,
+        },
+        {
+            field: 'profileEnabled',
+            headerName: 'Profile',
+            renderCell: ({ value }) => (value ? 'Yes' : 'No'),
+        },
+        {
+            field: 'loginEnabled',
+            headerName: 'Login',
+            renderCell: ({ row, value = '' }) => (
+                <>
+                    {value ? 'Yes' : 'No'}
+                    <IconButton
+                        onClick={() =>
+                            onUpdateMembershipService({
+                                action: value ? 'DISABLE_LOGIN' : 'ADD_LOGIN',
+                                membershipPayload: {
+                                    emailAddress: row.email,
+                                    ...(row.name && { fullName: row.name }),
+                                },
+                            })
+                        }
+                        size="large">
+                        {value ? <Delete /> : <Add />}
+                    </IconButton>
+                </>
+            ),
+        },
+        ...(data?.getWorkshop?.features?.mailchimp?.enabled
+            ? [
+                {
+                    field: 'mailchimpSubscribed',
+                    headerName: 'Mailchimp',
+                    renderCell: ({ row, value = '' }) => (
+                        <>
+                            {value ? 'Yes' : 'No'}
+                            <IconButton
+                                onClick={() =>
+                                    onUpdateMembershipService({
+                                        action: value
+                                            ? 'DISABLE_MAILCHIMP_SUBSCRIPTION'
+                                            : 'ADD_MAILCHIMP_SUBSCRIPTION',
+                                        membershipPayload: {
+                                            emailAddress: row.email,
+                                            ...(row.name && { fullName: row.name }),
+                                        },
+                                    })
+                                }
+                                size="large">
+                                {value ? <Delete /> : <Add />}
+                            </IconButton>
+                        </>
+                    ),
+                },
+            ]
+            : []),
+    ]
+
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+                <AppBreadcrumbs
+                    paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.members]}
+                    workshopId={workshopId}
+                />
+            </Grid>
+            <Grid item xs={8}>
+                <Typography variant="h5" component="h2">
+                    Members
+                </Typography>
+            </Grid>
+            {data?.getWorkshop?.features?.mailchimp?.enabled && (
+                <Grid item xs={4}>
+                    <Button onClick={onSyncWithMailchimp} style={{ float: 'right' }}>
+                        Sync from Mailchimp <Sync />
+                    </Button>
+                </Grid>
+            )}
+            <Grid item xs={12}>
+                <StyledChip label={`All Assignments: ${totalAssignments}`} />
+                <StyledChip label={`Required: ${workshopRequiredAssignments}`} />
+                <StyledChip label={`Active: ${activeAssignments}`} />
+                <StyledChip label={`All Past Due: ${expiredAssignments}`} />
+                <StyledChip label={`Required Past Due: ${expiredAndDueAssignments}`} />
+            </Grid>
+            <Grid item xs={12}>
+                <DataGrid
+                    // checkboxSelection
+                    rows={userRows}
+                    columns={columns}
+                    disableRowSelectionOnClick={true}
+                    initialState={{
+                        sorting: {
+                            sortModel: [{ field: 'required', sort: 'desc' }],
+                        },
+                    }}
+                    autoHeight
+                />
+            </Grid>
+        </Grid>
+    )
+}
+
+export default Members
