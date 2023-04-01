@@ -1,0 +1,1 @@
+Components here are ideally self-contained UI components that could be packaged as a library or easily swapped out with components from third-party UI libraries.
