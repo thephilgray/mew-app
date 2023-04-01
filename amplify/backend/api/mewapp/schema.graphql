@@ -1,238 +1,301 @@
 type Credit {
-    id: ID!
-    title: String
-    artists: [String]
-    artistLinks: [String]
+  id: ID!
+  title: String
+  artists: [String]
+  artistLinks: [String]
 }
 
 type Artwork {
-    id: ID!
-    credit: [Credit]
+  id: ID!
+  credit: [Credit]
 }
 
 type MailchimpIntegration {
-    enabled: Boolean
-    apiKeyName: String
-    listId: String
-    serverPrefix: String
+  enabled: Boolean
+  apiKeyName: String
+  listId: String
+  serverPrefix: String
 }
 
 type Features {
-    mailchimp: MailchimpIntegration
+  mailchimp: MailchimpIntegration
 }
 
 type APIKey
-    @model
-    @auth(
-        rules: [
-            { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
-            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
-        ]
-    ) {
-    id: ID!
-    keyName: String!
-    createdAt: AWSDateTime
-    profileID: ID!
-    email: String! @index(name: "apiKeysByEmail")
-    profile: Profile @belongsTo(fields: ["email"])
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      {
+        allow: groups
+        groups: ["admin", "editor"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  keyName: String!
+  createdAt: AWSDateTime
+  profileID: ID!
+  email: String! @index(name: "apiKeysByEmail")
+  profile: Profile @belongsTo(fields: ["email"])
 }
 
 type Extension
-    @model
-    @auth(
-        rules: [
-            { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
-            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
-        ]
-    ) {
-    id: ID!
-    expiration: AWSDateTime!
-    assignmentId: ID! @index(name: "extensionsByFileRequestId", queryField: "extensionsByFileRequestId")
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      {
+        allow: groups
+        groups: ["admin", "editor"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  expiration: AWSDateTime!
+  assignmentId: ID!
+    @index(
+      name: "extensionsByFileRequestId"
+      queryField: "extensionsByFileRequestId"
+    )
 }
 
 type FileRequest
-    @model
-    @auth(
-        rules: [
-            { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
-            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
-        ]
-    ) {
-    id: ID!
-    expiration: AWSDateTime!
-    title: String
-    details: String
-    required: Boolean
-    playlistArtwork: Artwork
-    submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByFileRequestId", fields: ["id"])
-    workshop: Workshop @belongsTo(fields: ["workshopId"])
-    workshopId: ID
-        @index(name: "fileRequestsByWorkshopId", queryField: "fileRequestsByWorkshopId")
-        @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
-    extensions: [Extension] @hasMany(indexName: "extensionsByFileRequestId", fields: ["id"])
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      {
+        allow: groups
+        groups: ["admin", "editor"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  expiration: AWSDateTime!
+  title: String
+  details: String
+  required: Boolean
+  playlistArtwork: Artwork
+  submissions: [FileRequestSubmission]
+    @hasMany(indexName: "submissionsByFileRequestId", fields: ["id"])
+  workshop: Workshop @belongsTo(fields: ["workshopId"])
+  workshopId: ID
+    @index(
+      name: "fileRequestsByWorkshopId"
+      queryField: "fileRequestsByWorkshopId"
+    )
+    @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
+  extensions: [Extension]
+    @hasMany(indexName: "extensionsByFileRequestId", fields: ["id"])
 }
 
 type FileRequestSubmission
-    @model
-    @auth(
-        rules: [
-            { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
-            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
-        ]
-    ) {
-    id: ID!
-    fileRequestId: ID! @index(name: "submissionsByFileRequestId", queryField: "submissionsByFileRequestId")
-    fileRequest: FileRequest @belongsTo(fields: ["fileRequestId"])
-    artist: String
-    name: String
-    email: String @index(name: "submissionsByEmail", queryField: "submissionsByEmail")
-    fileId: String
-    fileExtension: String
-    rating: Int
-    comments: String
-    workshopId: ID
-        @index(name: "submissionsByWorkshopId", queryField: "submissionsByWorkshopId")
-        @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  fileRequestId: ID!
+    @index(
+      name: "submissionsByFileRequestId"
+      queryField: "submissionsByFileRequestId"
+    )
+  fileRequest: FileRequest @belongsTo(fields: ["fileRequestId"])
+  artist: String
+  name: String
+  email: String
+    @index(name: "submissionsByEmail", queryField: "submissionsByEmail")
+  fileId: String
+  fileExtension: String
+  rating: Int
+  comments: String
+  workshopId: ID
+    @index(
+      name: "submissionsByWorkshopId"
+      queryField: "submissionsByWorkshopId"
+    )
+    @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
 }
 
 type MailchimpTag {
-    id: Int!
-    name: String
+  id: Int!
+  name: String
 }
 
 type MailchimpUserInfo {
-    id: String
-    emailAddress: String
-    status: String
-    fullName: String
-    uniqueEmailId: String
-    contactId: String
-    tags: [MailchimpTag]
+  id: String
+  emailAddress: String
+  status: String
+  fullName: String
+  uniqueEmailId: String
+  contactId: String
+  tags: [MailchimpTag]
 }
 
 type Membership
-    @model
-    @auth(
-        rules: [
-            { allow: private, provider: iam }
-            { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
-            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
-        ]
-    ) {
-    id: ID!
-    workshopId: ID! @index(name: "membershipsByWorkshopId", queryField: "membershipsByWorkshopId")
-    email: String! @index(name: "membershipsByEmail", queryField: "membershipsByEmail")
-    status: String
-    workshop: Workshop @belongsTo(fields: ["workshopId"])
-    profile: Profile @belongsTo(fields: ["email"])
-    mailchimp: MailchimpUserInfo
-    submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByEmail", fields: ["email"])
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      {
+        allow: groups
+        groups: ["admin", "editor"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  workshopId: ID!
+    @index(
+      name: "membershipsByWorkshopId"
+      queryField: "membershipsByWorkshopId"
+    )
+  email: String!
+    @index(name: "membershipsByEmail", queryField: "membershipsByEmail")
+  status: String
+  workshop: Workshop @belongsTo(fields: ["workshopId"])
+  profile: Profile @belongsTo(fields: ["email"])
+  mailchimp: MailchimpUserInfo
+  submissions: [FileRequestSubmission]
+    @hasMany(indexName: "submissionsByEmail", fields: ["email"])
 }
 
 type Workshop
-    @model
-    @auth(
-        rules: [
-            { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
-            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
-        ]
-    ) {
-    id: ID!
-    name: String
-    fileRequests: [FileRequest] @hasMany(indexName: "fileRequestsByWorkshopId", fields: ["id"])
-    submissions: [FileRequestSubmission] @hasMany(indexName: "submissionsByWorkshopId", fields: ["id"])
-    status: String
-    passes: Int
-    features: Features
-    memberships: [Membership] @hasMany(indexName: "membershipsByWorkshopId", fields: ["id"])
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      {
+        allow: groups
+        groups: ["admin", "editor"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  name: String
+  fileRequests: [FileRequest]
+    @hasMany(indexName: "fileRequestsByWorkshopId", fields: ["id"])
+  submissions: [FileRequestSubmission]
+    @hasMany(indexName: "submissionsByWorkshopId", fields: ["id"])
+  status: String
+  passes: Int
+  features: Features
+  memberships: [Membership]
+    @hasMany(indexName: "membershipsByWorkshopId", fields: ["id"])
 }
 
 type Profile
-    @model
-    @auth(
-        rules: [
-            { allow: private, provider: iam }
-            { allow: private, operations: [read, create, update, delete] }
-            { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
-            { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
-        ]
-    )
-    @aws_cognito_user_pools {
-    email: String! @primaryKey
-    id: ID!
-    name: String
-    avatar: String
-    bio: String
-    sub: String
-    apiKeys: [APIKey] @hasMany(indexName: "apiKeysByEmail", fields: ["email"])
-    memberships: [Membership] @hasMany(indexName: "membershipsByEmail", fields: ["email"])
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      {
+        allow: groups
+        groups: ["admin", "editor"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @aws_cognito_user_pools {
+  email: String! @primaryKey
+  id: ID!
+  name: String
+  avatar: String
+  bio: String
+  sub: String
+  apiKeys: [APIKey] @hasMany(indexName: "apiKeysByEmail", fields: ["email"])
+  memberships: [Membership]
+    @hasMany(indexName: "membershipsByEmail", fields: ["email"])
 }
 
 input SongData {
-    fileId: String
-    title: String
+  fileId: String
+  title: String
 }
 
 input DownloadLinkOptions {
-    stripMetadataForSoundCloud: Boolean
+  stripMetadataForSoundCloud: Boolean
 }
 
 input ApiKeyUpdate {
-    action: String!
-    keyName: String!
-    key: String
-    keyId: String
+  action: String!
+  keyName: String!
+  key: String
+  keyId: String
 }
 
 type Response {
-    statusCode: Int
-    body: String
+  statusCode: Int
+  body: String
 }
 
 input MailchimpTagInput {
-    id: Int!
-    name: String
+  id: Int!
+  name: String
 }
 
 input MembershipServicePayload {
-    emailAddress: String
-    groupName: String
-    fullName: String
-    status: String
-    mailchimpStatus: String
-    contactId: String
-    mailchimpId: String
-    mailchimpTags: [MailchimpTagInput]
-    uniqueEmailId: String
+  emailAddress: String
+  groupName: String
+  fullName: String
+  status: String
+  mailchimpStatus: String
+  contactId: String
+  mailchimpId: String
+  mailchimpTags: [MailchimpTagInput]
+  uniqueEmailId: String
 }
 
 type Mutation {
-    processDownload(assignmentId: ID!, songData: [SongData]): String @function(name: "zipmewsubmissions-${env}")
+  processDownload(assignmentId: ID!, songData: [SongData]): String
+    @function(name: "zipmewsubmissions-${env}")
 
-    updateProfileService(
-        email: String!
-        sub: ID
-        id: ID
-        name: String
-        bio: String
-        apiKeyUpdate: ApiKeyUpdate
-        avatar: String
-    ): Response @aws_api_key @aws_iam @aws_cognito_user_pools @function(name: "mewProfileService-${env}")
+  updateProfileService(
+    email: String!
+    sub: ID
+    id: ID
+    name: String
+    bio: String
+    apiKeyUpdate: ApiKeyUpdate
+    avatar: String
+  ): Response
+    @aws_api_key
+    @aws_iam
+    @aws_cognito_user_pools
+    @function(name: "mewProfileService-${env}")
 
-    updateMembershipService(workshopId: ID!, action: String, payloads: [MembershipServicePayload]): Response
-        @aws_api_key
-        @aws_iam
-        @aws_cognito_user_pools
-        @function(name: "membershipService-${env}")
+  updateMembershipService(
+    workshopId: ID!
+    action: String
+    payloads: [MembershipServicePayload]
+  ): Response
+    @aws_api_key
+    @aws_iam
+    @aws_cognito_user_pools
+    @function(name: "membershipService-${env}")
 
-    runProcessAudioTask(assignmentId: ID!, email: String!, options: DownloadLinkOptions): String
-        @function(name: "runProcessAudioTask-${env}")
+  runProcessAudioTask(
+    assignmentId: ID!
+    email: String!
+    options: DownloadLinkOptions
+  ): String @function(name: "runProcessAudioTask-${env}")
 
-    populateMembers: [String] @function(name: "populateMembers-${env}")
+  populateMembers: [String] @function(name: "populateMembers-${env}")
 }
