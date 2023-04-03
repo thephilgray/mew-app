@@ -10,6 +10,7 @@ frontend:
     preBuild:
       commands:
         - yarn
+        - yarn global add gatsby
     build:
       commands:
         - yarn build --verbose
@@ -17,6 +18,3 @@ frontend:
     baseDirectory: public
     files:
       - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
