@@ -30,8 +30,8 @@ import AppBreadcrumbs from '../AppBreadcrumbs'
 import { FileCopy } from '@mui/icons-material'
 import { useCopyToClipboard } from 'react-use'
 import { ROUTE_NAMES } from '../../pages/app'
-import * as mutations from '../../../../src/graphql/mutations'
-import { getFileRequest as getFileRequestQuery } from '../../../../src/graphql/queries'
+import * as mutations from '../../graphql/mutations'
+import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
 
 const getFileRequestWithNoLimit = getFileRequestQuery.replace('submissions {', 'submissions(limit: 1000) {')
 

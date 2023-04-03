@@ -9,13 +9,12 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd frontend
         - yarn
     build:
       commands:
         - yarn build --verbose
   artifacts:
-    baseDirectory: frontend/public
+    baseDirectory: public
     files:
       - '**/*'
   cache:

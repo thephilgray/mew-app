@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import * as React from 'react'
 import { useUserHasMembership, useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks'
 import { Group } from '../../constants'
-import { listWorkshops } from '../../../../src/graphql/queries'
+import { listWorkshops } from '../../graphql/queries'
 import GroupGuard from '../Auth/GroupGuard'
 
 export default function WorkshopList() {

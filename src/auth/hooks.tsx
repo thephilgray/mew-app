@@ -4,8 +4,8 @@ import { SignInInput, SignUpInput, AnswerCustomChallengeInput } from './types'
 import { AuthContext } from './auth.context'
 import { Group } from '../constants'
 import { CognitoUser } from '@aws-amplify/auth'
-import { Profile } from '../../../src/API'
-import { getProfile } from '../../../src/graphql/queries'
+import { Profile } from '../API'
+import { getProfile } from '../graphql/queries'
 import { usePrevious } from 'react-use'
 
 export function useAuth() {

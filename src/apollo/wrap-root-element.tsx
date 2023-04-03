@@ -4,7 +4,7 @@ import { createAuthLink } from 'aws-appsync-auth-link'
 import { createSubscriptionHandshakeLink } from 'aws-appsync-subscription-link';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import awsconfig from '../../../src/aws-exports'
+import awsconfig from '../aws-exports'
 import { ApolloClient, ApolloLink, InMemoryCache, HttpLink, ApolloProvider } from '@apollo/client'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -10,7 +10,7 @@ import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
 import styled from '@emotion/styled'
 import { Add, Delete, Sync } from '@mui/icons-material'
-import { updateMembershipService } from '../../../../src/graphql/mutations'
+import { updateMembershipService } from '../../graphql/mutations'
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 

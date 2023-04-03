@@ -30,8 +30,8 @@ import { ROUTE_NAMES } from '../../pages/app'
 import {
     createExtension as createExtensionMutation,
     deleteExtension as deleteExtensionMutation,
-} from '../../../../src/graphql/mutations'
-import { extensionsByFileRequestId as extensionsByFileRequestIdQuery } from '../../../../src/graphql/queries'
+} from '../../graphql/mutations'
+import { extensionsByFileRequestId as extensionsByFileRequestIdQuery } from '../../graphql/queries'
 import { format } from 'date-fns'
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator'
 

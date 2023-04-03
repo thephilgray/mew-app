@@ -12,7 +12,7 @@ import {
     TextField,
     Typography,
 } from '@mui/material'
-import { getProfile } from '../../../../src/graphql/queries'
+import { getProfile } from '../../graphql/queries'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import GroupGuard from '../Auth/GroupGuard'
