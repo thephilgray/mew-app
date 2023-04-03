@@ -3,7 +3,7 @@ import { CognitoUser } from '@aws-amplify/auth'
 
 import { useAuth } from './hooks'
 import { AnswerCustomChallengeInput, SignInInput } from './types'
-import { Profile } from '../../../src/API'
+import { Profile } from '../API'
 
 interface AuthState {
     user: CognitoUser | null

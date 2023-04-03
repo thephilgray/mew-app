@@ -5,7 +5,7 @@ import { withStyles, makeStyles } from 'tss-react/mui';
 // import ImageCropper from '../lib/ImageUploader/ImageCropper'
 // import mewAppLogo from '../../assets/mewlogo.png'
 // import { EditRounded } from '@mui/icons-material'
-import { updateProfileService } from '../../../../src/graphql/mutations'
+import { updateProfileService } from '../../graphql/mutations'
 import gql from 'graphql-tag'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { useForm } from 'react-hook-form'
@@ -16,7 +16,7 @@ import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
 import { useProfile, useUser } from '../../auth/hooks'
-import { getProfile } from '../../../../src/graphql/queries';
+import { getProfile } from '../../graphql/queries';
 
 type APIKeyForm = {
     keyName: string

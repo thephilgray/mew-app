@@ -13,8 +13,8 @@ import { useBeforeUnload } from 'react-use'
 import { v4 as uuidv4 } from 'uuid'
 
 import Error from '../Error'
-import { createFileRequestSubmission } from '../../../../src/graphql/mutations'
-import { getFileRequest as getFileRequestQuery } from '../../../../src/graphql/queries'
+import { createFileRequestSubmission } from '../../graphql/mutations'
+import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
 
 type Inputs = {
     name: string
