@@ -8,8 +8,8 @@ backend:
     build:
       commands:
         - '# Execute Amplify CLI with the helper script'
-        - amplify push --yes
-        - amplify pull --yes
+        - amplify push production --yes
+        - amplify pull production --yes
 frontend:
   phases:
     preBuild:
