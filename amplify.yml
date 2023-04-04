@@ -3,12 +3,12 @@ backend:
   phases:
     preBuild:
       commands:
-        - npm install -g @aws-amplify/cli@6.4.0 # pinned known working version
+        - npm install -g @aws-amplify/cli
         - export AWS_BRANCH=$(echo ${AWS_BRANCH} | tr "/" "-" | cut -c1-20) # prevent common and long git branch names (feat/something) to create an invalid stack/resource name
     build:
       commands:
         - '# Execute Amplify CLI with the helper script'
-        - amplifyPush --simple
+        - amplify push --yes
 frontend:
   phases:
     preBuild:
