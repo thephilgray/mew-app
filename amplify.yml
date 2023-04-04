@@ -9,6 +9,7 @@ backend:
       commands:
         - '# Execute Amplify CLI with the helper script'
         - amplify push --yes
+        - amplify pull --yes
 frontend:
   phases:
     preBuild:
