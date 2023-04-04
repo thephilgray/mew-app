@@ -5,7 +5,7 @@ backend:
       commands:
         - '# Execute Amplify CLI with the helper script'
         - npm install -g @aws-amplify/cli
-        - amplifyPush --simple
+        - amplify push --yes
 frontend:
   phases:
     preBuild:
