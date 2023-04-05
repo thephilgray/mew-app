@@ -1,8 +1,21 @@
 version: 1
+backend:
+  phases:
+    preBuild:
+      commands:
+        - npm install -g @aws-amplify/cli
+        - export AWS_BRANCH=$(echo ${AWS_BRANCH} | tr "/" "-" | cut -c1-20) # prevent common and long git branch names (feat/something) to create an invalid stack/resource name
+    build:
+      commands:
+        - '# Execute Amplify CLI with the helper script'
+        - amplify push --appId d1yi6qc6rnncji --envName production --yes
+        - amplify pull --appId d1yi6qc6rnncji --envName production --yes
+        - ls
 frontend:
   phases:
     preBuild:
       commands:
+        - ls
         - yarn
         - yarn global add gatsby
     build:
