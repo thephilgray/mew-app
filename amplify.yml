@@ -3,12 +3,15 @@ backend:
   phases:
     preBuild:
       commands:
-        - npm install -g @aws-amplify/cli
+        - sudo yum install -y gcc-c++ make
+        - curl -sL https://rpm.nodesource.com/setup_18.x | sudo -E bash -
+        - sudo yum install -y nodejs
+        - node -v
+        - nvm install 18
+        - nvm use 18
     build:
       commands:
         - '# Execute Amplify CLI with the helper script'
-        - nvm install 18
-        - nvm use 18
         - amplifyPush --simple
 frontend:
   phases:
