@@ -3,7 +3,7 @@ backend:
   phases:
     preBuild:
       commands:
-        - yum update && yum install -y sudo
+        - yum install -y sudo
         - sudo yum install -y gcc-c++ make
         - curl -sL https://rpm.nodesource.com/setup_18.x | sudo -E bash -
         - sudo yum install -y nodejs
