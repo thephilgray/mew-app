@@ -8,6 +8,7 @@ backend:
     build:
       commands:
         - '# Execute Amplify CLI with the helper script'
+        - npm uninstall -g @aws-amplify/cli
         - yarn global add colors@1.4.0 @aws-amplify/cli@6.4.0
         - amplifyPush --simple
 frontend:
