@@ -3,9 +3,8 @@ backend:
   phases:
     preBuild:
       commands:
-        - nvm install 18
-        - nvm use 18
         - node -v
+        - curl -o- -L https://yarnpkg.com/install.sh | bash
         - yarn global add @aws-amplify/cli
     build:
       commands:
