@@ -14,8 +14,12 @@ frontend:
   phases:
     preBuild:
       commands:
+        - npm uninstall @aws-amplify/cli
+        - npm install -g colors@1.4.0 @aws-amplify/cli@6.4.0
+        - amplifyPush --simple
         - yarn
         - yarn global add gatsby
+        - yarn add @ardatan/aggregate-error
     build:
       commands:
         - yarn build --verbose
