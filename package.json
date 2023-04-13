@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
+    "@ardatan/aggregate-error": "^0.0.6",
     "@aws-amplify/ui-react": "^4.4.3",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
