@@ -25,7 +25,7 @@ type APIKey
   @model
   @auth(
     rules: [
-      { allow: private, operations: [read, create, update, delete] }
+      # { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
         allow: groups
@@ -46,7 +46,7 @@ type Extension
   @model
   @auth(
     rules: [
-      { allow: private, operations: [read, create, update, delete] }
+      # { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
         allow: groups
@@ -68,7 +68,7 @@ type FileRequest
   @model
   @auth(
     rules: [
-      { allow: private, operations: [read, create, update, delete] }
+      # { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
         allow: groups
@@ -100,7 +100,7 @@ type FileRequestSubmission
   @model
   @auth(
     rules: [
-      { allow: private, operations: [read, create, update, delete] }
+      # { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
     ]
@@ -147,8 +147,8 @@ type Membership
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
-      { allow: private, operations: [read, create, update, delete] }
+      # { allow: private, provider: iam }
+      # { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
         allow: groups
@@ -177,7 +177,7 @@ type Workshop
   @model
   @auth(
     rules: [
-      { allow: private, operations: [read, create, update, delete] }
+      # { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
         allow: groups
@@ -203,8 +203,8 @@ type Profile
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
-      { allow: private, operations: [read, create, update, delete] }
+      # { allow: private, provider: iam }
+      # { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
         allow: groups
