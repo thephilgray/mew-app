@@ -9,6 +9,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - yarn global add gatsby-cli
         - yarn install
     build:
       commands:
