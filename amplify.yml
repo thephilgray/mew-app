@@ -1,26 +1,18 @@
 version: 1
 backend:
   phases:
-    preBuild:
-      commands:
-        - node -v
-        - curl -o- -L https://yarnpkg.com/install.sh | bash
     build:
       commands:
         - '# Execute Amplify CLI with the helper script'
-        - npm uninstall -g @aws-amplify/cli
-        - yarn global add colors@1.4.0 @aws-amplify/cli@6.4.0
         - amplifyPush --simple
 frontend:
   phases:
     preBuild:
       commands:
-        - yarn
-        - yarn global add gatsby
-        - yarn add @ardatan/aggregate-error
+        - yarn install
     build:
       commands:
-        - yarn build --verbose
+        - yarn run build
   artifacts:
     baseDirectory: public
     files:
