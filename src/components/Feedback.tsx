@@ -72,7 +72,7 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
           <Link to={`/app/profile/${comment.profile.id}`}>
             {comment?.profile?.name || 'Anonymous'}
           </Link>
-          <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago</span>
+          <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – <em>{currentTrackMetaData.name} by {currentTrackMetaData.artist}</em></span>
         </h4>
 
         <p style={{ textAlign: "left" }}>
@@ -87,12 +87,16 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
             writeCommentFunctions.setCommentContent('')
           }}
         /> : null}
-        <Button onClick={() => setShowWriteComment(!showWriteComment)}>{showWriteComment ? 'Dismiss' : 'Reply To'}</Button>
-        {showEditComment ? <IconButton onClick={() => {
-          setShowWriteComment(false)
-          setEditing(!editing)
-          writeCommentFunctions.setCommentContent(comment.content)
-        }}>{!editing ? <Edit></Edit> : <Close></Close>}</IconButton> : null}
+        <Button onClick={() => {
+          setShowWriteComment(!showWriteComment)
+          writeCommentFunctions.setCommentContent('')
+        }}>{showWriteComment ? 'Dismiss' : 'Reply To'}</Button>
+        {showEditComment ?
+          <IconButton onClick={() => {
+            setShowWriteComment(false)
+            setEditing(!editing)
+            writeCommentFunctions.setCommentContent(comment.content)
+          }}>{!editing ? <Edit></Edit> : <Close></Close>}</IconButton> : null}
         {showDeleteComment ? <IconButton onClick={writeCommentFunctions.removeComment(comment)}><Delete></Delete></IconButton> : null}
         {comment.createdAt !== comment.updatedAt && (
           <p style={{ textAlign: "left", color: "gray" }}>Updated {formatDistanceToNow(new Date(comment.updatedAt))} ago</p>
@@ -253,7 +257,7 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true }) => {
   const parentComments = filteredComments.filter(c => c.parentId == null)
   return (
     <Grid container>
-      <Grid item xs={12} style={{ marginTop: "1em" }}>
+      <Grid item xs={12} style={{ marginTop: "1em", marginBottom: "1em" }}>
         <Typography variant="h6" component="h3">
           Feedback{' '}
           <Badge badgeContent={filteredComments.length || 0} color="secondary">
