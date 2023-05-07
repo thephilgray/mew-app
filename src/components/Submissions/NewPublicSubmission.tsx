@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, PropsWithChildren } from 'react'
+import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from 'react'
 import { Grid, TextField, IconButton, Button, Paper, Typography, CircularProgress, LinearProgress } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
@@ -15,6 +15,10 @@ import { v4 as uuidv4 } from 'uuid'
 import Error from '../Error'
 import { createFileRequestSubmission } from '../../graphql/mutations'
 import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
+import AppBreadcrumbs from '../AppBreadcrumbs'
+import { useUser } from '../../auth/hooks'
+import If from '../If'
+import { ROUTE_NAMES } from '../../pages/app'
 
 type Inputs = {
     name: string
@@ -91,6 +95,7 @@ const NewPublicSubmission: React.FC<
     const [uploadProgress, setUploadProgress] = useState({ loaded: 0, total: 1 })
     const [uploadAreaMessage, setUploadAreaMessage] = useState('Drop your track')
     const [expiration, setExpiration] = useState('')
+    const user = useUser()
     const {
         register,
         handleSubmit,
@@ -99,7 +104,14 @@ const NewPublicSubmission: React.FC<
         formState: {
             errors,
         },
-    } = useForm<Inputs>()
+    } = useForm<Inputs>({
+        defaultValues: useMemo(() => {
+            return {
+                email: user?.email || '',
+                artist: user?.name || ''
+            }
+        }, [user])
+    })
     const fileref = useRef(null)
     useBeforeUnload(!!uploadProgress.loaded && loading, 'Upload in progress. Are you sure you want to exit?')
 
@@ -413,6 +425,12 @@ const NewPublicSubmission: React.FC<
     }
     return (
         <Grid container spacing={2}>
+            {user ? <Grid item xs={12}>
+                <AppBreadcrumbs
+                    paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.assignment]}
+                    workshopId={fileRequestData?.workshopId}
+                />
+            </Grid> : null}
             <Grid item xs={12}>
                 <Paper style={{ padding: '1rem' }}>{content}</Paper>
             </Grid>

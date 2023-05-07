@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { gql, useQuery } from '@apollo/react-hooks'
-import { Add, Check, MusicNote, People, PlayArrowTwoTone, Settings } from '@mui/icons-material'
+import { Add, Assignment, AssignmentLateRounded, AssignmentTurnedInRounded, Check, CheckBoxOutlineBlankRounded, CheckBoxRounded, MusicNote, People, PlayArrowTwoTone, Settings } from '@mui/icons-material'
 import { Button, Card, CardActions, CardContent, createStyles, Grid, IconButton, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui';
 import { Link, navigate } from 'gatsby'
@@ -15,6 +15,7 @@ import { getWorkshop } from '../../graphql/queries'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
 import { compareDesc } from 'date-fns'
+import { useUser } from '../../auth/hooks';
 
 const useStyles = makeStyles()(() => (
     {
@@ -26,6 +27,7 @@ const useStyles = makeStyles()(() => (
 
 const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     const { classes } = useStyles()
+    const user = useUser()
     const { loading, error, data, refetch } = useQuery(
         gql(getWorkshop.replace('submissions {', 'submissions(limit: 5000) {')),
         {
@@ -91,29 +93,48 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
 
     const items = data?.getWorkshop?.fileRequests?.items || []
     const rows = items.map(
-        (item: { id: string; title: string; expiration: string; required: boolean; createdAt: string }) => ({
-            ...item,
-            submissions: data?.getWorkshop?.submissions?.items
+        (item: { id: string; title: string; expiration: string; required: boolean; createdAt: string }) => {
+            const submissions = data?.getWorkshop?.submissions?.items
                 ? data.getWorkshop.submissions.items
                     // @ts-ignore
                     .filter((submission) => submission?.fileRequestId === item.id)
-                : [],
-            status: !isPast(new Date(item.expiration as string)) ? 'ACTIVE' : 'EXPIRED',
-        }),
+                : []
+            return {
+                ...item,
+                submissions,
+                status: !isPast(new Date(item.expiration as string)) ? 'ACTIVE' : 'EXPIRED',
+                mySubmissions: submissions.filter(submission => submission?.email === user.email)
+
+            }
+        },
     )
 
     const AssignmentList = ({ items }) =>
         items.map((row) => (
             <Grid item xs={12} key={row.id}>
-                <Card>
+                <Card sx={{ backgroundColor: row.status === 'EXPIRED' ? 'rgba(0,0,0,.015)' : '#fff' }}>
                     <CardContent>
                         <Grid container>
                             <Grid item xs={8}>
                                 <Typography gutterBottom variant="h5" component="h3">
-                                    {row.title}
+                                    <Link to={ROUTE_NAMES.assignment.getPath({ assignmentId: String(row.id) })}>
+                                        {row.title}
+                                    </Link>
                                 </Typography>
                             </Grid>
                             <Grid item xs={4} justifyContent="flex-end" style={{ textAlign: 'right' }}>
+                                {(() => {
+                                    if (row.mySubmissions.length > 0) {
+                                        return <><AssignmentTurnedInRounded color="success" sx={{ verticalAlign: "bottom" }} /></>
+                                    }
+                                    else if (row.status === 'EXPIRED') {
+                                        return <><AssignmentLateRounded color="error" sx={{ verticalAlign: "bottom" }} /></>
+                                    }
+                                    return <Assignment color="warning" sx={{ verticalAlign: "bottom" }} />
+
+                                })()
+                                }
+                                {" "}
                                 Due: {format(new Date(String(row.expiration)), `E, MM/dd/yy hh:mm`)}
                             </Grid>
                             <Grid item xs={12}>
@@ -124,7 +145,8 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                     <CardActions>
                         {row.status === 'ACTIVE' ? (
                             <Button
-                                color="secondary"
+                                color="info"
+                                variant="contained"
                                 aria-label="New Submission"
                                 // component={Link}
                                 onClick={() =>
@@ -137,12 +159,13 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                         ) : null}
                         {row.status === 'EXPIRED' ? (
                             <Button
-                                color="secondary"
+                                color="success"
+                                variant="contained"
                                 aria-label="Playlist"
                                 onClick={() => navigate(ROUTE_NAMES.playlist.getPath({ assignmentId: row.id }))}
-                                startIcon={<MusicNote />}
+                                startIcon={<PlayArrowTwoTone />}
                             >
-                                Listen
+                                Play
                             </Button>
                         ) : null}
                     </CardActions>
@@ -159,8 +182,8 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
 
     const assignmentsView = (
         <>
-            <Grid item xs={12}>
-                <Grid container spacing={4}>
+            <Grid item xs={12} sx={{ mt: 4 }}>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography variant="h5" component="h2">
                             Upcoming
@@ -176,7 +199,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                 </Grid>
             </Grid>
             {pastDueAssignments.length > 0 ? (
-                <Grid item xs={12}>
+                <Grid item xs={12} sx={{ mt: 4 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <Typography variant="h5" component="h2">

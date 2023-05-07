@@ -230,7 +230,6 @@ export const createFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -300,7 +299,6 @@ export const updateFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -370,7 +368,6 @@ export const deleteFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -451,7 +448,19 @@ export const createFileRequestSubmission = /* GraphQL */ `
       fileId
       fileExtension
       rating
-      comments
+      comments {
+        items {
+          id
+          content
+          email
+          submissionId
+          assignmentId
+          parentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       workshopId
       createdAt
       updatedAt
@@ -499,7 +508,19 @@ export const updateFileRequestSubmission = /* GraphQL */ `
       fileId
       fileExtension
       rating
-      comments
+      comments {
+        items {
+          id
+          content
+          email
+          submissionId
+          assignmentId
+          parentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       workshopId
       createdAt
       updatedAt
@@ -547,7 +568,19 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
       fileId
       fileExtension
       rating
-      comments
+      comments {
+        items {
+          id
+          content
+          email
+          submissionId
+          assignmentId
+          parentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       workshopId
       createdAt
       updatedAt
@@ -619,7 +652,6 @@ export const createMembership = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -696,7 +728,6 @@ export const updateMembership = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -773,7 +804,6 @@ export const deleteMembership = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -816,7 +846,6 @@ export const createWorkshop = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -880,7 +909,6 @@ export const updateWorkshop = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -944,7 +972,6 @@ export const deleteWorkshop = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -1089,6 +1116,264 @@ export const deleteProfile = /* GraphQL */ `
         }
         nextToken
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createComment = /* GraphQL */ `
+  mutation CreateComment(
+    $input: CreateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    createComment(input: $input, condition: $condition) {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+        }
+        memberships {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          createdAt
+          updatedAt
+        }
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        comments {
+          nextToken
+        }
+        workshopId
+        createdAt
+        updatedAt
+      }
+      assignmentId
+      assignment {
+        id
+        expiration
+        title
+        details
+        required
+        playlistArtwork {
+          id
+        }
+        submissions {
+          nextToken
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+        }
+        workshopId
+        extensions {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      parentId
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateComment = /* GraphQL */ `
+  mutation UpdateComment(
+    $input: UpdateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    updateComment(input: $input, condition: $condition) {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+        }
+        memberships {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          createdAt
+          updatedAt
+        }
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        comments {
+          nextToken
+        }
+        workshopId
+        createdAt
+        updatedAt
+      }
+      assignmentId
+      assignment {
+        id
+        expiration
+        title
+        details
+        required
+        playlistArtwork {
+          id
+        }
+        submissions {
+          nextToken
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+        }
+        workshopId
+        extensions {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      parentId
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteComment = /* GraphQL */ `
+  mutation DeleteComment(
+    $input: DeleteCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    deleteComment(input: $input, condition: $condition) {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+        }
+        memberships {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          createdAt
+          updatedAt
+        }
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        comments {
+          nextToken
+        }
+        workshopId
+        createdAt
+        updatedAt
+      }
+      assignmentId
+      assignment {
+        id
+        expiration
+        title
+        details
+        required
+        playlistArtwork {
+          id
+        }
+        submissions {
+          nextToken
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+        }
+        workshopId
+        extensions {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      parentId
       createdAt
       updatedAt
     }

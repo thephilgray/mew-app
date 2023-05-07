@@ -181,3 +181,4 @@ export function useUserHasMembership(workshopId: string): boolean {
         userProfile.memberships.items.some((membership) => membership && membership.workshopId === workshopId)
     )
 }
+export const useIsAdmin = () => useUserInAtLeastOneOfTheseGroups([Group.admin])

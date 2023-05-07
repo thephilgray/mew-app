@@ -1,7 +1,8 @@
 /* eslint-disable react/display-name */
-import React, { useEffect, useState, PropsWithChildren } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia } from '@mui/material'
+import React, { useEffect, useState, PropsWithChildren, useRef } from 'react'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
+import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { API, Storage } from 'aws-amplify'
@@ -14,41 +15,20 @@ import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
 import { useUser } from '../../auth/hooks'
+import { Pause, PauseCircleFilledTwoTone, PlayArrow as PlayArrowIcon, Send, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon } from '@mui/icons-material'
+import { FeedbackSection } from '../Feedback'
+import { getFileRequest } from '../../graphql/queries'
+import If from '../If';
 
-const GET_FILE_REQUEST = gql`
-    query GetFileRequest($id: ID!) {
-        getFileRequest(id: $id) {
-            id
-            workshopId
-            title
-            expiration
-            playlistArtwork {
-                id
-                credit {
-                    artists
-                    title
-                    artistLinks
-                }
-            }
-            submissions(limit: 1000) {
-                items {
-                    id
-                    artist
-                    email
-                    name
-                    fileId
-                    fileExtension
-                }
-            }
-        }
-    }
-`
+const GET_FILE_REQUEST = gql(getFileRequest.replace('submissions {', 'submissions(limit: 1000) {'))
 
 const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({
     assignmentId = '',
 }) => {
     const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [isPlaying, setIsPlaying] = useState(false)
+
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState<{
         expiration: string
@@ -57,13 +37,21 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         workshopId: string
     } | null>(null)
     const [error, setError] = useState(null)
+    const theme = useTheme();
     const user = useUser()
     const loggedIn = !!user
+    const playerRef = useRef()
+
+    const { color, palette } = useColorThief(audioLists[currentIndex]?.cover || mewAppLogo, {
+        format: 'hex',
+        colorCount: 10,
+        quality: 10,
+    });
 
     // Authenticated user access
     const { loading: authLoading, error: authError, data: authData } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
-        pollInterval: 10000,
+        // pollInterval: 10000,
     })
 
     // Authenticated user access
@@ -136,6 +124,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         a.click()
     }
 
+
     useEffect(() => {
         async function addSongsToPlaylist() {
             const songs: Array<ReactJkMusicPlayerAudioListProps> = []
@@ -145,7 +134,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 // @ts-ignore
                 for (let index = 0; index < data.submissions.items.length; index++) {
                     // @ts-ignore
-                    const { name, fileId, artist } = data.submissions.items[index]
+                    const { name, fileId, artist, id } = data.submissions.items[index]
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -156,6 +145,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             cover: mewAppLogo,
                             singer: artist,
                             fileId,
+                            submissionId: id
                         })
                         seenFileIds.push(fileId)
                     }
@@ -170,10 +160,15 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     if (loading) return <CircularProgress />
     // @ts-ignore
     if (!loading && !data?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
+
+
     return (
         <Grid container spacing={3} style={{ minHeight: '90 vh' }}>
             {audioLists.length ? (
                 <ReactJkMusicPlayer
+                    getAudioInstance={(instance) => {
+                        playerRef.current = instance
+                    }}
                     mode="full"
                     // mobileMediaQuery="(max-width: 2000px)"
                     preload
@@ -187,11 +182,30 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     showThemeSwitch={false}
                     showPlayMode={true}
                     defaultVolume={1}
+                    defaultPosition={{ bottom: 16, right: 16 }}
                     // volumeFade={{ fadeIn: 0, fadeOut: 0 }}
                     showMiniProcessBar={false}
                     showDownload={true}
                     // @ts-ignore
                     customDownloader={download}
+                    // drag={false}
+                    remove={false}
+                    onAudioPlay={() => {
+                        setIsPlaying(true)
+                    }}
+                    onAudioPause={() => {
+                        setIsPlaying(false)
+                    }}
+                    onAudioEnded={() => {
+                        setIsPlaying(false)
+                    }}
+                    onAudioAbort={() => {
+                        setIsPlaying(false)
+                    }}
+                    onAudioError={() => {
+                        setIsPlaying(false)
+                    }}
+
                 />
             ) : null}
             {loggedIn ? (
@@ -211,29 +225,63 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 </Grid>
             ) : null}
             <Grid item xs={12}>
-                <Card>
-                    {audioLists?.[currentIndex]?.cover?.toString() ? (
+                <Card sx={{ display: 'flex', height: '380px', backgroundColor: color }}>
+                    <If condition={!!audioLists?.[currentIndex]}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <CardContent sx={{ flex: '1 0 auto' }}>
+                                <Typography component="h2" variant="h5" color="white" style={{ lineHeight: "37px", backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, padding: "4px 7px" }}>
+                                    {audioLists?.[currentIndex]?.name?.toString()}
+                                </Typography>
+                                <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
+                                    {audioLists?.[currentIndex]?.singer?.toString()}
+                                </Typography>
+                            </CardContent>
+                            <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)" }}>
+                                <IconButton aria-label="previous" onClick={() => playerRef.current.playPrev()}>
+                                    {theme.direction === 'rtl' ? <SkipNextIcon sx={{ color: "#fff" }} /> : <SkipPreviousIcon sx={{ color: "#fff" }} />}
+                                </IconButton>
+                                {
+                                    !!isPlaying ?
+                                        <IconButton aria-label="pause" onClick={() => {
+                                            playerRef.current.pause()
+                                        }
+                                        }>
+                                            <Pause sx={{ color: "#fff", height: 38, width: 38 }} />
+                                        </IconButton>
+                                        : <IconButton aria-label="play" onClick={() => {
+                                            playerRef.current.play()
+                                        }}>
+                                            <PlayArrowIcon sx={{ color: "#fff", height: 38, width: 38 }} />
+                                        </IconButton>
+
+
+                                }
+                                <IconButton aria-label="next" onClick={() => playerRef.current.playNext()}>
+                                    {theme.direction === 'rtl' ? <SkipPreviousIcon sx={{ color: "#fff" }} /> : <SkipNextIcon sx={{ color: "#fff" }} />}
+                                </IconButton>
+                            </Box>
+                        </Box>
+                    </If>
+                    <Box sx={{ alignSelf: 'center', marginLeft: 'auto', paddingRight: '0.5em' }}>
                         <CardMedia
                             component="img"
-                            alt="Song cover image"
-                            height="200"
+                            sx={{ width: 340, height: 340 }}
                             image={audioLists?.[currentIndex]?.cover?.toString()}
-                            title={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
+                            alt={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
                                 currentIndex
                             ]?.singer?.toString()}`}
                         />
-                    ) : null}
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {audioLists?.[currentIndex]?.name?.toString()}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {audioLists?.[currentIndex]?.singer?.toString()}
-                        </Typography>
-                    </CardContent>
+
+                    </Box>
                 </Card>
+            </Grid >
+            <Grid item xs={12}>
+                <FeedbackSection
+                    assignmentId={assignmentId}
+                    submissionId={audioLists?.[currentIndex]?.submissionId}
+                />
             </Grid>
-        </Grid>
+        </Grid >
     )
 }
 

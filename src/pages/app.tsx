@@ -64,6 +64,11 @@ export const ROUTE_NAMES = {
         path: '/app/profile',
         name: 'Profile',
     },
+    viewProfile: {
+        path: '/app/profile/:profileId',
+        getPath: ({ profileId = '' }): string => `/app/profile/${profileId}`,
+        name: 'View Profile'
+    },
     newPublicSubmission: {
         path: '/app/submissions/:assignmentId',
         getPath: ({ assignmentId = '' }): string => `/app/submissions/${assignmentId}`,
@@ -115,6 +120,7 @@ const App: React.FC = (): JSX.Element => (
                         groups={ROUTE_NAMES.assignments.groups}
                     />
                     <PrivateRoute path={ROUTE_NAMES.profile.path} component={Profile} />
+                    <PrivateRoute path={ROUTE_NAMES.viewProfile.path} component={Profile} />
                     <PrivateRoute
                         path={ROUTE_NAMES.members.path}
                         component={Members}

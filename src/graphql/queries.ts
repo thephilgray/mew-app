@@ -141,7 +141,6 @@ export const getFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -303,7 +302,19 @@ export const getFileRequestSubmission = /* GraphQL */ `
       fileId
       fileExtension
       rating
-      comments
+      comments {
+        items {
+          id
+          content
+          email
+          submissionId
+          assignmentId
+          parentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       workshopId
       createdAt
       updatedAt
@@ -340,7 +351,9 @@ export const listFileRequestSubmissions = /* GraphQL */ `
         fileId
         fileExtension
         rating
-        comments
+        comments {
+          nextToken
+        }
         workshopId
         createdAt
         updatedAt
@@ -383,7 +396,9 @@ export const submissionsByFileRequestId = /* GraphQL */ `
         fileId
         fileExtension
         rating
-        comments
+        comments {
+          nextToken
+        }
         workshopId
         createdAt
         updatedAt
@@ -426,7 +441,9 @@ export const submissionsByEmail = /* GraphQL */ `
         fileId
         fileExtension
         rating
-        comments
+        comments {
+          nextToken
+        }
         workshopId
         createdAt
         updatedAt
@@ -469,7 +486,9 @@ export const submissionsByWorkshopId = /* GraphQL */ `
         fileId
         fileExtension
         rating
-        comments
+        comments {
+          nextToken
+        }
         workshopId
         createdAt
         updatedAt
@@ -540,7 +559,6 @@ export const getMembership = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -740,7 +758,6 @@ export const getWorkshop = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          comments
           workshopId
           createdAt
           updatedAt
@@ -865,6 +882,143 @@ export const listProfiles = /* GraphQL */ `
         memberships {
           nextToken
         }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getComment = /* GraphQL */ `
+  query GetComment($id: ID!) {
+    getComment(id: $id) {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+        }
+        memberships {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          createdAt
+          updatedAt
+        }
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        comments {
+          nextToken
+        }
+        workshopId
+        createdAt
+        updatedAt
+      }
+      assignmentId
+      assignment {
+        id
+        expiration
+        title
+        details
+        required
+        playlistArtwork {
+          id
+        }
+        submissions {
+          nextToken
+        }
+        workshop {
+          id
+          name
+          status
+          passes
+          createdAt
+          updatedAt
+        }
+        workshopId
+        extensions {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      parentId
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listComments = /* GraphQL */ `
+  query ListComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        content
+        email
+        profile {
+          email
+          id
+          name
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+        }
+        submissionId
+        submission {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          workshopId
+          createdAt
+          updatedAt
+        }
+        assignmentId
+        assignment {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
+          createdAt
+          updatedAt
+        }
+        parentId
         createdAt
         updatedAt
       }

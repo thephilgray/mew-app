@@ -119,7 +119,7 @@ type FileRequestSubmission
   fileId: String
   fileExtension: String
   rating: Int
-  comments: String
+  comments: [Comment] @hasMany(indexName: "bySubmission", fields: ["id"])
   workshopId: ID
     @index(
       name: "submissionsByWorkshopId"
@@ -177,6 +177,7 @@ type Workshop
   @model
   @auth(
     rules: [
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
@@ -223,6 +224,27 @@ type Profile
   apiKeys: [APIKey] @hasMany(indexName: "apiKeysByEmail", fields: ["email"])
   memberships: [Membership]
     @hasMany(indexName: "membershipsByEmail", fields: ["email"])
+}
+
+type Comment
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  content: String
+  email: String!
+  profile: Profile @hasOne(fields: ["email"])
+  submissionId: ID @index(name: "bySubmission", sortKeyFields: ["content"])
+  submission: FileRequestSubmission @belongsTo(fields: ["submissionId"])
+  assignmentId: ID
+  assignment: FileRequest @hasOne(fields: ["assignmentId"])
+  parentId: ID
 }
 
 input SongData {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, Badge, Grid, IconButton, TextField, Typography } from '@mui/material'
+import { Avatar, Badge, Box, Button, Divider, Grid, IconButton, InputBase, InputLabel, List, ListItem, Paper, TextField, Typography } from '@mui/material'
 import { withStyles, makeStyles } from 'tss-react/mui';
 // import ImageUploader from '../lib/ImageUploader/ImageUploader'
 // import ImageCropper from '../lib/ImageUploader/ImageCropper'
@@ -10,58 +10,62 @@ import gql from 'graphql-tag'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { useForm } from 'react-hook-form'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Box, Button, Divider } from '@mui/material'
-import { Close, Delete, Save } from '@mui/icons-material'
+import { Add, Close, Delete, EditRounded, Save } from '@mui/icons-material'
 import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
 import { useProfile, useUser } from '../../auth/hooks'
 import { getProfile } from '../../graphql/queries';
+import AppBreadcrumbs from '../AppBreadcrumbs';
+import { ROUTE_NAMES } from '../../pages/app';
+import ImageUploader from '../lib/ImageUploader/ImageUploader';
+import ImageCropper from '../lib/ImageUploader/ImageCropper';
+import mewAppLogo from '../../assets/mewlogo.png'
 
 type APIKeyForm = {
     keyName: string
     key: string
 }
 
-// const StyledBadge = withStyles(Badge, (theme) => ({
-//     badge: {
-//         // backgroundColor: '#44b700',
-//         // color: '#44b700',
-//         boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+const StyledBadge = withStyles(Badge, (theme) => ({
+    badge: {
+        // backgroundColor: '#44b700',
+        // color: '#44b700',
+        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
 
-//         '&::after': {
-//             position: 'absolute',
-//             top: 0,
-//             left: 0,
-//             width: '100%',
-//             height: '100%',
-//             borderRadius: '50%',
-//             border: '1px solid currentColor',
-//             content: '""',
-//         },
-//         '&:hover:after': {
-//             animation: '$ripple 1.2s infinite ease-in-out',
-//         },
-//     },
-//     '@keyframes ripple': {
-//         '0%': {
-//             transform: 'scale(.8)',
-//             opacity: 1,
-//         },
-//         '100%': {
-//             transform: 'scale(2.4)',
-//             opacity: 0,
-//         },
-//     },
-// }));
+        '&::after': {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            border: '1px solid currentColor',
+            content: '""',
+        },
+        '&:hover:after': {
+            animation: '$ripple 1.2s infinite ease-in-out',
+        },
+    },
+    '@keyframes ripple': {
+        '0%': {
+            transform: 'scale(.8)',
+            opacity: 1,
+        },
+        '100%': {
+            transform: 'scale(2.4)',
+            opacity: 0,
+        },
+    },
+}));
 
-// const SmallAvatar = withStyles(Avatar, (theme) => ({
-//     root: {
-//         width: 22,
-//         height: 22,
-//         border: `2px solid ${theme.palette.background.paper}`,
-//     },
-// }));
+const SmallAvatar = withStyles(Avatar, (theme) => ({
+    root: {
+        width: 22,
+        height: 22,
+        border: `2px solid ${theme.palette.background.paper}`,
+    },
+}));
 
 const useStyles = makeStyles()((theme) => ({
     root: {
@@ -111,6 +115,8 @@ const Profile = (): JSX.Element => {
     const [apiKeyFormActive, setApiKeyFormActive] = useState<boolean>(false)
     const [keyName, setKeyName] = useState<string>('')
     const [key, setKey] = useState<string>('')
+    const [inputImg, setInputImg] = useState(null)
+    const [imageBlob, setImageBlob] = useState(null)
 
     useEffect(() => {
         setApiKeyFieldValue('keyName', keyName)
@@ -199,141 +205,252 @@ const Profile = (): JSX.Element => {
 
     const keyNameFormatter = (str: string) => str.toUpperCase().replace(/[^a-zA-Z0-9_.-]/g, '_')
 
-    return <>
-        <section className={classes.section}>
-            <Typography variant="h5" component="h2">
-                Profile Details
-            </Typography>
-            <Typography variant="body1">Email: {user.email}</Typography>
-            <Typography variant="body1">Name: {user.name}</Typography>
-
-            {/* <div className={classes.root}>
-            <StyledBadge
-                overlap="circular"
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-                badgeContent={<EditRounded />}
-            >
-                <Avatar style={{ height: 100, width: 100 }} alt="Remy Sharp" src={mewAppLogo} />
-            </StyledBadge>
-            <Badge
-                overlap="circular"
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-                badgeContent={<EditRounded />}
-            >
-                <Avatar style={{ height: 100, width: 100 }} alt="Travis Howard" src={mewAppLogo} />
-            </Badge>
-        </div>
-
-        <>
-            <Grid item xs={12} md={3}>
-                <ImageUploader setInputImg={setInputImg} inputImg={inputImg} />
-            </Grid>
-            {inputImg && (
-                <Grid item xs={12}>
-                    <ImageCropper getBlob={setImageBlob} inputImg={inputImg} height='400px' width='400px' aspect={1} cropShape='round' />
-                </Grid>
-            )}
-        </> */}
-        </section>
-        <GroupGuard groups={[Group.admin]}>
+    return <Grid container spacing={3}>
+        <Grid item xs={12}>
+            <AppBreadcrumbs
+                paths={[ROUTE_NAMES.home, ROUTE_NAMES.profile]}
+            />
+        </Grid>
+        <Grid item xs={12}>
             <section className={classes.section}>
+                <Typography variant="h5" component="h2">
+                    Profile Details
+                </Typography>
+
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <Typography variant="h5" component="h2">
-                            Your API Keys
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={6} style={{ textAlign: 'right' }}>
-                        <Button
-                            variant="contained"
-                            disabled={apiKeyFormActive}
-                            onClick={() => setApiKeyFormActive(true)}
+                    <Grid item xs={12}>
+                        <Box
+                            component="form"
+                            sx={{
+                                alignItems: 'center',
+                                width: '100%',
+                                borderRadius: 1,
+                                bgcolor: 'background.paper',
+                                color: 'text.secondary',
+                                '& svg': {
+                                    m: 1.5,
+                                },
+                                '& hr': {
+                                    mx: 0.5,
+                                },
+                                '& > :not(style)': { m: 1 },
+                            }}
+                            noValidate
+                            autoComplete="off"
                         >
-                            Add Key
-                        </Button>
-                    </Grid>
-                    {profile && profile.apiKeys && profile.apiKeys.items.length > 0 && (
-                        <Grid item xs={12} className={classes.tableWrapper}>
-                            <DataGrid
-                                rows={profile?.apiKeys?.items || []}
-                                columns={columns}
-                                disableRowSelectionOnClick={true}
-                                disableColumnSelector
-                                autoHeight
+                            <TextField
+                                label="Email"
+                                value={user.email}
+                                onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
+                                fullWidth
+                                variant="standard"
+                                margin="normal"
+                                disabled
                             />
+                            <TextField
+                                label="Name"
+                                autoFocus
+                                value={user.name}
+                                onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
+                                fullWidth
+                                variant="standard"
+                                margin="normal"
+                            />
+                            <TextField
+                                label="Username"
+                                value={user.name}
+                                onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
+                                fullWidth
+                                variant="standard"
+                                margin="normal"
+                            />
+                            <TextField
+                                label="Bio"
+                                value={user.bio}
+                                onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
+                                fullWidth
+                                multiline
+                                variant="standard"
+                                margin="normal"
+                            />
+                            <InputLabel>Associated Acts</InputLabel>
+                            <List>
+                                {['BAND 1', 'BAND 2'].map(item => (
+
+                                    <ListItem
+                                        key={item}
+                                        secondaryAction={
+                                            <IconButton edge="end" aria-label="delete">
+                                                <Delete />
+                                            </IconButton>
+                                        }
+
+                                    >
+                                        {item}
+                                    </ListItem>
+                                ))}
+                            </List>
+                            <InputLabel>Links</InputLabel>
+                            <List>
+                                {['https://google.com', 'https://www.bandcamp.com'].map(item => (
+
+                                    <ListItem
+                                        key={item}
+                                        secondaryAction={
+                                            <IconButton edge="end" aria-label="delete">
+                                                <Delete />
+                                            </IconButton>
+                                        }
+
+                                    >
+                                        {item}
+                                    </ListItem>
+                                ))}
+                            </List>
+                            <Paper component="form" sx={{ p: '.125em 1em', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                <InputBase placeholder="Add link" inputProps={{ 'aria-label': 'add link' }} sx={{ flex: 'auto' }} />
+                                <Divider sx={{ height: 28, m: 0.5, justifySelf: 'flex-end' }} orientation="vertical" />
+                                <IconButton type="button" aria-label="add">
+                                    <Add />
+                                </IconButton>
+
+                            </Paper>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <div className={classes.root}>
+                            <InputLabel>Avatar</InputLabel>
+                            <StyledBadge
+                                overlap="circular"
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                badgeContent={<EditRounded />}
+                            >
+                                <Avatar style={{ height: 100, width: 100 }} alt="Remy Sharp" src={mewAppLogo} />
+                            </StyledBadge>
+                            <Badge
+                                overlap="circular"
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                badgeContent={<EditRounded />}
+                            >
+                                <Avatar style={{ height: 100, width: 100 }} alt="Travis Howard" src={mewAppLogo} />
+                            </Badge>
+                        </div>
+
+                        <>
+                            <Grid item xs={12} md={3}>
+                                <ImageUploader setInputImg={setInputImg} inputImg={inputImg} />
+                            </Grid>
+                            {inputImg && (
+                                <Grid item xs={12}>
+                                    <ImageCropper getBlob={setImageBlob} inputImg={inputImg} height='400px' width='400px' aspect={1} cropShape='round' />
+                                </Grid>
+                            )}
+                        </>
+                    </Grid>
+                </Grid>
+            </section>
+        </Grid>
+        <GroupGuard groups={[Group.admin]}>
+            <Grid item xs={12}>
+                <section className={classes.section}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <Typography variant="h5" component="h2">
+                                Your API Keys
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} style={{ textAlign: 'right' }}>
+                            <Button
+                                variant="contained"
+                                disabled={apiKeyFormActive}
+                                onClick={() => setApiKeyFormActive(true)}
+                            >
+                                Add Key
+                            </Button>
+                        </Grid>
+                        {profile && profile.apiKeys && profile.apiKeys.items.length > 0 && (
+                            <Grid item xs={12} className={classes.tableWrapper}>
+                                <DataGrid
+                                    rows={profile?.apiKeys?.items || []}
+                                    columns={columns}
+                                    disableRowSelectionOnClick={true}
+                                    disableColumnSelector
+                                    autoHeight
+                                />
+                            </Grid>
+                        )}
+                    </Grid>
+                    {apiKeyFormActive && (
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Box
+                                    component="form"
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        width: '100%',
+                                        borderRadius: 1,
+                                        bgcolor: 'background.paper',
+                                        color: 'text.secondary',
+                                        '& svg': {
+                                            m: 1.5,
+                                        },
+                                        '& hr': {
+                                            mx: 0.5,
+                                        },
+                                        '& > :not(style)': { m: 1 },
+                                    }}
+                                    noValidate
+                                    autoComplete="off"
+                                >
+                                    <TextField
+                                        label="Key Name"
+                                        autoFocus
+                                        value={keyName}
+                                        onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
+                                        fullWidth
+                                        variant="standard"
+                                        margin="normal"
+                                    />
+                                    <TextField
+                                        label="Key Value"
+                                        value={key}
+                                        onChange={(e) => setKey(e.target.value)}
+                                        fullWidth
+                                        variant="standard"
+                                        margin="normal"
+                                    />
+                                    <IconButton
+                                        type="button"
+                                        color="secondary"
+                                        aria-label="Close"
+                                        onClick={onDismissApiKeyForm}
+                                        size="large">
+                                        <Close />
+                                    </IconButton>
+                                    <Divider orientation="vertical" flexItem />
+                                    <IconButton
+                                        type="button"
+                                        color="primary"
+                                        onClick={handleApiKeySubmit(onSubmitApiKeyForm)}
+                                        aria-label="Save"
+                                        size="large">
+                                        <Save />
+                                    </IconButton>
+                                </Box>
+                            </Grid>
                         </Grid>
                     )}
-                </Grid>
-                {apiKeyFormActive && (
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Box
-                                component="form"
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    width: '100%',
-                                    borderRadius: 1,
-                                    bgcolor: 'background.paper',
-                                    color: 'text.secondary',
-                                    '& svg': {
-                                        m: 1.5,
-                                    },
-                                    '& hr': {
-                                        mx: 0.5,
-                                    },
-                                    '& > :not(style)': { m: 1 },
-                                }}
-                                noValidate
-                                autoComplete="off"
-                            >
-                                <TextField
-                                    label="Key Name"
-                                    autoFocus
-                                    value={keyName}
-                                    onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
-                                    fullWidth
-                                    variant="standard"
-                                    margin="normal"
-                                />
-                                <TextField
-                                    label="Key Value"
-                                    value={key}
-                                    onChange={(e) => setKey(e.target.value)}
-                                    fullWidth
-                                    variant="standard"
-                                    margin="normal"
-                                />
-                                <IconButton
-                                    type="button"
-                                    color="secondary"
-                                    aria-label="Close"
-                                    onClick={onDismissApiKeyForm}
-                                    size="large">
-                                    <Close />
-                                </IconButton>
-                                <Divider orientation="vertical" flexItem />
-                                <IconButton
-                                    type="button"
-                                    color="primary"
-                                    onClick={handleApiKeySubmit(onSubmitApiKeyForm)}
-                                    aria-label="Save"
-                                    size="large">
-                                    <Save />
-                                </IconButton>
-                            </Box>
-                        </Grid>
-                    </Grid>
-                )}
-            </section>
+                </section>
+            </Grid>
         </GroupGuard>
-    </>;
+    </Grid >;
 }
 
 export default Profile

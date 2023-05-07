@@ -38,18 +38,21 @@
     "gatsby-transformer-sharp": "^4.24.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-easy-crop": "^4.7.4",
     "react-file-drop": "^3.1.6",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.43.8",
     "react-jinke-music-player": "^4.24.2",
     "react-use": "^17.4.0",
     "tss-react": "^4.8.2",
-    "unique-names-generator": "^4.7.1"
+    "unique-names-generator": "^4.7.1",
+    "use-color-thief": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "^18.15.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "aws-sdk": "^2.1359.0",
     "typescript": "^4.9.5"
   }
 }

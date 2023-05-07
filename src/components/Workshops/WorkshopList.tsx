@@ -3,14 +3,14 @@ import { Box, Grid, Paper, Typography } from '@mui/material'
 import { Link } from 'gatsby'
 import gql from 'graphql-tag'
 import * as React from 'react'
-import { useUserHasMembership, useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks'
+import { useIsAdmin, useUserHasMembership, useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks'
 import { Group } from '../../constants'
 import { listWorkshops } from '../../graphql/queries'
 import GroupGuard from '../Auth/GroupGuard'
 
 export default function WorkshopList() {
     const { loading, error, data, refetch } = useQuery(gql(listWorkshops))
-    const isAdmin = useUserInAtLeastOneOfTheseGroups([Group.admin])
+    const isAdmin = useIsAdmin()
 
     if (data) {
         const workshops = [...data.listWorkshops.items]
