@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Avatar, Badge, Box, Button, Divider, Grid, IconButton, InputBase, InputLabel, List, ListItem, Paper, TextField, Typography } from '@mui/material'
 import { withStyles, makeStyles } from 'tss-react/mui';
-// import ImageUploader from '../lib/ImageUploader/ImageUploader'
-// import ImageCropper from '../lib/ImageUploader/ImageCropper'
-// import mewAppLogo from '../../assets/mewlogo.png'
-// import { EditRounded } from '@mui/icons-material'
 import { updateProfileService } from '../../graphql/mutations'
 import gql from 'graphql-tag'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { useForm } from 'react-hook-form'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Add, Close, Delete, EditRounded, Save } from '@mui/icons-material'
+import { Add, Close, Delete, EditRounded, Launch, Save } from '@mui/icons-material'
 import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
@@ -21,6 +17,8 @@ import { ROUTE_NAMES } from '../../pages/app';
 import ImageUploader from '../lib/ImageUploader/ImageUploader';
 import ImageCropper from '../lib/ImageUploader/ImageCropper';
 import mewAppLogo from '../../assets/mewlogo.png'
+
+
 
 type APIKeyForm = {
     keyName: string
@@ -290,6 +288,14 @@ const Profile = (): JSX.Element => {
                                     </ListItem>
                                 ))}
                             </List>
+                            <Paper component="form" sx={{ p: '.125em 1em', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                <InputBase placeholder="Add Act" inputProps={{ 'aria-label': 'add act' }} sx={{ flex: 'auto' }} />
+                                <Divider sx={{ height: 28, m: 0.5, justifySelf: 'flex-end' }} orientation="vertical" />
+                                <IconButton type="button" aria-label="add">
+                                    <Add />
+                                </IconButton>
+
+                            </Paper>
                             <InputLabel>Links</InputLabel>
                             <List>
                                 {['https://google.com', 'https://www.bandcamp.com'].map(item => (
@@ -303,7 +309,7 @@ const Profile = (): JSX.Element => {
                                         }
 
                                     >
-                                        {item}
+                                        {item} <a target="_blank" href={item}><Launch /></a>
                                     </ListItem>
                                 ))}
                             </List>
