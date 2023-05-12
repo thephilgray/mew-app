@@ -5,7 +5,7 @@ import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
-import { API, Storage } from 'aws-amplify'
+import { API } from 'aws-amplify'
 import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import 'react-jinke-music-player/lib/styles/index.less'
 import mewAppLogo from '../../assets/mewlogo.png'
@@ -15,10 +15,11 @@ import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
 import { useUser } from '../../auth/hooks'
-import { Pause, PauseCircleFilledTwoTone, PlayArrow as PlayArrowIcon, Send, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon } from '@mui/icons-material'
+import { Pause, PlayArrow as PlayArrowIcon, Send, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon } from '@mui/icons-material'
 import { FeedbackSection } from '../Feedback'
 import { getFileRequest } from '../../graphql/queries'
 import If from '../If';
+import { getCloudFrontURL } from '../../utils';
 
 const GET_FILE_REQUEST = gql(getFileRequest.replace('submissions {', 'submissions(limit: 1000) {'))
 
@@ -104,14 +105,22 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         const metaData = audioLists[currentIndex]
         if (!metaData.fileId) return
         const songFilePath = `${assignmentId}/${metaData.fileId}`
-        const result = await Storage.get(songFilePath, { download: true })
+        // const result = await Storage.get(songFilePath, { download: true })
         // @ts-ignore
-        const url = window.URL.createObjectURL(result.Body)
-        const a = document.createElement('a')
+        // const url = window.URL.createObjectURL(result.Body)
+        const cloudFrontURL = getCloudFrontURL(songFilePath)
+        const result = await fetch(cloudFrontURL, { mode: 'no-cors' })
+        // TODO: no-cors is not ideal because we won't be able to access ContentType headers to determine extension
+        // const result = await fetch(cloudFrontURL)
+        const blob = await result.blob()
+        const url = window.URL.createObjectURL(blob)
         // @ts-ignore
-        const contentType = result.ContentType
+        // const contentType = result.ContentType
+        const contentType = result.headers.get('ContentType')
+        console.log({ result, contentType })
         // @ts-ignore
         const extension = EXTENSIONS_BY_FILETYPE[contentType || 'audio/mpeg']
+        const a = document.createElement('a')
         a.href = url
         a.download = `${metaData.name} - ${metaData.singer}${extension}`
         const clickHandler = () => {
@@ -138,9 +147,9 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
-                        const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
+                        // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
                         songs.push({
-                            musicSrc: fileAccessURL.toString(),
+                            musicSrc: getCloudFrontURL(songFilePath),
                             name,
                             cover: mewAppLogo,
                             singer: artist,

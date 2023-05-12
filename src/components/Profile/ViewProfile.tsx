@@ -8,6 +8,8 @@ import { ROUTE_NAMES } from '../../pages/app'
 import { Edit, Launch } from '@mui/icons-material'
 import { useProfile, useUser } from '../../auth/hooks'
 import { navigate } from 'gatsby'
+import If from '../If'
+import { getCloudFrontURL } from '../../utils'
 
 const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
   const user = useUser()
@@ -28,7 +30,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
   }
 
   const [profile] = getProfileData?.profileByProfileId?.items || []
-  const avatarPath = profile?.avatar ? `${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${profile?.avatar}` : ''
+  const avatarPath = profile?.avatar ? getCloudFrontURL(profile.avatar) : ''
 
   if (!profile) {
     return <Typography>That profile does not exist.</Typography>
@@ -57,21 +59,17 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
               </Typography>
             </pre>
           </> : null}
-          {profile?.links ?
-            <>
-              <Divider sx={{ mb: 2, mt: 2 }} />
-              <Typography variant="body1" component="h2">Links</Typography>
-              <List>
-              </List>
-              {profile.links.map(({ url, text, id }) => (
-                <ListItem key={id}>
-                  <Link target='_blank' href={url}>{text} <Launch /></Link>
-                </ListItem>
-              ))}
-            </>
-            : null
-          }
-
+          <If condition={profile?.links?.length}>
+            <Divider sx={{ mb: 2, mt: 2 }} />
+            <Typography variant="body1" component="h2">Links</Typography>
+            <List>
+            </List>
+            {profile?.links && profile.links.map(({ url, text, id }) => (
+              <ListItem key={id}>
+                <Link target='_blank' href={url}>{text} <Launch /></Link>
+              </ListItem>
+            ))}
+          </If>
           {/* <Divider sx={{ mb: 2, mt: 2 }} /> 
           <Typography variant="body1" component="h2">Submissions</Typography> */}
         </CardContent>

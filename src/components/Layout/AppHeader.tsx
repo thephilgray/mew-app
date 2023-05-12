@@ -5,6 +5,7 @@ import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar } from '@mui/materi
 import { ROUTE_NAMES } from '../../pages/app'
 import mewAppLogo from '../../assets/mewlogo.png'
 import { useProfile, useSignOut, useUser } from '../../auth/hooks'
+import { getCloudFrontURL } from '../../utils';
 
 const useStyles = makeStyles()(() =>
 ({
@@ -68,7 +69,7 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
                             color="inherit"
                             size="medium"
                         >
-                            <Avatar src={profile?.avatar ? `${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${profile?.avatar}` : ''} />
+                            <Avatar src={profile?.avatar ? getCloudFrontURL(profile.avatar) : ''} />
                         </IconButton>
                         <Menu
                             id="menu-appbar"

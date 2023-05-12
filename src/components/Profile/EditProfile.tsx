@@ -18,6 +18,7 @@ import { Storage } from 'aws-amplify';
 import Resizer from "react-image-file-resizer";
 import { v4 as uuidv4 } from 'uuid';
 import { navigate } from 'gatsby';
+import { getCloudFrontURL } from '../../utils';
 
 Storage.configure({ track: true });
 
@@ -152,7 +153,7 @@ const EditProfile = (): JSX.Element => {
 
     useEffect(() => {
         if (profile?.avatar) {
-            setImage(`${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${AVATAR_DOWNLOAD_PATH}`)
+            setImage(getCloudFrontURL(AVATAR_DOWNLOAD_PATH))
         }
     }, [profile])
 
@@ -194,7 +195,7 @@ const EditProfile = (): JSX.Element => {
                 email: inputData.email,
                 name: inputData.name,
                 displayName: inputData.displayName,
-                ...imageUpdated && { avatar: `public/${AVATAR_UPLOAD_PATH}` },
+                ...imageUpdated && { avatar: AVATAR_UPLOAD_PATH },
                 bio: inputData.bio,
                 links: inputData.links.map(({ id, url, text }) => ({ id, url, text })) // don't submit _typename
             }
@@ -333,7 +334,7 @@ const EditProfile = (): JSX.Element => {
                             />
                             <TextField
                                 label="Display Name"
-                                {...registerEditProfileForm('displayName', { required: true, pattern: /^((?!\/).)*$/i })}
+                                {...registerEditProfileForm('displayName', { required: false, pattern: /^((?!\/).)*$/i })}
                                 fullWidth
                                 variant="standard"
                                 margin="normal"
@@ -348,8 +349,9 @@ const EditProfile = (): JSX.Element => {
                                             onChange={onProcessFile}
                                             ref={fileInput}
                                             hidden={true}
+                                            accept="image/*"
                                         />
-                                        <Avatar style={{ height: 100, width: 100 }} src={image} onClick={onOpenFileDialog} />
+                                        <Avatar style={{ height: 100, width: 100, cursor: 'pointer' }} src={image} onClick={onOpenFileDialog} />
                                     </a>
 
                                 </Box>

@@ -9,6 +9,7 @@ import { API, graphqlOperation } from "aws-amplify"
 import { listComments, listFileRequestSubmissions } from "../graphql/queries"
 import { compareDesc, formatDistanceToNow } from "date-fns"
 import { onCreateComment, onDeleteComment, onUpdateComment } from "../graphql/subscriptions"
+import { getCloudFrontURL } from "../utils"
 
 const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
   const profile = useProfile()
@@ -19,7 +20,7 @@ const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
         <Grid item>
           <Avatar
             alt={profile?.displayName || profile?.name || 'Anonymous'}
-            src={profile?.avatar ? `${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${profile?.avatar}` : ''} />
+            src={profile?.avatar ? getCloudFrontURL(profile.avatar) : ''} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
           <TextField
@@ -62,7 +63,7 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
         <Link to={`/app/profile/${comment.profile.id}`}>
           <Avatar
             alt={comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}
-            src={`${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${comment?.profile?.avatar}`}
+            src={comment?.profile?.avatar ? getCloudFrontURL(comment.profile.avatar) : ''}
           />
         </Link>
       </Grid>
