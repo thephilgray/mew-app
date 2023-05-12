@@ -4,7 +4,7 @@ import { makeStyles } from 'tss-react/mui';
 import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar } from '@mui/material'
 import { ROUTE_NAMES } from '../../pages/app'
 import mewAppLogo from '../../assets/mewlogo.png'
-import { useSignOut, useUser } from '../../auth/hooks'
+import { useProfile, useSignOut, useUser } from '../../auth/hooks'
 
 const useStyles = makeStyles()(() =>
 ({
@@ -24,6 +24,7 @@ const useStyles = makeStyles()(() =>
 
 const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
     const { classes } = useStyles()
+    const profile = useProfile();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
@@ -67,7 +68,7 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
                             color="inherit"
                             size="medium"
                         >
-                            <Avatar />
+                            <Avatar src={profile?.avatar ? `${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${profile?.avatar}` : ''} />
                         </IconButton>
                         <Menu
                             id="menu-appbar"

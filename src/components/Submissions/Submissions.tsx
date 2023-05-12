@@ -286,7 +286,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 />
             </Grid>
             <>
-                <Dialog maxWidth="xs" open={dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}>
+                <Dialog maxWidth="xs" open={!!dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}>
                     <DialogTitle>Email yourself a download link</DialogTitle>
 
                     <DialogContent dividers>
@@ -325,7 +325,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
                 <ExtensionsDialog
                     assignmentId={assignmentId}
-                    open={dialogToggles[dialogConstants.EDIT_EXTENSIONS]}
+                    open={!!dialogToggles[dialogConstants.EDIT_EXTENSIONS]}
                     onCloseDialog={() => setDialogToggles({})}
                 />
                 {snackbarConfigs.map(({ message = '', key = '', delay = 0 }) => (
@@ -335,7 +335,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             horizontal: 'center',
                         }}
                         key={key}
-                        open={snackbarToggles[key]}
+                        open={!!snackbarToggles[key]}
                         color="success"
                         autoHideDuration={3000 + delay}
                         message={message}

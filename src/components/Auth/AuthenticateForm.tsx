@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 import { Button, Grid, Input, Link, Typography } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
-import { useAnswerCustomChallenge, useSignIn, useSignUp } from '../../auth/hooks'
+import { useAnswerCustomChallenge, useAuthStage, useSignIn, useSignUp } from '../../auth/hooks'
 
 const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
+    const signIn = useSignIn()
+    const signup = useSignUp()
+    const answerCustomChallenge = useAnswerCustomChallenge()
+    const [authStage, setAuthStage] = useAuthStage()
+
     const [state, setState] = useState({
         username: ``,
         name: ``,
         error: null,
-        stage: 1,
+        stage: 1, // no longer using
         verifyCode: '',
     })
-    const signIn = useSignIn()
-    const signup = useSignUp()
-    const answerCustomChallenge = useAnswerCustomChallenge()
 
     const handleUpdate: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
         event.persist()
@@ -26,6 +28,7 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
             // await signIn(username)
             await signIn({ email: username })
             setState((prevState) => ({ ...prevState, stage: 2, error: null }))
+            setAuthStage(2)
         } catch (err) {
             setState((prevState) => ({ ...prevState, error: err }))
         }
@@ -67,6 +70,7 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
             onClick={(e) => {
                 e.preventDefault()
                 setState((prevState) => ({ ...prevState, stage: 0, error: null }))
+                setAuthStage(0)
             }}
             underline="hover">
             Sign up?
@@ -80,9 +84,10 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
             onClick={(e) => {
                 e.preventDefault()
                 setState((prevState) => ({ ...prevState, stage: 1, error: null }))
+                setAuthStage(1)
             }}
             underline="hover">
-            {state.stage === 2 ? `Try again?` : `Sign in?`}
+            {authStage === 2 ? `Try again?` : `Sign in?`}
         </Link>
     )
 
@@ -91,13 +96,13 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
             <Grid item xs={12} md={6}>
                 <Grid container>
                     <Grid item xs={12}>
-                        <h1>{state.stage === 0 ? 'Sign Up' : 'Sign In'}</h1>
+                        <h1>{authStage === 0 ? 'Sign Up' : 'Sign In'}</h1>
                     </Grid>
                     <Grid item xs={12}>
-                        {state.stage === 0 && userAlreadyExists && (
+                        {authStage === 0 && userAlreadyExists && (
                             <Typography>User already exists. Try signing in.</Typography>
                         )}
-                        {state.stage === 1 && userNotFound && (
+                        {authStage === 1 && userNotFound && (
                             <Typography>User not found. Trying signing up.</Typography>
                         )}
                         {state.error && ![userAlreadyExists, userNotFound].some(Boolean) && (
@@ -107,10 +112,10 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                         )}
                     </Grid>
                     <Grid item xs={12}>
-                        {state.stage < 2 && (
+                        {authStage < 2 && (
                             <form>
                                 <Grid container direction="column" spacing={2}>
-                                    {state.stage === 0 && (
+                                    {authStage === 0 && (
                                         <>
                                             <Grid item>
                                                 <Typography>
@@ -132,7 +137,7 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                                     )}
                                     <Grid item>
                                         <Input
-                                            disabled={state.stage === 0}
+                                            disabled={authStage === 0}
                                             fullWidth
                                             onChange={handleUpdate}
                                             placeholder="Username"
@@ -142,22 +147,22 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                                     </Grid>
                                     <Grid item>
                                         <Button
-                                            disabled={state.stage === 0}
+                                            disabled={authStage === 0}
                                             type="submit"
                                             variant="contained"
                                             color="primary"
-                                            onClick={state.stage === 0 ? signUp : login}
+                                            onClick={authStage === 0 ? signUp : login}
                                         >
-                                            <span>{state.stage === 0 ? 'Sign Up' : 'Sign In'}</span>
+                                            <span>{authStage === 0 ? 'Sign Up' : 'Sign In'}</span>
                                         </Button>
                                         <span style={{ marginLeft: '1em' }}>
-                                            {state.stage === 0 ? signinLink : signupLink}
+                                            {authStage === 0 ? signinLink : signupLink}
                                         </span>
                                     </Grid>
                                 </Grid>
                             </form>
                         )}
-                        {state.stage === 2 && (
+                        {authStage === 2 && (
                             <form onSubmit={verifySignin}>
                                 <Grid container direction="column" spacing={2}>
                                     <Grid item>

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { Avatar, Badge, Box, Button, Divider, Grid, IconButton, InputBase, InputLabel, List, ListItem, Paper, TextField, Typography } from '@mui/material'
-import { withStyles, makeStyles } from 'tss-react/mui';
-import { updateProfileService } from '../../graphql/mutations'
+import React, { useEffect, useState, useRef } from 'react'
+import { Avatar, Box, Button, CircularProgress, Divider, Grid, IconButton, InputBase, InputLabel, List, ListItem, Paper, TextField, Typography } from '@mui/material'
+import { makeStyles } from 'tss-react/mui';
+import { updateProfile, updateProfileService } from '../../graphql/mutations'
 import gql from 'graphql-tag'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Add, Close, Delete, EditRounded, Launch, Save } from '@mui/icons-material'
+import { Add, Close, Delete, Launch, Save } from '@mui/icons-material'
 import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
@@ -14,56 +14,32 @@ import { useProfile, useUser } from '../../auth/hooks'
 import { getProfile } from '../../graphql/queries';
 import AppBreadcrumbs from '../AppBreadcrumbs';
 import { ROUTE_NAMES } from '../../pages/app';
-import ImageUploader from '../lib/ImageUploader/ImageUploader';
-import ImageCropper from '../lib/ImageUploader/ImageCropper';
-import mewAppLogo from '../../assets/mewlogo.png'
+import { Storage } from 'aws-amplify';
+import Resizer from "react-image-file-resizer";
+import { v4 as uuidv4 } from 'uuid';
+import { navigate } from 'gatsby';
 
-
+Storage.configure({ track: true });
 
 type APIKeyForm = {
     keyName: string
     key: string
 }
 
-const StyledBadge = withStyles(Badge, (theme) => ({
-    badge: {
-        // backgroundColor: '#44b700',
-        // color: '#44b700',
-        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+type Link = {
+    id: string
+    text: string
+    url: string
+}
 
-        '&::after': {
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            borderRadius: '50%',
-            border: '1px solid currentColor',
-            content: '""',
-        },
-        '&:hover:after': {
-            animation: '$ripple 1.2s infinite ease-in-out',
-        },
-    },
-    '@keyframes ripple': {
-        '0%': {
-            transform: 'scale(.8)',
-            opacity: 1,
-        },
-        '100%': {
-            transform: 'scale(2.4)',
-            opacity: 0,
-        },
-    },
-}));
-
-const SmallAvatar = withStyles(Avatar, (theme) => ({
-    root: {
-        width: 22,
-        height: 22,
-        border: `2px solid ${theme.palette.background.paper}`,
-    },
-}));
+type EditProfileForm = {
+    email: string
+    name: string
+    displayName: string
+    links: [Link]
+    avatar: string
+    bio: string
+}
 
 const useStyles = makeStyles()((theme) => ({
     root: {
@@ -75,14 +51,15 @@ const useStyles = makeStyles()((theme) => ({
     section: {
         marginBottom: theme.spacing(2),
     },
-    // tableWrapper: {
-    //     height: '400px',
-    // },
 }));
 
-const Profile = (): JSX.Element => {
+const EditProfile = (): JSX.Element => {
     const { classes } = useStyles()
     const user = useUser()
+    const profileInState = useProfile()
+    const [keyName, setKeyName] = useState<string>('')
+    const [key, setKey] = useState<string>('')
+    const [image, setImage] = useState<string>('')
 
     const {
         loading: getProfileLoading,
@@ -91,30 +68,93 @@ const Profile = (): JSX.Element => {
         refetch: getProfileRefetch,
     } = useQuery(gql(getProfile), {
         variables: { email: user.email },
+        fetchPolicy: 'network-only'
+
     })
+    const profile = getProfileData?.getProfile || profileInState
+    const AVATAR_DOWNLOAD_PATH = profile?.avatar;
+    const AVATAR_UPLOAD_PATH = `images/${profile?.id}/avatar-${uuidv4()}.jpg`
+
+
+    const {
+        control: editProfileFormControl,
+        register: registerEditProfileForm,
+        getValues: getEditProfileFormValues,
+        handleSubmit: handleEditProfileForm,
+        setValue: setEditProfileFormValue,
+        formState: {
+            errors: editProfileFormErrors,
+        } } = useForm<EditProfileForm>({
+            values: profile,
+            defaultValues: {
+                bio: '',
+                displayName: '',
+                name: '',
+            }
+        })
+
+    const { fields: linkFields, append: appendLink, prepend, remove: removeLink, swap, move, insert } = useFieldArray({
+        control: editProfileFormControl, // control props comes from useForm (optional: if you are using FormContext)
+        name: "links", // unique name for your Field Array
+    });
+
+    const [apiKeyFormActive, setApiKeyFormActive] = useState<boolean>(false)
+    const {
+        register: registerApiKeyField,
+        handleSubmit: handleApiKeySubmit,
+        setValue: setApiKeyFieldValue,
+        formState: {
+            errors: apiKeyErrors,
+        },
+    } = useForm<APIKeyForm>()
+
+    const [
+        updateProfileRequest,
+        { error: updateProfileRequestError, data: updateProfileRequestData, loading: updateProfileRequestLoading },
+    ] = useMutation(gql(updateProfile))
 
     const [
         updateProfileServiceRequest,
         { error: updateProfileServiceError, data: updateProfileServiceData },
     ] = useMutation(gql(updateProfileService))
 
-    const profileInState = useProfile()
-    const profile = getProfileData?.getProfile || profileInState
+    const resizeFile = (file) =>
+        new Promise((resolve) => {
+            Resizer.imageFileResizer(
+                file,
+                300,
+                300,
+                "JPEG",
+                100,
+                0,
+                (uri) => {
+                    setImage(uri)
+                },
+                "base64"
+            );
+        });
 
-    const {
-        register: registerApiKeyField,
-        handleSubmit: handleApiKeySubmit,
-        setValue: setApiKeyFieldValue,
+    let fileInput = React.createRef();
 
-        formState: {
-            errors: apiKeyErrors,
-        },
-    } = useForm<APIKeyForm>()
-    const [apiKeyFormActive, setApiKeyFormActive] = useState<boolean>(false)
-    const [keyName, setKeyName] = useState<string>('')
-    const [key, setKey] = useState<string>('')
-    const [inputImg, setInputImg] = useState(null)
-    const [imageBlob, setImageBlob] = useState(null)
+    const onOpenFileDialog = () => {
+        fileInput.current.click();
+    };
+
+    const onProcessFile = async (e) => {
+        e.preventDefault();
+        let file = e.target.files[0];
+        try {
+            await resizeFile(file);
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    useEffect(() => {
+        if (profile?.avatar) {
+            setImage(`${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${AVATAR_DOWNLOAD_PATH}`)
+        }
+    }, [profile])
 
     useEffect(() => {
         setApiKeyFieldValue('keyName', keyName)
@@ -133,10 +173,35 @@ const Profile = (): JSX.Element => {
         }
     }, [updateProfileServiceData])
 
-    const onDismissApiKeyForm = () => {
-        setKeyName('')
-        setKey('')
-        setApiKeyFormActive(false)
+    const onSubmitEditProfileForm = async (inputData) => {
+        const imageUpdated = image && !image.includes(profile?.avatar);
+        if (imageUpdated) {
+            try {
+                const imageResult = await fetch(image)
+                const blob = await imageResult.blob()
+                const file = new File([blob], 'avatar.jpg')
+                await Storage.put(AVATAR_UPLOAD_PATH, file, {
+
+                    contentType: "image/jpeg",
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        const variables = {
+            input: {
+                email: inputData.email,
+                name: inputData.name,
+                displayName: inputData.displayName,
+                ...imageUpdated && { avatar: `public/${AVATAR_UPLOAD_PATH}` },
+                bio: inputData.bio,
+                links: inputData.links.map(({ id, url, text }) => ({ id, url, text })) // don't submit _typename
+            }
+        }
+
+        return updateProfileRequest({ variables }).then(() =>
+            navigate(ROUTE_NAMES.profile.path))
     }
 
     const onSubmitApiKeyForm = (inputData: APIKeyForm) => {
@@ -154,6 +219,12 @@ const Profile = (): JSX.Element => {
         return updateProfileServiceRequest({ variables })
     }
 
+    const onDismissApiKeyForm = () => {
+        setKeyName('')
+        setKey('')
+        setApiKeyFormActive(false)
+    }
+
     const onDeleteApiKey = (selectedKeyName, keyId) => {
         const variables = {
             email: profile.email,
@@ -168,6 +239,7 @@ const Profile = (): JSX.Element => {
 
         return updateProfileServiceRequest({ variables })
     }
+
 
     const columns: GridColDef[] = [
         {
@@ -191,7 +263,7 @@ const Profile = (): JSX.Element => {
         //     width: 200,
         //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //     // @ts-ignore
-        //     renderCell: ({ row }) => {
+        //     renderCell: ({row}) => {
         //         return (
         //             <IconButton onClick={() => onDeleteApiKey(row.keyName, row.id)} size="large">
         //                 <Delete />
@@ -202,6 +274,8 @@ const Profile = (): JSX.Element => {
     ]
 
     const keyNameFormatter = (str: string) => str.toUpperCase().replace(/[^a-zA-Z0-9_.-]/g, '_')
+
+    if (getProfileLoading) return <CircularProgress size={20} color="secondary" />
 
     return <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -219,6 +293,7 @@ const Profile = (): JSX.Element => {
                     <Grid item xs={12}>
                         <Box
                             component="form"
+                            onSubmit={handleEditProfileForm(onSubmitEditProfileForm)}
                             sx={{
                                 alignItems: 'center',
                                 width: '100%',
@@ -238,126 +313,95 @@ const Profile = (): JSX.Element => {
                         >
                             <TextField
                                 label="Email"
-                                value={user.email}
-                                onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
+                                {...registerEditProfileForm('email')}
                                 fullWidth
                                 variant="standard"
                                 margin="normal"
                                 disabled
+                                helperText="The email address that was used to register your membership. It cannot be changed."
+                                InputLabelProps={{ shrink: true }}
                             />
                             <TextField
                                 label="Name"
+                                {...registerEditProfileForm('name', { required: true, pattern: /^((?!\/).)*$/i })}
                                 autoFocus
-                                value={user.name}
-                                onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
+                                error={!!editProfileFormErrors.name}
                                 fullWidth
                                 variant="standard"
                                 margin="normal"
+                                InputLabelProps={{ shrink: true }}
                             />
                             <TextField
-                                label="Username"
-                                value={user.name}
-                                onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
+                                label="Display Name"
+                                {...registerEditProfileForm('displayName', { required: true, pattern: /^((?!\/).)*$/i })}
                                 fullWidth
                                 variant="standard"
                                 margin="normal"
+                                InputLabelProps={{ shrink: true }}
                             />
+                            <Grid item xs={12}>
+                                <InputLabel>Avatar</InputLabel>
+                                <Box sx={{ p: 1 }}>
+                                    <a>
+                                        <input
+                                            type="file"
+                                            onChange={onProcessFile}
+                                            ref={fileInput}
+                                            hidden={true}
+                                        />
+                                        <Avatar style={{ height: 100, width: 100 }} src={image} onClick={onOpenFileDialog} />
+                                    </a>
+
+                                </Box>
+                            </Grid>
                             <TextField
                                 label="Bio"
-                                value={user.bio}
-                                onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
+                                {...registerEditProfileForm('bio')}
                                 fullWidth
                                 multiline
+                                rows={4}
                                 variant="standard"
                                 margin="normal"
+                                InputLabelProps={{ shrink: true }}
                             />
-                            <InputLabel>Associated Acts</InputLabel>
-                            <List>
-                                {['BAND 1', 'BAND 2'].map(item => (
 
-                                    <ListItem
-                                        key={item}
-                                        secondaryAction={
-                                            <IconButton edge="end" aria-label="delete">
-                                                <Delete />
-                                            </IconButton>
-                                        }
-
-                                    >
-                                        {item}
-                                    </ListItem>
-                                ))}
-                            </List>
-                            <Paper component="form" sx={{ p: '.125em 1em', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                <InputBase placeholder="Add Act" inputProps={{ 'aria-label': 'add act' }} sx={{ flex: 'auto' }} />
-                                <Divider sx={{ height: 28, m: 0.5, justifySelf: 'flex-end' }} orientation="vertical" />
-                                <IconButton type="button" aria-label="add">
-                                    <Add />
-                                </IconButton>
-
-                            </Paper>
                             <InputLabel>Links</InputLabel>
-                            <List>
-                                {['https://google.com', 'https://www.bandcamp.com'].map(item => (
+                            {linkFields.length ? linkFields.map((item, index) => (
+                                <Paper key={item.id} sx={{ p: '.125em 1em', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                    <TextField {...registerEditProfileForm(`links.${index}.url`, {
+                                        required: "Valid URL is required",
+                                        pattern: {
+                                            value: /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/,
+                                            message: "Valid URL is required"
+                                        },
 
-                                    <ListItem
-                                        key={item}
-                                        secondaryAction={
-                                            <IconButton edge="end" aria-label="delete">
-                                                <Delete />
-                                            </IconButton>
-                                        }
-
-                                    >
-                                        {item} <a target="_blank" href={item}><Launch /></a>
-                                    </ListItem>
-                                ))}
-                            </List>
-                            <Paper component="form" sx={{ p: '.125em 1em', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                <InputBase placeholder="Add link" inputProps={{ 'aria-label': 'add link' }} sx={{ flex: 'auto' }} />
-                                <Divider sx={{ height: 28, m: 0.5, justifySelf: 'flex-end' }} orientation="vertical" />
-                                <IconButton type="button" aria-label="add">
-                                    <Add />
-                                </IconButton>
-
-                            </Paper>
+                                    })}
+                                        error={!!editProfileFormErrors?.links?.[index]}
+                                        helperText={editProfileFormErrors?.links?.[index] && editProfileFormErrors.links[index]?.url?.message}
+                                        placeholder="Add URL"
+                                        inputProps={{ 'aria-label': 'url' }}
+                                        sx={{ flex: 'auto' }} />
+                                    <TextField {...registerEditProfileForm(`links.${index}.text`)} placeholder="Add Text" inputProps={{ 'aria-label': 'text' }} sx={{ flex: 'auto' }} />
+                                    <Divider sx={{ height: 28, m: 0.5, justifySelf: 'flex-end' }} orientation="vertical" />
+                                    <IconButton type="button" aria-label="delete" onClick={() => removeLink(index)}>
+                                        <Delete />
+                                    </IconButton>
+                                </Paper>
+                            )) : null}
+                            <Button type="button" variant="outlined" aria-label="add" onClick={() => appendLink({ url: '', text: '', id: uuidv4() })} startIcon={<Add />}>
+                                Add Link
+                            </Button>
+                            <Button
+                                type="submit"
+                                color="primary"
+                                variant='contained'
+                                fullWidth
+                                startIcon={updateProfileRequestLoading ? <CircularProgress /> : <Save />}
+                                aria-label="Update Profile"
+                                size="large">
+                                Update Profile
+                            </Button>
                         </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <div className={classes.root}>
-                            <InputLabel>Avatar</InputLabel>
-                            <StyledBadge
-                                overlap="circular"
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
-                                }}
-                                badgeContent={<EditRounded />}
-                            >
-                                <Avatar style={{ height: 100, width: 100 }} alt="Remy Sharp" src={mewAppLogo} />
-                            </StyledBadge>
-                            <Badge
-                                overlap="circular"
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
-                                }}
-                                badgeContent={<EditRounded />}
-                            >
-                                <Avatar style={{ height: 100, width: 100 }} alt="Travis Howard" src={mewAppLogo} />
-                            </Badge>
-                        </div>
-
-                        <>
-                            <Grid item xs={12} md={3}>
-                                <ImageUploader setInputImg={setInputImg} inputImg={inputImg} />
-                            </Grid>
-                            {inputImg && (
-                                <Grid item xs={12}>
-                                    <ImageCropper getBlob={setImageBlob} inputImg={inputImg} height='400px' width='400px' aspect={1} cropShape='round' />
-                                </Grid>
-                            )}
-                        </>
                     </Grid>
                 </Grid>
             </section>
@@ -459,4 +503,4 @@ const Profile = (): JSX.Element => {
     </Grid >;
 }
 
-export default Profile
+export default EditProfile

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SetStateAction } from 'react'
 import { CognitoUser } from '@aws-amplify/auth'
 
 import { useAuth } from './hooks'
@@ -12,6 +12,8 @@ interface AuthState {
     answerCustomChallenge(input: AnswerCustomChallengeInput): Promise<void>
     signOut(): Promise<void>
     deleteUser(): Promise<void>
+    loading: Boolean
+    authStage: Number,
 }
 
 export const AuthContext = React.createContext<AuthState>({
@@ -21,6 +23,9 @@ export const AuthContext = React.createContext<AuthState>({
     answerCustomChallenge: async (input) => { },
     signOut: async () => { },
     deleteUser: async () => { },
+    loading: true,
+    setAuthStage: () => { },
+    authStage: 1
 })
 
 interface AuthProps {

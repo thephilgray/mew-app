@@ -2,7 +2,7 @@ import React from 'react'
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { Router } from '@reach/router'
-import Profile from '../components/Profile/Profile'
+import EditProfile from '../components/Profile/EditProfile'
 import Layout from '../components/Layout/Layout'
 import PrivateRoute from '../components/Auth/PrivateRoute'
 import NewPublicAssignment from '../components/Assignments/NewPublicAssignment'
@@ -18,6 +18,7 @@ import Workshops from '../components/Workshops/Workshops'
 import EditWorkshop from '../components/Workshops/EditWorkshop'
 import NewWorkshop from '../components/Workshops/NewWorkshop'
 import { Group } from '../constants'
+import ViewProfile from '../components/Profile/ViewProfile';
 
 export const ROUTE_NAMES = {
     home: {
@@ -64,10 +65,14 @@ export const ROUTE_NAMES = {
         path: '/app/profile',
         name: 'Profile',
     },
+    editProfile: {
+        path: '/app/profile/edit',
+        name: 'Edit Profile',
+    },
     viewProfile: {
         path: '/app/profile/:profileId',
         getPath: ({ profileId = '' }): string => `/app/profile/${profileId}`,
-        name: 'View Profile'
+        name: 'Profile'
     },
     newPublicSubmission: {
         path: '/app/submissions/:assignmentId',
@@ -119,8 +124,9 @@ const App: React.FC = (): JSX.Element => (
                         component={Assignments}
                         groups={ROUTE_NAMES.assignments.groups}
                     />
-                    <PrivateRoute path={ROUTE_NAMES.profile.path} component={Profile} />
-                    <PrivateRoute path={ROUTE_NAMES.viewProfile.path} component={Profile} />
+                    <PrivateRoute path={ROUTE_NAMES.profile.path} component={ViewProfile} />
+                    <PrivateRoute path={ROUTE_NAMES.editProfile.path} component={EditProfile} />
+                    <PrivateRoute path={ROUTE_NAMES.viewProfile.path} component={ViewProfile} />
                     <PrivateRoute
                         path={ROUTE_NAMES.members.path}
                         component={Members}

@@ -13,6 +13,8 @@ export function useAuth() {
     const [cognitoUser, setCognitoUser] = React.useState<CognitoUser | null>(null)
     const [userProfile, setUserProfile] = React.useState<Profile | null>(null)
     const previousUser = usePrevious(user)
+    const [loading, setLoading] = React.useState<Boolean>(true)
+    const [authStage, setAuthStage] = React.useState(1)
 
     React.useEffect(() => {
         let active = true
@@ -20,6 +22,10 @@ export function useAuth() {
         const check = async () => {
             try {
                 const user = await Auth.currentAuthenticatedUser()
+                const credentials = await Auth.currentUserCredentials()
+                if (user && user.attributes && credentials) {
+                    user.attributes.identityId = credentials.identityId
+                }
                 if (active) {
                     setUser(user)
                 }
@@ -32,10 +38,12 @@ export function useAuth() {
             }
         }
 
-        check()
+        setLoading(true)
+        check().finally(() => setLoading(false))
 
         return () => {
             active = false
+            setLoading(false)
         }
     }, [setUser])
 
@@ -58,19 +66,23 @@ export function useAuth() {
                 }
             }
 
-            fetchUserProfile()
+            setLoading(true)
+            fetchUserProfile().finally(() => setLoading(false))
         }
     }, [previousUser, user])
 
     const signIn = React.useCallback(
         async ({ email }: SignInInput) => {
+            setLoading(true)
             setCognitoUser(await Auth.signIn(email))
+            setLoading(false)
         },
         [setCognitoUser],
     )
 
     const answerCustomChallenge = React.useCallback(
         async ({ answer }: AnswerCustomChallengeInput) => {
+            setLoading(true)
             await Auth.sendCustomChallengeAnswer(cognitoUser, answer)
 
             // It we get here, the answer was sent successfully,
@@ -83,26 +95,31 @@ export function useAuth() {
             } catch (err) {
                 console.log('Apparently the user did not enter the right code')
             }
+            setLoading(false)
         },
         [setUser, cognitoUser],
     )
 
     const signOut = React.useCallback(async () => {
+        setLoading(true)
         await Auth.signOut()
         setUser(null)
         setCognitoUser(null)
+        setLoading(false)
     }, [setUser, setCognitoUser])
 
     const deleteUser = React.useCallback(async () => {
+        setLoading(true)
         user?.deleteUser((error?: Error) => {
             if (error) throw error
 
             setUser(null)
             setCognitoUser(null)
         })
+        setLoading(false)
     }, [user, setUser, setCognitoUser])
 
-    return { user, signIn, signOut, deleteUser, answerCustomChallenge, userProfile }
+    return { user, signIn, signOut, deleteUser, answerCustomChallenge, userProfile, loading, authStage, setAuthStage }
 }
 
 export function useUser() {
@@ -182,3 +199,13 @@ export function useUserHasMembership(workshopId: string): boolean {
     )
 }
 export const useIsAdmin = () => useUserInAtLeastOneOfTheseGroups([Group.admin])
+
+export const useAuthLoading = () => {
+    const { loading } = React.useContext(AuthContext)
+    return loading
+}
+
+export const useAuthStage = () => {
+    const { authStage, setAuthStage } = React.useContext(AuthContext)
+    return [authStage, setAuthStage];
+}

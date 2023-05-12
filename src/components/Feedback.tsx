@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Avatar, Badge, Button, ButtonGroup, Card, CardContent, Divider, Grid, IconButton, Paper, TextField, ToggleButtonGroup, Typography, ToggleButton } from "@mui/material"
-import { useIsAdmin, useUser } from "../auth/hooks"
+import { useIsAdmin, useProfile, useUser } from "../auth/hooks"
 import { Close, Delete, Edit, Send, Comment as CommentIcon, Person, People } from "@mui/icons-material"
 import { Link } from "@reach/router"
 import { gql, useMutation, useQuery } from "@apollo/client"
@@ -11,16 +11,15 @@ import { compareDesc, formatDistanceToNow } from "date-fns"
 import { onCreateComment, onDeleteComment, onUpdateComment } from "../graphql/subscriptions"
 
 const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
-  const user = useUser()
+  const profile = useProfile()
 
   return (
     <Paper style={{ padding: "40px 20px" }} component="form" noValidate autoComplete="off" onSubmit={submitComment}>
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
           <Avatar
-            alt={user.fullName}
-            src={user.avatar}
-          />
+            alt={profile?.displayName || profile?.name || 'Anonymous'}
+            src={profile?.avatar ? `${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${profile?.avatar}` : ''} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
           <TextField
@@ -30,6 +29,7 @@ const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
             variant="filled"
             fullWidth
             value={commentContent}
+            autoFocus
             onChange={e => setCommentContent(e.target.value)}
           />
 
@@ -50,19 +50,19 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
 
   const user = useUser()
   const isAdmin = useIsAdmin()
-  const isAuthor = comment.email === user.email;
+  const isAuthor = comment?.email === user?.email;
 
   const showDeleteComment = isAuthor || isAdmin // this will be admin or owner
   const showEditComment = isAuthor // this will be owner
 
 
-  return (<Paper style={{ padding: "20px" }} key={comment.id}>
+  return (<Paper sx={{ p: 2, mb: 1 }} key={comment.id}>
     <Grid container wrap="nowrap" spacing={2}>
       <Grid item>
         <Link to={`/app/profile/${comment.profile.id}`}>
           <Avatar
-            alt={comment?.profile?.name || 'Anonymous'}
-            src={comment?.profile?.avatar}
+            alt={comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}
+            src={`${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${comment?.profile?.avatar}`}
           />
         </Link>
       </Grid>
@@ -70,9 +70,9 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
         <h4 style={{ margin: 0, textAlign: "left" }}>
 
           <Link to={`/app/profile/${comment.profile.id}`}>
-            {comment?.profile?.name || 'Anonymous'}
+            {comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}
           </Link>
-          <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – <em>{currentTrackMetaData.name} by {currentTrackMetaData.artist}</em></span>
+          <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – <em>{comment?.submission?.name} by {comment?.submission?.artist}</em></span>
         </h4>
 
         <p style={{ textAlign: "left" }}>
@@ -81,7 +81,7 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
 
         {(!!showWriteComment || !!editing) ? <WriteComment {...writeCommentFunctions}
           submitComment={(e) => {
-            !!editing ? writeCommentFunctions.editComment(comment.id)(e) : writeCommentFunctions.submitComment(comment.id)(e)
+            !!editing ? writeCommentFunctions.editComment(comment.id)(e) : writeCommentFunctions.submitComment({ parentId: comment.id, submissionId: comment.submission.id })(e)
             setShowWriteComment(false)
             setEditing(false)
             writeCommentFunctions.setCommentContent('')
@@ -104,7 +104,7 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
       </Grid>
     </Grid>
     {children}
-    <Divider variant="fullWidth" style={{ marginTop: "20px" }} />
+    {/* <Divider variant="fullWidth" style={{ marginTop: "20px" }} /> */}
   </Paper>)
 }
 
@@ -116,6 +116,7 @@ const MyComment = ({ writeCommentFunctions, comment, allComments = [], audioList
     <Comment writeCommentFunctions={writeCommentFunctions} comment={comment} currentTrackMetaData={comment.submission}>
       {childComments().map((childComment) => (
         <MyComment
+          key={childComment.id}
           writeCommentFunctions={writeCommentFunctions}
           comment={childComment}
           allComments={allComments}
@@ -131,9 +132,6 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true }) => {
   const [commentContent, setCommentContent] = useState('')
   const [comments, setComments] = useState([])
   const [showAllComments, setShowAllComments] = useState(showAll)
-
-  // const { loading: listSubmissionsLoading, error: listSubmissionsError, data: listSubmissionsData } =
-  //   useQuery(gql(listFileRequestSubmissions, { limit: 1000, filter: { fileRequestId: { eq: assignmentId } } }))
 
   const [
     createCommentRequest,
@@ -214,10 +212,10 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true }) => {
   }, [createCommentRequestData])
 
 
-  const submitComment = parentId => (e) => {
+  const submitComment = ({ parentId, submissionId }) => (e) => {
     e.preventDefault()
     const input = {
-      email: user.email,
+      email: user?.email,
       assignmentId,
       submissionId,
       content: commentContent,
@@ -256,8 +254,8 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true }) => {
 
   const parentComments = filteredComments.filter(c => c.parentId == null)
   return (
-    <Grid container>
-      <Grid item xs={12} style={{ marginTop: "1em", marginBottom: "1em" }}>
+    <Grid container sx={{ mt: 2, pb: 6 }}>
+      <Grid item xs={12} >
         <Typography variant="h6" component="h3">
           Feedback{' '}
           <Badge badgeContent={filteredComments.length || 0} color="secondary">
@@ -276,7 +274,7 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true }) => {
         {submissionId ? <WriteComment
           commentContent={commentContent}
           setCommentContent={setCommentContent}
-          submitComment={submitComment()}
+          submitComment={submitComment({ submissionId })}
         /> : null}
         {parentComments && parentComments
 

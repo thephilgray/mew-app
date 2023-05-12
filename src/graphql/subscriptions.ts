@@ -14,6 +14,12 @@ export const onCreateAPIKey = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -42,6 +48,12 @@ export const onUpdateAPIKey = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -70,6 +82,12 @@ export const onDeleteAPIKey = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -536,6 +554,12 @@ export const onCreateMembership = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -611,6 +635,12 @@ export const onUpdateMembership = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -686,6 +716,12 @@ export const onDeleteMembership = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -917,6 +953,12 @@ export const onCreateProfile = /* GraphQL */ `
       email
       id
       name
+      displayName
+      links {
+        id
+        text
+        url
+      }
       avatar
       bio
       sub
@@ -953,6 +995,12 @@ export const onUpdateProfile = /* GraphQL */ `
       email
       id
       name
+      displayName
+      links {
+        id
+        text
+        url
+      }
       avatar
       bio
       sub
@@ -989,6 +1037,12 @@ export const onDeleteProfile = /* GraphQL */ `
       email
       id
       name
+      displayName
+      links {
+        id
+        text
+        url
+      }
       avatar
       bio
       sub
@@ -1029,6 +1083,12 @@ export const onCreateComment = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -1112,6 +1172,12 @@ export const onUpdateComment = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -1195,6 +1261,12 @@ export const onDeleteComment = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub

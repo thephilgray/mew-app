@@ -143,6 +143,12 @@ type MailchimpUserInfo {
   tags: [MailchimpTag]
 }
 
+type Link {
+  id: ID
+  text: String
+  url: String
+}
+
 type Membership
   @model
   @auth(
@@ -216,8 +222,10 @@ type Profile
   )
   @aws_cognito_user_pools {
   email: String! @primaryKey
-  id: ID!
+  id: ID! @index(name: "byProfileId", queryField: "profileByProfileId")
   name: String
+  displayName: String
+  links: [Link]
   avatar: String
   bio: String
   sub: String

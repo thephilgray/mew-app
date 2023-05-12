@@ -170,6 +170,10 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         playerRef.current = instance
                     }}
                     mode="full"
+                    sortableOptions={{
+                        delay: 300,
+                        delayOnTouchOnly: true
+                    }}
                     // mobileMediaQuery="(max-width: 2000px)"
                     preload
                     audioLists={audioLists}

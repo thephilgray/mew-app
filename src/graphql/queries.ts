@@ -14,6 +14,12 @@ export const getAPIKey = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -47,6 +53,7 @@ export const listAPIKeys = /* GraphQL */ `
           email
           id
           name
+          displayName
           avatar
           bio
           sub
@@ -525,6 +532,12 @@ export const getMembership = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -594,6 +607,7 @@ export const listMemberships = /* GraphQL */ `
           email
           id
           name
+          displayName
           avatar
           bio
           sub
@@ -650,6 +664,7 @@ export const membershipsByWorkshopId = /* GraphQL */ `
           email
           id
           name
+          displayName
           avatar
           bio
           sub
@@ -706,6 +721,7 @@ export const membershipsByEmail = /* GraphQL */ `
           email
           id
           name
+          displayName
           avatar
           bio
           sub
@@ -824,6 +840,12 @@ export const getProfile = /* GraphQL */ `
       email
       id
       name
+      displayName
+      links {
+        id
+        text
+        url
+      }
       avatar
       bio
       sub
@@ -873,6 +895,53 @@ export const listProfiles = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          nextToken
+        }
+        memberships {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const profileByProfileId = /* GraphQL */ `
+  query ProfileByProfileId(
+    $id: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProfileFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    profileByProfileId(
+      id: $id
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -899,6 +968,12 @@ export const getComment = /* GraphQL */ `
         email
         id
         name
+        displayName
+        links {
+          id
+          text
+          url
+        }
         avatar
         bio
         sub
@@ -987,6 +1062,7 @@ export const listComments = /* GraphQL */ `
           email
           id
           name
+          displayName
           avatar
           bio
           sub
