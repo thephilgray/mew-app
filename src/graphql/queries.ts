@@ -129,14 +129,10 @@ export const getFileRequest = /* GraphQL */ `
       title
       details
       required
-      playlistArtwork {
+      artwork {
         id
-        credit {
-          id
-          title
-          artists
-          artistLinks
-        }
+        path
+        credit
       }
       submissions {
         items {
@@ -200,8 +196,10 @@ export const listFileRequests = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken
@@ -246,8 +244,10 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken
@@ -282,8 +282,10 @@ export const getFileRequestSubmission = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken
@@ -321,6 +323,11 @@ export const getFileRequestSubmission = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      artwork {
+        id
+        path
+        credit
       }
       workshopId
       createdAt
@@ -360,6 +367,11 @@ export const listFileRequestSubmissions = /* GraphQL */ `
         rating
         comments {
           nextToken
+        }
+        artwork {
+          id
+          path
+          credit
         }
         workshopId
         createdAt
@@ -406,6 +418,11 @@ export const submissionsByFileRequestId = /* GraphQL */ `
         comments {
           nextToken
         }
+        artwork {
+          id
+          path
+          credit
+        }
         workshopId
         createdAt
         updatedAt
@@ -451,6 +468,11 @@ export const submissionsByEmail = /* GraphQL */ `
         comments {
           nextToken
         }
+        artwork {
+          id
+          path
+          credit
+        }
         workshopId
         createdAt
         updatedAt
@@ -495,6 +517,11 @@ export const submissionsByWorkshopId = /* GraphQL */ `
         rating
         comments {
           nextToken
+        }
+        artwork {
+          id
+          path
+          credit
         }
         workshopId
         createdAt
@@ -1009,6 +1036,11 @@ export const getComment = /* GraphQL */ `
         comments {
           nextToken
         }
+        artwork {
+          id
+          path
+          credit
+        }
         workshopId
         createdAt
         updatedAt
@@ -1020,8 +1052,10 @@ export const getComment = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken

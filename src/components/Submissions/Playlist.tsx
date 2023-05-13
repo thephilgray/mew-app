@@ -15,7 +15,7 @@ import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
 import { useUser } from '../../auth/hooks'
-import { Pause, PlayArrow as PlayArrowIcon, Send, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon } from '@mui/icons-material'
+import { Pause, PlayArrow as PlayArrowIcon, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon } from '@mui/icons-material'
 import { FeedbackSection } from '../Feedback'
 import { getFileRequest } from '../../graphql/queries'
 import If from '../If';
@@ -43,17 +43,19 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const loggedIn = !!user
     const playerRef = useRef()
 
-    const { color, palette } = useColorThief(audioLists[currentIndex]?.cover || mewAppLogo, {
-        format: 'hex',
-        colorCount: 10,
-        quality: 10,
-    });
-
     // Authenticated user access
     const { loading: authLoading, error: authError, data: authData } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
         // pollInterval: 10000,
     })
+
+    const PLAYLIST_ARTWORK = data?.artwork?.path && getCloudFrontURL(data.artwork.path) || mewAppLogo;
+    const SONG_ARTWORK = audioLists[currentIndex]?.cover;
+    const { color, palette } = useColorThief(PLAYLIST_ARTWORK, {
+        format: 'hex',
+        colorCount: 10,
+        quality: 10,
+    });
 
     // Authenticated user access
     useEffect(() => {
@@ -143,7 +145,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 // @ts-ignore
                 for (let index = 0; index < data.submissions.items.length; index++) {
                     // @ts-ignore
-                    const { name, fileId, artist, id } = data.submissions.items[index]
+                    const { name, fileId, artist, id, artwork } = data.submissions.items[index]
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -151,7 +153,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         songs.push({
                             musicSrc: getCloudFrontURL(songFilePath),
                             name,
-                            cover: mewAppLogo,
+                            cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                             singer: artist,
                             fileId,
                             submissionId: id
@@ -238,7 +240,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 </Grid>
             ) : null}
             <Grid item xs={12}>
-                <Card sx={{ display: 'flex', height: '380px', backgroundColor: color }}>
+                <Card sx={{ display: 'flex', height: '380px', backgroundImage: `linear-gradient(${palette[0]}80, ${palette[1]}80), url(${PLAYLIST_ARTWORK})`, backgroundSize: 'cover' }}>
                     <If condition={!!audioLists?.[currentIndex]}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <CardContent sx={{ flex: '1 0 auto' }}>
@@ -279,7 +281,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         <CardMedia
                             component="img"
                             sx={{ width: 340, height: 340 }}
-                            image={audioLists?.[currentIndex]?.cover?.toString()}
+                            image={SONG_ARTWORK}
                             alt={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
                                 currentIndex
                             ]?.singer?.toString()}`}

@@ -202,7 +202,7 @@ export type FileRequest = {
   title?: string | null,
   details?: string | null,
   required?: boolean | null,
-  playlistArtwork?: Artwork | null,
+  artwork?: Artwork | null,
   submissions?: ModelFileRequestSubmissionConnection | null,
   workshop?: Workshop | null,
   workshopId?: string | null,
@@ -214,15 +214,8 @@ export type FileRequest = {
 export type Artwork = {
   __typename: "Artwork",
   id: string,
-  credit?:  Array<Credit | null > | null,
-};
-
-export type Credit = {
-  __typename: "Credit",
-  id: string,
-  title?: string | null,
-  artists?: Array< string | null > | null,
-  artistLinks?: Array< string | null > | null,
+  path: string,
+  credit?: string | null,
 };
 
 export type ModelFileRequestSubmissionConnection = {
@@ -243,6 +236,7 @@ export type FileRequestSubmission = {
   fileExtension?: string | null,
   rating?: number | null,
   comments?: ModelCommentConnection | null,
+  artwork?: Artwork | null,
   workshopId?: string | null,
   createdAt: string,
   updatedAt: string,
@@ -356,20 +350,14 @@ export type CreateFileRequestInput = {
   title?: string | null,
   details?: string | null,
   required?: boolean | null,
-  playlistArtwork?: ArtworkInput | null,
+  artwork?: ArtworkInput | null,
   workshopId?: string | null,
 };
 
 export type ArtworkInput = {
   id?: string | null,
-  credit?: Array< CreditInput | null > | null,
-};
-
-export type CreditInput = {
-  id?: string | null,
-  title?: string | null,
-  artists?: Array< string | null > | null,
-  artistLinks?: Array< string | null > | null,
+  path: string,
+  credit?: string | null,
 };
 
 export type ModelFileRequestConditionInput = {
@@ -396,7 +384,7 @@ export type UpdateFileRequestInput = {
   title?: string | null,
   details?: string | null,
   required?: boolean | null,
-  playlistArtwork?: ArtworkInput | null,
+  artwork?: ArtworkInput | null,
   workshopId?: string | null,
 };
 
@@ -413,6 +401,7 @@ export type CreateFileRequestSubmissionInput = {
   fileId?: string | null,
   fileExtension?: string | null,
   rating?: number | null,
+  artwork?: ArtworkInput | null,
   workshopId?: string | null,
 };
 
@@ -451,6 +440,7 @@ export type UpdateFileRequestSubmissionInput = {
   fileId?: string | null,
   fileExtension?: string | null,
   rating?: number | null,
+  artwork?: ArtworkInput | null,
   workshopId?: string | null,
 };
 
@@ -1099,16 +1089,11 @@ export type CreateFileRequestMutation = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
-    playlistArtwork?:  {
+    artwork?:  {
       __typename: "Artwork",
       id: string,
-      credit?:  Array< {
-        __typename: "Credit",
-        id: string,
-        title?: string | null,
-        artists?: Array< string | null > | null,
-        artistLinks?: Array< string | null > | null,
-      } | null > | null,
+      path: string,
+      credit?: string | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -1180,16 +1165,11 @@ export type UpdateFileRequestMutation = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
-    playlistArtwork?:  {
+    artwork?:  {
       __typename: "Artwork",
       id: string,
-      credit?:  Array< {
-        __typename: "Credit",
-        id: string,
-        title?: string | null,
-        artists?: Array< string | null > | null,
-        artistLinks?: Array< string | null > | null,
-      } | null > | null,
+      path: string,
+      credit?: string | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -1261,16 +1241,11 @@ export type DeleteFileRequestMutation = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
-    playlistArtwork?:  {
+    artwork?:  {
       __typename: "Artwork",
       id: string,
-      credit?:  Array< {
-        __typename: "Credit",
-        id: string,
-        title?: string | null,
-        artists?: Array< string | null > | null,
-        artistLinks?: Array< string | null > | null,
-      } | null > | null,
+      path: string,
+      credit?: string | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -1346,9 +1321,11 @@ export type CreateFileRequestSubmissionMutation = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -1391,6 +1368,12 @@ export type CreateFileRequestSubmissionMutation = {
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    artwork?:  {
+      __typename: "Artwork",
+      id: string,
+      path: string,
+      credit?: string | null,
     } | null,
     workshopId?: string | null,
     createdAt: string,
@@ -1415,9 +1398,11 @@ export type UpdateFileRequestSubmissionMutation = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -1460,6 +1445,12 @@ export type UpdateFileRequestSubmissionMutation = {
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    artwork?:  {
+      __typename: "Artwork",
+      id: string,
+      path: string,
+      credit?: string | null,
     } | null,
     workshopId?: string | null,
     createdAt: string,
@@ -1484,9 +1475,11 @@ export type DeleteFileRequestSubmissionMutation = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -1529,6 +1522,12 @@ export type DeleteFileRequestSubmissionMutation = {
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    artwork?:  {
+      __typename: "Artwork",
+      id: string,
+      path: string,
+      credit?: string | null,
     } | null,
     workshopId?: string | null,
     createdAt: string,
@@ -2262,6 +2261,12 @@ export type CreateCommentMutation = {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
+      } | null,
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -2274,9 +2279,11 @@ export type CreateCommentMutation = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -2368,6 +2375,12 @@ export type UpdateCommentMutation = {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
+      } | null,
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -2380,9 +2393,11 @@ export type UpdateCommentMutation = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -2474,6 +2489,12 @@ export type DeleteCommentMutation = {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
+      } | null,
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -2486,9 +2507,11 @@ export type DeleteCommentMutation = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -2664,16 +2687,11 @@ export type GetFileRequestQuery = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
-    playlistArtwork?:  {
+    artwork?:  {
       __typename: "Artwork",
       id: string,
-      credit?:  Array< {
-        __typename: "Credit",
-        id: string,
-        title?: string | null,
-        artists?: Array< string | null > | null,
-        artistLinks?: Array< string | null > | null,
-      } | null > | null,
+      path: string,
+      credit?: string | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -2748,9 +2766,11 @@ export type ListFileRequestsQuery = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -2795,9 +2815,11 @@ export type FileRequestsByWorkshopIdQuery = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -2840,9 +2862,11 @@ export type GetFileRequestSubmissionQuery = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -2886,6 +2910,12 @@ export type GetFileRequestSubmissionQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    artwork?:  {
+      __typename: "Artwork",
+      id: string,
+      path: string,
+      credit?: string | null,
+    } | null,
     workshopId?: string | null,
     createdAt: string,
     updatedAt: string,
@@ -2925,6 +2955,12 @@ export type ListFileRequestSubmissionsQuery = {
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
+      } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       workshopId?: string | null,
       createdAt: string,
@@ -2970,6 +3006,12 @@ export type SubmissionsByFileRequestIdQuery = {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
+      } | null,
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -3014,6 +3056,12 @@ export type SubmissionsByEmailQuery = {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
+      } | null,
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -3057,6 +3105,12 @@ export type SubmissionsByWorkshopIdQuery = {
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
+      } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       workshopId?: string | null,
       createdAt: string,
@@ -3634,6 +3688,12 @@ export type GetCommentQuery = {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
+      } | null,
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -3646,9 +3706,11 @@ export type GetCommentQuery = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -3921,16 +3983,11 @@ export type OnCreateFileRequestSubscription = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
-    playlistArtwork?:  {
+    artwork?:  {
       __typename: "Artwork",
       id: string,
-      credit?:  Array< {
-        __typename: "Credit",
-        id: string,
-        title?: string | null,
-        artists?: Array< string | null > | null,
-        artistLinks?: Array< string | null > | null,
-      } | null > | null,
+      path: string,
+      credit?: string | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -4001,16 +4058,11 @@ export type OnUpdateFileRequestSubscription = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
-    playlistArtwork?:  {
+    artwork?:  {
       __typename: "Artwork",
       id: string,
-      credit?:  Array< {
-        __typename: "Credit",
-        id: string,
-        title?: string | null,
-        artists?: Array< string | null > | null,
-        artistLinks?: Array< string | null > | null,
-      } | null > | null,
+      path: string,
+      credit?: string | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -4081,16 +4133,11 @@ export type OnDeleteFileRequestSubscription = {
     title?: string | null,
     details?: string | null,
     required?: boolean | null,
-    playlistArtwork?:  {
+    artwork?:  {
       __typename: "Artwork",
       id: string,
-      credit?:  Array< {
-        __typename: "Credit",
-        id: string,
-        title?: string | null,
-        artists?: Array< string | null > | null,
-        artistLinks?: Array< string | null > | null,
-      } | null > | null,
+      path: string,
+      credit?: string | null,
     } | null,
     submissions?:  {
       __typename: "ModelFileRequestSubmissionConnection",
@@ -4165,9 +4212,11 @@ export type OnCreateFileRequestSubmissionSubscription = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -4210,6 +4259,12 @@ export type OnCreateFileRequestSubmissionSubscription = {
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    artwork?:  {
+      __typename: "Artwork",
+      id: string,
+      path: string,
+      credit?: string | null,
     } | null,
     workshopId?: string | null,
     createdAt: string,
@@ -4233,9 +4288,11 @@ export type OnUpdateFileRequestSubmissionSubscription = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -4278,6 +4335,12 @@ export type OnUpdateFileRequestSubmissionSubscription = {
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    artwork?:  {
+      __typename: "Artwork",
+      id: string,
+      path: string,
+      credit?: string | null,
     } | null,
     workshopId?: string | null,
     createdAt: string,
@@ -4301,9 +4364,11 @@ export type OnDeleteFileRequestSubmissionSubscription = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -4346,6 +4411,12 @@ export type OnDeleteFileRequestSubmissionSubscription = {
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    artwork?:  {
+      __typename: "Artwork",
+      id: string,
+      path: string,
+      credit?: string | null,
     } | null,
     workshopId?: string | null,
     createdAt: string,
@@ -5069,6 +5140,12 @@ export type OnCreateCommentSubscription = {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
+      } | null,
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -5081,9 +5158,11 @@ export type OnCreateCommentSubscription = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -5174,6 +5253,12 @@ export type OnUpdateCommentSubscription = {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
+      } | null,
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -5186,9 +5271,11 @@ export type OnUpdateCommentSubscription = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",
@@ -5279,6 +5366,12 @@ export type OnDeleteCommentSubscription = {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      artwork?:  {
+        __typename: "Artwork",
+        id: string,
+        path: string,
+        credit?: string | null,
+      } | null,
       workshopId?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -5291,9 +5384,11 @@ export type OnDeleteCommentSubscription = {
       title?: string | null,
       details?: string | null,
       required?: boolean | null,
-      playlistArtwork?:  {
+      artwork?:  {
         __typename: "Artwork",
         id: string,
+        path: string,
+        credit?: string | null,
       } | null,
       submissions?:  {
         __typename: "ModelFileRequestSubmissionConnection",

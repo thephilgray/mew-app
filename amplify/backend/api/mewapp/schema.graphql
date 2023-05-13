@@ -1,13 +1,7 @@
-type Credit {
-  id: ID!
-  title: String
-  artists: [String]
-  artistLinks: [String]
-}
-
 type Artwork {
   id: ID!
-  credit: [Credit]
+  path: String!
+  credit: String
 }
 
 type MailchimpIntegration {
@@ -82,7 +76,7 @@ type FileRequest
   title: String
   details: String
   required: Boolean
-  playlistArtwork: Artwork
+  artwork: Artwork
   submissions: [FileRequestSubmission]
     @hasMany(indexName: "submissionsByFileRequestId", fields: ["id"])
   workshop: Workshop @belongsTo(fields: ["workshopId"])
@@ -120,6 +114,7 @@ type FileRequestSubmission
   fileExtension: String
   rating: Int
   comments: [Comment] @hasMany(indexName: "bySubmission", fields: ["id"])
+  artwork: Artwork
   workshopId: ID
     @index(
       name: "submissionsByWorkshopId"

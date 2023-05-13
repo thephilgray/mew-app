@@ -15,6 +15,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogActions,
+    InputLabel,
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -25,6 +26,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { Link, navigate } from 'gatsby'
 import { API } from 'aws-amplify'
 import { Editor } from '@tinymce/tinymce-react'
+import { v4 as uuidv4 } from 'uuid';
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { FileCopy } from '@mui/icons-material'
@@ -32,6 +34,8 @@ import { useCopyToClipboard } from 'react-use'
 import { ROUTE_NAMES } from '../../pages/app'
 import * as mutations from '../../graphql/mutations'
 import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
+import ImagePicker, { uploadImage } from '../ImagePicker';
+import { getCloudFrontURL } from '../../utils';
 
 const getFileRequestWithNoLimit = getFileRequestQuery.replace('submissions {', 'submissions(limit: 1000) {')
 
@@ -43,9 +47,11 @@ type Inputs = {
     userContent: boolean
     userImage: boolean
     userFeedback: boolean
+    artworkCredit: string
+    artworkPath: string
 }
 
-const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
+const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string }> = ({ workshopId = '', assignmentId = '' }) => {
     const { data: { getFileRequest } = {}, loading, error } = useQuery(gql(getFileRequestWithNoLimit), {
         variables: { id: assignmentId },
     })
@@ -65,6 +71,7 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
     const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
     const [openConfirm, setOpenConfirm] = React.useState(false)
+    const [image, setImage] = useState<string>('')
 
     const handleClickOpenConfirm = () => {
         setOpenConfirm(true)
@@ -80,6 +87,7 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
             setValue('title', getFileRequest.title)
             setExpiration(new Date(getFileRequest.expiration))
             setRequired(getFileRequest.required)
+            setValue('artworkCredit', getFileRequest.artwork?.credit)
         }
     }, [getFileRequest])
 
@@ -104,7 +112,17 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
         register('required')
     }, [required])
 
+    const ARTWORK_DOWNLOAD_PATH = getFileRequest?.artwork?.path
+
     const onSubmit = async (inputData: Inputs) => {
+
+        let ARTWORK_UPLOAD_PATH
+        let ID
+        if (image && !image.includes(ARTWORK_DOWNLOAD_PATH)) {
+            ID = uuidv4()
+            ARTWORK_UPLOAD_PATH = `workshops/${workshopId}/artwork-${ID}.jpg`
+            await uploadImage({ image, uploadPath: ARTWORK_UPLOAD_PATH, filename: 'artwork.jpg' })
+        }
         await API.graphql({
             query: mutations.updateFileRequest,
             variables: {
@@ -114,6 +132,13 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
                     title: inputData.title,
                     details: details,
                     required: required,
+                    ...image && !image.includes(ARTWORK_DOWNLOAD_PATH) && {
+                        artwork: {
+                            id: ID,
+                            credit: inputData.artworkCredit,
+                            path: ARTWORK_UPLOAD_PATH
+                        }
+                    }
                 },
             },
         })
@@ -137,6 +162,8 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
     if (error) return <Error errorMessage={error} />
     if (loading) return <CircularProgress />
     if (!loading && !getFileRequest?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
+
+
 
     return (
         <Grid container spacing={2}>
@@ -265,6 +292,13 @@ const EditPublicAssignment: React.FC<{ assignmentId: string }> = ({ assignmentId
                                     onEditorChange={setDetails}
                                     apiKey="7n5kyei3ttoxuo2wna1yhi1558x6b4e9k4jpuwrusi1ce416"
                                 />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <InputLabel>
+                                    Artwork
+                                </InputLabel>
+                                <ImagePicker imageURL={getFileRequest?.artwork && getCloudFrontURL(ARTWORK_DOWNLOAD_PATH)} width={200} height={200} maxHeight={500} maxWidth={500} onChange={e => setImage(e.image)} />
+                                <TextField fullWidth label="Title/Credit" {...register('artworkCredit')} InputLabelProps={{ shrink: true }} />
                             </Grid>
                             <Grid item xs={6}>
                                 <DatePicker

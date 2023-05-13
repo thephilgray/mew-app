@@ -229,14 +229,10 @@ export const createFileRequest = /* GraphQL */ `
       title
       details
       required
-      playlistArtwork {
+      artwork {
         id
-        credit {
-          id
-          title
-          artists
-          artistLinks
-        }
+        path
+        credit
       }
       submissions {
         items {
@@ -298,14 +294,10 @@ export const updateFileRequest = /* GraphQL */ `
       title
       details
       required
-      playlistArtwork {
+      artwork {
         id
-        credit {
-          id
-          title
-          artists
-          artistLinks
-        }
+        path
+        credit
       }
       submissions {
         items {
@@ -367,14 +359,10 @@ export const deleteFileRequest = /* GraphQL */ `
       title
       details
       required
-      playlistArtwork {
+      artwork {
         id
-        credit {
-          id
-          title
-          artists
-          artistLinks
-        }
+        path
+        credit
       }
       submissions {
         items {
@@ -439,8 +427,10 @@ export const createFileRequestSubmission = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken
@@ -478,6 +468,11 @@ export const createFileRequestSubmission = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      artwork {
+        id
+        path
+        credit
       }
       workshopId
       createdAt
@@ -499,8 +494,10 @@ export const updateFileRequestSubmission = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken
@@ -538,6 +535,11 @@ export const updateFileRequestSubmission = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      artwork {
+        id
+        path
+        credit
       }
       workshopId
       createdAt
@@ -559,8 +561,10 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken
@@ -598,6 +602,11 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      artwork {
+        id
+        path
+        credit
       }
       workshopId
       createdAt
@@ -1229,6 +1238,11 @@ export const createComment = /* GraphQL */ `
         comments {
           nextToken
         }
+        artwork {
+          id
+          path
+          credit
+        }
         workshopId
         createdAt
         updatedAt
@@ -1240,8 +1254,10 @@ export const createComment = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken
@@ -1321,6 +1337,11 @@ export const updateComment = /* GraphQL */ `
         comments {
           nextToken
         }
+        artwork {
+          id
+          path
+          credit
+        }
         workshopId
         createdAt
         updatedAt
@@ -1332,8 +1353,10 @@ export const updateComment = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken
@@ -1413,6 +1436,11 @@ export const deleteComment = /* GraphQL */ `
         comments {
           nextToken
         }
+        artwork {
+          id
+          path
+          credit
+        }
         workshopId
         createdAt
         updatedAt
@@ -1424,8 +1452,10 @@ export const deleteComment = /* GraphQL */ `
         title
         details
         required
-        playlistArtwork {
+        artwork {
           id
+          path
+          credit
         }
         submissions {
           nextToken

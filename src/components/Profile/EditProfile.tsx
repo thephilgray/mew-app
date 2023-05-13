@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Avatar, Box, Button, CircularProgress, Divider, Grid, IconButton, InputBase, InputLabel, List, ListItem, Paper, TextField, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Divider, Grid, IconButton, InputBase, InputLabel, Link, List, ListItem, Paper, TextField, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui';
 import { updateProfile, updateProfileService } from '../../graphql/mutations'
 import gql from 'graphql-tag'
@@ -14,13 +14,10 @@ import { useProfile, useUser } from '../../auth/hooks'
 import { getProfile } from '../../graphql/queries';
 import AppBreadcrumbs from '../AppBreadcrumbs';
 import { ROUTE_NAMES } from '../../pages/app';
-import { Storage } from 'aws-amplify';
-import Resizer from "react-image-file-resizer";
 import { v4 as uuidv4 } from 'uuid';
 import { navigate } from 'gatsby';
 import { getCloudFrontURL } from '../../utils';
-
-Storage.configure({ track: true });
+import ImagePicker, { uploadImage } from '../ImagePicker';
 
 type APIKeyForm = {
     keyName: string
@@ -76,7 +73,6 @@ const EditProfile = (): JSX.Element => {
     const AVATAR_DOWNLOAD_PATH = profile?.avatar;
     const AVATAR_UPLOAD_PATH = `images/${profile?.id}/avatar-${uuidv4()}.jpg`
 
-
     const {
         control: editProfileFormControl,
         register: registerEditProfileForm,
@@ -119,43 +115,6 @@ const EditProfile = (): JSX.Element => {
         { error: updateProfileServiceError, data: updateProfileServiceData },
     ] = useMutation(gql(updateProfileService))
 
-    const resizeFile = (file) =>
-        new Promise((resolve) => {
-            Resizer.imageFileResizer(
-                file,
-                300,
-                300,
-                "JPEG",
-                100,
-                0,
-                (uri) => {
-                    setImage(uri)
-                },
-                "base64"
-            );
-        });
-
-    let fileInput = React.createRef();
-
-    const onOpenFileDialog = () => {
-        fileInput.current.click();
-    };
-
-    const onProcessFile = async (e) => {
-        e.preventDefault();
-        let file = e.target.files[0];
-        try {
-            await resizeFile(file);
-        } catch (error) {
-            console.log(error)
-        }
-    };
-
-    useEffect(() => {
-        if (profile?.avatar) {
-            setImage(getCloudFrontURL(AVATAR_DOWNLOAD_PATH))
-        }
-    }, [profile])
 
     useEffect(() => {
         setApiKeyFieldValue('keyName', keyName)
@@ -176,18 +135,13 @@ const EditProfile = (): JSX.Element => {
 
     const onSubmitEditProfileForm = async (inputData) => {
         const imageUpdated = image && !image.includes(profile?.avatar);
+        console.log({ imageUpdated, image })
         if (imageUpdated) {
-            try {
-                const imageResult = await fetch(image)
-                const blob = await imageResult.blob()
-                const file = new File([blob], 'avatar.jpg')
-                await Storage.put(AVATAR_UPLOAD_PATH, file, {
-
-                    contentType: "image/jpeg",
-                })
-            } catch (error) {
-                console.log(error)
-            }
+            await uploadImage({
+                uploadPath: AVATAR_UPLOAD_PATH,
+                filename: 'avatar.jpg',
+                image
+            })
         }
 
         const variables = {
@@ -342,19 +296,14 @@ const EditProfile = (): JSX.Element => {
                             />
                             <Grid item xs={12}>
                                 <InputLabel>Avatar</InputLabel>
-                                <Box sx={{ p: 1 }}>
-                                    <a>
-                                        <input
-                                            type="file"
-                                            onChange={onProcessFile}
-                                            ref={fileInput}
-                                            hidden={true}
-                                            accept="image/*"
-                                        />
-                                        <Avatar style={{ height: 100, width: 100, cursor: 'pointer' }} src={image} onClick={onOpenFileDialog} />
-                                    </a>
-
-                                </Box>
+                                <ImagePicker
+                                    imageURL={profile?.avatar && getCloudFrontURL(AVATAR_DOWNLOAD_PATH)}
+                                    width={200}
+                                    height={200}
+                                    maxHeight={300}
+                                    maxWidth={300}
+                                    isAvatar
+                                    onChange={(e) => setImage(e.image)} />
                             </Grid>
                             <TextField
                                 label="Bio"
@@ -384,6 +333,10 @@ const EditProfile = (): JSX.Element => {
                                         inputProps={{ 'aria-label': 'url' }}
                                         sx={{ flex: 'auto' }} />
                                     <TextField {...registerEditProfileForm(`links.${index}.text`)} placeholder="Add Text" inputProps={{ 'aria-label': 'text' }} sx={{ flex: 'auto' }} />
+                                    <Divider sx={{ height: 28, m: 0.5, justifySelf: 'flex-end' }} orientation="vertical" />
+                                    <IconButton component="a" target="_blank" alt="open link" href={getEditProfileFormValues(`links.${index}.url`)}>
+                                        <Launch />
+                                    </IconButton>
                                     <Divider sx={{ height: 28, m: 0.5, justifySelf: 'flex-end' }} orientation="vertical" />
                                     <IconButton type="button" aria-label="delete" onClick={() => removeLink(index)}>
                                         <Delete />
