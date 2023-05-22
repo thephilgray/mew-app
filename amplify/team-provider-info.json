@@ -88,7 +88,8 @@
         "AdminQueriesd92d7feb": {
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
           "s3Key": "amplify-builds/AdminQueriesd92d7feb-71666f4666445632756a-build.zip"
-        }
+        },
+        "mewappacdc5d0ePostAuthentication": {}
       },
       "auth": {
         "mewappacdc5d0e": {},

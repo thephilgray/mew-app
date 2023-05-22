@@ -98,6 +98,15 @@
           "category": "function",
           "resourceName": "mewappacdc5d0eVerifyAuthChallengeResponse",
           "triggerProvider": "Cognito"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "mewappacdc5d0ePostAuthentication",
+          "triggerProvider": "Cognito"
         }
       ],
       "frontendAuthConfig": {
@@ -209,6 +218,20 @@
     },
     "mewappacdc5d0eDefineAuthChallenge": {
       "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "mewappacdc5d0ePostAuthentication": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "membershipService"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
