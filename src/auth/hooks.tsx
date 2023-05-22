@@ -7,6 +7,8 @@ import { CognitoUser } from '@aws-amplify/auth'
 import { Profile } from '../API'
 import { getProfile } from '../graphql/queries'
 import { usePrevious } from 'react-use'
+import { createProfile } from '../graphql/mutations'
+
 
 export function useAuth() {
     const [user, setUser] = React.useState<CognitoUser | null>(null)
@@ -56,8 +58,20 @@ export function useAuth() {
                 let profile
                 if (email) {
                     try {
-                        const getProfileResult = await API.graphql({ query: getProfile, variables: { email } })
+                        let getProfileResult = await API.graphql({ query: getProfile, variables: { email } })
                         profile = getProfileResult?.data?.getProfile || null
+                        if (!profile) {
+                            const createProfileResult = await API.graphql({
+                                query: createProfile, variables: {
+                                    input: {
+                                        email,
+                                        name: user?.attributes?.name || email,
+                                        sub: user?.attributes?.sub
+                                    }
+                                }
+                            })
+                            profile = createProfileResult?.data?.createProfile || null
+                        }
                         setUserProfile(profile)
                     } catch (error) {
                         // TODO

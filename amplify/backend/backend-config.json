@@ -348,22 +348,6 @@
         }
       ]
     },
-    "AMPLIFY_function_mewappacdc5d0ePostAuthentication_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "mewappacdc5d0ePostAuthentication"
-        }
-      ]
-    },
-    "AMPLIFY_function_mewappacdc5d0ePostAuthentication_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "mewappacdc5d0ePostAuthentication"
-        }
-      ]
-    },
     "AMPLIFY_function_mewappacdc5d0ePreSignup_deploymentBucketName": {
       "usedBy": [
         {
