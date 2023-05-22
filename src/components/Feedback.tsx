@@ -31,7 +31,6 @@ const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
             variant="filled"
             fullWidth
             value={commentContent}
-            autoFocus
             onChange={e => setCommentContent(e.target.value)}
           />
 
