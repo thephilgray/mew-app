@@ -299,7 +299,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
             <GroupGuard groups={[Group.admin]}>
                 <Grid item xs={12} style={{ paddingBottom: 0 }}>
                     <Grid container>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{ pb: 2 }}>
                             <ToggleButtonGroup
                                 exclusive
                                 value={!!viewAdmin ? "admin" : "member"}
@@ -312,13 +312,13 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                             </ToggleButtonGroup>
                         </Grid>
                         <If condition={!!viewAdmin}>
-                            <Grid item xs={8}>
+                            <Grid item xs={6} md={8}>
                                 <Typography variant="h5" component="h5" gutterBottom>
                                     Assignments
                                 </Typography>
                             </Grid>
 
-                            <Grid item xs={4} style={{ textAlign: 'right' }}>
+                            <Grid item xs={6} md={4} style={{ textAlign: 'right' }}>
                                 <IconButton
                                     color="secondary"
                                     aria-label="Workshop Settings"
