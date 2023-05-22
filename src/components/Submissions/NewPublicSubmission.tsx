@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from 'react'
-import { Grid, TextField, IconButton, Button, Paper, Typography, CircularProgress, LinearProgress } from '@mui/material'
+import { Grid, TextField, IconButton, Button, Paper, Typography, CircularProgress, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
-import { CloudUpload, CheckCircle, WarningRounded } from '@mui/icons-material'
+import { CloudUpload, CheckCircle, WarningRounded, Feedback, ArrowRight, PlayArrow } from '@mui/icons-material'
 import { useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import styled from '@emotion/styled'
@@ -19,30 +19,47 @@ import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useUser } from '../../auth/hooks'
 import If from '../If'
 import { ROUTE_NAMES } from '../../pages/app'
+import ImagePicker, { uploadImage } from '../ImagePicker'
+import Playlist from './Playlist'
+import { Submission } from './Submission'
 
 type Inputs = {
     name: string
     artist: string
     email: string
     upload: AudioFileBlob
+    requestFeedback: boolean
+    artwork: {
+        id: string
+        path: string
+        credit: string
+    }
+    lyrics: string
+    addArtwork: boolean
+    addLyrics: boolean
 }
 
 const StyledFileDropWrapper = styled.div`
     border: 1px solid black;
-    width: 600;
+    // width: 600;
     color: black;
     padding: 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
 
     .file-drop {
         /* relatively position the container bc the contents are absolute */
         position: relative;
-        height: 100px;
+        minHeight: 100px;
         width: 100%;
+        height: 100%;
+        cursor: pointer;
     }
 
     .file-drop > .file-drop-target {
         /* basic styles */
-        position: absolute;
+        // position: absolute;
         top: 0;
         left: 0;
         height: 100%;
@@ -89,18 +106,24 @@ const NewPublicSubmission: React.FC<
         details: string
         workshopId: string
     } | null>(null)
+
+    const user = useUser()
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<Error | null>(null)
     const [uploadSuccess, setUploadSuccess] = useState<boolean>(false)
     const [uploadProgress, setUploadProgress] = useState({ loaded: 0, total: 1 })
     const [uploadAreaMessage, setUploadAreaMessage] = useState('Drop your track')
-    const [expiration, setExpiration] = useState('')
-    const user = useUser()
+    const [expiration, setExpiration] = useState<string>('')
+    const [image, setImage] = useState<string>('')
+    const [showPlaylist, setShowPlaylist] = useState<boolean>(false)
+    const [feedbackGiven, setFeedbackGiven] = useState<number>(0)
+
     const {
         register,
         handleSubmit,
         setValue,
-
+        watch,
+        getValues,
         formState: {
             errors,
         },
@@ -108,7 +131,8 @@ const NewPublicSubmission: React.FC<
         defaultValues: useMemo(() => {
             return {
                 email: user?.email || '',
-                artist: user?.name || ''
+                artist: user?.name || '',
+                requestFeedback: !!user,
             }
         }, [user])
     })
@@ -229,12 +253,20 @@ const NewPublicSubmission: React.FC<
 
     const onSubmit = async (values: Inputs) => {
         setLoading(true)
-        const { name, artist, email } = values
+        const { name, artist, email, lyrics, requestFeedback } = values
         const fileId = uuidv4()
         const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
         const emails = email.split(',').map((email) => email.toLowerCase().trim())
         const fileExtension = upload?.name.split('.').pop()
+
+        let ARTWORK_UPLOAD_PATH
+        let ID
+        if (image) {
+            ID = uuidv4()
+            ARTWORK_UPLOAD_PATH = `submissions/${assignmentId}/artwork-${ID}.jpg`
+            await uploadImage({ image, uploadPath: ARTWORK_UPLOAD_PATH, filename: 'artwork.jpg' })
+        }
 
         try {
             await Storage.put(key, upload, {
@@ -260,6 +292,16 @@ const NewPublicSubmission: React.FC<
                             email: emails[index],
                             fileExtension,
                             workshopId: fileRequestData?.workshopId,
+                            ...image && {
+                                artwork: {
+                                    id: ID,
+                                    // credit: inputData.artworkCredit,
+                                    credit: '',
+                                    path: ARTWORK_UPLOAD_PATH
+                                }
+                            },
+                            lyrics,
+                            requestFeedback
                         },
                     }),
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -299,30 +341,56 @@ const NewPublicSubmission: React.FC<
                             />
                         </Grid>
                     )}
-                    <Grid item xs={12}>
-                        <input
-                            type="file"
-                            name="filename"
-                            id="audioUpload"
-                            accept={ACCEPTED_FILETYPES.join()}
-                            onChange={handleFileSelected}
-                            ref={fileref}
-                            hidden
-                        />
-
-                        <StyledFileDropWrapper>
-                            <FileDrop onTargetClick={onTargetClick} onDrop={handleOnDrop}>
-                                <IconButton color="primary" aria-label="audio upload" component="span" size="large">
-                                    <CloudUpload fontSize="large" />
-                                </IconButton>
-                                {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    <If condition={user}>
+                        <Grid item xs={12}>
+                            <FormGroup>
+                                <InputLabel>Options</InputLabel>
+                                <FormControlLabel control={<Switch {...register("addArtwork")} color="secondary" />} label="Add artwork" />
+                                <FormControlLabel control={<Switch {...register("addLyrics")} color="secondary" />} label="Add lyrics" />
+                                <FormControlLabel control={<Switch defaultChecked={true} {...register("requestFeedback")} color="secondary" />} label="Request feedback" />
+                            </FormGroup>
+                        </Grid>
+                    </If>
+                    <Grid item xs={12} >
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={watch("addArtwork") ? 6 : 12} >
+                                <input
+                                    type="file"
+                                    name="filename"
+                                    id="audioUpload"
+                                    accept={ACCEPTED_FILETYPES.join()}
+                                    onChange={handleFileSelected}
+                                    ref={fileref}
+                                    hidden
+                                />
+                                <StyledFileDropWrapper>
+                                    <FileDrop onTargetClick={onTargetClick} onDrop={handleOnDrop}>
+                                        <IconButton color="primary" aria-label="audio upload" component="span" size="large">
+                                            <CloudUpload fontSize="large" />
+                                        </IconButton>
+                                        {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                 // @ts-ignore */}
-                                {!!errors.upload && !upload && (
-                                    <Typography color="error">Upload is required!</Typography>
-                                )}
-                                <Typography>{uploadAreaMessage}</Typography>
-                            </FileDrop>
-                        </StyledFileDropWrapper>
+                                        {!!errors.upload && !upload && (
+                                            <Typography color="error">Upload is required!</Typography>
+                                        )}
+                                        <Typography>{uploadAreaMessage}</Typography>
+                                    </FileDrop>
+                                </StyledFileDropWrapper>
+
+                            </Grid>
+                            <If condition={watch("addArtwork")} >
+                                <Grid item xs={12} md={6}>
+                                    <div style={{ border: '1px solid black', padding: '1rem' }}>
+                                        <InputLabel sx={{ textAlign: 'center' }}>Artwork</InputLabel>
+                                        <ImagePicker onChange={e => setImage(e.image)} maxWidth={500} maxHeight={500} width={300} height={300} />
+                                    </div>
+                                </Grid>
+                            </If>
+
+                        </Grid>
+
+
+
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -353,6 +421,7 @@ const NewPublicSubmission: React.FC<
                             required
                             fullWidth
                             label="Artist Byline"
+                            InputLabelProps={{ shrink: true }}
                             {...register('artist', { required: true, pattern: /^((?!\/).)*$/i })}
                             error={!!errors.artist}
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -371,14 +440,25 @@ const NewPublicSubmission: React.FC<
                             // @ts-ignore
                             helperText={!!errors.name && validationMessages.name[errors.name.type]} />
                     </Grid>
-
+                    <If condition={watch("addLyrics")}>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="standard"
+                                multiline
+                                rows={6}
+                                fullWidth
+                                label="Lyrics"
+                                {...register('lyrics')}
+                            />
+                        </Grid>
+                    </If>
                     <Grid item xs={12}>
                         <Button type="submit" variant="contained" color="primary" style={{ float: 'right' }}>
                             Submit
                         </Button>
                     </Grid>
-                </Grid>
-            </form>
+                </Grid >
+            </form >
         )
     }
 
@@ -409,12 +489,34 @@ const NewPublicSubmission: React.FC<
 
     if (uploadSuccess && !loading) {
         content = (
-            <div style={{ textAlign: 'center' }}>
-                <CheckCircle fontSize="large" htmlColor={green[500]} />
-                <Typography variant="h6">Success</Typography>
-            </div>
+            <Grid container spacing={4} >
+                <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                    <CheckCircle fontSize="large" htmlColor={green[500]} />
+                    <Typography variant="h6">Success</Typography>
+                </Grid>
+                <If condition={!!user && watch("requestFeedback") && !feedbackGiven} >
+                    <Grid item xs={12}>
+                        <Typography variant="h3" sx={{ textAlign: 'center' }}>
+                            Give Feedback
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                        <Button size="large" endIcon={<PlayArrow />} variant="contained" onClick={() => setShowPlaylist(true)}>BEGIN</Button>
+                    </Grid>
+                </If>
+            </Grid>
         )
     }
+
+    if (!!user && showPlaylist && fileRequestData) {
+        content = <Submission
+            fileRequestData={fileRequestData}
+            feedbackGiven={feedbackGiven}
+            setFeedbackGiven={setFeedbackGiven}
+            setShowPlaylist={setShowPlaylist}
+        />
+    }
+
     if (!isValid && !loading) {
         content = (
             <div style={{ textAlign: 'center' }}>
@@ -427,10 +529,23 @@ const NewPublicSubmission: React.FC<
         <Grid container spacing={2}>
             {user ? <Grid item xs={12}>
                 <AppBreadcrumbs
-                    paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.assignment]}
+                    paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments,
+                    {
+                        path: ROUTE_NAMES.assignment.getPath({ assignmentId }),
+                        name: fileRequestData?.title || assignmentId,
+                    },
+                    ROUTE_NAMES.assignment]}
                     workshopId={fileRequestData?.workshopId}
                 />
             </Grid> : null}
+            {/* <Grid item xs={12}>
+                <FormControlLabel control={<Switch value={uploadSuccess} onChange={() => {
+                    if (uploadSuccess) {
+                        setShowPlaylist(false)
+                    }
+                    setUploadSuccess(!uploadSuccess)
+                }} color="secondary" />} label="Temporary dev toggle" />
+            </Grid> */}
             <Grid item xs={12}>
                 <Paper style={{ padding: '1rem' }}>{content}</Paper>
             </Grid>

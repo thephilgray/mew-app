@@ -421,6 +421,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
                             size="large"
                             startIcon={<PlayArrowTwoTone />}
+                            disabled={!data?.getFileRequest?.submissions?.items?.length}
                         >
                             Play
                         </Button>

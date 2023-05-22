@@ -2,7 +2,7 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/react-hooks'
 import { profileByProfileId } from '../../graphql/queries'
-import { Avatar, Button, Card, CardContent, CardMedia, CircularProgress, Divider, Grid, IconButton, Link, List, ListItem, Stack, Typography } from '@mui/material'
+import { Avatar, Button, Card, CardContent, CardMedia, Chip, CircularProgress, Divider, Grid, IconButton, Link, List, ListItem, Stack, Typography } from '@mui/material'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { ROUTE_NAMES } from '../../pages/app'
 import { Edit, Launch } from '@mui/icons-material'
@@ -10,6 +10,8 @@ import { useProfile, useUser } from '../../auth/hooks'
 import { navigate } from 'gatsby'
 import If from '../If'
 import { getCloudFrontURL } from '../../utils'
+import GroupGuard from '../Auth/GroupGuard'
+import { Group } from '../../constants'
 
 const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
   const user = useUser()
@@ -49,7 +51,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
         </CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" sx={{ textAlign: 'center' }}>
-            {profile?.displayName || profile?.name}
+            {profile?.displayName || profile?.name} <GroupGuard groups={[Group.admin]}><Chip label="ADMIN" color="secondary" /></GroupGuard>
           </Typography>
           {profile?.bio ? <><Divider sx={{ mb: 2, mt: 2 }} />
             <Typography variant="body1" component="h2">Bio</Typography>

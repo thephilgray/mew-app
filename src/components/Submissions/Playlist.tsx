@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState, PropsWithChildren, useRef } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme } from '@mui/material'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, Skeleton, Slide } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
@@ -20,6 +20,8 @@ import { FeedbackSection } from '../Feedback'
 import { getFileRequest } from '../../graphql/queries'
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
+import { FileRequestSubmission } from '../../models';
+
 
 const GET_FILE_REQUEST = gql(getFileRequest.replace('submissions {', 'submissions(limit: 1000) {'))
 
@@ -29,7 +31,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
     const [currentIndex, setCurrentIndex] = useState(0)
     const [isPlaying, setIsPlaying] = useState(false)
-
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState<{
         expiration: string
@@ -42,7 +43,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const user = useUser()
     const loggedIn = !!user
     const playerRef = useRef()
-
     // Authenticated user access
     const { loading: authLoading, error: authError, data: authData } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
@@ -135,7 +135,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         a.click()
     }
 
-
     useEffect(() => {
         async function addSongsToPlaylist() {
             const songs: Array<ReactJkMusicPlayerAudioListProps> = []
@@ -145,7 +144,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 // @ts-ignore
                 for (let index = 0; index < data.submissions.items.length; index++) {
                     // @ts-ignore
-                    const { name, fileId, artist, id, artwork } = data.submissions.items[index]
+                    const { name, fileId, artist, id, artwork, lyrics } = data.submissions.items[index]
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -156,7 +155,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                             singer: artist,
                             fileId,
-                            submissionId: id
+                            submissionId: id,
+                            lyrics
                         })
                         seenFileIds.push(fileId)
                     }
@@ -174,8 +174,24 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
 
     return (
-        <Grid container spacing={3} style={{ minHeight: '90 vh' }}>
-            {audioLists.length ? (
+        <Grid container spacing={3} style={{ minHeight: '90 vh' }} >
+            <If condition={loggedIn}>
+                <Grid item xs={12}>
+                    <AppBreadcrumbs
+                        paths={[
+                            ROUTE_NAMES.home,
+                            ROUTE_NAMES.assignments,
+                            {
+                                path: ROUTE_NAMES.assignment.getPath({ assignmentId }),
+                                name: data?.title || assignmentId,
+                            },
+                            ROUTE_NAMES.playlist,
+                        ]}
+                        workshopId={data?.workshopId}
+                    />
+                </Grid>
+            </If>
+            <If condition={!!audioLists.length}>
                 <ReactJkMusicPlayer
                     getAudioInstance={(instance) => {
                         playerRef.current = instance
@@ -201,6 +217,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     // volumeFade={{ fadeIn: 0, fadeOut: 0 }}
                     showMiniProcessBar={false}
                     showDownload={true}
+                    // showLyric={true}
                     // @ts-ignore
                     customDownloader={download}
                     // drag={false}
@@ -220,28 +237,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     onAudioError={() => {
                         setIsPlaying(false)
                     }}
-
                 />
-            ) : null}
-            {loggedIn ? (
+            </If>
+
+            <If condition={!!audioLists?.[currentIndex]}>
                 <Grid item xs={12}>
-                    <AppBreadcrumbs
-                        paths={[
-                            ROUTE_NAMES.home,
-                            ROUTE_NAMES.assignments,
-                            {
-                                path: ROUTE_NAMES.assignment.getPath({ assignmentId }),
-                                name: data?.title || assignmentId,
-                            },
-                            ROUTE_NAMES.playlist,
-                        ]}
-                        workshopId={data?.workshopId}
-                    />
-                </Grid>
-            ) : null}
-            <Grid item xs={12}>
-                <Card sx={{ display: 'flex', height: '380px', backgroundImage: `linear-gradient(${palette[0]}80, ${palette[1]}80), url(${PLAYLIST_ARTWORK})`, backgroundSize: 'cover' }}>
-                    <If condition={!!audioLists?.[currentIndex]}>
+                    <Card sx={{ display: 'flex', height: '380px', backgroundImage: palette ? `linear-gradient(${palette[0]}80, ${palette[1]}80), url(${PLAYLIST_ARTWORK})` : '', backgroundSize: 'cover' }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <CardContent sx={{ flex: '1 0 auto' }}>
                                 <Typography component="h2" variant="h5" color="white" style={{ lineHeight: "37px", backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, padding: "4px 7px" }}>
@@ -276,26 +277,37 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 </IconButton>
                             </Box>
                         </Box>
-                    </If>
-                    <Box sx={{ alignSelf: 'center', marginLeft: 'auto', paddingRight: '0.5em' }}>
-                        <CardMedia
-                            component="img"
-                            sx={{ width: 340, height: 340 }}
-                            image={SONG_ARTWORK}
-                            alt={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
-                                currentIndex
-                            ]?.singer?.toString()}`}
-                        />
+                        <Box sx={{ alignSelf: 'center', marginLeft: 'auto', paddingRight: '0.5em' }}>
+                            <CardMedia
+                                component="img"
+                                sx={{ width: 340, height: 340 }}
+                                image={SONG_ARTWORK}
+                                alt={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
+                                    currentIndex
+                                ]?.singer?.toString()}`}
+                            />
 
-                    </Box>
-                </Card>
-            </Grid >
-            <Grid item xs={12}>
-                <FeedbackSection
-                    assignmentId={assignmentId}
-                    submissionId={audioLists?.[currentIndex]?.submissionId}
-                />
-            </Grid>
+                        </Box>
+                    </Card>
+                </Grid >
+                <If condition={!!audioLists?.[currentIndex]?.lyrics}></If>
+                <Grid item xs={12}>
+                    <pre>
+                        <Typography variant="body2">
+                            {audioLists?.[currentIndex]?.lyrics}
+                        </Typography>
+                    </pre>
+                </Grid>
+                <If condition={!!loggedIn}>
+                    <Grid item xs={12}>
+                        <FeedbackSection
+                            assignmentId={assignmentId}
+                            submissionId={audioLists?.[currentIndex]?.submissionId}
+                            showToggle={false}
+                        />
+                    </Grid>
+                </If>
+            </If>
         </Grid >
     )
 }

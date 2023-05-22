@@ -115,6 +115,8 @@ type FileRequestSubmission
   rating: Int
   comments: [Comment] @hasMany(indexName: "bySubmission", fields: ["id"])
   artwork: Artwork
+  lyrics: String
+  requestFeedback: Boolean
   workshopId: ID
     @index(
       name: "submissionsByWorkshopId"

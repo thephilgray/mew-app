@@ -10,6 +10,7 @@ import { listComments, listFileRequestSubmissions } from "../graphql/queries"
 import { compareDesc, formatDistanceToNow } from "date-fns"
 import { onCreateComment, onDeleteComment, onUpdateComment } from "../graphql/subscriptions"
 import { getCloudFrontURL } from "../utils"
+import If from "./If"
 
 const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
   const profile = useProfile()
@@ -128,7 +129,7 @@ const MyComment = ({ writeCommentFunctions, comment, allComments = [], audioList
   )
 }
 
-const FeedbackSection = ({ assignmentId, submissionId, showAll = true }) => {
+const FeedbackSection = ({ assignmentId, submissionId, showAll = true, showToggle = true, showByMe = false, onSuccess = () => { } }) => {
   const user = useUser()
   const [commentContent, setCommentContent] = useState('')
   const [comments, setComments] = useState([])
@@ -206,6 +207,7 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true }) => {
 
   useEffect(() => {
     if (createCommentRequestData) {
+      onSuccess()
       setCommentContent('')
       // refetchCommentData({ filter: { submissionId: { eq: metaData.submissionId } } })
       // refetchCommentData()
@@ -250,7 +252,10 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true }) => {
 
   const filteredComments = comments.filter(item => {
     if (showAllComments) return item
-    if (item?.submission?.email === user.email) return item
+    if (showByMe) {
+      if (item?.email === user.email) return item
+    }
+    else if (item?.submission?.email === user.email) return item
   }).sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
 
   const parentComments = filteredComments.filter(c => c.parentId == null)
@@ -262,15 +267,17 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true }) => {
           <Badge badgeContent={filteredComments.length || 0} color="secondary">
             <CommentIcon />
           </Badge>
-          <ToggleButtonGroup
-            exclusive
-            value={!!showAllComments ? "all" : "me"}
-            onChange={(e, value) =>
-              setShowAllComments(value === "all")}
-            sx={{ float: "right" }}>
-            <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
-            <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
-          </ToggleButtonGroup>
+          <If condition={!!showToggle}>
+            <ToggleButtonGroup
+              exclusive
+              value={!!showAllComments ? "all" : "me"}
+              onChange={(e, value) =>
+                setShowAllComments(value === "all")}
+              sx={{ float: "right" }}>
+              <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
+              <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
+            </ToggleButtonGroup>
+          </If>
         </Typography>
         {submissionId ? <WriteComment
           commentContent={commentContent}

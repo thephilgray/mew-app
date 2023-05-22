@@ -1,15 +1,16 @@
 projects:
-    mewapp:
-        schemaPath: amplify/backend/api/mewapp/build/schema.graphql
-        includes:
-            - src/graphql/**/*.ts
-        excludes:
-            - ./amplify/**
-        extensions:
-            amplify:
-                codeGenTarget: typescript
-                generatedFileName: src/API.ts
-                docsFilePath: src/graphql
+  mewapp:
+    schemaPath: amplify/backend/api/mewapp/build/schema.graphql
+    includes:
+      - src/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: src/graphql
+        maxDepth: 5
 extensions:
-    amplify:
-        version: 5
+  amplify:
+    version: 5

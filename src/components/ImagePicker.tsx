@@ -88,13 +88,15 @@ function ImagePicker({ imageURL = '', width, height, maxWidth, maxHeight, onChan
 
   const rectangularDisplay = image ? <img
     src={image}
-    sx={{
+    style={{
+      width: '100%',
+      height,
       maxWidth,
       maxHeight,
       margin: '0 auto'
     }
     } >
-  </img > : <Skeleton variant="rectangular" width={maxWidth} height={maxHeight} animation={false} />
+  </img > : <Skeleton variant="rectangular" width={width} height={height} animation={false} />
 
 
   return (
