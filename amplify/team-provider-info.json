@@ -66,7 +66,7 @@
         },
         "membershipService": {
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
-          "s3Key": "amplify-builds/membershipService-73476277325366334c44-build.zip"
+          "s3Key": "amplify-builds/membershipService-55353770377447455435-build.zip"
         },
         "mewappacdc5d0eCreateAuthChallenge": {
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
@@ -89,7 +89,10 @@
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
           "s3Key": "amplify-builds/AdminQueriesd92d7feb-71666f4666445632756a-build.zip"
         },
-        "mewappacdc5d0ePostAuthentication": {}
+        "mewappacdc5d0ePostAuthentication": {
+          "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0ePostAuthentication-33486b336b3352655350-build.zip"
+        }
       },
       "auth": {
         "mewappacdc5d0e": {},

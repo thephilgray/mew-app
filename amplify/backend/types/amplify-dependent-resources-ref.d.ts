@@ -65,6 +65,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "mewappacdc5d0ePostAuthentication": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "mewappacdc5d0ePreSignup": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
