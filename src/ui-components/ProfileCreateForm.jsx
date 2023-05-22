@@ -25,12 +25,16 @@ export default function ProfileCreateForm(props) {
   const initialValues = {
     email: "",
     name: "",
+    displayName: "",
     avatar: "",
     bio: "",
     sub: "",
   };
   const [email, setEmail] = React.useState(initialValues.email);
   const [name, setName] = React.useState(initialValues.name);
+  const [displayName, setDisplayName] = React.useState(
+    initialValues.displayName
+  );
   const [avatar, setAvatar] = React.useState(initialValues.avatar);
   const [bio, setBio] = React.useState(initialValues.bio);
   const [sub, setSub] = React.useState(initialValues.sub);
@@ -38,6 +42,7 @@ export default function ProfileCreateForm(props) {
   const resetStateValues = () => {
     setEmail(initialValues.email);
     setName(initialValues.name);
+    setDisplayName(initialValues.displayName);
     setAvatar(initialValues.avatar);
     setBio(initialValues.bio);
     setSub(initialValues.sub);
@@ -46,6 +51,7 @@ export default function ProfileCreateForm(props) {
   const validations = {
     email: [{ type: "Required" }],
     name: [],
+    displayName: [],
     avatar: [],
     bio: [],
     sub: [],
@@ -55,9 +61,10 @@ export default function ProfileCreateForm(props) {
     currentValue,
     getDisplayValue
   ) => {
-    const value = getDisplayValue
-      ? getDisplayValue(currentValue)
-      : currentValue;
+    const value =
+      currentValue && getDisplayValue
+        ? getDisplayValue(currentValue)
+        : currentValue;
     let validationResponse = validateField(value, validations[fieldName]);
     const customValidator = fetchByPath(onValidate, fieldName);
     if (customValidator) {
@@ -77,6 +84,7 @@ export default function ProfileCreateForm(props) {
         let modelFields = {
           email,
           name,
+          displayName,
           avatar,
           bio,
           sub,
@@ -136,6 +144,7 @@ export default function ProfileCreateForm(props) {
             const modelFields = {
               email: value,
               name,
+              displayName,
               avatar,
               bio,
               sub,
@@ -164,6 +173,7 @@ export default function ProfileCreateForm(props) {
             const modelFields = {
               email,
               name: value,
+              displayName,
               avatar,
               bio,
               sub,
@@ -182,6 +192,35 @@ export default function ProfileCreateForm(props) {
         {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
+        label="Display name"
+        isRequired={false}
+        isReadOnly={false}
+        value={displayName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              email,
+              name,
+              displayName: value,
+              avatar,
+              bio,
+              sub,
+            };
+            const result = onChange(modelFields);
+            value = result?.displayName ?? value;
+          }
+          if (errors.displayName?.hasError) {
+            runValidationTasks("displayName", value);
+          }
+          setDisplayName(value);
+        }}
+        onBlur={() => runValidationTasks("displayName", displayName)}
+        errorMessage={errors.displayName?.errorMessage}
+        hasError={errors.displayName?.hasError}
+        {...getOverrideProps(overrides, "displayName")}
+      ></TextField>
+      <TextField
         label="Avatar"
         isRequired={false}
         isReadOnly={false}
@@ -192,6 +231,7 @@ export default function ProfileCreateForm(props) {
             const modelFields = {
               email,
               name,
+              displayName,
               avatar: value,
               bio,
               sub,
@@ -220,6 +260,7 @@ export default function ProfileCreateForm(props) {
             const modelFields = {
               email,
               name,
+              displayName,
               avatar,
               bio: value,
               sub,
@@ -248,6 +289,7 @@ export default function ProfileCreateForm(props) {
             const modelFields = {
               email,
               name,
+              displayName,
               avatar,
               bio,
               sub: value,

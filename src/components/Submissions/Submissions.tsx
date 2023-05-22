@@ -345,7 +345,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
                 <Grid item xs={12}>
                     <Grid container>
-                        <Grid item xs={8}>
+                        <Grid item xs={6} md={8}>
                             <Typography variant="h6" component="h3">
                                 <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
                                     <em>
@@ -362,7 +362,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             </Typography>
                         </Grid>
                         <GroupGuard groups={[Group.admin]}>
-                            <Grid item xs={4} style={{ textAlign: 'right' }}>
+                            <Grid item xs={6} md={4} sx={{ textAlign: 'right', display: 'flex', justifyContent: 'end', flexWrap: 'wrap' }}>
                                 <IconButton
                                     color="secondary"
                                     aria-label="Copy"
@@ -404,41 +404,39 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         )}
                     </Grid>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={7}>
                     <Typography variant="h6" component="h3">
                         Submissions{' '}
-                        <Badge badgeContent={rows.length || 0} color="secondary">
+                        <Badge badgeContent={rows.length || 0} color="secondary" >
                             <AssignmentTurnedIn />
                         </Badge>
                     </Typography>
                 </Grid>
-                <Grid item xs={6} style={{ textAlign: 'right' }}>
+                <Grid item xs={5} sx={{ textAlign: 'right', p: 0, pl: 0, pb: 0 }}>
                     <If condition={isAdmin || isExpired}>
-                        <Button
+                        <IconButton
                             color="secondary"
                             aria-label="Playlist"
                             component={Link}
                             to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
-                            size="large"
-                            startIcon={<PlayArrowTwoTone />}
+                            size="medium"
                             disabled={!data?.getFileRequest?.submissions?.items?.length}
                         >
-                            Play
-                        </Button>
+                            <PlayArrowTwoTone />
+                        </IconButton>
                     </If>
                     <If condition={isAdmin || !isExpired}>
-                        <Button
+                        <IconButton
                             color="secondary"
                             aria-label="New Submission"
                             component={Link}
                             to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                            startIcon={<Add />}
-                            size="large">
-                            Submit
-                        </Button>
+                            size="medium">
+                            <Add />
+                        </IconButton>
                     </If>
                     <GroupGuard groups={[Group.admin]}>
-                        {data.getFileRequest.submissions.items.length ? <Menu items={menuItems} /> : null}
+                        {data.getFileRequest.submissions.items.length ? <Menu size="medium" items={menuItems} /> : null}
                     </GroupGuard>
                 </Grid>
                 <Grid item xs={12} style={{ minHeight: 600, width: '100%', paddingTop: 0 }}>

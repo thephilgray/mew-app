@@ -151,18 +151,17 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
     const items = data?.getWorkshop?.fileRequests?.items || []
     const rows = items.map(
         (item: { id: string; title: string; expiration: string; required: boolean; createdAt: string, artwork: { path: string } }) => {
-            const submissions = data?.getWorkshop?.submissions?.items
-                ? data.getWorkshop.submissions.items
-                    // @ts-ignore
-                    .filter((submission) => submission?.fileRequestId === item.id)
+            const submissions = item?.submissions?.items
+                ? item?.submissions?.items
                 : []
 
             const artwork = item?.artwork?.path && getCloudFrontURL(item.artwork.path)
+            const mySubmissions = submissions.filter(submission => submission?.email === user.email)
             return {
                 ...item,
                 submissions,
                 status: !isPast(new Date(item.expiration as string)) ? 'ACTIVE' : 'EXPIRED',
-                mySubmissions: submissions.filter(submission => submission?.email === user.email),
+                mySubmissions: mySubmissions,
                 artwork
             }
         },
@@ -300,7 +299,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
             <GroupGuard groups={[Group.admin]}>
                 <Grid item xs={12} style={{ paddingBottom: 0 }}>
                     <Grid container>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{ pb: 2 }}>
                             <ToggleButtonGroup
                                 exclusive
                                 value={!!viewAdmin ? "admin" : "member"}
@@ -313,13 +312,13 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                             </ToggleButtonGroup>
                         </Grid>
                         <If condition={!!viewAdmin}>
-                            <Grid item xs={8}>
+                            <Grid item xs={6} md={8}>
                                 <Typography variant="h5" component="h5" gutterBottom>
                                     Assignments
                                 </Typography>
                             </Grid>
 
-                            <Grid item xs={4} style={{ textAlign: 'right' }}>
+                            <Grid item xs={6} md={4} style={{ textAlign: 'right' }}>
                                 <IconButton
                                     color="secondary"
                                     aria-label="Workshop Settings"

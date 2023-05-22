@@ -66,7 +66,7 @@
         },
         "membershipService": {
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",
-          "s3Key": "amplify-builds/membershipService-73476277325366334c44-build.zip"
+          "s3Key": "amplify-builds/membershipService-55353770377447455435-build.zip"
         },
         "mewappacdc5d0eCreateAuthChallenge": {
           "deploymentBucketName": "amplify-mewapp-dev-224539-deployment",

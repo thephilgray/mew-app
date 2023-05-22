@@ -89,7 +89,6 @@ export default function EditWorkshop({ workshopId = '' }) {
 
     useEffect(() => {
         if (workshopResponse.data) {
-            console.log(workshopResponse.data)
             console.log(workshopResponse.error)
             navigate(ROUTE_NAMES.assignments.getPath({ workshopId }))
         }
