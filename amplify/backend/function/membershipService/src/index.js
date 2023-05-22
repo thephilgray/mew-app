@@ -8,214 +8,227 @@
 	REGION
 Amplify Params - DO NOT EDIT */
 
-const crypto = require('crypto')
-const AWS = require('aws-sdk')
-const mailchimp = require('@mailchimp/mailchimp_marketing')
-const AWSAppSyncClient = require('aws-appsync').default
-require('cross-fetch/polyfill')
-const GRAPHQL_ENDPOINT = process.env.API_MEWAPP_GRAPHQLAPIENDPOINTOUTPUT
-const gql = require('graphql-tag')
+const crypto = require('crypto');
+const AWS = require('aws-sdk');
+const mailchimp = require('@mailchimp/mailchimp_marketing');
+const AWSAppSyncClient = require('aws-appsync').default;
+require('cross-fetch/polyfill');
+const GRAPHQL_ENDPOINT = process.env.API_MEWAPP_GRAPHQLAPIENDPOINTOUTPUT;
+const gql = require('graphql-tag');
 
 /** GRAPHQL QUERIES */
 const getWorkshop = /* GraphQL */ gql`
-    query GetWorkshop($id: ID!) {
-        getWorkshop(id: $id) {
-            id
-            name
-            fileRequests {
-                items {
-                    id
-                    expiration
-                    title
-                    details
-                    required
-                    workshopId
-                }
-            }
-            submissions {
-                items {
-                    id
-                    fileRequestId
-                    artist
-                    name
-                    email
-                    fileId
-                    fileExtension
-                    rating
-                    comments
-                    workshopId
-                }
-            }
-            status
-            passes
-            features {
-                mailchimp {
-                    enabled
-                    apiKeyName
-                    listId
-                    serverPrefix
-                }
-            }
-            memberships {
-                items {
-                    id
-                    workshopId
-                    email
-                    status
-                    mailchimp {
-                        id
-                        emailAddress
-                        status
-                        fullName
-                        uniqueEmailId
-                        contactId
-                        tags {
-                            id
-                            name
-                        }
-                    }
-                }
-            }
+  query GetWorkshop($id: ID!) {
+    getWorkshop(id: $id) {
+      id
+      name
+      fileRequests {
+        items {
+          id
+          expiration
+          title
+          details
+          required
+          workshopId
         }
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          artist
+          name
+          email
+          fileId
+          fileExtension
+          rating
+          workshopId
+        }
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            tags {
+              id
+              name
+            }
+          }
+        }
+      }
     }
-`
+  }
+`;
 
 const createMembership = /* GraphQL */ gql`
-    mutation CreateMembership(
-        $workshopId: ID!
-        $emailAddress: String!
-        $status: String
-        $contactId: String
-        $fullName: String
-        $mailchimpId: String
-        $mailchimpStatus: String
-        $uniqueEmailId: String
-        $tags: [MailchimpTagInput]
-    ) {
-        createMembership(
-            input: {
-                workshopId: $workshopId
-                email: $emailAddress
-                status: $status
-                mailchimp: {
-                    contactId: $contactId
-                    emailAddress: $emailAddress
-                    fullName: $fullName
-                    id: $mailchimpId
-                    status: $mailchimpStatus
-                    uniqueEmailId: $uniqueEmailId
-                    tags: $tags
-                }
-            }
-        ) {
-            id
-            email
-            status
-            mailchimp {
-                emailAddress
-                id
-                status
-            }
+  mutation CreateMembership(
+    $workshopId: ID!
+    $emailAddress: String!
+    $status: String
+    $contactId: String
+    $fullName: String
+    $mailchimpId: String
+    $mailchimpStatus: String
+    $uniqueEmailId: String
+    $tags: [MailchimpTagInput]
+  ) {
+    createMembership(
+      input: {
+        workshopId: $workshopId
+        email: $emailAddress
+        status: $status
+        mailchimp: {
+          contactId: $contactId
+          emailAddress: $emailAddress
+          fullName: $fullName
+          id: $mailchimpId
+          status: $mailchimpStatus
+          uniqueEmailId: $uniqueEmailId
+          tags: $tags
         }
+      }
+    ) {
+      id
+      email
+      status
+      mailchimp {
+        emailAddress
+        id
+        status
+      }
     }
-`
+  }
+`;
 
 const updateMembership = /* GraphQL */ gql`
-    mutation UpdateMembership(
-        $membershipId: ID!
-        $status: String
-        $contactId: String
-        $emailAddress: String
-        $fullName: String
-        $mailchimpId: String
-        $mailchimpStatus: String
-        $uniqueEmailId: String
-        $tags: [MailchimpTagInput]
-    ) {
-        updateMembership(
-            input: {
-                id: $membershipId
-                status: $status
-                mailchimp: {
-                    contactId: $contactId
-                    emailAddress: $emailAddress
-                    fullName: $fullName
-                    id: $mailchimpId
-                    status: $mailchimpStatus
-                    uniqueEmailId: $uniqueEmailId
-                    tags: $tags
-                }
-            }
-        ) {
-            id
-            status
-            mailchimp {
-                id
-                fullName
-                emailAddress
-            }
+  mutation UpdateMembership(
+    $membershipId: ID!
+    $status: String
+    $contactId: String
+    $emailAddress: String
+    $fullName: String
+    $mailchimpId: String
+    $mailchimpStatus: String
+    $uniqueEmailId: String
+    $tags: [MailchimpTagInput]
+  ) {
+    updateMembership(
+      input: {
+        id: $membershipId
+        status: $status
+        mailchimp: {
+          contactId: $contactId
+          emailAddress: $emailAddress
+          fullName: $fullName
+          id: $mailchimpId
+          status: $mailchimpStatus
+          uniqueEmailId: $uniqueEmailId
+          tags: $tags
         }
+      }
+    ) {
+      id
+      status
+      mailchimp {
+        id
+        fullName
+        emailAddress
+      }
     }
-`
+  }
+`;
 
 const getProfile = /* GraphQL */ gql`
-    query GetProfile($email: String!) {
-        getProfile(email: $email) {
-            email
-            id
-            name
-            avatar
-            bio
-            createdAt
-            updatedAt
-        }
+  query GetProfile($email: String!) {
+    getProfile(email: $email) {
+      email
+      id
+      name
+      avatar
+      bio
+      createdAt
+      updatedAt
     }
-`
+  }
+`;
 
 const createProfile = /* GraphQL */ gql`
-    mutation CreateProfile($email: String!, $sub: String, $name: String, $bio: String, $avatar: String) {
-        createProfile(input: { email: $email, sub: $sub, name: $name, bio: $bio, avatar: $avatar }) {
-            id
-        }
+  mutation CreateProfile(
+    $email: String!
+    $sub: String
+    $name: String
+    $bio: String
+    $avatar: String
+  ) {
+    createProfile(
+      input: {
+        email: $email
+        sub: $sub
+        name: $name
+        bio: $bio
+        avatar: $avatar
+      }
+    ) {
+      id
     }
-`
+  }
+`;
 
 const updateProfile = /* GraphQL */ gql`
-    mutation UpdateProfile($email: String!, $name: String, $sub: String) {
-        updateProfile(input: { email: $email, sub: $sub, name: $name }) {
-            email
-            id
-            name
-            avatar
-            bio
-            sub
-            apiKeys {
-                items {
-                    id
-                    keyName
-                    createdAt
-                    profileID
-                    email
-                    updatedAt
-                }
-                nextToken
-            }
-            memberships {
-                items {
-                    id
-                    workshopId
-                    email
-                    status
-                    createdAt
-                    updatedAt
-                }
-                nextToken
-            }
-            createdAt
-            updatedAt
+  mutation UpdateProfile($email: String!, $name: String, $sub: String) {
+    updateProfile(input: { email: $email, sub: $sub, name: $name }) {
+      email
+      id
+      name
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          updatedAt
         }
+        nextToken
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
-`
+  }
+`;
 
 // const getMembershipsByWorkshopId = /* GraphQL */ gql`
 // query MembershipsByWorkshopId($workshopId:ID!) {
@@ -228,720 +241,805 @@ const updateProfile = /* GraphQL */ gql`
 
 /** AWS SDK SETUP */
 
-const AWS_REGION = process.env.AWS_REGION || 'us-east-1'
+const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
 AWS.config.update({
-    region: AWS_REGION,
-    credentials: new AWS.Credentials(
-        process.env.AWS_ACCESS_KEY_ID,
-        process.env.AWS_SECRET_ACCESS_KEY,
-        process.env.AWS_SESSION_TOKEN,
-    ),
-})
-const credentials = AWS.config.credentials
+  region: AWS_REGION,
+  credentials: new AWS.Credentials(
+    process.env.AWS_ACCESS_KEY_ID,
+    process.env.AWS_SECRET_ACCESS_KEY,
+    process.env.AWS_SESSION_TOKEN
+  ),
+});
+const credentials = AWS.config.credentials;
 
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
-    region: process.env.REGION,
-})
+  region: process.env.REGION,
+});
 
 /** COGNITO FUNCTIONS */
 
 const listCognitoUsers = async () => {
-    // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listUsers-property
+  // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listUsers-property
 
-    const listUsersParams = {
-        UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
-        AttributesToGet: ['email', 'sub', 'name'],
-        // Filter: 'STRING_VALUE',
-        // Limit: 'NUMBER_VALUE',
-        // PaginationToken: 'STRING_VALUE'
-    }
-    let response
-    try {
-        response = await cognitoidentityserviceprovider.listUsers(listUsersParams).promise()
-    } catch (error) {
-        console.log(`error with listUsers`)
-        console.log(error)
-    }
-    return response.Users
-}
+  const listUsersParams = {
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
+    // AttributesToGet: ['email', 'sub', 'name'],
+    AttributesToGet: null, // get all attributes
+    // Filter: 'STRING_VALUE',
+    // Limit: 'NUMBER_VALUE',
+    // PaginationToken: 'STRING_VALUE'
+  };
+  let response;
+  try {
+    response = await cognitoidentityserviceprovider
+      .listUsers(listUsersParams)
+      .promise();
+  } catch (error) {
+    console.log(`error with listUsers`);
+    console.log(error);
+  }
+  return response.Users;
+};
 
 const signupUser = async ({ email, name }) => {
-    var params = {
-        UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID,
-        Username: email /* required */,
-        MessageAction: 'SUPPRESS',
-        UserAttributes: [
-            {
-                Name: 'name',
-                Value: name,
-            },
-            {
-                Name: 'email',
-                Value: email,
-            },
-            {
-                Name: 'email_verified',
-                Value: 'true',
-            },
-        ],
-    }
-    let result
+  var params = {
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID,
+    Username: email /* required */,
+    MessageAction: 'SUPPRESS',
+    UserAttributes: [
+      {
+        Name: 'name',
+        Value: name,
+      },
+      {
+        Name: 'email',
+        Value: email,
+      },
+      {
+        Name: 'email_verified',
+        Value: 'true',
+      },
+    ],
+  };
+  let result;
 
-    try {
-        result = await cognitoidentityserviceprovider.adminCreateUser(params).promise()
-    } catch (error) {
-        console.log(`error with adminCreateUser`)
-        console.log(error)
-    }
+  try {
+    result = await cognitoidentityserviceprovider
+      .adminCreateUser(params)
+      .promise();
+  } catch (error) {
+    console.log(`error with adminCreateUser`);
+    console.log(error);
+  }
 
-    // maybe we need to adminSetUserPassword?
-    return result
-}
+  // maybe we need to adminSetUserPassword?
+  return result;
+};
 
 const disableUserLogin = async ({ email }) => {
-    var params = {
-        UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID,
-        Username: email /* required */,
-    }
-    let result
+  var params = {
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID,
+    Username: email /* required */,
+  };
+  let result;
 
-    try {
-        result = await cognitoidentityserviceprovider.adminDisableUser(params).promise()
-    } catch (error) {
-        console.log(`error with adminDisableUser`)
-        console.log(error)
-    }
+  try {
+    result = await cognitoidentityserviceprovider
+      .adminDisableUser(params)
+      .promise();
+  } catch (error) {
+    console.log(`error with adminDisableUser`);
+    console.log(error);
+  }
 
-    // maybe we need to adminSetUserPassword?
-    return result
-}
+  // maybe we need to adminSetUserPassword?
+  return result;
+};
 
 const addUserToGroup = async ({ groupName, userName }) => {
-    var params = {
-        GroupName: groupName /* required */,
-        UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
-        Username: userName /* required */,
-    }
-    let result
-    try {
-        result = await cognitoidentityserviceprovider.adminAddUserToGroup(params).promise()
-    } catch (error) {
-        console.log(`error with adminAddUserToGroup`)
-        console.log(error)
-    }
-    return result
-}
+  var params = {
+    GroupName: groupName /* required */,
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
+    Username: userName /* required */,
+  };
+  let result;
+  try {
+    result = await cognitoidentityserviceprovider
+      .adminAddUserToGroup(params)
+      .promise();
+  } catch (error) {
+    console.log(`error with adminAddUserToGroup`);
+    console.log(error);
+  }
+  return result;
+};
 
 const removeUserFromGroup = async ({ groupName, userName }) => {
-    var params = {
-        GroupName: groupName /* required */,
-        UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
-        Username: userName /* required */,
-    }
-    let result
-    try {
-        result = await cognitoidentityserviceprovider.adminRemoveUserFromGroup(params).promise()
-    } catch (error) {
-        console.log(`error with cognito adminRemoveUserFromGroup`)
-        console.log(error)
-    }
-    return result
-}
+  var params = {
+    GroupName: groupName /* required */,
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
+    Username: userName /* required */,
+  };
+  let result;
+  try {
+    result = await cognitoidentityserviceprovider
+      .adminRemoveUserFromGroup(params)
+      .promise();
+  } catch (error) {
+    console.log(`error with cognito adminRemoveUserFromGroup`);
+    console.log(error);
+  }
+  return result;
+};
 
-let cognitoUsers
+let cognitoUsers;
 async function ensureCognitoUser({ email, name }) {
-    if (!cognitoUsers) {
-        try {
-            console.log('getting cognito users')
-            cognitoUsers = await listCognitoUsers()
-            console.log('success: getting cognito users')
-        } catch (error) {
-            console.log('error getting cognito users')
-            console.log(error)
-            return undefined
-        }
+  if (!cognitoUsers) {
+    try {
+      console.log('getting cognito users');
+      cognitoUsers = await listCognitoUsers();
+      console.log('success: getting cognito users');
+    } catch (error) {
+      console.log('error getting cognito users');
+      console.log(error);
+      return undefined;
     }
+  }
 
-    let currentCognitoUser = cognitoUsers.find((user) => user.Attributes.some((attribute) => attribute.Value === email))
+  let currentCognitoUser = cognitoUsers.find((user) =>
+    user.Attributes.some((attribute) => attribute.Value === email)
+  );
 
-    if (!currentCognitoUser) {
-        try {
-            console.log('attempting to sign up user.')
-            const currentCognitoUserResult = await signupUser({ email, name })
-            currentCognitoUser = currentCognitoUserResult.User
-            console.log('success: sign up user.')
-        } catch (error) {
-            console.log('error signing up user')
-            console.log(error)
-            return undefined
-        }
-        // push into local state
-        cognitoUsers.push(currentCognitoUser)
+  if (!currentCognitoUser) {
+    try {
+      console.log('attempting to sign up user.');
+      const currentCognitoUserResult = await signupUser({ email, name });
+      currentCognitoUser = currentCognitoUserResult.User;
+      console.log('success: sign up user.');
+    } catch (error) {
+      console.log('error signing up user');
+      console.log(error);
+      return undefined;
     }
-    return currentCognitoUser
+    // push into local state
+    cognitoUsers.push(currentCognitoUser);
+  }
+  return currentCognitoUser;
 }
 
 async function setUserPassword({ userName }) {
-    var params = {
-        Password: crypto.randomBytes(30).toString('hex') /* required */,
-        UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
-        Username: userName /* required */,
-        Permanent: true,
-    }
-    let result
-    try {
-        result = await cognitoidentityserviceprovider.adminSetUserPassword(params).promise()
-    } catch (error) {
-        console.log(`error with cognito adminSetUserPassword`)
-        console.log(error)
-    }
-    return result
+  var params = {
+    Password: crypto.randomBytes(30).toString('hex') /* required */,
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
+    Username: userName /* required */,
+    Permanent: true,
+  };
+  let result;
+  try {
+    result = await cognitoidentityserviceprovider
+      .adminSetUserPassword(params)
+      .promise();
+  } catch (error) {
+    console.log(`error with cognito adminSetUserPassword`);
+    console.log(error);
+  }
+  return result;
 }
 
 /** MAILCHIMP */
 
-let apiKey
+let apiKey;
 async function getApiKey(Name) {
-    const ssm = new AWS.SSM({ region: process.env.REGION })
-    const params = {
-        Name,
-        WithDecryption: true,
-    }
-    let getParameterResult
-    try {
-        getParameterResult = await ssm.getParameter(params).promise()
-    } catch (error) {
-        console.log(`error with ssm getParameter`)
-        console.log(error)
-    }
-    return getParameterResult.Parameter.Value
+  const ssm = new AWS.SSM({ region: process.env.REGION });
+  const params = {
+    Name,
+    WithDecryption: true,
+  };
+  let getParameterResult;
+  try {
+    getParameterResult = await ssm.getParameter(params).promise();
+  } catch (error) {
+    console.log(`error with ssm getParameter`);
+    console.log(error);
+  }
+  return getParameterResult.Parameter.Value;
 }
 
 async function getMailchimpMembers({ apiKeyName, serverPrefix, listId }) {
-    if (!apiKey) {
-        apiKey = await getApiKey(apiKeyName)
-        mailchimp.setConfig({
-            apiKey,
-            server: serverPrefix,
-        })
-    }
+  if (!apiKey) {
+    apiKey = await getApiKey(apiKeyName);
+    mailchimp.setConfig({
+      apiKey,
+      server: serverPrefix,
+    });
+  }
 
-    let response
-    try {
-        response = await mailchimp.lists.getListMembersInfo(listId)
-    } catch (error) {
-        console.log(`error with mailchimp getListMembersInfo`)
-        console.log(error)
-    }
-    return response.members
+  let response;
+  try {
+    response = await mailchimp.lists.getListMembersInfo(listId);
+  } catch (error) {
+    console.log(`error with mailchimp getListMembersInfo`);
+    console.log(error);
+  }
+  return response.members;
 }
 
-async function getMailchimpMember({ apiKeyName, serverPrefix, listId, emailAddress }) {
-    if (!apiKey) {
-        apiKey = await getApiKey(apiKeyName)
-        mailchimp.setConfig({
-            apiKey,
-            server: serverPrefix,
-        })
-    }
-    let member
-    const subscriber_hash = crypto.createHash('md5').update(emailAddress.toLowerCase()).digest('hex')
+async function getMailchimpMember({
+  apiKeyName,
+  serverPrefix,
+  listId,
+  emailAddress,
+}) {
+  if (!apiKey) {
+    apiKey = await getApiKey(apiKeyName);
+    mailchimp.setConfig({
+      apiKey,
+      server: serverPrefix,
+    });
+  }
+  let member;
+  const subscriber_hash = crypto
+    .createHash('md5')
+    .update(emailAddress.toLowerCase())
+    .digest('hex');
 
-    try {
-        member = await mailchimp.lists.getListMember(listId, subscriber_hash)
-    } catch (error) {
-        console.log(`error with mailchimp getListMembersInfo`)
-        console.log(error)
-    }
-    return member
+  try {
+    member = await mailchimp.lists.getListMember(listId, subscriber_hash);
+  } catch (error) {
+    console.log(`error with mailchimp getListMembersInfo`);
+    console.log(error);
+  }
+  return member;
 }
 
-async function addMailchimpMember({ apiKeyName, serverPrefix, listId, emailAddress }) {
-    if (!apiKey) {
-        apiKey = await getApiKey(apiKeyName)
-        mailchimp.setConfig({
-            apiKey,
-            server: serverPrefix,
-        })
-    }
+async function addMailchimpMember({
+  apiKeyName,
+  serverPrefix,
+  listId,
+  emailAddress,
+}) {
+  if (!apiKey) {
+    apiKey = await getApiKey(apiKeyName);
+    mailchimp.setConfig({
+      apiKey,
+      server: serverPrefix,
+    });
+  }
 
-    let member = await getMailchimpMember({ apiKeyName, serverPrefix, listId, emailAddress })
+  let member = await getMailchimpMember({
+    apiKeyName,
+    serverPrefix,
+    listId,
+    emailAddress,
+  });
 
-    if (member) {
-        member = await updateMailchimpMemberTags({
-            emailAddress,
-            apiKeyName,
-            serverPrefix,
-            listId,
-            tags: [{ name: 'OUT', status: 'inactive' }],
-        })
-    } else {
-        try {
-            member = await mailchimp.lists.addListMember(listId, {
-                email_address: emailAddress,
-                status: 'subscribed',
-            })
-        } catch (error) {
-            console.log(`error with mailchimp addListMember`)
-            console.log(error)
-        }
+  if (member) {
+    member = await updateMailchimpMemberTags({
+      emailAddress,
+      apiKeyName,
+      serverPrefix,
+      listId,
+      tags: [{ name: 'OUT', status: 'inactive' }],
+    });
+  } else {
+    try {
+      member = await mailchimp.lists.addListMember(listId, {
+        email_address: emailAddress,
+        status: 'subscribed',
+      });
+    } catch (error) {
+      console.log(`error with mailchimp addListMember`);
+      console.log(error);
     }
-    console.log(member)
-    return member
+  }
+  console.log(member);
+  return member;
 }
 
-async function updateMailchimpMemberTags({ apiKeyName, serverPrefix, listId, emailAddress, tags }) {
-    if (!apiKey) {
-        apiKey = await getApiKey(apiKeyName)
-        mailchimp.setConfig({
-            apiKey,
-            server: serverPrefix,
-        })
-    }
-    const subscriber_hash = crypto.createHash('md5').update(emailAddress.toLowerCase()).digest('hex')
+async function updateMailchimpMemberTags({
+  apiKeyName,
+  serverPrefix,
+  listId,
+  emailAddress,
+  tags,
+}) {
+  if (!apiKey) {
+    apiKey = await getApiKey(apiKeyName);
+    mailchimp.setConfig({
+      apiKey,
+      server: serverPrefix,
+    });
+  }
+  const subscriber_hash = crypto
+    .createHash('md5')
+    .update(emailAddress.toLowerCase())
+    .digest('hex');
 
-    try {
-        await mailchimp.lists.updateListMemberTags(listId, subscriber_hash, { tags })
-    } catch (error) {
-        console.log('error with mailchimp updateListMemberTags')
-        console.log(error)
-    }
-    return getMailchimpMember({ apiKeyName, serverPrefix, listId, emailAddress })
+  try {
+    await mailchimp.lists.updateListMemberTags(listId, subscriber_hash, {
+      tags,
+    });
+  } catch (error) {
+    console.log('error with mailchimp updateListMemberTags');
+    console.log(error);
+  }
+  return getMailchimpMember({ apiKeyName, serverPrefix, listId, emailAddress });
 }
 
 /** APPSYNC */
 
 const appSyncClient = new AWSAppSyncClient({
-    url: GRAPHQL_ENDPOINT,
-    region: process.env.REGION,
-    auth: {
-        type: 'AWS_IAM',
-        credentials,
-        // type: 'API_KEY',
-        // apiKey: process.env.API_MEWAPP_GRAPHQLAPIKEYOUTPUT,
-    },
-    disableOffline: true,
-})
+  url: GRAPHQL_ENDPOINT,
+  region: process.env.REGION,
+  auth: {
+    // type: 'AWS_IAM',
+    credentials,
+    type: 'API_KEY',
+    apiKey: process.env.API_MEWAPP_GRAPHQLAPIKEYOUTPUT,
+  },
+  disableOffline: true,
+});
 
 async function ensureProfile({ email, sub, name }) {
-    // const lambda = new AWS.Lambda({region: process.env.REGION})
-    // const params = {
-    //     FunctionName: process.env.FUNCTION_MEWPROFILESERVICE_NAME,
-    //     InvocationType: 'RequestResponse',
-    //     Payload: JSON.stringify({email, sub, name})
+  // const lambda = new AWS.Lambda({region: process.env.REGION})
+  // const params = {
+  //     FunctionName: process.env.FUNCTION_MEWPROFILESERVICE_NAME,
+  //     InvocationType: 'RequestResponse',
+  //     Payload: JSON.stringify({email, sub, name})
 
-    // }
-    // return lambda.invoke(params).promise()
+  // }
+  // return lambda.invoke(params).promise()
 
-    let profile
+  let profile;
 
-    const graphqlData = await appSyncClient.query({ query: getProfile, variables: { email } })
+  const graphqlData = await appSyncClient.query({
+    query: getProfile,
+    variables: { email },
+  });
 
-    profile = graphqlData && graphqlData.data && graphqlData.data.getProfile
-    console.log(`${JSON.stringify(graphqlData.data)}`)
+  profile = graphqlData && graphqlData.data && graphqlData.data.getProfile;
+  console.log(`${JSON.stringify(graphqlData.data)}`);
 
-    if (!profile) {
-        console.log(`NO EXISTING PROFILE.`)
+  if (!profile) {
+    console.log(`NO EXISTING PROFILE.`);
 
-        let createGraphqlData
-        try {
-            const variables = {
-                email,
-                ...(sub && { sub }),
-                ...(name && { name }),
-            }
+    let createGraphqlData;
+    try {
+      const variables = {
+        email,
+        ...(sub && { sub }),
+        ...(name && { name }),
+      };
 
-            createGraphqlData = await appSyncClient.mutate({ mutation: createProfile, variables })
+      createGraphqlData = await appSyncClient.mutate({
+        mutation: createProfile,
+        variables,
+      });
 
-            console.log(createGraphqlData)
-            console.log(createGraphqlData.data.errors)
-            if (createGraphqlData.data.errors || !createGraphqlData.data.createProfile) {
-                throw createGraphqlData.data.errors
-            }
-            profile = createGraphqlData.data.createProfile
-        } catch (error) {
-            console.log('ERROR with createProfileQuery')
-            throw error
-        }
+      console.log(createGraphqlData);
+      console.log(createGraphqlData.data.errors);
+      if (
+        createGraphqlData.data.errors ||
+        !createGraphqlData.data.createProfile
+      ) {
+        throw createGraphqlData.data.errors;
+      }
+      profile = createGraphqlData.data.createProfile;
+    } catch (error) {
+      console.log('ERROR with createProfileQuery');
+      throw error;
     }
+  }
 
-    if ((sub && !profile.sub) || (name && !profile.name)) {
-        console.log(`NAME OR SUB UPDATE. UPDATING EXISTING PROFILE.`)
+  if ((sub && !profile.sub) || (name && !profile.name)) {
+    console.log(`NAME OR SUB UPDATE. UPDATING EXISTING PROFILE.`);
 
-        let updateGraphqlData
-        try {
-            const variables = {
-                email,
-                ...(sub && { sub }),
-                ...(name && { name }),
-            }
+    let updateGraphqlData;
+    try {
+      const variables = {
+        email,
+        ...(sub && { sub }),
+        ...(name && { name }),
+      };
 
-            updateGraphqlData = await appSyncClient.mutate({ mutation: updateProfile, variables })
+      updateGraphqlData = await appSyncClient.mutate({
+        mutation: updateProfile,
+        variables,
+      });
 
-            console.log(updateGraphqlData)
-            console.log(updateGraphqlData.data.errors)
-            if (updateGraphqlData.data.errors || !updateGraphqlData.data.updateProfile) {
-                throw updateGraphqlData.data.errors
-            }
-            profile = updateGraphqlData.data.updateProfile
-        } catch (error) {
-            console.log('ERROR with updateProfileQuery')
-            throw error
-        }
+      console.log(updateGraphqlData);
+      console.log(updateGraphqlData.data.errors);
+      if (
+        updateGraphqlData.data.errors ||
+        !updateGraphqlData.data.updateProfile
+      ) {
+        throw updateGraphqlData.data.errors;
+      }
+      profile = updateGraphqlData.data.updateProfile;
+    } catch (error) {
+      console.log('ERROR with updateProfileQuery');
+      throw error;
     }
+  }
 
-    console.log(profile)
-    return profile
+  console.log(profile);
+  return profile;
 }
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    console.log(`EVENT: ${JSON.stringify(event)}`)
+  console.log(`EVENT: ${JSON.stringify(event)}`);
 
-    const { action, workshopId, payloads = [] } = event.arguments
+  const { action, workshopId, payloads = [] } = event.arguments;
 
-    const variables = {
-        id: workshopId,
+  const variables = {
+    id: workshopId,
+  };
+
+  const getWorkshopResult = await appSyncClient.query({
+    query: getWorkshop,
+    variables,
+  });
+
+  // get Workshop
+  let enableMailchimpIntegration =
+    getWorkshopResult.data &&
+    getWorkshopResult.data.getWorkshop &&
+    getWorkshopResult.data.getWorkshop.features &&
+    getWorkshopResult.data.getWorkshop.features.mailchimp &&
+    getWorkshopResult.data.getWorkshop.features.mailchimp.enabled;
+  let apiKeyName;
+  let serverPrefix;
+  let listId;
+  let mailchimpMembers;
+
+  if (enableMailchimpIntegration) {
+    const mailchimpSettings =
+      getWorkshopResult.data.getWorkshop.features.mailchimp;
+    serverPrefix = mailchimpSettings.serverPrefix;
+    listId = mailchimpSettings.listId;
+    apiKeyName = mailchimpSettings.apiKeyName;
+  }
+
+  async function addToGroup({ cognitoUser, groupName }) {
+    try {
+      await addUserToGroup({ groupName, userName: cognitoUser.Username });
+    } catch (error) {
+      console.log('error with adding user to member group');
+      console.log(error);
+    }
+  }
+
+  async function addLogin({ emailAddress, fullName, groupName }) {
+    const cognitoUser = await ensureCognitoUser({
+      email: emailAddress,
+      name: fullName,
+    });
+    if (cognitoUser && cognitoUser.UserStatus != 'CONFIRMED') {
+      console.log('a user exists but is not confirmed.');
+      console.log({ cognitoUser });
+      try {
+        await setUserPassword({ userName: cognitoUser.Username });
+      } catch (error) {
+        console.log('error with setting user password');
+        console.log(error);
+      }
+      if (groupName) {
+        await addToGroup({ groupName, cognitoUser });
+      }
     }
 
-    const getWorkshopResult = await appSyncClient.query({ query: getWorkshop, variables })
+    let ensureProfileResult;
+    try {
+      ensureProfileResult = await ensureProfile({
+        email: emailAddress,
+        name: fullName,
+        ...(cognitoUser && { sub: cognitoUser.Username }),
+      });
+      console.log({ ensureProfileResult });
+    } catch (error) {
+      console.log(`error creating a profile`);
+      console.log(error);
+    }
+    return cognitoUser;
+  }
 
-    // get Workshop
-    let enableMailchimpIntegration =
-        getWorkshopResult.data &&
-        getWorkshopResult.data.getWorkshop &&
-        getWorkshopResult.data.getWorkshop.features &&
-        getWorkshopResult.data.getWorkshop.features.mailchimp &&
-        getWorkshopResult.data.getWorkshop.features.mailchimp.enabled
-    let apiKeyName
-    let serverPrefix
-    let listId
-    let mailchimpMembers
+  async function disableLogin({ emailAddress }) {
+    return disableUserLogin({ email: emailAddress });
+  }
 
-    if (enableMailchimpIntegration) {
-        const mailchimpSettings = getWorkshopResult.data.getWorkshop.features.mailchimp
-        serverPrefix = mailchimpSettings.serverPrefix
-        listId = mailchimpSettings.listId
-        apiKeyName = mailchimpSettings.apiKeyName
+  async function addOrUpdateMembership({
+    emailAddress,
+    fullName,
+    status = 'ACTIVE',
+    mailchimpStatus,
+    mailchimpTags,
+    mailchimpId,
+    uniqueEmailId,
+    contactId,
+  }) {
+    const baseMembershipVariables = {
+      emailAddress,
+      fullName,
+      status,
+      ...(enableMailchimpIntegration && {
+        mailchimpStatus,
+        tags: mailchimpTags,
+        uniqueEmailId,
+        mailchimpId,
+        contactId,
+      }),
+    };
+
+    const member = getMemberFromEmail({ emailAddress });
+    console.log({ member });
+
+    if (!member) {
+      // create membership
+      const createMembershipVariables = {
+        ...baseMembershipVariables,
+        workshopId,
+      };
+
+      let createMembershipResult;
+      try {
+        createMembershipResult = await appSyncClient.mutate({
+          mutation: createMembership,
+          variables: createMembershipVariables,
+        });
+        console.log({ createMembershipResult });
+      } catch (error) {
+        console.log(`Error with createMembership`);
+        console.log(error);
+      }
+    } else {
+      // if a member but mailchimp info not saved && !member.mailchimp
+      // or just update membership
+      // update membership
+      const updateMembershipVariables = {
+        ...baseMembershipVariables,
+        membershipId: member.id,
+      };
+
+      let updateMembershipResult;
+      try {
+        updateMembershipResult = await appSyncClient.mutate({
+          mutation: updateMembership,
+          variables: updateMembershipVariables,
+        });
+        console.log({ updateMembershipResult });
+      } catch (error) {
+        console.log(`Error with updateMembership`);
+        console.log(error);
+      }
+    }
+  }
+
+  async function disableMembership({ emailAddress }) {
+    const member = getMemberFromEmail({ emailAddress });
+    if (!member) {
+      console.log('cannot disable membership. not a member!');
+      return;
+    }
+    // update membership
+    const updateMembershipVariables = {
+      status: 'OUT',
+      membershipId: member.id,
+    };
+
+    let updateMembershipResult;
+
+    try {
+      updateMembershipResult = await appSyncClient.mutate({
+        mutation: updateMembership,
+        variables: updateMembershipVariables,
+      });
+      console.log({ updateMembershipResult });
+    } catch (error) {
+      console.log(`Error with updateMembership`);
+      console.log(error);
     }
 
-    async function addToGroup({ cognitoUser, groupName }) {
-        try {
-            await addUserToGroup({ groupName, userName: cognitoUser.Username })
-        } catch (error) {
-            console.log('error with adding user to member group')
-            console.log(error)
-        }
+    let ensureProfileResult;
+    try {
+      ensureProfileResult = await ensureProfile({
+        email: emailAddress,
+      });
+      console.log({ ensureProfileResult });
+    } catch (error) {
+      console.log(`error getting/creating a profile`);
     }
 
-    async function addLogin({ emailAddress, fullName, groupName }) {
-        const cognitoUser = await ensureCognitoUser({ email: emailAddress, name: fullName })
-        if (cognitoUser && cognitoUser.UserStatus != 'CONFIRMED') {
-            console.log('a user exists but is not confirmed.')
-            console.log({ cognitoUser })
-            try {
-                await setUserPassword({ userName: cognitoUser.Username })
-            } catch (error) {
-                console.log('error with setting user password')
-                console.log(error)
-            }
-            if (groupName) {
-                await addToGroup({ groupName, cognitoUser })
-            }
-        }
-
-        let ensureProfileResult
-        try {
-            ensureProfileResult = await ensureProfile({
-                email: emailAddress,
-                name: fullName,
-                ...(cognitoUser && { sub: cognitoUser.Username }),
-            })
-            console.log({ ensureProfileResult })
-        } catch (error) {
-            console.log(`error creating a profile`)
-            console.log(error)
-        }
-        return cognitoUser
+    if (
+      ensureProfileResult &&
+      ensureProfileResult.memberships &&
+      ensureProfileResult.memberships.items &&
+      ensureProfileResult.memberships.items.filter(
+        (item) => item.status === 'ACTIVE'
+      ).length < 1
+    ) {
+      try {
+        await removeFromGroup({ emailAddress, groupName: 'member' });
+      } catch (error) {
+        console.log(`Error with removeFromGroup`);
+        console.log(error);
+      }
     }
+  }
 
-    async function disableLogin({ emailAddress }) {
-        return disableUserLogin({ email: emailAddress })
-    }
+  async function addMailchimpSubscription({ emailAddress }) {
+    const updatedMember = await addMailchimpMember({
+      emailAddress,
+      apiKeyName,
+      serverPrefix,
+      listId,
+    });
 
-    async function addOrUpdateMembership({
+    if (updatedMember) {
+      const {
+        id: mailchimpId,
+        tags: mailchimpTags,
+        email_address: emailAddress,
+        unique_email_id: uniqueEmailId,
+        contact_id: contactId,
+        full_name: fullName,
+        status: mailchimpStatus,
+      } = updatedMember;
+
+      await addOrUpdateMembership({
+        contactId,
         emailAddress,
         fullName,
-        status = 'ACTIVE',
-        mailchimpStatus,
-        mailchimpTags,
         mailchimpId,
+        mailchimpStatus,
         uniqueEmailId,
+        status: 'ACTIVE',
+        mailchimpTags,
+      });
+    }
+  }
+
+  async function disableMailchimpSubscription({ emailAddress }) {
+    // MEW-specific MC logic
+    const updatedMember = await updateMailchimpMemberTags({
+      emailAddress,
+      apiKeyName,
+      serverPrefix,
+      listId,
+      tags: [{ name: 'OUT', status: 'active' }],
+    });
+
+    if (updatedMember) {
+      const {
+        id: mailchimpId,
+        tags: mailchimpTags,
+        email_address: emailAddress,
+        unique_email_id: uniqueEmailId,
+        contact_id: contactId,
+        full_name: fullName,
+        status: mailchimpStatus,
+      } = updatedMember;
+
+      await addOrUpdateMembership({
         contactId,
-    }) {
-        const baseMembershipVariables = {
+        emailAddress,
+        fullName,
+        mailchimpId,
+        mailchimpStatus,
+        uniqueEmailId,
+        status: 'OUT',
+        mailchimpTags,
+      });
+    }
+  }
+
+  function getMemberFromEmail({ emailAddress }) {
+    return getWorkshopResult.data.getWorkshop.memberships.items.find(
+      (item) => item.email === emailAddress
+    );
+  }
+
+  async function removeFromGroup({ emailAddress, groupName }) {
+    return removeUserFromGroup({ groupName, userName: emailAddress });
+  }
+
+  switch (action) {
+    case 'SYNC_MEMBERS_WITH_MAILCHIMP':
+      if (!enableMailchimpIntegration) break;
+      mailchimpMembers = await getMailchimpMembers({
+        apiKeyName,
+        serverPrefix,
+        listId,
+      });
+      for await (const {
+        id: mailchimpId,
+        tags: mailchimpTags,
+        email_address: emailAddress,
+        unique_email_id: uniqueEmailId,
+        contact_id: contactId,
+        full_name: fullName,
+        status: mailchimpStatus,
+      } of mailchimpMembers) {
+        const status = mailchimpTags.some(
+          (item) => item.name && item.name.toUpperCase() === 'OUT'
+        )
+          ? 'OUT'
+          : 'ACTIVE';
+        const isActive = status === 'ACTIVE';
+        if (isActive) {
+          const cognitoUser = await addLogin({
             emailAddress,
             fullName,
-            status,
-            ...(enableMailchimpIntegration && {
-                mailchimpStatus,
-                tags: mailchimpTags,
-                uniqueEmailId,
-                mailchimpId,
-                contactId,
-            }),
-        }
-
-        const member = getMemberFromEmail({ emailAddress })
-        console.log({ member })
-
-        if (!member) {
-            // create membership
-            const createMembershipVariables = {
-                ...baseMembershipVariables,
-                workshopId,
-            }
-
-            let createMembershipResult
-            try {
-                createMembershipResult = await appSyncClient.mutate({
-                    mutation: createMembership,
-                    variables: createMembershipVariables,
-                })
-                console.log({ createMembershipResult })
-            } catch (error) {
-                console.log(`Error with createMembership`)
-                console.log(error)
-            }
-        } else {
-            // if a member but mailchimp info not saved && !member.mailchimp
-            // or just update membership
-            // update membership
-            const updateMembershipVariables = {
-                ...baseMembershipVariables,
-                membershipId: member.id,
-            }
-
-            let updateMembershipResult
-            try {
-                updateMembershipResult = await appSyncClient.mutate({
-                    mutation: updateMembership,
-                    variables: updateMembershipVariables,
-                })
-                console.log({ updateMembershipResult })
-            } catch (error) {
-                console.log(`Error with updateMembership`)
-                console.log(error)
-            }
-        }
-    }
-
-    async function disableMembership({ emailAddress }) {
-        const member = getMemberFromEmail({ emailAddress })
-        if (!member) {
-            console.log('cannot disable membership. not a member!')
-            return
-        }
-        // update membership
-        const updateMembershipVariables = {
-            status: 'OUT',
-            membershipId: member.id,
-        }
-
-        let updateMembershipResult
-
-        try {
-            updateMembershipResult = await appSyncClient.mutate({
-                mutation: updateMembership,
-                variables: updateMembershipVariables,
-            })
-            console.log({ updateMembershipResult })
-        } catch (error) {
-            console.log(`Error with updateMembership`)
-            console.log(error)
-        }
-
-        let ensureProfileResult
-        try {
-            ensureProfileResult = await ensureProfile({
-                email: emailAddress,
-            })
-            console.log({ ensureProfileResult })
-        } catch (error) {
-            console.log(`error getting/creating a profile`)
-        }
-
-        if (
-            ensureProfileResult &&
-            ensureProfileResult.memberships &&
-            ensureProfileResult.memberships.items &&
-            ensureProfileResult.memberships.items.filter((item) => item.status === 'ACTIVE').length < 1
-        ) {
-            try {
-                await removeFromGroup({ emailAddress, groupName: 'member' })
-            } catch (error) {
-                console.log(`Error with removeFromGroup`)
-                console.log(error)
-            }
-        }
-    }
-
-    async function addMailchimpSubscription({ emailAddress }) {
-        const updatedMember = await addMailchimpMember({ emailAddress, apiKeyName, serverPrefix, listId })
-
-        if (updatedMember) {
-            const {
-                id: mailchimpId,
-                tags: mailchimpTags,
-                email_address: emailAddress,
-                unique_email_id: uniqueEmailId,
-                contact_id: contactId,
-                full_name: fullName,
-                status: mailchimpStatus,
-            } = updatedMember
-
+            groupName: 'member',
+          });
+          if (cognitoUser) {
             await addOrUpdateMembership({
-                contactId,
-                emailAddress,
-                fullName,
-                mailchimpId,
-                mailchimpStatus,
-                uniqueEmailId,
-                status: 'ACTIVE',
-                mailchimpTags,
-            })
+              contactId,
+              emailAddress,
+              fullName,
+              mailchimpId,
+              mailchimpStatus,
+              uniqueEmailId,
+              status,
+              mailchimpTags,
+            });
+          }
         }
-    }
+      }
+      break;
 
-    async function disableMailchimpSubscription({ emailAddress }) {
-        // MEW-specific MC logic
-        const updatedMember = await updateMailchimpMemberTags({
-            emailAddress,
-            apiKeyName,
-            serverPrefix,
-            listId,
-            tags: [{ name: 'OUT', status: 'active' }],
-        })
-
-        if (updatedMember) {
-            const {
-                id: mailchimpId,
-                tags: mailchimpTags,
-                email_address: emailAddress,
-                unique_email_id: uniqueEmailId,
-                contact_id: contactId,
-                full_name: fullName,
-                status: mailchimpStatus,
-            } = updatedMember
-
-            await addOrUpdateMembership({
-                contactId,
-                emailAddress,
-                fullName,
-                mailchimpId,
-                mailchimpStatus,
-                uniqueEmailId,
-                status: 'OUT',
-                mailchimpTags,
-            })
+    case 'ADD_MEMBERSHIP':
+      for await (const payload of payloads) {
+        // must ensure cognito login and group first
+        const cognitoUser = await addLogin({ ...payload, groupName: 'member' });
+        if (cognitoUser) {
+          await addOrUpdateMembership(payload);
         }
-    }
+      }
+      break;
 
-    function getMemberFromEmail({ emailAddress }) {
-        return getWorkshopResult.data.getWorkshop.memberships.items.find((item) => item.email === emailAddress)
-    }
+    case 'DISABLE_MEMBERSHIP':
+      for await (const payload of payloads) {
+        await disableMembership(payload);
+      }
+      break;
 
-    async function removeFromGroup({ emailAddress, groupName }) {
-        return removeUserFromGroup({ groupName, userName: emailAddress })
-    }
+    case 'ADD_MAILCHIMP_SUBSCRIPTION':
+      for await (const payload of payloads) {
+        await addMailchimpSubscription(payload);
+      }
+      break;
 
-    switch (action) {
-        case 'SYNC_MEMBERS_WITH_MAILCHIMP':
-            if (!enableMailchimpIntegration) break
-            mailchimpMembers = await getMailchimpMembers({ apiKeyName, serverPrefix, listId })
-            for await (const {
-                id: mailchimpId,
-                tags: mailchimpTags,
-                email_address: emailAddress,
-                unique_email_id: uniqueEmailId,
-                contact_id: contactId,
-                full_name: fullName,
-                status: mailchimpStatus,
-            } of mailchimpMembers) {
-                const status = mailchimpTags.some((item) => item.name && item.name.toUpperCase() === 'OUT')
-                    ? 'OUT'
-                    : 'ACTIVE'
-                const isActive = status === 'ACTIVE'
-                if (isActive) {
-                    const cognitoUser = await addLogin({ emailAddress, fullName, groupName: 'member' })
-                    if (cognitoUser) {
-                        await addOrUpdateMembership({
-                            contactId,
-                            emailAddress,
-                            fullName,
-                            mailchimpId,
-                            mailchimpStatus,
-                            uniqueEmailId,
-                            status,
-                            mailchimpTags,
-                        })
-                    }
-                }
-            }
-            break
+    case 'DISABLE_MAILCHIMP_SUBSCRIPTION':
+      for await (const payload of payloads) {
+        await disableMailchimpSubscription(payload);
+      }
+      break;
 
-        case 'ADD_MEMBERSHIP':
-            for await (const payload of payloads) {
-                // must ensure cognito login and group first
-                const cognitoUser = await addLogin({ ...payload, groupName: 'member' })
-                if (cognitoUser) {
-                    await addOrUpdateMembership(payload)
-                }
-            }
-            break
+    case 'ADD_LOGIN':
+      for await (const payload of payloads) {
+        await addLogin(payload);
+      }
+      break;
+    case 'DISABLE_LOGIN':
+      for await (const payload of payloads) {
+        await disableLogin(payload);
+      }
+      break;
 
-        case 'DISABLE_MEMBERSHIP':
-            for await (const payload of payloads) {
-                await disableMembership(payload)
-            }
-            break
+    default:
+      break;
+  }
 
-        case 'ADD_MAILCHIMP_SUBSCRIPTION':
-            for await (const payload of payloads) {
-                await addMailchimpSubscription(payload)
-            }
-            break
-
-        case 'DISABLE_MAILCHIMP_SUBSCRIPTION':
-            for await (const payload of payloads) {
-                await disableMailchimpSubscription(payload)
-            }
-            break
-
-        case 'ADD_LOGIN':
-            for await (const payload of payloads) {
-                await addLogin(payload)
-            }
-            break
-        case 'DISABLE_LOGIN':
-            for await (const payload of payloads) {
-                await disableLogin(payload)
-            }
-            break
-
-        default:
-            break
-    }
-
-    return {
-        statusCode: 200,
-        //  Uncomment below to enable CORS requests
-        //  headers: {
-        //      "Access-Control-Allow-Origin": "*",
-        //      "Access-Control-Allow-Headers": "*"
-        //  },
-        body: JSON.stringify('Hello from Lambda!'),
-    }
-}
+  return {
+    statusCode: 200,
+    //  Uncomment below to enable CORS requests
+    //  headers: {
+    //      "Access-Control-Allow-Origin": "*",
+    //      "Access-Control-Allow-Headers": "*"
+    //  },
+    body: JSON.stringify('Hello from Lambda!'),
+  };
+};

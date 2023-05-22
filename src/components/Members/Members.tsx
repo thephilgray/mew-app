@@ -4,7 +4,7 @@ import { Button, Chip, Grid, IconButton, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
-import { groupBy, keyBy, uniqBy, uniqueId } from 'lodash'
+import { countBy, entries, groupBy, head, keyBy, last, maxBy, uniqBy, uniqueId } from 'lodash'
 import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
@@ -53,7 +53,6 @@ const GET_WORKSHOP = gql`
                     fileId
                     fileExtension
                     rating
-                    comments
                     workshopId
                     createdAt
                     updatedAt
@@ -197,13 +196,16 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             submissionsGroupedByEmail[email].map(({ fileRequestId }) => assignmentMap[fileRequestId]),
             'id',
         ).filter((item) => item && item.required && item.expired)
+
+        // the most frequently occurring artist name
+        const name = head(maxBy(entries(countBy(submissionsGroupedByEmail[email], 'artist')), last))
         const required = requiredItems.length
         const passes = workshopPasses - (expiredAndDueAssignments - required)
 
         return {
             id: email,
             email,
-            name: '',
+            name,
             status: 'not synced',
             submissions: submissionsGroupedByEmail[email].length,
             required,

@@ -20,7 +20,7 @@ import {
 import { DataGrid, GridColDef, GridRowParams, GridRowSelectionModel } from '@mui/x-data-grid';
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
-import { format } from 'date-fns'
+import { format, isPast } from 'date-fns'
 import { useCopyToClipboard } from 'react-use'
 import {
     AssignmentTurnedIn,
@@ -32,6 +32,7 @@ import {
     Edit,
     PlayArrowTwoTone,
     MoreTime,
+    Comment,
 } from '@mui/icons-material'
 import { API, Storage, graphqlOperation } from 'aws-amplify'
 import { uniqBy, pipe, map } from 'lodash/fp'
@@ -43,7 +44,11 @@ import { processDownload, runProcessAudioTask } from '../../graphql/mutations'
 import { ROUTE_NAMES } from '../../pages/app'
 import { getFileRequest } from '../../graphql/queries'
 import ExtensionsDialog from './ExtensionsDialog'
-import { useUser } from '../../auth/hooks'
+import { useIsAdmin, useUser } from '../../auth/hooks'
+import GroupGuard from '../Auth/GroupGuard';
+import { Group } from '../../constants';
+import If from '../If';
+import { FeedbackSection } from '../Feedback';
 
 const getFileRequestWithNoLimit = getFileRequest.replace('submissions {', 'submissions(limit: 1000) {')
 
@@ -57,6 +62,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         stripMetadataForSoundCloud: true,
     })
     const user = useUser()
+    const isAdmin = useIsAdmin()
 
     const dialogConstants = {
         CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link',
@@ -96,7 +102,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         refetch()
     }, [])
 
-    const rows = data?.getFileRequest?.submissions?.items || []
+    const rows = (data?.getFileRequest?.submissions?.items || []).filter(item => {
+        if (isAdmin) return item
+        if (item.email === user.email) return item
+    })
+
+    const isExpired = data?.getFileRequest?.expiration ? isPast(new Date(data.getFileRequest.expiration as string)) : false
 
     useEffect(() => {
         if (copyToClipboardState.value) {
@@ -275,7 +286,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 />
             </Grid>
             <>
-                <Dialog maxWidth="xs" open={dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}>
+                <Dialog maxWidth="xs" open={!!dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}>
                     <DialogTitle>Email yourself a download link</DialogTitle>
 
                     <DialogContent dividers>
@@ -314,10 +325,9 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
 
                 <ExtensionsDialog
                     assignmentId={assignmentId}
-                    open={dialogToggles[dialogConstants.EDIT_EXTENSIONS]}
+                    open={!!dialogToggles[dialogConstants.EDIT_EXTENSIONS]}
                     onCloseDialog={() => setDialogToggles({})}
                 />
-
                 {snackbarConfigs.map(({ message = '', key = '', delay = 0 }) => (
                     <Snackbar
                         anchorOrigin={{
@@ -325,7 +335,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             horizontal: 'center',
                         }}
                         key={key}
-                        open={snackbarToggles[key]}
+                        open={!!snackbarToggles[key]}
                         color="success"
                         autoHideDuration={3000 + delay}
                         message={message}
@@ -351,37 +361,39 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                 </Link>
                             </Typography>
                         </Grid>
-                        <Grid item xs={4} style={{ textAlign: 'right' }}>
-                            <IconButton
-                                color="secondary"
-                                aria-label="Copy"
-                                component="span"
-                                onClick={() =>
-                                    copyToClipboard(
-                                        `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({
-                                            assignmentId,
-                                        })}`,
-                                    )
-                                }
-                                size="large">
-                                <FileCopy />
-                            </IconButton>
-                            <IconButton
-                                color="secondary"
-                                aria-label="Extensions"
-                                onClick={() => setDialogToggles({ [dialogConstants.EDIT_EXTENSIONS]: true })}
-                                size="large">
-                                <MoreTime />
-                            </IconButton>
-                            <IconButton
-                                color="secondary"
-                                aria-label="Edit"
-                                component={Link}
-                                to="edit"
-                                size="large">
-                                <Edit />
-                            </IconButton>
-                        </Grid>
+                        <GroupGuard groups={[Group.admin]}>
+                            <Grid item xs={4} style={{ textAlign: 'right' }}>
+                                <IconButton
+                                    color="secondary"
+                                    aria-label="Copy"
+                                    component="span"
+                                    onClick={() =>
+                                        copyToClipboard(
+                                            `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({
+                                                assignmentId,
+                                            })}`,
+                                        )
+                                    }
+                                    size="large">
+                                    <FileCopy />
+                                </IconButton>
+                                <IconButton
+                                    color="secondary"
+                                    aria-label="Extensions"
+                                    onClick={() => setDialogToggles({ [dialogConstants.EDIT_EXTENSIONS]: true })}
+                                    size="large">
+                                    <MoreTime />
+                                </IconButton>
+                                <IconButton
+                                    color="secondary"
+                                    aria-label="Edit"
+                                    component={Link}
+                                    to="edit"
+                                    size="large">
+                                    <Edit />
+                                </IconButton>
+                            </Grid>
+                        </GroupGuard>
                         {data?.getFileRequest?.details && (
                             <Grid item xs={12}>
                                 <div
@@ -395,29 +407,39 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 <Grid item xs={6}>
                     <Typography variant="h6" component="h3">
                         Submissions{' '}
-                        <Badge badgeContent={data?.getFileRequest?.submissions?.items?.length || 0} color="secondary">
+                        <Badge badgeContent={rows.length || 0} color="secondary">
                             <AssignmentTurnedIn />
                         </Badge>
                     </Typography>
                 </Grid>
                 <Grid item xs={6} style={{ textAlign: 'right' }}>
-                    <IconButton
-                        color="secondary"
-                        aria-label="Playlist"
-                        component={Link}
-                        to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
-                        size="large">
-                        <PlayArrowTwoTone />
-                    </IconButton>
-                    <IconButton
-                        color="secondary"
-                        aria-label="New Submission"
-                        component={Link}
-                        to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                        size="large">
-                        <Add />
-                    </IconButton>
-                    {data.getFileRequest.submissions.items.length ? <Menu items={menuItems} /> : null}
+                    <If condition={isAdmin || isExpired}>
+                        <Button
+                            color="secondary"
+                            aria-label="Playlist"
+                            component={Link}
+                            to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
+                            size="large"
+                            startIcon={<PlayArrowTwoTone />}
+                            disabled={!data?.getFileRequest?.submissions?.items?.length}
+                        >
+                            Play
+                        </Button>
+                    </If>
+                    <If condition={isAdmin || !isExpired}>
+                        <Button
+                            color="secondary"
+                            aria-label="New Submission"
+                            component={Link}
+                            to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                            startIcon={<Add />}
+                            size="large">
+                            Submit
+                        </Button>
+                    </If>
+                    <GroupGuard groups={[Group.admin]}>
+                        {data.getFileRequest.submissions.items.length ? <Menu items={menuItems} /> : null}
+                    </GroupGuard>
                 </Grid>
                 <Grid item xs={12} style={{ minHeight: 600, width: '100%', paddingTop: 0 }}>
                     <DataGrid
@@ -435,6 +457,9 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             },
                         }}
                     />
+                </Grid>
+                <Grid item xs={12}>
+                    <FeedbackSection assignmentId={assignmentId} showAll={isAdmin || isExpired} />
                 </Grid>
             </>
         </Grid>

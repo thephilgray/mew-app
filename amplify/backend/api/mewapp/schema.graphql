@@ -1,13 +1,7 @@
-type Credit {
-  id: ID!
-  title: String
-  artists: [String]
-  artistLinks: [String]
-}
-
 type Artwork {
   id: ID!
-  credit: [Credit]
+  path: String!
+  credit: String
 }
 
 type MailchimpIntegration {
@@ -82,7 +76,7 @@ type FileRequest
   title: String
   details: String
   required: Boolean
-  playlistArtwork: Artwork
+  artwork: Artwork
   submissions: [FileRequestSubmission]
     @hasMany(indexName: "submissionsByFileRequestId", fields: ["id"])
   workshop: Workshop @belongsTo(fields: ["workshopId"])
@@ -119,7 +113,10 @@ type FileRequestSubmission
   fileId: String
   fileExtension: String
   rating: Int
-  comments: String
+  comments: [Comment] @hasMany(indexName: "bySubmission", fields: ["id"])
+  artwork: Artwork
+  lyrics: String
+  requestFeedback: Boolean
   workshopId: ID
     @index(
       name: "submissionsByWorkshopId"
@@ -141,6 +138,12 @@ type MailchimpUserInfo {
   uniqueEmailId: String
   contactId: String
   tags: [MailchimpTag]
+}
+
+type Link {
+  id: ID
+  text: String
+  url: String
 }
 
 type Membership
@@ -177,6 +180,7 @@ type Workshop
   @model
   @auth(
     rules: [
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
@@ -215,14 +219,37 @@ type Profile
   )
   @aws_cognito_user_pools {
   email: String! @primaryKey
-  id: ID!
+  id: ID! @index(name: "byProfileId", queryField: "profileByProfileId")
   name: String
+  displayName: String
+  links: [Link]
   avatar: String
   bio: String
   sub: String
   apiKeys: [APIKey] @hasMany(indexName: "apiKeysByEmail", fields: ["email"])
   memberships: [Membership]
     @hasMany(indexName: "membershipsByEmail", fields: ["email"])
+}
+
+type Comment
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  content: String
+  email: String!
+  profile: Profile @hasOne(fields: ["email"])
+  submissionId: ID @index(name: "bySubmission", sortKeyFields: ["content"])
+  submission: FileRequestSubmission @belongsTo(fields: ["submissionId"])
+  assignmentId: ID
+  assignment: FileRequest @hasOne(fields: ["assignmentId"])
+  parentId: ID
 }
 
 input SongData {

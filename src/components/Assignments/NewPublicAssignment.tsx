@@ -8,6 +8,7 @@ import {
     FormControlLabel,
     Snackbar,
     IconButton,
+    InputLabel,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -22,39 +23,18 @@ import AppBreadcrumbs from '../AppBreadcrumbs';
 import { FileCopy } from '@mui/icons-material';
 import { useCopyToClipboard } from 'react-use';
 import { ROUTE_NAMES } from '../../pages/app';
+import ImagePicker, { uploadImage } from '../ImagePicker';
+import { v4 as uuidv4 } from 'uuid';
+import { createFileRequest as createFileRequestMutation } from '../../graphql/mutations';
 
-const CREATE_FILE_REQUEST = gql`
-  mutation CreateFileRequest(
-    $expiration: AWSDateTime!
-    $title: String
-    $details: String
-    $required: Boolean
-    $workshopId: ID!
-  ) {
-    createFileRequest(
-      input: {
-        expiration: $expiration
-        title: $title
-        details: $details
-        required: $required
-        workshopId: $workshopId
-      }
-    ) {
-      id
-      title
-      expiration
-      details
-      required
-      workshopId
-    }
-  }
-`;
 
 type Inputs = {
     expiration: Date;
     title: string;
     details: string;
     required: boolean;
+    artworkPath: string;
+    artworkCredit: string;
 };
 
 const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
@@ -67,7 +47,7 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
 
         formState: { errors },
     } = useForm<Inputs>();
-    const [createFileRequest, { error, data }] = useMutation(CREATE_FILE_REQUEST);
+    const [createFileRequest, { error, data }] = useMutation(gql(createFileRequestMutation));
     const [details, setDetails] = useState<string>('');
     const [required, setRequired] = useState<boolean>(true);
     const [expiration, setExpiration] = useState<Date | null>(
@@ -76,6 +56,7 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
     const [showCopySuccessAlert, setShowCopySuccessAlert] =
         useState<boolean>(false);
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard();
+    const [image, setImage] = useState<string>('')
 
     useEffect(() => {
         if (copyToClipboardState.value) {
@@ -98,14 +79,30 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
         register('required');
     }, [required]);
 
-    const onSubmit = (inputData: Inputs) => {
+    const onSubmit = async (inputData: Inputs) => {
+        let ARTWORK_UPLOAD_PATH
+        let ID
+        if (image) {
+            ID = uuidv4()
+            ARTWORK_UPLOAD_PATH = `workshops/${workshopId}/artwork-${ID}.jpg`
+            await uploadImage({ image, uploadPath: ARTWORK_UPLOAD_PATH, filename: 'artwork.jpg' })
+        }
         return createFileRequest({
             variables: {
-                expiration: inputData.expiration?.toISOString(),
-                title: inputData.title,
-                details: details,
-                required: required,
-                workshopId,
+                input: {
+                    expiration: inputData.expiration?.toISOString(),
+                    title: inputData.title,
+                    details: details,
+                    required: required,
+                    workshopId,
+                    ...image && {
+                        artwork: {
+                            id: ID,
+                            credit: inputData.artworkCredit,
+                            path: ARTWORK_UPLOAD_PATH
+                        }
+                    }
+                }
             },
         });
     };
@@ -214,6 +211,13 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                                     onEditorChange={setDetails}
                                     apiKey="7n5kyei3ttoxuo2wna1yhi1558x6b4e9k4jpuwrusi1ce416"
                                 />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <InputLabel>
+                                    Artwork
+                                </InputLabel>
+                                <ImagePicker width={200} height={200} maxHeight={500} maxWidth={500} onChange={e => setImage(e.image)} />
+                                <TextField fullWidth label="Title/Credit" {...register('artworkCredit')} />
                             </Grid>
                             <Grid item xs={6}>
                                 <DatePicker
