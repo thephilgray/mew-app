@@ -6,7 +6,13 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SwitchField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { FileRequestSubmission } from "../models";
 import { fetchByPath, validateField } from "./utils";
@@ -28,7 +34,8 @@ export default function FileRequestSubmissionCreateForm(props) {
     fileId: "",
     fileExtension: "",
     rating: "",
-    comments: "",
+    lyrics: "",
+    requestFeedback: false,
   };
   const [artist, setArtist] = React.useState(initialValues.artist);
   const [name, setName] = React.useState(initialValues.name);
@@ -37,7 +44,10 @@ export default function FileRequestSubmissionCreateForm(props) {
     initialValues.fileExtension
   );
   const [rating, setRating] = React.useState(initialValues.rating);
-  const [comments, setComments] = React.useState(initialValues.comments);
+  const [lyrics, setLyrics] = React.useState(initialValues.lyrics);
+  const [requestFeedback, setRequestFeedback] = React.useState(
+    initialValues.requestFeedback
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setArtist(initialValues.artist);
@@ -45,7 +55,8 @@ export default function FileRequestSubmissionCreateForm(props) {
     setFileId(initialValues.fileId);
     setFileExtension(initialValues.fileExtension);
     setRating(initialValues.rating);
-    setComments(initialValues.comments);
+    setLyrics(initialValues.lyrics);
+    setRequestFeedback(initialValues.requestFeedback);
     setErrors({});
   };
   const validations = {
@@ -54,7 +65,8 @@ export default function FileRequestSubmissionCreateForm(props) {
     fileId: [],
     fileExtension: [],
     rating: [],
-    comments: [],
+    lyrics: [],
+    requestFeedback: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -87,7 +99,8 @@ export default function FileRequestSubmissionCreateForm(props) {
           fileId,
           fileExtension,
           rating,
-          comments,
+          lyrics,
+          requestFeedback,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -147,7 +160,8 @@ export default function FileRequestSubmissionCreateForm(props) {
               fileId,
               fileExtension,
               rating,
-              comments,
+              lyrics,
+              requestFeedback,
             };
             const result = onChange(modelFields);
             value = result?.artist ?? value;
@@ -176,7 +190,8 @@ export default function FileRequestSubmissionCreateForm(props) {
               fileId,
               fileExtension,
               rating,
-              comments,
+              lyrics,
+              requestFeedback,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -205,7 +220,8 @@ export default function FileRequestSubmissionCreateForm(props) {
               fileId: value,
               fileExtension,
               rating,
-              comments,
+              lyrics,
+              requestFeedback,
             };
             const result = onChange(modelFields);
             value = result?.fileId ?? value;
@@ -234,7 +250,8 @@ export default function FileRequestSubmissionCreateForm(props) {
               fileId,
               fileExtension: value,
               rating,
-              comments,
+              lyrics,
+              requestFeedback,
             };
             const result = onChange(modelFields);
             value = result?.fileExtension ?? value;
@@ -267,7 +284,8 @@ export default function FileRequestSubmissionCreateForm(props) {
               fileId,
               fileExtension,
               rating: value,
-              comments,
+              lyrics,
+              requestFeedback,
             };
             const result = onChange(modelFields);
             value = result?.rating ?? value;
@@ -283,10 +301,10 @@ export default function FileRequestSubmissionCreateForm(props) {
         {...getOverrideProps(overrides, "rating")}
       ></TextField>
       <TextField
-        label="Comments"
+        label="Lyrics"
         isRequired={false}
         isReadOnly={false}
-        value={comments}
+        value={lyrics}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -296,21 +314,52 @@ export default function FileRequestSubmissionCreateForm(props) {
               fileId,
               fileExtension,
               rating,
-              comments: value,
+              lyrics: value,
+              requestFeedback,
             };
             const result = onChange(modelFields);
-            value = result?.comments ?? value;
+            value = result?.lyrics ?? value;
           }
-          if (errors.comments?.hasError) {
-            runValidationTasks("comments", value);
+          if (errors.lyrics?.hasError) {
+            runValidationTasks("lyrics", value);
           }
-          setComments(value);
+          setLyrics(value);
         }}
-        onBlur={() => runValidationTasks("comments", comments)}
-        errorMessage={errors.comments?.errorMessage}
-        hasError={errors.comments?.hasError}
-        {...getOverrideProps(overrides, "comments")}
+        onBlur={() => runValidationTasks("lyrics", lyrics)}
+        errorMessage={errors.lyrics?.errorMessage}
+        hasError={errors.lyrics?.hasError}
+        {...getOverrideProps(overrides, "lyrics")}
       ></TextField>
+      <SwitchField
+        label="Request feedback"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={requestFeedback}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              artist,
+              name,
+              fileId,
+              fileExtension,
+              rating,
+              lyrics,
+              requestFeedback: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.requestFeedback ?? value;
+          }
+          if (errors.requestFeedback?.hasError) {
+            runValidationTasks("requestFeedback", value);
+          }
+          setRequestFeedback(value);
+        }}
+        onBlur={() => runValidationTasks("requestFeedback", requestFeedback)}
+        errorMessage={errors.requestFeedback?.errorMessage}
+        hasError={errors.requestFeedback?.hasError}
+        {...getOverrideProps(overrides, "requestFeedback")}
+      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

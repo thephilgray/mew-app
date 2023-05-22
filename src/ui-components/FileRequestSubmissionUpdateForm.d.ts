@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { FileRequestSubmission } from "../models";
 export declare type ValidationResponse = {
@@ -19,7 +19,8 @@ export declare type FileRequestSubmissionUpdateFormInputValues = {
     fileId?: string;
     fileExtension?: string;
     rating?: number;
-    comments?: string;
+    lyrics?: string;
+    requestFeedback?: boolean;
 };
 export declare type FileRequestSubmissionUpdateFormValidationValues = {
     artist?: ValidationFunction<string>;
@@ -27,7 +28,8 @@ export declare type FileRequestSubmissionUpdateFormValidationValues = {
     fileId?: ValidationFunction<string>;
     fileExtension?: ValidationFunction<string>;
     rating?: ValidationFunction<number>;
-    comments?: ValidationFunction<string>;
+    lyrics?: ValidationFunction<string>;
+    requestFeedback?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type FileRequestSubmissionUpdateFormOverridesProps = {
@@ -37,7 +39,8 @@ export declare type FileRequestSubmissionUpdateFormOverridesProps = {
     fileId?: PrimitiveOverrideProps<TextFieldProps>;
     fileExtension?: PrimitiveOverrideProps<TextFieldProps>;
     rating?: PrimitiveOverrideProps<TextFieldProps>;
-    comments?: PrimitiveOverrideProps<TextFieldProps>;
+    lyrics?: PrimitiveOverrideProps<TextFieldProps>;
+    requestFeedback?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type FileRequestSubmissionUpdateFormProps = React.PropsWithChildren<{
     overrides?: FileRequestSubmissionUpdateFormOverridesProps | undefined | null;

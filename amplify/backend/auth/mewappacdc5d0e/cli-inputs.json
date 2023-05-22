@@ -75,9 +75,6 @@
       "DefineAuthChallenge": [
         "boilerplate-define-challenge"
       ],
-      "PostAuthentication": [
-        "custom"
-      ],
       "PreSignup": [
         "custom"
       ],
@@ -130,15 +127,6 @@
       {
         "category": "function",
         "resourceName": "mewappacdc5d0eVerifyAuthChallengeResponse",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      },
-      {
-        "category": "function",
-        "resourceName": "mewappacdc5d0ePostAuthentication",
         "triggerProvider": "Cognito",
         "attributes": [
           "Arn",
