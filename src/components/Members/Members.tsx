@@ -200,7 +200,8 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         // the most frequently occurring artist name
         const name = head(maxBy(entries(countBy(submissionsGroupedByEmail[email], 'artist')), last))
         const required = requiredItems.length
-        const passes = workshopPasses - (expiredAndDueAssignments - required)
+        const passesRemaining = workshopPasses - (expiredAndDueAssignments - required)
+        const passes = passesRemaining > 0 ? passesRemaining : 0
 
         return {
             id: email,
@@ -225,7 +226,8 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
 
         const required = requiredItems.length
 
-        const passes = workshopPasses - (expiredAndDueAssignments - required)
+        const passesRemaining = workshopPasses - (expiredAndDueAssignments - required)
+        const passes = passesRemaining > 0 ? passesRemaining : 0
 
         return {
             id: member.id,

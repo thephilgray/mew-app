@@ -119,7 +119,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         // @ts-ignore
         // const contentType = result.ContentType
         const contentType = result.headers.get('ContentType')
-        console.log({ result, contentType })
         // @ts-ignore
         const extension = EXTENSIONS_BY_FILETYPE[contentType || 'audio/mpeg']
         const a = document.createElement('a')

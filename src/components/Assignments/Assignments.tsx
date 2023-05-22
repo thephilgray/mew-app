@@ -151,18 +151,17 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
     const items = data?.getWorkshop?.fileRequests?.items || []
     const rows = items.map(
         (item: { id: string; title: string; expiration: string; required: boolean; createdAt: string, artwork: { path: string } }) => {
-            const submissions = data?.getWorkshop?.submissions?.items
-                ? data.getWorkshop.submissions.items
-                    // @ts-ignore
-                    .filter((submission) => submission?.fileRequestId === item.id)
+            const submissions = item?.submissions?.items
+                ? item?.submissions?.items
                 : []
 
             const artwork = item?.artwork?.path && getCloudFrontURL(item.artwork.path)
+            const mySubmissions = submissions.filter(submission => submission?.email === user.email)
             return {
                 ...item,
                 submissions,
                 status: !isPast(new Date(item.expiration as string)) ? 'ACTIVE' : 'EXPIRED',
-                mySubmissions: submissions.filter(submission => submission?.email === user.email),
+                mySubmissions: mySubmissions,
                 artwork
             }
         },
