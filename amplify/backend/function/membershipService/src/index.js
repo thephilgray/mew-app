@@ -1023,6 +1023,12 @@ exports.handler = async (event) => {
         await addLogin(payload);
       }
       break;
+
+    case 'ADD_PROFILE':
+      for await (const payload of payloads) {
+        await ensureProfile(payload);
+      }
+      break;
     case 'DISABLE_LOGIN':
       for await (const payload of payloads) {
         await disableLogin(payload);
