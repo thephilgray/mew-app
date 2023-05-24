@@ -3,23 +3,23 @@ import { Box, Grid, Paper, Typography } from '@mui/material'
 import { Link } from 'gatsby'
 import gql from 'graphql-tag'
 import * as React from 'react'
-import { useIsAdmin, useUserHasMembership } from '../../auth/hooks'
+import { useUserHasMembership, useViewAdmin } from '../../auth/hooks'
 import { Group } from '../../constants'
 import { listWorkshops } from '../../graphql/queries'
 import GroupGuard from '../Auth/GroupGuard'
 
 export default function WorkshopList() {
     const { loading, error, data, refetch } = useQuery(gql(listWorkshops))
-    const isAdmin = useIsAdmin()
+    const [viewAdmin] = useViewAdmin()
 
     if (data) {
         const workshops = [...data.listWorkshops.items]
 
         const activeWorkshops = workshops
-            .filter(({ id }) => isAdmin || useUserHasMembership(id))
+            .filter(({ id }) => viewAdmin || useUserHasMembership(id))
             .filter(({ status }) => status === 'Active')
         const inactiveWorkshops = workshops
-            .filter(({ id }) => isAdmin || useUserHasMembership(id))
+            .filter(({ id }) => viewAdmin || useUserHasMembership(id))
             .filter(({ status }) => status !== 'Active')
 
         const Items = ({ items = [] }) =>
@@ -54,7 +54,7 @@ export default function WorkshopList() {
                         <Items items={activeWorkshops} />
                     </Grid>
                 </Grid>
-                <GroupGuard groups={[Group.admin, Group.editor]}>
+                <GroupGuard groups={[Group.admin]}>
                     <Grid item>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>

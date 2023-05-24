@@ -44,7 +44,7 @@ import { processDownload, runProcessAudioTask } from '../../graphql/mutations'
 import { ROUTE_NAMES } from '../../pages/app'
 import { getFileRequest } from '../../graphql/queries'
 import ExtensionsDialog from './ExtensionsDialog'
-import { useIsAdmin, useUser } from '../../auth/hooks'
+import { useUser, useViewAdmin } from '../../auth/hooks'
 import GroupGuard from '../Auth/GroupGuard';
 import { Group } from '../../constants';
 import If from '../If';
@@ -62,7 +62,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         stripMetadataForSoundCloud: true,
     })
     const user = useUser()
-    const isAdmin = useIsAdmin()
+    const [viewAdmin] = useViewAdmin()
 
     const dialogConstants = {
         CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link',
@@ -103,7 +103,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
     }, [])
 
     const rows = (data?.getFileRequest?.submissions?.items || []).filter(item => {
-        if (isAdmin) return item
+        if (viewAdmin) return item
         if (item.email === user.email) return item
     })
 
@@ -406,14 +406,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 </Grid>
                 <Grid item xs={7}>
                     <Typography variant="h6" component="h3">
-                        Submissions{' '}
+                        {viewAdmin ? 'Submissions' : 'My Submissions'}{' '}
                         <Badge badgeContent={rows.length || 0} color="secondary" >
                             <AssignmentTurnedIn />
                         </Badge>
                     </Typography>
                 </Grid>
                 <Grid item xs={5} sx={{ textAlign: 'right', p: 0, pl: 0, pb: 0 }}>
-                    <If condition={isAdmin || isExpired}>
+                    <If condition={viewAdmin || isExpired}>
                         <IconButton
                             color="secondary"
                             aria-label="Playlist"
@@ -425,7 +425,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             <PlayArrowTwoTone />
                         </IconButton>
                     </If>
-                    <If condition={isAdmin || !isExpired}>
+                    <If condition={viewAdmin || !isExpired}>
                         <IconButton
                             color="secondary"
                             aria-label="New Submission"
@@ -457,7 +457,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <FeedbackSection assignmentId={assignmentId} showAll={isAdmin || isExpired} />
+                    <FeedbackSection assignmentId={assignmentId} showAll={viewAdmin || isExpired} />
                 </Grid>
             </>
         </Grid>

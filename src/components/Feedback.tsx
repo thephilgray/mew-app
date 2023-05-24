@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Avatar, Badge, Button, ButtonGroup, Card, CardContent, Divider, Grid, IconButton, Paper, TextField, ToggleButtonGroup, Typography, ToggleButton } from "@mui/material"
-import { useIsAdmin, useProfile, useUser } from "../auth/hooks"
+import { useProfile, useUser, useViewAdmin } from "../auth/hooks"
 import { Close, Delete, Edit, Send, Comment as CommentIcon, Person, People } from "@mui/icons-material"
 import { Link } from "@reach/router"
 import { gql, useMutation, useQuery } from "@apollo/client"
@@ -50,10 +50,10 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
   const [editing, setEditing] = useState(false)
 
   const user = useUser()
-  const isAdmin = useIsAdmin()
+  const [viewAdmin] = useViewAdmin()
   const isAuthor = comment?.email === user?.email;
 
-  const showDeleteComment = isAuthor || isAdmin // this will be admin or owner
+  const showDeleteComment = isAuthor || viewAdmin // this will be admin or owner
   const showEditComment = isAuthor // this will be owner
 
 

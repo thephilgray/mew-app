@@ -14,6 +14,9 @@ interface AuthState {
     deleteUser(): Promise<void>
     loading: Boolean
     authStage: Number,
+    setAuthStage(): Promise<void>,
+    viewAdmin: Boolean | null,
+    setViewAdmin(): Promise<void>
 }
 
 export const AuthContext = React.createContext<AuthState>({
@@ -25,7 +28,9 @@ export const AuthContext = React.createContext<AuthState>({
     deleteUser: async () => { },
     loading: true,
     setAuthStage: () => { },
-    authStage: 1
+    authStage: 1,
+    viewAdmin: null,
+    setViewAdmin: () => { }
 })
 
 interface AuthProps {

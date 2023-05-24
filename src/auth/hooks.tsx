@@ -17,6 +17,7 @@ export function useAuth() {
     const previousUser = usePrevious(user)
     const [loading, setLoading] = React.useState<Boolean>(true)
     const [authStage, setAuthStage] = React.useState(1)
+    const [viewAdmin, setViewAdmin] = React.useState<Boolean | null>(null)
 
     React.useEffect(() => {
         let active = true
@@ -133,7 +134,19 @@ export function useAuth() {
         setLoading(false)
     }, [user, setUser, setCognitoUser])
 
-    return { user, signIn, signOut, deleteUser, answerCustomChallenge, userProfile, loading, authStage, setAuthStage }
+    return {
+        user,
+        signIn,
+        signOut,
+        deleteUser,
+        answerCustomChallenge,
+        userProfile,
+        loading,
+        authStage,
+        setAuthStage,
+        viewAdmin,
+        setViewAdmin
+    }
 }
 
 export function useUser() {
@@ -212,7 +225,14 @@ export function useUserHasMembership(workshopId: string): boolean {
         userProfile.memberships.items.some((membership) => membership && membership.workshopId === workshopId)
     )
 }
-export const useIsAdmin = () => useUserInAtLeastOneOfTheseGroups([Group.admin])
+export const useIsAdmin = () => {
+    const { viewAdmin, setViewAdmin } = React.useContext(AuthContext)
+    const isAdmin = useUserInAtLeastOneOfTheseGroups([Group.admin])
+    if (isAdmin && viewAdmin === null) {
+        setViewAdmin(true)
+    }
+    return isAdmin
+}
 
 export const useAuthLoading = () => {
     const { loading } = React.useContext(AuthContext)
@@ -222,4 +242,9 @@ export const useAuthLoading = () => {
 export const useAuthStage = () => {
     const { authStage, setAuthStage } = React.useContext(AuthContext)
     return [authStage, setAuthStage];
+}
+
+export const useViewAdmin = () => {
+    const { viewAdmin, setViewAdmin } = React.useContext(AuthContext)
+    return [viewAdmin, setViewAdmin];
 }
