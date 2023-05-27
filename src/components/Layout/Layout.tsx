@@ -3,6 +3,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import Theme from './Theme'
 import AppHeader from './AppHeader'
+import AdminViewToggle from '../AdminViewToggle'
 
 const Layout: React.FC = ({ children = [] }) => (
     <StaticQuery
@@ -35,6 +36,7 @@ const Layout: React.FC = ({ children = [] }) => (
                             padding: '1rem 1.0875rem 1.45rem',
                         }}
                     >
+                        <AdminViewToggle />
                         {children}
                     </div>
                 </Theme>

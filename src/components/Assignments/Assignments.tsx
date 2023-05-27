@@ -15,7 +15,7 @@ import { getWorkshop } from '../../graphql/queries'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
 import { compareDesc, differenceInSeconds } from 'date-fns'
-import { useUser } from '../../auth/hooks';
+import { useUser, useViewAdmin } from '../../auth/hooks';
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
 
@@ -84,7 +84,7 @@ const Timer = ({ deadline }) => {
 const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     const { classes } = useStyles()
     const user = useUser()
-    const [viewAdmin, setViewAdmin] = React.useState(true)
+    const [viewAdmin] = useViewAdmin()
     const { loading, error, data, refetch } = useQuery(
         gql(getWorkshop.replace('submissions {', 'submissions(limit: 5000) {')),
         {
@@ -299,18 +299,6 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
             <GroupGuard groups={[Group.admin]}>
                 <Grid item xs={12} style={{ paddingBottom: 0 }}>
                     <Grid container>
-                        <Grid item xs={12} sx={{ pb: 2 }}>
-                            <ToggleButtonGroup
-                                exclusive
-                                value={!!viewAdmin ? "admin" : "member"}
-                                onChange={(e, value) =>
-                                    setViewAdmin(value === "admin")}
-                                sx={{ float: "right" }}>
-                                { }
-                                <ToggleButton value="member" aria-label="Member View">Member View <Person /></ToggleButton>
-                                <ToggleButton value="admin" aria-label="Admin View">Admin View <AdminPanelSettings /></ToggleButton>
-                            </ToggleButtonGroup>
-                        </Grid>
                         <If condition={!!viewAdmin}>
                             <Grid item xs={6} md={8}>
                                 <Typography variant="h5" component="h5" gutterBottom>

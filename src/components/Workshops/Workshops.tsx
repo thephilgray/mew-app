@@ -13,7 +13,7 @@ export default function Workshops() {
     return (
         <div>
             <AppBreadcrumbs paths={[ROUTE_NAMES.home]} />
-            <GroupGuard groups={[Group.admin, Group.editor]}>
+            <GroupGuard groups={[Group.admin]}>
                 <Button
                     component={Link}
                     to={ROUTE_NAMES.newWorkshop.path}
@@ -24,7 +24,7 @@ export default function Workshops() {
                     Create New
                 </Button>
             </GroupGuard>
-            <GroupGuard groups={[Group.admin, Group.editor, Group.member]} fallbackContent={notInGroupContent}>
+            <GroupGuard groups={[Group.admin, Group.member]} fallbackContent={notInGroupContent}>
                 <WorkshopsList />
             </GroupGuard>
         </div>

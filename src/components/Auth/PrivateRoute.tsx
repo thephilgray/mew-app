@@ -3,7 +3,7 @@ import { RouteComponentProps } from '@reach/router'
 import { Group } from '../../constants'
 import AuthenticateForm from './AuthenticateForm'
 import { navigate } from 'gatsby'
-import { useAuthLoading, useUser, useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks'
+import { useAuthLoading, useIsAdmin, useUser, useUserInAtLeastOneOfTheseGroups, useViewAdmin } from '../../auth/hooks'
 import { CircularProgress } from '@mui/material'
 
 interface PrivateRouteProps extends RouteComponentProps {
@@ -19,6 +19,9 @@ const PrivateRoute = (props: PrivateRouteProps): JSX.Element | null => {
     const user = useUser()
     const authLoading = useAuthLoading()
     const userNotInOneOfTheseGroups = groups && !useUserInAtLeastOneOfTheseGroups(groups);
+    const isAdmin = useIsAdmin()
+    const [viewAdmin] = useViewAdmin()
+    const adminOnlyView = groups && groups.length === 1 && groups.includes(Group.admin)
 
     const [authStage, setAuthStage] = React.useState(1)
 
@@ -34,6 +37,11 @@ const PrivateRoute = (props: PrivateRouteProps): JSX.Element | null => {
         navigate('/app/')
         return null
     }
+
+    if (adminOnlyView && isAdmin && !viewAdmin) {
+        return <p>Only admins can view this page. Non-admins are redirected.</p>
+    }
+
 
     return <Component {...rest} />
 }

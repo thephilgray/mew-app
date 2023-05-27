@@ -30,14 +30,14 @@ export const ROUTE_NAMES = {
         getPath: ({ assignmentId = '' }): string => `/app/assignments/${assignmentId}`,
         getName: ({ title = '' }): string => title,
         name: 'Assignment',
-        groups: [Group.admin, Group.editor, Group.member],
+        groups: [Group.admin, Group.member],
     },
     assignments: {
         path: '/app/workshops/:workshopId',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}`,
         getName: ({ name = '' }): string => name,
         name: 'Assignments',
-        groups: [Group.admin, Group.editor, Group.member],
+        groups: [Group.admin, Group.member],
     },
     playlist: {
         path: '/app/playlists/:assignmentId',
@@ -48,18 +48,18 @@ export const ROUTE_NAMES = {
         path: '/app/workshops/:workshopId/new-assignment',
         name: 'New Assignment',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/new-assignment`,
-        groups: [Group.admin, Group.editor],
+        groups: [Group.admin],
     },
     editAssignment: {
         path: '/app/assignments/:assignmentId/edit',
         name: 'Edit',
-        groups: [Group.admin, Group.editor],
+        groups: [Group.admin],
     },
     members: {
         path: '/app/workshops/:workshopId/members',
         name: 'Members',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/members`,
-        groups: [Group.admin, Group.editor],
+        groups: [Group.admin],
     },
     profile: {
         path: '/app/profile',
@@ -89,7 +89,7 @@ export const ROUTE_NAMES = {
         path: '/app/workshops/:workshopId/settings',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/settings`,
         name: 'Settings',
-        groups: [Group.admin, Group.editor],
+        groups: [Group.admin],
     },
     newWorkshop: {
         path: '/app/workshops/new',
