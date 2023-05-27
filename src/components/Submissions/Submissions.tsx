@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
-import React, { useEffect, useState } from 'react'
-import { Link } from 'gatsby'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'gatsby';
 import {
     Badge,
     Button,
@@ -16,12 +16,18 @@ import {
     IconButton,
     Snackbar,
     Typography,
-} from '@mui/material'
-import { DataGrid, GridColDef, GridRowParams, GridRowSelectionModel } from '@mui/x-data-grid';
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
-import { format, isPast } from 'date-fns'
-import { useCopyToClipboard } from 'react-use'
+    useMediaQuery,
+} from '@mui/material';
+import {
+    DataGrid,
+    GridColDef,
+    GridRowParams,
+    GridRowSelectionModel,
+} from '@mui/x-data-grid';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
+import { format, isPast } from 'date-fns';
+import { useCopyToClipboard } from 'react-use';
 import {
     AssignmentTurnedIn,
     CloudDownload,
@@ -32,42 +38,54 @@ import {
     Edit,
     PlayArrowTwoTone,
     MoreTime,
-    Comment,
-} from '@mui/icons-material'
-import { API, Storage, graphqlOperation } from 'aws-amplify'
-import { uniqBy, pipe, map } from 'lodash/fp'
+} from '@mui/icons-material';
+import { API, Storage, graphqlOperation } from 'aws-amplify';
+import { uniqBy, pipe, map } from 'lodash/fp';
 
-import AppBreadcrumbs from '../AppBreadcrumbs'
-import Error from '../Error'
-import Menu from '../Menu'
-import { processDownload, runProcessAudioTask } from '../../graphql/mutations'
-import { ROUTE_NAMES } from '../../pages/app'
-import { getFileRequest } from '../../graphql/queries'
-import ExtensionsDialog from './ExtensionsDialog'
-import { useUser, useViewAdmin } from '../../auth/hooks'
+import AppBreadcrumbs from '../AppBreadcrumbs';
+import Error from '../Error';
+import Menu from '../Menu';
+import { processDownload, runProcessAudioTask } from '../../graphql/mutations';
+import { ROUTE_NAMES } from '../../pages/app';
+import { getFileRequest } from '../../graphql/queries';
+import ExtensionsDialog from './ExtensionsDialog';
+import { useUser, useViewAdmin } from '../../auth/hooks';
 import GroupGuard from '../Auth/GroupGuard';
 import { Group } from '../../constants';
 import If from '../If';
 import { FeedbackSection } from '../Feedback';
 
-const getFileRequestWithNoLimit = getFileRequest.replace('submissions {', 'submissions(limit: 1000) {')
+const getFileRequestWithNoLimit = getFileRequest.replace(
+    'submissions {',
+    'submissions(limit: 1000) {'
+);
 
-const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) => {
-    const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
-    const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
-    const [selectedRows, setSelectedRows] = useState<GridRowSelectionModel>([])
-    const [snackbarToggles, setSnackbarToggles] = useState<{ [key: string]: boolean }>({})
-    const [dialogToggles, setDialogToggles] = useState<{ [key: string]: boolean }>({})
-    const [downloadLinkOptions, setDownloadLinkOptions] = useState<{ [key: string]: boolean }>({
+const Submissions: React.FC<{ assignmentId: string }> = ({
+    assignmentId = '',
+}) => {
+    const [copyToClipboardState, copyToClipboard] = useCopyToClipboard();
+    const [downloadLoading, setDownloadLoading] = useState<boolean>(false);
+    const [selectedRows, setSelectedRows] = useState<GridRowSelectionModel>([]);
+    const [snackbarToggles, setSnackbarToggles] = useState<{
+        [key: string]: boolean;
+    }>({});
+    const [dialogToggles, setDialogToggles] = useState<{
+        [key: string]: boolean;
+    }>({});
+    const [downloadLinkOptions, setDownloadLinkOptions] = useState<{
+        [key: string]: boolean;
+    }>({
         stripMetadataForSoundCloud: true,
-    })
-    const user = useUser()
-    const [viewAdmin] = useViewAdmin()
+    });
+
+    const user = useUser();
+    const [viewAdmin] = useViewAdmin();
+    const sm = useMediaQuery((theme) => theme.breakpoints.up('sm'));
 
     const dialogConstants = {
         CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link',
         EDIT_EXTENSIONS: 'edit-extensions',
-    }
+    };
 
     const snackbarConstants = {
         COPY_SUCCESS: 'copy-success',
@@ -75,12 +93,21 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
         REPORT_SUCCESS: 'report-success',
         EMAIL_SUCCESS: 'email-success',
         EMAIL_FAILURE: 'email-failure',
-    }
+    };
 
     const snackbarConfigs = [
-        { message: 'Link to assignment copied to clipboard.', key: snackbarConstants.COPY_SUCCESS },
-        { message: 'Successfully downloaded selected tracks.', key: snackbarConstants.TRACKS_SUCCESS },
-        { message: 'Successfully downloaded report.', key: snackbarConstants.REPORT_SUCCESS },
+        {
+            message: 'Link to assignment copied to clipboard.',
+            key: snackbarConstants.COPY_SUCCESS,
+        },
+        {
+            message: 'Successfully downloaded selected tracks.',
+            key: snackbarConstants.TRACKS_SUCCESS,
+        },
+        {
+            message: 'Successfully downloaded report.',
+            key: snackbarConstants.REPORT_SUCCESS,
+        },
         {
             message:
                 'Successfully requested download link (all tracks included) to your email. Please wait up to 30 minutes to receive email.',
@@ -88,59 +115,71 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             key: snackbarConstants.EMAIL_SUCCESS,
         },
         {
-            message: 'Requesting a download link failed. Please wait and then try again or contact support.',
+            message:
+                'Requesting a download link failed. Please wait and then try again or contact support.',
             delay: 5000,
             key: snackbarConstants.EMAIL_FAILURE,
         },
-    ]
+    ];
 
-    const { loading, error, data, refetch } = useQuery(gql(getFileRequestWithNoLimit), {
-        variables: { id: assignmentId },
-    })
+    const { loading, error, data, refetch } = useQuery(
+        gql(getFileRequestWithNoLimit),
+        {
+            variables: { id: assignmentId },
+        }
+    );
 
     React.useEffect(() => {
-        refetch()
-    }, [])
+        refetch();
+    }, []);
 
-    const rows = (data?.getFileRequest?.submissions?.items || []).filter(item => {
-        if (viewAdmin) return item
-        if (item.email === user.email) return item
-    })
+    const rows = (data?.getFileRequest?.submissions?.items || []).filter(
+        (item) => {
+            if (viewAdmin) return item;
+            if (item.email === user.email) return item;
+        }
+    );
 
-    const isExpired = data?.getFileRequest?.expiration ? isPast(new Date(data.getFileRequest.expiration as string)) : false
+    const isExpired = data?.getFileRequest?.expiration
+        ? isPast(new Date(data.getFileRequest.expiration as string))
+        : false;
 
     useEffect(() => {
         if (copyToClipboardState.value) {
-            setSnackbarToggles({ [snackbarConstants.COPY_SUCCESS]: true })
+            setSnackbarToggles({ [snackbarConstants.COPY_SUCCESS]: true });
         }
-    }, [copyToClipboardState])
+    }, [copyToClipboardState]);
 
     const downloadBlob = (blob: Blob, filename: string) => {
-        const url = URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = url
-        a.download = filename || 'download'
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename || 'download';
         const clickHandler = () => {
             setTimeout(() => {
-                URL.revokeObjectURL(url)
-                a.removeEventListener('click', clickHandler)
-            }, 150)
-        }
-        a.addEventListener('click', clickHandler, false)
-        a.click()
-        return a
-    }
+                URL.revokeObjectURL(url);
+                a.removeEventListener('click', clickHandler);
+            }, 150);
+        };
+        a.addEventListener('click', clickHandler, false);
+        a.click();
+        return a;
+    };
 
     const onDownloadSelected = async () => {
-        setDownloadLoading(true)
-        const uniqByFileId = uniqBy('fileId')
-        const mapFields = map(({ fileId = '', artist = '', name = '', fileExtension = '' }) => ({
-            fileId,
-            title: `${artist} - ${name}.${fileExtension}`,
-        }))
-        const rowData = rows.filter((row: { id: string }) => selectedRows.includes(row.id))
-        const selectFileData = pipe(uniqByFileId, mapFields)
-        const songData = selectFileData(rowData)
+        setDownloadLoading(true);
+        const uniqByFileId = uniqBy('fileId');
+        const mapFields = map(
+            ({ fileId = '', artist = '', name = '', fileExtension = '' }) => ({
+                fileId,
+                title: `${artist} - ${name}.${fileExtension}`,
+            })
+        );
+        const rowData = rows.filter((row: { id: string }) =>
+            selectedRows.includes(row.id)
+        );
+        const selectFileData = pipe(uniqByFileId, mapFields);
+        const songData = selectFileData(rowData);
 
         try {
             await API.graphql({
@@ -148,22 +187,29 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     assignmentId,
                     songData,
                 }),
-            })
+            });
 
-            const submissionsZip = await Storage.get(`downloads/${assignmentId}.zip`, { download: true })
-            const filename = data?.getFileRequest?.title ? data.getFileRequest.title : assignmentId
+            const submissionsZip = await Storage.get(
+                `downloads/${assignmentId}.zip`,
+                { download: true }
+            );
+            const filename = data?.getFileRequest?.title
+                ? data.getFileRequest.title
+                : assignmentId;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
-            downloadBlob(submissionsZip.Body, `${filename}.zip`)
+            downloadBlob(submissionsZip.Body, `${filename}.zip`);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-        setDownloadLoading(false)
-        setSnackbarToggles({ [snackbarConstants.TRACKS_SUCCESS]: true })
-    }
+        setDownloadLoading(false);
+        setSnackbarToggles({ [snackbarConstants.TRACKS_SUCCESS]: true });
+    };
 
     const downloadReport = () => {
-        const filename = data?.getFileRequest?.title ? data.getFileRequest.title : assignmentId
+        const filename = data?.getFileRequest?.title
+            ? data.getFileRequest.title
+            : assignmentId;
         const rows =
             data?.getFileRequest?.submissions?.items &&
             data.getFileRequest.submissions.items
@@ -174,47 +220,55 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         name,
                         createdAt,
                     }: {
-                        artist: string
-                        email: string
-                        name: string
-                        createdAt: Date
+                        artist: string;
+                        email: string;
+                        name: string;
+                        createdAt: Date;
                     }) =>
-                        [artist, email, name, format(new Date(createdAt), 'MM/dd/yyyy H:mm')].map((str?: string) =>
-                            str === null ? '' : `\"${str}\"`,
-                        ),
+                        [
+                            artist,
+                            email,
+                            name,
+                            format(new Date(createdAt), 'MM/dd/yyyy H:mm'),
+                        ].map((str?: string) => (str === null ? '' : `\"${str}\"`))
                 )
-                .join('\r\n')
+                .join('\r\n');
 
-        const headings = ['Artist', 'Email', 'Song', 'Uploaded'].join() + '\r\n'
+        const headings = ['Artist', 'Email', 'Song', 'Uploaded'].join() + '\r\n';
 
-        const content = headings.concat(rows)
+        const content = headings.concat(rows);
 
-        const file = new File([content], `${filename}.csv`, { type: 'data:text/csv;charset=utf-8' })
-        downloadBlob(file, `${filename}.csv`)
-        setSnackbarToggles({ [snackbarConstants.REPORT_SUCCESS]: true })
-    }
+        const file = new File([content], `${filename}.csv`, {
+            type: 'data:text/csv;charset=utf-8',
+        });
+        downloadBlob(file, `${filename}.csv`);
+        setSnackbarToggles({ [snackbarConstants.REPORT_SUCCESS]: true });
+    };
 
     const confirmEmailDownloadLink = () => {
-        setDialogToggles({ [dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]: true })
-    }
+        setDialogToggles({ [dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]: true });
+    };
 
     const emailDownloadLink = async () => {
         try {
-            const email = user?.email
+            const email = user?.email;
             await API.graphql({
                 ...graphqlOperation(runProcessAudioTask, {
                     assignmentId,
                     email,
-                    options: { stripMetadataForSoundCloud: downloadLinkOptions.stripMetadataForSoundCloud },
+                    options: {
+                        stripMetadataForSoundCloud:
+                            downloadLinkOptions.stripMetadataForSoundCloud,
+                    },
                 }),
-            })
-            setSnackbarToggles({ [snackbarConstants.EMAIL_SUCCESS]: true })
+            });
+            setSnackbarToggles({ [snackbarConstants.EMAIL_SUCCESS]: true });
         } catch (err) {
-            console.error(err)
-            setSnackbarToggles({ [snackbarConstants.EMAIL_FAILURE]: true })
+            console.error(err);
+            setSnackbarToggles({ [snackbarConstants.EMAIL_FAILURE]: true });
         }
-        setDialogToggles({})
-    }
+        setDialogToggles({});
+    };
 
     const columns: GridColDef[] = [
         {
@@ -239,21 +293,22 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             width: 160,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
-            valueFormatter: ({ value = '' }: ColDef) => value && format(new Date(value), 'MM/dd/yyyy H:mm'),
+            valueFormatter: ({ value = '' }: ColDef) =>
+                value && format(new Date(value), 'MM/dd/yyyy H:mm'),
         },
-    ]
+    ];
 
     const sortModel = [
         {
             field: 'createdAt',
             sort: 'desc' as SortDirection,
         },
-    ]
+    ];
 
-    if (error) return <Error errorMessage={error} />
-    if (loading) return <CircularProgress />
+    if (error) return <Error errorMessage={error} />;
+    if (loading) return <CircularProgress />;
     if (!loading && !data?.getFileRequest?.submissions?.items)
-        return <p>Assignment does not exist or has been deleted.</p>
+        return <p>Assignment does not exist or has been deleted.</p>;
 
     const menuItems = [
         {
@@ -269,30 +324,41 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
             onClick: confirmEmailDownloadLink,
         },
         {
-            icon: downloadLoading ? <CircularProgress size={20} color="secondary" /> : <CloudDownload />,
+            icon: downloadLoading ? (
+                <CircularProgress size={20} color="secondary" />
+            ) : (
+                <CloudDownload />
+            ),
             text: downloadLoading ? 'Downloading...' : 'Download Selected',
             key: 'downloadSelected',
             onClick: onDownloadSelected,
         },
-    ]
+    ];
 
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
                 <AppBreadcrumbs
-                    paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.assignment]}
+                    paths={[
+                        ROUTE_NAMES.home,
+                        ROUTE_NAMES.assignments,
+                        ROUTE_NAMES.assignment,
+                    ]}
                     workshopId={data?.getFileRequest?.workshopId}
                     assignment={data?.getFileRequest}
                 />
             </Grid>
             <>
-                <Dialog maxWidth="xs" open={!!dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}>
+                <Dialog
+                    maxWidth="xs"
+                    open={!!dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}
+                >
                     <DialogTitle>Email yourself a download link</DialogTitle>
 
                     <DialogContent dividers>
                         <Typography>
-                            This will process and zip all tracks for this submission and send you ({user?.email || ''})
-                            a temporary download link.
+                            This will process and zip all tracks for this submission and send
+                            you ({user?.email || ''}) a temporary download link.
                         </Typography>
                     </DialogContent>
                     <DialogContent dividers>
@@ -306,7 +372,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                         onChange={(e) =>
                                             setDownloadLinkOptions((prevState) => ({
                                                 ...prevState,
-                                                stripMetadataForSoundCloud: !downloadLinkOptions.stripMetadataForSoundCloud,
+                                                stripMetadataForSoundCloud:
+                                                    !downloadLinkOptions.stripMetadataForSoundCloud,
                                             }))
                                         }
                                     />
@@ -347,14 +414,18 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     <Grid container>
                         <Grid item xs={6} md={8}>
                             <Typography variant="h6" component="h3">
-                                <Link to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}>
+                                <Link
+                                    to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                >
                                     <em>
                                         {data?.getFileRequest.title ? (
                                             data.getFileRequest.title
                                         ) : (
                                             <>
                                                 {window.origin}
-                                                {ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                                {ROUTE_NAMES.newPublicSubmission.getPath({
+                                                    assignmentId,
+                                                })}
                                             </>
                                         )}
                                     </em>
@@ -362,26 +433,43 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                             </Typography>
                         </Grid>
                         <GroupGuard groups={[Group.admin]}>
-                            <Grid item xs={6} md={4} sx={{ textAlign: 'right', display: 'flex', justifyContent: 'end', flexWrap: 'wrap' }}>
+                            <Grid
+                                item
+                                xs={6}
+                                md={4}
+                                sx={{
+                                    textAlign: 'right',
+                                    display: 'flex',
+                                    justifyContent: 'end',
+                                    flexWrap: 'wrap',
+                                }}
+                            >
                                 <IconButton
                                     color="secondary"
                                     aria-label="Copy"
                                     component="span"
                                     onClick={() =>
                                         copyToClipboard(
-                                            `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({
+                                            `${window.origin
+                                            }${ROUTE_NAMES.newPublicSubmission.getPath({
                                                 assignmentId,
-                                            })}`,
+                                            })}`
                                         )
                                     }
-                                    size="large">
+                                    size="large"
+                                >
                                     <FileCopy />
                                 </IconButton>
                                 <IconButton
                                     color="secondary"
                                     aria-label="Extensions"
-                                    onClick={() => setDialogToggles({ [dialogConstants.EDIT_EXTENSIONS]: true })}
-                                    size="large">
+                                    onClick={() =>
+                                        setDialogToggles({
+                                            [dialogConstants.EDIT_EXTENSIONS]: true,
+                                        })
+                                    }
+                                    size="large"
+                                >
                                     <MoreTime />
                                 </IconButton>
                                 <IconButton
@@ -389,7 +477,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                                     aria-label="Edit"
                                     component={Link}
                                     to="edit"
-                                    size="large">
+                                    size="large"
+                                >
                                     <Edit />
                                 </IconButton>
                             </Grid>
@@ -397,7 +486,9 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                         {data?.getFileRequest?.details && (
                             <Grid item xs={12}>
                                 <div
-                                    dangerouslySetInnerHTML={{ __html: data?.getFileRequest.details }}
+                                    dangerouslySetInnerHTML={{
+                                        __html: data?.getFileRequest.details,
+                                    }}
                                     style={{ width: '100%' }}
                                 />
                             </Grid>
@@ -407,48 +498,81 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                 <Grid item xs={7}>
                     <Typography variant="h6" component="h3">
                         {viewAdmin ? 'Submissions' : 'My Submissions'}{' '}
-                        <Badge badgeContent={rows.length || 0} color="secondary" >
+                        <Badge badgeContent={rows.length || 0} color="secondary">
                             <AssignmentTurnedIn />
                         </Badge>
                     </Typography>
                 </Grid>
                 <Grid item xs={5} sx={{ textAlign: 'right', p: 0, pl: 0, pb: 0 }}>
                     <If condition={viewAdmin || isExpired}>
-                        <IconButton
-                            color="secondary"
-                            aria-label="Playlist"
-                            component={Link}
-                            to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
-                            size="medium"
-                            disabled={!data?.getFileRequest?.submissions?.items?.length}
-                        >
-                            <PlayArrowTwoTone />
-                        </IconButton>
+                        {sm ? (
+                            <Button
+                                color="secondary"
+                                aria-label="Playlist"
+                                component={Link}
+                                to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
+                                size="medium"
+                                disabled={!data?.getFileRequest?.submissions?.items?.length}
+                                startIcon={<PlayArrowTwoTone />}
+                            >
+                                Play
+                            </Button>
+                        ) : (
+                            <IconButton
+                                color="secondary"
+                                aria-label="Playlist"
+                                component={Link}
+                                to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
+                                size="medium"
+                                disabled={!data?.getFileRequest?.submissions?.items?.length}
+                            >
+                                <PlayArrowTwoTone />
+                            </IconButton>
+                        )}
                     </If>
                     <If condition={viewAdmin || !isExpired}>
-                        <IconButton
-                            color="secondary"
-                            aria-label="New Submission"
-                            component={Link}
-                            to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
-                            size="medium">
-                            <Add />
-                        </IconButton>
+                        {sm ? (
+                            <Button
+                                color="secondary"
+                                aria-label="New Submission"
+                                component={Link}
+                                to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                size="medium"
+                                startIcon={<Add />}
+                            >
+                                Submit
+                            </Button>
+                        ) : (
+                            <IconButton
+                                color="secondary"
+                                aria-label="New Submission"
+                                component={Link}
+                                to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                size="medium"
+                            >
+                                <Add />
+                            </IconButton>
+                        )}
                     </If>
                     <GroupGuard groups={[Group.admin]}>
-                        {data.getFileRequest.submissions.items.length ? <Menu size="medium" items={menuItems} /> : null}
+                        {data.getFileRequest.submissions.items.length ? (
+                            <Menu size="medium" items={menuItems} />
+                        ) : null}
                     </GroupGuard>
                 </Grid>
-                <Grid item xs={12} style={{ minHeight: 600, width: '100%', paddingTop: 0 }}>
+                <Grid
+                    item
+                    xs={12}
+                    style={{ minHeight: 600, width: '100%', paddingTop: 0 }}
+                >
                     <DataGrid
                         checkboxSelection
                         rows={rows}
                         columns={columns}
                         sortModel={sortModel}
                         onRowSelectionModelChange={(selection: GridRowSelectionModel) => {
-                            setSelectedRows(selection)
-                        }
-                        }
+                            setSelectedRows(selection);
+                        }}
                         initialState={{
                             sorting: {
                                 sortModel: [{ field: 'createdAt', sort: 'desc' }],
@@ -457,11 +581,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({ assignmentId = '' }) 
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <FeedbackSection assignmentId={assignmentId} showAll={viewAdmin || isExpired} />
+                    <FeedbackSection
+                        assignmentId={assignmentId}
+                        showAll={viewAdmin || isExpired}
+                    />
                 </Grid>
             </>
         </Grid>
     );
-}
+};
 
-export default Submissions
+export default Submissions;
