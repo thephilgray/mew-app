@@ -36,6 +36,7 @@
     "gatsby-plugin-sharp": "^4.24.0",
     "gatsby-source-filesystem": "4.24.0",
     "gatsby-transformer-sharp": "^4.24.0",
+    "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-easy-crop": "^4.7.4",

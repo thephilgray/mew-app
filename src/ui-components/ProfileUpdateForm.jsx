@@ -14,7 +14,7 @@ import { DataStore } from "aws-amplify";
 export default function ProfileUpdateForm(props) {
   const {
     email: emailProp,
-    profile: profileModelProp,
+    profile,
     onSuccess,
     onError,
     onSubmit,
@@ -26,16 +26,12 @@ export default function ProfileUpdateForm(props) {
   const initialValues = {
     email: "",
     name: "",
-    displayName: "",
     avatar: "",
     bio: "",
     sub: "",
   };
   const [email, setEmail] = React.useState(initialValues.email);
   const [name, setName] = React.useState(initialValues.name);
-  const [displayName, setDisplayName] = React.useState(
-    initialValues.displayName
-  );
   const [avatar, setAvatar] = React.useState(initialValues.avatar);
   const [bio, setBio] = React.useState(initialValues.bio);
   const [sub, setSub] = React.useState(initialValues.sub);
@@ -46,27 +42,25 @@ export default function ProfileUpdateForm(props) {
       : initialValues;
     setEmail(cleanValues.email);
     setName(cleanValues.name);
-    setDisplayName(cleanValues.displayName);
     setAvatar(cleanValues.avatar);
     setBio(cleanValues.bio);
     setSub(cleanValues.sub);
     setErrors({});
   };
-  const [profileRecord, setProfileRecord] = React.useState(profileModelProp);
+  const [profileRecord, setProfileRecord] = React.useState(profile);
   React.useEffect(() => {
     const queryData = async () => {
       const record = emailProp
         ? await DataStore.query(Profile, emailProp)
-        : profileModelProp;
+        : profile;
       setProfileRecord(record);
     };
     queryData();
-  }, [emailProp, profileModelProp]);
+  }, [emailProp, profile]);
   React.useEffect(resetStateValues, [profileRecord]);
   const validations = {
     email: [{ type: "Required" }],
     name: [],
-    displayName: [],
     avatar: [],
     bio: [],
     sub: [],
@@ -76,10 +70,9 @@ export default function ProfileUpdateForm(props) {
     currentValue,
     getDisplayValue
   ) => {
-    const value =
-      currentValue && getDisplayValue
-        ? getDisplayValue(currentValue)
-        : currentValue;
+    const value = getDisplayValue
+      ? getDisplayValue(currentValue)
+      : currentValue;
     let validationResponse = validateField(value, validations[fieldName]);
     const customValidator = fetchByPath(onValidate, fieldName);
     if (customValidator) {
@@ -99,7 +92,6 @@ export default function ProfileUpdateForm(props) {
         let modelFields = {
           email,
           name,
-          displayName,
           avatar,
           bio,
           sub,
@@ -160,7 +152,6 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email: value,
               name,
-              displayName,
               avatar,
               bio,
               sub,
@@ -189,7 +180,6 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email,
               name: value,
-              displayName,
               avatar,
               bio,
               sub,
@@ -208,35 +198,6 @@ export default function ProfileUpdateForm(props) {
         {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
-        label="Display name"
-        isRequired={false}
-        isReadOnly={false}
-        value={displayName}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              email,
-              name,
-              displayName: value,
-              avatar,
-              bio,
-              sub,
-            };
-            const result = onChange(modelFields);
-            value = result?.displayName ?? value;
-          }
-          if (errors.displayName?.hasError) {
-            runValidationTasks("displayName", value);
-          }
-          setDisplayName(value);
-        }}
-        onBlur={() => runValidationTasks("displayName", displayName)}
-        errorMessage={errors.displayName?.errorMessage}
-        hasError={errors.displayName?.hasError}
-        {...getOverrideProps(overrides, "displayName")}
-      ></TextField>
-      <TextField
         label="Avatar"
         isRequired={false}
         isReadOnly={false}
@@ -247,7 +208,6 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email,
               name,
-              displayName,
               avatar: value,
               bio,
               sub,
@@ -276,7 +236,6 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email,
               name,
-              displayName,
               avatar,
               bio: value,
               sub,
@@ -305,7 +264,6 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email,
               name,
-              displayName,
               avatar,
               bio,
               sub: value,
@@ -334,7 +292,7 @@ export default function ProfileUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(emailProp || profileModelProp)}
+          isDisabled={!(emailProp || profile)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -346,7 +304,7 @@ export default function ProfileUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(emailProp || profileModelProp) ||
+              !(emailProp || profile) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

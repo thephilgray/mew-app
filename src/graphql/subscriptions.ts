@@ -45,6 +45,93 @@ export const onCreateAPIKey = /* GraphQL */ `
           }
           nextToken
         }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         memberships {
           items {
             id
@@ -54,8 +141,12 @@ export const onCreateAPIKey = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -136,6 +227,93 @@ export const onUpdateAPIKey = /* GraphQL */ `
           }
           nextToken
         }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         memberships {
           items {
             id
@@ -145,8 +323,12 @@ export const onUpdateAPIKey = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -227,6 +409,93 @@ export const onDeleteAPIKey = /* GraphQL */ `
           }
           nextToken
         }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         memberships {
           items {
             id
@@ -236,8 +505,12 @@ export const onDeleteAPIKey = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -350,8 +623,12 @@ export const onCreateFileRequest = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -365,6 +642,34 @@ export const onCreateFileRequest = /* GraphQL */ `
           artist
           name
           email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           fileId
           fileExtension
           rating
@@ -397,6 +702,7 @@ export const onCreateFileRequest = /* GraphQL */ `
       workshop {
         id
         name
+        email
         fileRequests {
           items {
             id
@@ -415,8 +721,12 @@ export const onCreateFileRequest = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -446,6 +756,17 @@ export const onCreateFileRequest = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -475,6 +796,85 @@ export const onCreateFileRequest = /* GraphQL */ `
             serverPrefix
           }
         }
+        description
+        artwork {
+          id
+          path
+          credit
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+            }
+            nextToken
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        startDate
+        endDate
         memberships {
           items {
             id
@@ -484,8 +884,12 @@ export const onCreateFileRequest = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -571,8 +975,12 @@ export const onUpdateFileRequest = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -586,6 +994,34 @@ export const onUpdateFileRequest = /* GraphQL */ `
           artist
           name
           email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           fileId
           fileExtension
           rating
@@ -618,6 +1054,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
       workshop {
         id
         name
+        email
         fileRequests {
           items {
             id
@@ -636,8 +1073,12 @@ export const onUpdateFileRequest = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -667,6 +1108,17 @@ export const onUpdateFileRequest = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -696,6 +1148,85 @@ export const onUpdateFileRequest = /* GraphQL */ `
             serverPrefix
           }
         }
+        description
+        artwork {
+          id
+          path
+          credit
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+            }
+            nextToken
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        startDate
+        endDate
         memberships {
           items {
             id
@@ -705,8 +1236,12 @@ export const onUpdateFileRequest = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -792,8 +1327,12 @@ export const onDeleteFileRequest = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -807,6 +1346,34 @@ export const onDeleteFileRequest = /* GraphQL */ `
           artist
           name
           email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           fileId
           fileExtension
           rating
@@ -839,6 +1406,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
       workshop {
         id
         name
+        email
         fileRequests {
           items {
             id
@@ -857,8 +1425,12 @@ export const onDeleteFileRequest = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -888,6 +1460,17 @@ export const onDeleteFileRequest = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -917,6 +1500,85 @@ export const onDeleteFileRequest = /* GraphQL */ `
             serverPrefix
           }
         }
+        description
+        artwork {
+          id
+          path
+          credit
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+            }
+            nextToken
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        startDate
+        endDate
         memberships {
           items {
             id
@@ -926,8 +1588,12 @@ export const onDeleteFileRequest = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -1012,6 +1678,17 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -1034,6 +1711,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
         workshop {
           id
           name
+          email
           fileRequests {
             items {
               id
@@ -1075,6 +1753,42 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
               serverPrefix
             }
           }
+          description
+          artwork {
+            id
+            path
+            credit
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          startDate
+          endDate
           memberships {
             items {
               id
@@ -1106,6 +1820,176 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
       artist
       name
       email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            updatedAt
+          }
+          nextToken
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            mailchimp {
+              id
+              emailAddress
+              status
+              fullName
+              uniqueEmailId
+              contactId
+            }
+            submissions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       fileId
       fileExtension
       rating
@@ -1128,6 +2012,12 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             bio
             sub
             apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
               nextToken
             }
             memberships {
@@ -1153,6 +2043,17 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -1188,8 +2089,12 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -1254,6 +2159,17 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -1276,6 +2192,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
         workshop {
           id
           name
+          email
           fileRequests {
             items {
               id
@@ -1317,6 +2234,42 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
               serverPrefix
             }
           }
+          description
+          artwork {
+            id
+            path
+            credit
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          startDate
+          endDate
           memberships {
             items {
               id
@@ -1348,6 +2301,176 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
       artist
       name
       email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            updatedAt
+          }
+          nextToken
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            mailchimp {
+              id
+              emailAddress
+              status
+              fullName
+              uniqueEmailId
+              contactId
+            }
+            submissions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       fileId
       fileExtension
       rating
@@ -1370,6 +2493,12 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             bio
             sub
             apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
               nextToken
             }
             memberships {
@@ -1395,6 +2524,17 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -1430,8 +2570,12 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -1496,6 +2640,17 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -1518,6 +2673,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
         workshop {
           id
           name
+          email
           fileRequests {
             items {
               id
@@ -1559,6 +2715,42 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
               serverPrefix
             }
           }
+          description
+          artwork {
+            id
+            path
+            credit
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          startDate
+          endDate
           memberships {
             items {
               id
@@ -1590,6 +2782,176 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
       artist
       name
       email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            updatedAt
+          }
+          nextToken
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            mailchimp {
+              id
+              emailAddress
+              status
+              fullName
+              uniqueEmailId
+              contactId
+            }
+            submissions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       fileId
       fileExtension
       rating
@@ -1612,6 +2974,12 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             bio
             sub
             apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
               nextToken
             }
             memberships {
@@ -1637,6 +3005,17 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -1672,8 +3051,12 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -1715,6 +3098,7 @@ export const onCreateMembership = /* GraphQL */ `
       workshop {
         id
         name
+        email
         fileRequests {
           items {
             id
@@ -1733,8 +3117,12 @@ export const onCreateMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -1764,6 +3152,17 @@ export const onCreateMembership = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -1793,6 +3192,85 @@ export const onCreateMembership = /* GraphQL */ `
             serverPrefix
           }
         }
+        description
+        artwork {
+          id
+          path
+          credit
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+            }
+            nextToken
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        startDate
+        endDate
         memberships {
           items {
             id
@@ -1802,8 +3280,12 @@ export const onCreateMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -1872,6 +3354,93 @@ export const onCreateMembership = /* GraphQL */ `
           }
           nextToken
         }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         memberships {
           items {
             id
@@ -1881,8 +3450,12 @@ export const onCreateMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -1949,8 +3522,12 @@ export const onCreateMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -1964,6 +3541,34 @@ export const onCreateMembership = /* GraphQL */ `
           artist
           name
           email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           fileId
           fileExtension
           rating
@@ -2010,6 +3615,7 @@ export const onUpdateMembership = /* GraphQL */ `
       workshop {
         id
         name
+        email
         fileRequests {
           items {
             id
@@ -2028,8 +3634,12 @@ export const onUpdateMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2059,6 +3669,17 @@ export const onUpdateMembership = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -2088,6 +3709,85 @@ export const onUpdateMembership = /* GraphQL */ `
             serverPrefix
           }
         }
+        description
+        artwork {
+          id
+          path
+          credit
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+            }
+            nextToken
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        startDate
+        endDate
         memberships {
           items {
             id
@@ -2097,8 +3797,12 @@ export const onUpdateMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2167,6 +3871,93 @@ export const onUpdateMembership = /* GraphQL */ `
           }
           nextToken
         }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         memberships {
           items {
             id
@@ -2176,8 +3967,12 @@ export const onUpdateMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2244,8 +4039,12 @@ export const onUpdateMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2259,6 +4058,34 @@ export const onUpdateMembership = /* GraphQL */ `
           artist
           name
           email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           fileId
           fileExtension
           rating
@@ -2305,6 +4132,7 @@ export const onDeleteMembership = /* GraphQL */ `
       workshop {
         id
         name
+        email
         fileRequests {
           items {
             id
@@ -2323,8 +4151,12 @@ export const onDeleteMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2354,6 +4186,17 @@ export const onDeleteMembership = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -2383,6 +4226,85 @@ export const onDeleteMembership = /* GraphQL */ `
             serverPrefix
           }
         }
+        description
+        artwork {
+          id
+          path
+          credit
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+            }
+            nextToken
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        startDate
+        endDate
         memberships {
           items {
             id
@@ -2392,8 +4314,12 @@ export const onDeleteMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2462,6 +4388,93 @@ export const onDeleteMembership = /* GraphQL */ `
           }
           nextToken
         }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         memberships {
           items {
             id
@@ -2471,8 +4484,12 @@ export const onDeleteMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2539,8 +4556,12 @@ export const onDeleteMembership = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2554,6 +4575,34 @@ export const onDeleteMembership = /* GraphQL */ `
           artist
           name
           email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           fileId
           fileExtension
           rating
@@ -2593,6 +4642,7 @@ export const onCreateWorkshop = /* GraphQL */ `
     onCreateWorkshop(filter: $filter) {
       id
       name
+      email
       fileRequests {
         items {
           id
@@ -2626,6 +4676,7 @@ export const onCreateWorkshop = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -2634,6 +4685,25 @@ export const onCreateWorkshop = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -2677,8 +4747,12 @@ export const onCreateWorkshop = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2692,6 +4766,34 @@ export const onCreateWorkshop = /* GraphQL */ `
           artist
           name
           email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           fileId
           fileExtension
           rating
@@ -2731,6 +4833,184 @@ export const onCreateWorkshop = /* GraphQL */ `
           serverPrefix
         }
       }
+      description
+      artwork {
+        id
+        path
+        credit
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            updatedAt
+          }
+          nextToken
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            mailchimp {
+              id
+              emailAddress
+              status
+              fullName
+              uniqueEmailId
+              contactId
+            }
+            submissions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      startDate
+      endDate
       memberships {
         items {
           id
@@ -2740,6 +5020,7 @@ export const onCreateWorkshop = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -2748,6 +5029,25 @@ export const onCreateWorkshop = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -2768,6 +5068,12 @@ export const onCreateWorkshop = /* GraphQL */ `
             bio
             sub
             apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
               nextToken
             }
             memberships {
@@ -2821,6 +5127,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
     onUpdateWorkshop(filter: $filter) {
       id
       name
+      email
       fileRequests {
         items {
           id
@@ -2854,6 +5161,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -2862,6 +5170,25 @@ export const onUpdateWorkshop = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -2905,8 +5232,12 @@ export const onUpdateWorkshop = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -2920,6 +5251,34 @@ export const onUpdateWorkshop = /* GraphQL */ `
           artist
           name
           email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           fileId
           fileExtension
           rating
@@ -2959,6 +5318,184 @@ export const onUpdateWorkshop = /* GraphQL */ `
           serverPrefix
         }
       }
+      description
+      artwork {
+        id
+        path
+        credit
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            updatedAt
+          }
+          nextToken
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            mailchimp {
+              id
+              emailAddress
+              status
+              fullName
+              uniqueEmailId
+              contactId
+            }
+            submissions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      startDate
+      endDate
       memberships {
         items {
           id
@@ -2968,6 +5505,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -2976,6 +5514,25 @@ export const onUpdateWorkshop = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -2996,6 +5553,12 @@ export const onUpdateWorkshop = /* GraphQL */ `
             bio
             sub
             apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
               nextToken
             }
             memberships {
@@ -3049,6 +5612,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
     onDeleteWorkshop(filter: $filter) {
       id
       name
+      email
       fileRequests {
         items {
           id
@@ -3082,6 +5646,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -3090,6 +5655,25 @@ export const onDeleteWorkshop = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -3133,8 +5717,12 @@ export const onDeleteWorkshop = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -3148,6 +5736,34 @@ export const onDeleteWorkshop = /* GraphQL */ `
           artist
           name
           email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           fileId
           fileExtension
           rating
@@ -3187,6 +5803,184 @@ export const onDeleteWorkshop = /* GraphQL */ `
           serverPrefix
         }
       }
+      description
+      artwork {
+        id
+        path
+        credit
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            updatedAt
+          }
+          nextToken
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            mailchimp {
+              id
+              emailAddress
+              status
+              fullName
+              uniqueEmailId
+              contactId
+            }
+            submissions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      startDate
+      endDate
       memberships {
         items {
           id
@@ -3196,6 +5990,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -3204,6 +5999,25 @@ export const onDeleteWorkshop = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -3224,6 +6038,12 @@ export const onDeleteWorkshop = /* GraphQL */ `
             bio
             sub
             apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
               nextToken
             }
             memberships {
@@ -3310,12 +6130,213 @@ export const onCreateProfile = /* GraphQL */ `
             apiKeys {
               nextToken
             }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
             memberships {
               nextToken
             }
             createdAt
             updatedAt
           }
+          updatedAt
+        }
+        nextToken
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            items {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          status
+          passes
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          startDate
+          endDate
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            expiration
+            title
+            details
+            required
+            artwork {
+              id
+              path
+              credit
+            }
+            submissions {
+              nextToken
+            }
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            workshopId
+            extensions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            items {
+              id
+              content
+              email
+              submissionId
+              assignmentId
+              parentId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          artwork {
+            id
+            path
+            credit
+          }
+          lyrics
+          requestFeedback
+          workshopId
+          createdAt
           updatedAt
         }
         nextToken
@@ -3329,6 +6350,7 @@ export const onCreateProfile = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -3337,6 +6359,25 @@ export const onCreateProfile = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -3357,6 +6398,12 @@ export const onCreateProfile = /* GraphQL */ `
             bio
             sub
             apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
               nextToken
             }
             memberships {
@@ -3443,12 +6490,213 @@ export const onUpdateProfile = /* GraphQL */ `
             apiKeys {
               nextToken
             }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
             memberships {
               nextToken
             }
             createdAt
             updatedAt
           }
+          updatedAt
+        }
+        nextToken
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            items {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          status
+          passes
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          startDate
+          endDate
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            expiration
+            title
+            details
+            required
+            artwork {
+              id
+              path
+              credit
+            }
+            submissions {
+              nextToken
+            }
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            workshopId
+            extensions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            items {
+              id
+              content
+              email
+              submissionId
+              assignmentId
+              parentId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          artwork {
+            id
+            path
+            credit
+          }
+          lyrics
+          requestFeedback
+          workshopId
+          createdAt
           updatedAt
         }
         nextToken
@@ -3462,6 +6710,7 @@ export const onUpdateProfile = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -3470,6 +6719,25 @@ export const onUpdateProfile = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -3490,6 +6758,12 @@ export const onUpdateProfile = /* GraphQL */ `
             bio
             sub
             apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
               nextToken
             }
             memberships {
@@ -3576,12 +6850,213 @@ export const onDeleteProfile = /* GraphQL */ `
             apiKeys {
               nextToken
             }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
             memberships {
               nextToken
             }
             createdAt
             updatedAt
           }
+          updatedAt
+        }
+        nextToken
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            items {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          status
+          passes
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          startDate
+          endDate
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            expiration
+            title
+            details
+            required
+            artwork {
+              id
+              path
+              credit
+            }
+            submissions {
+              nextToken
+            }
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            workshopId
+            extensions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            items {
+              id
+              content
+              email
+              submissionId
+              assignmentId
+              parentId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          artwork {
+            id
+            path
+            credit
+          }
+          lyrics
+          requestFeedback
+          workshopId
+          createdAt
           updatedAt
         }
         nextToken
@@ -3595,6 +7070,7 @@ export const onDeleteProfile = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -3603,6 +7079,25 @@ export const onDeleteProfile = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -3623,6 +7118,12 @@ export const onDeleteProfile = /* GraphQL */ `
             bio
             sub
             apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
               nextToken
             }
             memberships {
@@ -3712,6 +7213,93 @@ export const onCreateComment = /* GraphQL */ `
           }
           nextToken
         }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         memberships {
           items {
             id
@@ -3721,8 +7309,12 @@ export const onCreateComment = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -3792,6 +7384,7 @@ export const onCreateComment = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -3800,6 +7393,25 @@ export const onCreateComment = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -3823,6 +7435,77 @@ export const onCreateComment = /* GraphQL */ `
         artist
         name
         email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+            }
+            nextToken
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         fileId
         fileExtension
         rating
@@ -3915,6 +7598,17 @@ export const onCreateComment = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -3937,6 +7631,7 @@ export const onCreateComment = /* GraphQL */ `
         workshop {
           id
           name
+          email
           fileRequests {
             items {
               id
@@ -3978,6 +7673,42 @@ export const onCreateComment = /* GraphQL */ `
               serverPrefix
             }
           }
+          description
+          artwork {
+            id
+            path
+            credit
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          startDate
+          endDate
           memberships {
             items {
               id
@@ -4053,6 +7784,93 @@ export const onUpdateComment = /* GraphQL */ `
           }
           nextToken
         }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         memberships {
           items {
             id
@@ -4062,8 +7880,12 @@ export const onUpdateComment = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -4133,6 +7955,7 @@ export const onUpdateComment = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -4141,6 +7964,25 @@ export const onUpdateComment = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -4164,6 +8006,77 @@ export const onUpdateComment = /* GraphQL */ `
         artist
         name
         email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+            }
+            nextToken
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         fileId
         fileExtension
         rating
@@ -4256,6 +8169,17 @@ export const onUpdateComment = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -4278,6 +8202,7 @@ export const onUpdateComment = /* GraphQL */ `
         workshop {
           id
           name
+          email
           fileRequests {
             items {
               id
@@ -4319,6 +8244,42 @@ export const onUpdateComment = /* GraphQL */ `
               serverPrefix
             }
           }
+          description
+          artwork {
+            id
+            path
+            credit
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          startDate
+          endDate
           memberships {
             items {
               id
@@ -4394,6 +8355,93 @@ export const onDeleteComment = /* GraphQL */ `
           }
           nextToken
         }
+        workshops {
+          items {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            status
+            passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+            }
+            artwork {
+              id
+              path
+              credit
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         memberships {
           items {
             id
@@ -4403,8 +8451,12 @@ export const onDeleteComment = /* GraphQL */ `
             workshop {
               id
               name
+              email
               status
               passes
+              description
+              startDate
+              endDate
               createdAt
               updatedAt
             }
@@ -4474,6 +8526,7 @@ export const onDeleteComment = /* GraphQL */ `
           workshop {
             id
             name
+            email
             fileRequests {
               nextToken
             }
@@ -4482,6 +8535,25 @@ export const onDeleteComment = /* GraphQL */ `
             }
             status
             passes
+            description
+            artwork {
+              id
+              path
+              credit
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
+            startDate
+            endDate
             memberships {
               nextToken
             }
@@ -4505,6 +8577,77 @@ export const onDeleteComment = /* GraphQL */ `
         artist
         name
         email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+            }
+            nextToken
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         fileId
         fileExtension
         rating
@@ -4597,6 +8740,17 @@ export const onDeleteComment = /* GraphQL */ `
             artist
             name
             email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+            }
             fileId
             fileExtension
             rating
@@ -4619,6 +8773,7 @@ export const onDeleteComment = /* GraphQL */ `
         workshop {
           id
           name
+          email
           fileRequests {
             items {
               id
@@ -4660,6 +8815,42 @@ export const onDeleteComment = /* GraphQL */ `
               serverPrefix
             }
           }
+          description
+          artwork {
+            id
+            path
+            credit
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            apiKeys {
+              nextToken
+            }
+            workshops {
+              nextToken
+            }
+            submissions {
+              nextToken
+            }
+            memberships {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          startDate
+          endDate
           memberships {
             items {
               id
