@@ -110,6 +110,7 @@ type FileRequestSubmission
   name: String
   email: String
     @index(name: "submissionsByEmail", queryField: "submissionsByEmail")
+  profile: Profile @belongsTo(fields: ["email"])
   fileId: String
   fileExtension: String
   rating: Int
@@ -192,6 +193,7 @@ type Workshop
   ) {
   id: ID!
   name: String
+  email: String @index(name: "workshopsByEmail")
   fileRequests: [FileRequest]
     @hasMany(indexName: "fileRequestsByWorkshopId", fields: ["id"])
   submissions: [FileRequestSubmission]
@@ -199,6 +201,12 @@ type Workshop
   status: String
   passes: Int
   features: Features
+  description: String
+  artwork: Artwork
+  host: Profile @belongsTo(fields: ["email"])
+
+  startDate: AWSDateTime
+  endDate: AWSDateTime
   memberships: [Membership]
     @hasMany(indexName: "membershipsByWorkshopId", fields: ["id"])
 }
@@ -227,6 +235,10 @@ type Profile
   bio: String
   sub: String
   apiKeys: [APIKey] @hasMany(indexName: "apiKeysByEmail", fields: ["email"])
+  workshops: [Workshop]
+    @hasMany(indexName: "workshopsByEmail", fields: ["email"])
+  submissions: [FileRequestSubmission]
+    @hasMany(indexName: "submissionsByEmail", fields: ["email"])
   memberships: [Membership]
     @hasMany(indexName: "membershipsByEmail", fields: ["email"])
 }
