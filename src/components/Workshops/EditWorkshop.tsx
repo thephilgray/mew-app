@@ -9,10 +9,9 @@ import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import WorkshopForm from './WorkshopForm'
 import { add } from 'date-fns'
-import { useUser } from '../../auth/hooks'
+import { useProfile, useUser } from '../../auth/hooks'
 import { v4 as uuidv4 } from 'uuid';
 import { uploadImage } from '../ImagePicker'
-
 
 export default function EditWorkshop({ workshopId = '' }) {
     const { loading, error, data, refetch } = useQuery(gql(getWorkshop), {
@@ -20,6 +19,7 @@ export default function EditWorkshop({ workshopId = '' }) {
     })
 
     const user = useUser()
+    const profile = useProfile()
 
     const initialState = {
         name: '',

@@ -241,6 +241,7 @@ type Profile
     @hasMany(indexName: "submissionsByEmail", fields: ["email"])
   memberships: [Membership]
     @hasMany(indexName: "membershipsByEmail", fields: ["email"])
+  features: Features
 }
 
 type Comment
@@ -300,6 +301,9 @@ input MembershipServicePayload {
   mailchimpId: String
   mailchimpTags: [MailchimpTagInput]
   uniqueEmailId: String
+  mailchimpOauthCode: String
+  mailchimpClientId: String
+  mailchimpOauthCallback: String
 }
 
 type Mutation {

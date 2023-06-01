@@ -292,6 +292,14 @@
         }
       ]
     },
+    "AMPLIFY_function_membershipService_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "membershipService"
+        }
+      ]
+    },
     "AMPLIFY_function_mewProfileService_deploymentBucketName": {
       "usedBy": [
         {

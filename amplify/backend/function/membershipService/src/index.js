@@ -1,3 +1,4 @@
+// @ts-check
 /* Amplify Params - DO NOT EDIT
 	API_MEWAPP_GRAPHQLAPIENDPOINTOUTPUT
 	API_MEWAPP_GRAPHQLAPIIDOUTPUT
@@ -230,6 +231,59 @@ const updateProfile = /* GraphQL */ gql`
   }
 `;
 
+const createApiKey = /* GraphQL */ gql`
+  mutation CreateApiKey($keyName: String!, $email: String!, $profileID: ID!) {
+    createAPIKey(
+      input: { keyName: $keyName, email: $email, profileID: $profileID }
+    ) {
+      id
+    }
+  }
+`;
+
+const deleteApiKey = /* GraphQL */ gql`
+  mutation DeleteAPIKey($keyName: String!, $email: String!, $profileID: ID!) {
+    deleteAPIKey(
+      input: { keyName: $keyName, email: $email, profileID: $profileID }
+    ) {
+      id
+    }
+  }
+`;
+
+const updateProfileMailchimpIntegrationOnly = /* GraphQL */ gql`
+  mutation UpdateProfile(
+    $email: String!
+    $enabled: Boolean
+    $apiKeyName: String
+    $serverPrefix: String
+  ) {
+    updateProfile(
+      input: {
+        email: $email
+        features: {
+          mailchimp: {
+            enabled: $enabled
+            apiKeyName: $apiKeyName
+            serverPrefix: $serverPrefix
+          }
+        }
+      }
+    ) {
+      email
+      id
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+    }
+  }
+`;
+
 // const getMembershipsByWorkshopId = /* GraphQL */ gql`
 // query MembershipsByWorkshopId($workshopId:ID!) {
 //   membershipsByWorkshopId(workshopId: $workshopId){
@@ -429,7 +483,7 @@ async function setUserPassword({ userName }) {
 /** MAILCHIMP */
 
 let apiKey;
-async function getApiKey(Name) {
+async function getSecret(Name) {
   const ssm = new AWS.SSM({ region: process.env.REGION });
   const params = {
     Name,
@@ -445,9 +499,272 @@ async function getApiKey(Name) {
   return getParameterResult.Parameter.Value;
 }
 
+async function saveApiKey(email, profileID, apiKeyUpdate) {
+  // save key to parameter store
+  let error;
+  const params = {
+    Name: `/mewapp-${process.env.ENV}/${profileID}/${apiKeyUpdate.keyName}`,
+    Value: apiKeyUpdate.key,
+    Overwrite: false,
+    Type: 'SecureString',
+  };
+
+  try {
+    const ssm = new AWS.SSM({ region: process.env.REGION });
+
+    if (apiKeyUpdate.action === 'ADD') {
+      await ssm.putParameter(params).promise();
+    }
+
+    if (apiKeyUpdate.action === 'DELETE') {
+      await ssm.deleteParameter({ Name: params.Name }).promise();
+    }
+  } catch (exception) {
+    console.error(
+      `Something went wrong with SSM action ${apiKeyUpdate.action} for parameter named ${params.Name}`
+    );
+    error = exception;
+  }
+
+  if (error) {
+    return { error };
+  }
+
+  console.log(
+    `Successfully completed SSM action ${apiKeyUpdate.action} for parameter named ${params.Name}`
+  );
+
+  // api createApiKey with profileID and keyName
+
+  let crudApiKeyResult;
+
+  try {
+    let variables;
+
+    if (apiKeyUpdate.action === 'ADD') {
+      variables = {
+        keyName: params.Name,
+        email,
+        profileID,
+      };
+
+      crudApiKeyResult = await appSyncClient.mutate({
+        mutation: createApiKey,
+        variables,
+      });
+    }
+
+    if (apiKeyUpdate.action === 'DELETE') {
+      variables = {
+        keyId: apiKeyUpdate.keyId,
+      };
+
+      crudApiKeyResult = await appSyncClient.mutate({
+        mutation: deleteApiKey,
+        variables,
+      });
+    }
+  } catch (exception) {
+    console.error(
+      `Something went wrong with ${apiKeyUpdate.action} the API Key named ${params.Name} to profile.`
+    );
+    error = exception;
+  }
+
+  console.log(
+    `Successfully ${apiKeyUpdate.action} API Key with parameter named ${params.Name} to profile.`
+  );
+
+  if (error) {
+    return { error };
+  }
+
+  // crudApiKeyResult.data.createApiKey
+  return crudApiKeyResult;
+}
+
+async function connectMailchimpAppOauth({
+  emailAddress: email,
+  mailchimpOauthCode: code,
+  mailchimpOauthCallback: OAUTH_CALLBACK,
+  mailchimpClientId: MAILCHIMP_CLIENT_ID,
+}) {
+  const MAILCHIMP_CLIENT_SECRET = await getSecret(
+    `/amplify/d1yi6qc6rnncji/${process.env.ENV}/AMPLIFY_membershipService_MAILCHIMP_CLIENT_SECRET`
+  );
+  const profile = await ensureProfile({ email });
+  const profileID = profile && profile.id;
+
+  const tokenResponse = await fetch(
+    'https://login.mailchimp.com/oauth2/token',
+    {
+      method: 'POST',
+      body: new URLSearchParams({
+        grant_type: 'authorization_code',
+        client_id: MAILCHIMP_CLIENT_ID,
+        client_secret: MAILCHIMP_CLIENT_SECRET,
+        redirect_uri: OAUTH_CALLBACK,
+        code,
+      }),
+    }
+  );
+
+  const { access_token } = await tokenResponse.json();
+  console.log({ access_token });
+
+  const metadataResponse = await fetch(
+    'https://login.mailchimp.com/oauth2/metadata',
+    {
+      headers: {
+        Authorization: `OAuth ${access_token}`,
+      },
+    }
+  );
+
+  const { dc } = await metadataResponse.json();
+  console.log({ dc });
+
+  mailchimp.setConfig({
+    accessToken: access_token,
+    server: dc,
+  });
+
+  const response = await mailchimp.ping.get();
+  console.log(response);
+
+  await saveApiKey(email, profileID, {
+    action: 'ADD',
+    keyName: 'MAILCHIMP',
+    key: access_token,
+  });
+
+  let updateGraphqlData;
+
+  try {
+    const variables = {
+      email,
+      enabled: true,
+      apiKeyName: 'MAILCHIMP',
+      serverPrefix: dc,
+    };
+
+    updateGraphqlData = await appSyncClient.mutate({
+      mutation: updateProfileMailchimpIntegrationOnly,
+      variables,
+    });
+
+    console.log(updateGraphqlData);
+
+    if (
+      updateGraphqlData &&
+      updateGraphqlData.data &&
+      (updateGraphqlData.data.errors || !updateGraphqlData.data.updateProfile)
+    ) {
+      console.log(updateGraphqlData.data.errors);
+      throw updateGraphqlData.data.errors;
+    }
+  } catch (error) {
+    console.log('ERROR with updateProfileQuery');
+    throw error;
+  }
+}
+
+/**
+
+TODO: flow for saving mailchimp oauth2 access token
+
+// action: CONNECT_MAILCHIMP
+// code
+// email
+// profileID
+// 
+
+
+get MAILCHIMP_CLIENT_ID amplify env vars for prod or fallback to nonprod client_id – or we could send it from the frontend
+
+get MAILCHIMP_CLIENT_SECRET from ssm – there is only one MAILCHIMP_API_KEY
+getSecret('MAILCHIMP_API_KEY') will do this
+
+
+OAUTH_CALLBACK – hardcoded
+
+
+  // Here we're exchanging the temporary code for the user's access token.
+  const tokenResponse = await fetch(
+    "https://login.mailchimp.com/oauth2/token",
+    {
+      method: "POST",
+      body: new URLSearchParams({
+        grant_type: "authorization_code",
+        client_id: MAILCHIMP_CLIENT_ID,
+        client_secret: MAILCHIMP_CLIENT_SECRET,
+        redirect_uri: OAUTH_CALLBACK,
+        code
+      })
+    }
+  );
+
+  const { access_token } = await tokenResponse.json();
+  console.log(access_token);
+
+  // Now we're using the access token to get information about the user.
+  // Specifically, we want to get the user's server prefix, which we'll use to
+  // make calls to the API on their behalf.  This prefix will change from user
+  // to user.
+  const metadataResponse = await fetch(
+    "https://login.mailchimp.com/oauth2/metadata",
+    {
+      headers: {
+        Authorization: `OAuth ${access_token}`
+      }
+    }
+  );
+
+  const { dc } = await metadataResponse.json();
+  console.log(dc);
+
+  // Below, we're using the access token and server prefix to make an
+  // authenticated request on behalf of the user who just granted OAuth access.
+  // You wouldn't keep this in your production code, but it's here to
+  // demonstrate how the call is made.
+
+  mailchimp.setConfig({
+    accessToken: access_token,
+    server: dc
+  });
+
+  const response = await mailchimp.ping.get();
+  console.log(response);
+
+
+  // on success, save the access token to the user's profile
+  saveApiKey(email, profileID, {
+    action: 'ADD',
+    keyName: 'MAILCHIMP',
+    key: access_token
+  })
+
+
+  // create new MailchimpIntegration on the Profile
+  enabled: true
+  apiKeyName: MAILCHIMP
+  // listId: String – unknown
+  serverPrefix: dc
+
+  we will use the `enabled` value to either show the switch or show the button to connect to mailchimp on the workshop form; 
+  on the profile page, it will determine the state of the button to either connect to mailchimp or remove connection
+
+  when we remove a connection, we might need special handling – remove or disable from all workshops – maybe don't include remove with MVP 
+
+// later, when the user goes to the workshop and enables the mailchimp integration, they only need to know the listId
+// we will pre-populate the other values, apiKeyName and serverPrefix, from their profile
+// the rest of the existing stuff should work normally, except we want to mailchimp.setConfig with accessToken: apiKey
+
+*/
+
 async function getMailchimpMembers({ apiKeyName, serverPrefix, listId }) {
   if (!apiKey) {
-    apiKey = await getApiKey(apiKeyName);
+    apiKey = await getSecret(apiKeyName);
     mailchimp.setConfig({
       apiKey,
       server: serverPrefix,
@@ -471,7 +788,7 @@ async function getMailchimpMember({
   emailAddress,
 }) {
   if (!apiKey) {
-    apiKey = await getApiKey(apiKeyName);
+    apiKey = await getSecret(apiKeyName);
     mailchimp.setConfig({
       apiKey,
       server: serverPrefix,
@@ -499,7 +816,7 @@ async function addMailchimpMember({
   emailAddress,
 }) {
   if (!apiKey) {
-    apiKey = await getApiKey(apiKeyName);
+    apiKey = await getSecret(apiKeyName);
     mailchimp.setConfig({
       apiKey,
       server: serverPrefix,
@@ -544,7 +861,7 @@ async function updateMailchimpMemberTags({
   tags,
 }) {
   if (!apiKey) {
-    apiKey = await getApiKey(apiKeyName);
+    apiKey = await getSecret(apiKeyName);
     mailchimp.setConfig({
       apiKey,
       server: serverPrefix,
@@ -598,7 +915,9 @@ async function ensureProfile({ email, sub, name }) {
   });
 
   profile = graphqlData && graphqlData.data && graphqlData.data.getProfile;
-  console.log(`${JSON.stringify(graphqlData.data)}`);
+  if (graphqlData && graphqlData.data) {
+    console.log(`${JSON.stringify(graphqlData.data)}`);
+  }
 
   if (!profile) {
     console.log(`NO EXISTING PROFILE.`);
@@ -617,11 +936,13 @@ async function ensureProfile({ email, sub, name }) {
       });
 
       console.log(createGraphqlData);
-      console.log(createGraphqlData.data.errors);
+
       if (
-        createGraphqlData.data.errors ||
-        !createGraphqlData.data.createProfile
+        createGraphqlData &&
+        createGraphqlData.data &&
+        (createGraphqlData.data.errors || !createGraphqlData.data.createProfile)
       ) {
+        console.log(createGraphqlData.data.errors);
         throw createGraphqlData.data.errors;
       }
       profile = createGraphqlData.data.createProfile;
@@ -650,8 +971,9 @@ async function ensureProfile({ email, sub, name }) {
       console.log(updateGraphqlData);
       console.log(updateGraphqlData.data.errors);
       if (
-        updateGraphqlData.data.errors ||
-        !updateGraphqlData.data.updateProfile
+        updateGraphqlData &&
+        updateGraphqlData.data &&
+        (updateGraphqlData.data.errors || !updateGraphqlData.data.updateProfile)
       ) {
         throw updateGraphqlData.data.errors;
       }
@@ -678,18 +1000,25 @@ exports.handler = async (event) => {
     id: workshopId,
   };
 
-  const getWorkshopResult = await appSyncClient.query({
-    query: getWorkshop,
-    variables,
-  });
+  let getWorkshopResult;
+  let enableMailchimpIntegration;
 
-  // get Workshop
-  let enableMailchimpIntegration =
-    getWorkshopResult.data &&
-    getWorkshopResult.data.getWorkshop &&
-    getWorkshopResult.data.getWorkshop.features &&
-    getWorkshopResult.data.getWorkshop.features.mailchimp &&
-    getWorkshopResult.data.getWorkshop.features.mailchimp.enabled;
+  if (workshopId !== 'profile') {
+    getWorkshopResult = await appSyncClient.query({
+      query: getWorkshop,
+      variables,
+    });
+
+    // get Workshop
+    enableMailchimpIntegration =
+      getWorkshopResult &&
+      getWorkshopResult.data &&
+      getWorkshopResult.data.getWorkshop &&
+      getWorkshopResult.data.getWorkshop.features &&
+      getWorkshopResult.data.getWorkshop.features.mailchimp &&
+      getWorkshopResult.data.getWorkshop.features.mailchimp.enabled;
+  }
+
   let apiKeyName;
   let serverPrefix;
   let listId;
@@ -1033,6 +1362,17 @@ exports.handler = async (event) => {
       for await (const payload of payloads) {
         await disableLogin(payload);
       }
+      break;
+
+    case 'CONNECT_MAILCHIMP':
+      const [payload] = payloads;
+      await connectMailchimpAppOauth(payload);
+      // {
+      // emailAddress
+      // mailchimpOauthCode
+      // mailchimpOauthCallback
+      // mailchimpClientId
+      // }
       break;
 
     default:

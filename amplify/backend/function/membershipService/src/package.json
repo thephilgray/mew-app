@@ -11,7 +11,7 @@
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "aws-appsync": "^4.1.9",
     "aws-sdk": "^2.1309.0",
-    "cross-fetch": "^3.1.5",
+    "cross-fetch": "^3.1.6",
     "graphql-tag": "^2.12.6"
   }
 }

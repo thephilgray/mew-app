@@ -18,16 +18,18 @@ import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
-import { useUser } from '../../auth/hooks'
+import { useProfile, useUser } from '../../auth/hooks'
 import ImagePicker, { uploadImage } from '../ImagePicker'
 import { getCloudFrontURL } from '../../utils'
 import { v4 as uuidv4 } from 'uuid';
 import { DatePicker } from '@mui/x-date-pickers'
 import { matchSorter } from 'match-sorter';
 import If from '../If'
+import ConnectMailchimpButton from '../ConnectMailchimpButton'
 
 
 export default function WorkshopForm({ onSubmit, setFormState, formState }) {
+    const profile = useProfile()
     const [image, setImage] = useState<string>('')
     const updateForm = (newValues) =>
         setFormState((prevState) => ({
@@ -184,8 +186,11 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                                 Mailchimp Integration
                             </Typography>
                             <Typography>
-                                With this enabled, the members in the Members section will be populated from the
-                                Mailchimp list you specify. Only users in your list will appear.
+                                {profile?.features?.mailchimp?.enabled ?
+                                    <>With this enabled, the members in the Members section will be populated from the Mailchimp list you specify. Only users in your list will appear.</>
+                                    : <ConnectMailchimpButton mailchimpEnabled={false} />
+                                }
+
                             </Typography>
                         </Grid>
                         {!!formState.enableMailchimpIntegration && (
@@ -243,6 +248,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                                             name="enableMailchimpIntegration"
                                             checked={formState.enableMailchimpIntegration}
                                             onChange={onFieldChange}
+                                            disabled={!profile?.features?.mailchimp?.enabled}
                                         />
                                     }
                                     label="Enable Mailchimp Integration"
