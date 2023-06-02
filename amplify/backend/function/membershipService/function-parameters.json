@@ -24,5 +24,9 @@
       ]
     }
   },
-  "lambdaLayers": []
+  "lambdaLayers": [],
+  "secretNames": [
+    "MAILCHIMP_API_KEY",
+    "MAILCHIMP_CLIENT_SECRET"
+  ]
 }

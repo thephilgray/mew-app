@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Box, Button, CircularProgress, Divider, Grid, IconButton, InputBase, InputLabel, Link, List, ListItem, Paper, TextField, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Divider, Grid, Icon, IconButton, InputBase, InputLabel, Link, List, ListItem, Paper, TextField, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui';
-import { updateProfile, updateProfileService } from '../../graphql/mutations'
+import { updateMembershipService, updateProfile, updateProfileService } from '../../graphql/mutations'
 import gql from 'graphql-tag'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Add, Close, Delete, Launch, Save } from '@mui/icons-material'
+import { Add, Close, Delete, Launch, Mail, Save } from '@mui/icons-material'
 import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
@@ -18,6 +18,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { navigate } from 'gatsby';
 import { getCloudFrontURL } from '../../utils';
 import ImagePicker, { uploadImage } from '../ImagePicker';
+import If from '../If';
+import { useLocation } from 'react-use';
+import ConnectMailchimpButton from '../ConnectMailchimpButton';
 
 type APIKeyForm = {
     keyName: string
@@ -51,13 +54,21 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+
 const EditProfile = (): JSX.Element => {
     const { classes } = useStyles()
     const user = useUser()
-    const profileInState = useProfile()
+    const { profile: profileInState, refetch: refetchProfile } = useProfile()
     const [keyName, setKeyName] = useState<string>('')
     const [key, setKey] = useState<string>('')
     const [image, setImage] = useState<string>('')
+    const [connectLoading, setConnectLoading] = useState<boolean>(false)
+    const location = useLocation()
+
+    const query = new URLSearchParams(location.search);
+    const code = query.get("code");
+    const OAUTH_CALLBACK = `${location.protocol}//${location.host}/app/profile/edit`
+    const MAILCHIMP_CLIENT_ID = process.env.GATSBY_MAILCHIMP_CLIENT_ID
 
     const {
         loading: getProfileLoading,
@@ -105,6 +116,8 @@ const EditProfile = (): JSX.Element => {
         },
     } = useForm<APIKeyForm>()
 
+
+
     const [
         updateProfileRequest,
         { error: updateProfileRequestError, data: updateProfileRequestData, loading: updateProfileRequestLoading },
@@ -115,6 +128,14 @@ const EditProfile = (): JSX.Element => {
         { error: updateProfileServiceError, data: updateProfileServiceData },
     ] = useMutation(gql(updateProfileService))
 
+    const [
+        updateMembershipServiceRequest,
+        { error: updateMembershipServiceError, data: updateMembershipServiceData, called: updateMembershipServiceRequestCalled },
+    ] = useMutation(gql(updateMembershipService))
+
+    useEffect(() => {
+        refetchProfile()
+    }, [])
 
     useEffect(() => {
         setApiKeyFieldValue('keyName', keyName)
@@ -133,9 +154,34 @@ const EditProfile = (): JSX.Element => {
         }
     }, [updateProfileServiceData])
 
+    useEffect(() => {
+        if (!updateMembershipServiceRequestCalled && code) {
+            setConnectLoading(true)
+            updateMembershipServiceRequest({
+                variables: {
+                    workshopId: "profile",
+                    action: "CONNECT_MAILCHIMP",
+                    payloads: [
+                        {
+                            emailAddress: user.email,
+                            mailchimpOauthCode: code,
+                            mailchimpOauthCallback: OAUTH_CALLBACK,
+                            mailchimpClientId: MAILCHIMP_CLIENT_ID
+
+                        }
+                    ]
+
+                }
+            }).then(() => getProfileRefetch().then(() => {
+                setConnectLoading(false)
+                navigate(location.pathname)
+            }))
+
+        }
+    }, [updateMembershipServiceRequestCalled, code])
+
     const onSubmitEditProfileForm = async (inputData) => {
         const imageUpdated = image && !image.includes(profile?.avatar);
-        console.log({ imageUpdated, image })
         if (imageUpdated) {
             await uploadImage({
                 uploadPath: AVATAR_UPLOAD_PATH,
@@ -362,7 +408,25 @@ const EditProfile = (): JSX.Element => {
             </section>
         </Grid>
         <GroupGuard groups={[Group.admin]}>
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ mt: 2 }}>
+                <section className={classes.section}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Typography variant="h5" component="h2">
+                                Your Connected Apps
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} className={classes.tableWrapper}>
+                            <ConnectMailchimpButton
+                                mailchimpEnabled={!!profile?.features?.mailchimp?.enabled}
+                                connectLoading={connectLoading}
+                                callback={getProfileRefetch}
+                            />
+                        </Grid>
+                    </Grid>
+                </section>
+            </Grid>
+            {/* <Grid item xs={12}>
                 <section className={classes.section}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
@@ -453,7 +517,7 @@ const EditProfile = (): JSX.Element => {
                         </Grid>
                     )}
                 </section>
-            </Grid>
+            </Grid> */}
         </GroupGuard>
     </Grid >;
 }

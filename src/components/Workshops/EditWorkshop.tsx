@@ -9,10 +9,9 @@ import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import WorkshopForm from './WorkshopForm'
 import { add } from 'date-fns'
-import { useUser } from '../../auth/hooks'
+import { useProfile, useUser } from '../../auth/hooks'
 import { v4 as uuidv4 } from 'uuid';
 import { uploadImage } from '../ImagePicker'
-
 
 export default function EditWorkshop({ workshopId = '' }) {
     const { loading, error, data, refetch } = useQuery(gql(getWorkshop), {
@@ -20,14 +19,14 @@ export default function EditWorkshop({ workshopId = '' }) {
     })
 
     const user = useUser()
+    const { profile } = useProfile()
 
     const initialState = {
+        workshopId,
         name: '',
         description: '',
         status: 'Active',
         passes: 0,
-        apiKey: '',
-        serverPrefix: '',
         startDate: new Date(),
         endDate: add(new Date(), { months: 3 }),
         email: user?.email || '',
@@ -68,8 +67,6 @@ export default function EditWorkshop({ workshopId = '' }) {
                 artwork: data.getWorkshop.artwork,
                 status: data.getWorkshop.status,
                 passes: data.getWorkshop.passes || 0,
-                apiKeyName: data.getWorkshop.features?.mailchimp?.apiKeyName || '',
-                serverPrefix: data.getWorkshop.features?.mailchimp?.serverPrefix || '',
                 listId: data.getWorkshop.features?.mailchimp?.listId || '',
                 enableMailchimpIntegration: data.getWorkshop.features?.mailchimp?.enabled || false,
             })
@@ -114,8 +111,8 @@ export default function EditWorkshop({ workshopId = '' }) {
                         features: {
                             mailchimp: {
                                 enabled: formState.enableMailchimpIntegration,
-                                apiKeyName: formState.apiKeyName,
-                                serverPrefix: formState.serverPrefix,
+                                apiKeyName: profile?.features?.mailchimp?.apiKeyName,
+                                serverPrefix: profile?.features?.mailchimp?.serverPrefix,
                                 listId: formState.listId,
                             },
                         },

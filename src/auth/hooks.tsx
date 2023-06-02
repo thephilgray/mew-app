@@ -50,39 +50,40 @@ export function useAuth() {
         }
     }, [setUser])
 
+    const fetchUserProfile = async () => {
+        setLoading(true)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const email = user?.username
+        let profile
+        if (email) {
+            try {
+                let getProfileResult = await API.graphql({ query: getProfile, variables: { email } })
+                profile = getProfileResult?.data?.getProfile || null
+                if (!profile) {
+                    const createProfileResult = await API.graphql({
+                        query: createProfile, variables: {
+                            input: {
+                                email,
+                                name: user?.attributes?.name || email,
+                                sub: user?.attributes?.sub
+                            }
+                        }
+                    })
+                    profile = createProfileResult?.data?.createProfile || null
+                }
+                setUserProfile(profile)
+            } catch (error) {
+                // TODO
+                console.log(error)
+            }
+        }
+        setLoading(false)
+    }
+
     React.useEffect(() => {
         if (!previousUser && user) {
-            const fetchUserProfile = async () => {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                const email = user?.username
-                let profile
-                if (email) {
-                    try {
-                        let getProfileResult = await API.graphql({ query: getProfile, variables: { email } })
-                        profile = getProfileResult?.data?.getProfile || null
-                        if (!profile) {
-                            const createProfileResult = await API.graphql({
-                                query: createProfile, variables: {
-                                    input: {
-                                        email,
-                                        name: user?.attributes?.name || email,
-                                        sub: user?.attributes?.sub
-                                    }
-                                }
-                            })
-                            profile = createProfileResult?.data?.createProfile || null
-                        }
-                        setUserProfile(profile)
-                    } catch (error) {
-                        // TODO
-                        console.log(error)
-                    }
-                }
-            }
-
-            setLoading(true)
-            fetchUserProfile().finally(() => setLoading(false))
+            fetchUserProfile()
         }
     }, [previousUser, user])
 
@@ -145,7 +146,8 @@ export function useAuth() {
         authStage,
         setAuthStage,
         viewAdmin,
-        setViewAdmin
+        setViewAdmin,
+        refetchProfile: fetchUserProfile
     }
 }
 
@@ -160,8 +162,8 @@ export function useUser() {
 }
 
 export function useProfile() {
-    const { userProfile } = React.useContext(AuthContext)
-    return userProfile || null
+    const { userProfile, refetchProfile, loading } = React.useContext(AuthContext)
+    return { profile: userProfile || null, refetch: refetchProfile, loading }
 }
 
 export function useSignIn() {

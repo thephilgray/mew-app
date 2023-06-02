@@ -38,7 +38,7 @@ const getTheme = (palette = {}): Theme =>
                 default: '#fff',
             },
             text: {
-                primary: '#000',
+                primary: '#241c15',
             },
             ...palette,
         },

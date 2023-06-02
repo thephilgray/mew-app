@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Autocomplete,
     Button,
@@ -13,21 +13,23 @@ import {
     TextField,
     Typography,
 } from '@mui/material'
-import { getProfile, listProfiles } from '../../graphql/queries'
+import { listProfiles } from '../../graphql/queries'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
-import { useUser } from '../../auth/hooks'
+import { useProfile, useUser } from '../../auth/hooks'
 import ImagePicker, { uploadImage } from '../ImagePicker'
 import { getCloudFrontURL } from '../../utils'
 import { v4 as uuidv4 } from 'uuid';
 import { DatePicker } from '@mui/x-date-pickers'
 import { matchSorter } from 'match-sorter';
 import If from '../If'
+import ConnectMailchimpButton from '../ConnectMailchimpButton'
 
 
-export default function WorkshopForm({ onSubmit, setFormState, formState }) {
+export default function WorkshopForm({ onSubmit, setFormState, formState, loading }) {
+    const { profile, refetch: refetchProfile } = useProfile()
     const [image, setImage] = useState<string>('')
     const updateForm = (newValues) =>
         setFormState((prevState) => ({
@@ -41,27 +43,13 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
         })
     }
 
-    const user = useUser()
-    const {
-        loading: getProfileLoading,
-        error: getProfileError,
-        data: getProfileData,
-        refetch: getProfileRefetch,
-    } = useQuery(gql(getProfile), {
-        variables: { email: user.email },
-    })
-
     const { loading: listProfilesLoading, error: listProfilesError, data: listProfilesData } = useQuery(gql(listProfiles), { variables: { limit: 1000 } })
-
-    const apiKeys =
-        (getProfileData &&
-            getProfileData.getProfile &&
-            getProfileData.getProfile.apiKeys &&
-            getProfileData.getProfile.apiKeys.items) ||
-        []
-
     const ID = uuidv4()
     const filterOptions = (options, { inputValue }) => matchSorter(options, inputValue, { keys: ['displayName', 'name', 'email'] });
+
+    useEffect(() => {
+        refetchProfile()
+    }, [])
 
     return (
         <Grid item xs={8}>
@@ -184,57 +172,24 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                                 Mailchimp Integration
                             </Typography>
                             <Typography>
-                                With this enabled, the members in the Members section will be populated from the
-                                Mailchimp list you specify. Only users in your list will appear.
+                                <If condition={!!profile?.features?.mailchimp?.enabled}
+                                    fallbackContent={<ConnectMailchimpButton mailchimpEnabled={false} workshopId={formState.workshopId} connectLoading={loading} />}>
+                                    With this enabled, the members in the Members section will be populated from the Mailchimp list you specify. Only users in your list will appear.
+                                </If>
                             </Typography>
                         </Grid>
-                        {!!formState.enableMailchimpIntegration && (
-                            <>
-                                <Grid item xs={12}>
-                                    <FormControl variant="standard" fullWidth required>
-                                        <InputLabel>API Key</InputLabel>
-                                        <Select
-                                            variant="standard"
-                                            name="apiKeyName"
-                                            value={formState.apiKeyName}
-                                            onChange={onFieldChange}
-                                        >
-                                            {apiKeys.length > 0 ? (
-                                                apiKeys.map(({ keyName, id }) => (
-                                                    <MenuItem key={id} value={keyName}>
-                                                        {keyName.split('/').slice(-1)[0]}
-                                                    </MenuItem>
-                                                ))
-                                            ) : (
-                                                <MenuItem disabled value="">
-                                                    <em>No API Keys Saved to Your Profile</em>
-                                                </MenuItem>
-                                            )}
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        variant="standard"
-                                        required={!!formState.enableMailchimpIntegration}
-                                        name="listId"
-                                        label="List ID"
-                                        value={formState.listId}
-                                        onChange={onFieldChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        variant="standard"
-                                        required={!!formState.enableMailchimpIntegration}
-                                        name="serverPrefix"
-                                        label="Server Prefix"
-                                        value={formState.serverPrefix}
-                                        onChange={onFieldChange}
-                                    />
-                                </Grid>
-                            </>
-                        )}
+                        <If condition={!!formState.enableMailchimpIntegration}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="standard"
+                                    required={!!formState.enableMailchimpIntegration}
+                                    name="listId"
+                                    label="List ID"
+                                    value={formState.listId}
+                                    onChange={onFieldChange}
+                                />
+                            </Grid>
+                        </If>
                         <Grid item xs={12}>
                             <FormGroup>
                                 <FormControlLabel
@@ -243,6 +198,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                                             name="enableMailchimpIntegration"
                                             checked={formState.enableMailchimpIntegration}
                                             onChange={onFieldChange}
+                                            disabled={!profile?.features?.mailchimp?.enabled}
                                         />
                                     }
                                     label="Enable Mailchimp Integration"

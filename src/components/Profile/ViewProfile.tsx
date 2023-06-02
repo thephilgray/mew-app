@@ -15,7 +15,7 @@ import { Group } from '../../constants'
 
 const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
   const user = useUser()
-  const profileInState = useProfile()
+  const { profile: profileInState } = useProfile()
 
   const {
     loading: getProfileLoading,

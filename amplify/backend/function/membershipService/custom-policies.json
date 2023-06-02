@@ -10,7 +10,8 @@
       "ssm:DeleteParameters"
     ],
     "Resource": [
-      "arn:aws:ssm:us-east-1:856562418824:parameter/mewapp-*"
+      "arn:aws:ssm:us-east-1:856562418824:parameter/mewapp-*",
+      "arn:aws:ssm:us-east-1:856562418824:parameter/MAILCHIMP_CLIENT_SECRET"
     ]
 }
 ]

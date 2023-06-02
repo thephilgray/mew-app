@@ -243,6 +243,14 @@ export const createAPIKey = /* GraphQL */ `
           }
           nextToken
         }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
+        }
         createdAt
         updatedAt
       }
@@ -428,6 +436,14 @@ export const updateAPIKey = /* GraphQL */ `
           }
           nextToken
         }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
+        }
         createdAt
         updatedAt
       }
@@ -612,6 +628,14 @@ export const deleteAPIKey = /* GraphQL */ `
             updatedAt
           }
           nextToken
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
         }
         createdAt
         updatedAt
@@ -945,6 +969,14 @@ export const createFileRequest = /* GraphQL */ `
               updatedAt
             }
             nextToken
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
           }
           createdAt
           updatedAt
@@ -1299,6 +1331,14 @@ export const updateFileRequest = /* GraphQL */ `
             }
             nextToken
           }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
+          }
           createdAt
           updatedAt
         }
@@ -1651,6 +1691,14 @@ export const deleteFileRequest = /* GraphQL */ `
               updatedAt
             }
             nextToken
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
           }
           createdAt
           updatedAt
@@ -2065,6 +2113,14 @@ export const createFileRequestSubmission = /* GraphQL */ `
             updatedAt
           }
           nextToken
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
         }
         createdAt
         updatedAt
@@ -2548,6 +2604,14 @@ export const updateFileRequestSubmission = /* GraphQL */ `
           }
           nextToken
         }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
+        }
         createdAt
         updatedAt
       }
@@ -3030,6 +3094,14 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
           }
           nextToken
         }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
+        }
         createdAt
         updatedAt
       }
@@ -3348,6 +3420,14 @@ export const createMembership = /* GraphQL */ `
             }
             nextToken
           }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
+          }
           createdAt
           updatedAt
         }
@@ -3567,6 +3647,14 @@ export const createMembership = /* GraphQL */ `
             updatedAt
           }
           nextToken
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
         }
         createdAt
         updatedAt
@@ -3866,6 +3954,14 @@ export const updateMembership = /* GraphQL */ `
             }
             nextToken
           }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
+          }
           createdAt
           updatedAt
         }
@@ -4085,6 +4181,14 @@ export const updateMembership = /* GraphQL */ `
             updatedAt
           }
           nextToken
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
         }
         createdAt
         updatedAt
@@ -4384,6 +4488,14 @@ export const deleteMembership = /* GraphQL */ `
             }
             nextToken
           }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
+          }
           createdAt
           updatedAt
         }
@@ -4603,6 +4715,14 @@ export const deleteMembership = /* GraphQL */ `
             updatedAt
           }
           nextToken
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
         }
         createdAt
         updatedAt
@@ -5093,6 +5213,14 @@ export const createWorkshop = /* GraphQL */ `
           }
           nextToken
         }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
+        }
         createdAt
         updatedAt
       }
@@ -5580,6 +5708,14 @@ export const updateWorkshop = /* GraphQL */ `
             updatedAt
           }
           nextToken
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
         }
         createdAt
         updatedAt
@@ -6069,6 +6205,14 @@ export const deleteWorkshop = /* GraphQL */ `
           }
           nextToken
         }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
+        }
         createdAt
         updatedAt
       }
@@ -6543,6 +6687,14 @@ export const createProfile = /* GraphQL */ `
         }
         nextToken
       }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
       createdAt
       updatedAt
     }
@@ -6905,6 +7057,14 @@ export const updateProfile = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
       }
       createdAt
       updatedAt
@@ -7269,6 +7429,14 @@ export const deleteProfile = /* GraphQL */ `
         }
         nextToken
       }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
       createdAt
       updatedAt
     }
@@ -7450,6 +7618,14 @@ export const createComment = /* GraphQL */ `
           }
           nextToken
         }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
+        }
         createdAt
         updatedAt
       }
@@ -7607,6 +7783,14 @@ export const createComment = /* GraphQL */ `
               updatedAt
             }
             nextToken
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
           }
           createdAt
           updatedAt
@@ -8024,6 +8208,14 @@ export const updateComment = /* GraphQL */ `
           }
           nextToken
         }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
+        }
         createdAt
         updatedAt
       }
@@ -8181,6 +8373,14 @@ export const updateComment = /* GraphQL */ `
               updatedAt
             }
             nextToken
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
           }
           createdAt
           updatedAt
@@ -8598,6 +8798,14 @@ export const deleteComment = /* GraphQL */ `
           }
           nextToken
         }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+          }
+        }
         createdAt
         updatedAt
       }
@@ -8755,6 +8963,14 @@ export const deleteComment = /* GraphQL */ `
               updatedAt
             }
             nextToken
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+            }
           }
           createdAt
           updatedAt
