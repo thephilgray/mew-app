@@ -25,7 +25,7 @@ const useStyles = makeStyles()(() =>
 
 const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
     const { classes } = useStyles()
-    const profile = useProfile();
+    const { profile } = useProfile();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)

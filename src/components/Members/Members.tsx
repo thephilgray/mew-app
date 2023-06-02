@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Button, Chip, Grid, IconButton, Typography } from '@mui/material'
+import { Button, Chip, CircularProgress, Grid, IconButton, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
@@ -410,8 +410,8 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             </Grid>
             {data?.getWorkshop?.features?.mailchimp?.enabled && (
                 <Grid item xs={4}>
-                    <Button onClick={onSyncWithMailchimp} style={{ float: 'right' }}>
-                        Sync from Mailchimp <Sync />
+                    <Button onClick={onSyncWithMailchimp} endIcon={updateMembershipServiceResponse.loading || updateMembershipServiceResponse.called && loading ? <CircularProgress size="1rem" /> : <Sync />} style={{ float: 'right' }}>
+                        Sync from Mailchimp
                     </Button>
                 </Grid>
             )}

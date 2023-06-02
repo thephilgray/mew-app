@@ -19,9 +19,10 @@ export default function EditWorkshop({ workshopId = '' }) {
     })
 
     const user = useUser()
-    const profile = useProfile()
+    const { profile } = useProfile()
 
     const initialState = {
+        workshopId,
         name: '',
         description: '',
         status: 'Active',

@@ -304,6 +304,7 @@ input MembershipServicePayload {
   mailchimpOauthCode: String
   mailchimpClientId: String
   mailchimpOauthCallback: String
+  mailchimpApiKeyId: String
 }
 
 type Mutation {

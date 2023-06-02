@@ -58,10 +58,11 @@ const useStyles = makeStyles()((theme) => ({
 const EditProfile = (): JSX.Element => {
     const { classes } = useStyles()
     const user = useUser()
-    const profileInState = useProfile()
+    const { profile: profileInState, refetch: refetchProfile } = useProfile()
     const [keyName, setKeyName] = useState<string>('')
     const [key, setKey] = useState<string>('')
     const [image, setImage] = useState<string>('')
+    const [connectLoading, setConnectLoading] = useState<boolean>(false)
     const location = useLocation()
 
     const query = new URLSearchParams(location.search);
@@ -115,6 +116,8 @@ const EditProfile = (): JSX.Element => {
         },
     } = useForm<APIKeyForm>()
 
+
+
     const [
         updateProfileRequest,
         { error: updateProfileRequestError, data: updateProfileRequestData, loading: updateProfileRequestLoading },
@@ -129,6 +132,10 @@ const EditProfile = (): JSX.Element => {
         updateMembershipServiceRequest,
         { error: updateMembershipServiceError, data: updateMembershipServiceData, called: updateMembershipServiceRequestCalled },
     ] = useMutation(gql(updateMembershipService))
+
+    useEffect(() => {
+        refetchProfile()
+    }, [])
 
     useEffect(() => {
         setApiKeyFieldValue('keyName', keyName)
@@ -148,10 +155,8 @@ const EditProfile = (): JSX.Element => {
     }, [updateProfileServiceData])
 
     useEffect(() => {
-        console.log('in use effect')
-        console.log({ updateMembershipServiceRequestCalled, code })
         if (!updateMembershipServiceRequestCalled && code) {
-            console.log('updateMembershipServiceRequest')
+            setConnectLoading(true)
             updateMembershipServiceRequest({
                 variables: {
                     workshopId: "profile",
@@ -167,14 +172,16 @@ const EditProfile = (): JSX.Element => {
                     ]
 
                 }
-            }).then(() => getProfileRefetch().then(() => navigate(location.pathname)))
+            }).then(() => getProfileRefetch().then(() => {
+                setConnectLoading(false)
+                navigate(location.pathname)
+            }))
 
         }
     }, [updateMembershipServiceRequestCalled, code])
 
     const onSubmitEditProfileForm = async (inputData) => {
         const imageUpdated = image && !image.includes(profile?.avatar);
-        console.log({ imageUpdated, image })
         if (imageUpdated) {
             await uploadImage({
                 uploadPath: AVATAR_UPLOAD_PATH,
@@ -410,7 +417,11 @@ const EditProfile = (): JSX.Element => {
                             </Typography>
                         </Grid>
                         <Grid item xs={12} className={classes.tableWrapper}>
-                            <ConnectMailchimpButton mailchimpEnabled={!!profile?.features?.mailchimp?.enabled} />
+                            <ConnectMailchimpButton
+                                mailchimpEnabled={!!profile?.features?.mailchimp?.enabled}
+                                connectLoading={connectLoading}
+                                callback={getProfileRefetch}
+                            />
                         </Grid>
                     </Grid>
                 </section>

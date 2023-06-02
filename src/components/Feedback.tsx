@@ -13,7 +13,7 @@ import { getCloudFrontURL } from "../utils"
 import If from "./If"
 
 const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
-  const profile = useProfile()
+  const { profile } = useProfile()
 
   return (
     <Paper style={{ padding: "40px 20px" }} component="form" noValidate autoComplete="off" onSubmit={submitComment}>

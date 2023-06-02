@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Autocomplete,
     Button,
@@ -13,7 +13,7 @@ import {
     TextField,
     Typography,
 } from '@mui/material'
-import { getProfile, listProfiles } from '../../graphql/queries'
+import { listProfiles } from '../../graphql/queries'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import GroupGuard from '../Auth/GroupGuard'
@@ -28,8 +28,8 @@ import If from '../If'
 import ConnectMailchimpButton from '../ConnectMailchimpButton'
 
 
-export default function WorkshopForm({ onSubmit, setFormState, formState }) {
-    const profile = useProfile()
+export default function WorkshopForm({ onSubmit, setFormState, formState, loading }) {
+    const { profile, refetch: refetchProfile } = useProfile()
     const [image, setImage] = useState<string>('')
     const updateForm = (newValues) =>
         setFormState((prevState) => ({
@@ -43,19 +43,13 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
         })
     }
 
-    const user = useUser()
-    const {
-        loading: getProfileLoading,
-        error: getProfileError,
-        data: getProfileData,
-        refetch: getProfileRefetch,
-    } = useQuery(gql(getProfile), {
-        variables: { email: user.email },
-    })
-
     const { loading: listProfilesLoading, error: listProfilesError, data: listProfilesData } = useQuery(gql(listProfiles), { variables: { limit: 1000 } })
     const ID = uuidv4()
     const filterOptions = (options, { inputValue }) => matchSorter(options, inputValue, { keys: ['displayName', 'name', 'email'] });
+
+    useEffect(() => {
+        refetchProfile()
+    }, [])
 
     return (
         <Grid item xs={8}>
@@ -179,7 +173,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState }) {
                             </Typography>
                             <Typography>
                                 <If condition={!!profile?.features?.mailchimp?.enabled}
-                                    fallbackContent={<ConnectMailchimpButton mailchimpEnabled={false} />}>
+                                    fallbackContent={<ConnectMailchimpButton mailchimpEnabled={false} workshopId={formState.workshopId} connectLoading={loading} />}>
                                     With this enabled, the members in the Members section will be populated from the Mailchimp list you specify. Only users in your list will appear.
                                 </If>
                             </Typography>

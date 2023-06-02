@@ -33,6 +33,7 @@ export type MembershipServicePayload = {
   mailchimpOauthCode?: string | null,
   mailchimpClientId?: string | null,
   mailchimpOauthCallback?: string | null,
+  mailchimpApiKeyId?: string | null,
 };
 
 export type MailchimpTagInput = {

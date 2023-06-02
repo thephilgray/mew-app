@@ -15,7 +15,7 @@ import { uploadImage } from '../ImagePicker'
 
 export default function NewWorkshop() {
     const user = useUser()
-    const profile = useProfile()
+    const { profile } = useProfile()
 
     const initialState = {
         name: '',

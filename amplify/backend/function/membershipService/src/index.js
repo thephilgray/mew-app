@@ -284,6 +284,44 @@ const updateProfileMailchimpIntegrationOnly = /* GraphQL */ gql`
   }
 `;
 
+const updateWorkshopMailchimpIntegrationOnly = /* GraphQL */ gql`
+  mutation UpdateWorkshop(
+    $id: ID!
+    $enabled: Boolean
+    $apiKeyName: String
+    $serverPrefix: String
+  ) {
+    updateWorkshop(
+      input: {
+        input: {
+          id: $id
+          features: {
+            mailchimp: {
+              enabled: $enabled
+              apiKeyName: $apiKeyName
+              serverPrefix: $serverPrefix
+            }
+          }
+        }
+      }
+    ) {
+      id
+      name
+      email
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          serverPrefix
+        }
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
 // const getMembershipsByWorkshopId = /* GraphQL */ gql`
 // query MembershipsByWorkshopId($workshopId:ID!) {
 //   membershipsByWorkshopId(workshopId: $workshopId){
@@ -644,7 +682,7 @@ async function connectMailchimpAppOauth({
     const variables = {
       email,
       enabled: true,
-      apiKeyName: 'MAILCHIMP',
+      apiKeyName: `/mewapp-${process.env.ENV}/${profileID}/MAILCHIMP`,
       serverPrefix: dc,
     };
 
@@ -666,6 +704,84 @@ async function connectMailchimpAppOauth({
   } catch (error) {
     console.log('ERROR with updateProfileQuery');
     throw error;
+  }
+}
+
+async function disconnectMailchimpAppOauth({
+  emailAddress: email,
+  mailchimpApiKeyId: keyId,
+  workshopId,
+}) {
+  if (workshopId !== 'profile') {
+    // just delete from works
+    let updateGraphqlData;
+
+    try {
+      const variables = {
+        id: workshopId,
+        enabled: false,
+        apiKeyName: null,
+        serverPrefix: null,
+      };
+
+      updateGraphqlData = await appSyncClient.mutate({
+        mutation: updateWorkshopMailchimpIntegrationOnly,
+        variables,
+      });
+
+      console.log(updateGraphqlData);
+
+      if (
+        updateGraphqlData &&
+        updateGraphqlData.data &&
+        (updateGraphqlData.data.errors ||
+          !updateGraphqlData.data.updateWorkshop)
+      ) {
+        console.log(updateGraphqlData.data.errors);
+        throw updateGraphqlData.data.errors;
+      }
+    } catch (error) {
+      console.log('ERROR with updateWorkshopQuery');
+      throw error;
+    }
+  } else {
+    // delete from profile and secrets manager
+    const profile = await ensureProfile({ email });
+    const profileID = profile && profile.id;
+    await saveApiKey(email, profileID, {
+      action: 'DELETE',
+      keyId,
+    });
+
+    let updateGraphqlData;
+
+    try {
+      const variables = {
+        email,
+        enabled: false,
+        apiKeyName: null,
+        serverPrefix: null,
+      };
+
+      updateGraphqlData = await appSyncClient.mutate({
+        mutation: updateProfileMailchimpIntegrationOnly,
+        variables,
+      });
+
+      console.log(updateGraphqlData);
+
+      if (
+        updateGraphqlData &&
+        updateGraphqlData.data &&
+        (updateGraphqlData.data.errors || !updateGraphqlData.data.updateProfile)
+      ) {
+        console.log(updateGraphqlData.data.errors);
+        throw updateGraphqlData.data.errors;
+      }
+    } catch (error) {
+      console.log('ERROR with updateProfileQuery');
+      throw error;
+    }
   }
 }
 
@@ -766,7 +882,7 @@ async function getMailchimpMembers({ apiKeyName, serverPrefix, listId }) {
   if (!apiKey) {
     apiKey = await getSecret(apiKeyName);
     mailchimp.setConfig({
-      apiKey,
+      accessToken: apiKey,
       server: serverPrefix,
     });
   }
@@ -790,7 +906,7 @@ async function getMailchimpMember({
   if (!apiKey) {
     apiKey = await getSecret(apiKeyName);
     mailchimp.setConfig({
-      apiKey,
+      accessToken: apiKey,
       server: serverPrefix,
     });
   }
@@ -818,7 +934,7 @@ async function addMailchimpMember({
   if (!apiKey) {
     apiKey = await getSecret(apiKeyName);
     mailchimp.setConfig({
-      apiKey,
+      accessToken: apiKey,
       server: serverPrefix,
     });
   }
@@ -830,7 +946,7 @@ async function addMailchimpMember({
     emailAddress,
   });
 
-  if (member) {
+  if (member && member.status === 'subscribed') {
     member = await updateMailchimpMemberTags({
       emailAddress,
       apiKeyName,
@@ -840,9 +956,11 @@ async function addMailchimpMember({
     });
   } else {
     try {
-      member = await mailchimp.lists.addListMember(listId, {
+      const subscriber_hash = getSubscriberHash(emailAddress);
+      member = await mailchimp.lists.setListMember(listId, subscriber_hash, {
         email_address: emailAddress,
         status: 'subscribed',
+        status_if_new: 'subscribed',
       });
     } catch (error) {
       console.log(`error with mailchimp addListMember`);
@@ -851,6 +969,13 @@ async function addMailchimpMember({
   }
   console.log(member);
   return member;
+}
+
+function getSubscriberHash(emailAddress) {
+  return crypto
+    .createHash('md5')
+    .update(emailAddress.toLowerCase())
+    .digest('hex');
 }
 
 async function updateMailchimpMemberTags({
@@ -863,14 +988,11 @@ async function updateMailchimpMemberTags({
   if (!apiKey) {
     apiKey = await getSecret(apiKeyName);
     mailchimp.setConfig({
-      apiKey,
+      accessToken: apiKey,
       server: serverPrefix,
     });
   }
-  const subscriber_hash = crypto
-    .createHash('md5')
-    .update(emailAddress.toLowerCase())
-    .digest('hex');
+  const subscriber_hash = getSubscriberHash(emailAddress);
 
   try {
     await mailchimp.lists.updateListMemberTags(listId, subscriber_hash, {
@@ -1365,13 +1487,19 @@ exports.handler = async (event) => {
       break;
 
     case 'CONNECT_MAILCHIMP':
-      const [payload] = payloads;
-      await connectMailchimpAppOauth(payload);
+      await connectMailchimpAppOauth(payloads[0]);
       // {
       // emailAddress
       // mailchimpOauthCode
       // mailchimpOauthCallback
       // mailchimpClientId
+      // }
+      break;
+    case 'DISCONNECT_MAILCHIMP':
+      await disconnectMailchimpAppOauth({ ...payloads[0], workshopId });
+      // {
+      // emailAddress
+      // mailchimpApiKeyId;
       // }
       break;
 
