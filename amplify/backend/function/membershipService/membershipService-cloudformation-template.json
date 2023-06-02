@@ -151,6 +151,28 @@
                   "MAILCHIMP_CLIENT_SECRET"
                 ]
               ]
+            },
+            "DELETE_THIS_LATER": {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Fn::Sub": [
+                      "/amplify/${appId}/${env}/AMPLIFY_${functionName}_",
+                      {
+                        "appId": {
+                          "Ref": "secretsPathAmplifyAppId"
+                        },
+                        "env": {
+                          "Ref": "env"
+                        },
+                        "functionName": "membershipService"
+                      }
+                    ]
+                  },
+                  "DELETE_THIS_LATER"
+                ]
+              ]
             }
           }
         },

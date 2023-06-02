@@ -27,6 +27,9 @@
         },
         "mewappacdc5d0eCreateAuthChallenge": {
           "secretsPathAmplifyAppId": "d1yi6qc6rnncji"
+        },
+        "membershipService": {
+          "secretsPathAmplifyAppId": "d1yi6qc6rnncji"
         }
       },
       "auth": {
