@@ -94,3 +94,6 @@ amplify/mock-api-resources
 migrations/
 youtube/
 mailchimp/
+
+.react-email
+email/out/*.html
