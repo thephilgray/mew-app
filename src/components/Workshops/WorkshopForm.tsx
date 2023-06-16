@@ -52,7 +52,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
     }, [])
 
     return (
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
             <form onSubmit={onSubmit}>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
@@ -128,7 +128,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                             }}
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12} md={3}>
                         <InputLabel>Status</InputLabel>
                         <FormControlLabel control={<Switch
                             checked={formState.status === 'Active'}
@@ -145,7 +145,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                             label='Active' />
                     </Grid>
 
-                    <Grid item xs={4}>
+                    <Grid item xs={12} md={4}>
                         <DatePicker
                             inputVariant="outlined"
                             variant="inline"
@@ -155,7 +155,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                             value={formState?.startDate}
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={12} md={4}>
                         <DatePicker
                             inputVariant="outlined"
                             variant="inline"

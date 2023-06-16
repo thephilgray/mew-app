@@ -61,8 +61,8 @@ export default function EditWorkshop({ workshopId = '' }) {
             updateForm({
                 name: data.getWorkshop.name,
                 description: data.getWorkshop.description,
-                startDate: new Date(data.getWorkshop.startDate),
-                endDate: new Date(data.getWorkshop.endDate),
+                ...data.getWorkshop.startDate && { startDate: new Date(data.getWorkshop.startDate) },
+                ...data.getWorkshop.endDate && { endDate: new Date(data.getWorkshop.endDate) },
                 email: data.getWorkshop.email || user?.email,
                 artwork: data.getWorkshop.artwork,
                 status: data.getWorkshop.status,
