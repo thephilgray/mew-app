@@ -87,7 +87,11 @@ export const Submission: React.FC<{
     if (commentsLoading) return <CircularProgress />
     // @ts-ignore
     if (!commentsLoading && !fileRequestData?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
-    if (!selectedSongs.length) return <Typography variant='h4'>Sorry. No feedback to give.</Typography>
+    if (!selectedSongs.length) return <>
+      <Typography variant='body1'>Sorry. No one has requested feedback yet. Maybe you're the first!</Typography>
+      <Button sx={{ mt: 1 }} onClick={() => setShowPlaylist(false)} variant='contained' color='success'>Finish</Button>
+    </>
+
 
     const currentSong = selectedSongs[currentIndex]
 
