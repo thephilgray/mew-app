@@ -272,7 +272,7 @@ const NewPublicSubmission: React.FC<
         const fileId = uuidv4()
         const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
-        const emails = !!profile ? submitters : email.split(',').map((email) => email.toLowerCase().trim())
+        const emails = !!profile ? submitters.map(item => item.email) : email.split(',').map((email) => email.toLowerCase().trim())
         const fileExtension = upload?.name.split('.').pop()
 
         let ARTWORK_UPLOAD_PATH
