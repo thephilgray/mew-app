@@ -1,20 +1,24 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { Fab, Tooltip } from '@mui/material'
+import { Fab, Tooltip, useMediaQuery } from '@mui/material'
 import React from 'react'
 import { useIsAdmin, useViewAdmin } from '../auth/hooks'
 import If from './If'
-
+import { useLocation } from 'react-use'
 
 export default function AdminViewToggle() {
   const [viewAdmin, setViewAdmin] = useViewAdmin()
   const isAdmin = useIsAdmin()
+  const location = useLocation()
+  const isPlaylistPage = location.pathname?.includes('playlists')
+  const smallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
   return (
-    <If condition={isAdmin}>
+    <If condition={isAdmin && !(isPlaylistPage && smallScreen)}>
       <Tooltip title={`${!!viewAdmin ? "Preview as member" : "Turn preview off"}`} placement="top-start">
         <Fab color="secondary"
           aria-label="Admin View Toggle"
           onClick={() => setViewAdmin(!viewAdmin)}
-          sx={{ position: 'fixed', bottom: '1em', right: '1em' }}>
+          sx={{ position: 'fixed', bottom: isPlaylistPage ? '100px' : '1em', right: '1em' }}>
           {!!viewAdmin ? <Visibility /> : <VisibilityOff />}
         </Fab>
       </Tooltip>
