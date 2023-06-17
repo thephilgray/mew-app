@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from 'react'
-import { Grid, TextField, IconButton, Button, Paper, Typography, CircularProgress, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel } from '@mui/material'
+import { Grid, TextField, IconButton, Button, Paper, Typography, CircularProgress, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
 import { CloudUpload, CheckCircle, WarningRounded, PlayArrow } from '@mui/icons-material'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import styled from '@emotion/styled'
 import { green } from '@mui/material/colors'
@@ -14,13 +14,17 @@ import { v4 as uuidv4 } from 'uuid'
 
 import Error from '../Error'
 import { createFileRequestSubmission } from '../../graphql/mutations'
-import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
+import { getFileRequest as getFileRequestQuery, listMemberships } from '../../graphql/queries'
 import AppBreadcrumbs from '../AppBreadcrumbs'
-import { useUser } from '../../auth/hooks'
+import { useProfile, useUser } from '../../auth/hooks'
 import If from '../If'
 import { ROUTE_NAMES } from '../../pages/app'
 import ImagePicker, { uploadImage } from '../ImagePicker'
 import { Submission } from './Submission'
+import { getCloudFrontURL, getDisplayName, searchMembersFilterOptions } from '../../utils'
+import { useLazyQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
+import uniqBy from 'lodash/uniqBy'
 
 type Inputs = {
     name: string
@@ -107,6 +111,7 @@ const NewPublicSubmission: React.FC<
     } | null>(null)
 
     const user = useUser()
+    const { profile, loading: profileLoading } = useProfile()
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<Error | null>(null)
     const [uploadSuccess, setUploadSuccess] = useState<boolean>(false)
@@ -116,12 +121,15 @@ const NewPublicSubmission: React.FC<
     const [image, setImage] = useState<string>('')
     const [showPlaylist, setShowPlaylist] = useState<boolean>(false)
     const [feedbackGiven, setFeedbackGiven] = useState<number>(0)
+    const [submitters, setSubmitters] = useState([])
+    const [fetchListMemberships, { loading: listMembershipsLoading, error: listMembershipsError, data: listMembershipsData }] = useLazyQuery(gql(listMemberships), { variables: { limit: 1000, filter: { workshopId: { eq: fileRequestData?.workshopId } } } })
 
     const {
         register,
         handleSubmit,
         setValue,
         watch,
+        control,
         getValues,
         formState: {
             errors,
@@ -130,7 +138,7 @@ const NewPublicSubmission: React.FC<
         defaultValues: useMemo(() => {
             return {
                 email: user?.email || '',
-                artist: user?.name || '',
+                artist: getDisplayName(profile),
                 requestFeedback: !!user,
             }
         }, [user])
@@ -250,13 +258,21 @@ const NewPublicSubmission: React.FC<
         }
     }
 
+    useEffect(() => {
+        if (profile && submitters.length === 0) {
+            setSubmitters([{ email: profile.email, displayName: profile.displayName, name: profile.name, avatar: profile.avatar }])
+        }
+        if (profile && !watch('artist')) {
+            setValue('artist', getDisplayName(profile))
+        }
+    }, [profile])
     const onSubmit = async (values: Inputs) => {
         setLoading(true)
         const { name, artist, email, lyrics, requestFeedback } = values
         const fileId = uuidv4()
         const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
-        const emails = email.split(',').map((email) => email.toLowerCase().trim())
+        const emails = !!profile ? submitters : email.split(',').map((email) => email.toLowerCase().trim())
         const fileExtension = upload?.name.split('.').pop()
 
         let ARTWORK_UPLOAD_PATH
@@ -320,6 +336,7 @@ const NewPublicSubmission: React.FC<
     }
 
     let content
+
 
     if (isValid) {
         content = (
@@ -392,7 +409,7 @@ const NewPublicSubmission: React.FC<
 
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField
+                        <If condition={!!profile?.email} fallbackContent={<TextField
                             variant="standard"
                             required
                             fullWidth
@@ -412,7 +429,46 @@ const NewPublicSubmission: React.FC<
                                         Separate multiple email addresses with a comma (<kbd>,</kbd>)
                                     </>
                                 )
-                            } />
+                            } />}>
+
+                            <Autocomplete
+                                onChange={(e, value = []) => setSubmitters(
+                                    [
+                                        profile,
+                                        ...value.filter(option => option?.email !== profile?.email)
+
+                                    ])}
+                                value={submitters}
+                                onOpen={() => listMembershipsData?.listMemberships?.items || fetchListMemberships()}
+                                loading={listMembershipsLoading}
+                                multiple
+                                getOptionDisabled={option => submitters.map(item => item.email).includes(option.email)}
+                                options={uniqBy(listMembershipsData?.listMemberships?.items?.map(({ profile }) =>
+                                    ({ email: profile.email, displayName: profile.displayName, name: profile.name, avatar: profile.avatar })) || [], 'email')}
+                                getOptionLabel={getDisplayName}
+                                filterOptions={searchMembersFilterOptions}
+                                renderTags={(tagValue, getTagProps) =>
+                                    tagValue.map((option, index) => (
+                                        <Chip
+                                            avatar={<Avatar src={getCloudFrontURL(option.avatar)} alt={getDisplayName(option)} />}
+                                            label={getDisplayName(option)}
+                                            {...getTagProps({ index })}
+                                            disabled={option?.email == profile?.email}
+                                        />
+                                    ))
+                                }
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Submitter(s)"
+                                        variant="standard"
+                                    />
+                                )}
+                            />
+
+
+                        </If>
+
                     </Grid>
                     <Grid item xs={6}>
                         <TextField

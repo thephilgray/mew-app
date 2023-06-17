@@ -20,13 +20,11 @@ import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
 import { useProfile, useUser } from '../../auth/hooks'
 import ImagePicker, { uploadImage } from '../ImagePicker'
-import { getCloudFrontURL } from '../../utils'
+import { getCloudFrontURL, searchMembersFilterOptions } from '../../utils'
 import { v4 as uuidv4 } from 'uuid';
 import { DatePicker } from '@mui/x-date-pickers'
-import { matchSorter } from 'match-sorter';
 import If from '../If'
 import ConnectMailchimpButton from '../ConnectMailchimpButton'
-
 
 export default function WorkshopForm({ onSubmit, setFormState, formState, loading }) {
     const { profile, refetch: refetchProfile } = useProfile()
@@ -45,7 +43,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
 
     const { loading: listProfilesLoading, error: listProfilesError, data: listProfilesData } = useQuery(gql(listProfiles), { variables: { limit: 1000 } })
     const ID = uuidv4()
-    const filterOptions = (options, { inputValue }) => matchSorter(options, inputValue, { keys: ['displayName', 'name', 'email'] });
+
 
     useEffect(() => {
         refetchProfile()
@@ -94,7 +92,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                                         updateForm({ email: newValue.email })
                                     }
                                 }}
-                                filterOptions={filterOptions}
+                                filterOptions={searchMembersFilterOptions}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
