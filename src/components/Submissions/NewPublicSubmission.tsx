@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from '
 import { Grid, TextField, IconButton, Button, Paper, Typography, CircularProgress, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
-import { CloudUpload, CheckCircle, WarningRounded, PlayArrow } from '@mui/icons-material'
+import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, SkipNext } from '@mui/icons-material'
 import { Controller, useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import styled from '@emotion/styled'
@@ -25,6 +25,7 @@ import { getCloudFrontURL, getDisplayName, searchMembersFilterOptions } from '..
 import { useLazyQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import uniqBy from 'lodash/uniqBy'
+import { navigate } from 'gatsby'
 
 type Inputs = {
     name: string
@@ -493,6 +494,9 @@ const NewPublicSubmission: React.FC<
                             error={!!errors.name}
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             // @ts-ignore
+                            inputProps={{
+                                autoComplete: 'off'
+                            }}
                             helperText={!!errors.name && validationMessages.name[errors.name.type]} />
                     </Grid>
                     <If condition={watch("addLyrics")}>
@@ -556,7 +560,8 @@ const NewPublicSubmission: React.FC<
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sx={{ textAlign: 'center' }}>
-                        <Button size="large" endIcon={<PlayArrow />} variant="contained" onClick={() => setShowPlaylist(true)}>BEGIN</Button>
+                        <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>Begin</Button>
+                        <Button size="large" onClick={() => navigate(ROUTE_NAMES.assignment.getPath({ assignmentId }))}>Done</Button>
                     </Grid>
                 </If>
             </Grid>
