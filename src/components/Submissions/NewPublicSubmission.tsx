@@ -18,7 +18,6 @@ import { getFileRequest as getFileRequestQuery, listMemberships } from '../../gr
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useProfile, useUser } from '../../auth/hooks'
 import If from '../If'
-import { ROUTE_NAMES } from '../../pages/app'
 import ImagePicker, { uploadImage } from '../ImagePicker'
 import { Submission } from './Submission'
 import { getCloudFrontURL, getDisplayName, searchMembersFilterOptions } from '../../utils'
@@ -26,6 +25,7 @@ import { useLazyQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import uniqBy from 'lodash/uniqBy'
 import { navigate } from 'gatsby'
+import { ROUTES } from '../../constants'
 
 type Inputs = {
     name: string
@@ -561,7 +561,7 @@ const NewPublicSubmission: React.FC<
                     </Grid>
                     <Grid item xs={12} sx={{ textAlign: 'center' }}>
                         <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>Begin</Button>
-                        <Button size="large" onClick={() => navigate(ROUTE_NAMES.assignment.getPath({ assignmentId }))}>Done</Button>
+                        <Button size="large" onClick={() => navigate(ROUTES.assignment.getPath({ assignmentId }))}>Done</Button>
                     </Grid>
                 </If>
             </Grid>
@@ -589,12 +589,12 @@ const NewPublicSubmission: React.FC<
         <Grid container spacing={2}>
             {user ? <Grid item xs={12}>
                 <AppBreadcrumbs
-                    paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments,
+                    paths={[ROUTES.home, ROUTES.workshop,
                     {
-                        path: ROUTE_NAMES.assignment.getPath({ assignmentId }),
+                        path: ROUTES.assignment.getPath({ assignmentId }),
                         name: fileRequestData?.title || assignmentId,
                     },
-                    ROUTE_NAMES.assignment]}
+                    ROUTES.assignment]}
                     workshopId={fileRequestData?.workshopId}
                 />
             </Grid> : null}

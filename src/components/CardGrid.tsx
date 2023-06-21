@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Chip, Grid, Paper, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Chip, Grid, Paper, Typography, styled } from '@mui/material';
 import React from 'react';
 import If from './If';
 import { getCloudFrontURL } from '../utils';
@@ -24,9 +24,15 @@ type CardGridProps = {
 };
 
 
-export const CardGridItem: React.FC<Item> = ({ name = '', bottomContent, chipContent, rightOverlayContent, id, active, artwork, description }) => {
-  return <Grid item xs={12} sm={6} key={id} sx={{ opacity: active ? '100%' : '50%' }} >
-    <Link to={`workshops/${id}`} style={{ textDecoration: 'none' }}>
+const StyledGrid = styled(Grid)`
+    &:hover {
+        transform: scale(1.015);
+    }`
+
+
+export const CardGridItem: React.FC<Item> = ({ name = '', link = "", bottomContent, chipContent, rightOverlayContent, belowOverlayContent, id, active = true, artwork, description }) => {
+  return <StyledGrid item xs={12} sm={6} key={id} sx={{ opacity: active ? '100%' : '50%', '&:hover': { opacity: '100%' } }} >
+    <Link to={link} style={{ textDecoration: 'none' }}>
       <Card >
         <CardMedia
           sx={{ height: 140 }}
@@ -35,12 +41,13 @@ export const CardGridItem: React.FC<Item> = ({ name = '', bottomContent, chipCon
         >
           {chipContent || null}
           <If condition={!!rightOverlayContent}>
-            <Paper sx={{ display: 'flex', alignItems: 'center', p: 1, float: 'right', justifySelf: 'flex-end', background: 'rgba(0, 0, 0, 0.7)' }} elevation={0}>
+            <Paper sx={{ display: 'flex', alignItems: 'center', p: 1, ml: 'auto', width: 'fit-content', justifySelf: 'flex-end', background: 'rgba(0, 0, 0, 0.7)', flexWrap: 'wrap' }} elevation={0}>
               {rightOverlayContent}
             </Paper>
           </If>
+          {belowOverlayContent || null}
         </CardMedia>
-        <CardContent sx={{ minHeight: 200 }}>
+        <CardContent sx={{ minHeight: 225 }}>
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
@@ -49,22 +56,20 @@ export const CardGridItem: React.FC<Item> = ({ name = '', bottomContent, chipCon
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
-              '-webkit-line-clamp': '3', /* number of lines to show */
-              'lineClamp': '3',
+              '-webkit-line-clamp': '2', /* number of lines to show */
+              'lineClamp': '2',
               '-webkit-box-orient': 'vertical',
             }}>
               {description}
             </Typography>
           </If>
           <If condition={!!bottomContent}>
-            <Grid container spacing={1} sx={{ mt: 1 }}>
-              {bottomContent}
-            </Grid>
+            {bottomContent}
           </If>
         </CardContent>
       </Card>
     </Link>
-  </Grid >
+  </StyledGrid >
 }
 
 const CardGrid: React.FC<CardGridProps> = ({ items }) => {

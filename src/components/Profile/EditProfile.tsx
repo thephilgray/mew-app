@@ -9,11 +9,10 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Add, Close, Delete, Launch, Mail, Save } from '@mui/icons-material'
 import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
-import { Group } from '../../constants'
+import { Group, ROUTES } from '../../constants'
 import { useProfile, useUser } from '../../auth/hooks'
 import { getProfile } from '../../graphql/queries';
 import AppBreadcrumbs from '../AppBreadcrumbs';
-import { ROUTE_NAMES } from '../../pages/app';
 import { v4 as uuidv4 } from 'uuid';
 import { navigate } from 'gatsby';
 import { getCloudFrontURL } from '../../utils';
@@ -202,7 +201,7 @@ const EditProfile = (): JSX.Element => {
         }
 
         return updateProfileRequest({ variables }).then(() =>
-            navigate(ROUTE_NAMES.profile.path))
+            navigate(ROUTES.profile.path))
     }
 
     const onSubmitApiKeyForm = (inputData: APIKeyForm) => {
@@ -281,7 +280,7 @@ const EditProfile = (): JSX.Element => {
     return <Grid container spacing={3}>
         <Grid item xs={12}>
             <AppBreadcrumbs
-                paths={[ROUTE_NAMES.home, ROUTE_NAMES.profile]}
+                paths={[ROUTES.home, ROUTES.profile]}
             />
         </Grid>
         <Grid item xs={12}>
