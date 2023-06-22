@@ -5,17 +5,13 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import { Button, Drawer, Typography, useMediaQuery } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useLocation } from 'react-use';
 import { getDisplayName, getRouteConfigFromLocation } from '../../utils';
 import { ROUTES } from '../../constants';
 import { navigate, Link } from 'gatsby';
 import { useProfile } from '../../auth/hooks';
 import { ArrowForward } from '@mui/icons-material';
-import MuiDrawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
 
 
 export default function NavList() {
@@ -28,15 +24,20 @@ export default function NavList() {
     }
   }, [location])
 
+  const getUrl = (navPath) => {
+    const { params } = ROUTES[navPath];
+    const url = ROUTES[navPath]?.getPath ? ROUTES[navPath]?.getPath(params) : ROUTES[navPath].path;
+    return url;
+  }
+
   return <List component="nav" aria-label="main mailbox folders">
     {routeConfig?.navPaths?.map(navPath =>
       <ListItemButton
-        // TODO: Add route configs for new route names to ROUTES; also icons
         onClick={() => {
-          const { params } = ROUTES[navPath];
-          const url = ROUTES[navPath]?.getPath ? ROUTES[navPath]?.getPath(params) : ROUTES[navPath].path;
+          const url = getUrl(navPath)
           navigate(url);
         }}
+        selected={getUrl(navPath) === location.pathname}
       >
         {ROUTES[navPath]?.icon ? <ListItemIcon>{ROUTES[navPath].icon()}</ListItemIcon> : null}
         <ListItemText primary={ROUTES[navPath]?.name}></ListItemText>
