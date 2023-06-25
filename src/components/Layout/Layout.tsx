@@ -33,7 +33,7 @@ const SmallScreenLayout = ({ siteTitle, children }) => {
 
 const Layout: React.FC = ({ children = [] }) => {
     const user = useUser()
-    const lg = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+    const lg = useMediaQuery((theme) => theme?.breakpoints?.up('lg'));
 
     return <StaticQuery
         query={graphql`
