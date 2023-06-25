@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { API } from 'aws-amplify'
 import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import 'react-jinke-music-player/lib/styles/index.less'
+import './playlist.css'
 import mewAppLogo from '../../assets/mewlogo.png'
 
 import { EXTENSIONS_BY_FILETYPE, ROUTES } from '../../constants'

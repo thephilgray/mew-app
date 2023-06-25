@@ -11,6 +11,7 @@ import { compareDesc, formatDistanceToNow } from "date-fns"
 import { onCreateComment, onDeleteComment, onUpdateComment } from "../graphql/subscriptions"
 import { getCloudFrontURL } from "../utils"
 import If from "./If"
+import { ROUTES } from "../constants"
 
 const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
   const { profile } = useProfile()
@@ -73,7 +74,8 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
           <Link to={`/app/profile/${comment.profile.id}`}>
             {comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}
           </Link>
-          <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – <em>{comment?.submission?.name} by {comment?.submission?.artist}</em></span>
+          <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – </span>
+          <Link to={ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId })}><em>{comment?.submission?.name} by {comment?.submission?.artist}</em></Link>
         </h4>
 
         <p style={{ textAlign: "left" }}>

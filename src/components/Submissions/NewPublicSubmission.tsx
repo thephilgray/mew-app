@@ -595,6 +595,7 @@ const NewPublicSubmission: React.FC<
                         name: fileRequestData?.title || assignmentId,
                     },
                     ROUTES.assignment]}
+                    workshop={fileRequestData?.workshop}
                     workshopId={fileRequestData?.workshopId}
                 />
             </Grid> : null}

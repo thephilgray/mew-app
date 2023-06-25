@@ -25,6 +25,7 @@ import Prompts from '../components/Prompts/Prompts';
 import SiteSettings from '../components/SiteSettings/SiteSettings';
 import { FeedbackSection } from '../components/Feedback';
 import Theme from '../components/Layout/Theme';
+import Assignments from '../components/Assignments/Assignments';
 
 const componentToRoutesMap = {
     [ROUTE_NAMES.HOME]: Workshops,
@@ -39,7 +40,7 @@ const componentToRoutesMap = {
     [ROUTE_NAMES.WORKSHOP_MEMBERS]: Members,
     [ROUTE_NAMES.WORKSHOP_FEEDBACK]: FeedbackSection,
     [ROUTE_NAMES.WORKSHOP_STEMS]: Stems,
-    [ROUTE_NAMES.ASSIGNMENTS]: Workshops, //todo
+    [ROUTE_NAMES.ASSIGNMENTS]: Assignments,
     [ROUTE_NAMES.ASSIGNMENT]: Submissions,
     [ROUTE_NAMES.NEW_ASSIGNMENT]: NewPublicAssignment,
     [ROUTE_NAMES.EDIT_ASSIGNMENT]: EditPublicAssignment,

@@ -343,6 +343,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                         ROUTES.workshop,
                         ROUTES.assignment,
                     ]}
+                    workshop={data?.getFileRequest?.workshop}
                     workshopId={data?.getFileRequest?.workshopId}
                     assignment={data?.getFileRequest}
                 />
