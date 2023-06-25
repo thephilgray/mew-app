@@ -1,4 +1,5 @@
-import { Card, CardContent, CardMedia, Chip, Grid, Paper, Typography, styled } from '@mui/material';
+import { Card, CardContent, CardMedia, Chip, Paper, Typography, styled } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 import React from 'react';
 import If from './If';
 import { getCloudFrontURL } from '../utils';
@@ -31,7 +32,7 @@ const StyledGrid = styled(Grid)`
 
 
 export const CardGridItem: React.FC<Item> = ({ name = '', link = "", bottomContent, chipContent, rightOverlayContent, belowOverlayContent, id, active = true, artwork, description }) => {
-  return <StyledGrid item xs={12} sm={6} key={id} sx={{ opacity: active ? '100%' : '50%', '&:hover': { opacity: '100%' } }} >
+  return <StyledGrid xs={12} sm={6} key={id} sx={{ opacity: active ? '100%' : '50%', '&:hover': { opacity: '100%' } }} >
     <Link to={link} style={{ textDecoration: 'none' }}>
       <Card >
         <CardMedia
@@ -73,9 +74,9 @@ export const CardGridItem: React.FC<Item> = ({ name = '', link = "", bottomConte
 }
 
 const CardGrid: React.FC<CardGridProps> = ({ items }) => {
-  return <Grid container minHeight={375} spacing={{ xs: 2, md: 3 }} >
-    <If condition={!!items.length} fallbackContent={<Grid item xs={12}>
-      <Typography>None found.</Typography>
+  return <Grid container minHeight={375} spacing={{ xs: 2, md: 3 }}>
+    <If condition={!!items.length} fallbackContent={<Grid xs={12}>
+      <Typography variant="body1">None found.</Typography>
     </Grid>}>
       {items.map(CardGridItem)}
     </If>

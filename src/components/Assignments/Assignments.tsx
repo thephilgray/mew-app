@@ -275,12 +275,14 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                     </Grid>
                     {/* {upcomingAssignments.length > 0 ? (
                         <AssignmentList items={upcomingAssignments} />
-                    ) : (
-                        <Grid item xs={12}>
+                        ) : (
+                            <Grid item xs={12}>
                             <Typography>There are currently no upcoming assignments.</Typography>
-                        </Grid>
-                    )} */}
-                    <CardGrid items={withCardGridProps(upcomingAssignments)} />
+                            </Grid>
+                        )} */}
+                    <Grid item xs={12}>
+                        <CardGrid items={withCardGridProps(upcomingAssignments)} />
+                    </Grid>
                 </Grid>
             </Grid>
             {pastDueAssignments.length > 0 ? (
@@ -291,7 +293,9 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                                 Past Due
                             </Typography>
                         </Grid>
-                        <CardGrid items={withCardGridProps(pastDueAssignments)} />
+                        <Grid item xs={12}>
+                            <CardGrid items={withCardGridProps(pastDueAssignments)} />
+                        </Grid>
                     </Grid>
                 </Grid>
             ) : null}
@@ -304,7 +308,7 @@ const Assignments: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => 
                 <AppBreadcrumbs paths={[ROUTES.home, ROUTES.workshop]} workshop={workshop} />
             </Grid>
             <GroupGuard groups={[Group.admin]}>
-                <Grid item xs={12} style={{ paddingBottom: 0 }}>
+                <Grid item xs={12} sx={{ pb: 0 }}>
                     <Grid container>
                         <If condition={!!viewAdmin}>
                             <Grid item xs={6} md={8}>

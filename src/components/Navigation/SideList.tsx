@@ -5,9 +5,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import { Button, Typography } from '@mui/material';
+import { Avatar, Button, Typography } from '@mui/material';
 import { useLocation } from 'react-use';
-import { getDisplayName, getRouteConfigFromLocation } from '../../utils';
+import { getCloudFrontURL, getDisplayName, getRouteConfigFromLocation } from '../../utils';
 import { ROUTES } from '../../constants';
 import { navigate, Link } from 'gatsby';
 import { useProfile } from '../../auth/hooks';
@@ -55,10 +55,19 @@ export const SideBarNav = () => {
 
     <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
 
-      <Box sx={{ p: 1 }}>
-        <Typography variant="h4">Hi {displayName}</Typography>
+      <Box sx={{ p: 1, display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <Link to={ROUTES.profile.path}>
+          <Avatar sx={{ width: 150, height: 150, mb: 1 }} src={profile?.avatar ? getCloudFrontURL(profile.avatar) : ''} />
+        </Link>
+        <Typography sx={{ flexBasis: '100%' }} variant="h5" align='center'><span>Hi</span><span style={{
+          display: "-webkit-box",
+          "-webkit-line-clamp": "1",
+          "-webkit-box-orient": "vertical",
+          overflow: "hidden",
+          "text-overflow": "ellipsis",
+        }}>{displayName}</span></Typography>
         {shouldSetupProfile ? <Typography variant="body1">
-          <Button endIcon={<ArrowForward />} component={Link} to={ROUTES.editProfile.path} sx={{ color: 'primary.main' }} >
+          <Button endIcon={<ArrowForward />} component={Link} to={ROUTES.editProfile.path} sx={{ color: 'primary.main', textAlign: 'center' }} >
             Setup your profile
           </Button>
         </Typography> : null}

@@ -8,6 +8,7 @@ import { useUser } from '../../auth/hooks'
 import SideNav, { DrawerHeader } from './SideNav'
 import { LayoutProvider, useLayout } from './layout.context'
 import If from '../If'
+import './layout.css'
 
 const SmallScreenLayout = ({ siteTitle, children }) => {
 
