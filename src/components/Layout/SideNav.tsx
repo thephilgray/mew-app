@@ -3,13 +3,14 @@ import { SideBarNav } from '../Navigation/SideList'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { styled, Theme, CSSObject } from '@mui/material/styles';
-import { Divider, Grid, IconButton, useMediaQuery, } from '@mui/material'
+import { Divider, Grid, IconButton } from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer';
 
 import If from '../If'
 import { useLayout } from './layout.context';
 import NavList from '../Navigation/SideList';
 import { useTheme } from '@emotion/react';
+import { useBreakpoint } from './Layout';
 
 const drawerWidth = 240;
 
@@ -68,7 +69,9 @@ type SideNavProps = {
 const SideNav: React.FC<SideNavProps> = () => {
   const [drawerOpen, setDrawerOpen] = useLayout()
   const theme = useTheme()
-  const lg = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const breakpoint = useBreakpoint()
+  const lg = breakpoint === "L"
+
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };

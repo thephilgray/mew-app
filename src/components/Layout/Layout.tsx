@@ -3,12 +3,15 @@ import { StaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import AppHeader from './AppHeader'
 import AdminViewToggle from '../AdminViewToggle'
-import { Box, Grid, useMediaQuery } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { useUser } from '../../auth/hooks'
 import SideNav, { DrawerHeader } from './SideNav'
 import { LayoutProvider, useLayout } from './layout.context'
 import If from '../If'
 import './layout.css'
+import { createBreakpoint } from 'react-use'
+
+export const useBreakpoint = createBreakpoint({ L: 1200, S: 600, XS: 0 })
 
 const SmallScreenLayout = ({ siteTitle, children }) => {
 
@@ -31,9 +34,11 @@ const SmallScreenLayout = ({ siteTitle, children }) => {
 
 }
 
+
 const Layout: React.FC = ({ children = [] }) => {
     const user = useUser()
-    const lg = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+    const breakpoint = useBreakpoint()
+    const lg = breakpoint === "L"
 
     return <StaticQuery
         query={graphql`
