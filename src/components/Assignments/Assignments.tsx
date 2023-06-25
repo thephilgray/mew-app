@@ -166,7 +166,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
                             </Grid>
                         )} */}
         <Grid item xs={12}>
-          {upcomingAssignments.length ? <CardGrid items={withCardGridProps(upcomingAssignments)} /> : <SkeletonCardGrid numberOfItems={12} />}
+          {data ? <CardGrid items={withCardGridProps(upcomingAssignments)} /> : <SkeletonCardGrid numberOfItems={12} />}
 
         </Grid>
       </Grid>
@@ -180,7 +180,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            {pastDueAssignments.length ? <CardGrid items={withCardGridProps(pastDueAssignments)} /> : <SkeletonCardGrid numberOfItems={12} />}
+            {data ? <CardGrid items={withCardGridProps(pastDueAssignments)} /> : <SkeletonCardGrid numberOfItems={12} />}
           </Grid>
         </Grid>
       </Grid>
