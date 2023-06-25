@@ -4,7 +4,7 @@ type TypeName = {
 };
 
 const Playlists: React.FC<TypeName> = () => {
-  return <div>PlaylistsCon</div>
+  return <div>TODO: Playlists in one place</div>
 }
 
 export default Playlists;

@@ -70,7 +70,7 @@ const defaultNav = [ROUTE_NAMES.WORKSHOPS, ROUTE_NAMES.ASSIGNMENTS, ROUTE_NAMES.
 
 export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
     [ROUTE_NAMES.HOME]: {
-        path: '/app/',
+        path: '/app',
         name: 'Home',
         navPaths: defaultNav,
         icon: props => <Home {...props} />,
@@ -219,7 +219,7 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         path: '/app/playlists',
         name: 'Playlists',
         navPaths: defaultNav,
-        groups: [Group.admin, Group.member],
+        groups: [Group.admin],
         icon: props => <PlaylistPlay {...props} />,
     },
     [ROUTE_NAMES.PLAYLIST]: {
@@ -256,28 +256,28 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         path: '/app/stems',
         name: 'Stems',
         navPaths: defaultNav,
-        groups: [Group.admin, Group.member],
+        groups: [Group.admin],
         icon: props => <AudioFile {...props} />,
     },
     [ROUTE_NAMES.NEW_STEM]: {
         path: '/app/stems/new',
         name: 'New Stem',
         navPaths: defaultNav,
-        groups: [Group.admin, Group.member],
+        groups: [Group.admin],
         icon: props => <PlaylistAddCircle {...props} />,
     },
     [ROUTE_NAMES.PROMPTS]: {
         path: '/app/prompts',
         name: 'Prompts',
         navPaths: defaultNav,
-        groups: [Group.admin, Group.member],
+        groups: [Group.admin],
         icon: props => <Terminal {...props} />,
     },
     [ROUTE_NAMES.NEW_PROMPT]: {
         path: '/app/prompts/new',
         name: 'New Prompt',
         navPaths: defaultNav,
-        groups: [Group.admin, Group.member],
+        groups: [Group.admin],
         icon: props => <PostAdd {...props} />,
     },
     [ROUTE_NAMES.SITE_SETTINGS]: {

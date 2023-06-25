@@ -10,9 +10,8 @@ import { useLocation } from 'react-use';
 import { getCloudFrontURL, getDisplayName, getRouteConfigFromLocation } from '../../utils';
 import { ROUTES } from '../../constants';
 import { navigate, Link } from 'gatsby';
-import { useProfile } from '../../auth/hooks';
+import { useProfile, useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks';
 import { ArrowForward } from '@mui/icons-material';
-
 
 export default function NavList() {
   const location = useLocation()
@@ -31,19 +30,21 @@ export default function NavList() {
   }
 
   return <List component="nav" aria-label="main mailbox folders">
-    {routeConfig?.navPaths?.map(navPath =>
-      <ListItemButton
-        onClick={() => {
-          const url = getUrl(navPath)
-          navigate(url);
-        }}
-        selected={getUrl(navPath) === location.pathname}
-      >
-        {ROUTES[navPath]?.icon ? <ListItemIcon>{ROUTES[navPath].icon()}</ListItemIcon> : null}
-        <ListItemText primary={ROUTES[navPath]?.name}></ListItemText>
-      </ListItemButton>
+    {routeConfig?.navPaths
+      ?.filter((navPath) => ROUTES[navPath].groups ? useUserInAtLeastOneOfTheseGroups(ROUTES[navPath].groups) : true)
+      ?.map(navPath =>
+        <ListItemButton
+          onClick={() => {
+            const url = getUrl(navPath)
+            navigate(url);
+          }}
+          selected={getUrl(navPath) === location.pathname}
+        >
+          {ROUTES[navPath]?.icon ? <ListItemIcon>{ROUTES[navPath].icon()}</ListItemIcon> : null}
+          <ListItemText primary={ROUTES[navPath]?.name}></ListItemText>
+        </ListItemButton>
 
-    )}
+      )}
   </List >
 }
 
