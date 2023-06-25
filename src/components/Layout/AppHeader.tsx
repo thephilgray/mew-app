@@ -2,8 +2,8 @@ import * as React from 'react'
 import { Link, navigate } from 'gatsby'
 import { makeStyles } from 'tss-react/mui';
 
-import { Avatar, IconButton, Menu, MenuItem, Toolbar, Typography, useMediaQuery } from '@mui/material'
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import { Avatar, IconButton, Menu, MenuItem, Toolbar } from '@mui/material'
+import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import mewAppLogo from '../../assets/mewlogo.png'
 import { useProfile, useSignOut, useUser } from '../../auth/hooks'
@@ -12,6 +12,7 @@ import { ROUTES } from '../../constants';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import { useLayout } from './layout.context';
+import { useBreakpoint } from './Layout';
 
 
 interface AppBarProps extends MuiAppBarProps {
@@ -88,7 +89,9 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
         return navigate(ROUTES.profile.path)
     }
 
-    const lg = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+    const breakpoint = useBreakpoint()
+    const lg = breakpoint === "L"
+    // const lg = useMediaQuery((theme) => theme.breakpoints.up('lg'));
 
 
     const handleDrawerOpen = () => {

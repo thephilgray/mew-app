@@ -54,7 +54,7 @@ const getTheme = (palette = {}): Theme =>
                 '"Segoe UI Symbol"',
             ].join(','),
         },
-        drawerWidth: 240
+        // drawerWidth: 240
     })
 
 const EmotionTheme: React.FC = ({ children = [] }) => {

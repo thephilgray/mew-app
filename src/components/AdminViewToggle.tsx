@@ -1,15 +1,17 @@
 import { Lock, LockOpen, Visibility, VisibilityOff } from '@mui/icons-material'
-import { Fab, Tooltip, useMediaQuery } from '@mui/material'
+import { Fab, Tooltip } from '@mui/material'
 import React from 'react'
 import { useIsAdmin, useViewAdmin } from '../auth/hooks'
 import If from './If'
 import { useLocation } from 'react-use'
+import { useBreakpoint } from './Layout/Layout'
 export default function AdminViewToggle() {
   const [viewAdmin, setViewAdmin] = useViewAdmin()
   const isAdmin = useIsAdmin()
   const location = useLocation()
   const isPlaylistPage = location.pathname?.includes('playlists')
-  const smallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const breakpoint = useBreakpoint()
+  const smallScreen = breakpoint === "XS"
 
   return (
     <If condition={isAdmin && !(isPlaylistPage && smallScreen)}>

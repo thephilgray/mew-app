@@ -16,12 +16,10 @@ import {
     IconButton,
     Snackbar,
     Typography,
-    useMediaQuery,
 } from '@mui/material';
 import {
     DataGrid,
     GridColDef,
-    GridRowParams,
     GridRowSelectionModel,
 } from '@mui/x-data-grid';
 import gql from 'graphql-tag';
@@ -53,6 +51,7 @@ import GroupGuard from '../Auth/GroupGuard';
 import { Group, ROUTES } from '../../constants';
 import If from '../If';
 import { FeedbackSection } from '../Feedback';
+import { useBreakpoint } from '../Layout/Layout';
 
 const getFileRequestWithNoLimit = getFileRequest.replace(
     'submissions {',
@@ -79,7 +78,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
 
     const user = useUser();
     const [viewAdmin] = useViewAdmin();
-    const sm = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+    const breakpoint = useBreakpoint()
+    const sm = breakpoint === "S"
 
     const dialogConstants = {
         CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link',
