@@ -5,12 +5,12 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
 import { countBy, entries, groupBy, head, keyBy, last, maxBy, uniqBy, uniqueId } from 'lodash'
-import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
 import styled from '@emotion/styled'
 import { Add, Delete, Sync } from '@mui/icons-material'
 import { updateMembershipService } from '../../graphql/mutations'
+import { ROUTES } from '../../constants';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -399,7 +399,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         <Grid container spacing={3}>
             <Grid item xs={12}>
                 <AppBreadcrumbs
-                    paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.members]}
+                    paths={[ROUTES.home, ROUTES.workshop, ROUTES.workshopMembers]}
                     workshopId={workshopId}
                 />
             </Grid>

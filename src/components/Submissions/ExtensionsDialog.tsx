@@ -26,7 +26,6 @@ import { API } from 'aws-amplify'
 import Error from '../Error'
 import { Delete, FileCopy, Save } from '@mui/icons-material'
 import { useCopyToClipboard, usePrevious } from 'react-use'
-import { ROUTE_NAMES } from '../../pages/app'
 import {
     createExtension as createExtensionMutation,
     deleteExtension as deleteExtensionMutation,
@@ -34,6 +33,7 @@ import {
 import { extensionsByFileRequestId as extensionsByFileRequestIdQuery } from '../../graphql/queries'
 import { format } from 'date-fns'
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator'
+import { ROUTES } from '../../constants';
 
 const customConfig: Config = {
     dictionaries: [adjectives, colors, animals],
@@ -167,14 +167,14 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
                                             <TableRow key={row.id}>
                                                 <TableCell>
                                                     <Link
-                                                        to={ROUTE_NAMES.newPublicSubmissionExtension.getPath({
+                                                        to={ROUTES.newPublicSubmissionExtension.getPath({
                                                             assignmentId,
                                                             extensionCode: row.id,
                                                         })}
                                                         style={{ fontSize: '.75em' }}
                                                     >
                                                         {window.origin}
-                                                        {ROUTE_NAMES.newPublicSubmissionExtension.getPath({
+                                                        {ROUTES.newPublicSubmissionExtension.getPath({
                                                             assignmentId,
                                                             extensionCode: row.id,
                                                         })}
@@ -192,7 +192,7 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
                                                         onClick={() =>
                                                             copyToClipboard(
                                                                 `${window.origin
-                                                                }${ROUTE_NAMES.newPublicSubmissionExtension.getPath(
+                                                                }${ROUTES.newPublicSubmissionExtension.getPath(
                                                                     {
                                                                         assignmentId,
                                                                         // @ts-ignore

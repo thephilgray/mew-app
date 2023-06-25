@@ -31,11 +31,11 @@ import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { FileCopy } from '@mui/icons-material'
 import { useCopyToClipboard } from 'react-use'
-import { ROUTE_NAMES } from '../../pages/app'
 import * as mutations from '../../graphql/mutations'
 import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
 import ImagePicker, { uploadImage } from '../ImagePicker';
 import { getCloudFrontURL } from '../../utils';
+import { ROUTES } from '../../constants';
 
 const getFileRequestWithNoLimit = getFileRequestQuery.replace('submissions {', 'submissions(limit: 1000) {')
 
@@ -143,7 +143,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
             },
         })
         // then redirect
-        navigate(ROUTE_NAMES.assignment.getPath({ assignmentId }))
+        navigate(ROUTES.assignment.getPath({ assignmentId }))
     }
 
     const deleteAssignment = async () => {
@@ -156,7 +156,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
             },
         })
         // then redirect
-        navigate(ROUTE_NAMES.home.path)
+        navigate(ROUTES.home.path)
     }
 
     if (error) return <Error errorMessage={error} />
@@ -192,10 +192,10 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
             <Grid item xs={12}>
                 <AppBreadcrumbs
                     paths={[
-                        ROUTE_NAMES.home,
-                        ROUTE_NAMES.assignments,
-                        { path: ROUTE_NAMES.assignment.getPath({ assignmentId }), name: getValues().title },
-                        ROUTE_NAMES.editAssignment,
+                        ROUTES.home,
+                        ROUTES.workshop,
+                        { path: ROUTES.assignment.getPath({ assignmentId }), name: getValues().title },
+                        ROUTES.editAssignment,
                     ]}
                     assignmentId={assignmentId}
                     workshopId={getFileRequest?.workshopId}
@@ -216,12 +216,12 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                             {getFileRequest?.id && !loading && (
                                 <Grid item xs={12} md={9}>
                                     <Link
-                                        to={ROUTE_NAMES.newPublicSubmission.getPath({
+                                        to={ROUTES.newPublicSubmission.getPath({
                                             assignmentId: getFileRequest.id,
                                         })}
                                     >
                                         {window.origin}
-                                        {ROUTE_NAMES.newPublicSubmission.getPath({
+                                        {ROUTES.newPublicSubmission.getPath({
                                             assignmentId: getFileRequest.id,
                                         })}
                                     </Link>
@@ -242,7 +242,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                         component="span"
                                         onClick={() =>
                                             copyToClipboard(
-                                                `${window.origin}${ROUTE_NAMES.newPublicSubmission.getPath({
+                                                `${window.origin}${ROUTES.newPublicSubmission.getPath({
                                                     assignmentId: getFileRequest.id,
                                                 })}`,
                                             )

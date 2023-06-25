@@ -4,14 +4,13 @@ import { navigate } from 'gatsby'
 import gql from 'graphql-tag'
 import React, { useEffect, useState } from 'react'
 import { createWorkshop, updateMembershipService } from '../../graphql/mutations'
-import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import WorkshopForm from './WorkshopForm'
 import { add } from 'date-fns'
 import { useProfile, useUser } from '../../auth/hooks'
 import { v4 as uuidv4 } from 'uuid';
 import { uploadImage } from '../ImagePicker'
-
+import { ROUTES } from '../../constants'
 
 export default function NewWorkshop() {
     const user = useUser()
@@ -106,11 +105,11 @@ export default function NewWorkshop() {
                     },
                     workshopId: workshopResponse.data.createWorkshop.id
                 }).then(() => {
-                    navigate(ROUTE_NAMES.assignments.getPath({ workshopId: workshopResponse.data.createWorkshop.id }))
+                    navigate(ROUTES.workshop.getPath({ workshopId: workshopResponse.data.createWorkshop.id }))
                 })
             }
             else {
-                navigate(ROUTE_NAMES.assignments.getPath({ workshopId: workshopResponse.data.createWorkshop.id }))
+                navigate(ROUTES.workshop.getPath({ workshopId: workshopResponse.data.createWorkshop.id }))
             }
         }
     }, [workshopResponse])
@@ -119,7 +118,7 @@ export default function NewWorkshop() {
         <div>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <AppBreadcrumbs paths={[ROUTE_NAMES.home, ROUTE_NAMES.newWorkshop]} />
+                    <AppBreadcrumbs paths={[ROUTES.home, ROUTES.newWorkshop]} />
                 </Grid>
                 <Grid item xs={8}>
                     <Typography variant="h5" component="h5" gutterBottom>

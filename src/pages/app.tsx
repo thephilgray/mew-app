@@ -11,142 +11,73 @@ import NewPublicSubmission from '../components/Submissions/NewPublicSubmission'
 import NotFound from '../components/NotFound'
 import Submissions from '../components/Submissions/Submissions'
 import Playlist from '../components/Submissions/Playlist'
-import Assignments from '../components/Assignments/Assignments'
+import Workshop from '../components/Workshops/Workshop'
 import Members from '../components/Members/Members'
 import { AuthProvider } from '../auth/auth.context'
 import Workshops from '../components/Workshops/Workshops'
 import EditWorkshop from '../components/Workshops/EditWorkshop'
 import NewWorkshop from '../components/Workshops/NewWorkshop'
-import { Group } from '../constants'
+import { ROUTES, ROUTE_NAMES, MAPPED_ROUTE_CONFIGS } from '../constants'
 import ViewProfile from '../components/Profile/ViewProfile';
+import Stems from '../components/Stems/Stems';
+import Playlists from '../components/Playlists/Playlists';
+import Prompts from '../components/Prompts/Prompts';
+import SiteSettings from '../components/SiteSettings/SiteSettings';
+import { FeedbackSection } from '../components/Feedback';
+import Theme from '../components/Layout/Theme';
+import Assignments from '../components/Assignments/Assignments';
 
-export const ROUTE_NAMES = {
-    home: {
-        path: '/app/',
-        name: 'Workshops',
-    },
-    assignment: {
-        path: '/app/assignments/:assignmentId',
-        getPath: ({ assignmentId = '' }): string => `/app/assignments/${assignmentId}`,
-        getName: ({ title = '' }): string => title,
-        name: 'Assignment',
-        groups: [Group.admin, Group.member],
-    },
-    assignments: {
-        path: '/app/workshops/:workshopId',
-        getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}`,
-        getName: ({ name = '' }): string => name,
-        name: 'Assignments',
-        groups: [Group.admin, Group.member],
-    },
-    playlist: {
-        path: '/app/playlists/:assignmentId',
-        getPath: ({ assignmentId = '' }): string => `/app/playlists/${assignmentId}`,
-        name: 'Playlist',
-    },
-    newAssignment: {
-        path: '/app/workshops/:workshopId/new-assignment',
-        name: 'New Assignment',
-        getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/new-assignment`,
-        groups: [Group.admin],
-    },
-    editAssignment: {
-        path: '/app/assignments/:assignmentId/edit',
-        name: 'Edit',
-        groups: [Group.admin],
-    },
-    members: {
-        path: '/app/workshops/:workshopId/members',
-        name: 'Members',
-        getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/members`,
-        groups: [Group.admin],
-    },
-    profile: {
-        path: '/app/profile',
-        name: 'Profile',
-    },
-    editProfile: {
-        path: '/app/profile/edit',
-        name: 'Edit Profile',
-    },
-    viewProfile: {
-        path: '/app/profile/:profileId',
-        getPath: ({ profileId = '' }): string => `/app/profile/${profileId}`,
-        name: 'Profile'
-    },
-    newPublicSubmission: {
-        path: '/app/submissions/:assignmentId',
-        getPath: ({ assignmentId = '' }): string => `/app/submissions/${assignmentId}`,
-        name: 'New Submission',
-    },
-    newPublicSubmissionExtension: {
-        path: '/app/submissions/:assignmentId/:extensionCode',
-        getPath: ({ assignmentId = '', extensionCode = '' }): string =>
-            `/app/submissions/${assignmentId}/${extensionCode}`,
-        name: 'New Submission (Extension)',
-    },
-    editWorkshop: {
-        path: '/app/workshops/:workshopId/settings',
-        getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/settings`,
-        name: 'Settings',
-        groups: [Group.admin],
-    },
-    newWorkshop: {
-        path: '/app/workshops/new',
-        name: 'New Workshop',
-        groups: [Group.admin],
-    },
+const componentToRoutesMap = {
+    [ROUTE_NAMES.HOME]: Workshops,
+    [ROUTE_NAMES.PROFILE]: ViewProfile,
+    [ROUTE_NAMES.VIEW_PROFILE]: ViewProfile,
+    [ROUTE_NAMES.EDIT_PROFILE]: EditProfile,
+    [ROUTE_NAMES.PROFILE_CONNECTED_APPS]: EditProfile,
+    [ROUTE_NAMES.WORKSHOPS]: Workshops,
+    [ROUTE_NAMES.WORKSHOP]: Workshop,
+    [ROUTE_NAMES.NEW_WORKSHOP]: NewWorkshop,
+    [ROUTE_NAMES.EDIT_WORKSHOP]: EditWorkshop,
+    [ROUTE_NAMES.WORKSHOP_MEMBERS]: Members,
+    [ROUTE_NAMES.WORKSHOP_FEEDBACK]: FeedbackSection,
+    [ROUTE_NAMES.WORKSHOP_STEMS]: Stems,
+    [ROUTE_NAMES.ASSIGNMENTS]: Assignments,
+    [ROUTE_NAMES.ASSIGNMENT]: Submissions,
+    [ROUTE_NAMES.NEW_ASSIGNMENT]: NewPublicAssignment,
+    [ROUTE_NAMES.EDIT_ASSIGNMENT]: EditPublicAssignment,
+    [ROUTE_NAMES.ASSIGNMENT_PLAYLIST]: Playlist,
+    [ROUTE_NAMES.NEW_SUBMISSION]: NewPublicSubmission,
+    [ROUTE_NAMES.NEW_SUBMISSION_EXTENSION]: NewPublicSubmission,
+    [ROUTE_NAMES.PLAYLISTS]: Playlists,
+    [ROUTE_NAMES.PLAYLIST]: Playlist,
+    [ROUTE_NAMES.NEW_PLAYLIST]: Playlists,
+    [ROUTE_NAMES.EDIT_PLAYLIST]: Playlists,
+    [ROUTE_NAMES.FEEDBACK]: FeedbackSection,
+    [ROUTE_NAMES.STEMS]: Stems,
+    [ROUTE_NAMES.NEW_STEM]: Stems,
+    [ROUTE_NAMES.PROMPTS]: Prompts,
+    [ROUTE_NAMES.NEW_PROMPT]: Prompts,
+    [ROUTE_NAMES.SITE_SETTINGS]: SiteSettings,
 }
+
+
 const App: React.FC = (): JSX.Element => (
     <AuthProvider>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Layout>
-                <Router>
-                    <NotFound default />
-                    <PrivateRoute path={ROUTE_NAMES.home.path} component={Workshops} />
-                    <PrivateRoute
-                        path={ROUTE_NAMES.newAssignment.path}
-                        component={NewPublicAssignment}
-                        groups={ROUTE_NAMES.newAssignment.groups}
-                    />
-                    <PrivateRoute
-                        path={ROUTE_NAMES.editAssignment.path}
-                        component={EditPublicAssignment}
-                        groups={ROUTE_NAMES.editAssignment.groups}
-                    />
-                    <PrivateRoute
-                        path={ROUTE_NAMES.assignment.path}
-                        component={Submissions}
-                        groups={ROUTE_NAMES.assignment.groups}
-                    />
-                    <PrivateRoute
-                        path={ROUTE_NAMES.assignments.path}
-                        component={Assignments}
-                        groups={ROUTE_NAMES.assignments.groups}
-                    />
-                    <PrivateRoute path={ROUTE_NAMES.profile.path} component={ViewProfile} />
-                    <PrivateRoute path={ROUTE_NAMES.editProfile.path} component={EditProfile} />
-                    <PrivateRoute path={ROUTE_NAMES.viewProfile.path} component={ViewProfile} />
-                    <PrivateRoute
-                        path={ROUTE_NAMES.members.path}
-                        component={Members}
-                        groups={ROUTE_NAMES.members.groups}
-                    />
-                    <PrivateRoute
-                        path={ROUTE_NAMES.editWorkshop.path}
-                        component={EditWorkshop}
-                        groups={ROUTE_NAMES.editWorkshop.groups}
-                    />
-                    <PrivateRoute
-                        path={ROUTE_NAMES.newWorkshop.path}
-                        component={NewWorkshop}
-                        groups={ROUTE_NAMES.newWorkshop.groups}
-                    />
-                    <Playlist path={ROUTE_NAMES.playlist.path} />
-                    <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmission.path} />
-                    <NewPublicSubmission path={ROUTE_NAMES.newPublicSubmissionExtension.path} />
-                </Router>
-            </Layout>
+            <Theme>
+                <Layout>
+                    <Router>
+                        <NotFound default />
+                        {MAPPED_ROUTE_CONFIGS.map(config => {
+                            if (config.public) return; // just manually setup the public routes below
+                            return <PrivateRoute {...config} component={componentToRoutesMap[config.routeName]} />
+
+                        })}
+                        <Playlist path={ROUTES.assignmentPlaylist.path} />
+                        <NewPublicSubmission path={ROUTES.newPublicSubmission.path} />
+                        <NewPublicSubmission path={ROUTES.newPublicSubmissionExtension.path} />
+                    </Router>
+                </Layout>
+            </Theme>
         </LocalizationProvider>
     </AuthProvider>
 )

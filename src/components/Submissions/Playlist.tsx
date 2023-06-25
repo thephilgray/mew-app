@@ -8,12 +8,12 @@ import { useQuery } from '@apollo/react-hooks'
 import { API } from 'aws-amplify'
 import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import 'react-jinke-music-player/lib/styles/index.less'
+import './playlist.css'
 import mewAppLogo from '../../assets/mewlogo.png'
 
-import { EXTENSIONS_BY_FILETYPE } from '../../constants'
+import { EXTENSIONS_BY_FILETYPE, ROUTES } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
-import { ROUTE_NAMES } from '../../pages/app'
 import { useUser } from '../../auth/hooks'
 import { Pause, PlayArrow as PlayArrowIcon, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon } from '@mui/icons-material'
 import { FeedbackSection } from '../Feedback'
@@ -21,7 +21,6 @@ import { getFileRequest } from '../../graphql/queries'
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
 import { FileRequestSubmission } from '../../models';
-
 
 const GET_FILE_REQUEST = gql(getFileRequest.replace('submissions {', 'submissions(limit: 1000) {'))
 
@@ -178,13 +177,13 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 <Grid item xs={12}>
                     <AppBreadcrumbs
                         paths={[
-                            ROUTE_NAMES.home,
-                            ROUTE_NAMES.assignments,
+                            ROUTES.home,
+                            ROUTES.workshop,
                             {
-                                path: ROUTE_NAMES.assignment.getPath({ assignmentId }),
+                                path: ROUTES.assignment.getPath({ assignmentId }),
                                 name: data?.title || assignmentId,
                             },
-                            ROUTE_NAMES.playlist,
+                            ROUTES.assignmentPlaylist,
                         ]}
                         workshopId={data?.workshopId}
                     />

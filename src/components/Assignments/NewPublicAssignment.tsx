@@ -22,10 +22,10 @@ import Error from '../Error';
 import AppBreadcrumbs from '../AppBreadcrumbs';
 import { FileCopy } from '@mui/icons-material';
 import { useCopyToClipboard } from 'react-use';
-import { ROUTE_NAMES } from '../../pages/app';
 import ImagePicker, { uploadImage } from '../ImagePicker';
 import { v4 as uuidv4 } from 'uuid';
 import { createFileRequest as createFileRequestMutation } from '../../graphql/mutations';
+import { ROUTES } from '../../constants';
 
 
 type Inputs = {
@@ -113,9 +113,9 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                 <AppBreadcrumbs
                     workshopId={workshopId}
                     paths={[
-                        ROUTE_NAMES.home,
-                        ROUTE_NAMES.assignments,
-                        ROUTE_NAMES.newAssignment,
+                        ROUTES.home,
+                        ROUTES.workshop,
+                        ROUTES.newAssignment,
                     ]}
                 />
             </Grid>
@@ -131,12 +131,12 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                             {data?.createFileRequest?.id && (
                                 <Grid item xs={12} md={9}>
                                     <Link
-                                        to={ROUTE_NAMES.newPublicSubmission.getPath({
+                                        to={ROUTES.newPublicSubmission.getPath({
                                             assignmentId: data.createFileRequest.id,
                                         })}
                                     >
                                         {window.origin}
-                                        {ROUTE_NAMES.newPublicSubmission.getPath({
+                                        {ROUTES.newPublicSubmission.getPath({
                                             assignmentId: data.createFileRequest.id,
                                         })}
                                     </Link>
@@ -158,7 +158,7 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                                         onClick={() =>
                                             copyToClipboard(
                                                 `${window.origin
-                                                }${ROUTE_NAMES.newPublicSubmission.getPath({
+                                                }${ROUTES.newPublicSubmission.getPath({
                                                     assignmentId: data.createFileRequest.id,
                                                 })}`
                                             )

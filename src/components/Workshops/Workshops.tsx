@@ -1,10 +1,8 @@
 import { Button, Grid, Typography } from '@mui/material'
 import { Link } from 'gatsby'
 import React from 'react'
-import { Group } from '../../constants'
-import { ROUTE_NAMES } from '../../pages/app'
+import { Group, ROUTES } from '../../constants'
 import GroupGuard from '../Auth/GroupGuard'
-
 import WorkshopsList from './WorkshopList'
 
 export default function Workshops() {
@@ -12,7 +10,7 @@ export default function Workshops() {
     return (
         <Grid container spacing={2}>
             {/* <Grid item xs={12}>
-                <AppBreadcrumbs paths={[ROUTE_NAMES.home]} />
+                <AppBreadcrumbs paths={[ROUTES.home]} />
             </Grid> */}
             <Grid item xs={6} sx={{ pt: 4 }}>
                 <Typography variant="h4" component="h2">Workshops</Typography>
@@ -22,7 +20,7 @@ export default function Workshops() {
                 <Grid item xs={6}>
                     <Button
                         component={Link}
-                        to={ROUTE_NAMES.newWorkshop.path}
+                        to={ROUTES.newWorkshop.path}
                         variant="contained"
                         color="primary"
                         style={{ float: 'right' }}

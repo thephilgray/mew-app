@@ -46,12 +46,11 @@ import AppBreadcrumbs from '../AppBreadcrumbs';
 import Error from '../Error';
 import Menu from '../Menu';
 import { processDownload, runProcessAudioTask } from '../../graphql/mutations';
-import { ROUTE_NAMES } from '../../pages/app';
 import { getFileRequest } from '../../graphql/queries';
 import ExtensionsDialog from './ExtensionsDialog';
 import { useUser, useViewAdmin } from '../../auth/hooks';
 import GroupGuard from '../Auth/GroupGuard';
-import { Group } from '../../constants';
+import { Group, ROUTES } from '../../constants';
 import If from '../If';
 import { FeedbackSection } from '../Feedback';
 
@@ -340,10 +339,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             <Grid item xs={12}>
                 <AppBreadcrumbs
                     paths={[
-                        ROUTE_NAMES.home,
-                        ROUTE_NAMES.assignments,
-                        ROUTE_NAMES.assignment,
+                        ROUTES.home,
+                        ROUTES.workshop,
+                        ROUTES.assignment,
                     ]}
+                    workshop={data?.getFileRequest?.workshop}
                     workshopId={data?.getFileRequest?.workshopId}
                     assignment={data?.getFileRequest}
                 />
@@ -415,7 +415,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                         <Grid item xs={6} md={8}>
                             <Typography variant="h6" component="h3">
                                 <Link
-                                    to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                    to={ROUTES.newPublicSubmission.getPath({ assignmentId })}
                                 >
                                     <em>
                                         {data?.getFileRequest.title ? (
@@ -423,7 +423,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                         ) : (
                                             <>
                                                 {window.origin}
-                                                {ROUTE_NAMES.newPublicSubmission.getPath({
+                                                {ROUTES.newPublicSubmission.getPath({
                                                     assignmentId,
                                                 })}
                                             </>
@@ -451,7 +451,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                     onClick={() =>
                                         copyToClipboard(
                                             `${window.origin
-                                            }${ROUTE_NAMES.newPublicSubmission.getPath({
+                                            }${ROUTES.newPublicSubmission.getPath({
                                                 assignmentId,
                                             })}`
                                         )
@@ -510,7 +510,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 color="secondary"
                                 aria-label="Playlist"
                                 component={Link}
-                                to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
+                                to={ROUTES.assignmentPlaylist.getPath({ assignmentId })}
                                 size="medium"
                                 disabled={!data?.getFileRequest?.submissions?.items?.length}
                                 startIcon={<PlayArrowTwoTone />}
@@ -522,7 +522,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 color="secondary"
                                 aria-label="Playlist"
                                 component={Link}
-                                to={ROUTE_NAMES.playlist.getPath({ assignmentId })}
+                                to={ROUTES.assignmentPlaylist.getPath({ assignmentId })}
                                 size="medium"
                                 disabled={!data?.getFileRequest?.submissions?.items?.length}
                             >
@@ -536,7 +536,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 color="secondary"
                                 aria-label="New Submission"
                                 component={Link}
-                                to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                to={ROUTES.newPublicSubmission.getPath({ assignmentId })}
                                 size="medium"
                                 startIcon={<Add />}
                             >
@@ -547,7 +547,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 color="secondary"
                                 aria-label="New Submission"
                                 component={Link}
-                                to={ROUTE_NAMES.newPublicSubmission.getPath({ assignmentId })}
+                                to={ROUTES.newPublicSubmission.getPath({ assignmentId })}
                                 size="medium"
                             >
                                 <Add />

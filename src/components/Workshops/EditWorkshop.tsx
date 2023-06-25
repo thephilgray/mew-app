@@ -5,13 +5,13 @@ import gql from 'graphql-tag'
 import React, { useEffect, useState } from 'react'
 import { updateMembershipService, updateWorkshop } from '../../graphql/mutations'
 import { getWorkshop } from '../../graphql/queries'
-import { ROUTE_NAMES } from '../../pages/app'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import WorkshopForm from './WorkshopForm'
 import { add } from 'date-fns'
 import { useProfile, useUser } from '../../auth/hooks'
 import { v4 as uuidv4 } from 'uuid';
 import { uploadImage } from '../ImagePicker'
+import { ROUTES } from '../../constants'
 
 export default function EditWorkshop({ workshopId = '' }) {
     const { loading, error, data, refetch } = useQuery(gql(getWorkshop), {
@@ -61,8 +61,8 @@ export default function EditWorkshop({ workshopId = '' }) {
             updateForm({
                 name: data.getWorkshop.name,
                 description: data.getWorkshop.description,
-                startDate: new Date(data.getWorkshop.startDate),
-                endDate: new Date(data.getWorkshop.endDate),
+                ...data.getWorkshop.startDate && { startDate: new Date(data.getWorkshop.startDate) },
+                ...data.getWorkshop.endDate && { endDate: new Date(data.getWorkshop.endDate) },
                 email: data.getWorkshop.email || user?.email,
                 artwork: data.getWorkshop.artwork,
                 status: data.getWorkshop.status,
@@ -150,11 +150,11 @@ export default function EditWorkshop({ workshopId = '' }) {
                         emailAddress: formState.email
                     },
                 }).then(() => {
-                    navigate(ROUTE_NAMES.assignments.getPath({ workshopId }))
+                    navigate(ROUTES.workshop.getPath({ workshopId }))
                 })
             }
             else {
-                navigate(ROUTE_NAMES.assignments.getPath({ workshopId }))
+                navigate(ROUTES.workshop.getPath({ workshopId }))
             }
         }
     }, [workshopResponse])
@@ -164,7 +164,7 @@ export default function EditWorkshop({ workshopId = '' }) {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <AppBreadcrumbs
-                        paths={[ROUTE_NAMES.home, ROUTE_NAMES.assignments, ROUTE_NAMES.editWorkshop]}
+                        paths={[ROUTES.home, ROUTES.workshop, ROUTES.editWorkshop]}
                         workshop={data?.getWorkshop}
                     />
                 </Grid>

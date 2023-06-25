@@ -2,6 +2,9 @@ import React from 'react'
 import { Breadcrumbs, Typography, Link as MaterialLink } from '@mui/material'
 import { Link } from 'gatsby'
 
+// TODO: make location aware, get breadcrumb config from app routes; parse intelligently
+// we may need to adjust routing to be more RESTful – resource/id/resource/id
+
 const AppBreadcrumbs: React.FC<{
     paths: Array<{
         path: string

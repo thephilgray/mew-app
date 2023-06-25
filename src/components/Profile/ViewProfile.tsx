@@ -4,14 +4,13 @@ import { gql, useQuery } from '@apollo/react-hooks'
 import { profileByProfileId } from '../../graphql/queries'
 import { Avatar, Button, Card, CardContent, CardMedia, Chip, CircularProgress, Divider, Grid, IconButton, Link, List, ListItem, Stack, Typography } from '@mui/material'
 import AppBreadcrumbs from '../AppBreadcrumbs'
-import { ROUTE_NAMES } from '../../pages/app'
 import { Edit, Launch } from '@mui/icons-material'
 import { useProfile, useUser } from '../../auth/hooks'
 import { navigate } from 'gatsby'
 import If from '../If'
 import { getCloudFrontURL } from '../../utils'
 import GroupGuard from '../Auth/GroupGuard'
-import { Group } from '../../constants'
+import { Group, ROUTES } from '../../constants'
 
 const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
   const user = useUser()
@@ -41,7 +40,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
   return <Grid container spacing={3}>
     <Grid item xs={12}>
       <AppBreadcrumbs
-        paths={[ROUTE_NAMES.home, ROUTE_NAMES.viewProfile]}
+        paths={[ROUTES.home, ROUTES.viewProfile]}
       />
     </Grid>
     <Grid item xs={12}>
@@ -81,7 +80,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
       <Grid item xs={12}>
         <Divider orientation="vertical" flexItem />
         <Button
-          onClick={() => navigate(ROUTE_NAMES.editProfile.path)}
+          onClick={() => navigate(ROUTES.editProfile.path)}
           type="button"
           color="primary"
           variant='contained'
