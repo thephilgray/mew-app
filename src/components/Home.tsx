@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material'
 import * as React from 'react'
 import { Group } from '../constants'
-import Assignments from './Assignments/Assignments'
+import Workshop from './Workshops/Workshop'
 import GroupGuard from './Auth/GroupGuard'
 
 const Home: React.FC = () => {
@@ -12,7 +12,7 @@ const Home: React.FC = () => {
                 <Typography variant="h5" component="h2">
                     Assignments
                 </Typography>
-                <Assignments />
+                <Workshop />
             </Container>
         </GroupGuard>
     )

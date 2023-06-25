@@ -18,7 +18,7 @@ import { useUser, useViewAdmin } from '../../auth/hooks';
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
 import CardGrid from '../CardGrid';
-import { HostDisplay, WorkshopDates } from '../Workshops/WorkshopList';
+import { HostDisplay, WorkshopDates } from './WorkshopList';
 
 const useStyles = makeStyles()(() => (
     {

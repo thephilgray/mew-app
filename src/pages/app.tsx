@@ -11,7 +11,7 @@ import NewPublicSubmission from '../components/Submissions/NewPublicSubmission'
 import NotFound from '../components/NotFound'
 import Submissions from '../components/Submissions/Submissions'
 import Playlist from '../components/Submissions/Playlist'
-import Assignments from '../components/Assignments/Assignments'
+import Workshop from '../components/Workshops/Workshop'
 import Members from '../components/Members/Members'
 import { AuthProvider } from '../auth/auth.context'
 import Workshops from '../components/Workshops/Workshops'
@@ -33,7 +33,7 @@ const componentToRoutesMap = {
     [ROUTE_NAMES.EDIT_PROFILE]: EditProfile,
     [ROUTE_NAMES.PROFILE_CONNECTED_APPS]: EditProfile,
     [ROUTE_NAMES.WORKSHOPS]: Workshops,
-    [ROUTE_NAMES.WORKSHOP]: Assignments,
+    [ROUTE_NAMES.WORKSHOP]: Workshop,
     [ROUTE_NAMES.NEW_WORKSHOP]: NewWorkshop,
     [ROUTE_NAMES.EDIT_WORKSHOP]: EditWorkshop,
     [ROUTE_NAMES.WORKSHOP_MEMBERS]: Members,
