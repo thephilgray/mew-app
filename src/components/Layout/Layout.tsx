@@ -6,32 +6,33 @@ import AdminViewToggle from '../AdminViewToggle'
 import { Box, Grid, useMediaQuery } from '@mui/material'
 import { useUser } from '../../auth/hooks'
 import SideNav, { DrawerHeader } from './SideNav'
-import { LayoutProvider } from './layout.context'
+import { LayoutProvider, useLayout } from './layout.context'
 import If from '../If'
-import { useTheme } from '@emotion/react'
+
+const SmallScreenLayout = ({ siteTitle, children }) => {
+
+    const user = useUser()
+    const [drawerOpen] = useLayout()
+    return <Box style={{ display: drawerOpen ? 'block' : 'flex' }}>
+        <AppHeader siteTitle={siteTitle} />
+        <If condition={!!user}>
+            <SideNav />
+        </If>
+        <Box
+            component="main"
+            sx={{ flexGrow: 1, py: 3, px: 1 }}
+        >
+            <DrawerHeader />
+            <AdminViewToggle />
+            {children}
+        </Box>
+    </Box>
+
+}
 
 const Layout: React.FC = ({ children = [] }) => {
     const user = useUser()
-    const theme = useTheme()
     const lg = useMediaQuery((theme) => theme.breakpoints.up('lg'));
-
-    const SmallScreenLayout = ({ siteTitle }) => {
-        return <Box sx={{ display: 'flex' }}>
-            <AppHeader siteTitle={siteTitle} />
-            <If condition={!!user}>
-                <SideNav />
-            </If>
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, p: 3 }}
-            >
-                <DrawerHeader />
-                <AdminViewToggle />
-                {children}
-            </Box>
-        </Box>
-
-    }
 
     return <StaticQuery
         query={graphql`
@@ -55,7 +56,7 @@ const Layout: React.FC = ({ children = [] }) => {
                     <html lang="en" />
                 </Helmet>
                 <LayoutProvider>
-                    <If condition={lg} fallbackContent={<SmallScreenLayout siteTitle={d.site.siteMetadata.title} />}>
+                    <If condition={lg} fallbackContent={<SmallScreenLayout siteTitle={d.site.siteMetadata.title} children={children} />}>
                         <Grid container>
                             <AppHeader siteTitle={d.site.siteMetadata.title} />
                             <If condition={!!user}>

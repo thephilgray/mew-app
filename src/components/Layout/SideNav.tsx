@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import SideListNav, { SideBarNav } from '../Navigation/SideList'
+import { SideBarNav } from '../Navigation/SideList'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { styled, Theme, CSSObject } from '@mui/material/styles';
-import { Avatar, Box, Button, CssBaseline, Divider, Grid, IconButton, Menu, MenuItem, Toolbar, Typography, useMediaQuery, } from '@mui/material'
+import { Divider, Grid, IconButton, useMediaQuery, } from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer';
 
-import { useUser } from '../../auth/hooks'
 import If from '../If'
 import { useLayout } from './layout.context';
 import NavList from '../Navigation/SideList';
@@ -24,10 +23,10 @@ const openedMixin = (theme: Theme): CSSObject => ({
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
+  // transition: theme.transitions.create('width', {
+  //   easing: theme.transitions.easing.sharp,
+  //   duration: theme.transitions.duration.leavingScreen,
+  // }),
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
@@ -67,7 +66,6 @@ type SideNavProps = {
 };
 
 const SideNav: React.FC<SideNavProps> = () => {
-  const user = useUser()
   const [drawerOpen, setDrawerOpen] = useLayout()
   const theme = useTheme()
   const lg = useMediaQuery((theme) => theme.breakpoints.up('lg'));
@@ -94,7 +92,7 @@ const SideNav: React.FC<SideNavProps> = () => {
 
   }>
     <Grid item xs={12} lg={2} sx={{
-      width: 250, borderRight: '1px solid #ececf1', overflow: 'auto', padding: '50px 0 20px'
+      width: drawerWidth, borderRight: '1px solid #ececf1', overflow: 'auto', padding: '50px 0 20px'
     }}>
       <SideBarNav />
     </Grid>
