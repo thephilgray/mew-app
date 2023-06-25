@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, CardActions, Grid, Typography } from '@mui/material'
 import { Add, Assignment, AssignmentLateRounded, AssignmentTurnedInRounded, PlayArrowTwoTone } from '@mui/icons-material'
 
-import CardGrid from '../CardGrid';
+import CardGrid, { SkeletonCardGrid } from '../CardGrid';
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
 import { isPast } from 'date-fns/esm'
@@ -53,10 +53,11 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
 
   }, [workshopId, profile])
 
+  if (fetchWorkshopAssignmentsError || fetchWorkshopAssignmentsError) return <Error errorMessage={fetchWorkshopAssignmentsError || fetchWorkshopAssignmentsError} />
+  // if (!profile || fetchWorkshopAssignmentsLoading || fetchAssignmentsLoading) return <SkeletonCardGrid numberOfItems={12} />
+
   const data = workshopId ? fetchWorkshopAssignmentsData?.fileRequestsByWorkshopId : fetchAssignmentsData?.listFileRequests
 
-  if (fetchWorkshopAssignmentsError || fetchWorkshopAssignmentsError) return <Error errorMessage={fetchWorkshopAssignmentsError || fetchWorkshopAssignmentsError} />
-  if (fetchWorkshopAssignmentsLoading || fetchAssignmentsLoading) return <p>Loading assignments....</p>
 
   const items = data?.items || []
   const rows = items.map(
@@ -165,7 +166,8 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
                             </Grid>
                         )} */}
         <Grid item xs={12}>
-          <CardGrid items={withCardGridProps(upcomingAssignments)} />
+          {upcomingAssignments.length ? <CardGrid items={withCardGridProps(upcomingAssignments)} /> : <SkeletonCardGrid numberOfItems={12} />}
+
         </Grid>
       </Grid>
     </Grid>
@@ -178,7 +180,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <CardGrid items={withCardGridProps(pastDueAssignments)} />
+            {pastDueAssignments.length ? <CardGrid items={withCardGridProps(pastDueAssignments)} /> : <SkeletonCardGrid numberOfItems={12} />}
           </Grid>
         </Grid>
       </Grid>

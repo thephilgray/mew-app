@@ -11,7 +11,7 @@ import format from 'date-fns/format'
 import { CalendarMonth } from '@mui/icons-material'
 import { random } from 'lodash'
 import { compareDesc } from "date-fns"
-import CardGrid from '../CardGrid'
+import CardGrid, { SkeletonCardGrid } from '../CardGrid'
 import { Link } from 'gatsby'
 import { ROUTES } from '../../constants'
 
@@ -92,6 +92,5 @@ export default function WorkshopList() {
 
         return <CardGrid items={activeWorkshopsWithSlots} />
     }
-
-    return <p>Loading...</p>
+    return <SkeletonCardGrid numberOfItems={6} />
 }
