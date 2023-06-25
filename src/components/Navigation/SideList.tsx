@@ -34,6 +34,7 @@ export default function NavList() {
       ?.filter((navPath) => ROUTES[navPath].groups ? useUserInAtLeastOneOfTheseGroups(ROUTES[navPath].groups) : true)
       ?.map(navPath =>
         <ListItemButton
+          key={navPath}
           onClick={() => {
             const url = getUrl(navPath)
             navigate(url);
@@ -62,10 +63,10 @@ export const SideBarNav = () => {
         </Link>
         <Typography sx={{ flexBasis: '100%' }} variant="h5" align='center'><span>Hi</span><span style={{
           display: "-webkit-box",
-          "-webkit-line-clamp": "1",
-          "-webkit-box-orient": "vertical",
+          "WebkitLineClamp": "1",
+          "WebkitBoxOrient": "vertical",
           overflow: "hidden",
-          "text-overflow": "ellipsis",
+          "textOverflow": "ellipsis",
         }}>{displayName}</span></Typography>
         {shouldSetupProfile ? <Typography variant="body1">
           <Button endIcon={<ArrowForward />} component={Link} to={ROUTES.editProfile.path} sx={{ color: 'primary.main', textAlign: 'center' }} >
@@ -75,6 +76,6 @@ export const SideBarNav = () => {
       </Box>
       <Divider />
       <NavList />
-    </Box>
+    </Box >
   )
 }

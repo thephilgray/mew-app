@@ -22,7 +22,7 @@ export const MembersAvatarGroup = ({ memberships }) => {
     const getAlt = member => member?.profile?.displayName || member?.profile?.name || member?.profile?.email
     return <AvatarGroup total={total}>
         {memberships.slice((randomIndex < total - 4 ? randomIndex : Math.max(randomIndex - 4, 0)), total).map(member => (
-            <Avatar alt={getAlt(member)} src={getCloudFrontURL(member?.profile?.avatar)} />
+            <Avatar alt={getAlt(member)} src={member?.profile?.avatar && getCloudFrontURL(member?.profile?.avatar)} key={member.id} />
         ))}
     </AvatarGroup>
 }
@@ -38,9 +38,9 @@ export const WorkshopDates = ({ workshop }) => {
 }
 
 export const HostDisplay = ({ host, sizes = {} }) => {
-    return <Link to={ROUTES.viewProfile.getPath(host?.id)} style={{ textDecoration: 'none', color: 'inherit' }}>
+    return <Link to={ROUTES.viewProfile.getPath({ profileId: host?.id })} style={{ textDecoration: 'none', color: 'inherit' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar sx={{ mr: 1, ...sizes }} src={getCloudFrontURL(host?.avatar)} alt={getDisplayName(host)} />
+            <Avatar sx={{ mr: 1, ...sizes }} src={host?.avatar && getCloudFrontURL(host?.avatar)} alt={getDisplayName(host)} />
             <Typography variant="body2" color="text.secondary">
                 Host<br /> {getDisplayName(host)}
             </Typography>
@@ -73,7 +73,7 @@ export default function WorkshopList() {
             rightOverlayContent: <WorkshopDates workshop={item} />,
             artwork: item?.artwork,
             bottomContent: <Grid container spacing={1} sx={{ mt: 1, alignItems: 'center' }}>
-                <If condition={!!item?.host}>
+                <If condition={!!item?.host && item?.host?.id}>
                     <Grid item>
                         <HostDisplay host={item.host} />
                     </Grid>

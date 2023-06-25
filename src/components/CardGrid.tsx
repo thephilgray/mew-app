@@ -57,9 +57,9 @@ export const CardGridItem: React.FC<Item> = ({ name = '', link = "", bottomConte
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
-              '-webkit-line-clamp': '2', /* number of lines to show */
+              'WebkitLineClamp': '2', /* number of lines to show */
               'lineClamp': '2',
-              '-webkit-box-orient': 'vertical',
+              'WebkitBoxOrient': 'vertical',
             }}>
               {description}
             </Typography>

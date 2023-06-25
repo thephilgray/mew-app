@@ -35,12 +35,6 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
 
 
   useEffect(() => {
-    if (!!profile) {
-      console.log({ profile })
-    }
-    if (fetchAssignmentsData) {
-      console.log({ fetchAssignmentsData })
-    }
     if (workshopId && !fetchWorkshopAssignmentsData && !fetchWorkshopAssignmentsLoading && !fetchWorkshopAssignmentsError) {
       fetchWorkshopAssignments()
     } else if (!!profile && !fetchAssignmentsLoading && !fetchAssignmentsError && !fetchAssignmentsData) {
@@ -61,8 +55,8 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
 
   const data = workshopId ? fetchWorkshopAssignmentsData?.fileRequestsByWorkshopId : fetchAssignmentsData?.listFileRequests
 
-  // if (error) return <Error errorMessage={error} />
-  // if (loading) return <p>Loading assignments....</p>
+  if (fetchWorkshopAssignmentsError || fetchWorkshopAssignmentsError) return <Error errorMessage={fetchWorkshopAssignmentsError || fetchWorkshopAssignmentsError} />
+  if (fetchWorkshopAssignmentsLoading || fetchAssignmentsLoading) return <p>Loading assignments....</p>
 
   const items = data?.items || []
   const rows = items.map(

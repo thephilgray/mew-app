@@ -151,7 +151,7 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
                 <DialogContentText>Secret links that give people a little more time to submit.</DialogContentText>
                 <Grid container>
                     {extensions.length > 0 && (
-                        <Grid xs={12}>
+                        <Grid item xs={12}>
                             <TableContainer component={Paper}>
                                 <Table aria-label="simple table">
                                     <TableHead>
