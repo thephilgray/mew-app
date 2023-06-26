@@ -6,7 +6,7 @@ import GroupGuard from '../Auth/GroupGuard'
 import WorkshopsList from './WorkshopList'
 
 export default function Workshops() {
-    const notInGroupContent = <p>You do not have access to this content.</p>
+    const notInGroupContent = <Grid item xs={12}><p>You do not have access to this content.</p></Grid>
     return (
         <Grid container spacing={2}>
             {/* <Grid item xs={12}>

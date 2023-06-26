@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Chip, Paper, Typography, styled } from '@mui/material';
+import { Card, CardContent, CardMedia, Paper, Skeleton, Typography, styled } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import React from 'react';
 import If from './If';
@@ -57,9 +57,9 @@ export const CardGridItem: React.FC<Item> = ({ name = '', link = "", bottomConte
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
-              '-webkit-line-clamp': '2', /* number of lines to show */
+              'WebkitLineClamp': '2', /* number of lines to show */
               'lineClamp': '2',
-              '-webkit-box-orient': 'vertical',
+              'WebkitBoxOrient': 'vertical',
             }}>
               {description}
             </Typography>
@@ -82,4 +82,15 @@ const CardGrid: React.FC<CardGridProps> = ({ items }) => {
     </If>
   </Grid>
 }
+
+export const SkeletonCardGrid = ({ numberOfItems = 6 }) => {
+  return <Grid container minHeight={375} spacing={{ xs: 2, md: 3 }}>
+    {Array.from(new Array(numberOfItems)).map((item, i) => (
+      <StyledGrid xs={12} sm={6} key={i} >
+        <Skeleton height={365} animation="wave" variant="rectangular" />
+      </StyledGrid>
+    ))}
+  </Grid>
+}
+
 export default CardGrid;

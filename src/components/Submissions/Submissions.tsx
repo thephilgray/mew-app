@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'gatsby';
 import {
     Badge,
@@ -25,7 +25,7 @@ import {
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { format, isPast } from 'date-fns';
-import { useCopyToClipboard } from 'react-use';
+import { useCopyToClipboard, usePrevious } from 'react-use';
 import {
     AssignmentTurnedIn,
     CloudDownload,
@@ -36,6 +36,7 @@ import {
     Edit,
     PlayArrowTwoTone,
     MoreTime,
+    Pause,
 } from '@mui/icons-material';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import { uniqBy, pipe, map } from 'lodash/fp';
@@ -52,6 +53,7 @@ import { Group, ROUTES } from '../../constants';
 import If from '../If';
 import { FeedbackSection } from '../Feedback';
 import { useBreakpoint } from '../Layout/Layout';
+import { getCloudFrontURL } from '../../utils';
 
 const getFileRequestWithNoLimit = getFileRequest.replace(
     'submissions {',
@@ -75,7 +77,10 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     }>({
         stripMetadataForSoundCloud: true,
     });
-
+    const audioRef = useRef();
+    const [audioSrc, setAudioSrc] = useState(null)
+    const previousSrc = usePrevious(audioSrc)
+    const [isPlaying, setIsPlaying] = useState(false)
     const user = useUser();
     const [viewAdmin] = useViewAdmin();
     const breakpoint = useBreakpoint()
@@ -269,6 +274,35 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
         setDialogToggles({});
     };
 
+    const onEnded = () => {
+        setIsPlaying(false)
+        setAudioSrc(null)
+    }
+
+    const pauseAudio = () => {
+        setIsPlaying(false)
+        audioRef?.current?.pause()
+    }
+
+    const playAudio = ({ fileId, fileRequestId }) => {
+        pauseAudio()
+        const songFilePath = `${fileRequestId}/${fileId}`
+        if (fileId && fileRequestId) {
+            const src = getCloudFrontURL(songFilePath)
+            setAudioSrc(src)
+        }
+    }
+
+
+
+    useEffect(() => {
+        if (!isPlaying && audioSrc && audioSrc !== previousSrc) {
+            audioRef?.current?.play()
+            setIsPlaying(true)
+
+        }
+    }, [audioSrc, isPlaying])
+
     const columns: GridColDef[] = [
         {
             field: 'artist',
@@ -294,6 +328,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             //@ts-ignore
             valueFormatter: ({ value = '' }: ColDef) =>
                 value && format(new Date(value), 'MM/dd/yyyy H:mm'),
+        },
+        {
+            field: 'play',
+            headerName: 'Listen',
+            width: 160,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            renderCell: ({ row, value = '' }) => isPlaying && audioSrc?.includes(row?.fileId) ? <Pause onClick={pauseAudio} /> : <PlayArrowTwoTone onClick={() => playAudio(row)} />
         },
     ];
 
@@ -413,6 +455,9 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                 <Grid item xs={12}>
                     <Grid container>
                         <Grid item xs={6} md={8}>
+                            <If condition={audioSrc}>
+                                <audio hidden src={audioSrc} ref={audioRef} onEnded={onEnded} />
+                            </If>
                             <Typography variant="h6" component="h3">
                                 <Link
                                     to={ROUTES.newPublicSubmission.getPath({ assignmentId })}

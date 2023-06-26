@@ -1,6 +1,6 @@
 
-import React from 'react'
-import { gql, useQuery } from '@apollo/react-hooks'
+import React, { useEffect } from 'react'
+import { gql, useLazyQuery } from '@apollo/react-hooks'
 import { profileByProfileId } from '../../graphql/queries'
 import { Avatar, Button, Card, CardContent, CardMedia, Chip, CircularProgress, Divider, Grid, IconButton, Link, List, ListItem, Stack, Typography } from '@mui/material'
 import AppBreadcrumbs from '../AppBreadcrumbs'
@@ -14,23 +14,36 @@ import { Group, ROUTES } from '../../constants'
 
 const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
   const user = useUser()
-  const { profile: profileInState } = useProfile()
+  const { profile: profileInState, refetch: refetchProfileInState, loading: loadingProfileInState } = useProfile()
+  const getOwnProfile = !profileId;
 
-  const {
+  const [fetchProfile, {
     loading: getProfileLoading,
     error: getProfileError,
     data: getProfileData,
-    refetch: getProfileRefetch,
-  } = useQuery(gql(profileByProfileId), {
-    variables: { id: profileId || profileInState?.id },
-  })
+    refetch: getProfileRefetch
+  }] = useLazyQuery(gql(profileByProfileId))
+
+  useEffect(() => {
+    if (!getProfileLoading && !getProfileLoading && !getProfileData) {
+      if (!!profileId && !getOwnProfile) {
+        fetchProfile({
+          variables: { id: profileId },
+        })
+      } else if (!profileInState && !loadingProfileInState) {
+        refetchProfileInState()
+      }
+
+    }
+
+  }, [profileId, profileInState])
 
 
   if (getProfileLoading) {
     return <CircularProgress />
   }
 
-  const [profile] = getProfileData?.profileByProfileId?.items || []
+  const profile = getOwnProfile ? profileInState : getProfileData?.profileByProfileId?.items?.[0]
   const avatarPath = profile?.avatar ? getCloudFrontURL(profile.avatar) : ''
 
   if (!profile) {
