@@ -18,7 +18,7 @@ import { FileRequest } from '../../models'
 import { countBy, sortBy, uniqBy } from 'lodash'
 import { useUser } from '../../auth/hooks'
 
-export const Submission: React.FC<{
+export const GiveFeedback: React.FC<{
   fileRequestData: FileRequest
 }> = ({
   fileRequestData,
