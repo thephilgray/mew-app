@@ -11,6 +11,7 @@ import styled from '@emotion/styled'
 import { Add, Delete, Sync } from '@mui/icons-material'
 import { updateMembershipService } from '../../graphql/mutations'
 import { ROUTES } from '../../constants';
+import Loading from '../Loading';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -144,7 +145,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     }, [updateMembershipServiceResponse])
 
     if (error) return <Error errorMessage={error} />
-    if (loading) return <p>Loading users....</p>
+    if (loading) return <Loading />
 
     const onSyncWithMailchimp = async () => {
         await requestUpdateMembershipService({

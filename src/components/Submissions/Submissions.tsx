@@ -54,6 +54,7 @@ import If from '../If';
 import { FeedbackSection } from '../Feedback';
 import { useBreakpoint } from '../Layout/Layout';
 import { getCloudFrontURL } from '../../utils';
+import Loading from '../Loading';
 
 const getFileRequestWithNoLimit = getFileRequest.replace(
     'submissions {',
@@ -347,7 +348,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     ];
 
     if (error) return <Error errorMessage={error} />;
-    if (loading) return <CircularProgress />;
+    if (loading) return <Loading />;
     if (!loading && !data?.getFileRequest?.submissions?.items)
         return <p>Assignment does not exist or has been deleted.</p>;
 
@@ -611,7 +612,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                     style={{ minHeight: 600, width: '100%', paddingTop: 0 }}
                 >
                     <DataGrid
-                        checkboxSelection
+                        checkboxSelection={!!viewAdmin}
                         rows={rows}
                         columns={columns}
                         sortModel={sortModel}

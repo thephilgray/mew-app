@@ -1,6 +1,5 @@
 import React from 'react';
 import { compareDesc, differenceInSeconds } from 'date-fns'
-import { Typography } from '@mui/material';
 
 type TimerProps = {
 
@@ -51,9 +50,9 @@ const Timer: React.FC<TimerProps> = ({ deadline }) => {
     }, 1000);
   }, []);
 
-  return <Typography variant="body2" color="error">
+  return <>
     <span><strong>{countdown.days}</strong> day{countdown.days === 1 ? '' : 's'}</span> <span><strong>{countdown.hours}</strong>hr{countdown.hours === 1 ? '' : 's'}</span> <span><strong>{countdown.minutes}</strong>:</span><span><strong>{countdown.seconds}</strong></span>
-  </Typography>
+  </>
 
 }
 export default Timer;

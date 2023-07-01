@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button, CardActions, Grid, Typography } from '@mui/material'
 import { Add, Assignment, AssignmentLateRounded, AssignmentTurnedInRounded, PlayArrowTwoTone } from '@mui/icons-material'
-
+import { SvgSkullCrossbonesSolid } from 'react-line-awesome-svg'
 import CardGrid, { SkeletonCardGrid } from '../CardGrid';
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
@@ -66,7 +66,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
         ? item?.submissions?.items
         : []
 
-      const artwork = item?.artwork?.path && getCloudFrontURL(item.artwork.path)
+      const artwork = item?.artwork || item?.workshop?.artwork
       const mySubmissions = submissions.filter(submission => submission?.email === user.email)
       return {
         ...item,
@@ -89,26 +89,40 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
     ...item,
     name: item?.title,
     active: true,
-    belowOverlayContent: <If condition={item.status !== 'EXPIRED' && !item.mySubmissions.length}>
-      <div style={{ textAlign: 'right', width: '100%', backgroundColor: 'rgba(255,255,255,.9)', padding: '0.25em' }}>
-        <Timer deadline={new Date(item.expiration)} />
-      </div>
-    </If>,
-    rightOverlayContent: <>{(() => {
-      if (item.mySubmissions.length > 0) {
-        return <><AssignmentTurnedInRounded color="success" sx={{ verticalAlign: "bottom" }} /></>
-      }
-      else if (item.status === 'EXPIRED') {
-        return <><AssignmentLateRounded color="error" sx={{ verticalAlign: "bottom" }} /></>
-      }
-      return <Assignment color="warning" sx={{ verticalAlign: "bottom" }} />
+    rightOverlayContent: (() => {
+      const turnedIn = item.mySubmissions.length > 0;
+      const missed = !turnedIn && item.status === 'EXPIRED'
+      const dueSoon = !turnedIn && item.status !== 'EXPIRED';
 
-    })()
-    }{' '}
-      <Typography variant="body2" color="whitesmoke">
-        Due: {format(new Date(String(item.expiration)), `E, MM/dd/yy hh:mm`)}
-      </Typography>
-    </>,
+      const dueDate = <strong>
+        {format(new Date(String(item.expiration)), `${dueSoon ? 'E, ' : ''}MM/dd/yy${dueSoon ? ' hh:mm' : ''}`)}
+      </strong>
+
+      if (turnedIn) {
+        return <>
+          <AssignmentTurnedInRounded sx={{ verticalAlign: 'bottom', color: 'palegreen' }} />
+          <Typography variant="body2" color="whitesmoke">
+            {dueDate}
+          </Typography>
+        </>
+      }
+      else if (missed) {
+        return <>
+          <SvgSkullCrossbonesSolid fill='whitesmoke' fontSize={24} />
+          <Typography variant="body2" color="whitesmoke">
+            {dueDate}
+          </Typography>
+        </>
+      }
+      return <>
+        <Assignment sx={{ verticalAlign: 'middle', color: 'yellow', mr: 1 }} />
+        <Typography variant="body2" color="whitesmoke" align='right'>
+          {dueDate}<br />
+          <Timer deadline={new Date(item.expiration)} />
+        </Typography>
+      </>
+
+    })(),
     // active: item.status === 'ACTIVE',
     description: <div dangerouslySetInnerHTML={{ __html: item.details }} style={{ width: '100%' }} />,
     link: ROUTES.assignment.getPath({ assignmentId: item.id }),
@@ -116,7 +130,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
       <If condition={item.status === 'ACTIVE'}>
         <Button
           color="primary"
-          variant="contained"
+          // variant="contained"
           aria-label="New Submission"
           // component={Link}
           onClick={(e) => {
@@ -133,7 +147,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
       <If condition={item.status === 'EXPIRED'}>
         <Button
           color="success"
-          variant="contained"
+          // variant="contained"
           disabled={!item?.submissions?.length}
           aria-label="Playlist"
           onClick={(e) => {

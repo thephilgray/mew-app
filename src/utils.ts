@@ -7,7 +7,7 @@ export const getCloudFrontURL = (path: string, level: 'public' | 'protected' | '
 
 export const searchMembersFilterOptions = (options, { inputValue }) => matchSorter(options, inputValue, { keys: ['displayName', 'name', 'email'] });
 
-export const getDisplayName = (profile) => profile?.displayName || profile?.name || profile?.email?.split('@')[0] || ''
+export const getDisplayName = (profile) => profile ? (profile?.displayName || profile?.name || profile?.email?.split('@')[0] || '') : ''
 
 export const getRouteConfigFromLocation = ({ pathname }) => {
   const result = MAPPED_ROUTE_CONFIGS.find(({ pathRegex }) => pathRegex.test(pathname));
