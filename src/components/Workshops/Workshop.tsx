@@ -3,7 +3,7 @@ import * as React from 'react'
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { gql, useQuery } from '@apollo/react-hooks'
 import { Add, Check, People, Settings } from '@mui/icons-material'
-import { Grid, IconButton, Typography, CardContent, CardMedia, Card, } from '@mui/material'
+import { Grid, IconButton, Typography, CardContent, CardMedia, Card, Chip, Box, } from '@mui/material'
 import { makeStyles } from 'tss-react/mui';
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
@@ -17,7 +17,9 @@ import { useUser, useViewAdmin } from '../../auth/hooks';
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
 import Assignments from '../Assignments/Assignments'
-import { HostDisplay, WorkshopDates } from '../Workshops/WorkshopList';
+import { HostDisplay, MembersAvatarGroup, WorkshopDates } from '../Workshops/WorkshopList';
+import Loading from '../Loading';
+import sumBy from 'lodash/sumBy'
 
 const useStyles = makeStyles()(() => (
     {
@@ -93,7 +95,7 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     ]
 
     if (error) return <Error errorMessage={error} />
-    if (loading) return <p>Loading workshop....</p>
+    if (loading) return <Loading />
 
     const items = data?.getWorkshop?.fileRequests?.items || []
     const rows = items.map(
@@ -114,34 +116,13 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
         },
     )
 
+    const memberships = data?.getWorkshop?.memberships?.items
+    const totalSubmissions = sumBy(rows, r => r.submissions.length)
+    const myTotalSubmissions = sumBy(rows, r => r.mySubmissions.length)
+    const myTotalComplete = sumBy(rows, r => r.mySubmissions.length > 0 && r.required)
+    const totalRequired = sumBy(rows, 'required')
+
     const AssignmentsView = () => <>
-        <Grid item xs={12}>
-            <Card>
-                <CardMedia
-                    image={data?.getWorkshop?.artwork ? getCloudFrontURL(data?.getWorkshop?.artwork?.path) : ''}
-                    title={data?.getWorkshop?.name}
-                >
-                    <CardContent sx={{ backgroundColor: "rgba(0,0,0,.7)", color: 'whitesmoke' }}>
-                        <div style={{ float: 'right' }}>
-                            <WorkshopDates workshop={data?.getWorkshop} />
-                        </div>
-                        <Typography variant="h4" component="h1">{data?.getWorkshop?.name}</Typography>
-                    </CardContent>
-                </CardMedia>
-                <CardContent>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={3}>
-                            <HostDisplay sizes={{ height: 80, width: 80 }} host={data?.getWorkshop?.host} />
-                        </Grid>
-                        <Grid item xs={12} sm={9}>
-                            <Typography variant="body1">
-                                {data?.getWorkshop?.description}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
-        </Grid>
         <Grid item xs={12}>
             <Assignments workshopId={workshopId} />
         </Grid>
@@ -151,6 +132,61 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
         <Grid container spacing={2}>
             <Grid item xs={12}>
                 <AppBreadcrumbs paths={[ROUTES.home, ROUTES.workshop]} workshop={workshop} />
+            </Grid>
+            <Grid item xs={12}>
+                <Card>
+                    <CardMedia
+                        image={data?.getWorkshop?.artwork ? getCloudFrontURL(data?.getWorkshop?.artwork?.path) : ''}
+                        title={data?.getWorkshop?.name}
+                    >
+                        <CardContent sx={{ backgroundColor: "rgba(0,0,0,.7)", color: 'whitesmoke' }}>
+                            <div style={{ float: 'right' }}>
+                                <WorkshopDates workshop={data?.getWorkshop} />
+                            </div>
+                            <Typography variant="h4" component="h1">{data?.getWorkshop?.name}</Typography>
+                        </CardContent>
+                    </CardMedia>
+                    <CardContent>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={3}>
+                                <Grid container spacing={2} justifyContent={'flex-start'}>
+                                    <Grid item xs={12}>
+                                        <If condition={!!data?.getWorkshop?.host?.id}>
+                                            <HostDisplay sizes={{ height: 80, width: 80 }} host={data?.getWorkshop?.host} />
+                                        </If>
+                                    </Grid>
+                                    <If condition={!!memberships}>
+                                        <Grid item xs={12}><MembersAvatarGroup memberships={memberships} /></Grid>
+
+                                    </If>
+                                </Grid>
+
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Typography variant="body1">
+                                    {data?.getWorkshop?.description}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} sm={3}>
+
+                                <Box p={2} textAlign='center'>
+                                    <Typography lineHeight={0} variant='overline' align='center'>
+                                        Assignments Complete
+                                    </Typography>
+                                    <Typography variant='h6' align='center'>
+                                        {myTotalComplete} of {totalRequired}
+                                    </Typography>
+                                    <Typography lineHeight={0} variant='overline' align='center'>
+                                        All Submissions
+                                    </Typography>
+                                    <Typography variant='h6' align='center'>
+                                        {totalSubmissions}
+                                    </Typography>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </CardContent>
+                </Card>
             </Grid>
             <GroupGuard groups={[Group.admin]}>
                 <Grid item xs={12} sx={{ pb: 0 }}>

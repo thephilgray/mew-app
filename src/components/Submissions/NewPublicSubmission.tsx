@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from 'react'
-import { Grid, TextField, IconButton, Button, Paper, Typography, CircularProgress, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar } from '@mui/material'
+import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
 import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, SkipNext } from '@mui/icons-material'
@@ -26,6 +26,7 @@ import gql from 'graphql-tag'
 import uniqBy from 'lodash/uniqBy'
 import { navigate } from 'gatsby'
 import { ROUTES } from '../../constants'
+import Loading from '../Loading'
 
 type Inputs = {
     name: string
@@ -521,13 +522,6 @@ const NewPublicSubmission: React.FC<
         )
     }
 
-    if (loading) {
-        content = (
-            <div style={{ textAlign: 'center' }}>
-                <CircularProgress />
-            </div>
-        )
-    }
     if (loading && uploadProgress.loaded) {
         const progress = (uploadProgress.loaded / uploadProgress.total) * 100
         content = (
@@ -607,9 +601,11 @@ const NewPublicSubmission: React.FC<
                     setUploadSuccess(!uploadSuccess)
                 }} color="secondary" />} label="Temporary dev toggle" />
             </Grid> */}
-            <Grid item xs={12}>
-                <Paper style={{ padding: '1rem' }}>{content}</Paper>
-            </Grid>
+            <If condition={!loading} fallbackContent={<Loading />}>
+                <Grid item xs={12}>
+                    <Paper style={{ padding: '1rem' }}>{content}</Paper>
+                </Grid>
+            </If>
         </Grid>
     )
 }

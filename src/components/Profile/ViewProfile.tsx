@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { gql, useLazyQuery } from '@apollo/react-hooks'
 import { profileByProfileId } from '../../graphql/queries'
-import { Avatar, Button, Card, CardContent, CardMedia, Chip, CircularProgress, Divider, Grid, IconButton, Link, List, ListItem, Stack, Typography } from '@mui/material'
+import { Avatar, Button, Card, CardContent, CardMedia, Chip, Divider, Grid, IconButton, Link, List, ListItem, Stack, Typography } from '@mui/material'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { Edit, Launch } from '@mui/icons-material'
 import { useProfile, useUser } from '../../auth/hooks'
@@ -11,6 +11,7 @@ import If from '../If'
 import { getCloudFrontURL } from '../../utils'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group, ROUTES } from '../../constants'
+import Loading from '../Loading'
 
 const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
   const user = useUser()
@@ -40,7 +41,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
 
 
   if (getProfileLoading) {
-    return <CircularProgress />
+    return <Loading />
   }
 
   const profile = getOwnProfile ? profileInState : getProfileData?.profileByProfileId?.items?.[0]

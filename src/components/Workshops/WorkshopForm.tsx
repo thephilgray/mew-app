@@ -20,7 +20,7 @@ import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
 import { useProfile, useUser } from '../../auth/hooks'
 import ImagePicker, { uploadImage } from '../ImagePicker'
-import { getCloudFrontURL, searchMembersFilterOptions } from '../../utils'
+import { getCloudFrontURL, getDisplayName, searchMembersFilterOptions } from '../../utils'
 import { v4 as uuidv4 } from 'uuid';
 import { DatePicker } from '@mui/x-date-pickers'
 import If from '../If'
@@ -84,15 +84,16 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                     <If condition={listProfilesData?.listProfiles}>
                         <Grid item xs={12}>
                             <Autocomplete
+                                key={ID}
                                 options={listProfilesData?.listProfiles?.items || []}
-                                getOptionLabel={(option) => option.displayName || option.name || option.email.split('@')[0]}
-                                value={listProfilesData?.listProfiles?.items?.find(option => option.email === formState?.email)}
+                                getOptionLabel={getDisplayName}
+                                value={formState?.email ? listProfilesData?.listProfiles?.items?.find(option => option.email === formState?.email) : null}
                                 onChange={(event, newValue) => {
-                                    if (newValue?.email) {
-                                        updateForm({ email: newValue.email })
+                                    if (newValue?.email !== formState?.email) {
+                                        updateForm({ email: newValue?.email || null })
                                     }
                                 }}
-                                filterOptions={searchMembersFilterOptions}
+                                // filterOptions={searchMembersFilterOptions}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}

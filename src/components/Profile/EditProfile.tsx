@@ -20,6 +20,7 @@ import ImagePicker, { uploadImage } from '../ImagePicker';
 import If from '../If';
 import { useLocation } from 'react-use';
 import ConnectMailchimpButton from '../ConnectMailchimpButton';
+import Loading from '../Loading';
 
 type APIKeyForm = {
     keyName: string
@@ -275,7 +276,7 @@ const EditProfile = (): JSX.Element => {
 
     const keyNameFormatter = (str: string) => str.toUpperCase().replace(/[^a-zA-Z0-9_.-]/g, '_')
 
-    if (getProfileLoading) return <CircularProgress size={20} color="secondary" />
+    if (getProfileLoading) return <Loading />
 
     return <Grid container spacing={3}>
         <Grid item xs={12}>

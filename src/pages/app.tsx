@@ -26,6 +26,7 @@ import SiteSettings from '../components/SiteSettings/SiteSettings';
 import { FeedbackSection } from '../components/Feedback';
 import Theme from '../components/Layout/Theme';
 import Assignments from '../components/Assignments/Assignments';
+import hash from 'object-hash'
 
 const componentToRoutesMap = {
     [ROUTE_NAMES.HOME]: Workshops,
@@ -69,7 +70,7 @@ const App: React.FC = (): JSX.Element => (
                         <NotFound default />
                         {MAPPED_ROUTE_CONFIGS.map(config => {
                             if (config.public) return; // just manually setup the public routes below
-                            return <PrivateRoute {...config} component={componentToRoutesMap[config.routeName]} />
+                            return <PrivateRoute key={hash(config)} {...config} component={componentToRoutesMap[config.routeName]} />
 
                         })}
                         <Playlist path={ROUTES.assignmentPlaylist.path} />

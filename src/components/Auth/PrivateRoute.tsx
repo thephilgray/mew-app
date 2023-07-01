@@ -4,8 +4,7 @@ import { Group } from '../../constants'
 import AuthenticateForm from './AuthenticateForm'
 import { navigate } from 'gatsby'
 import { useAuthLoading, useIsAdmin, useUser, useUserInAtLeastOneOfTheseGroups, useViewAdmin } from '../../auth/hooks'
-import { CircularProgress } from '@mui/material'
-
+import Loading from '../Loading'
 interface PrivateRouteProps extends RouteComponentProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: any
@@ -26,7 +25,7 @@ const PrivateRoute = (props: PrivateRouteProps): JSX.Element | null => {
     const [authStage, setAuthStage] = React.useState(1)
 
     if (authLoading && !user) {
-        return <CircularProgress />
+        return <Loading />
     }
 
     if (!user) {

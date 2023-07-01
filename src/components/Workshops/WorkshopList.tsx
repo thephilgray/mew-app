@@ -20,11 +20,12 @@ export const MembersAvatarGroup = ({ memberships }) => {
     const total = memberships.length;
     const randomIndex = random(total - 1)
     const getAlt = member => member?.profile?.displayName || member?.profile?.name || member?.profile?.email
-    return <AvatarGroup total={total}>
-        {memberships.slice((randomIndex < total - 4 ? randomIndex : Math.max(randomIndex - 4, 0)), total).map(member => (
-            <Avatar alt={getAlt(member)} src={member?.profile?.avatar && getCloudFrontURL(member?.profile?.avatar)} key={member.id} />
-        ))}
-    </AvatarGroup>
+    return memberships.length ? <><Typography variant='body2'>Members</Typography>
+        <AvatarGroup total={total} sx={{ justifyContent: 'start' }}>
+            {memberships.slice((randomIndex < total - 4 ? randomIndex : Math.max(randomIndex - 4, 0)), total).map(member => (
+                <Avatar alt={getAlt(member)} src={member?.profile?.avatar && getCloudFrontURL(member?.profile?.avatar)} key={member.id} />
+            ))}
+        </AvatarGroup></> : null
 }
 
 export const WorkshopDates = ({ workshop }) => {

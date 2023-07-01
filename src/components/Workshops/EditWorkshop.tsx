@@ -12,6 +12,7 @@ import { useProfile, useUser } from '../../auth/hooks'
 import { v4 as uuidv4 } from 'uuid';
 import { uploadImage } from '../ImagePicker'
 import { ROUTES } from '../../constants'
+import Loading from '../Loading'
 
 export default function EditWorkshop({ workshopId = '' }) {
     const { loading, error, data, refetch } = useQuery(gql(getWorkshop), {
@@ -63,7 +64,7 @@ export default function EditWorkshop({ workshopId = '' }) {
                 description: data.getWorkshop.description,
                 ...data.getWorkshop.startDate && { startDate: new Date(data.getWorkshop.startDate) },
                 ...data.getWorkshop.endDate && { endDate: new Date(data.getWorkshop.endDate) },
-                email: data.getWorkshop.email || user?.email,
+                email: data.getWorkshop.email,
                 artwork: data.getWorkshop.artwork,
                 status: data.getWorkshop.status,
                 passes: data.getWorkshop.passes || 0,
@@ -173,7 +174,7 @@ export default function EditWorkshop({ workshopId = '' }) {
                         Workshop Settings
                     </Typography>
                 </Grid>
-                {loading ? <CircularProgress /> : <WorkshopForm
+                {loading ? <Loading /> : <WorkshopForm
                     formState={formState}
                     setFormState={setFormState}
                     onSubmit={onUpdateWorkshopSubmitHandler}
