@@ -27,6 +27,8 @@ import { FeedbackSection } from '../components/Feedback';
 import Theme from '../components/Layout/Theme';
 import Assignments from '../components/Assignments/Assignments';
 import hash from 'object-hash'
+import { AudioPlayerProvider } from '../components/AudioPlayer/audio-player.context';
+
 
 const componentToRoutesMap = {
     [ROUTE_NAMES.HOME]: Workshops,
@@ -65,19 +67,21 @@ const App: React.FC = (): JSX.Element => (
     <AuthProvider>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Theme>
-                <Layout>
-                    <Router>
-                        <NotFound default />
-                        {MAPPED_ROUTE_CONFIGS.map(config => {
-                            if (config.public) return; // just manually setup the public routes below
-                            return <PrivateRoute key={hash(config)} {...config} component={componentToRoutesMap[config.routeName]} />
+                <AudioPlayerProvider>
+                    <Layout>
+                        <Router>
+                            <NotFound default />
+                            {MAPPED_ROUTE_CONFIGS.map(config => {
+                                if (config.public) return; // just manually setup the public routes below
+                                return <PrivateRoute key={hash(config)} {...config} component={componentToRoutesMap[config.routeName]} />
 
-                        })}
-                        <Playlist path={ROUTES.assignmentPlaylist.path} />
-                        <NewPublicSubmission path={ROUTES.newPublicSubmission.path} />
-                        <NewPublicSubmission path={ROUTES.newPublicSubmissionExtension.path} />
-                    </Router>
-                </Layout>
+                            })}
+                            <Playlist path={ROUTES.assignmentPlaylist.path} />
+                            <NewPublicSubmission path={ROUTES.newPublicSubmission.path} />
+                            <NewPublicSubmission path={ROUTES.newPublicSubmissionExtension.path} />
+                        </Router>
+                    </Layout>
+                </AudioPlayerProvider>
             </Theme>
         </LocalizationProvider>
     </AuthProvider>

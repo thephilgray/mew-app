@@ -1,17 +1,17 @@
 /* eslint-disable react/display-name */
-import React, { useEffect, useState, PropsWithChildren, useRef } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, Skeleton, Slide } from '@mui/material'
+import React, { useEffect, useState, PropsWithChildren, useContext } from 'react'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { API } from 'aws-amplify'
-import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
+import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import 'react-jinke-music-player/lib/styles/index.less'
 import './playlist.css'
 import mewAppLogo from '../../assets/mewlogo.png'
 
-import { EXTENSIONS_BY_FILETYPE, ROUTES } from '../../constants'
+import { ROUTES } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useUser } from '../../auth/hooks'
@@ -20,16 +20,15 @@ import { FeedbackSection } from '../Feedback'
 import { getFileRequest } from '../../graphql/queries'
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
-import { FileRequestSubmission } from '../../models';
+import AudioPlayer from '../AudioPlayer/AudioPlayer';
+import { AudioPlayerContext } from '../AudioPlayer/audio-player.context';
 
 const GET_FILE_REQUEST = gql(getFileRequest.replace('submissions {', 'submissions(limit: 1000) {'))
 
 const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string }>>> = ({
     assignmentId = '',
 }) => {
-    const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
-    const [currentIndex, setCurrentIndex] = useState(0)
-    const [isPlaying, setIsPlaying] = useState(false)
+    const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef } = useContext(AudioPlayerContext)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState<{
         expiration: string
@@ -41,7 +40,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const theme = useTheme();
     const user = useUser()
     const loggedIn = !!user
-    const playerRef = useRef()
     // Authenticated user access
     const { loading: authLoading, error: authError, data: authData } = useQuery(GET_FILE_REQUEST, {
         variables: { id: assignmentId },
@@ -102,37 +100,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         }
     }, [])
 
-    const download = async () => {
-        const metaData = audioLists[currentIndex]
-        if (!metaData.fileId) return
-        const songFilePath = `${assignmentId}/${metaData.fileId}`
-        // const result = await Storage.get(songFilePath, { download: true })
-        // @ts-ignore
-        // const url = window.URL.createObjectURL(result.Body)
-        const cloudFrontURL = getCloudFrontURL(songFilePath)
-        const result = await fetch(cloudFrontURL, { mode: 'no-cors' })
-        // TODO: no-cors is not ideal because we won't be able to access ContentType headers to determine extension
-        // const result = await fetch(cloudFrontURL)
-        const blob = await result.blob()
-        const url = window.URL.createObjectURL(blob)
-        // @ts-ignore
-        // const contentType = result.ContentType
-        const contentType = result.headers.get('ContentType')
-        // @ts-ignore
-        const extension = EXTENSIONS_BY_FILETYPE[contentType || 'audio/mpeg']
-        const a = document.createElement('a')
-        a.href = url
-        a.download = `${metaData.name} - ${metaData.singer}${extension}`
-        const clickHandler = () => {
-            setTimeout(() => {
-                URL.revokeObjectURL(url)
-                a.removeEventListener('click', clickHandler)
-            }, 150)
-        }
-        a.addEventListener('click', clickHandler, false)
-        a.click()
-    }
-
     useEffect(() => {
         async function addSongsToPlaylist() {
             const songs: Array<ReactJkMusicPlayerAudioListProps> = []
@@ -190,52 +157,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 </Grid>
             </If>
             <If condition={!!audioLists.length}>
-                <ReactJkMusicPlayer
-                    getAudioInstance={(instance) => {
-                        playerRef.current = instance
-                    }}
-                    mode="full"
-                    sortableOptions={{
-                        delay: 300,
-                        delayOnTouchOnly: true
-                    }}
-                    // mobileMediaQuery="(max-width: 2000px)"
-                    preload
-                    audioLists={audioLists}
-                    autoPlay={false}
-                    autoPlayInitLoadPlayList={false}
-                    quietUpdate
-                    spaceBar
-                    onPlayIndexChange={setCurrentIndex}
-                    showMediaSession
-                    showThemeSwitch={false}
-                    showPlayMode={true}
-                    defaultVolume={1}
-                    defaultPosition={{ bottom: 16, right: 16 }}
-                    // volumeFade={{ fadeIn: 0, fadeOut: 0 }}
-                    showMiniProcessBar={false}
-                    showDownload={true}
-                    // showLyric={true}
-                    // @ts-ignore
-                    customDownloader={download}
-                    // drag={false}
-                    remove={false}
-                    onAudioPlay={() => {
-                        setIsPlaying(true)
-                    }}
-                    onAudioPause={() => {
-                        setIsPlaying(false)
-                    }}
-                    onAudioEnded={() => {
-                        setIsPlaying(false)
-                    }}
-                    onAudioAbort={() => {
-                        setIsPlaying(false)
-                    }}
-                    onAudioError={() => {
-                        setIsPlaying(false)
-                    }}
-                />
+                <AudioPlayer assignmentId={assignmentId} />
             </If>
 
             <If condition={!!audioLists?.[currentIndex]}>
