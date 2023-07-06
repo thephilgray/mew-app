@@ -10,7 +10,7 @@ import EditPublicAssignment from '../components/Assignments/EditPublicAssignment
 import NewPublicSubmission from '../components/Submissions/NewPublicSubmission'
 import NotFound from '../components/NotFound'
 import Submissions from '../components/Submissions/Submissions'
-import Playlist from '../components/Submissions/Playlist'
+import Playlist from '../components/Playlists/Playlist'
 import Workshop from '../components/Workshops/Workshop'
 import Members from '../components/Members/Members'
 import { AuthProvider } from '../auth/auth.context'
@@ -28,6 +28,7 @@ import Theme from '../components/Layout/Theme';
 import Assignments from '../components/Assignments/Assignments';
 import hash from 'object-hash'
 import { AudioPlayerProvider } from '../components/AudioPlayer/audio-player.context';
+import EditPlaylist from '../components/Playlists/EditPlaylist';
 
 
 const componentToRoutesMap = {
@@ -52,8 +53,8 @@ const componentToRoutesMap = {
     [ROUTE_NAMES.NEW_SUBMISSION_EXTENSION]: NewPublicSubmission,
     [ROUTE_NAMES.PLAYLISTS]: Playlists,
     [ROUTE_NAMES.PLAYLIST]: Playlist,
-    [ROUTE_NAMES.NEW_PLAYLIST]: Playlists,
-    [ROUTE_NAMES.EDIT_PLAYLIST]: Playlists,
+    [ROUTE_NAMES.NEW_PLAYLIST]: EditPlaylist,
+    [ROUTE_NAMES.EDIT_PLAYLIST]: EditPlaylist,
     [ROUTE_NAMES.FEEDBACK]: FeedbackSection,
     [ROUTE_NAMES.STEMS]: Stems,
     [ROUTE_NAMES.NEW_STEM]: Stems,

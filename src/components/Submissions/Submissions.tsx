@@ -55,6 +55,7 @@ import { FeedbackSection } from '../Feedback';
 import { useBreakpoint } from '../Layout/Layout';
 import { getCloudFrontURL } from '../../utils';
 import Loading from '../Loading';
+import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
 
 const getFileRequestWithNoLimit = getFileRequest.replace(
     'submissions {',
@@ -275,35 +276,6 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
         setDialogToggles({});
     };
 
-    const onEnded = () => {
-        setIsPlaying(false)
-        setAudioSrc(null)
-    }
-
-    const pauseAudio = () => {
-        setIsPlaying(false)
-        audioRef?.current?.pause()
-    }
-
-    const playAudio = ({ fileId, fileRequestId }) => {
-        pauseAudio()
-        const songFilePath = `${fileRequestId}/${fileId}`
-        if (fileId && fileRequestId) {
-            const src = getCloudFrontURL(songFilePath)
-            setAudioSrc(src)
-        }
-    }
-
-
-
-    useEffect(() => {
-        if (!isPlaying && audioSrc && audioSrc !== previousSrc) {
-            audioRef?.current?.play()
-            setIsPlaying(true)
-
-        }
-    }, [audioSrc, isPlaying])
-
     const columns: GridColDef[] = [
         {
             field: 'artist',
@@ -336,7 +308,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             width: 160,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
-            renderCell: ({ row, value = '' }) => isPlaying && audioSrc?.includes(row?.fileId) ? <Pause onClick={pauseAudio} /> : <PlayArrowTwoTone onClick={() => playAudio(row)} />
+            renderCell: ({ row, value = '' }) => <SimplePlayerButton audioPath={`${row.fileRequestId}/${row.fileId}`} />
         },
     ];
 
@@ -456,9 +428,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                 <Grid item xs={12}>
                     <Grid container>
                         <Grid item xs={6} md={8}>
-                            <If condition={audioSrc}>
-                                <audio hidden src={audioSrc} ref={audioRef} onEnded={onEnded} />
-                            </If>
+                            <SimplePlayer />
                             <Typography variant="h6" component="h3">
                                 <Link
                                     to={ROUTES.newPublicSubmission.getPath({ assignmentId })}
@@ -558,7 +528,6 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 component={Link}
                                 to={ROUTES.assignmentPlaylist.getPath({ assignmentId })}
                                 size="medium"
-                                disabled={!data?.getFileRequest?.submissions?.items?.length}
                                 startIcon={<PlayArrowTwoTone />}
                             >
                                 Play
@@ -570,7 +539,6 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 component={Link}
                                 to={ROUTES.assignmentPlaylist.getPath({ assignmentId })}
                                 size="medium"
-                                disabled={!data?.getFileRequest?.submissions?.items?.length}
                             >
                                 <PlayArrowTwoTone />
                             </IconButton>

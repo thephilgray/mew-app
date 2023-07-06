@@ -186,6 +186,11 @@ const NewPublicSubmission: React.FC<
     ]
 
     useEffect(() => {
+        console.log({ errors })
+
+    }, [errors])
+
+    useEffect(() => {
         async function getFileRequest() {
             // Switch authMode to API_KEY
             try {
@@ -563,7 +568,7 @@ const NewPublicSubmission: React.FC<
     }
 
     if (!!user && showPlaylist && fileRequestData) {
-        content = <Submission
+        content = <GiveFeedback
             fileRequestData={fileRequestData}
             feedbackGiven={feedbackGiven}
             setFeedbackGiven={setFeedbackGiven}

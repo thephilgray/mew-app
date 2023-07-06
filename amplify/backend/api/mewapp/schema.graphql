@@ -88,6 +88,7 @@ type FileRequest
     @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
   extensions: [Extension]
     @hasMany(indexName: "extensionsByFileRequestId", fields: ["id"])
+  playlist: Playlist @hasOne
 }
 
 type FileRequestSubmission
@@ -124,6 +125,38 @@ type FileRequestSubmission
       queryField: "submissionsByWorkshopId"
     )
     @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
+}
+
+type Track
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+    ]
+  ) {
+  order: Int!
+  submission: FileRequestSubmission @hasOne
+  playlist: Playlist @belongsTo
+}
+
+type Playlist
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+    ]
+  ) {
+  tracks: [Track] @hasMany
+  owner: Profile @hasOne
+  public: Boolean
+  title: String
+  artwork: Artwork
 }
 
 type MailchimpTag {
@@ -242,6 +275,7 @@ type Profile
   memberships: [Membership]
     @hasMany(indexName: "membershipsByEmail", fields: ["email"])
   features: Features
+  playlists: [Playlist] @hasMany
 }
 
 type Comment

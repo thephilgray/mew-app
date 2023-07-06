@@ -5,7 +5,7 @@ const aws = require('aws-sdk');
 
 const { Parameters } = await (new aws.SSM())
   .getParameters({
-    Names: ["MAILCHIMP_API_KEY","MAILCHIMP_CLIENT_SECRET","DELETE_THIS_LATER"].map(secretName => process.env[secretName]),
+    Names: ["MAILCHIMP_API_KEY"].map(secretName => process.env[secretName]),
     WithDecryption: true,
   })
   .promise();
