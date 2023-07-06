@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import {
     Typography,
     Grid,
@@ -16,13 +16,17 @@ import {
     DialogContentText,
     DialogActions,
     InputLabel,
+    FormControl,
+    MenuItem,
+    Select,
+    FormHelperText,
 } from '@mui/material'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { add } from 'date-fns/esm'
 import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
+import { useLazyQuery, useQuery } from '@apollo/react-hooks'
 import { Link, navigate } from 'gatsby'
 import { API } from 'aws-amplify'
 import { Editor } from '@tinymce/tinymce-react'
@@ -32,10 +36,12 @@ import AppBreadcrumbs from '../AppBreadcrumbs'
 import { FileCopy } from '@mui/icons-material'
 import { useCopyToClipboard } from 'react-use'
 import * as mutations from '../../graphql/mutations'
-import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
+import { getFileRequest as getFileRequestQuery, listPlaylists } from '../../graphql/queries'
 import ImagePicker, { uploadImage } from '../ImagePicker';
 import { getCloudFrontURL } from '../../utils';
 import { ROUTES } from '../../constants';
+import { useProfile } from '../../auth/hooks';
+import If from '../If';
 
 const getFileRequestWithNoLimit = getFileRequestQuery.replace('submissions {', 'submissions(limit: 1000) {')
 
@@ -49,22 +55,50 @@ type Inputs = {
     userFeedback: boolean
     artworkCredit: string
     artworkPath: string
+    fileRequestPlaylistId: string
 }
 
+
+
 const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string }> = ({ workshopId = '', assignmentId = '' }) => {
+    const { profile } = useProfile()
     const { data: { getFileRequest } = {}, loading, error } = useQuery(gql(getFileRequestWithNoLimit), {
         variables: { id: assignmentId },
     })
+
+    const { loading: fetchListPlaylistsLoading, error: fetchListPlaylistsError, data: fetchListPlaylistsData } = useQuery(gql(listPlaylists), {
+        variables: {
+            filter: {
+                and: [
+                    { public: { eq: true } },
+                    { playlistOwnerId: { eq: profile?.email } }
+                ]
+
+            },
+            limit: 20
+        },
+    })
+
     const {
         register,
         handleSubmit,
         setValue,
         getValues,
+        reset,
+        resetField,
+        control,
 
         formState: {
             errors,
         },
-    } = useForm<Inputs>()
+    } = useForm<Inputs>(
+        {
+            // TODO: use default values here instead of a bunch of useStates for setting the initial form state
+            defaultValues: {
+                fileRequestPlaylistId: getFileRequest?.playlist?.id
+            }
+        }
+    )
     const [details, setDetails] = useState<string>('')
     const [required, setRequired] = useState<boolean>(true)
     const [expiration, setExpiration] = useState<Date | null>(add(new Date(), { weeks: 1 }))
@@ -90,6 +124,12 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
             setValue('artworkCredit', getFileRequest.artwork?.credit)
         }
     }, [getFileRequest])
+
+    useEffect(() => {
+        if (getFileRequest?.playlist?.id && fetchListPlaylistsData) {
+            setValue('fileRequestPlaylistId', getFileRequest?.playlist?.id)
+        }
+    }, [getFileRequest, fetchListPlaylistsData])
 
     useEffect(() => {
         if (copyToClipboardState.value) {
@@ -138,7 +178,8 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                             credit: inputData.artworkCredit,
                             path: ARTWORK_UPLOAD_PATH
                         }
-                    }
+                    },
+                    fileRequestPlaylistId: inputData.fileRequestPlaylistId
                 },
             },
         })
@@ -300,6 +341,32 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                 <ImagePicker imageURL={getFileRequest?.artwork && getCloudFrontURL(ARTWORK_DOWNLOAD_PATH)} width={200} height={200} maxHeight={500} maxWidth={500} onChange={e => setImage(e.image)} />
                                 <TextField fullWidth label="Title/Credit" {...register('artworkCredit')} InputLabelProps={{ shrink: true }} />
                             </Grid>
+                            <If condition={fetchListPlaylistsData?.listPlaylists?.items}>
+                                <Grid item xs={12}>
+                                    <FormControl fullWidth sx={{ pt: 2 }}>
+                                        <InputLabel id="select-helper-label">Official Playlist</InputLabel>
+                                        <Controller render={({ field }) => (
+                                            <Select labelId="select-helper-label" {...field}>
+                                                <MenuItem value="">
+                                                    <em>None</em>
+                                                </MenuItem>
+                                                {fetchListPlaylistsData?.listPlaylists?.items.map(playlist => (
+                                                    <MenuItem value={playlist.id} key={playlist.id}>
+                                                        {playlist.title}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+
+                                        )}
+                                            defaultValue={getFileRequest?.playlist?.id}
+                                            name={"fileRequestPlaylistId"}
+                                            control={control}
+                                        >
+                                        </Controller>
+                                        <FormHelperText>This overrides the default playlist.</FormHelperText>
+                                    </FormControl>
+                                </Grid>
+                            </If>
                             <Grid item xs={6}>
                                 <DatePicker
                                     fullWidth
@@ -346,9 +413,9 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                             </Grid>
                         </Grid>
                     </form>
-                </Paper>
-            </Grid>
-        </Grid>
+                </Paper >
+            </Grid >
+        </Grid >
     );
 }
 

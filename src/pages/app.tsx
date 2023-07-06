@@ -10,7 +10,7 @@ import EditPublicAssignment from '../components/Assignments/EditPublicAssignment
 import NewPublicSubmission from '../components/Submissions/NewPublicSubmission'
 import NotFound from '../components/NotFound'
 import Submissions from '../components/Submissions/Submissions'
-import Playlist from '../components/Submissions/Playlist'
+import Playlist from '../components/Playlists/Playlist'
 import Workshop from '../components/Workshops/Workshop'
 import Members from '../components/Members/Members'
 import { AuthProvider } from '../auth/auth.context'
@@ -27,6 +27,9 @@ import { FeedbackSection } from '../components/Feedback';
 import Theme from '../components/Layout/Theme';
 import Assignments from '../components/Assignments/Assignments';
 import hash from 'object-hash'
+import { AudioPlayerProvider } from '../components/AudioPlayer/audio-player.context';
+import EditPlaylist from '../components/Playlists/EditPlaylist';
+
 
 const componentToRoutesMap = {
     [ROUTE_NAMES.HOME]: Workshops,
@@ -50,8 +53,8 @@ const componentToRoutesMap = {
     [ROUTE_NAMES.NEW_SUBMISSION_EXTENSION]: NewPublicSubmission,
     [ROUTE_NAMES.PLAYLISTS]: Playlists,
     [ROUTE_NAMES.PLAYLIST]: Playlist,
-    [ROUTE_NAMES.NEW_PLAYLIST]: Playlists,
-    [ROUTE_NAMES.EDIT_PLAYLIST]: Playlists,
+    [ROUTE_NAMES.NEW_PLAYLIST]: EditPlaylist,
+    [ROUTE_NAMES.EDIT_PLAYLIST]: EditPlaylist,
     [ROUTE_NAMES.FEEDBACK]: FeedbackSection,
     [ROUTE_NAMES.STEMS]: Stems,
     [ROUTE_NAMES.NEW_STEM]: Stems,
@@ -65,19 +68,21 @@ const App: React.FC = (): JSX.Element => (
     <AuthProvider>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Theme>
-                <Layout>
-                    <Router>
-                        <NotFound default />
-                        {MAPPED_ROUTE_CONFIGS.map(config => {
-                            if (config.public) return; // just manually setup the public routes below
-                            return <PrivateRoute key={hash(config)} {...config} component={componentToRoutesMap[config.routeName]} />
+                <AudioPlayerProvider>
+                    <Layout>
+                        <Router>
+                            <NotFound default />
+                            {MAPPED_ROUTE_CONFIGS.map(config => {
+                                if (config.public) return; // just manually setup the public routes below
+                                return <PrivateRoute key={hash(config)} {...config} component={componentToRoutesMap[config.routeName]} />
 
-                        })}
-                        <Playlist path={ROUTES.assignmentPlaylist.path} />
-                        <NewPublicSubmission path={ROUTES.newPublicSubmission.path} />
-                        <NewPublicSubmission path={ROUTES.newPublicSubmissionExtension.path} />
-                    </Router>
-                </Layout>
+                            })}
+                            <Playlist path={ROUTES.assignmentPlaylist.path} />
+                            <NewPublicSubmission path={ROUTES.newPublicSubmission.path} />
+                            <NewPublicSubmission path={ROUTES.newPublicSubmissionExtension.path} />
+                        </Router>
+                    </Layout>
+                </AudioPlayerProvider>
             </Theme>
         </LocalizationProvider>
     </AuthProvider>

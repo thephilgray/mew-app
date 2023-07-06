@@ -219,7 +219,7 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         path: '/app/playlists',
         name: 'Playlists',
         navPaths: defaultNav,
-        groups: [Group.admin],
+        groups: [Group.admin, Group.member],
         icon: props => <PlaylistPlay {...props} />,
     },
     [ROUTE_NAMES.PLAYLIST]: {
@@ -290,3 +290,5 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
 }
 
 export const MAPPED_ROUTE_CONFIGS = Object.entries(ROUTES).map(([routeName, config = {}]) => ({ ...config, routeName, pathRegex: pathToRegexp(config.path) }))
+
+// TODO: ADD Storage Paths with dynamic getters similar to ROUTES above

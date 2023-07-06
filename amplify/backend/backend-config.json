@@ -260,6 +260,38 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_AdminQueriesd92d7feb_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AdminQueriesd92d7feb"
+        }
+      ]
+    },
+    "AMPLIFY_function_AdminQueriesd92d7feb_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AdminQueriesd92d7feb"
+        }
+      ]
+    },
+    "AMPLIFY_function_membershipService_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "membershipService"
+        }
+      ]
+    },
+    "AMPLIFY_function_membershipService_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "membershipService"
+        }
+      ]
+    },
     "AMPLIFY_function_membershipService_secretsPathAmplifyAppId": {
       "usedBy": [
         {
@@ -268,11 +300,91 @@
         }
       ]
     },
+    "AMPLIFY_function_mewProfileService_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewProfileService"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewProfileService_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewProfileService"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eCreateAuthChallenge_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eCreateAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eCreateAuthChallenge_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eCreateAuthChallenge"
+        }
+      ]
+    },
     "AMPLIFY_function_mewappacdc5d0eCreateAuthChallenge_secretsPathAmplifyAppId": {
       "usedBy": [
         {
           "category": "function",
           "resourceName": "mewappacdc5d0eCreateAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eDefineAuthChallenge_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eDefineAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eDefineAuthChallenge_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eDefineAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0ePreSignup_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0ePreSignup"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0ePreSignup_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0ePreSignup"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eVerifyAuthChallengeResponse_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eVerifyAuthChallengeResponse"
+        }
+      ]
+    },
+    "AMPLIFY_function_mewappacdc5d0eVerifyAuthChallengeResponse_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mewappacdc5d0eVerifyAuthChallengeResponse"
         }
       ]
     },
