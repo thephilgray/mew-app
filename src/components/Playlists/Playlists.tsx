@@ -7,10 +7,10 @@ import If from '../If';
 import { ROUTES } from '../../constants';
 import { Button, Chip, Divider, Grid, Typography } from '@mui/material';
 import { format } from 'date-fns'
-import groupBy from 'lodash/groupBy'
-import chain from 'lodash/chain'
 import isPast from 'date-fns/isPast'
 import { Link } from 'gatsby';
+import { compareDesc } from "date-fns"
+
 type PlaylistsProps = {
 
 };
@@ -56,6 +56,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
   }, [profile])
 
 
+  const sortFn = (a, b) => compareDesc(new Date(a.updatedAt), new Date(b.updatedAt))
 
   const groupedStandardPlaylists = data?.listPlaylists?.items.reduce((acc, curr) => {
     if (curr?.playlistOwnerId === profile?.email) {
@@ -91,35 +92,33 @@ const Playlists: React.FC<PlaylistsProps> = () => {
         trackSubmissionId: item.id
       }))
     }
-  }))
+  })).sort(sortFn)
 
 
   return <Grid container spacing={2}>
-    <If condition={groupedStandardPlaylists?.mine?.length}>
-      <Grid item xs={8} my={2}>
-        <Typography variant="h5">My Playlists</Typography>
-      </Grid>
-      <Grid item xs={4} my={2}>
-        <Button component={Link} to={ROUTES.newPlaylist.path} sx={{ float: 'right' }} variant="contained">Create</Button>
-      </Grid>
-      <Grid item xs={12}>
-        <CardGrid items={groupedStandardPlaylists?.mine?.map(item => ({
-          artwork: item?.artwork,
-          id: item?.id,
-          active: true,
-          name: item?.title,
-          link: ROUTES.playlist.getPath({ playlistId: item?.id }),
-          bottomContent: <><Typography>
-            {item?.tracks?.items?.length} tracks
-          </Typography>
-            <Typography sx={{ float: 'right' }} textAlign="right" variant="caption"><em>updated {format(new Date(item?.updatedAt), 'MM-dd-yy')}</em></Typography>
-          </>
-        }))} />
+    <Grid item xs={8} my={2}>
+      <Typography variant="h5">My Playlists</Typography>
+    </Grid>
+    <Grid item xs={4} my={2}>
+      <Button component={Link} to={ROUTES.newPlaylist.path} sx={{ float: 'right' }} variant="contained">Create</Button>
+    </Grid>
+    <Grid item xs={12}>
+      <CardGrid items={groupedStandardPlaylists?.mine?.sort(sortFn)?.map(item => ({
+        artwork: item?.artwork,
+        id: item?.id,
+        active: true,
+        name: item?.title,
+        link: ROUTES.playlist.getPath({ playlistId: item?.id }),
+        bottomContent: <><Typography>
+          {item?.tracks?.items?.length} tracks
+        </Typography>
+          <Typography sx={{ float: 'right' }} textAlign="right" variant="caption"><em>updated {format(new Date(item?.updatedAt), 'MM-dd-yy')}</em></Typography>
+        </>
+      }))} />
 
-      </Grid>
-      <Divider sx={{ mb: 2 }} variant="middle" />
+    </Grid>
+    <Divider sx={{ mb: 2 }} variant="middle" />
 
-    </If>
     <If condition={assignmentPlaylists}>
       <Grid item xs={12} my={2}>
         <Typography variant="h5">Assignment Playlists</Typography>
@@ -149,7 +148,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
         <Typography variant='h5'>Public Playlists</Typography>
       </Grid>
       <Grid item xs={12}>
-        <CardGrid items={groupedStandardPlaylists?.public?.map(item => ({
+        <CardGrid items={groupedStandardPlaylists?.public?.sort(sortFn)?.map(item => ({
           artwork: item?.artwork,
           id: item?.id,
           active: true,
