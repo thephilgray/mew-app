@@ -14,7 +14,7 @@ import orderBy from 'lodash/orderBy'
 import { ROUTES } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
-import { useProfile, useUser } from '../../auth/hooks'
+import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
 import { Close, CopyAll, Edit, MoreVert, Pause, PlayArrow as PlayArrowIcon, PlaylistAdd, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon } from '@mui/icons-material'
 import { FeedbackSection } from '../Feedback'
 import { getFileRequest, getPlaylist, listPlaylists } from '../../graphql/queries'
@@ -46,6 +46,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const { profile } = useProfile()
     const [addToPlaylistSelection, setAddToPlaylistSelection] = useState('new')
     const [snackbarOpen, setSnackbarOpen] = useState(false)
+    const [viewAdmin] = useViewAdmin()
     // Authenticated user access
 
     const [fetchGetFileRequest, { loading: fetchGetFileRequestLoading, error: fetchGetFileRequestError, data: fetchGetFileRequestData }] = useLazyQuery(GET_FILE_REQUEST, {
@@ -122,6 +123,10 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         colorCount: 10,
         quality: 10,
     });
+
+    useEffect(() => {
+        setAudioLists([])
+    }, [])
 
     // Authenticated user access
     useEffect(() => {
@@ -385,7 +390,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                     <CopyAll sx={{ mr: 1 }} />
                                     Clone playlist
                                 </MenuItem>
-                                <If condition={playlistId && profile?.email === data?.playlistOwnerId}>
+                                <If condition={playlistId && (profile?.email === data?.playlistOwnerId || viewAdmin)}>
                                     <MenuItem onClick={() => navigate(ROUTES.editPlaylist.getPath({ playlistId: data?.id }))}>
                                         <Edit sx={{ mr: 1 }} />
                                         Edit Playlist
