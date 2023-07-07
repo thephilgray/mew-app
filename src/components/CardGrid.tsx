@@ -79,10 +79,10 @@ export const CardGridItem: React.FC<Item> = ({ name = '', link = "", bottomConte
 
 const CardGrid: React.FC<CardGridProps> = ({ items }) => {
   return <Grid container spacing={{ xs: 2, md: 3 }}>
-    <If condition={!!items.length} fallbackContent={<Grid xs={12}>
+    <If condition={!!items?.length} fallbackContent={<Grid xs={12}>
       <Typography variant="body1">None found.</Typography>
     </Grid>}>
-      {items.map(CardGridItem)}
+      {items?.map(CardGridItem)}
     </If>
   </Grid>
 }

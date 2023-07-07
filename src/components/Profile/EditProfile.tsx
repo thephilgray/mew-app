@@ -197,7 +197,7 @@ const EditProfile = (): JSX.Element => {
                 displayName: inputData.displayName,
                 ...imageUpdated && { avatar: AVATAR_UPLOAD_PATH },
                 bio: inputData.bio,
-                links: inputData.links.map(({ id, url, text }) => ({ id, url, text })) // don't submit _typename
+                ...inputData?.links && { links: inputData?.links?.map(({ id, url, text }) => ({ id, url, text })) } // don't submit _typename
             }
         }
 
