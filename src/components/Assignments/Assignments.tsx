@@ -44,9 +44,11 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
       // variables: { filter: { workshopId: { eq: workshopId } } },
       fetchAssignments({
         variables: {
+          // TODO: do not limit, paginate
+          limit: 500,
           filter: {
             or: workshopIds.map(workshopId => ({ workshopId: { eq: workshopId } })),
-          }
+          },
         },
       })
     }

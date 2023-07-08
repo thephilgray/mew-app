@@ -118,10 +118,10 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     )
 
     const memberships = data?.getWorkshop?.memberships?.items
-    const totalSubmissions = sumBy(rows, r => r.submissions.length)
-    const myTotalSubmissions = sumBy(rows, r => r.mySubmissions.length)
-    const myTotalComplete = sumBy(rows, r => r.mySubmissions.length > 0 && r.required)
-    const totalRequired = sumBy(rows, 'required')
+    const totalSubmissions = sumBy(rows, r => r.submissions.length) || '0'
+    const myTotalSubmissions = sumBy(rows, r => r.mySubmissions.length) || '0'
+    const myTotalComplete = sumBy(rows, r => r.mySubmissions.length > 0 && r.required) || '0'
+    const totalRequired = sumBy(rows, 'required') || '0'
 
     const AssignmentsView = () => <>
         <Grid item xs={12}>
