@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'gatsby';
 import {
     Badge,
+    Box,
     Button,
     Checkbox,
     CircularProgress,
@@ -56,6 +57,7 @@ import { useBreakpoint } from '../Layout/Layout';
 import { getCloudFrontURL } from '../../utils';
 import Loading from '../Loading';
 import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
+import { DataGridWrapper } from '../DataGridWrapper';
 
 const getFileRequestWithNoLimit = getFileRequest.replace(
     'submissions {',
@@ -511,7 +513,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                         )}
                     </Grid>
                 </Grid>
-                <Grid item xs={7}>
+                <Grid item xs={8}>
                     <Typography variant="h6" component="h3">
                         {viewAdmin ? 'Submissions' : 'My Submissions'}{' '}
                         <Badge badgeContent={rows.length || 0} color="secondary">
@@ -519,7 +521,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                         </Badge>
                     </Typography>
                 </Grid>
-                <Grid item xs={5} sx={{ textAlign: 'right', p: 0, pl: 0, pb: 0 }}>
+                <Grid item xs={4} sx={{ textAlign: 'right', p: 0, pl: 0, pb: 0 }}>
                     <If condition={viewAdmin || isExpired}>
                         {sm ? (
                             <Button
@@ -577,22 +579,24 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                 <Grid
                     item
                     xs={12}
-                    style={{ minHeight: 600, width: '100%', paddingTop: 0 }}
                 >
-                    <DataGrid
-                        checkboxSelection={!!viewAdmin}
-                        rows={rows}
-                        columns={columns}
-                        sortModel={sortModel}
-                        onRowSelectionModelChange={(selection: GridRowSelectionModel) => {
-                            setSelectedRows(selection);
-                        }}
-                        initialState={{
-                            sorting: {
-                                sortModel: [{ field: 'createdAt', sort: 'desc' }],
-                            },
-                        }}
-                    />
+                    <DataGridWrapper>
+                        <DataGrid
+                            autoHeight
+                            checkboxSelection={!!viewAdmin}
+                            rows={rows}
+                            columns={columns}
+                            sortModel={sortModel}
+                            onRowSelectionModelChange={(selection: GridRowSelectionModel) => {
+                                setSelectedRows(selection);
+                            }}
+                            initialState={{
+                                sorting: {
+                                    sortModel: [{ field: 'createdAt', sort: 'desc' }],
+                                },
+                            }}
+                        />
+                    </DataGridWrapper>
                 </Grid>
                 <Grid item xs={12}>
                     <FeedbackSection
