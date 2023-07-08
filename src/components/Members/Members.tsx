@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Button, Chip, CircularProgress, Grid, IconButton, Typography } from '@mui/material'
+import { Avatar, Button, Chip, CircularProgress, Grid, IconButton, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
@@ -13,6 +13,7 @@ import { updateMembershipService } from '../../graphql/mutations'
 import { ROUTES } from '../../constants';
 import Loading from '../Loading';
 import { DataGridWrapper } from '../DataGridWrapper';
+import { Link } from 'gatsby';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -82,6 +83,7 @@ const GET_WORKSHOP = gql`
                         name
                         email
                         sub
+                        id
                     }
                     mailchimp {
                         fullName
@@ -215,6 +217,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             passes,
             mailchimpSubscribed: false,
             profileEnabled: false,
+            profile: null,
             loginEnabled: false,
             membership: false,
         }
@@ -244,6 +247,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 member.mailchimp.status === 'subscribed' &&
                 !member.mailchimp.tags.some((t) => t.name === 'OUT')
             ),
+            profile: member?.profile,
             profileEnabled: !!member.profile,
             loginEnabled: !!member?.profile?.sub,
             membership: !!(member?.status === 'ACTIVE'),
@@ -343,7 +347,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         {
             field: 'profileEnabled',
             headerName: 'Profile',
-            renderCell: ({ value }) => (value ? 'Yes' : 'No'),
+            renderCell: ({ row, value }) => value ? (<Link to={ROUTES.viewProfile.getPath({ profileId: row?.profile?.id })} > Yes</Link >) : 'No',
         },
         {
             field: 'loginEnabled',

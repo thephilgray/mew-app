@@ -64,7 +64,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
         </CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" sx={{ textAlign: 'center' }}>
-            {profile?.displayName || profile?.name} <GroupGuard groups={[Group.admin]}><Chip label="ADMIN" color="secondary" /></GroupGuard>
+            {profile?.displayName || profile?.name} <GroupGuard groups={[Group.admin]}><If condition={profile?.id === profileInState?.id}><Chip label="ADMIN" color="secondary" /></If></GroupGuard>
           </Typography>
           {profile?.bio ? <><Divider sx={{ mb: 2, mt: 2 }} />
             <Typography variant="body1" component="h2">Bio</Typography>
