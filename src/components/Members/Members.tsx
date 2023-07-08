@@ -12,6 +12,7 @@ import { Add, Delete, Sync } from '@mui/icons-material'
 import { updateMembershipService } from '../../graphql/mutations'
 import { ROUTES } from '../../constants';
 import Loading from '../Loading';
+import { DataGridWrapper } from '../DataGridWrapper';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -424,18 +425,20 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 <StyledChip label={`Required Past Due: ${expiredAndDueAssignments}`} />
             </Grid>
             <Grid item xs={12}>
-                <DataGrid
-                    // checkboxSelection
-                    rows={userRows}
-                    columns={columns}
-                    disableRowSelectionOnClick={true}
-                    initialState={{
-                        sorting: {
-                            sortModel: [{ field: 'required', sort: 'desc' }],
-                        },
-                    }}
-                    autoHeight
-                />
+                <DataGridWrapper>
+                    <DataGrid
+                        // checkboxSelection
+                        rows={userRows}
+                        columns={columns}
+                        disableRowSelectionOnClick={true}
+                        initialState={{
+                            sorting: {
+                                sortModel: [{ field: 'required', sort: 'desc' }],
+                            },
+                        }}
+                        autoHeight
+                    />
+                </DataGridWrapper>
             </Grid>
         </Grid>
     )

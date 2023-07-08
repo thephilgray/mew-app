@@ -20,6 +20,7 @@ import Assignments from '../Assignments/Assignments'
 import { HostDisplay, MembersAvatarGroup, WorkshopDates } from '../Workshops/WorkshopList';
 import Loading from '../Loading';
 import sumBy from 'lodash/sumBy'
+import { DataGridWrapper } from '../DataGridWrapper';
 
 const useStyles = makeStyles()(() => (
     {
@@ -232,20 +233,22 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
             }>
                 <If condition={!!viewAdmin}>
                     <Grid item xs={12} className={classes.tableWrapper}>
-                        <DataGrid
-                            rows={rows}
-                            columns={columns}
-                            disableRowSelectionOnClick={true}
-                            onRowClick={(params: GridRowParams) =>
-                                navigate(ROUTES.assignment.getPath({ assignmentId: String(params.row.id) }))
-                            }
-                            initialState={{
-                                sorting: {
-                                    sortModel: [{ field: 'expiration', sort: 'desc' }],
-                                },
-                            }}
-                            autoHeight
-                        />
+                        <DataGridWrapper>
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                disableRowSelectionOnClick={true}
+                                onRowClick={(params: GridRowParams) =>
+                                    navigate(ROUTES.assignment.getPath({ assignmentId: String(params.row.id) }))
+                                }
+                                initialState={{
+                                    sorting: {
+                                        sortModel: [{ field: 'expiration', sort: 'desc' }],
+                                    },
+                                }}
+                                autoHeight
+                            />
+                        </DataGridWrapper>
                     </Grid>
                 </If>
                 <If condition={!viewAdmin}>
