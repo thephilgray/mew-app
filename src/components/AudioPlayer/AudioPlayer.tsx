@@ -8,8 +8,12 @@ type AudioPlayerProps = {
 };
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ assignmentId }) => {
-  const { playerRef, audioLists, setCurrentIndex, setIsPlaying } = useContext(AudioPlayerContext)
-  const download = useDownload({ assignmentId })
+  const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying } = useContext(AudioPlayerContext)
+  const metaData = audioLists[currentIndex]
+  const download = useDownload({
+    filePath: `${assignmentId}/${metaData.fileId}`,
+    filename: `${metaData.name} - ${metaData.singer}`
+  })
 
   return <ReactJkMusicPlayer
     getAudioInstance={(instance) => {

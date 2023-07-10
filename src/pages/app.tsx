@@ -29,6 +29,7 @@ import Assignments from '../components/Assignments/Assignments';
 import hash from 'object-hash'
 import { AudioPlayerProvider } from '../components/AudioPlayer/audio-player.context';
 import EditPlaylist from '../components/Playlists/EditPlaylist';
+import NewStems from '../components/Stems/NewStems';
 
 
 const componentToRoutesMap = {
@@ -57,7 +58,7 @@ const componentToRoutesMap = {
     [ROUTE_NAMES.EDIT_PLAYLIST]: EditPlaylist,
     [ROUTE_NAMES.FEEDBACK]: FeedbackSection,
     [ROUTE_NAMES.STEMS]: Stems,
-    [ROUTE_NAMES.NEW_STEM]: Stems,
+    [ROUTE_NAMES.NEW_STEM]: NewStems,
     [ROUTE_NAMES.PROMPTS]: Prompts,
     [ROUTE_NAMES.NEW_PROMPT]: Prompts,
     [ROUTE_NAMES.SITE_SETTINGS]: SiteSettings,

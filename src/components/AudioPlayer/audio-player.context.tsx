@@ -75,15 +75,11 @@ export const usePlayingState = () => {
   return [isPlaying, setIsPlaying];
 }
 
-export const useDownload = ({ assignmentId }) => async () => {
-  const { audioLists, currentIndex } = useContext(AudioPlayerContext);
-  const metaData = audioLists[currentIndex]
-  if (!metaData.fileId) return
-  const songFilePath = `${assignmentId}/${metaData.fileId}`
+export const useDownload = ({ filePath, filename }) => async () => {
   // const result = await Storage.get(songFilePath, { download: true })
   // @ts-ignore
   // const url = window.URL.createObjectURL(result.Body)
-  const cloudFrontURL = getCloudFrontURL(songFilePath)
+  const cloudFrontURL = getCloudFrontURL(filePath)
   const result = await fetch(cloudFrontURL, { mode: 'no-cors' })
   // TODO: no-cors is not ideal because we won't be able to access ContentType headers to determine extension
   // const result = await fetch(cloudFrontURL)
@@ -96,7 +92,7 @@ export const useDownload = ({ assignmentId }) => async () => {
   const extension = EXTENSIONS_BY_FILETYPE[contentType || 'audio/mpeg']
   const a = document.createElement('a')
   a.href = url
-  a.download = `${metaData.name} - ${metaData.singer}${extension}`
+  a.download = `${filename}${extension}`
   const clickHandler = () => {
     setTimeout(() => {
       URL.revokeObjectURL(url)

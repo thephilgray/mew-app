@@ -116,6 +116,7 @@ type FileRequestSubmission
   fileExtension: String
   rating: Int
   comments: [Comment] @hasMany(indexName: "bySubmission", fields: ["id"])
+  stems: [Stem] @manyToMany(relationName: "SubmissionStems")
   artwork: Artwork
   lyrics: String
   requestFeedback: Boolean
@@ -276,6 +277,8 @@ type Profile
     @hasMany(indexName: "membershipsByEmail", fields: ["email"])
   features: Features
   playlists: [Playlist] @hasMany
+  uploadedStems: [Stem] @hasMany(indexName: "stemsByEmail", fields: ["email"])
+  downloadedStems: [Stem] @manyToMany(relationName: "SavedStems")
 }
 
 type Comment
@@ -297,6 +300,34 @@ type Comment
   assignmentId: ID
   assignment: FileRequest @hasOne(fields: ["assignmentId"])
   parentId: ID
+}
+
+type Stem
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  title: String
+  bpm: Int
+  key: String
+  scale: String
+  instruments: [String]
+  notes: String
+  submissions: [FileRequestSubmission]
+    @manyToMany(relationName: "SubmissionStems")
+  fileSize: Int
+  fileExtension: String
+  creatorEmail: String @index(name: "stemsByEmail")
+  creator: Profile @belongsTo(fields: ["creatorEmail"])
+  stemGroupId: ID
+  filePath: String
+  downloadedBy: [Profile] @manyToMany(relationName: "SavedStems")
 }
 
 input SongData {
