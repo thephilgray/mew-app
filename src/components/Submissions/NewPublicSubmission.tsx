@@ -124,6 +124,7 @@ const NewPublicSubmission: React.FC<
     const [showPlaylist, setShowPlaylist] = useState<boolean>(false)
     const [feedbackGiven, setFeedbackGiven] = useState<number>(0)
     const [submitters, setSubmitters] = useState([])
+    const [stemsUsed, setStemsUsed] = useState([])
     const [fetchListMemberships, { loading: listMembershipsLoading, error: listMembershipsError, data: listMembershipsData }] = useLazyQuery(gql(listMemberships), { variables: { limit: 1000, filter: { workshopId: { eq: fileRequestData?.workshopId } } } })
 
     const {
@@ -142,6 +143,7 @@ const NewPublicSubmission: React.FC<
                 email: user?.email || '',
                 artist: getDisplayName(profile),
                 requestFeedback: !!user,
+                addStems: false
             }
         }, [user])
     })
@@ -336,6 +338,7 @@ const NewPublicSubmission: React.FC<
                 setError(err)
                 return
             }
+            // TODO: createSubmissionStems for each submission
         }
 
         setUploadSuccess(true)
@@ -370,6 +373,7 @@ const NewPublicSubmission: React.FC<
                                 <InputLabel>Options</InputLabel>
                                 <FormControlLabel control={<Switch {...register("addArtwork")} color="secondary" />} label="Add artwork" />
                                 <FormControlLabel control={<Switch {...register("addLyrics")} color="secondary" />} label="Add lyrics" />
+                                <FormControlLabel control={<Switch {...register("addStems")} color="secondary" />} label="Add credit for stems used" />
                                 <FormControlLabel control={<Switch defaultChecked={true} {...register("requestFeedback")} color="secondary" />} label="Request feedback" />
                             </FormGroup>
                         </Grid>
@@ -472,11 +476,36 @@ const NewPublicSubmission: React.FC<
                                     />
                                 )}
                             />
-
-
                         </If>
 
                     </Grid>
+                    <If condition={!!user && !!watch("addStems")}>
+                        <Grid item xs={12}>
+
+                            <Autocomplete
+                                onChange={(e, value = []) => setStemsUsed(value)}
+                                value={stemsUsed}
+                                multiple
+                                getOptionLabel={option => `${option?.stem?.title} – ${getDisplayName(option?.stem?.creator)}`}
+                                options={profile?.downloadedStems?.items || []}
+                                renderTags={(tagValue, getTagProps) =>
+                                    tagValue.map((option, index) => (
+                                        <Chip
+                                            key={option?.id}
+                                            label={`${option?.stem?.title} – ${getDisplayName(option?.stem?.creator)}`}
+                                        />
+                                    ))
+                                }
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Stems used"
+                                        variant="standard"
+                                    />
+                                )}
+                            />
+                        </Grid>
+                    </If>
                     <Grid item xs={6}>
                         <TextField
                             variant="standard"

@@ -6,6 +6,60 @@ import {
 } from "@mui/icons-material";
 import { pathToRegexp } from "path-to-regexp";
 
+export const KEYS = ['C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭', 'G', 'G♯/A♭', 'A', 'A♯/B♭', 'B']
+
+export const SCALES = [
+    'Ionian (Major)',
+    'Dorian',
+    'Phrygian',
+    'Lydian',
+    'Mixolydian',
+    'Aeolian (Natural minor)',
+    'Locrian',
+    'Chromatic',
+    'Harmonic minor',
+    'Diminished/octatonic',
+    'Whole tone',
+    'Major Pentatonic',
+    'Minor Pentatonic',
+    'maj6 diminished',
+    'min6 diminished',
+    '7dim',
+    '7b5dim',
+    'Ascending melodic minor',
+    'Dorian ♭2 (Phrygian ♯6)',
+    'Lydian augmented',
+    'Lydian dominant',
+    'Mixolydian ♭6',
+    'Half-diminished',
+    'Altered (Super Locrian)'
+]
+
+export const INSTRUMENTS = [
+    'Acoustic',
+    'Electric Guitar',
+    'Bass',
+    'Piano',
+    'Organ',
+    'Keyboard',
+    'Synth (lead)',
+    'Synth (pad)',
+    'Synth (bass)',
+    'Drum kit',
+    'Drum machine',
+    'Drums (sampled)',
+    'Percussion',
+    'Brass',
+    'Strings (bowed)',
+    'Strings (plucked)',
+    'Vocals (spoken)',
+    'Vocals (lead)',
+    'Vocals (backing)',
+    'Vocals (choir)',
+    'Sampled'
+]
+
+
 export const EXTENSIONS_BY_FILETYPE = {
     'audio/wav': '.wav',
     'audio/s-wav': '.wav',
@@ -24,6 +78,8 @@ export const EXTENSIONS_BY_FILETYPE = {
     'audio/m4a': '.m4a',
     'audio/x-m4a': '.m4a',
     'audio/ogg': '.ogg',
+    'audio/midi': '.mid',
+    'audio/x-midi': '.midi'
 }
 
 export enum Group {
