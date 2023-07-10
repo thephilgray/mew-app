@@ -312,14 +312,14 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         path: '/app/stems',
         name: 'Stems',
         navPaths: defaultNav,
-        groups: [Group.admin],
+        groups: [Group.admin, Group.member],
         icon: props => <AudioFile {...props} />,
     },
     [ROUTE_NAMES.NEW_STEM]: {
         path: '/app/stems/new',
         name: 'New Stem',
         navPaths: defaultNav,
-        groups: [Group.admin],
+        groups: [Group.admin, Group.member],
         icon: props => <PlaylistAddCircle {...props} />,
     },
     [ROUTE_NAMES.PROMPTS]: {
