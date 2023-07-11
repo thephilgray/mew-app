@@ -15,7 +15,8 @@ type StemFormProps = {
 
 };
 
-const maxSize = 10000000;
+const MAX_SIZE = 10000000;
+const EXTENSIONS_SUPPORTED = ['.mid', '.mp3', '.ogg', '.wav']
 
 const StemForm: React.FC<StemFormProps> = () => {
   const [myFiles, setMyFiles] = useState([])
@@ -24,10 +25,10 @@ const StemForm: React.FC<StemFormProps> = () => {
   function totalSizeValidator(file) {
     const fileSizeSum = sumBy([...myFiles, file], 'size')
 
-    if (fileSizeSum > maxSize) {
+    if (fileSizeSum > MAX_SIZE) {
       return {
         code: "upload-limit-exceeded",
-        message: `Total size of files is greater than ${maxSize / 1000000}MB limit.`
+        message: `Total size of files is greater than ${MAX_SIZE / 1000000}MB limit.`
       };
     }
 
@@ -41,7 +42,7 @@ const StemForm: React.FC<StemFormProps> = () => {
       setMyFiles([...myFiles.concat(acceptedFiles)])
     },
     validator: totalSizeValidator,
-    accept: { 'audio/*': ['.mid', '.mp3', '.ogg', '.wav'] }
+    accept: { 'audio/*': EXTENSIONS_SUPPORTED }
   });
   const { register, control, handleSubmit, reset, trigger, setError, formState: { errors } } = useForm({
     // defaultValues: {}; you can populate the fields by this attribute 
@@ -122,8 +123,8 @@ const StemForm: React.FC<StemFormProps> = () => {
         <Grid item xs={12} textAlign='center'>
           {isDragActive ? <Typography>Drop....</Typography> :
             (<>
-              <Typography>Drop stems here, up to <em>{maxSize / 1000000}MB</em> total.</Typography>
-              <Typography>The following extensions are supported: {uniq(Object.values(EXTENSIONS_BY_FILETYPE)).sort().join(', ')}</Typography>
+              <Typography>Drop stems here. Limit of <em>{MAX_SIZE / 1000000}MB</em> at a time.</Typography>
+              <Typography>The following extensions are supported: {uniq(Object.values(EXTENSIONS_SUPPORTED)).sort().join(', ')}</Typography>
             </>)
           }
           <ul>{fileRejectionItems}</ul>
