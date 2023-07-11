@@ -118,10 +118,13 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     )
 
     const memberships = data?.getWorkshop?.memberships?.items
-    const totalSubmissions = sumBy(rows, r => r.submissions.length)?.toString()
-    const myTotalSubmissions = sumBy(rows, r => r.mySubmissions.length)?.toString()
-    const myTotalComplete = sumBy(rows, r => r.mySubmissions.length > 0 && r.required)?.toString()
-    const totalRequired = sumBy(rows, 'required')?.toString()
+    const totalSubmissions = sumBy(rows, r => r.submissions.length)
+    const myTotalSubmissions = sumBy(rows, r => r.mySubmissions.length)
+
+    // lodash/sumBy doesn't sum by a condition, just a path: https://github.com/lodash/lodash/issues/4878
+    const sumByCondition = (arr, fn) => arr.reduce((acc, curr) => fn(curr) ? fn(curr) + acc : acc, 0)
+    const myTotalComplete = sumByCondition(rows, r => r.mySubmissions.length > 0 && r.required)
+    const totalRequired = sumByCondition(rows, r => r.required)
 
     const AssignmentsView = () => <>
         <Grid item xs={12}>
