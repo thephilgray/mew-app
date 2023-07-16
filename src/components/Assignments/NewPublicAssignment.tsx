@@ -44,7 +44,7 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
         register,
         handleSubmit,
         setValue,
-
+        watch,
         formState: { errors },
     } = useForm<Inputs>();
     const [createFileRequest, { error, data }] = useMutation(gql(createFileRequestMutation));
@@ -176,7 +176,11 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                                     label="Title"
                                     {...register('title', { required: true })}
                                     error={!!errors.title}
-                                    helperText={!!errors.title && <>Title is required</>}
+                                    inputProps={{ maxLength: 90 }}
+                                    helperText={
+                                        !!errors.title ?
+                                            'Title is required' :
+                                            `${90 - (watch('title')?.length || 0)} characters remaining`}
                                 />
                             </Grid>
                             <Grid item xs={12} md={3}>
@@ -217,7 +221,13 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                                     Artwork
                                 </InputLabel>
                                 <ImagePicker width={200} height={200} maxHeight={500} maxWidth={500} onChange={e => setImage(e.image)} />
-                                <TextField fullWidth label="Title/Credit" {...register('artworkCredit')} />
+                                <TextField
+                                    fullWidth
+                                    label="Title/Credit"
+                                    {...register('artworkCredit')}
+                                    inputProps={{ maxLength: 90 }}
+                                    helperText={`${90 - (watch('artworkCredit')?.length || 0)} characters remaining.`}
+                                />
                             </Grid>
                             <Grid item xs={6}>
                                 <DatePicker

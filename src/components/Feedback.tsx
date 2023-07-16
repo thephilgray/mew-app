@@ -31,7 +31,9 @@ const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
             multiline
             variant="filled"
             fullWidth
+            inputProps={{ maxLength: 500 }}
             value={commentContent}
+            helperText={`${500 - commentContent.length} characters remaining`}
             onChange={e => setCommentContent(e.target.value)}
           />
 

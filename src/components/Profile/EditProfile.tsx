@@ -90,6 +90,7 @@ const EditProfile = (): JSX.Element => {
         getValues: getEditProfileFormValues,
         handleSubmit: handleEditProfileForm,
         setValue: setEditProfileFormValue,
+        watch,
         formState: {
             errors: editProfileFormErrors,
         } } = useForm<EditProfileForm>({
@@ -331,6 +332,7 @@ const EditProfile = (): JSX.Element => {
                                 variant="standard"
                                 margin="normal"
                                 InputLabelProps={{ shrink: true }}
+                                inputProps={{ maxLength: 90 }}
                             />
                             <TextField
                                 label="Display Name"
@@ -339,6 +341,8 @@ const EditProfile = (): JSX.Element => {
                                 variant="standard"
                                 margin="normal"
                                 InputLabelProps={{ shrink: true }}
+                                inputProps={{ maxLength: 25 }}
+                                helperText={`${25 - (watch('displayName')?.length || 0)} characters remaining.`}
                             />
                             <Grid item xs={12}>
                                 <InputLabel>Avatar</InputLabel>
@@ -360,6 +364,8 @@ const EditProfile = (): JSX.Element => {
                                 variant="standard"
                                 margin="normal"
                                 InputLabelProps={{ shrink: true }}
+                                inputProps={{ maxLength: 1000 }}
+                                helperText={`${1000 - (watch('bio')?.length || 0)} characters remaining.`}
                             />
 
                             <InputLabel>Links</InputLabel>

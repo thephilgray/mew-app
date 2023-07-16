@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import {
     Autocomplete,
     Button,
@@ -43,6 +43,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
 
     const { loading: listProfilesLoading, error: listProfilesError, data: listProfilesData } = useQuery(gql(listProfiles), { variables: { limit: 1000 } })
     const ID = uuidv4()
+    const defaultHost = useMemo(() => formState?.email ? listProfilesData?.listProfiles?.items?.find(option => option.email === formState?.email) : null, [listProfilesData, formState?.email])
 
 
     useEffect(() => {
@@ -67,6 +68,8 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                             label="Name"
                             value={formState.name}
                             onChange={onFieldChange}
+                            inputProps={{ maxLength: 90 }}
+                            helperText={`${90 - (formState?.name?.length || 0)} characters remaining`}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -79,6 +82,8 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                             label="Description"
                             value={formState.description}
                             onChange={onFieldChange}
+                            inputProps={{ maxLength: 500 }}
+                            helperText={`${500 - (formState?.description?.length || 0)} characters remaining.`}
                         />
                     </Grid>
                     <If condition={listProfilesData?.listProfiles}>
@@ -87,7 +92,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                                 key={ID}
                                 options={listProfilesData?.listProfiles?.items || []}
                                 getOptionLabel={getDisplayName}
-                                value={formState?.email ? listProfilesData?.listProfiles?.items?.find(option => option.email === formState?.email) : null}
+                                value={defaultHost}
                                 onChange={(event, newValue) => {
                                     if (newValue?.email !== formState?.email) {
                                         updateForm({ email: newValue?.email || null })
@@ -111,7 +116,16 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                         <ImagePicker imageURL={formState?.artwork && getCloudFrontURL(formState.artwork.path)} width={200} height={200} maxHeight={500} maxWidth={500} onChange={e => updateForm({ image: e.image })} />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField name="artworkCredit" fullWidth label="Artwork Title/Credit" value={formState?.artworkCredit} onChange={onFieldChange} InputLabelProps={{ shrink: true }} />
+                        <TextField
+                            name="artworkCredit"
+                            fullWidth
+                            label="Artwork Title/Credit"
+                            value={formState?.artworkCredit}
+                            onChange={onFieldChange}
+                            InputLabelProps={{ shrink: true }}
+                            inputProps={{ maxLength: 90 }}
+                            helperText={`${90 - (formState?.artworkCredit?.length || 0)} characters remaining.`}
+                        />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField

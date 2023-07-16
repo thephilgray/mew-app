@@ -84,6 +84,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
         handleSubmit,
         setValue,
         getValues,
+        watch,
         reset,
         resetField,
         control,
@@ -300,7 +301,12 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                     label="Title"
                                     {...register('title', { required: true })}
                                     error={!!errors.title}
-                                    helperText={!!errors.title && <>Title is required</>} />
+                                    inputProps={{ maxLength: 90 }}
+                                    helperText={
+                                        !!errors.title ?
+                                            'Title is required' :
+                                            `${90 - (watch('title')?.length || 0)} characters remaining`
+                                    } />
                             </Grid>
                             <Grid item xs={12} md={3}>
                                 <FormControlLabel
@@ -339,7 +345,14 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                     Artwork
                                 </InputLabel>
                                 <ImagePicker imageURL={getFileRequest?.artwork && getCloudFrontURL(ARTWORK_DOWNLOAD_PATH)} width={200} height={200} maxHeight={500} maxWidth={500} onChange={e => setImage(e.image)} />
-                                <TextField fullWidth label="Title/Credit" {...register('artworkCredit')} InputLabelProps={{ shrink: true }} />
+                                <TextField
+                                    fullWidth
+                                    label="Title/Credit"
+                                    {...register('artworkCredit')}
+                                    InputLabelProps={{ shrink: true }}
+                                    inputProps={{ maxLength: 90 }}
+                                    helperText={`${90 - (watch('artworkCredit')?.length || 0)} characters remaining.`}
+                                />
                             </Grid>
                             <If condition={fetchListPlaylistsData?.listPlaylists?.items}>
                                 <Grid item xs={12}>
