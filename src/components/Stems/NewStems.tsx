@@ -44,7 +44,7 @@ const StemForm: React.FC<StemFormProps> = () => {
     validator: totalSizeValidator,
     accept: { 'audio/*': EXTENSIONS_SUPPORTED }
   });
-  const { register, control, handleSubmit, reset, trigger, setError, formState: { errors } } = useForm({
+  const { register, control, handleSubmit, reset, trigger, setError, watch, formState: { errors } } = useForm({
     // defaultValues: {}; you can populate the fields by this attribute 
   });
   const { fields, append, remove } = useFieldArray({
@@ -147,7 +147,9 @@ const StemForm: React.FC<StemFormProps> = () => {
                 required
                 {...register(`stems.${index}.title`, { required: true })}
                 defaultValue={item?.name?.split('.')[0]}
-                helperText={!!errors.title && 'Title is required'}
+                inputProps={{ maxLength: 90 }}
+                helperText={!!errors.title ? 'Title is required' : `${90 - (watch(`stems.${index}.title`)?.length || 0)} characters remaining.`}
+
               />
             </Grid>
             <Grid item xs={3}>
@@ -199,7 +201,8 @@ const StemForm: React.FC<StemFormProps> = () => {
                       options={SCALES}
                       onChange={(event, item) => onChange(item)}
                       value={value || null}
-                      renderInput={(params) => <TextField {...params} label="Scale" />}
+                      renderInput={(params) => <TextField  {...params} inputProps={{ ...params.inputProps, maxLength: 40 }} label="Scale" />}
+
                     />
                   }
                 />
@@ -218,7 +221,10 @@ const StemForm: React.FC<StemFormProps> = () => {
                       options={INSTRUMENTS}
                       onChange={(event, item) => onChange(item)}
                       value={value}
-                      renderInput={(params) => <TextField {...params} label="Instruments" />}
+                      renderInput={(params) => <TextField
+                        {...params}
+                        inputProps={{ ...params.inputProps, maxLength: 25 }}
+                        label="Instruments" />}
                     />
                   }
                 ></Controller>
@@ -226,7 +232,14 @@ const StemForm: React.FC<StemFormProps> = () => {
             </Grid>
             <Grid item xs={9}>
               <Controller
-                render={({ field }) => <TextField label="Notes" {...field} multiline rows={2} fullWidth />}
+                render={({ field }) => <TextField
+                  label="Notes" {...field}
+                  multiline
+                  rows={2}
+                  fullWidth
+                  inputProps={{ maxLength: 120 }}
+                  helperText={`${120 - (watch('notes')?.length || 0)} characters remaining.`}
+                />}
                 name={`stems.${index}.notes`}
                 control={control}
               />

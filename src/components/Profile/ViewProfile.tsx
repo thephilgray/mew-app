@@ -31,13 +31,17 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
         fetchProfile({
           variables: { id: profileId },
         })
-      } else if (!profileInState && !loadingProfileInState) {
-        refetchProfileInState()
       }
-
     }
 
   }, [profileId, profileInState])
+
+  useEffect(() => {
+    if (!profileId) {
+      refetchProfileInState()
+    }
+
+  }, [])
 
 
   if (getProfileLoading) {
@@ -51,7 +55,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
     return <Typography>That profile does not exist.</Typography>
   }
 
-  return <Grid container spacing={3}>
+  return <Grid container spacing={3} sx={{ maxWidth: '800px' }}>
     <Grid item xs={12}>
       <AppBreadcrumbs
         paths={[ROUTES.home, ROUTES.viewProfile]}
@@ -62,7 +66,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
         <CardMedia sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
           <Avatar src={avatarPath} sx={{ width: 150, height: 150 }} alt={profile?.displayName || profile?.name} />
         </CardMedia>
-        <CardContent>
+        <CardContent sx={{ maxWidth: '80vw', overflow: 'auto' }} >
           <Typography gutterBottom variant="h5" sx={{ textAlign: 'center' }}>
             {profile?.displayName || profile?.name} <GroupGuard groups={[Group.admin]}><If condition={profile?.id === profileInState?.id}><Chip label="ADMIN" color="secondary" /></If></GroupGuard>
           </Typography>
@@ -90,24 +94,26 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
         </CardContent>
       </Card>
     </Grid>
-    {user?.email === profile?.email ?
-      <Grid item xs={12}>
-        <Divider orientation="vertical" flexItem />
-        <Button
-          onClick={() => navigate(ROUTES.editProfile.path)}
-          type="button"
-          color="primary"
-          variant='contained'
-          fullWidth
-          startIcon={<Edit />}
-          aria-label="Edit Profile"
-          size="large">
-          Edit Profile
-        </Button>
-      </Grid>
-      : null}
+    {
+      user?.email === profile?.email ?
+        <Grid item xs={12}>
+          <Divider orientation="vertical" flexItem />
+          <Button
+            onClick={() => navigate(ROUTES.editProfile.path)}
+            type="button"
+            color="primary"
+            variant='contained'
+            fullWidth
+            startIcon={<Edit />}
+            aria-label="Edit Profile"
+            size="large">
+            Edit Profile
+          </Button>
+        </Grid>
+        : null
+    }
 
-  </Grid>
+  </Grid >
 
 }
 

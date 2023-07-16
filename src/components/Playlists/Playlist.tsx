@@ -215,7 +215,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     // @ts-ignore
                     for (let index = 0; index < data.submissions.items.length; index++) {
                         // @ts-ignore
-                        const { name, fileId, artist, id, artwork, lyrics } = data.submissions.items[index]
+                        const { name, fileId, artist, id, artwork, lyrics, workshopId } = data.submissions.items[index]
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
@@ -227,7 +227,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 singer: artist,
                                 fileId,
                                 submissionId: id,
-                                lyrics
+                                lyrics,
+                                workshopId
                             })
                             seenFileIds.push(fileId)
                         }
@@ -241,7 +242,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     for (let index = 0; index < data.tracks.items.length; index++) {
                         // @ts-ignore
                         const { submission, order } = data.tracks.items[index];
-                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId } = submission
+                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId, workshopId } = submission
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${fileRequestId}/${fileId}`
@@ -254,7 +255,9 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 singer: artist,
                                 fileId,
                                 submissionId: id,
-                                lyrics
+                                lyrics,
+                                assignmentId: fileRequestId,
+                                workshopId
                             })
                             seenFileIds.push(fileId)
                         }
@@ -424,7 +427,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     </Card>
                 </Grid >
                 <If condition={!!audioLists?.[currentIndex]?.lyrics}></If>
-                <Grid item xs={12}>
+                <Grid item xs={12} sx={{ maxWidth: '90vw', overflow: 'auto' }}>
                     <pre>
                         <Typography variant="body2">
                             {audioLists?.[currentIndex]?.lyrics}
@@ -434,8 +437,9 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 <If condition={!!loggedIn}>
                     <Grid item xs={12}>
                         <FeedbackSection
-                            assignmentId={assignmentId}
+                            assignmentId={assignmentId || audioLists?.[currentIndex]?.assignmentId}
                             submissionId={audioLists?.[currentIndex]?.submissionId}
+                            workshopId={data?.workshopId || audioLists?.[currentIndex]?.workshopId}
                             showToggle={false}
                         />
                     </Grid>

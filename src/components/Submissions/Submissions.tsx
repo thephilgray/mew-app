@@ -507,7 +507,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                     dangerouslySetInnerHTML={{
                                         __html: data?.getFileRequest.details,
                                     }}
-                                    style={{ width: '100%' }}
+                                    style={{ width: '100%', maxWidth: '50em' }}
                                 />
                             </Grid>
                         )}
@@ -601,6 +601,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                 <Grid item xs={12}>
                     <FeedbackSection
                         assignmentId={assignmentId}
+                        workshopId={data?.getFileRequest?.workshopId}
                         showAll={viewAdmin || isExpired}
                     />
                 </Grid>

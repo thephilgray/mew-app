@@ -2,7 +2,7 @@ import React from "react";
 import {
     Home, Person, Groups, ManageAccounts, Extension, GroupAdd, EditAttributes, Workspaces,
     Forum, AudioFile, Assignment, ModeEdit, PlaylistPlay, AssignmentTurnedIn, SendTimeExtension,
-    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Feedback
+    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Feedback, Grass
 } from "@mui/icons-material";
 import { pathToRegexp } from "path-to-regexp";
 
@@ -211,7 +211,7 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         name: 'Stems',
         navPaths: defaultNav,
         groups: [Group.admin, Group.member],
-        icon: props => <AudioFile {...props} />,
+        icon: props => <Grass {...props} />,
     },
     [ROUTE_NAMES.ASSIGNMENTS]: {
         path: '/app/assignments',
@@ -313,7 +313,7 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         name: 'Stems',
         navPaths: defaultNav,
         groups: [Group.admin, Group.member],
-        icon: props => <AudioFile {...props} />,
+        icon: props => <Grass {...props} />,
     },
     [ROUTE_NAMES.NEW_STEM]: {
         path: '/app/stems/new',

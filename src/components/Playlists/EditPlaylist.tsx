@@ -30,7 +30,7 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
   const [deletePlaylistRequest, { error: deletePlaylistError, data: deletePlaylistData, loading: deletePlaylistLoading }] = useMutation(gql(deletePlaylist))
   const { profile } = useProfile()
 
-  const { register, reset, handleSubmit, control } = useForm({
+  const { register, reset, handleSubmit, control, watch } = useForm({
     defaultValues: useMemo(() => {
       return playlistData?.getPlaylist;
     }, [playlistData])
@@ -178,9 +178,16 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
             </InputLabel>
           </Grid>
           <Grid item xs={12} display="flex" justifyContent="center">
-            <TextField fullWidth label="Playlist Title" {...register('title')} InputLabelProps={{
-              shrink: true,
-            }}></TextField>
+            <TextField
+              fullWidth
+              label="Playlist Title"
+              {...register('title')}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{ maxLength: 90 }}
+              helperText={`${90 - (watch('title')?.length || 0)} characters remaining.`}
+            />
           </Grid>
           <Grid item>
             <FormControlLabel

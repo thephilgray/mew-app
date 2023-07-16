@@ -373,7 +373,7 @@ const NewPublicSubmission: React.FC<
                                 <InputLabel>Options</InputLabel>
                                 <FormControlLabel control={<Switch {...register("addArtwork")} color="secondary" />} label="Add artwork" />
                                 <FormControlLabel control={<Switch {...register("addLyrics")} color="secondary" />} label="Add lyrics" />
-                                <FormControlLabel control={<Switch {...register("addStems")} color="secondary" />} label="Add credit for stems used" />
+                                <FormControlLabel control={<Switch {...register("addStems")} color="secondary" />} label="Add stems used" />
                                 <FormControlLabel control={<Switch defaultChecked={true} {...register("requestFeedback")} color="secondary" />} label="Request feedback" />
                             </FormGroup>
                         </Grid>
@@ -517,7 +517,10 @@ const NewPublicSubmission: React.FC<
                             error={!!errors.artist}
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             // @ts-ignore
-                            helperText={!!errors.artist && validationMessages.artist[errors.artist.type]} />
+                            helperText={!!errors.artist && validationMessages.artist[errors.artist.type]}
+                            inputProps={{ maxLength: 90 }}
+
+                        />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
@@ -530,9 +533,14 @@ const NewPublicSubmission: React.FC<
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             // @ts-ignore
                             inputProps={{
-                                autoComplete: 'off'
+                                autoComplete: 'off',
+                                maxLength: 90
                             }}
-                            helperText={!!errors.name && validationMessages.name[errors.name.type]} />
+                            helperText={!!errors.name ?
+                                validationMessages.name[errors.name.type] :
+                                `${90 - (watch('name')?.length || 0)} characters remaining`}
+
+                        />
                     </Grid>
                     <If condition={watch("addLyrics")}>
                         <Grid item xs={12}>
@@ -543,6 +551,9 @@ const NewPublicSubmission: React.FC<
                                 fullWidth
                                 label="Lyrics"
                                 {...register('lyrics')}
+                                inputProps={{ maxLength: 5000 }}
+                                helperText={`${5000 - (watch('lyrics')?.length || 0)} characters remaining`}
+
                             />
                         </Grid>
                     </If>
