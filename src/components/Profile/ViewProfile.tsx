@@ -31,13 +31,17 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
         fetchProfile({
           variables: { id: profileId },
         })
-      } else if (!profileInState && !loadingProfileInState) {
-        refetchProfileInState()
       }
-
     }
 
   }, [profileId, profileInState])
+
+  useEffect(() => {
+    if (!profileId) {
+      refetchProfileInState()
+    }
+
+  }, [])
 
 
   if (getProfileLoading) {
