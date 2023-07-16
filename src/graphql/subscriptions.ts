@@ -1204,6 +1204,7 @@ export const onCreateFileRequest = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -1913,6 +1914,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -2622,6 +2624,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -3995,6 +3998,53 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             fileRequestPlaylistId
             __typename
           }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+              __typename
+            }
+            submissions {
+              nextToken
+              __typename
+            }
+            status
+            passes
+            features {
+              __typename
+            }
+            description
+            artwork {
+              id
+              path
+              credit
+              __typename
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+              __typename
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           parentId
           createdAt
           updatedAt
@@ -4914,6 +4964,53 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             createdAt
             updatedAt
             fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+              __typename
+            }
+            submissions {
+              nextToken
+              __typename
+            }
+            status
+            passes
+            features {
+              __typename
+            }
+            description
+            artwork {
+              id
+              path
+              credit
+              __typename
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+              __typename
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
             __typename
           }
           parentId
@@ -5837,6 +5934,53 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             fileRequestPlaylistId
             __typename
           }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            fileRequests {
+              nextToken
+              __typename
+            }
+            submissions {
+              nextToken
+              __typename
+            }
+            status
+            passes
+            features {
+              __typename
+            }
+            description
+            artwork {
+              id
+              path
+              credit
+              __typename
+            }
+            host {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+              __typename
+            }
+            startDate
+            endDate
+            memberships {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           parentId
           createdAt
           updatedAt
@@ -6287,6 +6431,20 @@ export const onCreateTrack = /* GraphQL */ `
               createdAt
               updatedAt
               fileRequestPlaylistId
+              __typename
+            }
+            workshopId
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
               __typename
             }
             parentId
@@ -6883,6 +7041,20 @@ export const onUpdateTrack = /* GraphQL */ `
               fileRequestPlaylistId
               __typename
             }
+            workshopId
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
             parentId
             createdAt
             updatedAt
@@ -7475,6 +7647,20 @@ export const onDeleteTrack = /* GraphQL */ `
               createdAt
               updatedAt
               fileRequestPlaylistId
+              __typename
+            }
+            workshopId
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
               __typename
             }
             parentId
@@ -9889,6 +10075,7 @@ export const onCreateMembership = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -10728,6 +10915,7 @@ export const onUpdateMembership = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -11567,6 +11755,7 @@ export const onDeleteMembership = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -11862,6 +12051,7 @@ export const onCreateWorkshop = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -12650,6 +12840,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -13438,6 +13629,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -14297,6 +14489,7 @@ export const onCreateProfile = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -15089,6 +15282,7 @@ export const onUpdateProfile = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -15881,6 +16075,7 @@ export const onDeleteProfile = /* GraphQL */ `
               email
               submissionId
               assignmentId
+              workshopId
               parentId
               createdAt
               updatedAt
@@ -17008,6 +17203,20 @@ export const onCreateComment = /* GraphQL */ `
               fileRequestPlaylistId
               __typename
             }
+            workshopId
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
             parentId
             createdAt
             updatedAt
@@ -17366,6 +17575,336 @@ export const onCreateComment = /* GraphQL */ `
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            expiration
+            title
+            details
+            required
+            artwork {
+              id
+              path
+              credit
+              __typename
+            }
+            submissions {
+              nextToken
+              __typename
+            }
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            workshopId
+            extensions {
+              nextToken
+              __typename
+            }
+            playlist {
+              public
+              title
+              id
+              createdAt
+              updatedAt
+              profilePlaylistsId
+              playlistOwnerId
+              __typename
+            }
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+              fileRequestPlaylistId
+              __typename
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+              __typename
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+              __typename
+            }
+            stems {
+              nextToken
+              __typename
+            }
+            artwork {
+              id
+              path
+              credit
+              __typename
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+              __typename
+            }
+            __typename
+          }
+          playlists {
+            items {
+              public
+              title
+              id
+              createdAt
+              updatedAt
+              profilePlaylistsId
+              playlistOwnerId
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            items {
+              id
+              title
+              bpm
+              key
+              scale
+              instruments
+              notes
+              fileSize
+              fileExtension
+              creatorEmail
+              stemGroupId
+              filePath
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          downloadedStems {
+            items {
+              id
+              profileID
+              stemID
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+              __typename
+            }
+            mailchimp {
+              id
+              emailAddress
+              status
+              fullName
+              uniqueEmailId
+              contactId
+              __typename
+            }
+            submissions {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       parentId
@@ -18034,6 +18573,20 @@ export const onUpdateComment = /* GraphQL */ `
               fileRequestPlaylistId
               __typename
             }
+            workshopId
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
             parentId
             createdAt
             updatedAt
@@ -18392,6 +18945,336 @@ export const onUpdateComment = /* GraphQL */ `
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            expiration
+            title
+            details
+            required
+            artwork {
+              id
+              path
+              credit
+              __typename
+            }
+            submissions {
+              nextToken
+              __typename
+            }
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            workshopId
+            extensions {
+              nextToken
+              __typename
+            }
+            playlist {
+              public
+              title
+              id
+              createdAt
+              updatedAt
+              profilePlaylistsId
+              playlistOwnerId
+              __typename
+            }
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+              fileRequestPlaylistId
+              __typename
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+              __typename
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+              __typename
+            }
+            stems {
+              nextToken
+              __typename
+            }
+            artwork {
+              id
+              path
+              credit
+              __typename
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+              __typename
+            }
+            __typename
+          }
+          playlists {
+            items {
+              public
+              title
+              id
+              createdAt
+              updatedAt
+              profilePlaylistsId
+              playlistOwnerId
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            items {
+              id
+              title
+              bpm
+              key
+              scale
+              instruments
+              notes
+              fileSize
+              fileExtension
+              creatorEmail
+              stemGroupId
+              filePath
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          downloadedStems {
+            items {
+              id
+              profileID
+              stemID
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+              __typename
+            }
+            mailchimp {
+              id
+              emailAddress
+              status
+              fullName
+              uniqueEmailId
+              contactId
+              __typename
+            }
+            submissions {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       parentId
@@ -19060,6 +19943,20 @@ export const onDeleteComment = /* GraphQL */ `
               fileRequestPlaylistId
               __typename
             }
+            workshopId
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
             parentId
             createdAt
             updatedAt
@@ -19418,6 +20315,336 @@ export const onDeleteComment = /* GraphQL */ `
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            expiration
+            title
+            details
+            required
+            artwork {
+              id
+              path
+              credit
+              __typename
+            }
+            submissions {
+              nextToken
+              __typename
+            }
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            workshopId
+            extensions {
+              nextToken
+              __typename
+            }
+            playlist {
+              public
+              title
+              id
+              createdAt
+              updatedAt
+              profilePlaylistsId
+              playlistOwnerId
+              __typename
+            }
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            fileRequest {
+              id
+              expiration
+              title
+              details
+              required
+              workshopId
+              createdAt
+              updatedAt
+              fileRequestPlaylistId
+              __typename
+            }
+            artist
+            name
+            email
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+              __typename
+            }
+            fileId
+            fileExtension
+            rating
+            comments {
+              nextToken
+              __typename
+            }
+            stems {
+              nextToken
+              __typename
+            }
+            artwork {
+              id
+              path
+              credit
+              __typename
+            }
+            lyrics
+            requestFeedback
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              workshopId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+              __typename
+            }
+            __typename
+          }
+          playlists {
+            items {
+              public
+              title
+              id
+              createdAt
+              updatedAt
+              profilePlaylistsId
+              playlistOwnerId
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            items {
+              id
+              title
+              bpm
+              key
+              scale
+              instruments
+              notes
+              fileSize
+              fileExtension
+              creatorEmail
+              stemGroupId
+              filePath
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          downloadedStems {
+            items {
+              id
+              profileID
+              stemID
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            profile {
+              email
+              id
+              name
+              displayName
+              avatar
+              bio
+              sub
+              createdAt
+              updatedAt
+              __typename
+            }
+            mailchimp {
+              id
+              emailAddress
+              status
+              fullName
+              uniqueEmailId
+              contactId
+              __typename
+            }
+            submissions {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       parentId
@@ -21413,6 +22640,20 @@ export const onCreateSubmissionStems = /* GraphQL */ `
               fileRequestPlaylistId
               __typename
             }
+            workshopId
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
             parentId
             createdAt
             updatedAt
@@ -22056,6 +23297,20 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
               fileRequestPlaylistId
               __typename
             }
+            workshopId
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
             parentId
             createdAt
             updatedAt
@@ -22697,6 +23952,20 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
               createdAt
               updatedAt
               fileRequestPlaylistId
+              __typename
+            }
+            workshopId
+            workshop {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
               __typename
             }
             parentId

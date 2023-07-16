@@ -299,6 +299,8 @@ type Comment
   submission: FileRequestSubmission @belongsTo(fields: ["submissionId"])
   assignmentId: ID
   assignment: FileRequest @hasOne(fields: ["assignmentId"])
+  workshopId: ID
+  workshop: Workshop @hasOne(fields: ["workshopId"])
   parentId: ID
 }
 

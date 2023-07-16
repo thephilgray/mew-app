@@ -601,6 +601,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                 <Grid item xs={12}>
                     <FeedbackSection
                         assignmentId={assignmentId}
+                        workshopId={data?.getFileRequest?.workshopId}
                         showAll={viewAdmin || isExpired}
                     />
                 </Grid>

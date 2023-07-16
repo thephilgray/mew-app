@@ -86,7 +86,7 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
 
         {(!!showWriteComment || !!editing) ? <WriteComment {...writeCommentFunctions}
           submitComment={(e) => {
-            !!editing ? writeCommentFunctions.editComment(comment.id)(e) : writeCommentFunctions.submitComment({ parentId: comment.id, submissionId: comment.submission.id })(e)
+            !!editing ? writeCommentFunctions.editComment(comment.id)(e) : writeCommentFunctions.submitComment({ parentId: comment.id, assignmentId: assignmentId || comment?.assignmentId, submissionId: comment.submission.id })(e)
             setShowWriteComment(false)
             setEditing(false)
             writeCommentFunctions.setCommentContent('')
@@ -132,8 +132,9 @@ const MyComment = ({ writeCommentFunctions, comment, allComments = [], audioList
   )
 }
 
-const FeedbackSection = ({ assignmentId, submissionId, showAll = true, showToggle = true, showByMe = false, onSuccess = () => { } }) => {
+const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = true, showToggle = true, showByMe = false, onSuccess = () => { } }) => {
   const user = useUser()
+  const { profile } = useProfile()
   const [commentContent, setCommentContent] = useState('')
   const [comments, setComments] = useState([])
   const [showAllComments, setShowAllComments] = useState(showAll)
@@ -154,9 +155,22 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true, showToggl
   ] = useMutation(gql(updateComment))
 
   useEffect(() => {
+    // submissions page
     let subscriptionFilter = { assignmentId: { eq: assignmentId } }
+    // playlist page
     if (submissionId) {
       subscriptionFilter = { and: [{ assignmentId: { eq: assignmentId } }, { submissionId: { eq: submissionId } }] }
+    }
+    // global feedback page
+    else if (!assignmentId && !submissionId) {
+      // show all feedback from all workshops the user has an active membership
+      const workshopIds = profile?.memberships?.items
+        ?.filter(item => item.status === "ACTIVE")
+        ?.map(item => item.workshopId) || []
+
+      subscriptionFilter = {
+        or: workshopIds.map(id => ({ workshopId: { eq: id } })),
+      }
     }
 
     const fetchComments = async () => {
@@ -218,14 +232,15 @@ const FeedbackSection = ({ assignmentId, submissionId, showAll = true, showToggl
   }, [createCommentRequestData])
 
 
-  const submitComment = ({ parentId, submissionId }) => (e) => {
+  const submitComment = ({ parentId, submissionId, assignmentId: parentAssignmentId }) => (e) => {
     e.preventDefault()
     const input = {
       email: user?.email,
-      assignmentId,
+      assignmentId: assignmentId || parentAssignmentId,
       submissionId,
       content: commentContent,
-      parentId
+      parentId,
+      workshopId
     }
 
     return createCommentRequest({ variables: { input } })
