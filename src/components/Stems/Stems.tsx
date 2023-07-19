@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton, Typography, Chip, Avatar } from '@mui/material';
+import { Button, Grid, IconButton, Typography, Chip, Avatar, Tooltip } from '@mui/material';
 import { Link } from 'gatsby';
 import React from 'react';
 import { EXTENSIONS_BY_FILETYPE, ROUTES } from '../../constants';
@@ -55,7 +55,8 @@ const Stems: React.FC<StemsProps> = () => {
     {
       field: 'title',
       headerName: 'Title',
-      width: 300
+      width: 300,
+      renderCell: ({ value = '' }) => value?.length > 40 ? <Tooltip title={value}><span>{value}</span></Tooltip> : value
     },
     {
       field: 'bpm',
@@ -68,7 +69,8 @@ const Stems: React.FC<StemsProps> = () => {
     {
       field: 'scale',
       headerName: 'Scale',
-      width: 180
+      width: 180,
+      renderCell: ({ value = '' }) => value?.length > 40 ? <Tooltip title={value}><span>{value}</span></Tooltip> : value
     },
     {
       field: 'instruments',
@@ -85,7 +87,7 @@ const Stems: React.FC<StemsProps> = () => {
       field: 'notes',
       headerName: 'Notes',
       width: 300,
-      // renderCell: ({ value = '' }) => 
+      renderCell: ({ value = '' }) => value?.length > 40 ? <Tooltip title={value}><span>{value}</span></Tooltip> : value
     },
     {
       field: 'creator',
