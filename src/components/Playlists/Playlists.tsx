@@ -92,7 +92,9 @@ const Playlists: React.FC<PlaylistsProps> = () => {
         trackSubmissionId: item.id
       }))
     }
-  })).sort(sortFn)
+  }))
+    .filter(playlist => playlist?.public)
+    .sort(sortFn)
 
 
   return <Grid container spacing={2}>
