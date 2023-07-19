@@ -3,13 +3,16 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { Autocomplete, Box, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, Slider, TextField, Typography } from '@mui/material';
 import sumBy from 'lodash/sumBy'
-import { Close, UploadFile } from '@mui/icons-material';
+import { Close, Upload, UploadFile } from '@mui/icons-material';
 import { EXTENSIONS_BY_FILETYPE, INSTRUMENTS, KEYS, ROUTES, SCALES } from '../../constants';
 import uniq from 'lodash/uniq'
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import { v4 as uuidv4 } from 'uuid'
 import { useProfile } from '../../auth/hooks';
 import { navigate } from 'gatsby';
+import Loading from '../Loading';
+import { SvgSkullCrossbonesSolid } from 'react-line-awesome-svg';
+import If from '../If';
 
 type StemFormProps = {
 
@@ -21,6 +24,8 @@ const EXTENSIONS_SUPPORTED = ['.mid', '.mp3', '.ogg', '.wav']
 const StemForm: React.FC<StemFormProps> = () => {
   const [myFiles, setMyFiles] = useState([])
   const { profile } = useProfile()
+  const [submitLoading, setSubmitLoading] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
 
   function totalSizeValidator(file) {
     const fileSizeSum = sumBy([...myFiles, file], 'size')
@@ -64,6 +69,7 @@ const StemForm: React.FC<StemFormProps> = () => {
   );
 
   const submitHandler = async ({ stems = [] }) => {
+    setSubmitLoading(true)
     const stemGroupId = uuidv4()
     const stemMutations = []
 
@@ -98,6 +104,9 @@ const StemForm: React.FC<StemFormProps> = () => {
 
     } catch (error) {
       console.log({ error })
+      setSubmitError(error)
+    } finally {
+      setSubmitLoading(false)
     }
 
   }
@@ -117,15 +126,15 @@ const StemForm: React.FC<StemFormProps> = () => {
         <input {...getInputProps()} />
         <Grid item xs={12} textAlign='center'>
           <IconButton color="primary" aria-label="audio upload" component="span" size="large">
-            <UploadFile fontSize="large" />
+            {submitError ? <SvgSkullCrossbonesSolid fontSize={24} style={{ verticalAlign: 'top' }} /> : <UploadFile fontSize="large" />}
           </IconButton>
         </Grid>
         <Grid item xs={12} textAlign='center'>
           {isDragActive ? <Typography>Drop....</Typography> :
-            (<>
+            (<If condition={!submitError} fallbackContent={<Typography color="error">Help! Maybe this isn't working right now. Let others know.</Typography>}>
               <Typography>Drop stems here. Limit of <em>{MAX_SIZE / 1000000}MB</em> at a time.</Typography>
               <Typography>The following extensions are supported: {uniq(Object.values(EXTENSIONS_SUPPORTED)).sort().join(', ')}</Typography>
-            </>)
+            </If>)
           }
           <ul>{fileRejectionItems}</ul>
 
@@ -255,7 +264,8 @@ const StemForm: React.FC<StemFormProps> = () => {
           fullWidth
           size='large'
           variant='contained'
-          disabled={(!myFiles.length)}>
+          startIcon={submitLoading ? <Loading /> : <Upload />}
+          disabled={(!myFiles.length || submitLoading)}>
           Upload
         </Button>
       </form>

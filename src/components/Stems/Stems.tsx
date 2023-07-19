@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton, Typography, Chip, Avatar } from '@mui/material';
+import { Button, Grid, IconButton, Typography, Chip, Avatar, Tooltip } from '@mui/material';
 import { Link } from 'gatsby';
 import React from 'react';
 import { EXTENSIONS_BY_FILETYPE, ROUTES } from '../../constants';
@@ -8,16 +8,18 @@ import { listStems } from '../../graphql/queries';
 import { gql, useMutation, useQuery } from '@apollo/react-hooks';
 import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
 import If from '../If';
-import { Download } from '@mui/icons-material';
+import { Delete, Download } from '@mui/icons-material';
 import MidiPlayer from 'react-midi-player';
 import { getCloudFrontURL } from '../../utils';
 import { useDownload } from '../AudioPlayer/audio-player.context';
-import { createSavedStems } from '../../graphql/mutations';
+import {
+  // createSavedStems,
+  deleteStem as deleteStemMutation
+} from '../../graphql/mutations';
 import { useProfile } from '../../auth/hooks';
 
 const DownloadStem = ({ stem }) => {
-  const { profile } = useProfile()
-  const [fetchCreateSavedStems, { data, loading, error }] = useMutation(gql(createSavedStems))
+  // const [fetchCreateSavedStems, { data, loading, error }] = useMutation(gql(createSavedStems))
   const download = useDownload({
     filename: stem?.title,
     filePath: stem.filePath
@@ -25,17 +27,35 @@ const DownloadStem = ({ stem }) => {
 
   const clickHandler = e => {
     download()
-    fetchCreateSavedStems({
+    // fetchCreateSavedStems({
+    //   variables: {
+    //     input: {
+    //       profileID: profile?.email,
+    //       stemID: stem?.id
+    //     }
+    //   }
+    // })
+  }
+  return (
+    <IconButton aria-label='delete stem'><Download onClick={clickHandler}></Download></IconButton>
+  )
+}
+
+const DeleteStem = ({ stem }) => {
+  const { profile } = useProfile()
+  const [fetchDeleteStem, { data, loading, error }] = useMutation(gql(deleteStemMutation))
+  const isMyStem = row => row?.creator?.id === profile?.id
+  const clickHandler = e => {
+    fetchDeleteStem({
       variables: {
         input: {
-          profileID: profile?.email,
-          stemID: stem?.id
+          id: stem?.id
         }
       }
     })
   }
   return (
-    <IconButton><Download onClick={clickHandler}></Download></IconButton>
+    <If condition={isMyStem(stem)}><IconButton><Delete onClick={clickHandler}></Delete></IconButton></If>
   )
 }
 
@@ -45,17 +65,19 @@ type StemsProps = {
 };
 
 const Stems: React.FC<StemsProps> = () => {
+  const { profile } = useProfile()
   const { data, loading, error, refetch } = useQuery(gql(listStems), {
     // TODO: this is just to handle writes to ensure user can see what they just uploaded
     fetchPolicy: 'network-only'
   })
+  const isMyStem = row => row?.creator?.id === profile?.id
   const rows = data?.listStems?.items
-  console.log({ rows })
   const columns = [
     {
       field: 'title',
       headerName: 'Title',
-      width: 300
+      width: 300,
+      renderCell: ({ value = '' }) => value?.length > 40 ? <Tooltip title={value}><span>{value}</span></Tooltip> : value
     },
     {
       field: 'bpm',
@@ -68,7 +90,8 @@ const Stems: React.FC<StemsProps> = () => {
     {
       field: 'scale',
       headerName: 'Scale',
-      width: 180
+      width: 180,
+      renderCell: ({ value = '' }) => value?.length > 40 ? <Tooltip title={value}><span>{value}</span></Tooltip> : value
     },
     {
       field: 'instruments',
@@ -85,7 +108,7 @@ const Stems: React.FC<StemsProps> = () => {
       field: 'notes',
       headerName: 'Notes',
       width: 300,
-      // renderCell: ({ value = '' }) => 
+      renderCell: ({ value = '' }) => value?.length > 40 ? <Tooltip title={value}><span>{value}</span></Tooltip> : value
     },
     {
       field: 'creator',
@@ -100,12 +123,14 @@ const Stems: React.FC<StemsProps> = () => {
       renderCell: ({ row, value = '' }) => row.fileExtension === 'audio/midi' ? <MidiPlayer src={getCloudFrontURL(value)} /> : <SimplePlayerButton audioPath={value} />
     },
     {
-      // TODO:
       field: 'download',
-      headerName: 'Use',
+      headerName: 'Actions',
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
-      renderCell: ({ row, value = '' }) => <DownloadStem stem={row}></DownloadStem>
+      renderCell: ({ row, value = '' }) => <>
+        <DownloadStem stem={row}></DownloadStem>
+        <DeleteStem stem={row}></DeleteStem>
+      </>
     },
   ];
 

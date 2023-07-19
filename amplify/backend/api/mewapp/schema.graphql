@@ -278,7 +278,7 @@ type Profile
   features: Features
   playlists: [Playlist] @hasMany
   uploadedStems: [Stem] @hasMany(indexName: "stemsByEmail", fields: ["email"])
-  downloadedStems: [Stem] @manyToMany(relationName: "SavedStems")
+  # downloadedStems: [Stem] @manyToMany(relationName: "SavedStems")
 }
 
 type Comment
@@ -329,7 +329,7 @@ type Stem
   creator: Profile @belongsTo(fields: ["creatorEmail"])
   stemGroupId: ID
   filePath: String
-  downloadedBy: [Profile] @manyToMany(relationName: "SavedStems")
+  # downloadedBy: [Profile] @manyToMany(relationName: "SavedStems")
 }
 
 input SongData {

@@ -80,14 +80,14 @@ export const useDownload = ({ filePath, filename }) => async () => {
   // @ts-ignore
   // const url = window.URL.createObjectURL(result.Body)
   const cloudFrontURL = getCloudFrontURL(filePath)
-  const result = await fetch(cloudFrontURL, { mode: 'no-cors' })
+  const result = await fetch(cloudFrontURL)
   // TODO: no-cors is not ideal because we won't be able to access ContentType headers to determine extension
   // const result = await fetch(cloudFrontURL)
   const blob = await result.blob()
   const url = window.URL.createObjectURL(blob)
   // @ts-ignore
   // const contentType = result.ContentType
-  const contentType = result.headers.get('ContentType')
+  const contentType = result.headers.get('Content-Type')
   // @ts-ignore
   const extension = EXTENSIONS_BY_FILETYPE[contentType || 'audio/mpeg']
   const a = document.createElement('a')

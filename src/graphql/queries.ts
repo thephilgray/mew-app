@@ -284,51 +284,6 @@ export const getAPIKey = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -473,18 +428,6 @@ export const listAPIKeys = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -672,10 +615,6 @@ export const getFileRequest = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -986,18 +925,6 @@ export const getFileRequest = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -1234,18 +1161,6 @@ export const getFileRequest = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -1449,10 +1364,6 @@ export const listFileRequests = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -1541,10 +1452,6 @@ export const listFileRequests = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -1762,10 +1669,6 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -1854,10 +1757,6 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -2065,10 +1964,6 @@ export const getFileRequestSubmission = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -2157,10 +2052,6 @@ export const getFileRequestSubmission = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -2465,51 +2356,6 @@ export const getFileRequestSubmission = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -2567,10 +2413,6 @@ export const getFileRequestSubmission = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -2826,10 +2668,6 @@ export const getFileRequestSubmission = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -3116,18 +2954,6 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -3545,18 +3371,6 @@ export const submissionsByFileRequestId = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -3960,18 +3774,6 @@ export const submissionsByEmail = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -4389,18 +4191,6 @@ export const submissionsByWorkshopId = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -4800,18 +4590,6 @@ export const getTrack = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -5108,18 +4886,6 @@ export const getTrack = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -5253,10 +5019,6 @@ export const listTracks = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -5357,10 +5119,6 @@ export const listTracks = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -5771,51 +5529,6 @@ export const getPlaylist = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -6006,18 +5719,6 @@ export const listPlaylists = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -6305,18 +6006,6 @@ export const getMembership = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -6659,51 +6348,6 @@ export const getMembership = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -6823,10 +6467,6 @@ export const getMembership = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -6999,10 +6639,6 @@ export const listMemberships = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -7141,18 +6777,6 @@ export const listMemberships = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -7365,10 +6989,6 @@ export const membershipsByWorkshopId = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -7507,18 +7127,6 @@ export const membershipsByWorkshopId = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -7731,10 +7339,6 @@ export const membershipsByEmail = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -7873,18 +7477,6 @@ export const membershipsByEmail = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -8209,10 +7801,6 @@ export const getWorkshop = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -8560,51 +8148,6 @@ export const getWorkshop = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -8708,10 +8251,6 @@ export const getWorkshop = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -9029,18 +8568,6 @@ export const listWorkshops = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -9171,10 +8698,6 @@ export const getProfile = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -9283,10 +8806,6 @@ export const getProfile = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -9410,10 +8929,6 @@ export const getProfile = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -9561,10 +9076,6 @@ export const getProfile = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -9676,10 +9187,6 @@ export const getProfile = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -9767,126 +9274,12 @@ export const getProfile = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
           }
           stemGroupId
           filePath
-          downloadedBy {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      downloadedStems {
-        items {
-          id
-          profileID
-          stemID
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          stem {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -10189,51 +9582,6 @@ export const listProfiles = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -10539,51 +9887,6 @@ export const profileByProfileId = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -10880,51 +10183,6 @@ export const getComment = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -11186,18 +10444,6 @@ export const getComment = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -11510,10 +10756,6 @@ export const getComment = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -11602,10 +10844,6 @@ export const getComment = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -11890,18 +11128,6 @@ export const getComment = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -12103,18 +11329,6 @@ export const listComments = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -12213,10 +11427,6 @@ export const listComments = /* GraphQL */ `
               __typename
             }
             uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
               nextToken
               __typename
             }
@@ -12498,10 +11708,6 @@ export const listComments = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -12633,10 +11839,6 @@ export const getStem = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -12925,51 +12127,6 @@ export const getStem = /* GraphQL */ `
             }
             stemGroupId
             filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -12983,104 +12140,6 @@ export const getStem = /* GraphQL */ `
       }
       stemGroupId
       filePath
-      downloadedBy {
-        items {
-          id
-          profileID
-          stemID
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          stem {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -13272,65 +12331,12 @@ export const listStems = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
         }
         stemGroupId
         filePath
-        downloadedBy {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -13595,18 +12601,6 @@ export const getSubmissionStems = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
               createdAt
               updatedAt
               __typename
@@ -13926,65 +12920,12 @@ export const getSubmissionStems = /* GraphQL */ `
             nextToken
             __typename
           }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
         }
         stemGroupId
         filePath
-        downloadedBy {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -14102,10 +13043,6 @@ export const listSubmissionStems = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -14218,859 +13155,12 @@ export const listSubmissionStems = /* GraphQL */ `
               nextToken
               __typename
             }
-            downloadedStems {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
           }
           stemGroupId
           filePath
-          downloadedBy {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getSavedStems = /* GraphQL */ `
-  query GetSavedStems($id: ID!) {
-    getSavedStems(id: $id) {
-      id
-      profileID
-      stemID
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              expiration
-              title
-              details
-              required
-              workshopId
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            id
-            createdAt
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            downloadedBy {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        downloadedStems {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      stem {
-        id
-        title
-        bpm
-        key
-        scale
-        instruments
-        notes
-        submissions {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        fileSize
-        fileExtension
-        creatorEmail
-        creator {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              id
-              createdAt
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        stemGroupId
-        filePath
-        downloadedBy {
-          items {
-            id
-            profileID
-            stemID
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listSavedStems = /* GraphQL */ `
-  query ListSavedStems(
-    $filter: ModelSavedStemsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listSavedStems(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        profileID
-        stemID
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              id
-              createdAt
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          downloadedStems {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        stem {
-          id
-          title
-          bpm
-          key
-          scale
-          instruments
-          notes
-          submissions {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          fileSize
-          fileExtension
-          creatorEmail
-          creator {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            downloadedStems {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          stemGroupId
-          filePath
-          downloadedBy {
-            items {
-              id
-              profileID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
