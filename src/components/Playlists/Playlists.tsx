@@ -41,6 +41,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
     // variables: { filter: { workshopId: { eq: workshopId } } },
     return fetchAssignments({
       variables: {
+        limit: 500,
         filter: {
           or: workshopIds.map(workshopId => ({ workshopId: { eq: workshopId } })),
         }
