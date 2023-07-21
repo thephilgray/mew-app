@@ -1,6 +1,7 @@
 import { Button, Grid, IconButton, Typography, Chip, Avatar, Tooltip } from '@mui/material';
 import { Link } from 'gatsby';
 import React from 'react';
+import { compareDesc } from 'date-fns'
 import { EXTENSIONS_BY_FILETYPE, ROUTES } from '../../constants';
 import { DataGridWrapper } from '../DataGridWrapper';
 import { DataGrid } from '@mui/x-data-grid';
@@ -70,8 +71,8 @@ const Stems: React.FC<StemsProps> = () => {
     // TODO: this is just to handle writes to ensure user can see what they just uploaded
     fetchPolicy: 'network-only'
   })
-  const isMyStem = row => row?.creator?.id === profile?.id
   const rows = data?.listStems?.items
+    .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
   const columns = [
     {
       field: 'title',
