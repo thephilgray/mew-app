@@ -4,14 +4,13 @@ import { AudioPlayerContext, useDownload } from './audio-player.context';
 
 
 type AudioPlayerProps = {
-  assignmentId: string
 };
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ assignmentId }) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = () => {
   const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying } = useContext(AudioPlayerContext)
   const metaData = audioLists[currentIndex]
   const download = useDownload({
-    filePath: `${assignmentId}/${metaData.fileId}`,
+    filePath: `${metaData.assignmentId}/${metaData.fileId}`,
     filename: `${metaData.name} - ${metaData.singer}`
   })
 
