@@ -318,7 +318,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 </Grid>
             </If>
             <If condition={!!audioLists.length}>
-                <AudioPlayer assignmentId={assignmentId} />
+                <AudioPlayer />
             </If>
             <If condition={!!audioLists?.[currentIndex]}>
                 <Grid item xs={12}>
