@@ -1,3 +1,6 @@
 .react-jinke-music-player-main .music-player-panel, .audio-lists-panel-mobile, .react-jinke-music-player-mobile, .react-jinke-music-player.react-draggable {
   z-index: 2000;
 }
+.react-jinke-music-player-main .music-player-panel .panel-content .img-content {
+  background-size: cover;
+}
