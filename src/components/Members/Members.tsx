@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { Avatar, Button, Chip, CircularProgress, Grid, IconButton, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
@@ -14,6 +14,8 @@ import { ROUTES } from '../../constants';
 import Loading from '../Loading';
 import { DataGridWrapper } from '../DataGridWrapper';
 import { Link } from 'gatsby';
+import { getCloudFrontURL, getDisplayName } from '../../utils';
+import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -112,6 +114,7 @@ const GET_WORKSHOP = gql`
 `
 
 const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
+    const [dialogSettings, setDialogSettings] = useState(null)
     // query all submissions and mailchimp audience and join data by email address
     const { loading, error, data, refetch } = useQuery(GET_WORKSHOP, {
         variables: { id: workshopId },
@@ -347,7 +350,16 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         {
             field: 'profileEnabled',
             headerName: 'Profile',
-            renderCell: ({ row, value }) => value ? (<Link to={ROUTES.viewProfile.getPath({ profileId: row?.profile?.id })} > Yes</Link >) : 'No',
+            renderCell: ({ row, value }) =>
+                value ? <Link
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none' }}
+                    to={ROUTES.viewProfile.getPath({ profileId: row?.profile?.id })}>
+                    <Avatar
+                        alt={getDisplayName(row?.profile)}
+                        src={getCloudFrontURL(row?.profile?.avatar)}
+                        sx={{ mr: 1 }} />
+                    {value || getDisplayName(row?.profile)}
+                </Link> : 'No'
         },
         {
             field: 'loginEnabled',
@@ -356,9 +368,19 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 <>
                     {value ? 'Yes' : 'No'}
                     <IconButton
-                        onClick={() =>
+                        onClick={() => value ? setDialogSettings({
+                            user: row,
+                            dialogType: 'LOGIN',
+                            handleDelete: onUpdateMembershipService({
+                                action: 'DISABLE_LOGIN',
+                                membershipPayload: {
+                                    emailAddress: row.email,
+                                    ...(row.name && { fullName: row.name }),
+                                },
+                            })
+                        }) :
                             onUpdateMembershipService({
-                                action: value ? 'DISABLE_LOGIN' : 'ADD_LOGIN',
+                                action: 'ADD_LOGIN',
                                 membershipPayload: {
                                     emailAddress: row.email,
                                     ...(row.name && { fullName: row.name }),
@@ -380,11 +402,19 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                         <>
                             {value ? 'Yes' : 'No'}
                             <IconButton
-                                onClick={() =>
+                                onClick={() => value ? setDialogSettings({
+                                    user: row,
+                                    dialogType: 'MEMBERSHIP',
+                                    handleDelete: onUpdateMembershipService({
+                                        action: 'DISABLE_MAILCHIMP_SUBSCRIPTION',
+                                        membershipPayload: {
+                                            emailAddress: row.email,
+                                            ...(row.name && { fullName: row.name }),
+                                        },
+                                    })
+                                }) :
                                     onUpdateMembershipService({
-                                        action: value
-                                            ? 'DISABLE_MAILCHIMP_SUBSCRIPTION'
-                                            : 'ADD_MAILCHIMP_SUBSCRIPTION',
+                                        action: 'ADD_MAILCHIMP_SUBSCRIPTION',
                                         membershipPayload: {
                                             emailAddress: row.email,
                                             ...(row.name && { fullName: row.name }),
@@ -403,10 +433,12 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
 
     return (
         <Grid container spacing={3}>
+            <ConfirmDeleteDialog dialogSettings={dialogSettings} handleClose={() => setDialogSettings(null)} />
             <Grid item xs={12}>
                 <AppBreadcrumbs
                     paths={[ROUTES.home, ROUTES.workshop, ROUTES.workshopMembers]}
                     workshopId={workshopId}
+                    workshop={data?.getWorkshop}
                 />
             </Grid>
             <Grid item xs={8}>
