@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
-import { Autocomplete, Box, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, Slider, TextField, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, FormControl, Grid, Hidden, IconButton, InputLabel, MenuItem, Select, Slider, TextField, Typography } from '@mui/material';
 import sumBy from 'lodash/sumBy'
 import { Close, Upload, UploadFile } from '@mui/icons-material';
 import { EXTENSIONS_BY_FILETYPE, INSTRUMENTS, KEYS, ROUTES, SCALES } from '../../constants';
@@ -13,6 +13,7 @@ import { navigate } from 'gatsby';
 import Loading from '../Loading';
 import { SvgSkullCrossbonesSolid } from 'react-line-awesome-svg';
 import If from '../If';
+import { getDisplayName } from '../../utils';
 
 type StemFormProps = {
 
@@ -90,6 +91,7 @@ const StemForm: React.FC<StemFormProps> = () => {
       filePath:  "${storageKey}",
       fileSize: ${myFiles[i].size},
       fileExtension: "${myFiles[i].type}",
+      ${stems[i].artist ? `artist: "${stems[i].artist}",` : ""}
       ${stems[i].bpm ? `bpm: ${stems[i].bpm},` : ""}
       ${stems[i].key ? `key: "${stems[i].key}",` : ""}
       ${stems[i].scale ? `scale: "${stems[i].scale}",` : ""}
@@ -158,11 +160,24 @@ const StemForm: React.FC<StemFormProps> = () => {
                 defaultValue={item?.name?.split('.')[0]}
                 inputProps={{ maxLength: 90 }}
                 helperText={!!errors.title ? 'Title is required' : `${90 - (watch(`stems.${index}.title`)?.length || 0)} characters remaining.`}
-
               />
             </Grid>
             <Grid item xs={3}>
               <TextField disabled fullWidth label='Format' value={EXTENSIONS_BY_FILETYPE[item?.type]}></TextField>
+            </Grid>
+            <Grid item xs={9}>
+              <TextField
+                fullWidth
+                label='Artist'
+                {...register(`stems.${index}.artist`)}
+                defaultValue={getDisplayName(profile)}
+                inputProps={{ maxLength: 90 }}
+                helperText={`${90 - (watch(`stems.${index}.artist`)?.length || 0)} characters remaining.`}
+
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField disabled fullWidth label='Size' value={item?.size >= 1000000 ? `${(item?.size / 1000000).toFixed(1)} MB` : `${(item.size / 1000).toFixed(1)} KB`}></TextField>
             </Grid>
             <Grid item xs={3}>
               <TextField
@@ -239,7 +254,7 @@ const StemForm: React.FC<StemFormProps> = () => {
                 ></Controller>
               </FormControl>
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={12} md={9}>
               <Controller
                 render={({ field }) => <TextField
                   label="Notes" {...field}
@@ -252,9 +267,6 @@ const StemForm: React.FC<StemFormProps> = () => {
                 name={`stems.${index}.notes`}
                 control={control}
               />
-            </Grid>
-            <Grid item xs={3} alignSelf='center'>
-              <TextField disabled fullWidth label='Size' value={item?.size >= 1000000 ? `${(item?.size / 1000000).toFixed(1)} MB` : `${(item.size / 1000).toFixed(1)} KB`}></TextField>
             </Grid>
 
           </Grid>

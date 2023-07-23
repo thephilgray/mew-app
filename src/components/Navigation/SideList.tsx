@@ -59,7 +59,11 @@ export const SideBarNav = () => {
 
       <Box sx={{ p: 1, display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         <Link to={ROUTES.profile.path}>
-          <Avatar sx={{ width: 150, height: 150, mb: 1 }} src={profile?.avatar ? getCloudFrontURL(profile.avatar) : ''} />
+          <Avatar
+            sx={{ width: 150, height: 150, mb: 1 }}
+            src={profile?.avatar ? getCloudFrontURL(profile.avatar) : ''}
+            alt={getDisplayName(profile)}
+          />
         </Link>
         <Typography sx={{ flexBasis: '100%' }} variant="h5" align='center'><span>Hi</span><span style={{
           display: "-webkit-box",

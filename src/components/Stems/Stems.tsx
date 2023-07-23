@@ -11,13 +11,14 @@ import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
 import If from '../If';
 import { Delete, Download } from '@mui/icons-material';
 import MidiPlayer from 'react-midi-player';
-import { getCloudFrontURL } from '../../utils';
+import { getCloudFrontURL, getDisplayName } from '../../utils';
 import { useDownload } from '../AudioPlayer/audio-player.context';
+
 import {
   // createSavedStems,
   deleteStem as deleteStemMutation
 } from '../../graphql/mutations';
-import { useProfile } from '../../auth/hooks';
+import { useProfile, useViewAdmin } from '../../auth/hooks';
 
 const DownloadStem = ({ stem }) => {
   // const [fetchCreateSavedStems, { data, loading, error }] = useMutation(gql(createSavedStems))
@@ -44,6 +45,7 @@ const DownloadStem = ({ stem }) => {
 
 const DeleteStem = ({ stem }) => {
   const { profile } = useProfile()
+  const [viewAdmin] = useViewAdmin()
   const [fetchDeleteStem, { data, loading, error }] = useMutation(gql(deleteStemMutation))
   const isMyStem = row => row?.creator?.id === profile?.id
   const clickHandler = e => {
@@ -56,7 +58,7 @@ const DeleteStem = ({ stem }) => {
     })
   }
   return (
-    <If condition={isMyStem(stem)}><IconButton><Delete onClick={clickHandler}></Delete></IconButton></If>
+    <If condition={isMyStem(stem) || viewAdmin}><IconButton><Delete onClick={clickHandler}></Delete></IconButton></If>
   )
 }
 
@@ -71,7 +73,7 @@ const Stems: React.FC<StemsProps> = () => {
     // TODO: this is just to handle writes to ensure user can see what they just uploaded
     fetchPolicy: 'network-only'
   })
-  const rows = data?.listStems?.items
+  const rows = (data?.listStems?.items ? [...data.listStems.items] : [])
     .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
   const columns = [
     {
@@ -112,9 +114,10 @@ const Stems: React.FC<StemsProps> = () => {
       renderCell: ({ value = '' }) => value?.length > 40 ? <Tooltip title={value}><span>{value}</span></Tooltip> : value
     },
     {
-      field: 'creator',
-      headerName: 'Creator',
-      renderCell: ({ value = {} }) => <Link to={ROUTES.viewProfile.getPath({ profileId: value?.id })}><Avatar src={getCloudFrontURL(value?.avatar)}></Avatar></Link>
+      field: 'artist',
+      headerName: 'Artist',
+      width: 200,
+      renderCell: ({ value = {}, row }) => <Link style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none' }} to={ROUTES.viewProfile.getPath({ profileId: row?.creator?.id })}><Avatar alt={getDisplayName(row?.creator)} src={getCloudFrontURL(row?.creator?.avatar)} sx={{ mr: 1 }}></Avatar>{value || getDisplayName(profile)}</Link>,
     },
     {
       field: 'filePath',
