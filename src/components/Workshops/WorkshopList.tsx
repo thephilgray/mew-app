@@ -21,7 +21,7 @@ export const MembersAvatarGroup = ({ memberships }) => {
     const randomIndex = random(total - 1)
     const getAlt = member => getDisplayName(member?.profile)
     return memberships.length ? <><Typography variant='body2'>Members</Typography>
-        <AvatarGroup total={total} sx={{ justifyContent: 'start' }}>
+        <AvatarGroup total={total} sx={{ justifyContent: 'start', flexWrap: 'wrap' }}>
             {memberships.slice((randomIndex < total - 4 ? randomIndex : Math.max(randomIndex - 4, 0)), total).map(member => (
                 <Avatar alt={getAlt(member)} src={member?.profile?.avatar && getCloudFrontURL(member?.profile?.avatar)} key={member.id} />
             ))}
