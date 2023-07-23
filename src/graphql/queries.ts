@@ -284,6 +284,7 @@ export const getAPIKey = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -428,6 +429,7 @@ export const listAPIKeys = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -918,6 +920,7 @@ export const getFileRequest = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -1154,6 +1157,7 @@ export const getFileRequest = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -2356,6 +2360,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -2668,6 +2673,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -2954,6 +2960,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -3071,6 +3078,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -3364,6 +3372,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -3481,6 +3490,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -3774,6 +3784,7 @@ export const submissionsByEmail = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -3891,6 +3902,7 @@ export const submissionsByEmail = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -4184,6 +4196,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -4301,6 +4314,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -4583,6 +4597,7 @@ export const getTrack = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -4700,6 +4715,7 @@ export const getTrack = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -4879,6 +4895,7 @@ export const getTrack = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -5529,6 +5546,7 @@ export const getPlaylist = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -5719,6 +5737,7 @@ export const listPlaylists = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -6006,6 +6025,7 @@ export const getMembership = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -6348,6 +6368,7 @@ export const getMembership = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -6777,6 +6798,7 @@ export const listMemberships = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -7127,6 +7149,7 @@ export const membershipsByWorkshopId = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -7477,6 +7500,7 @@ export const membershipsByEmail = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -8148,6 +8172,7 @@ export const getWorkshop = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -8561,6 +8586,7 @@ export const listWorkshops = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -9280,6 +9306,7 @@ export const getProfile = /* GraphQL */ `
           }
           stemGroupId
           filePath
+          artist
           createdAt
           updatedAt
           __typename
@@ -9582,6 +9609,7 @@ export const listProfiles = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -9887,6 +9915,7 @@ export const profileByProfileId = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -10183,6 +10212,7 @@ export const getComment = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -10444,6 +10474,7 @@ export const getComment = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -10561,6 +10592,7 @@ export const getComment = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -11121,6 +11153,7 @@ export const getComment = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -11322,6 +11355,7 @@ export const listComments = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -11839,6 +11873,7 @@ export const getStem = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -12127,6 +12162,7 @@ export const getStem = /* GraphQL */ `
             }
             stemGroupId
             filePath
+            artist
             createdAt
             updatedAt
             __typename
@@ -12140,6 +12176,7 @@ export const getStem = /* GraphQL */ `
       }
       stemGroupId
       filePath
+      artist
       createdAt
       updatedAt
       __typename
@@ -12195,6 +12232,7 @@ export const listStems = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -12324,6 +12362,7 @@ export const listStems = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -12337,6 +12376,7 @@ export const listStems = /* GraphQL */ `
         }
         stemGroupId
         filePath
+        artist
         createdAt
         updatedAt
         __typename
@@ -12601,6 +12641,7 @@ export const getSubmissionStems = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -12718,6 +12759,7 @@ export const getSubmissionStems = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -12784,6 +12826,7 @@ export const getSubmissionStems = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -12913,6 +12956,7 @@ export const getSubmissionStems = /* GraphQL */ `
               creatorEmail
               stemGroupId
               filePath
+              artist
               createdAt
               updatedAt
               __typename
@@ -12926,6 +12970,7 @@ export const getSubmissionStems = /* GraphQL */ `
         }
         stemGroupId
         filePath
+        artist
         createdAt
         updatedAt
         __typename
@@ -13161,6 +13206,7 @@ export const listSubmissionStems = /* GraphQL */ `
           }
           stemGroupId
           filePath
+          artist
           createdAt
           updatedAt
           __typename

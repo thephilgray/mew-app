@@ -11,7 +11,7 @@ import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
 import If from '../If';
 import { Delete, Download } from '@mui/icons-material';
 import MidiPlayer from 'react-midi-player';
-import { getCloudFrontURL } from '../../utils';
+import { getCloudFrontURL, getDisplayName } from '../../utils';
 import { useDownload } from '../AudioPlayer/audio-player.context';
 
 import {
@@ -73,8 +73,8 @@ const Stems: React.FC<StemsProps> = () => {
     // TODO: this is just to handle writes to ensure user can see what they just uploaded
     fetchPolicy: 'network-only'
   })
-  const rows = data?.listStems?.items
-    ?.sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
+  const rows = (data?.listStems?.items ? [...data.listStems.items] : [])
+    .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
   const columns = [
     {
       field: 'title',
@@ -114,9 +114,10 @@ const Stems: React.FC<StemsProps> = () => {
       renderCell: ({ value = '' }) => value?.length > 40 ? <Tooltip title={value}><span>{value}</span></Tooltip> : value
     },
     {
-      field: 'creator',
-      headerName: 'Creator',
-      renderCell: ({ value = {} }) => <Link to={ROUTES.viewProfile.getPath({ profileId: value?.id })}><Avatar src={getCloudFrontURL(value?.avatar)}></Avatar></Link>
+      field: 'artist',
+      headerName: 'Artist',
+      width: 200,
+      renderCell: ({ value = {}, row }) => <Link style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none' }} to={ROUTES.viewProfile.getPath({ profileId: row?.creator?.id })}><Avatar src={getCloudFrontURL(row?.creator?.avatar)} sx={{ mr: 1 }}></Avatar>{value || getDisplayName(profile)}</Link>,
     },
     {
       field: 'filePath',

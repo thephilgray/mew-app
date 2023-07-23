@@ -329,6 +329,7 @@ type Stem
   creator: Profile @belongsTo(fields: ["creatorEmail"])
   stemGroupId: ID
   filePath: String
+  artist: String
   # downloadedBy: [Profile] @manyToMany(relationName: "SavedStems")
 }
 
