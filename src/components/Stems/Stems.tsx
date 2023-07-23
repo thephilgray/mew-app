@@ -117,7 +117,7 @@ const Stems: React.FC<StemsProps> = () => {
       field: 'artist',
       headerName: 'Artist',
       width: 200,
-      renderCell: ({ value = {}, row }) => <Link style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none' }} to={ROUTES.viewProfile.getPath({ profileId: row?.creator?.id })}><Avatar src={getCloudFrontURL(row?.creator?.avatar)} sx={{ mr: 1 }}></Avatar>{value || getDisplayName(profile)}</Link>,
+      renderCell: ({ value = {}, row }) => <Link style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none' }} to={ROUTES.viewProfile.getPath({ profileId: row?.creator?.id })}><Avatar alt={getDisplayName(row?.creator)} src={getCloudFrontURL(row?.creator?.avatar)} sx={{ mr: 1 }}></Avatar>{value || getDisplayName(profile)}</Link>,
     },
     {
       field: 'filePath',

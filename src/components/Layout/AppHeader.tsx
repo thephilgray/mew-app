@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import mewAppLogo from '../../assets/mewlogo.png'
 import { useProfile, useSignOut, useUser } from '../../auth/hooks'
-import { getCloudFrontURL } from '../../utils';
+import { getCloudFrontURL, getDisplayName } from '../../utils';
 import { ROUTES } from '../../constants';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -133,7 +133,10 @@ const AppHeader: React.FC<{ siteTitle: string }> = ({ siteTitle = '' }) => {
                             color="inherit"
                             size="medium"
                         >
-                            <Avatar src={profile?.avatar ? getCloudFrontURL(profile.avatar) : ''} />
+                            <Avatar
+                                src={profile?.avatar ? getCloudFrontURL(profile.avatar) : ''}
+                                alt={getDisplayName(profile)}
+                            />
                         </IconButton>
                         <Menu
                             id="menu-appbar"

@@ -8,7 +8,7 @@ import { Edit, Launch } from '@mui/icons-material'
 import { useProfile, useUser } from '../../auth/hooks'
 import { navigate } from 'gatsby'
 import If from '../If'
-import { getCloudFrontURL } from '../../utils'
+import { getCloudFrontURL, getDisplayName } from '../../utils'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group, ROUTES } from '../../constants'
 import Loading from '../Loading'
@@ -64,7 +64,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
     <Grid item xs={12}>
       <Card>
         <CardMedia sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
-          <Avatar src={avatarPath} sx={{ width: 150, height: 150 }} alt={profile?.displayName || profile?.name} />
+          <Avatar src={avatarPath} sx={{ width: 150, height: 150 }} alt={getDisplayName(profile)} />
         </CardMedia>
         <CardContent sx={{ maxWidth: '80vw', overflow: 'auto' }} >
           <Typography gutterBottom variant="h5" sx={{ textAlign: 'center' }}>

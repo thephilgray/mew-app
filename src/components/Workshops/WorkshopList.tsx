@@ -19,7 +19,7 @@ export const MembersAvatarGroup = ({ memberships }) => {
     // show random set of avatars each time
     const total = memberships.length;
     const randomIndex = random(total - 1)
-    const getAlt = member => member?.profile?.displayName || member?.profile?.name || member?.profile?.email
+    const getAlt = member => getDisplayName(member?.profile)
     return memberships.length ? <><Typography variant='body2'>Members</Typography>
         <AvatarGroup total={total} sx={{ justifyContent: 'start' }}>
             {memberships.slice((randomIndex < total - 4 ? randomIndex : Math.max(randomIndex - 4, 0)), total).map(member => (
