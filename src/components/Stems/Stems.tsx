@@ -13,11 +13,12 @@ import { Delete, Download } from '@mui/icons-material';
 import MidiPlayer from 'react-midi-player';
 import { getCloudFrontURL } from '../../utils';
 import { useDownload } from '../AudioPlayer/audio-player.context';
+
 import {
   // createSavedStems,
   deleteStem as deleteStemMutation
 } from '../../graphql/mutations';
-import { useProfile } from '../../auth/hooks';
+import { useProfile, useViewAdmin } from '../../auth/hooks';
 
 const DownloadStem = ({ stem }) => {
   // const [fetchCreateSavedStems, { data, loading, error }] = useMutation(gql(createSavedStems))
@@ -44,6 +45,7 @@ const DownloadStem = ({ stem }) => {
 
 const DeleteStem = ({ stem }) => {
   const { profile } = useProfile()
+  const [viewAdmin] = useViewAdmin()
   const [fetchDeleteStem, { data, loading, error }] = useMutation(gql(deleteStemMutation))
   const isMyStem = row => row?.creator?.id === profile?.id
   const clickHandler = e => {
@@ -56,7 +58,7 @@ const DeleteStem = ({ stem }) => {
     })
   }
   return (
-    <If condition={isMyStem(stem)}><IconButton><Delete onClick={clickHandler}></Delete></IconButton></If>
+    <If condition={isMyStem(stem) || viewAdmin}><IconButton><Delete onClick={clickHandler}></Delete></IconButton></If>
   )
 }
 
@@ -72,7 +74,7 @@ const Stems: React.FC<StemsProps> = () => {
     fetchPolicy: 'network-only'
   })
   const rows = data?.listStems?.items
-    .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
+    ?.sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
   const columns = [
     {
       field: 'title',
