@@ -331,7 +331,17 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 <>
                     {value ? 'Yes' : 'No'}
                     <IconButton
-                        onClick={() =>
+                        onClick={() => value ? setDialogSettings({
+                            user: row,
+                            dialogType: 'MEMBERSHIP',
+                            handleDelete: () => onUpdateMembershipService({
+                                action: value ? 'DISABLE_MEMBERSHIP' : 'ADD_MEMBERSHIP',
+                                membershipPayload: {
+                                    emailAddress: row.email,
+                                    ...(row.name && { fullName: row.name }),
+                                },
+                            })
+                        }) :
                             onUpdateMembershipService({
                                 action: value ? 'DISABLE_MEMBERSHIP' : 'ADD_MEMBERSHIP',
                                 membershipPayload: {
@@ -371,7 +381,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                         onClick={() => value ? setDialogSettings({
                             user: row,
                             dialogType: 'LOGIN',
-                            handleDelete: onUpdateMembershipService({
+                            handleDelete: () => onUpdateMembershipService({
                                 action: 'DISABLE_LOGIN',
                                 membershipPayload: {
                                     emailAddress: row.email,
@@ -404,8 +414,8 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                             <IconButton
                                 onClick={() => value ? setDialogSettings({
                                     user: row,
-                                    dialogType: 'MEMBERSHIP',
-                                    handleDelete: onUpdateMembershipService({
+                                    dialogType: 'MEMBERSHIP_MAILCHIMP',
+                                    handleDelete: () => onUpdateMembershipService({
                                         action: 'DISABLE_MAILCHIMP_SUBSCRIPTION',
                                         membershipPayload: {
                                             emailAddress: row.email,

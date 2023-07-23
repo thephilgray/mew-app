@@ -8,11 +8,16 @@ type ConfirmDeleteDialogProps = {
 
 enum DIALOG_TYPES {
   'MEMBERSHIP',
+  'MEMBERSHIP_MAILCHIMP',
   'LOGIN'
 }
 
 const DIALOG_CONTENT_PRESETS = user => ({
   [DIALOG_TYPES.MEMBERSHIP]: {
+    title: 'Remove membership?',
+    text: `${getDisplayName(user?.profile)} (${user?.email}) will no longer be able to access this workshop.`
+  },
+  [DIALOG_TYPES.MEMBERSHIP_MAILCHIMP]: {
     title: 'Remove membership?',
     text: `${getDisplayName(user?.profile)} (${user?.email}) will no longer be able to access this workshop. 
     They will still be subscribed to the Mailchimp mailing list but tagged as OUT. 
@@ -29,8 +34,8 @@ const DIALOG_CONTENT_PRESETS = user => ({
 const ConfirmDeleteDialog: React.FC<ConfirmDeleteDialogProps> = ({ dialogSettings, handleClose }) => {
   if (!dialogSettings || !handleClose) return null;
   const { user, dialogType, handleDelete } = dialogSettings;
-  const preset = DIALOG_TYPES[dialogType];
-  if (!preset || !user || !handleDelete) return null;
+  if (!user || !handleDelete) return null;
+  const preset = DIALOG_TYPES[dialogType]
   const dialogContent = DIALOG_CONTENT_PRESETS(user)[preset]
   return <Dialog
     open={user}
@@ -47,7 +52,7 @@ const ConfirmDeleteDialog: React.FC<ConfirmDeleteDialogProps> = ({ dialogSetting
       </DialogContentText>
     </DialogContent>
     <DialogActions>
-      <Button onClick={handleDelete}>Yes, REMOVE</Button>
+      <Button onClick={() => handleDelete().then(handleClose)}>Yes, REMOVE</Button>
       <Button onClick={handleClose} autoFocus>No</Button>
     </DialogActions>
   </Dialog>
