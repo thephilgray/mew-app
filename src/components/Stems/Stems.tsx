@@ -77,6 +77,13 @@ const Stems: React.FC<StemsProps> = () => {
     .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
   const columns = [
     {
+      field: 'filePath',
+      headerName: 'Listen',
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      renderCell: ({ row, value = '' }) => row.fileExtension === 'audio/midi' ? <MidiPlayer src={getCloudFrontURL(value)} /> : <SimplePlayerButton audioPath={value} />
+    },
+    {
       field: 'title',
       headerName: 'Title',
       width: 300,
@@ -118,13 +125,6 @@ const Stems: React.FC<StemsProps> = () => {
       headerName: 'Artist',
       width: 200,
       renderCell: ({ value = {}, row }) => <Link style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none' }} to={ROUTES.viewProfile.getPath({ profileId: row?.creator?.id })}><Avatar alt={getDisplayName(row?.creator)} src={getCloudFrontURL(row?.creator?.avatar)} sx={{ mr: 1 }}></Avatar>{value || getDisplayName(row?.creator)}</Link>,
-    },
-    {
-      field: 'filePath',
-      headerName: 'Listen',
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      renderCell: ({ row, value = '' }) => row.fileExtension === 'audio/midi' ? <MidiPlayer src={getCloudFrontURL(value)} /> : <SimplePlayerButton audioPath={value} />
     },
     {
       field: 'download',
