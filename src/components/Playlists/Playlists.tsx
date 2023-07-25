@@ -22,10 +22,10 @@ const Playlists: React.FC<PlaylistsProps> = () => {
     variables: {
       limit: 1000,
       filter: {
-        or: [{
-          public: { eq: true },
-          playlistOwnerId: { eq: profile?.email }
-        }]
+        or: [
+          { public: { eq: true } },
+          { playlistOwnerId: { eq: profile?.email } }
+        ]
       }
     }
   })
