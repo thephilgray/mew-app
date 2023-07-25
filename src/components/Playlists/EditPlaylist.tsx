@@ -144,12 +144,15 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
       await API.graphql(graphqlOperation(`mutation updatePlaylistTracks { ${trackListMutations}}`));
 
     }
+    navigate(ROUTES.playlists.path)
   }
 
   const handleDelete = async () => {
     if (playlistId) {
       await deletePlaylistRequest({ variables: { input: { id: playlistId } } })
     }
+
+    // redirect on success
     navigate(ROUTES.playlists.path)
   }
 
