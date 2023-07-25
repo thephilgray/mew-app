@@ -86,6 +86,7 @@ const GET_WORKSHOP = gql`
                         email
                         sub
                         id
+                        avatar
                     }
                     mailchimp {
                         fullName
