@@ -428,7 +428,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 </Grid >
                 <If condition={!!audioLists?.[currentIndex]?.lyrics}></If>
                 <Grid item xs={12} sx={{ maxWidth: '90vw', overflow: 'auto' }}>
-                    <pre>
+                    <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
                         <Typography variant="body2">
                             {audioLists?.[currentIndex]?.lyrics}
                         </Typography>
