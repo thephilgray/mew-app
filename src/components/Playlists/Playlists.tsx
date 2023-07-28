@@ -5,11 +5,13 @@ import { useProfile, useViewAdmin } from '../../auth/hooks';
 import CardGrid from '../CardGrid';
 import If from '../If';
 import { ROUTES } from '../../constants';
-import { Button, Chip, Divider, Grid, Typography } from '@mui/material';
+import { Button, Chip, Divider, Grid, IconButton, Typography } from '@mui/material';
 import { format } from 'date-fns'
 import isPast from 'date-fns/isPast'
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { compareDesc } from "date-fns"
+import { EditRounded } from '@mui/icons-material';
+
 
 type PlaylistsProps = {
 
@@ -107,6 +109,10 @@ const Playlists: React.FC<PlaylistsProps> = () => {
     </Grid>
     <Grid item xs={12}>
       <CardGrid items={groupedStandardPlaylists?.mine?.sort(sortFn)?.map(item => ({
+        rightOverlayContent: <IconButton color="secondary" onClick={(e) => {
+          e.stopPropagation()
+          navigate(ROUTES.editPlaylist.getPath({ playlistId: item?.id }))
+        }}><EditRounded /></IconButton>,
         artwork: item?.artwork,
         id: item?.id,
         active: true,
@@ -129,6 +135,12 @@ const Playlists: React.FC<PlaylistsProps> = () => {
       <Grid item xs={12}>
         <CardGrid items={assignmentPlaylists?.map(item => ({
           ...item,
+          ...viewAdmin && !item.default && {
+            rightOverlayContent: <IconButton color="secondary" onClick={(e) => {
+              e.stopPropagation()
+              navigate(ROUTES.editPlaylist.getPath({ playlistId: item?.id }))
+            }}><EditRounded /></IconButton>
+          },
           active: true,
           name: item?.title,
           link: item.default ? ROUTES.assignmentPlaylist.getPath({ assignmentId: item?.id }) : ROUTES.playlist.getPath({ playlistId: item?.id }),
