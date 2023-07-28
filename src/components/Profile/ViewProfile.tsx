@@ -66,7 +66,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
         <CardMedia sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
           <Avatar src={avatarPath} sx={{ width: 150, height: 150 }} alt={getDisplayName(profile)} />
         </CardMedia>
-        <CardContent sx={{ maxWidth: '80vw', overflow: 'auto' }} >
+        <CardContent>
           <Typography gutterBottom variant="h5" sx={{ textAlign: 'center' }}>
             {profile?.displayName || profile?.name} <GroupGuard groups={[Group.admin]}><If condition={profile?.id === profileInState?.id}><Chip label="ADMIN" color="secondary" /></If></GroupGuard>
           </Typography>
