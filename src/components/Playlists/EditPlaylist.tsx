@@ -235,7 +235,7 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
     </Grid>
     <Grid item xs={12} sm={8}>
       <If condition={!!trackList && trackList?.length} fallbackContent={<Typography textAlign="center">
-        Add some tracks.
+        Save any changes on this page and then add tracks from other playlists.
       </Typography>}>
         <SimplePlayer />
         <SortableTrackList trackList={trackList} setTrackList={setTrackList}></SortableTrackList>
