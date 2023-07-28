@@ -86,7 +86,13 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
 
         {(!!showWriteComment || !!editing) ? <WriteComment {...writeCommentFunctions}
           submitComment={(e) => {
-            !!editing ? writeCommentFunctions.editComment(comment.id)(e) : writeCommentFunctions.submitComment({ parentId: comment.id, assignmentId: assignmentId || comment?.assignmentId, submissionId: comment.submission.id })(e)
+            !!editing ?
+              writeCommentFunctions.editComment(comment.id)(e) :
+              writeCommentFunctions.submitComment({
+                parentId: comment.id,
+                assignmentId: comment?.assignmentId,
+                submissionId: comment.submission.id
+              })(e)
             setShowWriteComment(false)
             setEditing(false)
             writeCommentFunctions.setCommentContent('')
