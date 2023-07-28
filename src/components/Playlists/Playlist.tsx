@@ -332,7 +332,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                     {audioLists?.[currentIndex]?.singer?.toString()}
                                 </Typography>
                             </CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)" }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)", width: '150px' }}>
                                 <IconButton aria-label="previous" onClick={() => playerRef.current.playPrev()}>
                                     {theme.direction === 'rtl' ? <SkipNextIcon sx={{ color: "#fff" }} /> : <SkipPreviousIcon sx={{ color: "#fff" }} />}
                                 </IconButton>
