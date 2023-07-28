@@ -39,7 +39,7 @@ const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
 
         </Grid>
         <Grid item alignItems="end" justifyContent="start" style={{ paddingLeft: 0, padding: 0, display: "flex", marginBottom: "0.25em" }}>
-          <IconButton type="submit" aria-label="send"><Send></Send></IconButton>
+          <IconButton sx={{ marginBottom: '1em' }} type="submit" aria-label="send"><Send></Send></IconButton>
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
