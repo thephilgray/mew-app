@@ -29,6 +29,15 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
   const [updatePlaylistRequest, { error: updatePlaylistError, data: updatePlaylistData, loading: updatePlaylistLoading }] = useMutation(gql(updatePlaylist))
   const [deletePlaylistRequest, { error: deletePlaylistError, data: deletePlaylistData, loading: deletePlaylistLoading }] = useMutation(gql(deletePlaylist))
   const { profile } = useProfile()
+  const [saveLoading, setSaveLoading] = useState(false)
+
+  const loading = [
+    playlistLoading,
+    createPlaylistLoading,
+    updatePlaylistLoading,
+    deletePlaylistLoading,
+    saveLoading]
+    .some(Boolean)
 
   const { register, reset, handleSubmit, control, watch } = useForm({
     defaultValues: useMemo(() => {
@@ -76,73 +85,83 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
 
   const ARTWORK_DOWNLOAD_PATH = playlistData?.getPlaylist?.artwork?.path
   const onSubmit = async (inputData) => {
+    setSaveLoading(true)
     let ID = uuidv4()
     let PLAYLIST_ID = playlistId || ID
     let ARTWORK_UPLOAD_PATH
     let FILE_ID = uuidv4()
-    if (image) {
-      ARTWORK_UPLOAD_PATH = `playlists/${PLAYLIST_ID}/artwork-${FILE_ID}.jpg`
-      await uploadImage({ image, uploadPath: ARTWORK_UPLOAD_PATH, filename: 'artwork.jpg' })
-    }
-    if (playlistId) {
-      await updatePlaylistRequest({
-        variables: {
-          input: {
-            id: playlistId,
-            public: inputData.public,
-            title: inputData.title,
-            playlistOwnerId: profile?.email,
-            ...image && !image.includes(ARTWORK_DOWNLOAD_PATH) && {
-              artwork: {
-                id: FILE_ID,
-                path: ARTWORK_UPLOAD_PATH
+    try {
+      if (image) {
+        ARTWORK_UPLOAD_PATH = `playlists/${PLAYLIST_ID}/artwork-${FILE_ID}.jpg`
+        await uploadImage({ image, uploadPath: ARTWORK_UPLOAD_PATH, filename: 'artwork.jpg' })
+      }
+      if (playlistId) {
+        await updatePlaylistRequest({
+          variables: {
+            input: {
+              id: playlistId,
+              public: inputData.public,
+              title: inputData.title,
+              playlistOwnerId: profile?.email,
+              ...image && !image.includes(ARTWORK_DOWNLOAD_PATH) && {
+                artwork: {
+                  id: FILE_ID,
+                  path: ARTWORK_UPLOAD_PATH
+                }
               }
             }
           }
-        }
-      })
-    }
-    else {
-      await createPlaylistRequest({
-        variables: {
-          input: {
-            id: PLAYLIST_ID,
-            public: inputData.public,
-            title: inputData.title,
-            playlistOwnerId: profile?.email,
-            ...image && {
-              artwork: {
-                id: FILE_ID,
-                path: ARTWORK_UPLOAD_PATH
+        })
+      }
+      else {
+        await createPlaylistRequest({
+          variables: {
+            input: {
+              id: PLAYLIST_ID,
+              public: inputData.public,
+              title: inputData.title,
+              playlistOwnerId: profile?.email,
+              ...image && {
+                artwork: {
+                  id: FILE_ID,
+                  path: ARTWORK_UPLOAD_PATH
+                }
               }
             }
           }
+        })
+      }
+
+
+      if (trackList?.length) {
+        const trackListChanges = trackList.filter(track => track.create || track.update || track.delete)
+        const trackListMutations = trackListChanges
+          .map(
+            (track, i) => {
+              if (track.create) {
+                return `mutation${i}: createTrack(input: 
+                {order: ${track.order}, trackSubmissionId: "${track.submission.id}", playlistTracksId: "${PLAYLIST_ID}"}) { id }`;
+              }
+              else if (track.update) {
+                return `mutation${i}: updateTrack(input: {id: "${track.id}", order: ${track.order}}) { id }`;
+              }
+              else if (track.delete) {
+                return `mutation${i}: deleteTrack(input: {id: "${track.id}"}) { id }`;
+
+              }
+            }
+          );
+        // tracklist: create, update, delete
+        if (trackListMutations.length) {
+          await API.graphql(graphqlOperation(`mutation updatePlaylistTracks { ${trackListMutations}}`));
         }
-      })
-    }
+      }
 
-
-    if (trackList?.length) {
-      const trackListChanges = trackList.filter(track => track.create || track.update || track.delete)
-      const trackListMutations = trackListChanges
-        .map(
-          (track, i) => {
-            if (track.create) {
-              return `mutation${i}: createTrack(input: 
-              {order: ${track.order}, trackSubmissionId: "${track.submission.id}", playlistTracksId: "${PLAYLIST_ID}"}) { id }`;
-            }
-            else if (track.update) {
-              return `mutation${i}: updateTrack(input: {id: "${track.id}", order: ${track.order}}) { id }`;
-            }
-            else if (track.delete) {
-              return `mutation${i}: deleteTrack(input: {id: "${track.id}"}) { id }`;
-
-            }
-          }
-        );
-      // tracklist: create, update, delete
-      await API.graphql(graphqlOperation(`mutation updatePlaylistTracks { ${trackListMutations}}`));
-
+    } catch (error) {
+      // TODO: handle error
+      console.log(error);
+    } finally {
+      setSaveLoading(false)
     }
     navigate(ROUTES.playlists.path)
   }
@@ -169,8 +188,8 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
           </Grid>
           <Grid item xs={6}>
             <ButtonGroup sx={{ float: 'right' }}>
-              <Button onClick={handleDelete} startIcon={<Delete />}>Delete</Button>
-              <Button type="submit" startIcon={<Save />}>Save</Button>
+              <Button onClick={handleDelete} disabled={loading} startIcon={<Delete />}>Delete</Button>
+              <Button type="submit" disabled={loading} startIcon={<Save />}>Save</Button>
             </ButtonGroup>
 
           </Grid>
@@ -216,7 +235,7 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
     </Grid>
     <Grid item xs={12} sm={8}>
       <If condition={!!trackList && trackList?.length} fallbackContent={<Typography textAlign="center">
-        Add some tracks.
+        Save any changes on this page and then add tracks from other playlists.
       </Typography>}>
         <SimplePlayer />
         <SortableTrackList trackList={trackList} setTrackList={setTrackList}></SortableTrackList>

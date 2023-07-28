@@ -72,7 +72,7 @@ const ViewProfile: React.FC<{ profileId: string }> = ({ profileId = '' }) => {
           </Typography>
           {profile?.bio ? <><Divider sx={{ mb: 2, mt: 2 }} />
             <Typography variant="body1" component="h2">Bio</Typography>
-            <pre>
+            <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
               <Typography variant="body2" color="text.secondary">
                 {profile?.bio}
               </Typography>
