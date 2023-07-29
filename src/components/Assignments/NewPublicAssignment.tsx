@@ -15,7 +15,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { add } from 'date-fns/esm';
 import gql from 'graphql-tag';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Link } from 'gatsby';
 import { Editor } from '@tinymce/tinymce-react';
 import Error from '../Error';
@@ -26,6 +26,7 @@ import ImagePicker, { uploadImage } from '../ImagePicker';
 import { v4 as uuidv4 } from 'uuid';
 import { createFileRequest as createFileRequestMutation } from '../../graphql/mutations';
 import { ROUTES } from '../../constants';
+import { getWorkshop } from '../../graphql/queries';
 
 
 type Inputs = {
@@ -47,6 +48,9 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
         watch,
         formState: { errors },
     } = useForm<Inputs>();
+    const { data: getWorkshopData } = useQuery(gql(getWorkshop), {
+        variables: { id: workshopId },
+    })
     const [createFileRequest, { error, data }] = useMutation(gql(createFileRequestMutation));
     const [details, setDetails] = useState<string>('');
     const [required, setRequired] = useState<boolean>(true);
@@ -111,7 +115,7 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
         <Grid container spacing={2}>
             <Grid item xs={12}>
                 <AppBreadcrumbs
-                    workshopId={workshopId}
+                    workshop={getWorkshopData?.getWorkshop}
                     paths={[
                         ROUTES.home,
                         ROUTES.workshop,
