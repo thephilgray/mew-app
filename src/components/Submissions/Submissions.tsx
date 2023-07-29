@@ -21,6 +21,7 @@ import {
 import {
     DataGrid,
     GridColDef,
+    GridOverlay,
     GridRowSelectionModel,
 } from '@mui/x-data-grid';
 import gql from 'graphql-tag';
@@ -89,6 +90,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     const [viewAdmin] = useViewAdmin();
     const breakpoint = useBreakpoint()
     const sm = breakpoint === "S"
+    const lg = breakpoint === "L"
+    const xs = breakpoint === "XS"
 
     const dialogConstants = {
         CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link',
@@ -523,7 +526,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                 </Grid>
                 <Grid item xs={4} sx={{ textAlign: 'right', p: 0, pl: 0, pb: 0 }}>
                     <If condition={viewAdmin || isExpired}>
-                        {sm ? (
+                        {!xs ? (
                             <Button
                                 color="secondary"
                                 aria-label="Playlist"
@@ -547,7 +550,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                         )}
                     </If>
                     <If condition={viewAdmin || !isExpired}>
-                        {sm ? (
+                        {!xs ? (
                             <Button
                                 color="secondary"
                                 aria-label="New Submission"
@@ -582,6 +585,24 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                 >
                     <DataGridWrapper>
                         <DataGrid
+                            slots={{
+                                noRowsOverlay: () => <GridOverlay>
+                                    <If condition={viewAdmin || !isExpired}
+                                        fallbackContent={<Typography>You didn't submit anything in time.</Typography>}>
+                                        <Button
+                                            color="success"
+                                            variant='contained'
+                                            aria-label="New Submission"
+                                            component={Link}
+                                            to={ROUTES.newPublicSubmission.getPath({ assignmentId })}
+                                            size="medium"
+                                            startIcon={<Add />}
+                                        >
+                                            Submit a track!!!
+                                        </Button>
+                                    </If>
+                                </GridOverlay>
+                            }}
                             autoHeight
                             checkboxSelection={!!viewAdmin}
                             rows={rows}
