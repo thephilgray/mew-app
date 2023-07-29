@@ -244,7 +244,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 fileId,
                                 submissionId: id,
                                 lyrics,
-                                workshopId
+                                workshopId,
+                                assignmentId
                             })
                             seenFileIds.push(fileId)
                         }
