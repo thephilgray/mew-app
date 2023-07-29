@@ -70,17 +70,17 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
       </Grid>
       <Grid justifyContent="left" item xs zeroMinWidth>
         <h4 style={{ margin: 0, textAlign: "left" }}>
-
           <Link to={`/app/profile/${comment.profile.id}`}>
             {comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}
           </Link>
           <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – </span>
-          <Link to={ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId })}><em>{comment?.submission?.name} by {comment?.submission?.artist}</em></Link>
+          <Link to={ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId }) + `?track=${comment.submission.id}`}>
+            <em>{comment?.submission?.name} by {comment?.submission?.artist}</em>
+          </Link>
         </h4>
-
-        <p style={{ textAlign: "left" }}>
+        <Typography sx={{ textAlign: "left", pt: 1 }}>
           {comment.content}
-        </p>
+        </Typography>
         <Button onClick={() => {
           setShowWriteComment(!showWriteComment)
           writeCommentFunctions.setCommentContent('')
@@ -157,6 +157,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
   ] = useMutation(gql(updateComment))
 
   useEffect(() => {
+    if (!profile) return;
     // submissions page
     let subscriptionFilter = { assignmentId: { eq: assignmentId } }
     // playlist page
@@ -222,7 +223,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
       updateSub.unsubscribe()
       deleteSub.unsubscribe()
     }
-  }, [submissionId])
+  }, [submissionId, profile])
 
   useEffect(() => {
     if (createCommentRequestData) {
