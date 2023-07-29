@@ -109,7 +109,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
     </Grid>
     <Grid item xs={12}>
       <CardGrid items={groupedStandardPlaylists?.mine?.sort(sortFn)?.map(item => ({
-        rightOverlayContent: <IconButton color="secondary" onClick={(e) => {
+        topContent: <IconButton sx={{ float: 'right' }} color="secondary" onClick={(e) => {
           e.stopPropagation()
           navigate(ROUTES.editPlaylist.getPath({ playlistId: item?.id }))
         }}><EditRounded /></IconButton>,
@@ -136,7 +136,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
         <CardGrid items={assignmentPlaylists?.map(item => ({
           ...item,
           ...viewAdmin && !item.default && {
-            rightOverlayContent: <IconButton color="secondary" onClick={(e) => {
+            topContent: <IconButton sx={{ float: 'right' }} color="secondary" onClick={(e) => {
               e.stopPropagation()
               navigate(ROUTES.editPlaylist.getPath({ playlistId: item?.id }))
             }}><EditRounded /></IconButton>

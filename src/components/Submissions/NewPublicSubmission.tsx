@@ -115,6 +115,7 @@ const NewPublicSubmission: React.FC<
     const user = useUser()
     const { profile, loading: profileLoading } = useProfile()
     const [loading, setLoading] = useState<boolean>(true)
+    const [submitLoading, setSubmitLoading] = useState<boolean>(true)
     const [error, setError] = useState<Error | null>(null)
     const [uploadSuccess, setUploadSuccess] = useState<boolean>(false)
     const [uploadProgress, setUploadProgress] = useState({ loaded: 0, total: 1 })
@@ -276,7 +277,7 @@ const NewPublicSubmission: React.FC<
         }
     }, [profile])
     const onSubmit = async (values: Inputs) => {
-        setLoading(true)
+        setSubmitLoading(true)
         const { name, artist, email, lyrics, requestFeedback } = values
         const fileId = uuidv4()
         const keyValues = [assignmentId, fileId]
@@ -342,7 +343,7 @@ const NewPublicSubmission: React.FC<
         }
 
         setUploadSuccess(true)
-        setLoading(false)
+        setSubmitLoading(false)
     }
 
     let content
@@ -567,7 +568,7 @@ const NewPublicSubmission: React.FC<
         )
     }
 
-    if (loading && uploadProgress.loaded) {
+    if (submitLoading && uploadProgress.loaded) {
         const progress = (uploadProgress.loaded / uploadProgress.total) * 100
         content = (
             <div style={{ textAlign: 'center', padding: '1rem' }}>

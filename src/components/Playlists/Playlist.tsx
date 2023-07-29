@@ -29,7 +29,7 @@ const GET_FILE_REQUEST = gql(getFileRequest.replace('submissions {', 'submission
 
 const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string, playlistId: string }>>> = ({
     assignmentId = '',
-    playlistId
+    playlistId,
 }) => {
     const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef } = useContext(AudioPlayerContext)
     const [loading, setLoading] = useState(true)
@@ -128,6 +128,20 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         setAudioLists([])
     }, [])
 
+    // switch the current index if track in the query params
+    useEffect(() => {
+        if (audioLists.length) {
+            const params = new URLSearchParams(window.location.search)
+            const track = params.get('track') // track is actually submissionId
+            if (track) {
+                const trackIndex = audioLists.findIndex(item => item.submissionId === track)
+                if (trackIndex > -1) {
+                    setCurrentIndex(trackIndex)
+                }
+            }
+        }
+    }, [audioLists])
+
     // Authenticated user access
     useEffect(() => {
         if (loggedIn) {
@@ -147,7 +161,9 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 if (fetchGetFileRequestData?.getFileRequest && !data) {
                     // lazy hack for now; we can just conditionally load this as playlistId
                     if (fetchGetFileRequestData?.getFileRequest?.playlist?.id) {
-                        navigate(ROUTES.playlist.getPath({ playlistId: fetchGetFileRequestData?.getFileRequest?.playlist?.id }))
+                        const queryParams = window.location.search;
+                        const redirectPath = `${ROUTES.playlist.getPath({ playlistId: fetchGetFileRequestData?.getFileRequest?.playlist?.id })}${queryParams}`
+                        navigate(redirectPath, { replace: true })
                     }
                     else {
                         setData(fetchGetFileRequestData.getFileRequest)
@@ -332,7 +348,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                     {audioLists?.[currentIndex]?.singer?.toString()}
                                 </Typography>
                             </CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)" }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)", width: '150px' }}>
                                 <IconButton aria-label="previous" onClick={() => playerRef.current.playPrev()}>
                                     {theme.direction === 'rtl' ? <SkipNextIcon sx={{ color: "#fff" }} /> : <SkipPreviousIcon sx={{ color: "#fff" }} />}
                                 </IconButton>
@@ -427,7 +443,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     </Card>
                 </Grid >
                 <If condition={!!audioLists?.[currentIndex]?.lyrics}></If>
-                <Grid item xs={12} sx={{ maxWidth: '90vw', overflow: 'auto' }}>
+                <Grid item xs={12}>
                     <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
                         <Typography variant="body2">
                             {audioLists?.[currentIndex]?.lyrics}

@@ -17,7 +17,7 @@ const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
   const { profile } = useProfile()
 
   return (
-    <Paper style={{ padding: "40px 20px" }} component="form" noValidate autoComplete="off" onSubmit={submitComment}>
+    <Paper elevation={0} style={{ padding: "40px 20px" }} component="form" noValidate autoComplete="off" onSubmit={submitComment}>
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
           <Avatar
@@ -39,11 +39,9 @@ const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
 
         </Grid>
         <Grid item alignItems="end" justifyContent="start" style={{ paddingLeft: 0, padding: 0, display: "flex", marginBottom: "0.25em" }}>
-          <IconButton type="submit" aria-label="send"><Send></Send></IconButton>
+          <IconButton sx={{ marginBottom: '1em' }} type="submit" aria-label="send"><Send></Send></IconButton>
         </Grid>
       </Grid>
-      <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-
     </Paper>
   )
 }
@@ -60,7 +58,7 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
   const showEditComment = isAuthor // this will be owner
 
 
-  return (<Paper sx={{ p: 2, mb: 1 }} key={comment.id}>
+  return (<Paper elevation={1} sx={{ p: 2, mb: 1 }} key={comment.id}>
     <Grid container wrap="nowrap" spacing={2}>
       <Grid item>
         <Link to={`/app/profile/${comment.profile.id}`}>
@@ -72,32 +70,17 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
       </Grid>
       <Grid justifyContent="left" item xs zeroMinWidth>
         <h4 style={{ margin: 0, textAlign: "left" }}>
-
           <Link to={`/app/profile/${comment.profile.id}`}>
             {comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}
           </Link>
           <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – </span>
-          <Link to={ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId })}><em>{comment?.submission?.name} by {comment?.submission?.artist}</em></Link>
+          <Link to={ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId }) + `?track=${comment.submission.id}`}>
+            <em>{comment?.submission?.name} by {comment?.submission?.artist}</em>
+          </Link>
         </h4>
-
-        <p style={{ textAlign: "left" }}>
+        <Typography sx={{ textAlign: "left", pt: 1 }}>
           {comment.content}
-        </p>
-
-        {(!!showWriteComment || !!editing) ? <WriteComment {...writeCommentFunctions}
-          submitComment={(e) => {
-            !!editing ?
-              writeCommentFunctions.editComment(comment.id)(e) :
-              writeCommentFunctions.submitComment({
-                parentId: comment.id,
-                assignmentId: comment?.assignmentId,
-                submissionId: comment.submission.id
-              })(e)
-            setShowWriteComment(false)
-            setEditing(false)
-            writeCommentFunctions.setCommentContent('')
-          }}
-        /> : null}
+        </Typography>
         <Button onClick={() => {
           setShowWriteComment(!showWriteComment)
           writeCommentFunctions.setCommentContent('')
@@ -114,8 +97,21 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
         )}
       </Grid>
     </Grid>
+    {(!!showWriteComment || !!editing) ? <WriteComment {...writeCommentFunctions}
+      submitComment={(e) => {
+        !!editing ?
+          writeCommentFunctions.editComment(comment.id)(e) :
+          writeCommentFunctions.submitComment({
+            parentId: comment.id,
+            assignmentId: comment?.assignmentId,
+            submissionId: comment.submission.id
+          })(e)
+        setShowWriteComment(false)
+        setEditing(false)
+        writeCommentFunctions.setCommentContent('')
+      }}
+    /> : null}
     {children}
-    {/* <Divider variant="fullWidth" style={{ marginTop: "20px" }} /> */}
   </Paper>)
 }
 
@@ -161,6 +157,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
   ] = useMutation(gql(updateComment))
 
   useEffect(() => {
+    if (!profile) return;
     // submissions page
     let subscriptionFilter = { assignmentId: { eq: assignmentId } }
     // playlist page
@@ -226,7 +223,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
       updateSub.unsubscribe()
       deleteSub.unsubscribe()
     }
-  }, [submissionId])
+  }, [submissionId, profile])
 
   useEffect(() => {
     if (createCommentRequestData) {

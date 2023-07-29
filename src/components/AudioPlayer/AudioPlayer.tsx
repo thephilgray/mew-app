@@ -30,6 +30,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
     autoPlayInitLoadPlayList={false}
     quietUpdate
     spaceBar
+    playIndex={currentIndex}
     onPlayIndexChange={setCurrentIndex}
     showMediaSession
     showThemeSwitch={false}

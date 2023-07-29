@@ -37,7 +37,7 @@ cursor: pointer;
     }`
 
 
-export const CardGridItem: React.FC<Item> = ({ name = '', link = "", bottomContent, chipContent, rightOverlayContent, belowOverlayContent, id, active = true, artwork, description }) => {
+export const CardGridItem: React.FC<Item> = ({ name = '', link = "", bottomContent, chipContent, rightOverlayContent, topContent, belowOverlayContent, id, active = true, artwork, description }) => {
   return <StyledGrid xs={12} sm={6} key={id} sx={{ opacity: active ? '100%' : '50%' }} onClick={() => navigate(link)}>
     <Card sx={{ height: '100%' }}>
       <CardMedia
@@ -50,6 +50,9 @@ export const CardGridItem: React.FC<Item> = ({ name = '', link = "", bottomConte
           <Paper sx={{ display: 'flex', height: '100%', alignItems: 'center', p: 1, ml: 'auto', width: 'fit-content', justifySelf: 'flex-end', background: 'rgba(0, 0, 0, 0.7)', flexWrap: 'wrap' }} elevation={0}>
             {rightOverlayContent}
           </Paper>
+        </If>
+        <If condition={!!topContent}>
+          {topContent}
         </If>
         {belowOverlayContent || null}
       </CardMedia>
