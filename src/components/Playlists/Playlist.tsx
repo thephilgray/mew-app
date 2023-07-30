@@ -1,12 +1,13 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState, PropsWithChildren, useContext, useRef } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar } from '@mui/material'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
 import { useLazyQuery, useMutation } from '@apollo/react-hooks'
 import { API } from 'aws-amplify'
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
+import { intervalToDuration, formatDuration } from "date-fns";
 import 'react-jinke-music-player/lib/styles/index.less'
 import './playlist.css'
 import mewAppLogo from '../../assets/mewlogo.png'
@@ -15,7 +16,9 @@ import { ROUTES } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
-import { Close, CopyAll, Edit, MoreVert, Pause, PlayArrow as PlayArrowIcon, PlaylistAdd, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon } from '@mui/icons-material'
+import { Close, CopyAll, Edit, MoreVert, Pause, PauseCircleRounded, PlayArrow as PlayArrowIcon, PlayArrowOutlined, PlayArrowRounded, PlaylistAdd, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, Speaker } from '@mui/icons-material'
+import isNumber from 'lodash/isNumber'
+import sumBy from 'lodash/sumBy'
 import { FeedbackSection } from '../Feedback'
 import { getFileRequest, getPlaylist, listPlaylists } from '../../graphql/queries'
 import If from '../If';
@@ -24,8 +27,22 @@ import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import { AudioPlayerContext, useClonePlaylist } from '../AudioPlayer/audio-player.context';
 import { navigate } from 'gatsby';
 import { createTrack } from '../../graphql/mutations';
+import { LinkedMemberAvatar } from '../Avatar';
 
 const GET_FILE_REQUEST = gql(getFileRequest.replace('submissions {', 'submissions(limit: 1000) {'))
+
+const TrackListItem = styled(Paper)(({ theme, isCurrentIndex }) => ({
+    backgroundColor: isCurrentIndex ? '#f2f2f2' : '#fff',
+    width: '100%',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    borderRadius: 'initial',
+    color: theme.palette.text.secondary,
+    '&:hover': {
+        backgroundColor: '#f2f2f2',
+        cursor: 'pointer'
+    }
+}));
 
 const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: string, playlistId: string }>>> = ({
     assignmentId = '',
@@ -33,6 +50,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 }) => {
     const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef } = useContext(AudioPlayerContext)
     const [loading, setLoading] = useState(true)
+    const [toggleTrackView, setToggleTrackView] = useState(false)
     const [data, setData] = useState<{
         expiration: string
         title: string
@@ -100,6 +118,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         navigate(ROUTES.newPlaylist.path)
     }
 
+    const trackPlaylistMenuRef = useRef()
     const playlistMenuRef = useRef()
     const [playlistMenuOpen, setPlaylistMenuOpen] = useState(false)
     const [addToPlaylistModalOpen, setAddToPlaylistModalOpen] = useState(false)
@@ -125,7 +144,14 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     });
 
     useEffect(() => {
+        // ensures that we don't show the previous loaded playlist
         setAudioLists([])
+
+        return () => {
+            // ensures that we show the cover page after navigating away or to different playlists
+            setIsPlaying(false)
+            setCurrentIndex(null)
+        }
     }, [])
 
     // switch the current index if track in the query params
@@ -137,6 +163,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 const trackIndex = audioLists.findIndex(item => item.submissionId === track)
                 if (trackIndex > -1) {
                     setCurrentIndex(trackIndex)
+                    setToggleTrackView(true)
                 }
             }
         }
@@ -221,6 +248,35 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         }
     }, [])
 
+
+    // https://stackoverflow.com/questions/48776140/format-a-duration-from-seconds-using-date-fns
+    const formatAudioDuration = seconds => {
+        const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
+        const zeroPad = (num) => String(num).padStart(2, "0");
+        const formatted = formatDuration(duration, {
+            format: ["minutes", "seconds"],
+            // format: ["hours", "minutes", "seconds"],
+            zero: true,
+            delimiter: ":",
+            locale: {
+                formatDistance: (_token, count) => zeroPad(count)
+            }
+        });
+        return formatted;
+    }
+
+    const fetchDuration = (path) => {
+        return new Promise(resolve => {
+            const audio = document.createElement('audio');
+            audio.src = path;
+            audio.addEventListener('loadedmetadata', (e) => {
+                resolve(audio.duration)
+            });
+        })
+    }
+
+    const totalPlaylistDuration = audioLists.length ? formatAudioDuration(sumBy(audioLists, 'trackDuration')) : 0
+
     useEffect(() => {
         async function addSongsToPlaylist() {
             const songs: Array<ReactJkMusicPlayerAudioListProps> = []
@@ -235,9 +291,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
+                            const musicSrc = getCloudFrontURL(songFilePath)
+                            const trackDuration = await fetchDuration(musicSrc)
                             // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
                             songs.push({
-                                musicSrc: getCloudFrontURL(songFilePath),
+                                musicSrc,
+                                trackDuration,
                                 name,
                                 cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                                 singer: artist,
@@ -259,21 +318,24 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     for (let index = 0; index < data.tracks.items.length; index++) {
                         // @ts-ignore
                         const { submission, order } = data.tracks.items[index];
-                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId, workshopId } = submission
+                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId } = submission
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
-                            const songFilePath = `${fileRequestId}/${fileId}`
+                            const songFilePath = `${assignmentId}/${fileId}`
+                            const musicSrc = getCloudFrontURL(songFilePath)
+                            const trackDuration = await fetchDuration(musicSrc)
                             // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
                             songs.push({
                                 order,
-                                musicSrc: getCloudFrontURL(songFilePath),
+                                musicSrc,
+                                trackDuration,
                                 name,
                                 cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                                 singer: artist,
                                 fileId,
                                 submissionId: id,
                                 lyrics,
-                                assignmentId: fileRequestId,
+                                assignmentId,
                                 workshopId
                             })
                             seenFileIds.push(fileId)
@@ -312,9 +374,35 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     if (loading || fetchGetFileRequestLoading || fetchGetPlaylistLoading) return <CircularProgress />
     if (!loading && !data && (fetchGetFileRequestData || fetchGetPlaylistData)) return <CircularProgress />
     if (!loading && !data && !(fetchGetFileRequestData || fetchGetPlaylistData)) return <p>Playlist does not exist.</p>
-    // @ts-ignore
-    if (!loading && data && (data?.submissions?.items || data?.tracks?.items) && !(data?.submissions?.items?.length || data?.tracks?.items?.length)) return <p>Playlist has no tracks.</p>
+    // TODO: move this down 
+    // if (!loading && data && (data?.submissions?.items || data?.tracks?.items) && !(data?.submissions?.items?.length || data?.tracks?.items?.length)) return <p>Playlist has no tracks.</p>
 
+
+    const PlaylistMenu = ({ menuRef }) => {
+        return <Menu
+            anchorEl={menuRef.current}
+            open={playlistMenuOpen}
+            onClose={() => setPlaylistMenuOpen(false)}>
+            <MenuItem onClick={() => {
+                fetchListPlaylists()
+                setAddToPlaylistModalOpen(true)
+                setPlaylistMenuOpen(false)
+            }}>
+                <PlaylistAdd sx={{ mr: 1 }} />
+                Add track to playlist
+            </MenuItem>
+            <MenuItem onClick={() => handleClonePlaylist()}>
+                <CopyAll sx={{ mr: 1 }} />
+                Clone playlist
+            </MenuItem>
+            <If condition={playlistId && (profile?.email === data?.playlistOwnerId || viewAdmin)}>
+                <MenuItem onClick={() => navigate(ROUTES.editPlaylist.getPath({ playlistId: data?.id }))}>
+                    <Edit sx={{ mr: 1 }} />
+                    Edit Playlist
+                </MenuItem>
+            </If>
+        </Menu>
+    }
 
     return (
         <Grid container spacing={3} style={{ minHeight: '90 vh' }} >
@@ -334,10 +422,88 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     />
                 </Grid>
             </If>
-            <If condition={!!audioLists.length}>
-                <AudioPlayer />
-            </If>
-            <If condition={!!audioLists?.[currentIndex]}>
+            <If condition={!isNumber(currentIndex) || !toggleTrackView}>
+                <Grid item xs={12}>
+                    <Card>
+                        <CardMedia
+                            sx={{ height: 380, position: 'relative' }}
+                            image={PLAYLIST_ARTWORK}
+                            title={data?.title}
+                        >
+                            <If condition={audioLists.length}>
+                                {!!isPlaying ?
+                                    <IconButton
+                                        title='Pause'
+                                        onClick={() => {
+                                            playerRef?.current?.pause()
+                                            setIsPlaying(false)
+                                        }}
+                                        sx={{
+                                            position: 'absolute',
+                                            top: ' 50%',
+                                            left: ' 50%',
+                                            transform: 'translate(-50%, -50%)'
+                                        }}
+                                    >
+                                        <PauseCircleRounded color='secondary' sx={{ height: '5em', width: '5em' }} />
+                                    </IconButton> :
+                                    <IconButton
+                                        title='Play'
+                                        onClick={() => {
+                                            setToggleTrackView(true)
+                                            if (!isNumber(currentIndex)) {
+                                                setCurrentIndex(0)
+                                            }
+                                            if (playerRef?.current?.paused) {
+                                                playerRef?.current?.play()
+                                            }
+                                        }}
+                                        sx={{
+                                            position: 'absolute',
+                                            top: ' 50%',
+                                            left: ' 50%',
+                                            transform: 'translate(-50%, -50%)'
+                                        }}
+                                    ><PlayArrowRounded color='secondary' sx={{ height: '5em', width: '5em' }} />
+                                    </IconButton>
+                                }
+                            </If>
+                            <Box sx={{ float: 'right', m: 1 }}>
+                                <IconButton
+                                    onClick={() => setPlaylistMenuOpen(!playlistMenuOpen)}
+                                    ref={playlistMenuRef}
+                                    sx={{
+                                        backgroundColor: 'rgba(0,0,0,.75)',
+                                        '&:hover': { backgroundColor: 'rgba(255,255,255,1)' }
+                                    }}>
+                                    <MoreVert color='secondary'></MoreVert>
+                                </IconButton>
+                                <PlaylistMenu menuRef={playlistMenuRef} />
+                            </Box>
+                        </CardMedia>
+                        <CardContent>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {data?.title}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <If condition={data?.owner}>
+                                        <Typography variant="body2" sx={{ pb: 1 }}>Playlist by:</Typography>
+                                        <LinkedMemberAvatar profile={data.owner} />
+                                    </If>
+                                </Grid>
+                            </Grid>
+
+                        </CardContent>
+                    </Card>
+                </Grid>
+            </If >
+            {/* <If condition={isNumber(currentIndex) && !!audioLists.length}> */}
+            < AudioPlayer />
+            {/* </If> */}
+            <If If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
                 <Grid item xs={12}>
                     <Card sx={{ display: 'flex', height: '380px', backgroundImage: palette ? `linear-gradient(${palette[0]}80, ${palette[1]}80), url(${PLAYLIST_ARTWORK})` : '', backgroundSize: 'cover' }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -387,62 +553,77 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         <Box sx={{ float: 'right', m: 1 }}>
                             <IconButton
                                 onClick={() => setPlaylistMenuOpen(!playlistMenuOpen)}
-                                ref={playlistMenuRef}
+                                ref={trackPlaylistMenuRef}
                                 sx={{
                                     backgroundColor: 'rgba(0,0,0,.75)',
                                     '&:hover': { backgroundColor: 'rgba(255,255,255,1)' }
                                 }}>
                                 <MoreVert color='secondary'></MoreVert>
                             </IconButton>
-                            <Menu
-                                anchorEl={playlistMenuRef.current}
-                                open={playlistMenuOpen}
-                                onClose={() => setPlaylistMenuOpen(false)}>
-                                <MenuItem onClick={() => {
-                                    fetchListPlaylists()
-                                    setAddToPlaylistModalOpen(true)
-                                    setPlaylistMenuOpen(false)
-                                }}>
-                                    <PlaylistAdd sx={{ mr: 1 }} />
-                                    Add track to playlist
-                                </MenuItem>
-                                <MenuItem onClick={() => handleClonePlaylist()}>
-                                    <CopyAll sx={{ mr: 1 }} />
-                                    Clone playlist
-                                </MenuItem>
-                                <If condition={playlistId && (profile?.email === data?.playlistOwnerId || viewAdmin)}>
-                                    <MenuItem onClick={() => navigate(ROUTES.editPlaylist.getPath({ playlistId: data?.id }))}>
-                                        <Edit sx={{ mr: 1 }} />
-                                        Edit Playlist
-                                    </MenuItem>
-                                </If>
-                            </Menu>
-                            <Modal open={addToPlaylistModalOpen} onClose={() => setAddToPlaylistModalOpen(false)}>
-                                <Box sx={modalStyle}>
-                                    <IconButton sx={{ float: 'right', m: 1, position: 'absolute', right: 0, top: 0 }} onClick={() => setAddToPlaylistModalOpen(false)}>
-                                        <Close />
-                                    </IconButton>
-                                    <form onSubmit={onSubmitAddToPlaylist}>
-                                        <FormControl fullWidth sx={{ pt: 2 }}>
-                                            <InputLabel id="modal-playlist-select">My playlists</InputLabel>
-                                            <Select labelId="modal-playlist-select" label="My playlists" value={addToPlaylistSelection} onChange={e => setAddToPlaylistSelection(e.target.value)}>
-                                                <MenuItem value="">
-                                                    <em>Create New</em>
-                                                </MenuItem>
-                                                {fetchListPlaylistsData?.listPlaylists?.items.map(playlist => (
-                                                    <MenuItem value={playlist} key={playlist.id}>
-                                                        {playlist.title}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
-                                        <Button type="submit" fullWidth>{addToPlaylistSelection ? 'Add' : 'Create New'}</Button>
-                                    </form>
-                                </Box>
-                            </Modal>
+                            <PlaylistMenu menuRef={trackPlaylistMenuRef} />
                         </Box>
                     </Card>
                 </Grid >
+            </If>
+            <If condition={isNumber(currentIndex)}>
+                <Grid item xs={12}>
+                    <Stack direction="row" spacing={1} alignItems="center" sx={{ float: 'right' }}>
+                        <Typography>Playlist</Typography>
+                        <Switch
+                            checked={toggleTrackView}
+                            onChange={e => setToggleTrackView(e.target.checked)}
+                        />
+                        <Typography>Track</Typography>
+                    </Stack>
+                </Grid>
+            </If>
+            <If condition={!isNumber(currentIndex) || !toggleTrackView}>
+                <Grid item xs={12} sx={{ pb: '100px' }}>
+                    <Typography variant="h6">Track List</Typography>
+                    <If condition={!!audioLists?.length} fallbackContent={<Typography>Playlist has no tracks.</Typography>}>
+                        <Stack direction="column" sx={{ minWidth: 0 }}>
+                            {audioLists.map((item, index) => (
+                                <TrackListItem
+                                    isCurrentIndex={index === currentIndex}
+                                    key={item.submissionId} onClick={() => {
+                                        setCurrentIndex(index)
+                                    }}>
+                                    <Box sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        width: '100%',
+                                        justifyContent: 'space-between'
+                                    }}>
+                                        <Box style={{ margin: '5px 5px 0 0', width: '20px' }}>
+                                            <div style={{
+                                                width: '20px',
+                                                height: '20px',
+                                                backgroundImage: `url(${item.cover ? item.cover : PLAYLIST_ARTWORK})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: '50% 50%'
+                                            }}></div>
+                                        </Box>
+                                        <Typography noWrap sx={{ marginRight: 'auto' }}>
+                                            {index + 1} {item.name} - {item.singer}
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                            {isPlaying && currentIndex === index ? <PlayArrowIcon /> : <PlayArrowOutlined />}
+                                            <Typography variant='caption'>{formatAudioDuration(item.trackDuration)}</Typography>
+                                        </Box>
+                                    </Box>
+                                </TrackListItem>
+                            ))}
+                            <If condition={!!totalPlaylistDuration}>
+                                <TrackListItem>
+                                    <Typography align='right'>Total: {totalPlaylistDuration}</Typography>
+                                </TrackListItem>
+                            </If>
+                        </Stack>
+                    </If>
+
+                </Grid>
+            </If>
+            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
                 <If condition={!!audioLists?.[currentIndex]?.lyrics}></If>
                 <Grid item xs={12}>
                     <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
@@ -452,7 +633,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     </pre>
                 </Grid>
                 <If condition={!!loggedIn}>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{ pb: '100px' }}>
                         <FeedbackSection
                             assignmentId={assignmentId || audioLists?.[currentIndex]?.assignmentId}
                             submissionId={audioLists?.[currentIndex]?.submissionId}
@@ -474,6 +655,29 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 autoHideDuration={3000}
                 message={fetchCreateTrackData ? `Successfully added track to playlist` : `Could not add track to playlist.`}
             />
+            <Modal open={addToPlaylistModalOpen} onClose={() => setAddToPlaylistModalOpen(false)}>
+                <Box sx={modalStyle}>
+                    <IconButton sx={{ float: 'right', m: 1, position: 'absolute', right: 0, top: 0 }} onClick={() => setAddToPlaylistModalOpen(false)}>
+                        <Close />
+                    </IconButton>
+                    <form onSubmit={onSubmitAddToPlaylist}>
+                        <FormControl fullWidth sx={{ pt: 2 }}>
+                            <InputLabel id="modal-playlist-select">My playlists</InputLabel>
+                            <Select labelId="modal-playlist-select" label="My playlists" value={addToPlaylistSelection} onChange={e => setAddToPlaylistSelection(e.target.value)}>
+                                <MenuItem value="">
+                                    <em>Create New</em>
+                                </MenuItem>
+                                {fetchListPlaylistsData?.listPlaylists?.items.map(playlist => (
+                                    <MenuItem value={playlist} key={playlist.id}>
+                                        {playlist.title}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <Button type="submit" fullWidth>{addToPlaylistSelection ? 'Add' : 'Create New'}</Button>
+                    </form>
+                </Box>
+            </Modal>
         </Grid >
     )
 }

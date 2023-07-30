@@ -19,7 +19,7 @@ export default function AdminViewToggle() {
         <Fab color="secondary"
           aria-label="Admin View Toggle"
           onClick={() => setViewAdmin(!viewAdmin)}
-          sx={{ position: 'fixed', bottom: isPlaylistPage ? '100px' : '1em', right: '1em' }}>
+          sx={{ position: 'fixed', bottom: '1em', right: '1em' }}>
           {!!viewAdmin ? <LockOpen /> : <Lock />}
         </Fab>
       </Tooltip>

@@ -14,6 +14,7 @@ import { compareDesc } from "date-fns"
 import CardGrid, { SkeletonCardGrid } from '../CardGrid'
 import { Link } from 'gatsby'
 import { ROUTES } from '../../constants'
+import { HostDisplay } from '../Avatar'
 
 export const MembersAvatarGroup = ({ memberships }) => {
     // show random set of avatars each time
@@ -38,16 +39,6 @@ export const WorkshopDates = ({ workshop }) => {
         </Typography></Box>
 }
 
-export const HostDisplay = ({ host, sizes = {} }) => {
-    return <Link to={ROUTES.viewProfile.getPath({ profileId: host?.id })} style={{ textDecoration: 'none', color: 'inherit' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar sx={{ mr: 1, ...sizes }} src={host?.avatar && getCloudFrontURL(host?.avatar)} alt={getDisplayName(host)} />
-            <Typography variant="body2" color="text.secondary">
-                Host<br /> {getDisplayName(host)}
-            </Typography>
-        </Box>
-    </Link>
-}
 
 export default function WorkshopList() {
     const { loading, error, data, refetch } = useQuery(gql(listWorkshops))
