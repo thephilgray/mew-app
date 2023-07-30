@@ -50,6 +50,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 }) => {
     const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef } = useContext(AudioPlayerContext)
     const [loading, setLoading] = useState(true)
+    const [addSongsToPlaylistLoading, setAddSongsToPlaylistLoading] = useState(true)
     const [toggleTrackView, setToggleTrackView] = useState(false)
     const [data, setData] = useState<{
         expiration: string
@@ -151,12 +152,13 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             // ensures that we show the cover page after navigating away or to different playlists
             setIsPlaying(false)
             setCurrentIndex(null)
+            playerRef.current = null;
         }
     }, [])
 
     // switch the current index if track in the query params
     useEffect(() => {
-        if (audioLists.length) {
+        if (audioLists.length > 0) {
             const params = new URLSearchParams(window.location.search)
             const track = params.get('track') // track is actually submissionId
             if (track) {
@@ -165,6 +167,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     setCurrentIndex(trackIndex)
                     setToggleTrackView(true)
                 }
+            } else {
+                setToggleTrackView(true)
             }
         }
     }, [audioLists])
@@ -279,6 +283,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
     useEffect(() => {
         async function addSongsToPlaylist() {
+            setAddSongsToPlaylistLoading(true)
             const songs: Array<ReactJkMusicPlayerAudioListProps> = []
             const seenFileIds: string[] = []
             if (assignmentId) {
@@ -345,6 +350,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     setAudioLists(sortedSongs)
                 }
             }
+            setAddSongsToPlaylistLoading(false)
         }
         addSongsToPlaylist()
     }, [data])
@@ -422,6 +428,18 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     />
                 </Grid>
             </If>
+            <If condition={isNumber(currentIndex)}>
+                <Grid item xs={12} sx={{ pr: 1 }}>
+                    <Stack direction="row" spacing={1} alignItems="center" sx={{ float: 'right' }}>
+                        <Typography>Playlist</Typography>
+                        <Switch
+                            checked={toggleTrackView}
+                            onChange={e => setToggleTrackView(e.target.checked)}
+                        />
+                        <Typography>Track</Typography>
+                    </Stack>
+                </Grid>
+            </If>
             <If condition={!isNumber(currentIndex) || !toggleTrackView}>
                 <Grid item xs={12}>
                     <Card>
@@ -450,7 +468,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                     <IconButton
                                         title='Play'
                                         onClick={() => {
-                                            setToggleTrackView(true)
+                                            // setToggleTrackView(true)
                                             if (!isNumber(currentIndex)) {
                                                 setCurrentIndex(0)
                                             }
@@ -494,8 +512,50 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                         <LinkedMemberAvatar profile={data.owner} />
                                     </If>
                                 </Grid>
+                                <Grid item xs={12} sx={{ pb: '100px' }}>
+                                    <Typography variant="h6">Tracks</Typography>
+                                    <If condition={!!audioLists?.length} fallbackContent={addSongsToPlaylistLoading ? <CircularProgress /> : <Typography>Playlist has no tracks.</Typography>}>
+                                        <Stack direction="column" sx={{ minWidth: 0 }}>
+                                            {audioLists.map((item, index) => (
+                                                <TrackListItem
+                                                    isCurrentIndex={index === currentIndex}
+                                                    key={item.submissionId} onClick={() => {
+                                                        setCurrentIndex(index)
+                                                    }}>
+                                                    <Box sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        width: '100%',
+                                                        justifyContent: 'space-between'
+                                                    }}>
+                                                        <Box style={{ margin: '5px 5px 0 0', width: '20px' }}>
+                                                            <div style={{
+                                                                width: '20px',
+                                                                height: '20px',
+                                                                backgroundImage: `url(${item.cover ? item.cover : PLAYLIST_ARTWORK})`,
+                                                                backgroundSize: 'cover',
+                                                                backgroundPosition: '50% 50%'
+                                                            }}></div>
+                                                        </Box>
+                                                        <Typography noWrap sx={{ marginRight: 'auto' }}>
+                                                            {index + 1} {item.name} - {item.singer}
+                                                        </Typography>
+                                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                                            {isPlaying && currentIndex === index ? <PlayArrowIcon /> : <PlayArrowOutlined />}
+                                                            <Typography variant='caption'>{formatAudioDuration(item.trackDuration)}</Typography>
+                                                        </Box>
+                                                    </Box>
+                                                </TrackListItem>
+                                            ))}
+                                            <If condition={!!totalPlaylistDuration}>
+                                                <TrackListItem>
+                                                    <Typography align='right'>Total: {totalPlaylistDuration}</Typography>
+                                                </TrackListItem>
+                                            </If>
+                                        </Stack>
+                                    </If>
+                                </Grid>
                             </Grid>
-
                         </CardContent>
                     </Card>
                 </Grid>
@@ -565,64 +625,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     </Card>
                 </Grid >
             </If>
-            <If condition={isNumber(currentIndex)}>
-                <Grid item xs={12}>
-                    <Stack direction="row" spacing={1} alignItems="center" sx={{ float: 'right' }}>
-                        <Typography>Playlist</Typography>
-                        <Switch
-                            checked={toggleTrackView}
-                            onChange={e => setToggleTrackView(e.target.checked)}
-                        />
-                        <Typography>Track</Typography>
-                    </Stack>
-                </Grid>
-            </If>
-            <If condition={!isNumber(currentIndex) || !toggleTrackView}>
-                <Grid item xs={12} sx={{ pb: '100px' }}>
-                    <Typography variant="h6">Track List</Typography>
-                    <If condition={!!audioLists?.length} fallbackContent={<Typography>Playlist has no tracks.</Typography>}>
-                        <Stack direction="column" sx={{ minWidth: 0 }}>
-                            {audioLists.map((item, index) => (
-                                <TrackListItem
-                                    isCurrentIndex={index === currentIndex}
-                                    key={item.submissionId} onClick={() => {
-                                        setCurrentIndex(index)
-                                    }}>
-                                    <Box sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        width: '100%',
-                                        justifyContent: 'space-between'
-                                    }}>
-                                        <Box style={{ margin: '5px 5px 0 0', width: '20px' }}>
-                                            <div style={{
-                                                width: '20px',
-                                                height: '20px',
-                                                backgroundImage: `url(${item.cover ? item.cover : PLAYLIST_ARTWORK})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: '50% 50%'
-                                            }}></div>
-                                        </Box>
-                                        <Typography noWrap sx={{ marginRight: 'auto' }}>
-                                            {index + 1} {item.name} - {item.singer}
-                                        </Typography>
-                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                            {isPlaying && currentIndex === index ? <PlayArrowIcon /> : <PlayArrowOutlined />}
-                                            <Typography variant='caption'>{formatAudioDuration(item.trackDuration)}</Typography>
-                                        </Box>
-                                    </Box>
-                                </TrackListItem>
-                            ))}
-                            <If condition={!!totalPlaylistDuration}>
-                                <TrackListItem>
-                                    <Typography align='right'>Total: {totalPlaylistDuration}</Typography>
-                                </TrackListItem>
-                            </If>
-                        </Stack>
-                    </If>
 
-                </Grid>
-            </If>
             <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
                 <If condition={!!audioLists?.[currentIndex]?.lyrics}></If>
                 <Grid item xs={12}>
