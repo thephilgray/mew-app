@@ -18,7 +18,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
     getAudioInstance={(instance) => {
       playerRef.current = instance
     }}
-    mode="full"
+    mode={audioLists.length ? 'full' : 'mini'}
     sortableOptions={{
       delay: 300,
       delayOnTouchOnly: true
@@ -26,7 +26,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
     // mobileMediaQuery="(max-width: 2000px)"
     preload
     audioLists={audioLists}
-    autoPlay={false}
+    autoPlay={true}
     autoPlayInitLoadPlayList={false}
     quietUpdate
     spaceBar

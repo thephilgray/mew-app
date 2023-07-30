@@ -8,7 +8,7 @@ import { usePrevious } from 'react-use'
 export function useAudioPlayerContextState() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(null)
   const playerRef = useRef()
   const [audioSrc, setAudioSrc] = useState(null)
   const [clonedPlaylistItems, setClonedPlaylistItems] = useState([])
@@ -33,7 +33,7 @@ interface AudioPlayerContextState {
   setIsPlaying: React.Dispatch<React.SetStateAction<Boolean>>
   audioLists: Array<ReactJkMusicPlayerAudioListProps>
   setAudioLists: React.Dispatch<React.SetStateAction<Array<ReactJkMusicPlayerAudioListProps>>>
-  currentIndex: number
+  currentIndex: number | null
   setCurrentIndex: React.Dispatch<React.SetStateAction<Number>>
   playerRef: React.RefObject<HTMLAudioElement>,
   audioSrc: String | null,
@@ -47,7 +47,7 @@ export const AudioPlayerContext = createContext<AudioPlayerContextState>({
   setIsPlaying: () => { },
   audioLists: [],
   setAudioLists: () => { },
-  currentIndex: 0,
+  currentIndex: null,
   setCurrentIndex: () => { },
   playerRef: { current: null },
   audioSrc: null,

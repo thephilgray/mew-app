@@ -17,10 +17,11 @@ import { useUser, useViewAdmin } from '../../auth/hooks';
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
 import Assignments from '../Assignments/Assignments'
-import { HostDisplay, MembersAvatarGroup, WorkshopDates } from '../Workshops/WorkshopList';
+import { MembersAvatarGroup, WorkshopDates } from '../Workshops/WorkshopList';
 import Loading from '../Loading';
 import sumBy from 'lodash/sumBy'
 import { DataGridWrapper } from '../DataGridWrapper';
+import { HostDisplay } from '../Avatar';
 
 const useStyles = makeStyles()(() => (
     {
