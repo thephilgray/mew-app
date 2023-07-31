@@ -47,7 +47,8 @@
       "UnauthRoleName": "amplify-mewapp-dev-224539-unauthRole",
       "StackName": "amplify-mewapp-dev-224539",
       "StackId": "arn:aws:cloudformation:us-east-1:856562418824:stack/amplify-mewapp-dev-224539/dd6698c0-4be3-11eb-a74e-0a71dc7a3521",
-      "AmplifyAppId": "d1yi6qc6rnncji"
+      "AmplifyAppId": "d1yi6qc6rnncji",
+      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-mewapp-dev-224539-deployment/amplify-cfn-templates/networkingStackTemplate.json"
     },
     "categories": {
       "function": {

@@ -276,6 +276,27 @@ const NewPublicSubmission: React.FC<
             setValue('artist', getDisplayName(profile))
         }
     }, [profile])
+
+    // https://ourcodeworld.com/articles/read/1036/how-to-retrieve-the-duration-of-a-mp3-wav-audio-file-in-the-browser-with-javascript
+    const getFileDuration = async (file) => {
+        return new Promise(resolve => {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                audioContext.decodeAudioData(event.target.result, function (buffer) {
+                    var duration = Math.trunc(buffer.duration);
+                    resolve(duration)
+                });
+            };
+            reader.onerror = function (event) {
+                console.error("An error ocurred reading the file: ", event);
+                resolve(0)
+            };
+            setTimeout(() => resolve(0), 1000)
+            reader.readAsArrayBuffer(file);
+        })
+    }
+
     const onSubmit = async (values: Inputs) => {
         setSubmitLoading(true)
         const { name, artist, email, lyrics, requestFeedback } = values
@@ -284,6 +305,14 @@ const NewPublicSubmission: React.FC<
         const key = keyValues.map(encodeURIComponent).join('/')
         const emails = !!profile ? submitters.map(item => item.email) : email.split(',').map((email) => email.toLowerCase().trim())
         const fileExtension = upload?.name.split('.').pop()
+        let duration
+        try {
+            duration = await getFileDuration(upload)
+        } catch (error) {
+            // something went wrong
+            console.log(error)
+            duration = 0
+        }
 
         let ARTWORK_UPLOAD_PATH
         let ID
@@ -316,6 +345,7 @@ const NewPublicSubmission: React.FC<
                             name,
                             email: emails[index],
                             fileExtension,
+                            duration,
                             workshopId: fileRequestData?.workshopId,
                             ...image && {
                                 artwork: {

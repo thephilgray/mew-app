@@ -18,7 +18,7 @@ import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
 import { Close, CopyAll, Edit, MoreVert, Pause, PauseCircleRounded, PlayArrow as PlayArrowIcon, PlayArrowOutlined, PlayArrowRounded, PlaylistAdd, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, Speaker } from '@mui/icons-material'
 import isNumber from 'lodash/isNumber'
-import sumBy from 'lodash/sumBy'
+import sum from 'lodash/sum'
 import { FeedbackSection } from '../Feedback'
 import { getFileRequest, getPlaylist, listPlaylists } from '../../graphql/queries'
 import If from '../If';
@@ -65,6 +65,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const { profile } = useProfile()
     const [addToPlaylistSelection, setAddToPlaylistSelection] = useState('new')
     const [snackbarOpen, setSnackbarOpen] = useState(false)
+    const [trackDurations, setTrackDurations] = useState([])
     const [viewAdmin] = useViewAdmin()
     // Authenticated user access
 
@@ -254,7 +255,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
 
     // https://stackoverflow.com/questions/48776140/format-a-duration-from-seconds-using-date-fns
-    const formatAudioDuration = seconds => {
+    const formatAudioDuration = (seconds = 0) => {
         const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
         const zeroPad = (num) => String(num).padStart(2, "0");
         const formatted = formatDuration(duration, {
@@ -273,13 +274,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         return new Promise(resolve => {
             const audio = document.createElement('audio');
             audio.src = path;
+            setTimeout(() => { resolve(0) }, 2000)
             audio.addEventListener('loadedmetadata', (e) => {
                 resolve(audio.duration)
             });
         })
     }
-
-    const totalPlaylistDuration = audioLists.length ? formatAudioDuration(sumBy(audioLists, 'trackDuration')) : 0
 
     useEffect(() => {
         async function addSongsToPlaylist() {
@@ -292,16 +292,16 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     // @ts-ignore
                     for (let index = 0; index < data.submissions.items.length; index++) {
                         // @ts-ignore
-                        const { name, fileId, artist, id, artwork, lyrics, workshopId } = data.submissions.items[index]
+                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration } = data.submissions.items[index]
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
                             const musicSrc = getCloudFrontURL(songFilePath)
-                            const trackDuration = await fetchDuration(musicSrc)
+                            // const trackDuration = await fetchDuration(musicSrc)
                             // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
                             songs.push({
                                 musicSrc,
-                                trackDuration,
+                                trackDuration: duration,
                                 name,
                                 cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                                 singer: artist,
@@ -323,17 +323,17 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     for (let index = 0; index < data.tracks.items.length; index++) {
                         // @ts-ignore
                         const { submission, order } = data.tracks.items[index];
-                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId } = submission
+                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration } = submission
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
                             const musicSrc = getCloudFrontURL(songFilePath)
-                            const trackDuration = await fetchDuration(musicSrc)
+                            // const trackDuration = await fetchDuration(musicSrc)
                             // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
                             songs.push({
                                 order,
                                 musicSrc,
-                                trackDuration,
+                                trackDuration: duration,
                                 name,
                                 cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                                 singer: artist,
@@ -354,6 +354,27 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         }
         addSongsToPlaylist()
     }, [data])
+
+    useEffect(() => {
+        let isSubscribed = true
+        if (audioLists.length && !trackDurations.length) {
+            Promise.all(
+                audioLists.map(async item => item.trackDuration ?
+                    item.trackDuration :
+                    await fetchDuration(item.musicSrc)
+                )
+            )
+                .then(items => {
+                    if (isSubscribed) {
+                        setTrackDurations(items)
+                    }
+                })
+        }
+        return () => isSubscribed = false
+
+    }, [trackDurations, audioLists])
+
+    const totalPlaylistDuration = trackDurations.length ? formatAudioDuration(sum(trackDurations)) : 0
 
     const onSubmitAddToPlaylist = async (e) => {
         e.preventDefault()
@@ -542,7 +563,11 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                                         </Typography>
                                                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                                             {isPlaying && currentIndex === index ? <PlayArrowIcon /> : <PlayArrowOutlined />}
-                                                            <Typography variant='caption'>{formatAudioDuration(item.trackDuration)}</Typography>
+                                                            <If condition={trackDurations.length}>
+                                                                <Typography variant='caption'>
+                                                                    {formatAudioDuration(item.trackDuration || trackDurations[index])}
+                                                                </Typography>
+                                                            </If>
                                                         </Box>
                                                     </Box>
                                                 </TrackListItem>

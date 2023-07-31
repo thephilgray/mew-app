@@ -120,6 +120,7 @@ type FileRequestSubmission
   artwork: Artwork
   lyrics: String
   requestFeedback: Boolean
+  duration: Int
   workshopId: ID
     @index(
       name: "submissionsByWorkshopId"
