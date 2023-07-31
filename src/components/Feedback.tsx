@@ -54,8 +54,8 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
   const [viewAdmin] = useViewAdmin()
   const isAuthor = comment?.email === user?.email;
 
-  const showDeleteComment = isAuthor || viewAdmin // this will be admin or owner
-  const showEditComment = isAuthor // this will be owner
+  const showDeleteComment = !editing && !showWriteComment && (isAuthor || viewAdmin) // this will be admin or owner
+  const showEditComment = !showWriteComment && isAuthor // this will be owner
 
 
   return (<Paper elevation={1} sx={{ p: 2, mb: 1 }} key={comment.id}>
@@ -81,36 +81,48 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
         <Typography sx={{ textAlign: "left", pt: 1 }}>
           {comment.content}
         </Typography>
-        <Button onClick={() => {
-          setShowWriteComment(!showWriteComment)
-          writeCommentFunctions.setCommentContent('')
-        }}>{showWriteComment ? 'Dismiss' : 'Reply To'}</Button>
-        {showEditComment ?
+        {(!!showWriteComment || !!editing) ? <WriteComment {...writeCommentFunctions}
+          submitComment={(e) => {
+            !!editing ?
+              writeCommentFunctions.editComment(comment.id)(e) :
+              writeCommentFunctions.submitComment({
+                parentId: comment.id,
+                assignmentId: comment?.assignmentId,
+                submissionId: comment.submission.id
+              })(e)
+            setShowWriteComment(false)
+            setEditing(false)
+            writeCommentFunctions.setCommentContent('')
+          }}
+        /> : null}
+        <If condition={!editing}>
+          <Button onClick={() => {
+            setShowWriteComment(!showWriteComment)
+            writeCommentFunctions.setCommentContent('')
+          }}>{showWriteComment ? 'Dismiss' : 'Reply To'}</Button>
+        </If>
+        <If condition={showEditComment && !editing}>
           <IconButton onClick={() => {
             setShowWriteComment(false)
             setEditing(!editing)
             writeCommentFunctions.setCommentContent(comment.content)
-          }}>{!editing ? <Edit></Edit> : <Close></Close>}</IconButton> : null}
+          }}><Edit />
+          </IconButton>
+        </If>
+        <If condition={showEditComment && editing}>
+          <Button onClick={() => {
+            setShowWriteComment(false)
+            setEditing(!editing)
+            writeCommentFunctions.setCommentContent(comment.content)
+          }}>Dismiss</Button>
+        </If>
+
         {showDeleteComment ? <IconButton onClick={writeCommentFunctions.removeComment(comment)}><Delete></Delete></IconButton> : null}
         {comment.createdAt !== comment.updatedAt && (
           <p style={{ textAlign: "left", color: "gray" }}>Updated {formatDistanceToNow(new Date(comment.updatedAt))} ago</p>
         )}
       </Grid>
     </Grid>
-    {(!!showWriteComment || !!editing) ? <WriteComment {...writeCommentFunctions}
-      submitComment={(e) => {
-        !!editing ?
-          writeCommentFunctions.editComment(comment.id)(e) :
-          writeCommentFunctions.submitComment({
-            parentId: comment.id,
-            assignmentId: comment?.assignmentId,
-            submissionId: comment.submission.id
-          })(e)
-        setShowWriteComment(false)
-        setEditing(false)
-        writeCommentFunctions.setCommentContent('')
-      }}
-    /> : null}
     {children}
   </Paper>)
 }
