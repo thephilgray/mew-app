@@ -149,6 +149,7 @@ export const getAPIKey = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -370,6 +371,7 @@ export const listAPIKeys = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -663,6 +665,7 @@ export const getFileRequest = /* GraphQL */ `
           }
           lyrics
           requestFeedback
+          duration
           workshopId
           createdAt
           updatedAt
@@ -778,6 +781,7 @@ export const getFileRequest = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -861,6 +865,7 @@ export const getFileRequest = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -1017,6 +1022,7 @@ export const getFileRequest = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -1098,6 +1104,7 @@ export const getFileRequest = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -1260,6 +1267,7 @@ export const listFileRequests = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -1300,6 +1308,7 @@ export const listFileRequests = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -1565,6 +1574,7 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -1605,6 +1615,7 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -1860,6 +1871,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -1900,6 +1912,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -2225,6 +2238,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -2475,6 +2489,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -2639,6 +2654,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -2693,6 +2709,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
       }
       lyrics
       requestFeedback
+      duration
       workshopId
       createdAt
       updatedAt
@@ -2738,6 +2755,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -2901,6 +2919,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3004,6 +3023,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3060,6 +3080,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3098,6 +3119,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
         }
         lyrics
         requestFeedback
+        duration
         workshopId
         createdAt
         updatedAt
@@ -3150,6 +3172,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3313,6 +3336,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3416,6 +3440,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3472,6 +3497,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3510,6 +3536,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
         }
         lyrics
         requestFeedback
+        duration
         workshopId
         createdAt
         updatedAt
@@ -3562,6 +3589,7 @@ export const submissionsByEmail = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3725,6 +3753,7 @@ export const submissionsByEmail = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3828,6 +3857,7 @@ export const submissionsByEmail = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3884,6 +3914,7 @@ export const submissionsByEmail = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -3922,6 +3953,7 @@ export const submissionsByEmail = /* GraphQL */ `
         }
         lyrics
         requestFeedback
+        duration
         workshopId
         createdAt
         updatedAt
@@ -3974,6 +4006,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -4137,6 +4170,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -4240,6 +4274,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -4296,6 +4331,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -4334,6 +4370,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
         }
         lyrics
         requestFeedback
+        duration
         workshopId
         createdAt
         updatedAt
@@ -4375,6 +4412,7 @@ export const getTrack = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -4538,6 +4576,7 @@ export const getTrack = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -4641,6 +4680,7 @@ export const getTrack = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -4697,6 +4737,7 @@ export const getTrack = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -4735,6 +4776,7 @@ export const getTrack = /* GraphQL */ `
         }
         lyrics
         requestFeedback
+        duration
         workshopId
         createdAt
         updatedAt
@@ -4755,6 +4797,7 @@ export const getTrack = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -4836,6 +4879,7 @@ export const getTrack = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -5079,6 +5123,7 @@ export const listTracks = /* GraphQL */ `
           }
           lyrics
           requestFeedback
+          duration
           workshopId
           createdAt
           updatedAt
@@ -5225,6 +5270,7 @@ export const getPlaylist = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -5411,6 +5457,7 @@ export const getPlaylist = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -5597,6 +5644,7 @@ export const listPlaylists = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -5678,6 +5726,7 @@ export const listPlaylists = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -5883,6 +5932,7 @@ export const getMembership = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -5966,6 +6016,7 @@ export const getMembership = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -6233,6 +6284,7 @@ export const getMembership = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -6534,6 +6586,7 @@ export const getMembership = /* GraphQL */ `
           }
           lyrics
           requestFeedback
+          duration
           workshopId
           createdAt
           updatedAt
@@ -6592,6 +6645,7 @@ export const listMemberships = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -6739,6 +6793,7 @@ export const listMemberships = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -6874,6 +6929,7 @@ export const listMemberships = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -6943,6 +6999,7 @@ export const membershipsByWorkshopId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -7090,6 +7147,7 @@ export const membershipsByWorkshopId = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -7225,6 +7283,7 @@ export const membershipsByWorkshopId = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -7294,6 +7353,7 @@ export const membershipsByEmail = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -7441,6 +7501,7 @@ export const membershipsByEmail = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -7576,6 +7637,7 @@ export const membershipsByEmail = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -7624,6 +7686,7 @@ export const getWorkshop = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -7871,6 +7934,7 @@ export const getWorkshop = /* GraphQL */ `
           }
           lyrics
           requestFeedback
+          duration
           workshopId
           createdAt
           updatedAt
@@ -8037,6 +8101,7 @@ export const getWorkshop = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -8309,6 +8374,7 @@ export const getWorkshop = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -8444,6 +8510,7 @@ export const listWorkshops = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -8527,6 +8594,7 @@ export const listWorkshops = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -8767,6 +8835,7 @@ export const getProfile = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -9001,6 +9070,7 @@ export const getProfile = /* GraphQL */ `
           }
           lyrics
           requestFeedback
+          duration
           workshopId
           createdAt
           updatedAt
@@ -9132,6 +9202,7 @@ export const getProfile = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -9474,6 +9545,7 @@ export const listProfiles = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -9780,6 +9852,7 @@ export const profileByProfileId = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -10077,6 +10150,7 @@ export const getComment = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -10252,6 +10326,7 @@ export const getComment = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -10415,6 +10490,7 @@ export const getComment = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -10518,6 +10594,7 @@ export const getComment = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -10574,6 +10651,7 @@ export const getComment = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -10612,6 +10690,7 @@ export const getComment = /* GraphQL */ `
         }
         lyrics
         requestFeedback
+        duration
         workshopId
         createdAt
         updatedAt
@@ -10680,6 +10759,7 @@ export const getComment = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -10720,6 +10800,7 @@ export const getComment = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -11011,6 +11092,7 @@ export const getComment = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -11094,6 +11176,7 @@ export const getComment = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -11296,6 +11379,7 @@ export const listComments = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -11507,6 +11591,7 @@ export const listComments = /* GraphQL */ `
           }
           lyrics
           requestFeedback
+          duration
           workshopId
           createdAt
           updatedAt
@@ -11537,6 +11622,7 @@ export const listComments = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -11674,6 +11760,7 @@ export const listComments = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -11839,6 +11926,7 @@ export const getStem = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -12027,6 +12115,7 @@ export const getStem = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            duration
             workshopId
             createdAt
             updatedAt
@@ -12214,6 +12303,7 @@ export const listStems = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -12303,6 +12393,7 @@ export const listStems = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -12419,6 +12510,7 @@ export const getSubmissionStems = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -12582,6 +12674,7 @@ export const getSubmissionStems = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -12685,6 +12778,7 @@ export const getSubmissionStems = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -12741,6 +12835,7 @@ export const getSubmissionStems = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -12779,6 +12874,7 @@ export const getSubmissionStems = /* GraphQL */ `
         }
         lyrics
         requestFeedback
+        duration
         workshopId
         createdAt
         updatedAt
@@ -12808,6 +12904,7 @@ export const getSubmissionStems = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -12897,6 +12994,7 @@ export const getSubmissionStems = /* GraphQL */ `
               rating
               lyrics
               requestFeedback
+              duration
               workshopId
               createdAt
               updatedAt
@@ -13131,6 +13229,7 @@ export const listSubmissionStems = /* GraphQL */ `
           }
           lyrics
           requestFeedback
+          duration
           workshopId
           createdAt
           updatedAt
