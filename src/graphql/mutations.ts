@@ -1151,6 +1151,7 @@ export const createFileRequest = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -1841,6 +1842,7 @@ export const updateFileRequest = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -2531,6 +2533,7 @@ export const deleteFileRequest = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -3883,6 +3886,7 @@ export const createFileRequestSubmission = /* GraphQL */ `
             __typename
           }
           parentId
+          type
           createdAt
           updatedAt
           __typename
@@ -4799,6 +4803,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `
             __typename
           }
           parentId
+          type
           createdAt
           updatedAt
           __typename
@@ -5715,6 +5720,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
             __typename
           }
           parentId
+          type
           createdAt
           updatedAt
           __typename
@@ -6175,6 +6181,7 @@ export const createTrack = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -6772,6 +6779,7 @@ export const updateTrack = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -7369,6 +7377,7 @@ export const deleteTrack = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -9604,6 +9613,7 @@ export const createMembership = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -10390,6 +10400,7 @@ export const updateMembership = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -11176,6 +11187,7 @@ export const deleteMembership = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -11473,6 +11485,7 @@ export const createWorkshop = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -12217,6 +12230,7 @@ export const updateWorkshop = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -12961,6 +12975,7 @@ export const deleteWorkshop = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -13768,6 +13783,7 @@ export const createProfile = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -14434,6 +14450,7 @@ export const updateProfile = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -15100,6 +15117,7 @@ export const deleteProfile = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -16074,6 +16092,7 @@ export const createComment = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -16752,6 +16771,7 @@ export const createComment = /* GraphQL */ `
         __typename
       }
       parentId
+      type
       createdAt
       updatedAt
       __typename
@@ -17384,6 +17404,7 @@ export const updateComment = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -18062,6 +18083,7 @@ export const updateComment = /* GraphQL */ `
         __typename
       }
       parentId
+      type
       createdAt
       updatedAt
       __typename
@@ -18694,6 +18716,7 @@ export const deleteComment = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -19372,6 +19395,7 @@ export const deleteComment = /* GraphQL */ `
         __typename
       }
       parentId
+      type
       createdAt
       updatedAt
       __typename
@@ -20955,6 +20979,7 @@ export const createSubmissionStems = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -21560,6 +21585,7 @@ export const updateSubmissionStems = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -22165,6 +22191,7 @@ export const deleteSubmissionStems = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename

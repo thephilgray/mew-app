@@ -6,7 +6,7 @@ import { Link } from "@reach/router"
 import { gql, useMutation, useQuery } from "@apollo/client"
 import { createComment, deleteComment, updateComment } from "../graphql/mutations"
 import { API, graphqlOperation } from "aws-amplify"
-import { listComments, listFileRequestSubmissions } from "../graphql/queries"
+import { listComments, listFileRequestSubmissions, commentsByDate } from "../graphql/queries"
 import { compareDesc, formatDistanceToNow } from "date-fns"
 import { onCreateComment, onDeleteComment, onUpdateComment } from "../graphql/subscriptions"
 import { getCloudFrontURL, getDisplayName } from "../utils"
@@ -88,7 +88,8 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
               writeCommentFunctions.submitComment({
                 parentId: comment.id,
                 assignmentId: comment?.assignmentId,
-                submissionId: comment.submission.id
+                submissionId: comment.submission.id,
+                workshopId: comment?.workshopId
               })(e)
             setShowWriteComment(false)
             setEditing(false)
@@ -170,11 +171,20 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
 
   useEffect(() => {
     if (!profile) return;
-    // submissions page
-    let subscriptionFilter = { assignmentId: { eq: assignmentId } }
+    // defaults
+    let query = listComments;
+    let variables = {
+      limit: 500,
+      // submissions page
+      filter: { assignmentId: { eq: assignmentId } }
+    }
     // playlist page
     if (submissionId) {
-      subscriptionFilter = { and: [{ assignmentId: { eq: assignmentId } }, { submissionId: { eq: submissionId } }] }
+      variables = {
+        ...variables,
+        limit: 50,
+        filter: { and: [{ assignmentId: { eq: assignmentId } }, { submissionId: { eq: submissionId } }] }
+      }
     }
     // global feedback page
     else if (!assignmentId && !submissionId) {
@@ -183,33 +193,43 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
         ?.filter(item => item.status === "ACTIVE")
         ?.map(item => item.workshopId) || []
 
-      subscriptionFilter = {
-        or: workshopIds.map(id => ({ workshopId: { eq: id } })),
+      query = commentsByDate
+      variables = {
+        ...variables,
+        limit: 250,
+        type: "Comment",
+        sortDirection: "DESC",
+        filter: {
+          or: workshopIds.map(id => ({ workshopId: { eq: id } })),
+        }
       }
     }
 
     const fetchComments = async () => {
       const result = await API.graphql({
-        query: listComments,
-        variables: {
-          limit: 1000,
-          filter: subscriptionFilter
-        }
+        query,
+        variables
       })
 
-      setComments(result.data.listComments.items)
+      // global feedback page
+      if (!assignmentId && !submissionId) {
+        setComments(result.data.commentsByDate.items)
+      }
+      else {
+        setComments(result.data.listComments.items)
+      }
     }
 
     fetchComments()
 
-    const createSub = API.graphql(graphqlOperation(onCreateComment, subscriptionFilter)).subscribe({
+    const createSub = API.graphql(graphqlOperation(onCreateComment, variables.filter)).subscribe({
       next: ({ value }) => {
         setComments((items) => [...items, value.data.onCreateComment]
           .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt))))
       }
     })
 
-    const updateSub = API.graphql(graphqlOperation(onUpdateComment, subscriptionFilter)).subscribe({
+    const updateSub = API.graphql(graphqlOperation(onUpdateComment, variables.filter)).subscribe({
       next: ({ value }) => {
         setComments(items => {
           const toUpdateIndex = items.findIndex(item => item.id === value.data.onUpdateComment.id)
@@ -221,7 +241,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
       }
     })
 
-    const deleteSub = API.graphql(graphqlOperation(onDeleteComment, subscriptionFilter)).subscribe({
+    const deleteSub = API.graphql(graphqlOperation(onDeleteComment, variables.filter)).subscribe({
       next: ({ value }) => {
         setComments(items => {
           const toDeleteIndex = items.findIndex(item => item.id === value.data.onDeleteComment.id)
@@ -247,7 +267,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
   }, [createCommentRequestData])
 
 
-  const submitComment = ({ parentId, submissionId, assignmentId: parentAssignmentId }) => (e) => {
+  const submitComment = ({ parentId, submissionId, assignmentId: parentAssignmentId, workshopId: parentWorkshopId }) => (e) => {
     e.preventDefault()
     const input = {
       email: user?.email,
@@ -255,7 +275,8 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
       submissionId,
       content: commentContent,
       parentId,
-      workshopId
+      workshopId: workshopId || parentWorkshopId,
+      type: "Comment"
     }
 
     return createCommentRequest({ variables: { input } })

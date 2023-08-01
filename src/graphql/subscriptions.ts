@@ -1073,6 +1073,7 @@ export const onCreateFileRequest = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -1762,6 +1763,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -2451,6 +2453,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -3802,6 +3805,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             __typename
           }
           parentId
+          type
           createdAt
           updatedAt
           __typename
@@ -4717,6 +4721,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             __typename
           }
           parentId
+          type
           createdAt
           updatedAt
           __typename
@@ -5632,6 +5637,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             __typename
           }
           parentId
+          type
           createdAt
           updatedAt
           __typename
@@ -6089,6 +6095,7 @@ export const onCreateTrack = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -6683,6 +6690,7 @@ export const onUpdateTrack = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -7277,6 +7285,7 @@ export const onDeleteTrack = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -9502,6 +9511,7 @@ export const onCreateMembership = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -10287,6 +10297,7 @@ export const onUpdateMembership = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -11072,6 +11083,7 @@ export const onDeleteMembership = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -11366,6 +11378,7 @@ export const onCreateWorkshop = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -12107,6 +12120,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -12848,6 +12862,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -13652,6 +13667,7 @@ export const onCreateProfile = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -14315,6 +14331,7 @@ export const onUpdateProfile = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -14978,6 +14995,7 @@ export const onDeleteProfile = /* GraphQL */ `
               assignmentId
               workshopId
               parentId
+              type
               createdAt
               updatedAt
               __typename
@@ -15949,6 +15967,7 @@ export const onCreateComment = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -16627,6 +16646,7 @@ export const onCreateComment = /* GraphQL */ `
         __typename
       }
       parentId
+      type
       createdAt
       updatedAt
       __typename
@@ -17256,6 +17276,7 @@ export const onUpdateComment = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -17934,6 +17955,7 @@ export const onUpdateComment = /* GraphQL */ `
         __typename
       }
       parentId
+      type
       createdAt
       updatedAt
       __typename
@@ -18563,6 +18585,7 @@ export const onDeleteComment = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -19241,6 +19264,7 @@ export const onDeleteComment = /* GraphQL */ `
         __typename
       }
       parentId
+      type
       createdAt
       updatedAt
       __typename
@@ -20814,6 +20838,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -21418,6 +21443,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename
@@ -22022,6 +22048,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
               __typename
             }
             parentId
+            type
             createdAt
             updatedAt
             __typename

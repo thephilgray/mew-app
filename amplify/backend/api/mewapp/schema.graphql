@@ -303,6 +303,13 @@ type Comment
   workshopId: ID
   workshop: Workshop @hasOne(fields: ["workshopId"])
   parentId: ID
+  type: String
+    @index(
+      name: "commentsByDate"
+      queryField: "commentsByDate"
+      sortKeyFields: ["createdAt"]
+    )
+  createdAt: String
 }
 
 type Stem
