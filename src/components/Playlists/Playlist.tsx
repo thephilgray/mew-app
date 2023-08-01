@@ -20,7 +20,7 @@ import { Close, CopyAll, Edit, MoreVert, Pause, PauseCircleRounded, PlayArrow as
 import isNumber from 'lodash/isNumber'
 import sum from 'lodash/sum'
 import { FeedbackSection } from '../Feedback'
-import { getFileRequest, getPlaylist, listPlaylists } from '../../graphql/queries'
+import { getFileRequest, getPlaylist, listPlaylists, playlistsByDate } from '../../graphql/queries'
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
@@ -75,8 +75,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const [fetchGetPlaylist, { loading: fetchGetPlaylistLoading, error: fetchGetPlaylistError, data: fetchGetPlaylistData }] = useLazyQuery(gql(getPlaylist), {
         variables: { id: playlistId },
     })
-    const [fetchListPlaylists, { loading: fetchListPlaylistsLoading, error: fetchListPlaylistsError, data: fetchListPlaylistsData }] = useLazyQuery(gql(listPlaylists), {
+    const [fetchListPlaylists, { loading: fetchListPlaylistsLoading, error: fetchListPlaylistsError, data: fetchListPlaylistsData }] = useLazyQuery(gql(playlistsByDate), {
+        fetchPolicy: 'network-only',
         variables: {
+            type: 'Playlist',
+            sortDirection: "DESC",
+            limit: 50,
             filter: {
                 playlistOwnerId: { eq: profile?.email }
             }
@@ -695,7 +699,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 <MenuItem value="">
                                     <em>Create New</em>
                                 </MenuItem>
-                                {fetchListPlaylistsData?.listPlaylists?.items.map(playlist => (
+                                {fetchListPlaylistsData?.playlistsByDate?.items.map(playlist => (
                                     <MenuItem value={playlist} key={playlist.id}>
                                         {playlist.title}
                                     </MenuItem>

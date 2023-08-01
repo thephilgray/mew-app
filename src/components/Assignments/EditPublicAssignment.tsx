@@ -36,7 +36,7 @@ import AppBreadcrumbs from '../AppBreadcrumbs'
 import { FileCopy } from '@mui/icons-material'
 import { useCopyToClipboard } from 'react-use'
 import * as mutations from '../../graphql/mutations'
-import { getFileRequest as getFileRequestQuery, listPlaylists } from '../../graphql/queries'
+import { getFileRequest as getFileRequestQuery, playlistsByDate } from '../../graphql/queries'
 import ImagePicker, { uploadImage } from '../ImagePicker';
 import { getCloudFrontURL } from '../../utils';
 import { ROUTES } from '../../constants';
@@ -66,8 +66,11 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
         variables: { id: assignmentId },
     })
 
-    const { loading: fetchListPlaylistsLoading, error: fetchListPlaylistsError, data: fetchListPlaylistsData } = useQuery(gql(listPlaylists), {
+    const { loading: fetchListPlaylistsLoading, error: fetchListPlaylistsError, data: fetchListPlaylistsData } = useQuery(gql(playlistsByDate), {
+        fetchPolicy: 'network-only',
         variables: {
+            sortDirection: "DESC",
+            type: "Playlist",
             filter: {
                 and: [
                     { public: { eq: true } },
@@ -75,7 +78,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                 ]
 
             },
-            limit: 20
+            limit: 25
         },
     })
 
@@ -354,7 +357,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                     helperText={`${90 - (watch('artworkCredit')?.length || 0)} characters remaining.`}
                                 />
                             </Grid>
-                            <If condition={fetchListPlaylistsData?.listPlaylists?.items}>
+                            <If condition={fetchListPlaylistsData?.playlistsByDate?.items}>
                                 <Grid item xs={12}>
                                     <FormControl fullWidth sx={{ pt: 2 }}>
                                         <InputLabel id="select-helper-label">Official Playlist</InputLabel>
@@ -363,7 +366,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                                 <MenuItem value="">
                                                     <em>None</em>
                                                 </MenuItem>
-                                                {fetchListPlaylistsData?.listPlaylists?.items.map(playlist => (
+                                                {fetchListPlaylistsData?.playlistsByDate?.items.map(playlist => (
                                                     <MenuItem value={playlist.id} key={playlist.id}>
                                                         {playlist.title}
                                                     </MenuItem>

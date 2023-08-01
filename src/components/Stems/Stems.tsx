@@ -5,7 +5,7 @@ import { compareDesc } from 'date-fns'
 import { EXTENSIONS_BY_FILETYPE, ROUTES } from '../../constants';
 import { DataGridWrapper } from '../DataGridWrapper';
 import { DataGrid } from '@mui/x-data-grid';
-import { listStems } from '../../graphql/queries';
+import { stemsByDate } from '../../graphql/queries';
 import { gql, useMutation, useQuery } from '@apollo/react-hooks';
 import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
 import If from '../If';
@@ -69,11 +69,16 @@ type StemsProps = {
 
 const Stems: React.FC<StemsProps> = () => {
   const { profile } = useProfile()
-  const { data, loading, error, refetch } = useQuery(gql(listStems), {
+  const { data, loading, error, refetch } = useQuery(gql(stemsByDate), {
     // TODO: this is just to handle writes to ensure user can see what they just uploaded
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
+    variables: {
+      type: "Stem",
+      sortDirection: "DESC",
+      limit: 500
+    }
   })
-  const rows = (data?.listStems?.items ? [...data.listStems.items] : [])
+  const rows = (data?.stemsByDate?.items ? [...data.stemsByDate.items] : [])
     .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
   const columns = [
     {
