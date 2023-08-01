@@ -159,6 +159,13 @@ type Playlist
   public: Boolean
   title: String
   artwork: Artwork
+  type: String
+    @index(
+      name: "playlistsByDate"
+      queryField: "playlistsByDate"
+      sortKeyFields: ["createdAt"]
+    )
+  createdAt: String
 }
 
 type MailchimpTag {
@@ -338,6 +345,13 @@ type Stem
   stemGroupId: ID
   filePath: String
   artist: String
+  type: String
+    @index(
+      name: "stemsByDate"
+      queryField: "stemsByDate"
+      sortKeyFields: ["createdAt"]
+    )
+  createdAt: String
   # downloadedBy: [Profile] @manyToMany(relationName: "SavedStems")
 }
 

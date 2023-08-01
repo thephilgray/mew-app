@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { listFileRequests, listPlaylists } from '../../graphql/queries';
+import { listFileRequests, playlistsByDate } from '../../graphql/queries';
 import { gql, useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useProfile, useViewAdmin } from '../../auth/hooks';
 import CardGrid from '../CardGrid';
@@ -20,9 +20,11 @@ type PlaylistsProps = {
 const Playlists: React.FC<PlaylistsProps> = () => {
   const { profile } = useProfile()
   const [viewAdmin] = useViewAdmin()
-  const [fetchListPlaylists, { data, loading, error }] = useLazyQuery(gql(listPlaylists), {
+  const [fetchPlaylistsByDate, { data, loading, error }] = useLazyQuery(gql(playlistsByDate), {
     variables: {
-      limit: 1000,
+      limit: 500,
+      type: "Playlist",
+      sortDirection: "DESC",
       filter: {
         or: [
           { public: { eq: true } },
@@ -53,7 +55,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
 
   useEffect(() => {
     if (profile?.email && !data && !loading && !error) {
-      fetchListPlaylists()
+      fetchPlaylistsByDate()
       fetchMyAssignments()
     }
   }, [profile])
@@ -61,7 +63,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
 
   const sortFn = (a, b) => compareDesc(new Date(a.updatedAt), new Date(b.updatedAt))
 
-  const groupedStandardPlaylists = data?.listPlaylists?.items.reduce((acc, curr) => {
+  const groupedStandardPlaylists = data?.playlistsByDate?.items.reduce((acc, curr) => {
     if (curr?.playlistOwnerId === profile?.email) {
       acc.mine.push(curr)
     }

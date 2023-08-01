@@ -100,6 +100,7 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
           variables: {
             input: {
               id: playlistId,
+              type: "Playlist",
               public: inputData.public,
               title: inputData.title,
               playlistOwnerId: profile?.email,
@@ -118,6 +119,7 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
           variables: {
             input: {
               id: PLAYLIST_ID,
+              type: "Playlist",
               public: inputData.public,
               title: inputData.title,
               playlistOwnerId: profile?.email,

@@ -84,6 +84,7 @@ const StemForm: React.FC<StemFormProps> = () => {
       })
 
       stemMutations.push(`mutation${i}: createStem(input: {
+      type: "Stem",
       id: "${stemId}",
       title: "${stems[i].title}",
       creatorEmail: "${profile?.email}",

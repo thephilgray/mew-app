@@ -245,8 +245,9 @@ export const getAPIKey = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -286,6 +287,7 @@ export const getAPIKey = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -407,8 +409,9 @@ export const listAPIKeys = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -432,6 +435,7 @@ export const listAPIKeys = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -566,8 +570,9 @@ export const getFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -717,8 +722,9 @@ export const getFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -902,8 +908,9 @@ export const getFileRequest = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -927,6 +934,7 @@ export const getFileRequest = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -1032,8 +1040,9 @@ export const getFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -1141,8 +1150,9 @@ export const getFileRequest = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -1166,6 +1176,7 @@ export const getFileRequest = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -1185,8 +1196,9 @@ export const getFileRequest = /* GraphQL */ `
           credit
           __typename
         }
-        id
+        type
         createdAt
+        id
         updatedAt
         profilePlaylistsId
         playlistOwnerId
@@ -1481,8 +1493,9 @@ export const listFileRequests = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -1788,8 +1801,9 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -2085,8 +2099,9 @@ export const getFileRequestSubmission = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -2335,8 +2350,9 @@ export const getFileRequestSubmission = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -2376,6 +2392,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -2534,8 +2551,9 @@ export const getFileRequestSubmission = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2692,6 +2710,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -2850,8 +2869,9 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -2957,8 +2977,9 @@ export const listFileRequestSubmissions = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2982,6 +3003,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -3103,6 +3125,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -3268,8 +3291,9 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -3375,8 +3399,9 @@ export const submissionsByFileRequestId = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -3400,6 +3425,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -3521,6 +3547,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -3686,8 +3713,9 @@ export const submissionsByEmail = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -3793,8 +3821,9 @@ export const submissionsByEmail = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -3818,6 +3847,7 @@ export const submissionsByEmail = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -3939,6 +3969,7 @@ export const submissionsByEmail = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -4104,8 +4135,9 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -4211,8 +4243,9 @@ export const submissionsByWorkshopId = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -4236,6 +4269,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -4357,6 +4391,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -4511,8 +4546,9 @@ export const getTrack = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -4618,8 +4654,9 @@ export const getTrack = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -4643,6 +4680,7 @@ export const getTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -4764,6 +4802,7 @@ export const getTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -4813,8 +4852,9 @@ export const getTrack = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -4922,8 +4962,9 @@ export const getTrack = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -4947,6 +4988,7 @@ export const getTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -4966,8 +5008,9 @@ export const getTrack = /* GraphQL */ `
           credit
           __typename
         }
-        id
+        type
         createdAt
+        id
         updatedAt
         profilePlaylistsId
         playlistOwnerId
@@ -5031,8 +5074,9 @@ export const listTracks = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -5204,8 +5248,9 @@ export const listTracks = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -5309,8 +5354,9 @@ export const getPlaylist = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -5561,8 +5607,9 @@ export const getPlaylist = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -5602,6 +5649,7 @@ export const getPlaylist = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -5621,8 +5669,9 @@ export const getPlaylist = /* GraphQL */ `
         credit
         __typename
       }
-      id
+      type
       createdAt
+      id
       updatedAt
       profilePlaylistsId
       playlistOwnerId
@@ -5661,8 +5710,9 @@ export const listPlaylists = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -5770,8 +5820,9 @@ export const listPlaylists = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -5795,6 +5846,7 @@ export const listPlaylists = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -5814,8 +5866,219 @@ export const listPlaylists = /* GraphQL */ `
           credit
           __typename
         }
-        id
+        type
         createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const playlistsByDate = /* GraphQL */ `
+  query PlaylistsByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPlaylistFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    playlistsByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        tracks {
+          items {
+            order
+            submission {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              duration
+              workshopId
+              createdAt
+              updatedAt
+              __typename
+            }
+            playlist {
+              public
+              title
+              type
+              createdAt
+              id
+              updatedAt
+              profilePlaylistsId
+              playlistOwnerId
+              __typename
+            }
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              duration
+              workshopId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+              __typename
+            }
+            __typename
+          }
+          playlists {
+            items {
+              public
+              title
+              type
+              createdAt
+              id
+              updatedAt
+              profilePlaylistsId
+              playlistOwnerId
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            items {
+              id
+              title
+              bpm
+              key
+              scale
+              instruments
+              notes
+              fileSize
+              fileExtension
+              creatorEmail
+              stemGroupId
+              filePath
+              artist
+              type
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        type
+        createdAt
+        id
         updatedAt
         profilePlaylistsId
         playlistOwnerId
@@ -5875,8 +6138,9 @@ export const getMembership = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6060,8 +6324,9 @@ export const getMembership = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6085,6 +6350,7 @@ export const getMembership = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -6388,8 +6654,9 @@ export const getMembership = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -6429,6 +6696,7 @@ export const getMembership = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -6495,8 +6763,9 @@ export const getMembership = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6838,8 +7107,9 @@ export const listMemberships = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6863,6 +7133,7 @@ export const listMemberships = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -7192,8 +7463,9 @@ export const membershipsByWorkshopId = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -7217,6 +7489,7 @@ export const membershipsByWorkshopId = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -7546,8 +7819,9 @@ export const membershipsByEmail = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -7571,6 +7845,7 @@ export const membershipsByEmail = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -7788,8 +8063,9 @@ export const getWorkshop = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -7844,8 +8120,9 @@ export const getWorkshop = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -8207,8 +8484,9 @@ export const getWorkshop = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -8248,6 +8526,7 @@ export const getWorkshop = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -8455,8 +8734,9 @@ export const listWorkshops = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -8640,8 +8920,9 @@ export const listWorkshops = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -8665,6 +8946,7 @@ export const listWorkshops = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -8981,8 +9263,9 @@ export const getProfile = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -9307,8 +9590,9 @@ export const getProfile = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -9389,6 +9673,7 @@ export const getProfile = /* GraphQL */ `
           stemGroupId
           filePath
           artist
+          type
           createdAt
           updatedAt
           __typename
@@ -9652,8 +9937,9 @@ export const listProfiles = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -9693,6 +9979,7 @@ export const listProfiles = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -9959,8 +10246,9 @@ export const profileByProfileId = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -10000,6 +10288,7 @@ export const profileByProfileId = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -10257,8 +10546,9 @@ export const getComment = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -10298,6 +10588,7 @@ export const getComment = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -10430,8 +10721,9 @@ export const getComment = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -10537,8 +10829,9 @@ export const getComment = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -10562,6 +10855,7 @@ export const getComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -10683,6 +10977,7 @@ export const getComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -10984,8 +11279,9 @@ export const getComment = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -11039,8 +11335,9 @@ export const getComment = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -11224,8 +11521,9 @@ export const getComment = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -11249,6 +11547,7 @@ export const getComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -11428,8 +11727,9 @@ export const listComments = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -11453,6 +11753,7 @@ export const listComments = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -11505,8 +11806,9 @@ export const listComments = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -11729,8 +12031,9 @@ export const listComments = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -11990,8 +12293,9 @@ export const commentsByDate = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -12015,6 +12319,7 @@ export const commentsByDate = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -12067,8 +12372,9 @@ export const commentsByDate = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -12291,8 +12597,9 @@ export const commentsByDate = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -12539,6 +12846,7 @@ export const getStem = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -12788,8 +13096,9 @@ export const getStem = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -12829,6 +13138,7 @@ export const getStem = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -12843,6 +13153,7 @@ export const getStem = /* GraphQL */ `
       stemGroupId
       filePath
       artist
+      type
       createdAt
       updatedAt
       __typename
@@ -12900,6 +13211,7 @@ export const listStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -13006,8 +13318,9 @@ export const listStems = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -13031,6 +13344,7 @@ export const listStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -13045,6 +13359,226 @@ export const listStems = /* GraphQL */ `
         stemGroupId
         filePath
         artist
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const stemsByDate = /* GraphQL */ `
+  query StemsByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelStemFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stemsByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        title
+        bpm
+        key
+        scale
+        instruments
+        notes
+        submissions {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            fileRequestSubmission {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              duration
+              workshopId
+              createdAt
+              updatedAt
+              __typename
+            }
+            stem {
+              id
+              title
+              bpm
+              key
+              scale
+              instruments
+              notes
+              fileSize
+              fileExtension
+              creatorEmail
+              stemGroupId
+              filePath
+              artist
+              type
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        fileSize
+        fileExtension
+        creatorEmail
+        creator {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            items {
+              id
+              keyName
+              createdAt
+              profileID
+              email
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          workshops {
+            items {
+              id
+              name
+              email
+              status
+              passes
+              description
+              startDate
+              endDate
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          submissions {
+            items {
+              id
+              fileRequestId
+              artist
+              name
+              email
+              fileId
+              fileExtension
+              rating
+              lyrics
+              requestFeedback
+              duration
+              workshopId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          memberships {
+            items {
+              id
+              workshopId
+              email
+              status
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          features {
+            mailchimp {
+              enabled
+              apiKeyName
+              listId
+              serverPrefix
+              __typename
+            }
+            __typename
+          }
+          playlists {
+            items {
+              public
+              title
+              type
+              createdAt
+              id
+              updatedAt
+              profilePlaylistsId
+              playlistOwnerId
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            items {
+              id
+              title
+              bpm
+              key
+              scale
+              instruments
+              notes
+              fileSize
+              fileExtension
+              creatorEmail
+              stemGroupId
+              filePath
+              artist
+              type
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        stemGroupId
+        filePath
+        artist
+        type
         createdAt
         updatedAt
         __typename
@@ -13180,8 +13714,9 @@ export const getSubmissionStems = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -13287,8 +13822,9 @@ export const getSubmissionStems = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -13312,6 +13848,7 @@ export const getSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -13433,6 +13970,7 @@ export const getSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -13502,6 +14040,7 @@ export const getSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -13608,8 +14147,9 @@ export const getSubmissionStems = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -13633,6 +14173,7 @@ export const getSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -13647,6 +14188,7 @@ export const getSubmissionStems = /* GraphQL */ `
         stemGroupId
         filePath
         artist
+        type
         createdAt
         updatedAt
         __typename
@@ -13708,8 +14250,9 @@ export const listSubmissionStems = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -13885,6 +14428,7 @@ export const listSubmissionStems = /* GraphQL */ `
           stemGroupId
           filePath
           artist
+          type
           createdAt
           updatedAt
           __typename

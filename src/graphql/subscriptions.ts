@@ -245,8 +245,9 @@ export const onCreateAPIKey = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -286,6 +287,7 @@ export const onCreateAPIKey = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -545,8 +547,9 @@ export const onUpdateAPIKey = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -586,6 +589,7 @@ export const onUpdateAPIKey = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -845,8 +849,9 @@ export const onDeleteAPIKey = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -886,6 +891,7 @@ export const onDeleteAPIKey = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -1001,8 +1007,9 @@ export const onCreateFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -1152,8 +1159,9 @@ export const onCreateFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -1337,8 +1345,9 @@ export const onCreateFileRequest = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -1362,6 +1371,7 @@ export const onCreateFileRequest = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -1467,8 +1477,9 @@ export const onCreateFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -1576,8 +1587,9 @@ export const onCreateFileRequest = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -1601,6 +1613,7 @@ export const onCreateFileRequest = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -1620,8 +1633,9 @@ export const onCreateFileRequest = /* GraphQL */ `
           credit
           __typename
         }
-        id
+        type
         createdAt
+        id
         updatedAt
         profilePlaylistsId
         playlistOwnerId
@@ -1691,8 +1705,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -1842,8 +1857,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2027,8 +2043,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2052,6 +2069,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -2157,8 +2175,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2266,8 +2285,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2291,6 +2311,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -2310,8 +2331,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
           credit
           __typename
         }
-        id
+        type
         createdAt
+        id
         updatedAt
         profilePlaylistsId
         playlistOwnerId
@@ -2381,8 +2403,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2532,8 +2555,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2717,8 +2741,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2742,6 +2767,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -2847,8 +2873,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2956,8 +2983,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -2981,6 +3009,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -3000,8 +3029,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
           credit
           __typename
         }
-        id
+        type
         createdAt
+        id
         updatedAt
         profilePlaylistsId
         playlistOwnerId
@@ -3296,8 +3326,9 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -3546,8 +3577,9 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -3587,6 +3619,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -3745,8 +3778,9 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -3903,6 +3937,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -4212,8 +4247,9 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -4462,8 +4498,9 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -4503,6 +4540,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -4661,8 +4699,9 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -4819,6 +4858,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -5128,8 +5168,9 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -5378,8 +5419,9 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -5419,6 +5461,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -5577,8 +5620,9 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -5735,6 +5779,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -5886,8 +5931,9 @@ export const onCreateTrack = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -5993,8 +6039,9 @@ export const onCreateTrack = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6018,6 +6065,7 @@ export const onCreateTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -6139,6 +6187,7 @@ export const onCreateTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -6188,8 +6237,9 @@ export const onCreateTrack = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6297,8 +6347,9 @@ export const onCreateTrack = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6322,6 +6373,7 @@ export const onCreateTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -6341,8 +6393,9 @@ export const onCreateTrack = /* GraphQL */ `
           credit
           __typename
         }
-        id
+        type
         createdAt
+        id
         updatedAt
         profilePlaylistsId
         playlistOwnerId
@@ -6481,8 +6534,9 @@ export const onUpdateTrack = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -6588,8 +6642,9 @@ export const onUpdateTrack = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6613,6 +6668,7 @@ export const onUpdateTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -6734,6 +6790,7 @@ export const onUpdateTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -6783,8 +6840,9 @@ export const onUpdateTrack = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6892,8 +6950,9 @@ export const onUpdateTrack = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -6917,6 +6976,7 @@ export const onUpdateTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -6936,8 +6996,9 @@ export const onUpdateTrack = /* GraphQL */ `
           credit
           __typename
         }
-        id
+        type
         createdAt
+        id
         updatedAt
         profilePlaylistsId
         playlistOwnerId
@@ -7076,8 +7137,9 @@ export const onDeleteTrack = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -7183,8 +7245,9 @@ export const onDeleteTrack = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -7208,6 +7271,7 @@ export const onDeleteTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -7329,6 +7393,7 @@ export const onDeleteTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -7378,8 +7443,9 @@ export const onDeleteTrack = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -7487,8 +7553,9 @@ export const onDeleteTrack = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -7512,6 +7579,7 @@ export const onDeleteTrack = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -7531,8 +7599,9 @@ export const onDeleteTrack = /* GraphQL */ `
           credit
           __typename
         }
-        id
+        type
         createdAt
+        id
         updatedAt
         profilePlaylistsId
         playlistOwnerId
@@ -7633,8 +7702,9 @@ export const onCreatePlaylist = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -7885,8 +7955,9 @@ export const onCreatePlaylist = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -7926,6 +7997,7 @@ export const onCreatePlaylist = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -7945,8 +8017,9 @@ export const onCreatePlaylist = /* GraphQL */ `
         credit
         __typename
       }
-      id
+      type
       createdAt
+      id
       updatedAt
       profilePlaylistsId
       playlistOwnerId
@@ -8040,8 +8113,9 @@ export const onUpdatePlaylist = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -8292,8 +8366,9 @@ export const onUpdatePlaylist = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -8333,6 +8408,7 @@ export const onUpdatePlaylist = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -8352,8 +8428,9 @@ export const onUpdatePlaylist = /* GraphQL */ `
         credit
         __typename
       }
-      id
+      type
       createdAt
+      id
       updatedAt
       profilePlaylistsId
       playlistOwnerId
@@ -8447,8 +8524,9 @@ export const onDeletePlaylist = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -8699,8 +8777,9 @@ export const onDeletePlaylist = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -8740,6 +8819,7 @@ export const onDeletePlaylist = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -8759,8 +8839,9 @@ export const onDeletePlaylist = /* GraphQL */ `
         credit
         __typename
       }
-      id
+      type
       createdAt
+      id
       updatedAt
       profilePlaylistsId
       playlistOwnerId
@@ -8819,8 +8900,9 @@ export const onCreateMembership = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -9004,8 +9086,9 @@ export const onCreateMembership = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -9029,6 +9112,7 @@ export const onCreateMembership = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -9332,8 +9416,9 @@ export const onCreateMembership = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -9373,6 +9458,7 @@ export const onCreateMembership = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -9439,8 +9525,9 @@ export const onCreateMembership = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -9605,8 +9692,9 @@ export const onUpdateMembership = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -9790,8 +9878,9 @@ export const onUpdateMembership = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -9815,6 +9904,7 @@ export const onUpdateMembership = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -10118,8 +10208,9 @@ export const onUpdateMembership = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -10159,6 +10250,7 @@ export const onUpdateMembership = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -10225,8 +10317,9 @@ export const onUpdateMembership = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -10391,8 +10484,9 @@ export const onDeleteMembership = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -10576,8 +10670,9 @@ export const onDeleteMembership = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -10601,6 +10696,7 @@ export const onDeleteMembership = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -10904,8 +11000,9 @@ export const onDeleteMembership = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -10945,6 +11042,7 @@ export const onDeleteMembership = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -11011,8 +11109,9 @@ export const onDeleteMembership = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -11250,8 +11349,9 @@ export const onCreateWorkshop = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -11306,8 +11406,9 @@ export const onCreateWorkshop = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -11669,8 +11770,9 @@ export const onCreateWorkshop = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -11710,6 +11812,7 @@ export const onCreateWorkshop = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -11992,8 +12095,9 @@ export const onUpdateWorkshop = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -12048,8 +12152,9 @@ export const onUpdateWorkshop = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -12411,8 +12516,9 @@ export const onUpdateWorkshop = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -12452,6 +12558,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -12734,8 +12841,9 @@ export const onDeleteWorkshop = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -12790,8 +12898,9 @@ export const onDeleteWorkshop = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -13153,8 +13262,9 @@ export const onDeleteWorkshop = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -13194,6 +13304,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -13595,8 +13706,9 @@ export const onCreateProfile = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -13921,8 +14033,9 @@ export const onCreateProfile = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -14003,6 +14116,7 @@ export const onCreateProfile = /* GraphQL */ `
           stemGroupId
           filePath
           artist
+          type
           createdAt
           updatedAt
           __typename
@@ -14259,8 +14373,9 @@ export const onUpdateProfile = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -14585,8 +14700,9 @@ export const onUpdateProfile = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -14667,6 +14783,7 @@ export const onUpdateProfile = /* GraphQL */ `
           stemGroupId
           filePath
           artist
+          type
           createdAt
           updatedAt
           __typename
@@ -14923,8 +15040,9 @@ export const onDeleteProfile = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -15249,8 +15367,9 @@ export const onDeleteProfile = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -15331,6 +15450,7 @@ export const onDeleteProfile = /* GraphQL */ `
           stemGroupId
           filePath
           artist
+          type
           createdAt
           updatedAt
           __typename
@@ -15585,8 +15705,9 @@ export const onCreateComment = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -15626,6 +15747,7 @@ export const onCreateComment = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -15758,8 +15880,9 @@ export const onCreateComment = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -15865,8 +15988,9 @@ export const onCreateComment = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -15890,6 +16014,7 @@ export const onCreateComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -16011,6 +16136,7 @@ export const onCreateComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -16312,8 +16438,9 @@ export const onCreateComment = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -16367,8 +16494,9 @@ export const onCreateComment = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -16552,8 +16680,9 @@ export const onCreateComment = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -16577,6 +16706,7 @@ export const onCreateComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -16894,8 +17024,9 @@ export const onUpdateComment = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -16935,6 +17066,7 @@ export const onUpdateComment = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -17067,8 +17199,9 @@ export const onUpdateComment = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -17174,8 +17307,9 @@ export const onUpdateComment = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -17199,6 +17333,7 @@ export const onUpdateComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -17320,6 +17455,7 @@ export const onUpdateComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -17621,8 +17757,9 @@ export const onUpdateComment = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -17676,8 +17813,9 @@ export const onUpdateComment = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -17861,8 +17999,9 @@ export const onUpdateComment = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -17886,6 +18025,7 @@ export const onUpdateComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -18203,8 +18343,9 @@ export const onDeleteComment = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -18244,6 +18385,7 @@ export const onDeleteComment = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -18376,8 +18518,9 @@ export const onDeleteComment = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -18483,8 +18626,9 @@ export const onDeleteComment = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -18508,6 +18652,7 @@ export const onDeleteComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -18629,6 +18774,7 @@ export const onDeleteComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -18930,8 +19076,9 @@ export const onDeleteComment = /* GraphQL */ `
             credit
             __typename
           }
-          id
+          type
           createdAt
+          id
           updatedAt
           profilePlaylistsId
           playlistOwnerId
@@ -18985,8 +19132,9 @@ export const onDeleteComment = /* GraphQL */ `
             playlist {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -19170,8 +19318,9 @@ export const onDeleteComment = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -19195,6 +19344,7 @@ export const onDeleteComment = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -19371,6 +19521,7 @@ export const onCreateStem = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -19620,8 +19771,9 @@ export const onCreateStem = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -19661,6 +19813,7 @@ export const onCreateStem = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -19675,6 +19828,7 @@ export const onCreateStem = /* GraphQL */ `
       stemGroupId
       filePath
       artist
+      type
       createdAt
       updatedAt
       __typename
@@ -19781,6 +19935,7 @@ export const onUpdateStem = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -20030,8 +20185,9 @@ export const onUpdateStem = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -20071,6 +20227,7 @@ export const onUpdateStem = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -20085,6 +20242,7 @@ export const onUpdateStem = /* GraphQL */ `
       stemGroupId
       filePath
       artist
+      type
       createdAt
       updatedAt
       __typename
@@ -20191,6 +20349,7 @@ export const onDeleteStem = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -20440,8 +20599,9 @@ export const onDeleteStem = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -20481,6 +20641,7 @@ export const onDeleteStem = /* GraphQL */ `
             stemGroupId
             filePath
             artist
+            type
             createdAt
             updatedAt
             __typename
@@ -20495,6 +20656,7 @@ export const onDeleteStem = /* GraphQL */ `
       stemGroupId
       filePath
       artist
+      type
       createdAt
       updatedAt
       __typename
@@ -20629,8 +20791,9 @@ export const onCreateSubmissionStems = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -20736,8 +20899,9 @@ export const onCreateSubmissionStems = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -20761,6 +20925,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -20882,6 +21047,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -20951,6 +21117,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -21057,8 +21224,9 @@ export const onCreateSubmissionStems = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -21082,6 +21250,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -21096,6 +21265,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `
         stemGroupId
         filePath
         artist
+        type
         createdAt
         updatedAt
         __typename
@@ -21234,8 +21404,9 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -21341,8 +21512,9 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -21366,6 +21538,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -21487,6 +21660,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -21556,6 +21730,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -21662,8 +21837,9 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -21687,6 +21863,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -21701,6 +21878,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
         stemGroupId
         filePath
         artist
+        type
         createdAt
         updatedAt
         __typename
@@ -21839,8 +22017,9 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
               credit
               __typename
             }
-            id
+            type
             createdAt
+            id
             updatedAt
             profilePlaylistsId
             playlistOwnerId
@@ -21946,8 +22125,9 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -21971,6 +22151,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -22092,6 +22273,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -22161,6 +22343,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -22267,8 +22450,9 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
             items {
               public
               title
-              id
+              type
               createdAt
+              id
               updatedAt
               profilePlaylistsId
               playlistOwnerId
@@ -22292,6 +22476,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
               stemGroupId
               filePath
               artist
+              type
               createdAt
               updatedAt
               __typename
@@ -22306,6 +22491,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
         stemGroupId
         filePath
         artist
+        type
         createdAt
         updatedAt
         __typename
