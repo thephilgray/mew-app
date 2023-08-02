@@ -16,7 +16,7 @@ import Error from '../Error'
 import { createFileRequestSubmission } from '../../graphql/mutations'
 import { getFileRequest as getFileRequestQuery, listMemberships } from '../../graphql/queries'
 import AppBreadcrumbs from '../AppBreadcrumbs'
-import { useProfile, useUser } from '../../auth/hooks'
+import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
 import If from '../If'
 import ImagePicker, { uploadImage } from '../ImagePicker'
 import { GiveFeedback } from './GiveFeedback'
@@ -114,6 +114,7 @@ const NewPublicSubmission: React.FC<
 
     const user = useUser()
     const { profile, loading: profileLoading } = useProfile()
+    const [viewAdmin] = useViewAdmin()
     const [loading, setLoading] = useState<boolean>(true)
     const [submitLoading, setSubmitLoading] = useState<boolean>(true)
     const [error, setError] = useState<Error | null>(null)
@@ -166,7 +167,8 @@ const NewPublicSubmission: React.FC<
         },
     }
 
-    const isValid = Boolean(expiration && !isPast(new Date(expiration)))
+    const hasStarted = fileRequestData?.startDate ? isPast(new Date(fileRequestData?.startDate)) : true
+    const isValid = viewAdmin || Boolean(expiration && !isPast(new Date(expiration)) && hasStarted)
 
     const ACCEPTED_FILETYPES = [
         // 'audio/wav',

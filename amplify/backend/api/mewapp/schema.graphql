@@ -72,6 +72,7 @@ type FileRequest
     ]
   ) {
   id: ID!
+  startDate: AWSDateTime
   expiration: AWSDateTime!
   title: String
   details: String
@@ -89,6 +90,15 @@ type FileRequest
   extensions: [Extension]
     @hasMany(indexName: "extensionsByFileRequestId", fields: ["id"])
   playlist: Playlist @hasOne
+  playlistStartDate: AWSDateTime
+  playlistExternalUrl: String
+  type: String
+    @index(
+      name: "fileRequestsByDate"
+      queryField: "fileRequestsByDate"
+      sortKeyFields: ["createdAt"]
+    )
+  createdAt: String
 }
 
 type FileRequestSubmission

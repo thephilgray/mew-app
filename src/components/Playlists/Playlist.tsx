@@ -19,6 +19,7 @@ import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
 import { Close, CopyAll, Edit, MoreVert, Pause, PauseCircleRounded, PlayArrow as PlayArrowIcon, PlayArrowOutlined, PlayArrowRounded, PlaylistAdd, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, Speaker } from '@mui/icons-material'
 import isNumber from 'lodash/isNumber'
 import sum from 'lodash/sum'
+import isPast from 'date-fns/isPast'
 import { FeedbackSection } from '../Feedback'
 import { getFileRequest, getPlaylist, listPlaylists, playlistsByDate } from '../../graphql/queries'
 import If from '../If';
@@ -49,8 +50,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     playlistId,
 }) => {
     const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef } = useContext(AudioPlayerContext)
-    const [loading, setLoading] = useState(true)
-    const [addSongsToPlaylistLoading, setAddSongsToPlaylistLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
+    const [addSongsToPlaylistLoading, setAddSongsToPlaylistLoading] = useState(false)
     const [toggleTrackView, setToggleTrackView] = useState(false)
     const [data, setData] = useState<{
         expiration: string
@@ -149,6 +150,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         quality: 10,
     });
 
+    const canView = !!viewAdmin || (data?.playlistStartDate ? isPast(new Date(data?.playlistStartDate)) : true)
+
     useEffect(() => {
         // ensures that we don't show the previous loaded playlist
         setAudioLists([])
@@ -199,7 +202,10 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     if (fetchGetFileRequestData?.getFileRequest?.playlist?.id) {
                         const queryParams = window.location.search;
                         const redirectPath = `${ROUTES.playlist.getPath({ playlistId: fetchGetFileRequestData?.getFileRequest?.playlist?.id })}${queryParams}`
-                        navigate(redirectPath, { replace: true })
+
+                        if (canView) {
+                            navigate(redirectPath, { replace: true })
+                        }
                     }
                     else {
                         setData(fetchGetFileRequestData.getFileRequest)
@@ -230,6 +236,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     // Anonymous access
     useEffect(() => {
         async function getFileRequest() {
+            setLoading(true)
             // Switch authMode to API_KEY
             try {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -247,13 +254,39 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             } catch (err) {
                 // @ts-ignore
                 setError(err)
+            } finally {
+                setLoading(false)
             }
 
-            setLoading(false)
+        }
+
+        async function fetchPlaylistWithoutAuth() {
+            setLoading(true)   // Switch authMode to API_KEY
+            try {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                const { data: playlistData } = await API.graphql({
+                    query: getPlaylist,
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    authMode: 'API_KEY',
+                    variables: {
+                        id: playlistId,
+                    },
+                })
+                setData(playlistData?.getPlaylist)
+            } catch (err) {
+                // @ts-ignore
+                setError(err)
+            } finally {
+                setLoading(false)
+            }
         }
 
         if (assignmentId && !loggedIn) {
             getFileRequest()
+        } else if (playlistId && !loggedIn) {
+            fetchPlaylistWithoutAuth()
         }
     }, [])
 
@@ -403,6 +436,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
     if (error) return <Error errorMessage={error} />
     if (loading || fetchGetFileRequestLoading || fetchGetPlaylistLoading) return <CircularProgress />
+    if (!loading && data && !canView) return <p>Playlist is not yet live.</p>
     if (!loading && !data && (fetchGetFileRequestData || fetchGetPlaylistData)) return <CircularProgress />
     if (!loading && !data && !(fetchGetFileRequestData || fetchGetPlaylistData)) return <p>Playlist does not exist.</p>
     // TODO: move this down 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Button, CardActions, Grid, Typography } from '@mui/material'
-import { Add, Assignment, AssignmentLateRounded, AssignmentTurnedInRounded, PlayArrowTwoTone } from '@mui/icons-material'
+import { Add, Assignment, AssignmentLateRounded, AssignmentTurnedInRounded, OpenInBrowser, PlayArrowTwoTone } from '@mui/icons-material'
 import { SvgSkullCrossbonesSolid } from 'react-line-awesome-svg'
 import CardGrid, { SkeletonCardGrid } from '../CardGrid';
 import If from '../If';
@@ -11,10 +11,11 @@ import format from 'date-fns/format'
 import Timer from './Timer';
 import { ROUTES } from '../../constants'
 import { navigate } from 'gatsby'
-import { useProfile, useUser } from '../../auth/hooks';
+import { useProfile, useUser, useViewAdmin } from '../../auth/hooks';
 import Error from '../Error';
 import { gql, useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { listFileRequests, fileRequestsByWorkshopId } from '../../graphql/queries';
+import Link from '../Link';
 
 type AssignmentsProps = {
 
@@ -23,6 +24,7 @@ type AssignmentsProps = {
 const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
   const user = useUser()
   const { profile } = useProfile()
+  const [viewAdmin] = useViewAdmin()
   const [fetchWorkshopAssignments, { data: fetchWorkshopAssignmentsData, error: fetchWorkshopAssignmentsError, loading: fetchWorkshopAssignmentsLoading }] = useLazyQuery(
     gql(fileRequestsByWorkshopId.replace('submissions {', 'submissions(limit: 5000) {')),
     {
@@ -82,6 +84,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
 
   const upcomingAssignments = rows
     .filter((row) => row.status === 'ACTIVE')
+    .filter((row) => viewAdmin || isPast(new Date(row.startDate as string)))
     .sort((a, b) => compareDesc(new Date(a.expiration), new Date(b.expiration)))
   const pastDueAssignments = rows
     .filter((row) => row.status != 'ACTIVE')
@@ -146,18 +149,28 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
           Submit
         </Button>
       </If>
-      <If condition={item.status === 'EXPIRED'}>
+      <If condition={
+        !!viewAdmin ||
+        (
+          item.status === 'EXPIRED'
+          && (item?.playlistStartDate ? isPast(new Date(item.playlistStartDate)) : true)
+        )
+      }>
         <Button
           color="success"
           // variant="contained"
           disabled={!item?.submissions?.length}
           aria-label="Playlist"
+          href={item?.playlistExternalUrl}
+          target={item?.playlistExternalUrl ? "_blank" : "_self"}
           onClick={(e) => {
-            e.preventDefault()
             e.stopPropagation()
-            navigate(ROUTES.assignmentPlaylist.getPath({ assignmentId: item.id }))
+            if (!item?.playlistExternalUrl) {
+              e.preventDefault()
+              navigate(ROUTES.assignmentPlaylist.getPath({ assignmentId: item.id }))
+            }
           }}
-          startIcon={<PlayArrowTwoTone />}
+          startIcon={item?.playlistExternalUrl ? <OpenInBrowser /> : <PlayArrowTwoTone />}
         >
           Play
         </Button>

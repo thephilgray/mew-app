@@ -75,30 +75,39 @@ const Playlists: React.FC<PlaylistsProps> = () => {
 
   }, { mine: [], public: [], assignment: [] })
 
-  const assignmentPlaylists = fetchAssignmentsData?.listFileRequests?.items?.map(item => item.playlist || ({
-    default: true,
-    artwork: item.artwork,
-    createdAt: item.createdAt,
-    id: item.id,
-    owner: item.workshop?.host,
-    playlistOwnerId: item.workshop?.host?.email,
-    profilePlaylistsId: null,
-    public: viewAdmin || isPast(new Date(item.expiration)),
-    title: item.title,
-    updatedAt: item.expiration,
-    tracks: {
-      items: item.submissions?.items?.map((submission, i) => ({
-        createdAt: item.createdAt,
-        id: item.id,
-        order: i,
-        playlist: null,
-        playlistTracksId: '',
-        submission: submission,
-        trackSubmissionId: item.id
-      }))
-    }
-  }))
+  const assignmentPlaylists = fetchAssignmentsData?.listFileRequests?.items?.map(item => item.playlist ?
+    ({
+      ...item.playlist,
+      playlistStartDate: item.playlistStartDate,
+      playlistExternalUrl: item.playlistExternalUrl
+    }) :
+    ({
+      default: true,
+      artwork: item.artwork,
+      createdAt: item.createdAt,
+      id: item.id,
+      owner: item.workshop?.host,
+      playlistOwnerId: item.workshop?.host?.email,
+      profilePlaylistsId: null,
+      public: viewAdmin || isPast(new Date(item.expiration)),
+      title: item.title,
+      updatedAt: item.expiration,
+      playlistStartDate: item.playlistStartDate,
+      playlistExternalUrl: item.playlistExternalUrl,
+      tracks: {
+        items: item.submissions?.items?.map((submission, i) => ({
+          createdAt: item.createdAt,
+          id: item.id,
+          order: i,
+          playlist: null,
+          playlistTracksId: '',
+          submission: submission,
+          trackSubmissionId: item.id
+        }))
+      }
+    }))
     .filter(playlist => playlist?.public)
+    .filter(playlist => viewAdmin || (playlist?.playlistStartDate ? isPast(new Date(playlist.playlistStartDate)) : true))
     .sort(sortFn)
 
 
@@ -146,6 +155,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
           active: true,
           name: item?.title,
           link: item.default ? ROUTES.assignmentPlaylist.getPath({ assignmentId: item?.id }) : ROUTES.playlist.getPath({ playlistId: item?.id }),
+          externalLink: item.playlistExternalUrl,
           bottomContent: <><Typography>
             {item?.tracks?.items?.length} tracks
           </Typography>

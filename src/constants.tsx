@@ -1,8 +1,8 @@
 import React from "react";
 import {
     Home, Person, Groups, ManageAccounts, Extension, GroupAdd, EditAttributes, Workspaces,
-    Forum, AudioFile, Assignment, ModeEdit, PlaylistPlay, AssignmentTurnedIn, SendTimeExtension,
-    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Feedback, Grass
+    Forum, Assignment, ModeEdit, PlaylistPlay, AssignmentTurnedIn, SendTimeExtension,
+    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass
 } from "@mui/icons-material";
 import { pathToRegexp } from "path-to-regexp";
 
@@ -283,8 +283,8 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         getPath: ({ playlistId = '' }): string => `/app/playlists/${playlistId}`,
         name: 'Playlist',
         navPaths: defaultNav,
-        groups: [Group.admin, Group.member],
         icon: props => <PlaylistPlay {...props} />,
+        public: true
     },
     [ROUTE_NAMES.NEW_PLAYLIST]: {
         path: '/app/playlists/new',

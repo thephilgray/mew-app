@@ -105,11 +105,15 @@ export const onCreateAPIKey = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -407,11 +411,15 @@ export const onUpdateAPIKey = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -709,11 +717,15 @@ export const onDeleteAPIKey = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -956,6 +968,7 @@ export const onCreateFileRequest = /* GraphQL */ `
   ) {
     onCreateFileRequest(filter: $filter) {
       id
+      startDate
       expiration
       title
       details
@@ -972,6 +985,7 @@ export const onCreateFileRequest = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -1015,6 +1029,9 @@ export const onCreateFileRequest = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -1124,6 +1141,7 @@ export const onCreateFileRequest = /* GraphQL */ `
         fileRequests {
           items {
             id
+            startDate
             expiration
             title
             details
@@ -1167,6 +1185,9 @@ export const onCreateFileRequest = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -1181,11 +1202,15 @@ export const onCreateFileRequest = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -1641,6 +1666,9 @@ export const onCreateFileRequest = /* GraphQL */ `
         playlistOwnerId
         __typename
       }
+      playlistStartDate
+      playlistExternalUrl
+      type
       createdAt
       updatedAt
       fileRequestPlaylistId
@@ -1654,6 +1682,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
   ) {
     onUpdateFileRequest(filter: $filter) {
       id
+      startDate
       expiration
       title
       details
@@ -1670,6 +1699,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -1713,6 +1743,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -1822,6 +1855,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
         fileRequests {
           items {
             id
+            startDate
             expiration
             title
             details
@@ -1865,6 +1899,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -1879,11 +1916,15 @@ export const onUpdateFileRequest = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -2339,6 +2380,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
         playlistOwnerId
         __typename
       }
+      playlistStartDate
+      playlistExternalUrl
+      type
       createdAt
       updatedAt
       fileRequestPlaylistId
@@ -2352,6 +2396,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
   ) {
     onDeleteFileRequest(filter: $filter) {
       id
+      startDate
       expiration
       title
       details
@@ -2368,6 +2413,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -2411,6 +2457,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -2520,6 +2569,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
         fileRequests {
           items {
             id
+            startDate
             expiration
             title
             details
@@ -2563,6 +2613,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -2577,11 +2630,15 @@ export const onDeleteFileRequest = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -3037,6 +3094,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
         playlistOwnerId
         __typename
       }
+      playlistStartDate
+      playlistExternalUrl
+      type
       createdAt
       updatedAt
       fileRequestPlaylistId
@@ -3053,6 +3113,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
       fileRequestId
       fileRequest {
         id
+        startDate
         expiration
         title
         details
@@ -3069,11 +3130,15 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -3129,11 +3194,15 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
           fileRequests {
             items {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -3334,6 +3403,9 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
           playlistOwnerId
           __typename
         }
+        playlistStartDate
+        playlistExternalUrl
+        type
         createdAt
         updatedAt
         fileRequestPlaylistId
@@ -3437,11 +3509,15 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -3690,11 +3766,15 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -3743,6 +3823,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
           assignmentId
           assignment {
             id
+            startDate
             expiration
             title
             details
@@ -3786,6 +3867,9 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -3857,11 +3941,15 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -3974,6 +4062,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
       fileRequestId
       fileRequest {
         id
+        startDate
         expiration
         title
         details
@@ -3990,11 +4079,15 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -4050,11 +4143,15 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
           fileRequests {
             items {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -4255,6 +4352,9 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
           playlistOwnerId
           __typename
         }
+        playlistStartDate
+        playlistExternalUrl
+        type
         createdAt
         updatedAt
         fileRequestPlaylistId
@@ -4358,11 +4458,15 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -4611,11 +4715,15 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -4664,6 +4772,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
           assignmentId
           assignment {
             id
+            startDate
             expiration
             title
             details
@@ -4707,6 +4816,9 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -4778,11 +4890,15 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -4895,6 +5011,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
       fileRequestId
       fileRequest {
         id
+        startDate
         expiration
         title
         details
@@ -4911,11 +5028,15 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -4971,11 +5092,15 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
           fileRequests {
             items {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -5176,6 +5301,9 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
           playlistOwnerId
           __typename
         }
+        playlistStartDate
+        playlistExternalUrl
+        type
         createdAt
         updatedAt
         fileRequestPlaylistId
@@ -5279,11 +5407,15 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -5532,11 +5664,15 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -5585,6 +5721,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
           assignmentId
           assignment {
             id
+            startDate
             expiration
             title
             details
@@ -5628,6 +5765,9 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -5699,11 +5839,15 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -5816,6 +5960,7 @@ export const onCreateTrack = /* GraphQL */ `
         fileRequestId
         fileRequest {
           id
+          startDate
           expiration
           title
           details
@@ -5939,6 +6084,9 @@ export const onCreateTrack = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -6118,11 +6266,15 @@ export const onCreateTrack = /* GraphQL */ `
             assignmentId
             assignment {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -6419,6 +6571,7 @@ export const onUpdateTrack = /* GraphQL */ `
         fileRequestId
         fileRequest {
           id
+          startDate
           expiration
           title
           details
@@ -6542,6 +6695,9 @@ export const onUpdateTrack = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -6721,11 +6877,15 @@ export const onUpdateTrack = /* GraphQL */ `
             assignmentId
             assignment {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -7022,6 +7182,7 @@ export const onDeleteTrack = /* GraphQL */ `
         fileRequestId
         fileRequest {
           id
+          startDate
           expiration
           title
           details
@@ -7145,6 +7306,9 @@ export const onDeleteTrack = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -7324,11 +7488,15 @@ export const onDeleteTrack = /* GraphQL */ `
             assignmentId
             assignment {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -7627,11 +7795,15 @@ export const onCreatePlaylist = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -7815,11 +7987,15 @@ export const onCreatePlaylist = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -8038,11 +8214,15 @@ export const onUpdatePlaylist = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -8226,11 +8406,15 @@ export const onUpdatePlaylist = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -8449,11 +8633,15 @@ export const onDeletePlaylist = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -8637,11 +8825,15 @@ export const onDeletePlaylist = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -8865,6 +9057,7 @@ export const onCreateMembership = /* GraphQL */ `
         fileRequests {
           items {
             id
+            startDate
             expiration
             title
             details
@@ -8908,6 +9101,9 @@ export const onCreateMembership = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -8922,11 +9118,15 @@ export const onCreateMembership = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -9276,11 +9476,15 @@ export const onCreateMembership = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -9490,6 +9694,7 @@ export const onCreateMembership = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -9533,6 +9738,9 @@ export const onCreateMembership = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -9657,6 +9865,7 @@ export const onUpdateMembership = /* GraphQL */ `
         fileRequests {
           items {
             id
+            startDate
             expiration
             title
             details
@@ -9700,6 +9909,9 @@ export const onUpdateMembership = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -9714,11 +9926,15 @@ export const onUpdateMembership = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -10068,11 +10284,15 @@ export const onUpdateMembership = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -10282,6 +10502,7 @@ export const onUpdateMembership = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -10325,6 +10546,9 @@ export const onUpdateMembership = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -10449,6 +10673,7 @@ export const onDeleteMembership = /* GraphQL */ `
         fileRequests {
           items {
             id
+            startDate
             expiration
             title
             details
@@ -10492,6 +10717,9 @@ export const onDeleteMembership = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -10506,11 +10734,15 @@ export const onDeleteMembership = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -10860,11 +11092,15 @@ export const onDeleteMembership = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -11074,6 +11310,7 @@ export const onDeleteMembership = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -11117,6 +11354,9 @@ export const onDeleteMembership = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -11234,6 +11474,7 @@ export const onCreateWorkshop = /* GraphQL */ `
       fileRequests {
         items {
           id
+          startDate
           expiration
           title
           details
@@ -11357,6 +11598,9 @@ export const onCreateWorkshop = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -11371,6 +11615,7 @@ export const onCreateWorkshop = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -11414,6 +11659,9 @@ export const onCreateWorkshop = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -11630,11 +11878,15 @@ export const onCreateWorkshop = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -11980,6 +12232,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
       fileRequests {
         items {
           id
+          startDate
           expiration
           title
           details
@@ -12103,6 +12356,9 @@ export const onUpdateWorkshop = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -12117,6 +12373,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -12160,6 +12417,9 @@ export const onUpdateWorkshop = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -12376,11 +12636,15 @@ export const onUpdateWorkshop = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -12726,6 +12990,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
       fileRequests {
         items {
           id
+          startDate
           expiration
           title
           details
@@ -12849,6 +13114,9 @@ export const onDeleteWorkshop = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -12863,6 +13131,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -12906,6 +13175,9 @@ export const onDeleteWorkshop = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -13122,11 +13394,15 @@ export const onDeleteWorkshop = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -13545,11 +13821,15 @@ export const onCreateProfile = /* GraphQL */ `
           fileRequests {
             items {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -13671,6 +13951,7 @@ export const onCreateProfile = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -13714,6 +13995,9 @@ export const onCreateProfile = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -14212,11 +14496,15 @@ export const onUpdateProfile = /* GraphQL */ `
           fileRequests {
             items {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -14338,6 +14626,7 @@ export const onUpdateProfile = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -14381,6 +14670,9 @@ export const onUpdateProfile = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -14879,11 +15171,15 @@ export const onDeleteProfile = /* GraphQL */ `
           fileRequests {
             items {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -15005,6 +15301,7 @@ export const onDeleteProfile = /* GraphQL */ `
           fileRequestId
           fileRequest {
             id
+            startDate
             expiration
             title
             details
@@ -15048,6 +15345,9 @@ export const onDeleteProfile = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -15565,11 +15865,15 @@ export const onCreateComment = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -15765,6 +16069,7 @@ export const onCreateComment = /* GraphQL */ `
         fileRequestId
         fileRequest {
           id
+          startDate
           expiration
           title
           details
@@ -15888,6 +16193,9 @@ export const onCreateComment = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -16067,11 +16375,15 @@ export const onCreateComment = /* GraphQL */ `
             assignmentId
             assignment {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -16165,6 +16477,7 @@ export const onCreateComment = /* GraphQL */ `
       assignmentId
       assignment {
         id
+        startDate
         expiration
         title
         details
@@ -16181,11 +16494,15 @@ export const onCreateComment = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -16241,11 +16558,15 @@ export const onCreateComment = /* GraphQL */ `
           fileRequests {
             items {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -16446,6 +16767,9 @@ export const onCreateComment = /* GraphQL */ `
           playlistOwnerId
           __typename
         }
+        playlistStartDate
+        playlistExternalUrl
+        type
         createdAt
         updatedAt
         fileRequestPlaylistId
@@ -16459,6 +16783,7 @@ export const onCreateComment = /* GraphQL */ `
         fileRequests {
           items {
             id
+            startDate
             expiration
             title
             details
@@ -16502,6 +16827,9 @@ export const onCreateComment = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -16516,11 +16844,15 @@ export const onCreateComment = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -16884,11 +17216,15 @@ export const onUpdateComment = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -17084,6 +17420,7 @@ export const onUpdateComment = /* GraphQL */ `
         fileRequestId
         fileRequest {
           id
+          startDate
           expiration
           title
           details
@@ -17207,6 +17544,9 @@ export const onUpdateComment = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -17386,11 +17726,15 @@ export const onUpdateComment = /* GraphQL */ `
             assignmentId
             assignment {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -17484,6 +17828,7 @@ export const onUpdateComment = /* GraphQL */ `
       assignmentId
       assignment {
         id
+        startDate
         expiration
         title
         details
@@ -17500,11 +17845,15 @@ export const onUpdateComment = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -17560,11 +17909,15 @@ export const onUpdateComment = /* GraphQL */ `
           fileRequests {
             items {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -17765,6 +18118,9 @@ export const onUpdateComment = /* GraphQL */ `
           playlistOwnerId
           __typename
         }
+        playlistStartDate
+        playlistExternalUrl
+        type
         createdAt
         updatedAt
         fileRequestPlaylistId
@@ -17778,6 +18134,7 @@ export const onUpdateComment = /* GraphQL */ `
         fileRequests {
           items {
             id
+            startDate
             expiration
             title
             details
@@ -17821,6 +18178,9 @@ export const onUpdateComment = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -17835,11 +18195,15 @@ export const onUpdateComment = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -18203,11 +18567,15 @@ export const onDeleteComment = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -18403,6 +18771,7 @@ export const onDeleteComment = /* GraphQL */ `
         fileRequestId
         fileRequest {
           id
+          startDate
           expiration
           title
           details
@@ -18526,6 +18895,9 @@ export const onDeleteComment = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -18705,11 +19077,15 @@ export const onDeleteComment = /* GraphQL */ `
             assignmentId
             assignment {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -18803,6 +19179,7 @@ export const onDeleteComment = /* GraphQL */ `
       assignmentId
       assignment {
         id
+        startDate
         expiration
         title
         details
@@ -18819,11 +19196,15 @@ export const onDeleteComment = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -18879,11 +19260,15 @@ export const onDeleteComment = /* GraphQL */ `
           fileRequests {
             items {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -19084,6 +19469,9 @@ export const onDeleteComment = /* GraphQL */ `
           playlistOwnerId
           __typename
         }
+        playlistStartDate
+        playlistExternalUrl
+        type
         createdAt
         updatedAt
         fileRequestPlaylistId
@@ -19097,6 +19485,7 @@ export const onDeleteComment = /* GraphQL */ `
         fileRequests {
           items {
             id
+            startDate
             expiration
             title
             details
@@ -19140,6 +19529,9 @@ export const onDeleteComment = /* GraphQL */ `
               playlistOwnerId
               __typename
             }
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
             fileRequestPlaylistId
@@ -19154,11 +19546,15 @@ export const onDeleteComment = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -19441,11 +19837,15 @@ export const onCreateStem = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -19631,11 +20031,15 @@ export const onCreateStem = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -19855,11 +20259,15 @@ export const onUpdateStem = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -20045,11 +20453,15 @@ export const onUpdateStem = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -20269,11 +20681,15 @@ export const onDeleteStem = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -20459,11 +20875,15 @@ export const onDeleteStem = /* GraphQL */ `
             fileRequestId
             fileRequest {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -20676,6 +21096,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `
         fileRequestId
         fileRequest {
           id
+          startDate
           expiration
           title
           details
@@ -20799,6 +21220,9 @@ export const onCreateSubmissionStems = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -20978,11 +21402,15 @@ export const onCreateSubmissionStems = /* GraphQL */ `
             assignmentId
             assignment {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -21289,6 +21717,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
         fileRequestId
         fileRequest {
           id
+          startDate
           expiration
           title
           details
@@ -21412,6 +21841,9 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -21591,11 +22023,15 @@ export const onUpdateSubmissionStems = /* GraphQL */ `
             assignmentId
             assignment {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
@@ -21902,6 +22338,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
         fileRequestId
         fileRequest {
           id
+          startDate
           expiration
           title
           details
@@ -22025,6 +22462,9 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
             playlistOwnerId
             __typename
           }
+          playlistStartDate
+          playlistExternalUrl
+          type
           createdAt
           updatedAt
           fileRequestPlaylistId
@@ -22204,11 +22644,15 @@ export const onDeleteSubmissionStems = /* GraphQL */ `
             assignmentId
             assignment {
               id
+              startDate
               expiration
               title
               details
               required
               workshopId
+              playlistStartDate
+              playlistExternalUrl
+              type
               createdAt
               updatedAt
               fileRequestPlaylistId
