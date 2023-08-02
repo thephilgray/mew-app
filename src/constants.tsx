@@ -1,8 +1,8 @@
 import React from "react";
 import {
     Home, Person, Groups, ManageAccounts, Extension, GroupAdd, EditAttributes, Workspaces,
-    Forum, AudioFile, Assignment, ModeEdit, PlaylistPlay, AssignmentTurnedIn, SendTimeExtension,
-    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Feedback, Grass, TramRounded
+    Forum, Assignment, ModeEdit, PlaylistPlay, AssignmentTurnedIn, SendTimeExtension,
+    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass
 } from "@mui/icons-material";
 import { pathToRegexp } from "path-to-regexp";
 
