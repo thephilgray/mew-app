@@ -78,6 +78,7 @@ const App: React.FC = (): JSX.Element => (
                                 return <PrivateRoute key={hash(config)} {...config} component={componentToRoutesMap[config.routeName]} />
 
                             })}
+                            <Playlist path={ROUTES.playlist.path} />
                             <Playlist path={ROUTES.assignmentPlaylist.path} />
                             <NewPublicSubmission path={ROUTES.newPublicSubmission.path} />
                             <NewPublicSubmission path={ROUTES.newPublicSubmissionExtension.path} />

@@ -22,8 +22,6 @@ import {
     FormHelperText,
 } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { add } from 'date-fns/esm'
 import gql from 'graphql-tag'
 import { useLazyQuery, useQuery } from '@apollo/react-hooks'
@@ -42,6 +40,7 @@ import { getCloudFrontURL } from '../../utils';
 import { ROUTES } from '../../constants';
 import { useProfile } from '../../auth/hooks';
 import If from '../If';
+import { DateTimePicker } from '@mui/x-date-pickers';
 
 const getFileRequestWithNoLimit = getFileRequestQuery.replace('submissions {', 'submissions(limit: 1000) {')
 
@@ -56,6 +55,9 @@ type Inputs = {
     artworkCredit: string
     artworkPath: string
     fileRequestPlaylistId: string
+    startDate: Date;
+    playlistStartDate: Date;
+    playlistExternalUrl: String;
 }
 
 
@@ -106,6 +108,8 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
     const [details, setDetails] = useState<string>('')
     const [required, setRequired] = useState<boolean>(true)
     const [expiration, setExpiration] = useState<Date | null>(add(new Date(), { weeks: 1 }))
+    const [startDate, setStartDate] = useState<Date | null>(new Date())
+    const [playlistStartDate, setPlaylistStartDate] = useState<Date | null>(add(new Date(), { weeks: 1 }))
     const [showCopySuccessAlert, setShowCopySuccessAlert] = useState<boolean>(false)
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard()
     const [openConfirm, setOpenConfirm] = React.useState(false)
@@ -124,8 +128,11 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
             setDetails(getFileRequest.details)
             setValue('title', getFileRequest.title)
             setExpiration(new Date(getFileRequest.expiration))
+            setStartDate(new Date(getFileRequest.startDate))
+            setPlaylistStartDate(new Date(getFileRequest.playlistStartDate))
             setRequired(getFileRequest.required)
             setValue('artworkCredit', getFileRequest.artwork?.credit)
+            setValue('playlistExternalUrl', getFileRequest.playlistExternalUrl)
         }
     }, [getFileRequest])
 
@@ -145,6 +152,16 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
         setValue('expiration', expiration)
         register('expiration', { required: true })
     }, [expiration])
+
+    useEffect(() => {
+        setValue('startDate', startDate);
+        register('startDate');
+    }, [startDate]);
+
+    useEffect(() => {
+        setValue('playlistStartDate', playlistStartDate);
+        register('playlistStartDate');
+    }, [playlistStartDate]);
 
     useEffect(() => {
         setValue('details', details)
@@ -172,6 +189,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
             variables: {
                 input: {
                     id: assignmentId,
+                    type: 'FileRequest',
                     expiration: inputData.expiration?.toISOString(),
                     title: inputData.title,
                     details: details,
@@ -183,7 +201,10 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                             path: ARTWORK_UPLOAD_PATH
                         }
                     },
-                    fileRequestPlaylistId: inputData.fileRequestPlaylistId
+                    fileRequestPlaylistId: inputData.fileRequestPlaylistId,
+                    ...inputData.startDate && { startDate: inputData.startDate?.toISOString() },
+                    ...inputData.playlistStartDate && { playlistStartDate: inputData.playlistStartDate?.toISOString() },
+                    playlistExternalUrl: inputData.playlistExternalUrl
                 },
             },
         })
@@ -207,8 +228,6 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
     if (error) return <Error errorMessage={error} />
     if (loading) return <CircularProgress />
     if (!loading && !getFileRequest?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
-
-
 
     return (
         <Grid container spacing={2}>
@@ -305,6 +324,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                     {...register('title', { required: true })}
                                     error={!!errors.title}
                                     inputProps={{ maxLength: 90 }}
+                                    InputLabelProps={{ shrink: true }}
                                     helperText={
                                         !!errors.title ?
                                             'Title is required' :
@@ -357,60 +377,73 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                     helperText={`${90 - (watch('artworkCredit')?.length || 0)} characters remaining.`}
                                 />
                             </Grid>
-                            <If condition={fetchListPlaylistsData?.playlistsByDate?.items}>
-                                <Grid item xs={12}>
-                                    <FormControl fullWidth sx={{ pt: 2 }}>
-                                        <InputLabel id="select-helper-label">Official Playlist</InputLabel>
-                                        <Controller render={({ field }) => (
-                                            <Select labelId="select-helper-label" {...field}>
-                                                <MenuItem value="">
-                                                    <em>None</em>
-                                                </MenuItem>
-                                                {fetchListPlaylistsData?.playlistsByDate?.items.map(playlist => (
-                                                    <MenuItem value={playlist.id} key={playlist.id}>
-                                                        {playlist.title}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
 
-                                        )}
-                                            defaultValue={getFileRequest?.playlist?.id}
-                                            name={"fileRequestPlaylistId"}
-                                            control={control}
-                                        >
-                                        </Controller>
-                                        <FormHelperText>This overrides the default playlist.</FormHelperText>
-                                    </FormControl>
-                                </Grid>
-                            </If>
-                            <Grid item xs={6}>
-                                <DatePicker
-                                    fullWidth
-                                    autoOk
-                                    error={!!errors.expiration}
-                                    inputVariant="outlined"
-                                    variant="inline"
-                                    inputFormat="MM/dd/yyyy"
-                                    label="Expiration"
-                                    helperText={!!errors.expiration && <>Start date is required</>}
-                                    onChange={(date) => setExpiration(date)}
-                                    value={expiration}
+                            <Grid item xs={12} sm={6}>
+                                <DateTimePicker
+                                    label="Scheduled Start"
+                                    onChange={date => setStartDate(date)}
+                                    value={startDate}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
-                                <TimePicker
-                                    id="due-time-picker"
-                                    fullWidth
-                                    label="Time"
+                            <Grid item xs={12} sm={6}>
+                                <DateTimePicker
+                                    label="Expiration"
+                                    onChange={date => setExpiration(date)}
                                     value={expiration}
-                                    inputVariant="outlined"
-                                    autoOk
-                                    variant="inline"
-                                    onChange={setExpiration}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change time',
-                                    }}
+                                    helperText={!!errors.expiration && <>Start date is required</>}
+                                    error={!!errors.expiration}
                                 />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <fieldset style={{ padding: '1em' }}>
+                                    <legend>Playlist Override Options</legend>
+                                    <Grid container spacing={2}>
+
+                                        <Grid item xs={12}>
+                                            <DateTimePicker
+                                                label="Playlist Start"
+                                                onChange={date => setPlaylistStartDate(date)}
+                                                value={playlistStartDate}
+                                            />
+                                        </Grid>
+                                        <If condition={fetchListPlaylistsData?.playlistsByDate?.items}>
+                                            <Grid item xs={12}>
+                                                <FormControl fullWidth sx={{ pt: 2 }}>
+                                                    <InputLabel id="select-helper-label">Official Playlist</InputLabel>
+                                                    <Controller render={({ field }) => (
+                                                        <Select labelId="select-helper-label" {...field}>
+                                                            <MenuItem value="">
+                                                                <em>None</em>
+                                                            </MenuItem>
+                                                            {fetchListPlaylistsData?.playlistsByDate?.items.map(playlist => (
+                                                                <MenuItem value={playlist.id} key={playlist.id}>
+                                                                    {playlist.title}
+                                                                </MenuItem>
+                                                            ))}
+                                                        </Select>
+
+                                                    )}
+                                                        defaultValue={getFileRequest?.playlist?.id}
+                                                        name={"fileRequestPlaylistId"}
+                                                        control={control}
+                                                    >
+                                                    </Controller>
+                                                    <FormHelperText>This overrides the default playlist. Unset this to use the default playlist.</FormHelperText>
+                                                </FormControl>
+                                            </Grid>
+                                        </If>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                label="External Playlist URL"
+                                                {...register('playlistExternalUrl')}
+                                                inputProps={{ maxLength: 500 }}
+                                                helperText={<>This overrides the default playlist and the official playlist. Unset this to use the default or official playlist.<br /> {500 - (watch('playlistExternalUrl')?.length || 0)} characters remaining.</>}
+                                                InputLabelProps={{ shrink: true }}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                </fieldset>
                             </Grid>
                             <Grid item xs={6}>
                                 <Button

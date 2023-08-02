@@ -13,10 +13,11 @@ import {
 import { useForm } from 'react-hook-form';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers';
 import { add } from 'date-fns/esm';
 import gql from 'graphql-tag';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { Editor } from '@tinymce/tinymce-react';
 import Error from '../Error';
 import AppBreadcrumbs from '../AppBreadcrumbs';
@@ -28,7 +29,6 @@ import { createFileRequest as createFileRequestMutation } from '../../graphql/mu
 import { ROUTES } from '../../constants';
 import { getWorkshop } from '../../graphql/queries';
 
-
 type Inputs = {
     expiration: Date;
     title: string;
@@ -36,6 +36,9 @@ type Inputs = {
     required: boolean;
     artworkPath: string;
     artworkCredit: string;
+    startDate: Date;
+    playlistStartDate: Date;
+    playlistExternalUrl: String;
 };
 
 const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
@@ -57,6 +60,12 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
     const [expiration, setExpiration] = useState<Date | null>(
         add(new Date(), { weeks: 1 })
     );
+    const [startDate, setStartDate] = useState<Date | null>(
+        new Date()
+    )
+    const [playlistStartDate, setPlaylistStartDate] = useState<Date | null>(
+        add(new Date(), { weeks: 1 })
+    )
     const [showCopySuccessAlert, setShowCopySuccessAlert] =
         useState<boolean>(false);
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard();
@@ -74,6 +83,16 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
     }, [expiration]);
 
     useEffect(() => {
+        setValue('startDate', startDate);
+        register('startDate');
+    }, [startDate]);
+
+    useEffect(() => {
+        setValue('playlistStartDate', playlistStartDate);
+        register('playlistStartDate');
+    }, [playlistStartDate]);
+
+    useEffect(() => {
         setValue('details', details);
         register('details');
     }, [details]);
@@ -83,6 +102,13 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
         register('required');
     }, [required]);
 
+    useEffect(() => {
+        if (data?.createFileRequest?.id) {
+            navigate(ROUTES.assignment.getPath({ assignmentId: data.createFileRequest.id }))
+        }
+
+    }, [data])
+
     const onSubmit = async (inputData: Inputs) => {
         let ARTWORK_UPLOAD_PATH
         let ID
@@ -91,28 +117,36 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
             ARTWORK_UPLOAD_PATH = `workshops/${workshopId}/artwork-${ID}.jpg`
             await uploadImage({ image, uploadPath: ARTWORK_UPLOAD_PATH, filename: 'artwork.jpg' })
         }
+
+        const input = {
+            type: 'FileRequest',
+            expiration: inputData.expiration?.toISOString(),
+            title: inputData.title,
+            details: details,
+            required: required,
+            workshopId,
+            ...image && {
+                artwork: {
+                    id: ID,
+                    credit: inputData.artworkCredit,
+                    path: ARTWORK_UPLOAD_PATH
+                }
+            },
+            ...inputData.startDate && { startDate: inputData.startDate?.toISOString() },
+            ...inputData.playlistStartDate && { playlistStartDate: inputData.playlistStartDate?.toISOString() },
+            playlistExternalUrl: inputData.playlistExternalUrl
+        };
+
+
         return createFileRequest({
             variables: {
-                input: {
-                    expiration: inputData.expiration?.toISOString(),
-                    title: inputData.title,
-                    details: details,
-                    required: required,
-                    workshopId,
-                    ...image && {
-                        artwork: {
-                            id: ID,
-                            credit: inputData.artworkCredit,
-                            path: ARTWORK_UPLOAD_PATH
-                        }
-                    }
-                }
+                input
             },
         });
     };
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ pb: 4 }}>
             <Grid item xs={12}>
                 <AppBreadcrumbs
                     workshop={getWorkshopData?.getWorkshop}
@@ -130,47 +164,6 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                             {error && (
                                 <Grid item xs={12}>
                                     <Error errorMessage={error} />
-                                </Grid>
-                            )}
-                            {data?.createFileRequest?.id && (
-                                <Grid item xs={12} md={9}>
-                                    <Link
-                                        to={ROUTES.newPublicSubmission.getPath({
-                                            assignmentId: data.createFileRequest.id,
-                                        })}
-                                    >
-                                        {window.origin}
-                                        {ROUTES.newPublicSubmission.getPath({
-                                            assignmentId: data.createFileRequest.id,
-                                        })}
-                                    </Link>
-                                    <Snackbar
-                                        anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'center',
-                                        }}
-                                        open={showCopySuccessAlert}
-                                        color="success"
-                                        autoHideDuration={3000}
-                                        message="Link to assignment copied to clipboard."
-                                        onClose={() => setShowCopySuccessAlert(false)}
-                                    />
-                                    <IconButton
-                                        color="secondary"
-                                        aria-label="Close"
-                                        component="span"
-                                        onClick={() =>
-                                            copyToClipboard(
-                                                `${window.origin
-                                                }${ROUTES.newPublicSubmission.getPath({
-                                                    assignmentId: data.createFileRequest.id,
-                                                })}`
-                                            )
-                                        }
-                                        size="large"
-                                    >
-                                        <FileCopy />
-                                    </IconButton>
                                 </Grid>
                             )}
                             <Grid item xs={12} md={9}>
@@ -233,36 +226,45 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                                     helperText={`${90 - (watch('artworkCredit')?.length || 0)} characters remaining.`}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
-                                <DatePicker
-                                    fullWidth
-                                    autoOk
-                                    error={!!errors.expiration}
-                                    inputVariant="outlined"
-                                    variant="inline"
-                                    inputFormat="MM/dd/yyyy"
-                                    label="Expiration"
-                                    helperText={
-                                        !!errors.expiration && <>Start date is required</>
-                                    }
-                                    onChange={(date) => setExpiration(date)}
-                                    value={expiration}
+                            <Grid item xs={12} sm={6}>
+                                <DateTimePicker
+                                    label="Scheduled Start"
+                                    onChange={date => setStartDate(date)}
+                                    value={startDate}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
-                                <TimePicker
-                                    id="due-time-picker"
-                                    fullWidth
-                                    label="Time"
+                            <Grid item xs={12} sm={6}>
+                                <DateTimePicker
+                                    label="Expiration"
+                                    onChange={date => setExpiration(date)}
                                     value={expiration}
-                                    inputVariant="outlined"
-                                    autoOk
-                                    variant="inline"
-                                    onChange={setExpiration}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change time',
-                                    }}
+                                    helperText={!!errors.expiration && <>Start date is required</>}
+                                    error={!!errors.expiration}
                                 />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <fieldset style={{ padding: '1em' }}>
+                                    <legend>Playlist Override Options</legend>
+                                    <Grid container spacing={2}>
+
+                                        <Grid item xs={12} sm={6}>
+                                            <DateTimePicker
+                                                label="Playlist Start"
+                                                onChange={date => setPlaylistStartDate(date)}
+                                                value={playlistStartDate}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                label="External Playlist URL"
+                                                {...register('playlistExternalUrl')}
+                                                inputProps={{ maxLength: 500 }}
+                                                helperText={`${500 - (watch('playlistExternalUrl')?.length || 0)} characters remaining.`}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                </fieldset>
                             </Grid>
                             <Grid item xs={12}>
                                 <Button
