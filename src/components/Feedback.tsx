@@ -169,25 +169,17 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
     { error: updateCommentRequestError, data: updateCommentRequestData }
   ] = useMutation(gql(updateComment))
 
+  const isFeedbackPage = !assignmentId && !submissionId;
+  const isSubmissionsPage = assignmentId && !submissionId;
+  const isDefaultPlaylistPage = assignmentId && submissionId;
+  const isCustomPlaylistPage = !assignmentId && submissionId;
+  const isGiveFeedbackPage = assignmentId && submissionId;
+
   useEffect(() => {
     if (!profile) return;
-    // defaults
     let query = listComments;
-    let variables = {
-      limit: 500,
-      // submissions page
-      filter: { assignmentId: { eq: assignmentId } }
-    }
-    // playlist page
-    if (submissionId) {
-      variables = {
-        ...variables,
-        limit: 50,
-        filter: { and: [{ assignmentId: { eq: assignmentId } }, { submissionId: { eq: submissionId } }] }
-      }
-    }
-    // global feedback page
-    else if (!assignmentId && !submissionId) {
+    let variables = {}
+    if (isFeedbackPage) {
       // show all feedback from all workshops the user has an active membership
       const workshopIds = profile?.memberships?.items
         ?.filter(item => item.status === "ACTIVE")
@@ -195,13 +187,27 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
 
       query = commentsByDate
       variables = {
-        ...variables,
         limit: 250,
         type: "Comment",
         sortDirection: "DESC",
         filter: {
           or: workshopIds.map(id => ({ workshopId: { eq: id } })),
         }
+      }
+    }
+
+    else if (isSubmissionsPage) {
+      variables = {
+        limit: 500,
+        filter: { assignmentId: { eq: assignmentId } }
+      }
+    }
+
+    // playlist page
+    else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
+      variables = {
+        limit: 50,
+        filter: { submissionId: { eq: submissionId } }
       }
     }
 
@@ -212,24 +218,24 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
       })
 
       // global feedback page
-      if (!assignmentId && !submissionId) {
-        setComments(result.data.commentsByDate.items)
-      }
-      else {
-        setComments(result.data.listComments.items)
+      if (isFeedbackPage) {
+        setComments(result?.data?.commentsByDate?.items)
+      } else {
+        setComments(result?.data?.listComments?.items)
       }
     }
 
     fetchComments()
 
-    const createSub = API.graphql(graphqlOperation(onCreateComment, variables.filter)).subscribe({
+    const createSub = API.graphql(graphqlOperation(onCreateComment, { filter: variables.filter })).subscribe({
       next: ({ value }) => {
-        setComments((items) => [...items, value.data.onCreateComment]
-          .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt))))
+        setComments(
+          (items) => [...items, value.data.onCreateComment]
+            .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt))))
       }
     })
 
-    const updateSub = API.graphql(graphqlOperation(onUpdateComment, variables.filter)).subscribe({
+    const updateSub = API.graphql(graphqlOperation(onUpdateComment, { filter: variables.filter })).subscribe({
       next: ({ value }) => {
         setComments(items => {
           const toUpdateIndex = items.findIndex(item => item.id === value.data.onUpdateComment.id)
@@ -241,7 +247,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
       }
     })
 
-    const deleteSub = API.graphql(graphqlOperation(onDeleteComment, variables.filter)).subscribe({
+    const deleteSub = API.graphql(graphqlOperation(onDeleteComment, { filter: variables.filter })).subscribe({
       next: ({ value }) => {
         setComments(items => {
           const toDeleteIndex = items.findIndex(item => item.id === value.data.onDeleteComment.id)
