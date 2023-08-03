@@ -525,7 +525,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                     </Typography>
                 </Grid>
                 <Grid item xs={4} sx={{ textAlign: 'right', p: 0, pl: 0, pb: 0 }}>
-                    <If condition={viewAdmin || isExpired}>
+                    <If condition={!!viewAdmin || (isExpired && (data?.getFileRequest?.playlistStartDate ? isPast(data?.getFileRequest?.playlistStartDate) : true))}>
                         {!xs ? (
                             <Button
                                 color="secondary"
