@@ -903,7 +903,9 @@ async function getMailchimpMembers({ apiKeyName, serverPrefix, listId }) {
 
   let response;
   try {
-    response = await mailchimp.lists.getListMembersInfo(listId);
+    response = await mailchimp.lists.getListMembersInfo(listId, {
+      count: 1000,
+    });
   } catch (error) {
     console.log(`error with mailchimp getListMembersInfo`);
     console.log(error);
@@ -933,7 +935,7 @@ async function getMailchimpMember({
   try {
     member = await mailchimp.lists.getListMember(listId, subscriber_hash);
   } catch (error) {
-    console.log(`error with mailchimp getListMembersInfo`);
+    console.log(`error with mailchimp getListMember`);
     console.log(error);
   }
   return member;
