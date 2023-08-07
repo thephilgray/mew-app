@@ -70,7 +70,7 @@ const getWorkshop = /* GraphQL */ gql`
           serverPrefix
         }
       }
-      memberships {
+      memberships(limit: 1000) {
         items {
           id
           workshopId
@@ -228,7 +228,7 @@ const updateProfile = /* GraphQL */ gql`
         }
         nextToken
       }
-      memberships {
+      memberships(limit: 1000) {
         items {
           id
           workshopId
