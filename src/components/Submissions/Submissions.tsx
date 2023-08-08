@@ -285,7 +285,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
         setDialogToggles({});
     };
 
-    const onDelete = (id) => {
+    const onDelete = async ({ id, fileRequestId: assignmentId, fileId }) => {
+        const keyValues = [assignmentId, fileId]
+        const key = keyValues.map(encodeURIComponent).join('/')
+        await Storage.remove(key)
+
         return deleteFileRequestSubmissionRequest({
             variables: {
                 input: {
@@ -352,7 +356,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             width: 160,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
-            renderCell: ({ row, value = '' }) => <IconButton onClick={() => onDelete(row.id)}><Delete /></IconButton>
+            renderCell: ({ row, value = '' }) => <IconButton onClick={() => onDelete(row)}><Delete /></IconButton>
         }] : []),
     ];
 
