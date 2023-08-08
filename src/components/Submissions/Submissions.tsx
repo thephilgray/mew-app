@@ -25,7 +25,7 @@ import {
     GridRowSelectionModel,
 } from '@mui/x-data-grid';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { format, isPast } from 'date-fns';
 import { useCopyToClipboard, usePrevious } from 'react-use';
 import {
@@ -38,7 +38,8 @@ import {
     Edit,
     PlayArrowTwoTone,
     MoreTime,
-    Pause,
+    Delete,
+    OpenInNew,
 } from '@mui/icons-material';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import { uniqBy, pipe, map } from 'lodash/fp';
@@ -46,7 +47,7 @@ import { uniqBy, pipe, map } from 'lodash/fp';
 import AppBreadcrumbs from '../AppBreadcrumbs';
 import Error from '../Error';
 import Menu from '../Menu';
-import { processDownload, runProcessAudioTask } from '../../graphql/mutations';
+import { deleteFileRequestSubmission, processDownload, runProcessAudioTask } from '../../graphql/mutations';
 import { getFileRequest } from '../../graphql/queries';
 import ExtensionsDialog from './ExtensionsDialog';
 import { useUser, useViewAdmin } from '../../auth/hooks';
@@ -55,10 +56,11 @@ import { Group, ROUTES } from '../../constants';
 import If from '../If';
 import { FeedbackSection } from '../Feedback';
 import { useBreakpoint } from '../Layout/Layout';
-import { getCloudFrontURL } from '../../utils';
 import Loading from '../Loading';
 import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
 import { DataGridWrapper } from '../DataGridWrapper';
+import { getCloudFrontURL } from '../../utils';
+
 
 const getFileRequestWithNoLimit = getFileRequest.replace(
     'submissions {',
@@ -92,6 +94,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     const sm = breakpoint === "S"
     const lg = breakpoint === "L"
     const xs = breakpoint === "XS"
+
+    const [deleteFileRequestSubmissionRequest] = useMutation(gql(deleteFileRequestSubmission),)
 
     const dialogConstants = {
         CONFIRM_EMAIL_DOWNLOAD_LINK: 'confirm-email-download-link',
@@ -281,7 +285,25 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
         setDialogToggles({});
     };
 
+    const onDelete = (id) => {
+        return deleteFileRequestSubmissionRequest({
+            variables: {
+                input: {
+                    id
+                }
+            }
+        })
+    }
+
     const columns: GridColDef[] = [
+        {
+            field: 'play',
+            headerName: 'Listen',
+            width: 100,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            renderCell: ({ row, value = '' }) => <SimplePlayerButton audioPath={`${row.fileRequestId}/${row.fileId}`} />
+        },
         {
             field: 'artist',
             headerName: 'Artist Byline',
@@ -292,11 +314,11 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             headerName: 'Song Title',
             width: 300,
         },
-        {
+        ...(!!viewAdmin ? [{
             field: 'email',
             headerName: 'Email',
             width: 300,
-        },
+        }] : []),
         {
             field: 'createdAt',
             headerName: 'Submitted',
@@ -308,13 +330,30 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                 value && format(new Date(value), 'MM/dd/yyyy H:mm'),
         },
         {
-            field: 'play',
-            headerName: 'Listen',
+            field: 'requestFeedback',
+            headerName: 'Feedback?',
+            width: 100,
+            valueFormatter: ({ value = false }) => value ? 'requested' : 'no'
+        },
+        {
+            field: 'artwork',
+            headerName: 'Artwork',
+            width: 100,
+            renderCell: ({ row, value = {} }) => value ? <a target="_blank" href={getCloudFrontURL(value?.path)}><OpenInNew /></a> : null
+        },
+        {
+            field: 'lyrics',
+            headerName: 'Lyrics',
+            width: 200,
+        },
+        ...(!isExpired ? [{
+            field: 'delete',
+            headerName: 'Delete',
             width: 160,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
-            renderCell: ({ row, value = '' }) => <SimplePlayerButton audioPath={`${row.fileRequestId}/${row.fileId}`} />
-        },
+            renderCell: ({ row, value = '' }) => <IconButton onClick={() => onDelete(row.id)}><Delete /></IconButton>
+        }] : []),
     ];
 
     const sortModel = [
