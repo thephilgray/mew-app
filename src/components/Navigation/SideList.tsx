@@ -12,6 +12,7 @@ import { ROUTES } from '../../constants';
 import { navigate, Link } from 'gatsby';
 import { useProfile, useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks';
 import { ArrowForward } from '@mui/icons-material';
+import AdminViewToggle from '../AdminViewToggle';
 
 export default function NavList() {
   const location = useLocation()
@@ -46,6 +47,7 @@ export default function NavList() {
         </ListItemButton>
 
       )}
+    <AdminViewToggle />
   </List >
 }
 
