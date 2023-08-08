@@ -74,9 +74,11 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
             {comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}
           </Link>
           <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – </span>
-          <Link to={ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId }) + `?track=${comment.submission.id}`}>
-            <em>{comment?.submission?.name} by {comment?.submission?.artist}</em>
-          </Link>
+          <If condition={comment?.submission?.id} fallbackContent={<em>Submission deleted</em>}>
+            <Link to={ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId }) + `?track=${comment?.submission?.id}`}>
+              <em>{comment?.submission?.name} by {comment?.submission?.artist}</em>
+            </Link>
+          </If>
         </h4>
         <Typography sx={{ textAlign: "left", pt: 1 }}>
           {comment.content}

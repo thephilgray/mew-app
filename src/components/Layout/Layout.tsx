@@ -39,7 +39,6 @@ const InnerLayout = ({ children, siteTitle }) => {
             <If condition={!lg}>
                 <DrawerHeader />
             </If>
-            <AdminViewToggle />
             {children}
         </Box>
     </Box >

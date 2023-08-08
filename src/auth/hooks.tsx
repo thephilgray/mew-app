@@ -228,11 +228,7 @@ export function useUserHasMembership(workshopId: string): boolean {
     )
 }
 export const useIsAdmin = () => {
-    const { viewAdmin, setViewAdmin } = React.useContext(AuthContext)
     const isAdmin = useUserInAtLeastOneOfTheseGroups([Group.admin])
-    if (isAdmin && viewAdmin === null) {
-        setViewAdmin(true)
-    }
     return isAdmin
 }
 

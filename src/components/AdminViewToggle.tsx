@@ -1,27 +1,30 @@
-import { Lock, LockOpen, Visibility, VisibilityOff } from '@mui/icons-material'
-import { Fab, Tooltip } from '@mui/material'
-import React from 'react'
+import { Lock, LockOpen } from '@mui/icons-material'
+import { ListItemButton, ListItemIcon, ListItemText, Tooltip } from '@mui/material'
+import React, { useEffect } from 'react'
 import { useIsAdmin, useViewAdmin } from '../auth/hooks'
 import If from './If'
-import { useLocation } from 'react-use'
-import { useBreakpoint } from './Layout/Layout'
 export default function AdminViewToggle() {
   const [viewAdmin, setViewAdmin] = useViewAdmin()
   const isAdmin = useIsAdmin()
-  const location = useLocation()
-  const isPlaylistPage = location.pathname?.includes('playlists')
-  const breakpoint = useBreakpoint()
-  const smallScreen = breakpoint === "XS"
+
+  useEffect(() => {
+    if (isAdmin && viewAdmin === null) {
+      setViewAdmin(true)
+    }
+  }, [isAdmin])
 
   return (
-    <If condition={isAdmin && !(isPlaylistPage && smallScreen)}>
-      <Tooltip title={`${!!viewAdmin ? "Viewing as admin" : "Viewing as member"}`} placement="top-start">
-        <Fab color="secondary"
+    <If condition={isAdmin}>
+      <Tooltip title={`${!!viewAdmin ? "Viewing as admin" : "Viewing as member"}`} placement="bottom-end">
+        <ListItemButton
           aria-label="Admin View Toggle"
           onClick={() => setViewAdmin(!viewAdmin)}
-          sx={{ position: 'fixed', bottom: '1em', right: '1em' }}>
-          {!!viewAdmin ? <LockOpen /> : <Lock />}
-        </Fab>
+        >
+          <ListItemIcon>
+            {!!viewAdmin ? <Lock color="secondary" /> : <LockOpen color="secondary" />}
+          </ListItemIcon>
+          <ListItemText primary={viewAdmin ? "Admin view" : "Member view"}></ListItemText>
+        </ListItemButton>
       </Tooltip>
     </If>
   )
