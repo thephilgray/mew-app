@@ -300,6 +300,20 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     ]
 
     const columns: GridColDef[] = [
+        {
+            field: 'profileEnabled',
+            headerName: 'Profile',
+            renderCell: ({ row, value }) =>
+                value ? <Link
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none' }}
+                    to={ROUTES.viewProfile.getPath({ profileId: row?.profile?.id })}>
+                    <Avatar
+                        alt={getDisplayName(row?.profile)}
+                        src={getCloudFrontURL(row?.profile?.avatar)}
+                        sx={{ mr: 1 }} />
+                    {value || getDisplayName(row?.profile)}
+                </Link> : 'No'
+        },
         { field: 'email', headerName: 'Email', width: 300 },
         { field: 'name', headerName: 'Name', width: 200 },
         { field: 'submissions', headerName: 'Submitted', width: 120 },
@@ -357,20 +371,6 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 </>
             ),
             width: 150,
-        },
-        {
-            field: 'profileEnabled',
-            headerName: 'Profile',
-            renderCell: ({ row, value }) =>
-                value ? <Link
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none' }}
-                    to={ROUTES.viewProfile.getPath({ profileId: row?.profile?.id })}>
-                    <Avatar
-                        alt={getDisplayName(row?.profile)}
-                        src={getCloudFrontURL(row?.profile?.avatar)}
-                        sx={{ mr: 1 }} />
-                    {value || getDisplayName(row?.profile)}
-                </Link> : 'No'
         },
         {
             field: 'loginEnabled',
