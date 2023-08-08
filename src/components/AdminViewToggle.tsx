@@ -21,7 +21,7 @@ export default function AdminViewToggle() {
           onClick={() => setViewAdmin(!viewAdmin)}
         >
           <ListItemIcon>
-            {!!viewAdmin ? <LockOpen color="secondary" /> : <Lock color="secondary" />}
+            {!!viewAdmin ? <Lock color="secondary" /> : <LockOpen color="secondary" />}
           </ListItemIcon>
           <ListItemText primary={viewAdmin ? "Admin view" : "Member view"}></ListItemText>
         </ListItemButton>
