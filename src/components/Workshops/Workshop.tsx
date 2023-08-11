@@ -132,7 +132,7 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
 
     const AssignmentsView = () => <>
         <Grid item xs={12}>
-            <Assignments workshopId={workshopId} />
+            <Assignments workshopId={workshopId} fileRequests={data?.getWorkshop?.fileRequests} />
         </Grid>
     </>
 
@@ -236,32 +236,29 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
                     </Grid>
                 </Grid>
             </GroupGuard>
-            <GroupGuard groups={[Group.admin]} fallbackContent={<AssignmentsView />
-            }>
-                <If condition={!!viewAdmin}>
-                    <Grid item xs={12} className={classes.tableWrapper}>
-                        <DataGridWrapper>
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                disableRowSelectionOnClick={true}
-                                onRowClick={(params: GridRowParams) =>
-                                    navigate(ROUTES.assignment.getPath({ assignmentId: String(params.row.id) }))
-                                }
-                                initialState={{
-                                    sorting: {
-                                        sortModel: [{ field: 'expiration', sort: 'desc' }],
-                                    },
-                                }}
-                                autoHeight
-                            />
-                        </DataGridWrapper>
-                    </Grid>
-                </If>
-                <If condition={!viewAdmin}>
-                    <AssignmentsView />
-                </If>
-            </GroupGuard>
+            <If condition={!!viewAdmin}>
+                <Grid item xs={12} className={classes.tableWrapper}>
+                    <DataGridWrapper>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            disableRowSelectionOnClick={true}
+                            onRowClick={(params: GridRowParams) =>
+                                navigate(ROUTES.assignment.getPath({ assignmentId: String(params.row.id) }))
+                            }
+                            initialState={{
+                                sorting: {
+                                    sortModel: [{ field: 'expiration', sort: 'desc' }],
+                                },
+                            }}
+                            autoHeight
+                        />
+                    </DataGridWrapper>
+                </Grid>
+            </If>
+            <If condition={!viewAdmin}>
+                <AssignmentsView />
+            </If>
         </Grid>
     );
 }

@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Button, CardActions, Grid, Typography } from '@mui/material'
-import { Add, Assignment, AssignmentLateRounded, AssignmentTurnedInRounded, OpenInBrowser, PlayArrowTwoTone } from '@mui/icons-material'
+import { Add, Assignment, AssignmentTurnedInRounded, OpenInBrowser, PlayArrowTwoTone } from '@mui/icons-material'
 import { SvgSkullCrossbonesSolid } from 'react-line-awesome-svg'
 import CardGrid, { SkeletonCardGrid } from '../CardGrid';
 import If from '../If';
-import { getCloudFrontURL } from '../../utils';
 import { isPast } from 'date-fns/esm'
 import { compareDesc } from 'date-fns'
 import format from 'date-fns/format'
@@ -12,38 +11,27 @@ import Timer from './Timer';
 import { ROUTES } from '../../constants'
 import { navigate } from 'gatsby'
 import { useProfile, useUser, useViewAdmin } from '../../auth/hooks';
-import Error from '../Error';
-import { gql, useLazyQuery, useQuery } from '@apollo/react-hooks';
-import { listFileRequests, fileRequestsByWorkshopId } from '../../graphql/queries';
-import Link from '../Link';
+import { gql, useLazyQuery } from '@apollo/react-hooks';
+import { listFileRequests } from '../../graphql/queries';
 
 type AssignmentsProps = {
 
 };
 
-const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
+const Assignments: React.FC<AssignmentsProps> = ({ workshopId, fileRequests }) => {
   const user = useUser()
   const { profile } = useProfile()
   const [viewAdmin] = useViewAdmin()
-  const [fetchWorkshopAssignments, { data: fetchWorkshopAssignmentsData, error: fetchWorkshopAssignmentsError, loading: fetchWorkshopAssignmentsLoading }] = useLazyQuery(
-    gql(fileRequestsByWorkshopId.replace('submissions {', 'submissions(limit: 5000) {')),
-    {
-      variables: { workshopId: workshopId },
-    },
-  )
   const [fetchAssignments, { data: fetchAssignmentsData, loading: fetchAssignmentsLoading, error: fetchAssignmentsError }] = useLazyQuery(
     gql(listFileRequests.replace('submissions {', 'submissions(limit: 5000) {'))
   )
 
 
   useEffect(() => {
-    if (workshopId && !fetchWorkshopAssignmentsData && !fetchWorkshopAssignmentsLoading && !fetchWorkshopAssignmentsError) {
-      fetchWorkshopAssignments()
-    } else if (!!profile && !fetchAssignmentsLoading && !fetchAssignmentsError && !fetchAssignmentsData) {
+    if (!fileRequests && !!profile && !fetchAssignmentsLoading && !fetchAssignmentsError && !fetchAssignmentsData) {
       const workshopIds = profile?.memberships?.items
         ?.filter(item => item.status === "ACTIVE")
         ?.map(item => item.workshopId) || []
-      // variables: { filter: { workshopId: { eq: workshopId } } },
       fetchAssignments({
         variables: {
           // TODO: do not limit, paginate
@@ -57,10 +45,8 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
 
   }, [workshopId, profile])
 
-  if (fetchWorkshopAssignmentsError || fetchWorkshopAssignmentsError) return <Error errorMessage={fetchWorkshopAssignmentsError || fetchWorkshopAssignmentsError} />
-  // if (!profile || fetchWorkshopAssignmentsLoading || fetchAssignmentsLoading) return <SkeletonCardGrid numberOfItems={12} />
 
-  const data = workshopId ? fetchWorkshopAssignmentsData?.fileRequestsByWorkshopId : fetchAssignmentsData?.listFileRequests
+  const data = workshopId ? fileRequests : fetchAssignmentsData?.listFileRequests
 
 
   const items = data?.items || []
@@ -135,9 +121,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
       <If condition={item.status === 'ACTIVE'}>
         <Button
           color="primary"
-          // variant="contained"
           aria-label="New Submission"
-          // component={Link}
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
@@ -187,13 +171,6 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId }) => {
             Upcoming
           </Typography>
         </Grid>
-        {/* {upcomingAssignments.length > 0 ? (
-                        <AssignmentList items={upcomingAssignments} />
-                        ) : (
-                            <Grid item xs={12}>
-                            <Typography>There are currently no upcoming assignments.</Typography>
-                            </Grid>
-                        )} */}
         <Grid item xs={12}>
           {data ? <CardGrid items={withCardGridProps(upcomingAssignments)} /> : <SkeletonCardGrid numberOfItems={12} />}
 
