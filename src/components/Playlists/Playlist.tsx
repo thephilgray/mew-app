@@ -296,8 +296,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
         const zeroPad = (num) => String(num).padStart(2, "0");
         const formatted = formatDuration(duration, {
-            format: ["minutes", "seconds"],
-            // format: ["hours", "minutes", "seconds"],
+            format: ["hours", "minutes", "seconds"],
             zero: true,
             delimiter: ":",
             locale: {
