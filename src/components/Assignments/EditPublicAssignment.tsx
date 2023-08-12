@@ -127,8 +127,12 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
             setDetails(getFileRequest.details)
             setValue('title', getFileRequest.title)
             setExpiration(new Date(getFileRequest.expiration))
-            setStartDate(new Date(getFileRequest.startDate))
-            setPlaylistStartDate(new Date(getFileRequest.playlistStartDate))
+            if (getFileRequest.startDate) {
+                setStartDate(new Date(getFileRequest.startDate))
+            }
+            if (getFileRequest.playlistStartDate) {
+                setPlaylistStartDate(new Date(getFileRequest.playlistStartDate))
+            }
             setRequired(getFileRequest.required)
             setValue('artworkCredit', getFileRequest.artwork?.credit)
             setValue('playlistExternalUrl', getFileRequest.playlistExternalUrl)
