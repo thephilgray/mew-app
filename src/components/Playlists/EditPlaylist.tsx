@@ -226,7 +226,7 @@ const EditPlaylist: React.FC<TypeName> = ({ playlistId }) => {
                     checked={!!value}
                     color="primary"
                   />)} />}
-              label="Make public" />
+              label={`Show in "Public" feed on playlists page`} />
           </Grid>
         </Grid>
       </form>

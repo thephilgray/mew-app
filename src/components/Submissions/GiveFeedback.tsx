@@ -90,7 +90,7 @@ export const GiveFeedback: React.FC<{
     if (!commentsLoading && !fileRequestData?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
     if (!selectedSongs.length) return <>
       <Typography variant='body1'>Sorry. No one has requested feedback yet. Maybe you're the first!</Typography>
-      <Button sx={{ mt: 1 }} onClick={() => setShowPlaylist(false)} variant='contained' color='success'>Finish</Button>
+      <Button sx={{ mt: 1 }} onClick={() => setShowPlaylist(false)} variant='contained' color='warning'>Quit</Button>
     </>
 
 
@@ -102,7 +102,7 @@ export const GiveFeedback: React.FC<{
           <IconButton onClick={() => setCurrentIndex(previousIndex)}><SkipPreviousIcon></SkipPreviousIcon></IconButton>
           Giving feedback for track {currentIndex + 1} of {selectedSongs.length}
           <IconButton onClick={() => setCurrentIndex(nextIndex)}><SkipNextIcon></SkipNextIcon></IconButton>
-          <Button onClick={() => setShowPlaylist(false)} variant='contained' color='success' sx={{ float: 'right' }}>Finish</Button>
+          <Button onClick={() => setShowPlaylist(false)} variant='contained' color='warning' sx={{ float: 'right' }}>Quit</Button>
         </Grid>
         <Grid item xs={12} bottom={2}>
           <Box sx={{ display: 'flex', alignItems: 'center', pb: 2, pt: 2 }}>

@@ -6,7 +6,7 @@ import gql from 'graphql-tag'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Add, Close, Delete, Launch, Mail, Save } from '@mui/icons-material'
+import { Add, Close, Delete, Launch, Mail, OpenInNew, Save } from '@mui/icons-material'
 import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group, ROUTES } from '../../constants'
@@ -374,7 +374,8 @@ const EditProfile = (): JSX.Element => {
                                     <TextField {...registerEditProfileForm(`links.${index}.url`, {
                                         required: "Valid URL is required",
                                         pattern: {
-                                            value: /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/,
+                                            // https://www.freecodecamp.org/news/how-to-write-a-regular-expression-for-a-url/
+                                            value: /(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?/,
                                             message: "Valid URL is required"
                                         },
 
@@ -387,7 +388,7 @@ const EditProfile = (): JSX.Element => {
                                     <TextField {...registerEditProfileForm(`links.${index}.text`)} placeholder="Add Text" inputProps={{ 'aria-label': 'text' }} sx={{ flex: 'auto' }} />
                                     <Divider sx={{ height: 28, m: 0.5, justifySelf: 'flex-end' }} orientation="vertical" />
                                     <IconButton component="a" target="_blank" alt="open link" href={getEditProfileFormValues(`links.${index}.url`)}>
-                                        <Launch />
+                                        <OpenInNew />
                                     </IconButton>
                                     <Divider sx={{ height: 28, m: 0.5, justifySelf: 'flex-end' }} orientation="vertical" />
                                     <IconButton type="button" aria-label="delete" onClick={() => removeLink(index)}>

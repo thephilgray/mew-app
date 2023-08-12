@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from 'react'
-import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar } from '@mui/material'
+import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
 import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, SkipNext } from '@mui/icons-material'
@@ -11,6 +11,7 @@ import { Theme } from '@mui/material/styles'
 import { isPast } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
 import { v4 as uuidv4 } from 'uuid'
+import ConfettiExplosion from 'react-confetti-explosion';
 
 import Error from '../Error'
 import { createFileRequestSubmission } from '../../graphql/mutations'
@@ -24,7 +25,7 @@ import { getCloudFrontURL, getDisplayName, searchMembersFilterOptions } from '..
 import { useLazyQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import uniqBy from 'lodash/uniqBy'
-import { navigate } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import { ROUTES } from '../../constants'
 import Loading from '../Loading'
 
@@ -116,7 +117,7 @@ const NewPublicSubmission: React.FC<
     const { profile, loading: profileLoading } = useProfile()
     const [viewAdmin] = useViewAdmin()
     const [loading, setLoading] = useState<boolean>(true)
-    const [submitLoading, setSubmitLoading] = useState<boolean>(true)
+    const [submitLoading, setSubmitLoading] = useState<boolean>(false)
     const [error, setError] = useState<Error | null>(null)
     const [uploadSuccess, setUploadSuccess] = useState<boolean>(false)
     const [uploadProgress, setUploadProgress] = useState({ loaded: 0, total: 1 })
@@ -169,6 +170,7 @@ const NewPublicSubmission: React.FC<
 
     const hasStarted = fileRequestData?.startDate ? isPast(new Date(fileRequestData?.startDate)) : true
     const isValid = viewAdmin || Boolean(expiration && !isPast(new Date(expiration)) && hasStarted)
+    const userHasSubmitted = fileRequestData?.submissions?.items?.find(item => item.email === (profile?.email || watch('email')))
 
     const ACCEPTED_FILETYPES = [
         // 'audio/wav',
@@ -285,10 +287,14 @@ const NewPublicSubmission: React.FC<
             var reader = new FileReader();
             reader.onload = function (event) {
                 var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                audioContext.decodeAudioData(event.target.result, function (buffer) {
-                    var duration = Math.trunc(buffer.duration);
-                    resolve(duration)
-                });
+                try {
+                    audioContext.decodeAudioData(event.target.result, function (buffer) {
+                        var duration = Math.trunc(buffer.duration);
+                        resolve(duration)
+                    });
+                } catch (error) {
+                    resolve(0)
+                }
             };
             reader.onerror = function (event) {
                 console.error("An error ocurred reading the file: ", event);
@@ -446,11 +452,7 @@ const NewPublicSubmission: React.FC<
                                     </div>
                                 </Grid>
                             </If>
-
                         </Grid>
-
-
-
                     </Grid>
                     <Grid item xs={12}>
                         <If condition={!!profile?.email} fallbackContent={<TextField
@@ -459,7 +461,7 @@ const NewPublicSubmission: React.FC<
                             fullWidth
                             label="Email"
                             {...register('email', {
-                                required: true,
+                                required: !profile?.email,
                                 pattern: /^([\w+-.%]+@[\w-.]+\.[A-Za-z]+)(, ?[\w+-.%]+@[\w-.]+\.[A-Za-z]+)*$/,
                             })}
                             error={!!errors.email}
@@ -490,11 +492,12 @@ const NewPublicSubmission: React.FC<
                                 options={uniqBy(listMembershipsData?.listMemberships?.items?.map(({ profile }) =>
                                     ({ email: profile.email, displayName: profile.displayName, name: profile.name, avatar: profile.avatar })) || [], 'email')}
                                 getOptionLabel={getDisplayName}
+                                isOptionEqualToValue={(option, value) => option.email === value.email}
                                 filterOptions={searchMembersFilterOptions}
                                 renderTags={(tagValue, getTagProps) =>
                                     tagValue.map((option, index) => (
                                         <Chip
-                                            avatar={<Avatar src={getCloudFrontURL(option.avatar)} alt={getDisplayName(option)} />}
+                                            avatar={<Avatar src={option.avatar && getCloudFrontURL(option.avatar)} alt={getDisplayName(option)} />}
                                             label={getDisplayName(option)}
                                             {...getTagProps({ index })}
                                             disabled={option?.email == profile?.email}
@@ -591,7 +594,17 @@ const NewPublicSubmission: React.FC<
                         </Grid>
                     </If>
                     <Grid item xs={12}>
-                        <Button type="submit" variant="contained" color="primary" style={{ float: 'right' }}>
+                        <Button disabled={
+                            loading ||
+                            submitLoading ||
+                            !upload ||
+                            (profile?.email ? !submitters.length : !watch('email')) ||
+                            !watch('artist') ||
+                            !watch('name') ||
+                            !!errors.artist ||
+                            !!errors.name ||
+                            !!errors.email
+                        } type="submit" variant="contained" color="primary" style={{ float: 'right' }}>
                             Submit
                         </Button>
                     </Grid>
@@ -620,23 +633,27 @@ const NewPublicSubmission: React.FC<
 
     if (uploadSuccess && !loading) {
         content = (
-            <Grid container spacing={4} >
-                <Grid item xs={12} sx={{ textAlign: 'center' }}>
-                    <CheckCircle fontSize="large" htmlColor={green[500]} />
-                    <Typography variant="h6">Success</Typography>
-                </Grid>
-                <If condition={!!user && watch("requestFeedback") && !feedbackGiven} >
-                    <Grid item xs={12}>
-                        <Typography variant="h3" sx={{ textAlign: 'center' }}>
-                            Give Feedback
-                        </Typography>
-                    </Grid>
+            <>
+                <ConfettiExplosion />
+                <Grid container spacing={4} >
                     <Grid item xs={12} sx={{ textAlign: 'center' }}>
-                        <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>Begin</Button>
-                        <Button size="large" onClick={() => navigate(ROUTES.assignment.getPath({ assignmentId }))}>Done</Button>
+                        <CheckCircle fontSize="large" htmlColor={green[500]} />
+                        <Typography variant="h6">Success</Typography>
                     </Grid>
-                </If>
-            </Grid>
+                    <If condition={!!user && watch("requestFeedback") && !feedbackGiven} >
+                        <Grid item xs={12}>
+                            <Typography variant="h3" sx={{ textAlign: 'center' }}>
+                                Give Feedback
+                            </Typography>
+                            <Alert sx={{ mt: 1 }} severity="success">Great job submitting something! Since you are so on top of things, you are invited to listen to up to 3 tracks and offer feedback before the playlist drops. Press the Begin button below to get started. Currently, if you quit, you won't be able to return to give feedback without submitting something else. <em>Hint: if no one has requested feedback yet, there's nothing to do here.</em></Alert>
+                        </Grid>
+                        <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                            <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>Begin</Button>
+                            <Button size="large" onClick={() => navigate(ROUTES.assignment.getPath({ assignmentId }))}>Quit</Button>
+                        </Grid>
+                    </If>
+                </Grid>
+            </>
         )
     }
 
@@ -659,26 +676,34 @@ const NewPublicSubmission: React.FC<
     }
     return (
         <Grid container spacing={2}>
-            {user ? <Grid item xs={12}>
-                <AppBreadcrumbs
-                    paths={[ROUTES.home, ROUTES.workshop,
-                    {
-                        path: ROUTES.assignment.getPath({ assignmentId }),
-                        name: fileRequestData?.title || assignmentId,
-                    },
-                    ROUTES.assignment]}
-                    workshop={fileRequestData?.workshop}
-                    workshopId={fileRequestData?.workshopId}
-                />
-            </Grid> : null}
-            {/* <Grid item xs={12}>
-                <FormControlLabel control={<Switch value={uploadSuccess} onChange={() => {
-                    if (uploadSuccess) {
-                        setShowPlaylist(false)
-                    }
-                    setUploadSuccess(!uploadSuccess)
-                }} color="secondary" />} label="Temporary dev toggle" />
-            </Grid> */}
+            <If condition={!loading && !user}>
+                <Grid item xs={12}>
+                    <Alert severity="info">
+                        <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for more features, including managing your submissions.
+                    </Alert>
+                </Grid>
+            </If>
+            <If condition={!loading && !!userHasSubmitted && !uploadSuccess}>
+                <Grid item xs={12}>
+                    <Alert severity="warning">
+                        You've already submitted to this assignment. Are you sure you want to submit again?
+                    </Alert>
+                </Grid>
+            </If>
+            <If condition={user}>
+                <Grid item xs={12}>
+                    <AppBreadcrumbs
+                        paths={[ROUTES.home, ROUTES.workshop,
+                        {
+                            path: ROUTES.assignment.getPath({ assignmentId }),
+                            name: fileRequestData?.title || assignmentId,
+                        },
+                        ROUTES.assignment]}
+                        workshop={fileRequestData?.workshop}
+                        workshopId={fileRequestData?.workshopId}
+                    />
+                </Grid>
+            </If>
             <If condition={!loading} fallbackContent={<Loading />}>
                 <Grid item xs={12}>
                     <Paper style={{ padding: '1rem' }}>{content}</Paper>
