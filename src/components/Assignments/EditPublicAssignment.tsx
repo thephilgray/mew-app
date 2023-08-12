@@ -75,12 +75,11 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
             type: "Playlist",
             filter: {
                 and: [
-                    { public: { eq: true } },
                     { playlistOwnerId: { eq: profile?.email } }
                 ]
 
             },
-            limit: 25
+            limit: 500
         },
     })
 
