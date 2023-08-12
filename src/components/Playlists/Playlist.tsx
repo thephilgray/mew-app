@@ -166,7 +166,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
     // switch the current index if track in the query params
     useEffect(() => {
-        if (audioLists.length > 0) {
+        // still very hacky and somewhat glitchy but seems to work in most cases
+        if (audioLists.length > 0 && [null, 0].includes(currentIndex)) {
             const params = new URLSearchParams(window.location.search)
             const track = params.get('track') // track is actually submissionId
             if (track) {
@@ -179,7 +180,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 setToggleTrackView(true)
             }
         }
-    }, [audioLists])
+    }, [audioLists, currentIndex])
 
     // Authenticated user access
     useEffect(() => {
