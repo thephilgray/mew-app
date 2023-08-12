@@ -116,7 +116,7 @@ const NewPublicSubmission: React.FC<
     const { profile, loading: profileLoading } = useProfile()
     const [viewAdmin] = useViewAdmin()
     const [loading, setLoading] = useState<boolean>(true)
-    const [submitLoading, setSubmitLoading] = useState<boolean>(true)
+    const [submitLoading, setSubmitLoading] = useState<boolean>(false)
     const [error, setError] = useState<Error | null>(null)
     const [uploadSuccess, setUploadSuccess] = useState<boolean>(false)
     const [uploadProgress, setUploadProgress] = useState({ loaded: 0, total: 1 })
@@ -589,6 +589,8 @@ const NewPublicSubmission: React.FC<
                     </If>
                     <Grid item xs={12}>
                         <Button disabled={
+                            loading ||
+                            submitLoading ||
                             !upload ||
                             (profile?.email ? !submitters.length : !watch('email')) ||
                             !watch('artist') ||
@@ -667,7 +669,7 @@ const NewPublicSubmission: React.FC<
             <If condition={!loading && !user}>
                 <Grid item xs={12}>
                     <Alert severity="info">
-                        <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for more features.
+                        <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for more features, including managing your submissions.
                     </Alert>
                 </Grid>
             </If>
