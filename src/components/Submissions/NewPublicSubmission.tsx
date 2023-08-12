@@ -11,6 +11,7 @@ import { Theme } from '@mui/material/styles'
 import { isPast } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
 import { v4 as uuidv4 } from 'uuid'
+import ConfettiExplosion from 'react-confetti-explosion';
 
 import Error from '../Error'
 import { createFileRequestSubmission } from '../../graphql/mutations'
@@ -286,10 +287,14 @@ const NewPublicSubmission: React.FC<
             var reader = new FileReader();
             reader.onload = function (event) {
                 var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                audioContext.decodeAudioData(event.target.result, function (buffer) {
-                    var duration = Math.trunc(buffer.duration);
-                    resolve(duration)
-                });
+                try {
+                    audioContext.decodeAudioData(event.target.result, function (buffer) {
+                        var duration = Math.trunc(buffer.duration);
+                        resolve(duration)
+                    });
+                } catch (error) {
+                    resolve(0)
+                }
             };
             reader.onerror = function (event) {
                 console.error("An error ocurred reading the file: ", event);
@@ -628,23 +633,26 @@ const NewPublicSubmission: React.FC<
 
     if (uploadSuccess && !loading) {
         content = (
-            <Grid container spacing={4} >
-                <Grid item xs={12} sx={{ textAlign: 'center' }}>
-                    <CheckCircle fontSize="large" htmlColor={green[500]} />
-                    <Typography variant="h6">Success</Typography>
-                </Grid>
-                <If condition={!!user && watch("requestFeedback") && !feedbackGiven} >
-                    <Grid item xs={12}>
-                        <Typography variant="h3" sx={{ textAlign: 'center' }}>
-                            Give Feedback
-                        </Typography>
-                    </Grid>
+            <>
+                <ConfettiExplosion />
+                <Grid container spacing={4} >
                     <Grid item xs={12} sx={{ textAlign: 'center' }}>
-                        <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>Begin</Button>
-                        <Button size="large" onClick={() => navigate(ROUTES.assignment.getPath({ assignmentId }))}>Done</Button>
+                        <CheckCircle fontSize="large" htmlColor={green[500]} />
+                        <Typography variant="h6">Success</Typography>
                     </Grid>
-                </If>
-            </Grid>
+                    <If condition={!!user && watch("requestFeedback") && !feedbackGiven} >
+                        <Grid item xs={12}>
+                            <Typography variant="h3" sx={{ textAlign: 'center' }}>
+                                Give Feedback
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                            <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>Begin</Button>
+                            <Button size="large" onClick={() => navigate(ROUTES.assignment.getPath({ assignmentId }))}>Done</Button>
+                        </Grid>
+                    </If>
+                </Grid>
+            </>
         )
     }
 
