@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from 'react'
-import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar } from '@mui/material'
+import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
 import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, SkipNext } from '@mui/icons-material'
@@ -24,7 +24,7 @@ import { getCloudFrontURL, getDisplayName, searchMembersFilterOptions } from '..
 import { useLazyQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import uniqBy from 'lodash/uniqBy'
-import { navigate } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import { ROUTES } from '../../constants'
 import Loading from '../Loading'
 
@@ -446,11 +446,7 @@ const NewPublicSubmission: React.FC<
                                     </div>
                                 </Grid>
                             </If>
-
                         </Grid>
-
-
-
                     </Grid>
                     <Grid item xs={12}>
                         <If condition={!!profile?.email} fallbackContent={<TextField
@@ -459,7 +455,7 @@ const NewPublicSubmission: React.FC<
                             fullWidth
                             label="Email"
                             {...register('email', {
-                                required: true,
+                                required: !profile?.email,
                                 pattern: /^([\w+-.%]+@[\w-.]+\.[A-Za-z]+)(, ?[\w+-.%]+@[\w-.]+\.[A-Za-z]+)*$/,
                             })}
                             error={!!errors.email}
@@ -490,11 +486,12 @@ const NewPublicSubmission: React.FC<
                                 options={uniqBy(listMembershipsData?.listMemberships?.items?.map(({ profile }) =>
                                     ({ email: profile.email, displayName: profile.displayName, name: profile.name, avatar: profile.avatar })) || [], 'email')}
                                 getOptionLabel={getDisplayName}
+                                isOptionEqualToValue={(option, value) => option.email === value.email}
                                 filterOptions={searchMembersFilterOptions}
                                 renderTags={(tagValue, getTagProps) =>
                                     tagValue.map((option, index) => (
                                         <Chip
-                                            avatar={<Avatar src={getCloudFrontURL(option.avatar)} alt={getDisplayName(option)} />}
+                                            avatar={<Avatar src={option.avatar && getCloudFrontURL(option.avatar)} alt={getDisplayName(option)} />}
                                             label={getDisplayName(option)}
                                             {...getTagProps({ index })}
                                             disabled={option?.email == profile?.email}
@@ -591,7 +588,15 @@ const NewPublicSubmission: React.FC<
                         </Grid>
                     </If>
                     <Grid item xs={12}>
-                        <Button type="submit" variant="contained" color="primary" style={{ float: 'right' }}>
+                        <Button disabled={
+                            !upload ||
+                            (profile?.email ? !submitters.length : !watch('email')) ||
+                            !watch('artist') ||
+                            !watch('name') ||
+                            !!errors.artist ||
+                            !!errors.name ||
+                            !!errors.email
+                        } type="submit" variant="contained" color="primary" style={{ float: 'right' }}>
                             Submit
                         </Button>
                     </Grid>
@@ -659,26 +664,26 @@ const NewPublicSubmission: React.FC<
     }
     return (
         <Grid container spacing={2}>
-            {user ? <Grid item xs={12}>
-                <AppBreadcrumbs
-                    paths={[ROUTES.home, ROUTES.workshop,
-                    {
-                        path: ROUTES.assignment.getPath({ assignmentId }),
-                        name: fileRequestData?.title || assignmentId,
-                    },
-                    ROUTES.assignment]}
-                    workshop={fileRequestData?.workshop}
-                    workshopId={fileRequestData?.workshopId}
-                />
-            </Grid> : null}
-            {/* <Grid item xs={12}>
-                <FormControlLabel control={<Switch value={uploadSuccess} onChange={() => {
-                    if (uploadSuccess) {
-                        setShowPlaylist(false)
-                    }
-                    setUploadSuccess(!uploadSuccess)
-                }} color="secondary" />} label="Temporary dev toggle" />
-            </Grid> */}
+            <If condition={user} fallbackContent={
+                <Grid item xs={12}>
+                    <Alert severity="info">
+                        <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for more features.
+                    </Alert>
+                </Grid>
+            }>
+                <Grid item xs={12}>
+                    <AppBreadcrumbs
+                        paths={[ROUTES.home, ROUTES.workshop,
+                        {
+                            path: ROUTES.assignment.getPath({ assignmentId }),
+                            name: fileRequestData?.title || assignmentId,
+                        },
+                        ROUTES.assignment]}
+                        workshop={fileRequestData?.workshop}
+                        workshopId={fileRequestData?.workshopId}
+                    />
+                </Grid>
+            </If>
             <If condition={!loading} fallbackContent={<Loading />}>
                 <Grid item xs={12}>
                     <Paper style={{ padding: '1rem' }}>{content}</Paper>
