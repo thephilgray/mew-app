@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Avatar, Badge, Button, ButtonGroup, Card, CardContent, Divider, Grid, IconButton, Paper, TextField, ToggleButtonGroup, Typography, ToggleButton } from "@mui/material"
+import { Avatar, Badge, Button, ButtonGroup, Card, CardContent, Divider, Grid, IconButton, Paper, TextField, ToggleButtonGroup, Typography, ToggleButton, CircularProgress } from "@mui/material"
 import { useProfile, useUser, useViewAdmin } from "../auth/hooks"
 import { Close, Delete, Edit, Send, Comment as CommentIcon, Person, People } from "@mui/icons-material"
 import { Link } from "@reach/router"
@@ -155,6 +155,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
   const [commentContent, setCommentContent] = useState('')
   const [comments, setComments] = useState([])
   const [showAllComments, setShowAllComments] = useState(showAll)
+  const [loading, setLoading] = useState(false)
 
   const [
     createCommentRequest,
@@ -214,6 +215,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
     }
 
     const fetchComments = async () => {
+      setLoading(true)
       const result = await API.graphql({
         query,
         variables
@@ -225,6 +227,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
       } else {
         setComments(result?.data?.listComments?.items)
       }
+      setLoading(false)
     }
 
     fetchComments()
@@ -329,6 +332,8 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
           <Badge badgeContent={filteredComments.length || 0} color="secondary">
             <CommentIcon />
           </Badge>
+        </Typography>
+        <If condition={!loading} fallbackContent={<CircularProgress />}>
           <If condition={!!showToggle}>
             <ToggleButtonGroup
               exclusive
@@ -340,18 +345,17 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
               <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
             </ToggleButtonGroup>
           </If>
-        </Typography>
-        {submissionId ? <WriteComment
-          commentContent={commentContent}
-          setCommentContent={setCommentContent}
-          submitComment={submitComment({ submissionId })}
-        /> : null}
-        {parentComments && parentComments
-
-          .map(comment => (
-            <MyComment key={comment.id} writeCommentFunctions={{ commentContent, setCommentContent, submitComment, removeComment, editComment }} comment={comment} allComments={comments}></MyComment>
-          )
-          )}
+          {submissionId ? <WriteComment
+            commentContent={commentContent}
+            setCommentContent={setCommentContent}
+            submitComment={submitComment({ submissionId })}
+          /> : null}
+          {parentComments && parentComments
+            .map(comment => (
+              <MyComment key={comment.id} writeCommentFunctions={{ commentContent, setCommentContent, submitComment, removeComment, editComment }} comment={comment} allComments={comments}></MyComment>
+            )
+            )}
+        </If>
 
       </Grid>
 
