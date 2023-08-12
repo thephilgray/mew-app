@@ -664,13 +664,14 @@ const NewPublicSubmission: React.FC<
     }
     return (
         <Grid container spacing={2}>
-            <If condition={user} fallbackContent={
+            <If condition={!loading && !user}>
                 <Grid item xs={12}>
                     <Alert severity="info">
                         <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for more features.
                     </Alert>
                 </Grid>
-            }>
+            </If>
+            <If condition={user}>
                 <Grid item xs={12}>
                     <AppBreadcrumbs
                         paths={[ROUTES.home, ROUTES.workshop,
