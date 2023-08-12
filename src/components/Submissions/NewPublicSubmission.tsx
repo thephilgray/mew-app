@@ -169,6 +169,7 @@ const NewPublicSubmission: React.FC<
 
     const hasStarted = fileRequestData?.startDate ? isPast(new Date(fileRequestData?.startDate)) : true
     const isValid = viewAdmin || Boolean(expiration && !isPast(new Date(expiration)) && hasStarted)
+    const userHasSubmitted = fileRequestData?.submissions?.items?.find(item => item.email === (profile?.email || watch('email')))
 
     const ACCEPTED_FILETYPES = [
         // 'audio/wav',
@@ -670,6 +671,13 @@ const NewPublicSubmission: React.FC<
                 <Grid item xs={12}>
                     <Alert severity="info">
                         <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for more features, including managing your submissions.
+                    </Alert>
+                </Grid>
+            </If>
+            <If condition={!loading && !!userHasSubmitted && !uploadSuccess}>
+                <Grid item xs={12}>
+                    <Alert severity="warning">
+                        You've already submitted to this assignment. Are you sure you want to submit again?
                     </Alert>
                 </Grid>
             </If>
