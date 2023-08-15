@@ -5,7 +5,7 @@ import { useProfile, useViewAdmin } from '../../auth/hooks';
 import CardGrid from '../CardGrid';
 import If from '../If';
 import { ROUTES } from '../../constants';
-import { Button, Chip, Divider, Grid, IconButton, Typography } from '@mui/material';
+import { Alert, Button, Chip, Divider, Grid, IconButton, Typography } from '@mui/material';
 import { format } from 'date-fns'
 import isPast from 'date-fns/isPast'
 import { Link, navigate } from 'gatsby';
@@ -119,24 +119,28 @@ const Playlists: React.FC<PlaylistsProps> = () => {
       <Button component={Link} to={ROUTES.newPlaylist.path} sx={{ float: 'right' }} variant="contained">Create</Button>
     </Grid>
     <Grid item xs={12}>
-      <CardGrid items={groupedStandardPlaylists?.mine?.sort(sortFn)?.map(item => ({
-        topContent: <IconButton sx={{ float: 'right' }} color="secondary" onClick={(e) => {
-          e.stopPropagation()
-          navigate(ROUTES.editPlaylist.getPath({ playlistId: item?.id }))
-        }}><EditRounded /></IconButton>,
-        artwork: item?.artwork,
-        id: item?.id,
-        active: true,
-        name: item?.title,
-        link: ROUTES.playlist.getPath({ playlistId: item?.id }),
-        bottomContent: <><Typography>
-          {item?.tracks?.items?.length} tracks
-        </Typography>
-          <Typography sx={{ float: 'right' }} textAlign="right" variant="caption"><em>updated {format(new Date(item?.updatedAt), 'MM-dd-yy')}</em></Typography>
-        </>
-      }))} />
-
+      <Alert severity="info">Did you know you can create your own playlists? Press the create button above to start an empty playlist. As you listen to other playlists, click the three dots to either clone or add a track to one of your playlists you already created. Come back here to edit your playlists by clicking on the pink pencil icon.</Alert>
     </Grid>
+    <If condition={!!groupedStandardPlaylists?.mine?.length}>
+      <Grid item xs={12}>
+        <CardGrid items={groupedStandardPlaylists?.mine?.sort(sortFn)?.map(item => ({
+          topContent: <IconButton sx={{ float: 'right' }} color="secondary" onClick={(e) => {
+            e.stopPropagation()
+            navigate(ROUTES.editPlaylist.getPath({ playlistId: item?.id }))
+          }}><EditRounded /></IconButton>,
+          artwork: item?.artwork,
+          id: item?.id,
+          active: true,
+          name: item?.title,
+          link: ROUTES.playlist.getPath({ playlistId: item?.id }),
+          bottomContent: <><Typography>
+            {item?.tracks?.items?.length} tracks
+          </Typography>
+            <Typography sx={{ float: 'right' }} textAlign="right" variant="caption"><em>updated {format(new Date(item?.updatedAt), 'MM-dd-yy')}</em></Typography>
+          </>
+        }))} />
+      </Grid>
+    </If>
     <Divider sx={{ mb: 2 }} variant="middle" />
 
     <If condition={assignmentPlaylists}>
