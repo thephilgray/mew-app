@@ -5,7 +5,7 @@ import { compareDesc } from 'date-fns'
 import { EXTENSIONS_BY_FILETYPE, ROUTES } from '../../constants';
 import { DataGridWrapper } from '../DataGridWrapper';
 import { DataGrid } from '@mui/x-data-grid';
-import { stemsByDate } from '../../graphql/queries';
+import { stemsByDate } from '../../graphql/d3/queries';
 import { gql, useMutation, useQuery } from '@apollo/react-hooks';
 import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
 import If from '../If';
