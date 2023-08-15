@@ -140,7 +140,7 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                                             disabled={authStage === 0}
                                             fullWidth
                                             onChange={handleUpdate}
-                                            placeholder="Username"
+                                            placeholder="Email"
                                             name="username"
                                             value={state.username}
                                         />
