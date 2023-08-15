@@ -3,7 +3,7 @@ import { Avatar, AvatarGroup, Box, Chip, Paper, Typography } from '@mui/material
 import gql from 'graphql-tag'
 import * as React from 'react'
 import { useUserHasMembership, useViewAdmin } from '../../auth/hooks'
-import { listWorkshops } from '../../graphql/queries'
+import { listWorkshops } from '../../graphql/d3/queries'
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { getCloudFrontURL, getDisplayName } from '../../utils'
 import If from '../If'

@@ -640,15 +640,17 @@ const NewPublicSubmission: React.FC<
                         <CheckCircle fontSize="large" htmlColor={green[500]} />
                         <Typography variant="h6">Success</Typography>
                     </Grid>
-                    <If condition={!!user && watch("requestFeedback") && !feedbackGiven} >
+                    <If condition={!!user && !feedbackGiven} >
                         <Grid item xs={12}>
                             <Typography variant="h3" sx={{ textAlign: 'center' }}>
                                 Give Feedback
                             </Typography>
                             <Alert sx={{ mt: 1 }} severity="success">Great job submitting something! Since you are so on top of things, you are invited to listen to up to 3 tracks and offer feedback before the playlist drops. Press the Begin button below to get started. Currently, if you quit, you won't be able to return to give feedback without submitting something else. <em>Hint: if no one has requested feedback yet, there's nothing to do here.</em></Alert>
                         </Grid>
+                    </If>
+                    <If condition={!!user}>
                         <Grid item xs={12} sx={{ textAlign: 'center' }}>
-                            <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>Begin</Button>
+                            <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>{!feedbackGiven ? 'Begin' : 'Resume'}</Button>
                             <Button size="large" onClick={() => navigate(ROUTES.assignment.getPath({ assignmentId }))}>Quit</Button>
                         </Grid>
                     </If>

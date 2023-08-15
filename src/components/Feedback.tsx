@@ -203,7 +203,6 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
 
     else if (isSubmissionsPage) {
       variables = {
-        limit: 500,
         filter: { assignmentId: { eq: assignmentId } }
       }
     }
@@ -211,7 +210,6 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
     // playlist page
     else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
       variables = {
-        limit: 50,
         filter: { submissionId: { eq: submissionId } }
       }
     }
