@@ -202,14 +202,20 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
     }
 
     else if (isSubmissionsPage) {
+      query = commentsByDate
       variables = {
+        type: "Comment",
+        sortDirection: "DESC",
         filter: { assignmentId: { eq: assignmentId } }
       }
     }
 
     // playlist page
     else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
+      query = commentsByDate
       variables = {
+        type: "Comment",
+        sortDirection: "DESC",
         filter: { submissionId: { eq: submissionId } }
       }
     }
@@ -222,7 +228,7 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
       })
 
       // global feedback page
-      if (isFeedbackPage) {
+      if (isFeedbackPage || isSubmissionsPage || isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
         setComments(result?.data?.commentsByDate?.items)
       } else {
         setComments(result?.data?.listComments?.items)
