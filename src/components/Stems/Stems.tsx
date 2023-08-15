@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton, Typography, Chip, Avatar, Tooltip } from '@mui/material';
+import { Button, Grid, IconButton, Typography, Chip, Avatar, Tooltip, Alert } from '@mui/material';
 import { Link } from 'gatsby';
 import React from 'react';
 import { compareDesc } from 'date-fns'
@@ -153,6 +153,7 @@ const Stems: React.FC<StemsProps> = () => {
     <If condition={!!rows}>
       <Grid item xs={12}>
         <SimplePlayer />
+        <Alert sx={{ mb: 1 }} severity="info">Add short high quality samples or midis that others can download and use in their songs. Upload multiple files at once. As you upload, include metadata and notes to help others get started. Stems are ephemeral, so they will disappear after a number of weeks. Use them while they last! Press play to listen, scroll all the way to the right to download.</Alert>
         <DataGridWrapper>
           <DataGrid
             rows={rows}
