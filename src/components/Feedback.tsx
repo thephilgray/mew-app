@@ -12,6 +12,7 @@ import { onCreateComment, onDeleteComment, onUpdateComment } from "../graphql/d3
 import { getCloudFrontURL, getDisplayName } from "../utils"
 import If from "./If"
 import { ROUTES } from "../constants"
+import { getFileRequestSubmission } from "../graphql/queries"
 
 const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
   const { profile } = useProfile()
@@ -212,11 +213,9 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
 
     // playlist page
     else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
-      query = commentsByDate
+      query = getFileRequestSubmission
       variables = {
-        type: "Comment",
-        sortDirection: "DESC",
-        filter: { submissionId: { eq: submissionId } }
+        id: submissionId
       }
     }
 
@@ -228,9 +227,13 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
       })
 
       // global feedback page
-      if (isFeedbackPage || isSubmissionsPage || isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
+      if (isFeedbackPage || isSubmissionsPage) {
         setComments(result?.data?.commentsByDate?.items)
-      } else {
+      }
+      else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
+        setComments(result?.data?.getFileRequestSubmission?.comments?.items)
+      }
+      else {
         setComments(result?.data?.listComments?.items)
       }
       setLoading(false)
