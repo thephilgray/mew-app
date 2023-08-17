@@ -23,7 +23,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId, fileRequests }) =
   const { profile } = useProfile()
   const [viewAdmin] = useViewAdmin()
   const [fetchAssignments, { data: fetchAssignmentsData, loading: fetchAssignmentsLoading, error: fetchAssignmentsError }] = useLazyQuery(
-    gql(listFileRequests.replace('submissions {', 'submissions(limit: 5000) {'))
+    gql(listFileRequests)
   )
 
 

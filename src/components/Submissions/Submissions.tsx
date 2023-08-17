@@ -10,6 +10,7 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
+    DialogContentText,
     DialogTitle,
     FormControlLabel,
     FormGroup,
@@ -40,6 +41,7 @@ import {
     MoreTime,
     Delete,
     OpenInNew,
+    DeleteForever,
 } from '@mui/icons-material';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import { uniqBy, pipe, map } from 'lodash/fp';
@@ -61,12 +63,6 @@ import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
 import { DataGridWrapper } from '../DataGridWrapper';
 import { getCloudFrontURL } from '../../utils';
 
-
-const getFileRequestWithNoLimit = getFileRequest.replace(
-    'submissions {',
-    'submissions(limit: 1000) {'
-);
-
 const Submissions: React.FC<{ assignmentId: string }> = ({
     assignmentId = '',
 }) => {
@@ -84,6 +80,18 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     }>({
         stripMetadataForSoundCloud: true,
     });
+
+
+    const [openDeleteSubmissionConfirm, setOpenDeleteSubmissionConfirm] = useState(false)
+    const [deleteSubmissionLoading, setDeleteSubmissionLoading] = useState(false)
+    const [rowToDelete, setRowToDelete] = useState(null)
+    const [deleteSubmissionError, setDeleteSubmissionError] = useState(null)
+    const handleCloseDeleteSubmissionConfirm = () => {
+        setRowToDelete(null)
+        setDeleteSubmissionError(null)
+        setDeleteSubmissionLoading(false)
+        setOpenDeleteSubmissionConfirm(false)
+    }
     const audioRef = useRef();
     const [audioSrc, setAudioSrc] = useState(null)
     const previousSrc = usePrevious(audioSrc)
@@ -138,7 +146,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     ];
 
     const { loading, error, data, refetch } = useQuery(
-        gql(getFileRequestWithNoLimit),
+        gql(getFileRequest),
         {
             variables: { id: assignmentId },
         }
@@ -285,18 +293,33 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
         setDialogToggles({});
     };
 
-    const onDelete = async ({ id, fileRequestId: assignmentId, fileId }) => {
-        const keyValues = [assignmentId, fileId]
-        const key = keyValues.map(encodeURIComponent).join('/')
-        await Storage.remove(key)
+    const onShowDeleteSubmissionConfirm = (row) => {
+        setRowToDelete(row)
+        setOpenDeleteSubmissionConfirm(true)
+    }
 
-        return deleteFileRequestSubmissionRequest({
-            variables: {
-                input: {
-                    id
+    const onDeleteSubmission = async () => {
+        setDeleteSubmissionLoading(true)
+        const { id, fileRequestId: assignmentId, fileId } = rowToDelete;
+        try {
+            const keyValues = [assignmentId, fileId]
+            const key = keyValues.map(encodeURIComponent).join('/')
+            await Storage.remove(key)
+            await deleteFileRequestSubmissionRequest({
+                variables: {
+                    input: {
+                        id
+                    }
                 }
-            }
-        })
+            })
+
+            setOpenDeleteSubmissionConfirm(false)
+
+        } catch (err) {
+            setDeleteSubmissionError(err)
+        } finally {
+            setDeleteSubmissionLoading(false)
+        }
     }
 
     const columns: GridColDef[] = [
@@ -350,13 +373,13 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             headerName: 'Lyrics',
             width: 200,
         },
-        ...(!isExpired ? [{
+        ...(!!viewAdmin || !isExpired ? [{
             field: 'delete',
             headerName: 'Delete',
             width: 160,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
-            renderCell: ({ row, value = '' }) => <IconButton onClick={() => onDelete(row)}><Delete /></IconButton>
+            renderCell: ({ row, value = '' }) => <IconButton onClick={() => onShowDeleteSubmissionConfirm(row)}><Delete /></IconButton>
         }] : []),
     ];
 
@@ -412,6 +435,36 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                 />
             </Grid>
             <>
+                <Dialog
+                    open={openDeleteSubmissionConfirm}
+                    onClose={handleCloseDeleteSubmissionConfirm}
+                    aria-labelledby="delete-confirm"
+                    aria-describedby="delete-warning"
+                >
+                    <DialogTitle id="delete-confirm">Are you sure you want to delete this submission?</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="confirm you want to delete this assignment">
+                            This submission and any credit received for it will be permanently deleted.
+                        </DialogContentText>
+                        <If condition={!!deleteSubmissionError}>
+                            <DialogContentText sx={{ color: 'red' }}>
+                                That didn't work. Close this and contact the support channel.
+                            </DialogContentText>
+                        </If>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCloseDeleteSubmissionConfirm} color="primary">
+                            No
+                        </Button>
+                        <Button
+                            onClick={onDeleteSubmission}
+                            color="primary"
+                            autoFocus
+                            startIcon={deleteSubmissionLoading ? <CircularProgress /> : <DeleteForever />}>
+                            Yes
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <Dialog
                     maxWidth="xs"
                     open={!!dialogToggles[dialogConstants.CONFIRM_EMAIL_DOWNLOAD_LINK]}

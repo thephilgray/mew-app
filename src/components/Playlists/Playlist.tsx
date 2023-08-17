@@ -30,7 +30,7 @@ import { navigate } from 'gatsby';
 import { createTrack } from '../../graphql/mutations';
 import { LinkedMemberAvatar } from '../Avatar';
 
-const GET_FILE_REQUEST = gql(getFileRequest.replace('submissions {', 'submissions(limit: 1000) {'))
+const GET_FILE_REQUEST = gql(getFileRequest)
 
 const TrackListItem = styled(Paper)(({ theme, isCurrentIndex }) => ({
     backgroundColor: isCurrentIndex ? '#f2f2f2' : '#fff',

@@ -37,10 +37,7 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     const user = useUser()
     const [viewAdmin] = useViewAdmin()
     const { loading, error, data, refetch } = useQuery(
-        gql(getWorkshop
-            .replace('submissions {', 'submissions(limit: 5000) {')
-            .replace('memberships {', 'memberships(limit: 5000) {')
-        ),
+        gql(getWorkshop),
         {
             variables: { id: workshopId },
         },

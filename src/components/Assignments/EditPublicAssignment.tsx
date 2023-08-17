@@ -42,8 +42,6 @@ import { useProfile } from '../../auth/hooks';
 import If from '../If';
 import { DateTimePicker } from '@mui/x-date-pickers';
 
-const getFileRequestWithNoLimit = getFileRequestQuery.replace('submissions {', 'submissions(limit: 1000) {')
-
 type Inputs = {
     expiration: Date
     title: string
@@ -61,10 +59,9 @@ type Inputs = {
 }
 
 
-
 const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string }> = ({ workshopId = '', assignmentId = '' }) => {
     const { profile } = useProfile()
-    const { data: { getFileRequest } = {}, loading, error } = useQuery(gql(getFileRequestWithNoLimit), {
+    const { data: { getFileRequest } = {}, loading, error } = useQuery(gql(getFileRequestQuery), {
         variables: { id: assignmentId },
     })
 
