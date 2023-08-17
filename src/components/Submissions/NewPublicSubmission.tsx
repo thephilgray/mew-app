@@ -15,7 +15,7 @@ import ConfettiExplosion from 'react-confetti-explosion';
 
 import Error from '../Error'
 import { createFileRequestSubmission } from '../../graphql/mutations'
-import { getFileRequest as getFileRequestQuery, listMemberships } from '../../graphql/queries'
+import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
 import If from '../If'
@@ -128,7 +128,6 @@ const NewPublicSubmission: React.FC<
     const [feedbackGiven, setFeedbackGiven] = useState<number>(0)
     const [submitters, setSubmitters] = useState([])
     // const [stemsUsed, setStemsUsed] = useState([])
-    const [fetchListMemberships, { loading: listMembershipsLoading, error: listMembershipsError, data: listMembershipsData }] = useLazyQuery(gql(listMemberships), { variables: { limit: 1000, filter: { workshopId: { eq: fileRequestData?.workshopId } } } })
 
     const {
         register,
@@ -384,6 +383,21 @@ const NewPublicSubmission: React.FC<
         setSubmitLoading(false)
     }
 
+    const setSubmittersAutocompleteOnChange = (e, value = []) => {
+        if (viewAdmin) {
+            // admins can submit on behalf of others without including themselves
+            setSubmitters(value)
+        } else {
+            // nonadmins cannot submit for others except as collaborators
+            setSubmitters(
+                [
+                    profile,
+                    ...value.filter(option => option?.email !== profile?.email)
+
+                ])
+        }
+    }
+
     let content
 
 
@@ -478,18 +492,11 @@ const NewPublicSubmission: React.FC<
                             } />}>
 
                             <Autocomplete
-                                onChange={(e, value = []) => setSubmitters(
-                                    [
-                                        profile,
-                                        ...value.filter(option => option?.email !== profile?.email)
-
-                                    ])}
+                                onChange={setSubmittersAutocompleteOnChange}
                                 value={submitters}
-                                onOpen={() => listMembershipsData?.listMemberships?.items || fetchListMemberships()}
-                                loading={listMembershipsLoading}
                                 multiple
                                 getOptionDisabled={option => submitters.map(item => item.email).includes(option.email)}
-                                options={uniqBy(listMembershipsData?.listMemberships?.items?.map(({ profile }) =>
+                                options={uniqBy(fileRequestData?.workshop?.memberships?.items?.map(({ profile }) =>
                                     ({ email: profile.email, displayName: profile.displayName, name: profile.name, avatar: profile.avatar })) || [], 'email')}
                                 getOptionLabel={getDisplayName}
                                 isOptionEqualToValue={(option, value) => option.email === value.email}
@@ -500,7 +507,7 @@ const NewPublicSubmission: React.FC<
                                             avatar={<Avatar src={option.avatar && getCloudFrontURL(option.avatar)} alt={getDisplayName(option)} />}
                                             label={getDisplayName(option)}
                                             {...getTagProps({ index })}
-                                            disabled={option?.email == profile?.email}
+                                            disabled={!viewAdmin && (option?.email == profile?.email)}
                                         />
                                     ))
                                 }
