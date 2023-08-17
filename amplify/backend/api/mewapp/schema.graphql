@@ -79,7 +79,11 @@ type FileRequest
   required: Boolean
   artwork: Artwork
   submissions: [FileRequestSubmission]
-    @hasMany(indexName: "submissionsByFileRequestId", fields: ["id"])
+    @hasMany(
+      indexName: "submissionsByFileRequestId"
+      fields: ["id"]
+      limit: 1000
+    )
   workshop: Workshop @belongsTo(fields: ["workshopId"])
   workshopId: ID
     @index(
@@ -164,7 +168,7 @@ type Playlist
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
     ]
   ) {
-  tracks: [Track] @hasMany
+  tracks: [Track] @hasMany(limit: 500)
   owner: Profile @hasOne
   public: Boolean
   title: String
@@ -226,7 +230,7 @@ type Membership
   profile: Profile @belongsTo(fields: ["email"])
   mailchimp: MailchimpUserInfo
   submissions: [FileRequestSubmission]
-    @hasMany(indexName: "submissionsByEmail", fields: ["email"])
+    @hasMany(indexName: "submissionsByEmail", fields: ["email"], limit: 1000)
 }
 
 type Workshop
@@ -249,7 +253,7 @@ type Workshop
   fileRequests: [FileRequest]
     @hasMany(indexName: "fileRequestsByWorkshopId", fields: ["id"])
   submissions: [FileRequestSubmission]
-    @hasMany(indexName: "submissionsByWorkshopId", fields: ["id"])
+    @hasMany(indexName: "submissionsByWorkshopId", fields: ["id"], limit: 1000)
   status: String
   passes: Int
   features: Features
@@ -260,7 +264,7 @@ type Workshop
   startDate: AWSDateTime
   endDate: AWSDateTime
   memberships: [Membership]
-    @hasMany(indexName: "membershipsByWorkshopId", fields: ["id"])
+    @hasMany(indexName: "membershipsByWorkshopId", fields: ["id"], limit: 1000)
 }
 
 type Profile
@@ -290,11 +294,11 @@ type Profile
   workshops: [Workshop]
     @hasMany(indexName: "workshopsByEmail", fields: ["email"])
   submissions: [FileRequestSubmission]
-    @hasMany(indexName: "submissionsByEmail", fields: ["email"])
+    @hasMany(indexName: "submissionsByEmail", fields: ["email"], limit: 1000)
   memberships: [Membership]
     @hasMany(indexName: "membershipsByEmail", fields: ["email"])
   features: Features
-  playlists: [Playlist] @hasMany
+  playlists: [Playlist] @hasMany(limit: 1000)
   uploadedStems: [Stem] @hasMany(indexName: "stemsByEmail", fields: ["email"])
   # downloadedStems: [Stem] @manyToMany(relationName: "SavedStems")
 }
