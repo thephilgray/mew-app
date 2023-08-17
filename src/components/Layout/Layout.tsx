@@ -28,7 +28,7 @@ const InnerLayout = ({ children, siteTitle }) => {
             component="main"
             sx={{
                 margin: { lg: '0 auto' },
-                marginLeft: { xs: drawerOpen ? '240px' : '57px', sm: drawerOpen ? '240px' : '65px' },
+                marginLeft: !!user ? { xs: drawerOpen ? '240px' : '57px', sm: drawerOpen ? '240px' : '65px' } : 0,
                 width: { xs: drawerOpen ? '100%' : 'auto', lg: 'calc(100% - 240px)' },
                 maxWidth: { lg: !!user ? 'none' : '960px' },
                 py: { xs: 3, sm: 3 },
