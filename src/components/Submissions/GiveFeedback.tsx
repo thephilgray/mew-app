@@ -152,6 +152,7 @@ export const GiveFeedback: React.FC<{
         </Grid>
         <Grid item xs={12}>
           <FeedbackSection
+            requestedFeedback={true}
             assignmentId={assignmentId}
             submissionId={currentSong?.id}
             workshopId={currentSong?.workshopId}
