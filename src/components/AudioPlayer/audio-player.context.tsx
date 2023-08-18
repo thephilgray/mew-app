@@ -12,6 +12,7 @@ export function useAudioPlayerContextState() {
   const playerRef = useRef()
   const [audioSrc, setAudioSrc] = useState(null)
   const [clonedPlaylistItems, setClonedPlaylistItems] = useState([])
+  const [isWriting, setIsWriting] = useState(false)
 
   return {
     isPlaying,
@@ -24,7 +25,9 @@ export function useAudioPlayerContextState() {
     audioSrc,
     setAudioSrc,
     clonedPlaylistItems,
-    setClonedPlaylistItems
+    setClonedPlaylistItems,
+    isWriting,
+    setIsWriting
   }
 }
 
@@ -53,7 +56,10 @@ export const AudioPlayerContext = createContext<AudioPlayerContextState>({
   audioSrc: null,
   setAudioSrc: () => { },
   clonedPlaylistItems: [],
-  setClonedPlaylistItems: () => { }
+  setClonedPlaylistItems: () => { },
+  // connection to feedback, whether a user is writing a comment
+  isWriting: false,
+  setIsWriting: () => { }
 })
 
 interface AudioPlayerProps {
@@ -149,4 +155,10 @@ export const useClonePlaylist = () => {
   const { clonedPlaylistItems, setClonedPlaylistItems } = useContext(AudioPlayerContext)
   const resetClonedPlaylistItems = () => setClonedPlaylistItems([])
   return { clonedPlaylistItems, setClonedPlaylistItems, resetClonedPlaylistItems }
+}
+
+// probably doesn't need to live in audio player context but this is fine for now
+export const useWritingState = () => {
+  const { isWriting, setIsWriting } = useContext(AudioPlayerContext)
+  return [isWriting, setIsWriting]
 }

@@ -13,9 +13,21 @@ import { getCloudFrontURL, getDisplayName } from "../utils"
 import If from "./If"
 import { ROUTES } from "../constants"
 import { getFileRequestSubmission } from "../graphql/queries"
+import { useWritingState } from "./AudioPlayer/audio-player.context"
 
 const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
   const { profile } = useProfile()
+  const [isWriting, setIsWriting] = useWritingState()
+
+  useEffect(() => {
+    if (!isWriting && !!commentContent) {
+      setIsWriting(true)
+    }
+    else if (isWriting && !commentContent) {
+      setIsWriting(false)
+    }
+    () => setIsWriting(false)
+  }, [commentContent])
 
   return (
     <Paper elevation={0} style={{ padding: "40px 20px" }} component="form" noValidate autoComplete="off" onSubmit={submitComment}>
