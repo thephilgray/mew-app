@@ -165,7 +165,15 @@ const MyComment = ({ writeCommentFunctions, comment, allComments = [], audioList
   )
 }
 
-const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = true, showToggle = true, showByMe = false, onSuccess = () => { } }) => {
+const FeedbackSection = ({
+  workshopId,
+  assignmentId,
+  submissionId,
+  requestedFeedback,
+  showAll = true,
+  showToggle = true,
+  showByMe = false,
+  onSuccess = () => { } }) => {
   const user = useUser()
   const { profile } = useProfile()
   const [commentContent, setCommentContent] = useState('')
@@ -356,27 +364,29 @@ const FeedbackSection = ({ workshopId, assignmentId, submissionId, showAll = tru
           </Badge>
         </Typography>
         <If condition={!loading} fallbackContent={<CircularProgress />}>
-          <If condition={!!showToggle}>
-            <ToggleButtonGroup
-              exclusive
-              value={!!showAllComments ? "all" : "me"}
-              onChange={(e, value) =>
-                setShowAllComments(value === "all")}
-              sx={{ float: "right" }}>
-              <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
-              <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
-            </ToggleButtonGroup>
+          <If condition={requestedFeedback || !!comments.length || !submissionId} fallbackContent={<Typography><em>Feedback not requested here.</em></Typography>}>
+            <If condition={!!showToggle}>
+              <ToggleButtonGroup
+                exclusive
+                value={!!showAllComments ? "all" : "me"}
+                onChange={(e, value) =>
+                  setShowAllComments(value === "all")}
+                sx={{ float: "right" }}>
+                <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
+                <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
+              </ToggleButtonGroup>
+            </If>
+            {submissionId ? <WriteComment
+              commentContent={commentContent}
+              setCommentContent={setCommentContent}
+              submitComment={submitComment({ submissionId })}
+            /> : null}
+            {parentComments && parentComments
+              .map(comment => (
+                <MyComment key={comment.id} writeCommentFunctions={{ commentContent, setCommentContent, submitComment, removeComment, editComment }} comment={comment} allComments={comments}></MyComment>
+              )
+              )}
           </If>
-          {submissionId ? <WriteComment
-            commentContent={commentContent}
-            setCommentContent={setCommentContent}
-            submitComment={submitComment({ submissionId })}
-          /> : null}
-          {parentComments && parentComments
-            .map(comment => (
-              <MyComment key={comment.id} writeCommentFunctions={{ commentContent, setCommentContent, submitComment, removeComment, editComment }} comment={comment} allComments={comments}></MyComment>
-            )
-            )}
         </If>
 
       </Grid>

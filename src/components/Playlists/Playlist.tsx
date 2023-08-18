@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState, PropsWithChildren, useContext, useRef } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch } from '@mui/material'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
@@ -26,7 +26,7 @@ import If from '../If';
 import { getCloudFrontURL } from '../../utils';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import { AudioPlayerContext, useClonePlaylist } from '../AudioPlayer/audio-player.context';
-import { navigate } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { createTrack } from '../../graphql/mutations';
 import { LinkedMemberAvatar } from '../Avatar';
 
@@ -329,7 +329,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     // @ts-ignore
                     for (let index = 0; index < data.submissions.items.length; index++) {
                         // @ts-ignore
-                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, comments } = data.submissions.items[index]
+                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback } = data.submissions.items[index]
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
@@ -348,7 +348,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 workshopId,
                                 assignmentId,
                                 requestFeedback,
-                                hasComments: !!comments?.items?.length
                             })
                             seenFileIds.push(fileId)
                         }
@@ -362,7 +361,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     for (let index = 0; index < data.tracks.items.length; index++) {
                         // @ts-ignore
                         const { submission, order } = data.tracks.items[index];
-                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, comments } = submission
+                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback } = submission
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
@@ -382,7 +381,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 assignmentId,
                                 workshopId,
                                 requestFeedback,
-                                hasComments: !!comments?.items?.length
                             })
                             seenFileIds.push(fileId)
                         }
@@ -549,18 +547,20 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                     </IconButton>
                                 }
                             </If>
-                            <Box sx={{ float: 'right', m: 1 }}>
-                                <IconButton
-                                    onClick={() => setPlaylistMenuOpen(!playlistMenuOpen)}
-                                    ref={playlistMenuRef}
-                                    sx={{
-                                        backgroundColor: 'rgba(0,0,0,.75)',
-                                        '&:hover': { backgroundColor: 'rgba(255,255,255,1)' }
-                                    }}>
-                                    <MoreVert color='secondary'></MoreVert>
-                                </IconButton>
-                                <PlaylistMenu menuRef={playlistMenuRef} />
-                            </Box>
+                            <If condition={loggedIn}>
+                                <Box sx={{ float: 'right', m: 1 }}>
+                                    <IconButton
+                                        onClick={() => setPlaylistMenuOpen(!playlistMenuOpen)}
+                                        ref={playlistMenuRef}
+                                        sx={{
+                                            backgroundColor: 'rgba(0,0,0,.75)',
+                                            '&:hover': { backgroundColor: 'rgba(255,255,255,1)' }
+                                        }}>
+                                        <MoreVert color='secondary'></MoreVert>
+                                    </IconButton>
+                                    <PlaylistMenu menuRef={playlistMenuRef} />
+                                </Box>
+                            </If>
                         </CardMedia>
                         <CardContent>
                             <Grid container spacing={2}>
@@ -677,18 +677,20 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             />
 
                         </Box>
-                        <Box sx={{ float: 'right', m: 1 }}>
-                            <IconButton
-                                onClick={() => setPlaylistMenuOpen(!playlistMenuOpen)}
-                                ref={trackPlaylistMenuRef}
-                                sx={{
-                                    backgroundColor: 'rgba(0,0,0,.75)',
-                                    '&:hover': { backgroundColor: 'rgba(255,255,255,1)' }
-                                }}>
-                                <MoreVert color='secondary'></MoreVert>
-                            </IconButton>
-                            <PlaylistMenu menuRef={trackPlaylistMenuRef} />
-                        </Box>
+                        <If condition={loggedIn}>
+                            <Box sx={{ float: 'right', m: 1 }}>
+                                <IconButton
+                                    onClick={() => setPlaylistMenuOpen(!playlistMenuOpen)}
+                                    ref={trackPlaylistMenuRef}
+                                    sx={{
+                                        backgroundColor: 'rgba(0,0,0,.75)',
+                                        '&:hover': { backgroundColor: 'rgba(255,255,255,1)' }
+                                    }}>
+                                    <MoreVert color='secondary'></MoreVert>
+                                </IconButton>
+                                <PlaylistMenu menuRef={trackPlaylistMenuRef} />
+                            </Box>
+                        </If>
                     </Card>
                 </Grid >
             </If>
@@ -702,22 +704,20 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         </Typography>
                     </pre>
                 </Grid>
-                <If condition={!!loggedIn && (!!audioLists?.[currentIndex]?.requestFeedback || audioLists?.[currentIndex]?.hasComments)} fallbackContent={
-                    <If condition={!!loggedIn}>
-                        <Grid item xs={12} sx={{ pb: '100px' }}>
-                            <Typography><em>Feedback not requested here.</em></Typography>
-                        </Grid>
-                    </If>
-                }>
-                    <Grid item xs={12} sx={{ pb: '100px' }}>
+                <Grid item xs={12} sx={{ pb: '100px' }}>
+                    <If condition={!!loggedIn}
+                        fallbackContent={<Alert severity="info">
+                            <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for comments and more content and features.
+                        </Alert>}>
                         <FeedbackSection
+                            requestedFeedback={!!audioLists?.[currentIndex]?.requestFeedback}
                             assignmentId={assignmentId || audioLists?.[currentIndex]?.assignmentId}
                             submissionId={audioLists?.[currentIndex]?.submissionId}
                             workshopId={data?.workshopId || audioLists?.[currentIndex]?.workshopId}
                             showToggle={false}
                         />
-                    </Grid>
-                </If>
+                    </If>
+                </Grid>
             </If >
             <Snackbar
                 anchorOrigin={{
