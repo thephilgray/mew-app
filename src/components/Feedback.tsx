@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Avatar, Badge, Button, ButtonGroup, Card, CardContent, Divider, Grid, IconButton, Paper, TextField, ToggleButtonGroup, Typography, ToggleButton, CircularProgress } from "@mui/material"
+import { Avatar, Badge, Button, ButtonGroup, Card, CardContent, Divider, Grid, IconButton, Paper, TextField, ToggleButtonGroup, Typography, ToggleButton, CircularProgress, FormHelperText } from "@mui/material"
 import { useProfile, useUser, useViewAdmin } from "../auth/hooks"
 import { Close, Delete, Edit, Send, Comment as CommentIcon, Person, People } from "@mui/icons-material"
 import { Link } from "@reach/router"
@@ -13,11 +13,12 @@ import { getCloudFrontURL, getDisplayName } from "../utils"
 import If from "./If"
 import { ROUTES } from "../constants"
 import { getFileRequestSubmission } from "../graphql/queries"
-import { useWritingState } from "./AudioPlayer/audio-player.context"
+import { useWritingState, usePlayingState } from "./AudioPlayer/audio-player.context"
 
 const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
   const { profile } = useProfile()
   const [isWriting, setIsWriting] = useWritingState()
+  const [isPlaying] = usePlayingState()
 
   useEffect(() => {
     if (!isWriting && !!commentContent) {
@@ -40,7 +41,7 @@ const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
         <Grid justifyContent="left" item xs zeroMinWidth>
           <TextField
             id="filled-multiline-static"
-            label="Write a comment"
+            label={isWriting && isPlaying ? "Keep writing. Playback will pause at the end." : "Write a comment"}
             multiline
             variant="filled"
             fullWidth
