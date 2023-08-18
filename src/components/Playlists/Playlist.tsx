@@ -329,7 +329,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     // @ts-ignore
                     for (let index = 0; index < data.submissions.items.length; index++) {
                         // @ts-ignore
-                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback } = data.submissions.items[index]
+                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, comments } = data.submissions.items[index]
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
@@ -347,7 +347,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 lyrics,
                                 workshopId,
                                 assignmentId,
-                                requestFeedback
+                                requestFeedback,
+                                hasComments: !!comments?.items?.length
                             })
                             seenFileIds.push(fileId)
                         }
@@ -361,7 +362,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     for (let index = 0; index < data.tracks.items.length; index++) {
                         // @ts-ignore
                         const { submission, order } = data.tracks.items[index];
-                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback } = submission
+                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, comments } = submission
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
@@ -380,7 +381,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 lyrics,
                                 assignmentId,
                                 workshopId,
-                                requestFeedback
+                                requestFeedback,
+                                hasComments: !!comments?.items?.length
                             })
                             seenFileIds.push(fileId)
                         }
@@ -700,9 +702,9 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         </Typography>
                     </pre>
                 </Grid>
-                <If condition={!!loggedIn && !!audioLists?.[currentIndex]?.requestFeedback} fallbackContent={
+                <If condition={!!loggedIn && (!!audioLists?.[currentIndex]?.requestFeedback || audioLists?.[currentIndex]?.hasComments)} fallbackContent={
                     <If condition={!!loggedIn}>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{ pb: '100px' }}>
                             <Typography><em>Feedback not requested here.</em></Typography>
                         </Grid>
                     </If>
