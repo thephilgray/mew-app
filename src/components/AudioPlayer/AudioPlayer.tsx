@@ -7,7 +7,7 @@ type AudioPlayerProps = {
 };
 
 const AudioPlayer: React.FC<AudioPlayerProps> = () => {
-  const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying, isWriting } = useContext(AudioPlayerContext)
+  const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying, isWriting, setIsWriting } = useContext(AudioPlayerContext)
   const metaData = audioLists[currentIndex]
   const download = useDownload({
     filePath: `${metaData?.assignmentId}/${metaData?.fileId}`,
@@ -31,7 +31,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
     quietUpdate
     spaceBar
     playIndex={currentIndex}
-    onPlayIndexChange={setCurrentIndex}
+    onPlayIndexChange={(playIndex) => {
+      if (isWriting) {
+        setIsWriting(false)
+      }
+      setCurrentIndex(playIndex)
+    }}
     showMediaSession
     showThemeSwitch={false}
     showPlayMode={true}
