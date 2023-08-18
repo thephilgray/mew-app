@@ -7,7 +7,7 @@ type AudioPlayerProps = {
 };
 
 const AudioPlayer: React.FC<AudioPlayerProps> = () => {
-  const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying } = useContext(AudioPlayerContext)
+  const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying, isWriting } = useContext(AudioPlayerContext)
   const metaData = audioLists[currentIndex]
   const download = useDownload({
     filePath: `${metaData?.assignmentId}/${metaData?.fileId}`,
@@ -53,6 +53,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
     }}
     onAudioEnded={() => {
       setIsPlaying(false)
+    }}
+    onAudioProgress={(audioInfo) => {
+      // pause write before the end of a track if user is writing a comment
+      if (isWriting && audioInfo.currentTime > audioInfo.duration - .25) {
+        playerRef.current?.pause()
+      }
     }}
     onAudioAbort={() => {
       setIsPlaying(false)
