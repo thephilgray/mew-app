@@ -106,7 +106,6 @@ const Playlists: React.FC<PlaylistsProps> = () => {
         }))
       }
     }))
-    .filter(playlist => playlist?.public)
     .filter(playlist => viewAdmin || (playlist?.playlistStartDate ? isPast(new Date(playlist.playlistStartDate)) : true))
     .sort(sortFn)
 
