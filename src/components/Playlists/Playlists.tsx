@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { listFileRequests, playlistsByDate } from '../../graphql/queries';
 import { gql, useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useProfile, useViewAdmin } from '../../auth/hooks';
-import CardGrid from '../CardGrid';
+import CardGrid, { SkeletonCardGrid } from '../CardGrid';
 import If from '../If';
 import { ROUTES } from '../../constants';
 import { Alert, Button, Chip, Divider, Grid, IconButton, Typography } from '@mui/material';
@@ -106,7 +106,6 @@ const Playlists: React.FC<PlaylistsProps> = () => {
         }))
       }
     }))
-    .filter(playlist => playlist?.public)
     .filter(playlist => viewAdmin || (playlist?.playlistStartDate ? isPast(new Date(playlist.playlistStartDate)) : true))
     .sort(sortFn)
 
@@ -143,11 +142,12 @@ const Playlists: React.FC<PlaylistsProps> = () => {
     </If>
     <Divider sx={{ mb: 2 }} variant="middle" />
 
-    <If condition={assignmentPlaylists}>
-      <Grid item xs={12} my={2}>
-        <Typography variant="h5">Assignment Playlists</Typography>
-      </Grid>
-      <Grid item xs={12}>
+    <Grid item xs={12} my={2}>
+      <Typography variant="h5">Assignment Playlists</Typography>
+    </Grid>
+    <Grid item xs={12}>
+      <If condition={!fetchAssignmentsLoading && assignmentPlaylists}
+        fallbackContent={<SkeletonCardGrid numberOfItems={6} />}>
         <CardGrid items={assignmentPlaylists?.map(item => ({
           ...item,
           ...viewAdmin && !item.default && {
@@ -166,13 +166,9 @@ const Playlists: React.FC<PlaylistsProps> = () => {
             <Typography sx={{ float: 'right' }} textAlign="right" variant="caption"><em>updated {format(new Date(item?.updatedAt), 'MM-dd-yy')}</em></Typography>
           </>
         }))} />
-      </Grid>
-      <Divider sx={{ mb: 2 }} variant="middle" />
-
-    </If>
-
-
-
+      </If>
+    </Grid>
+    <Divider sx={{ mb: 2 }} variant="middle" />
 
     <If condition={groupedStandardPlaylists?.public?.length}>
       <Grid item xs={12} my={2}>
