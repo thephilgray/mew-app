@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 import { AudioPlayerContext, useDownload } from './audio-player.context';
-
+import { useAppStore } from '../../store';
 
 type AudioPlayerProps = {
 };
 
 const AudioPlayer: React.FC<AudioPlayerProps> = () => {
-  const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying, isWriting, setIsWriting } = useContext(AudioPlayerContext)
+  const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying } = useContext(AudioPlayerContext)
+  const { isWriting, setIsWriting } = useAppStore()
   const metaData = audioLists[currentIndex]
   const download = useDownload({
     filePath: `${metaData?.assignmentId}/${metaData?.fileId}`,
