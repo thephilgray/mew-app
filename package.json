@@ -58,7 +58,8 @@
     "tss-react": "^4.8.2",
     "unique-names-generator": "^4.7.1",
     "use-color-thief": "^1.2.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.3",
