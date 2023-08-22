@@ -1,59 +1,95 @@
 import React, { useEffect, useState } from "react"
-import { Avatar, Badge, Button, ButtonGroup, Card, CardContent, Divider, Grid, IconButton, Paper, TextField, ToggleButtonGroup, Typography, ToggleButton, CircularProgress, FormHelperText } from "@mui/material"
+import { Avatar, Badge, Button, Grid, IconButton, Paper, TextField, ToggleButtonGroup, Typography, ToggleButton, CircularProgress } from "@mui/material"
 import { useProfile, useUser, useViewAdmin } from "../auth/hooks"
-import { Close, Delete, Edit, Send, Comment as CommentIcon, Person, People } from "@mui/icons-material"
+import { Delete, Edit, Send, Comment as CommentIcon, Person, People, Save } from "@mui/icons-material"
 import { Link } from "@reach/router"
-import { gql, useMutation, useQuery } from "@apollo/client"
+import { gql, useMutation } from "@apollo/client"
 import { createComment, deleteComment, updateComment } from "../graphql/d3/mutations"
 import { API, graphqlOperation } from "aws-amplify"
-import { listComments, listFileRequestSubmissions, commentsByDate } from "../graphql/d3/queries"
+import { listComments, commentsByDate } from "../graphql/d3/queries"
 import { compareDesc, formatDistanceToNow } from "date-fns"
 import { onCreateComment, onDeleteComment, onUpdateComment } from "../graphql/d3/subscriptions"
 import { getCloudFrontURL, getDisplayName } from "../utils"
 import If from "./If"
 import { ROUTES } from "../constants"
 import { getFileRequestSubmission } from "../graphql/queries"
-import { useWritingState, usePlayingState } from "./AudioPlayer/audio-player.context"
+import { usePlayingState } from "./AudioPlayer/audio-player.context"
+import { useAppStore } from "../store"
 
-const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
+const WriteComment = ({ editingContent = '', submitComment, editing, replying }) => {
   const { profile } = useProfile()
-  const [isWriting, setIsWriting] = useWritingState()
+  const { isWriting, setIsWriting } = useAppStore()
   const [isPlaying] = usePlayingState()
+  const [commentContent, setCommentContent] = useState(editingContent)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    if (!isWriting && !!commentContent) {
-      setIsWriting(true)
-    }
-    else if (isWriting && !commentContent) {
+    setIsWriting(false)
+
+    return () => {
       setIsWriting(false)
     }
-    () => setIsWriting(false)
+  }, [])
+
+  useEffect(() => {
+    if (!!commentContent && !isWriting) {
+      setIsWriting(true)
+    }
+    else if (!commentContent && !!isWriting) {
+      setIsWriting(false)
+    }
   }, [commentContent])
 
+  const onSubmit = e => {
+    try {
+      submitComment(commentContent)(e)
+      setCommentContent('')
+      setError(null)
+      setIsWriting(false)
+    } catch (error) {
+      console.error(error)
+      setError(error)
+    }
+  }
+
   return (
-    <Paper elevation={0} style={{ padding: "40px 20px" }} component="form" noValidate autoComplete="off" onSubmit={submitComment}>
+    <Paper
+      elevation={0}
+      sx={{ padding: editing || replying ? "10px 0" : "20px", marginLeft: replying ? '-3em' : 'initial' }}
+      component="form"
+      noValidate
+      autoComplete="off"
+      onSubmit={onSubmit}>
       <Grid container wrap="nowrap" spacing={2}>
-        <Grid item>
-          <Avatar
-            alt={getDisplayName(profile) || 'Anonymous'}
-            src={profile?.avatar ? getCloudFrontURL(profile.avatar) : ''} />
-        </Grid>
+        <If condition={!editing}>
+          <Grid item>
+            <Avatar
+              alt={getDisplayName(profile) || 'Anonymous'}
+              src={profile?.avatar ? getCloudFrontURL(profile.avatar) : ''} />
+          </Grid>
+        </If>
         <Grid justifyContent="left" item xs zeroMinWidth>
           <TextField
             id="filled-multiline-static"
-            label={isWriting && isPlaying ? "Keep writing. Playback will pause at the end." : "Write a comment"}
+            label={isWriting && !!commentContent && isPlaying ? "Keep writing. Playback will pause at the end." : `${!!editing ? 'Edit your' : 'Write a'} ${replying ? 'reply' : 'comment'}`}
             multiline
             variant="filled"
             fullWidth
             inputProps={{ maxLength: 500 }}
             value={commentContent}
-            helperText={`${500 - commentContent.length} characters remaining`}
+            helperText={error ? error.message : `${500 - commentContent.length} characters remaining`}
             onChange={e => setCommentContent(e.target.value)}
+            error={!!error}
+          // disabled={!!isWriting && !commentContent}
           />
 
         </Grid>
         <Grid item alignItems="end" justifyContent="start" style={{ paddingLeft: 0, padding: 0, display: "flex", marginBottom: "0.25em" }}>
-          <IconButton sx={{ marginBottom: '1em' }} type="submit" aria-label="send"><Send></Send></IconButton>
+          <IconButton
+            // disabled={!!isWriting && !commentContent}
+            sx={{ marginBottom: '1em' }}
+            type="submit"
+            aria-label="send">{!!editing ? <Save /> : <Send />}</IconButton>
         </Grid>
       </Grid>
     </Paper>
@@ -63,16 +99,15 @@ const WriteComment = ({ commentContent, setCommentContent, submitComment }) => {
 const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, children = [] }) => {
   const [showWriteComment, setShowWriteComment] = useState(false)
   const [editing, setEditing] = useState(false)
-
+  const [replying, setReplying] = useState(false)
   const user = useUser()
   const [viewAdmin] = useViewAdmin()
   const isAuthor = comment?.email === user?.email;
-
   const showDeleteComment = !editing && !showWriteComment && (isAuthor || viewAdmin) // this will be admin or owner
   const showEditComment = !showWriteComment && isAuthor // this will be owner
-
-  const basePathToTrack = comment?.assignment?.playlist ? ROUTES.playlist.getPath({ playlistId: comment.assignment.playlist.id }) : ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId });
-
+  const basePathToTrack = comment?.assignment?.playlist ?
+    ROUTES.playlist.getPath({ playlistId: comment.assignment.playlist.id }) :
+    ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId });
 
   return (<Paper elevation={1} sx={{ p: 2, mb: 1 }} key={comment.id}>
     <Grid container wrap="nowrap" spacing={2}>
@@ -96,47 +131,58 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
             </Link>
           </If>
         </h4>
-        <Typography sx={{ textAlign: "left", pt: 1 }}>
-          {comment.content}
-        </Typography>
-        {(!!showWriteComment || !!editing) ? <WriteComment {...writeCommentFunctions}
-          submitComment={(e) => {
-            !!editing ?
-              writeCommentFunctions.editComment(comment.id)(e) :
-              writeCommentFunctions.submitComment({
-                parentId: comment.id,
-                assignmentId: comment?.assignmentId,
-                submissionId: comment.submission.id,
-                workshopId: comment?.workshopId
-              })(e)
-            setShowWriteComment(false)
-            setEditing(false)
-            writeCommentFunctions.setCommentContent('')
-          }}
-        /> : null}
+        <If condition={!editing}>
+          <Typography sx={{ textAlign: "left", pt: 1 }}>
+            {comment.content}
+          </Typography>
+        </If>
+        <If condition={!!showWriteComment || !!editing}>
+          <WriteComment
+            {...writeCommentFunctions}
+            submitComment={(content) => (e) => {
+              !!editing ?
+                writeCommentFunctions.editComment({ commentId: comment.id, content })(e) :
+                writeCommentFunctions.submitComment({
+                  parentId: comment.id,
+                  assignmentId: comment?.assignmentId,
+                  submissionId: comment.submission.id,
+                  workshopId: comment?.workshopId
+                })(content)(e)
+              setShowWriteComment(false)
+              setEditing(false)
+              setReplying(false)
+            }}
+            editing={editing}
+            replying={replying}
+            editingContent={!!editing ? comment.content : ''}
+          />
+        </If>
         <If condition={!editing}>
           <Button onClick={() => {
             setShowWriteComment(!showWriteComment)
-            writeCommentFunctions.setCommentContent('')
+            setReplying(!replying)
           }}>{showWriteComment ? 'Dismiss' : 'Reply To'}</Button>
         </If>
         <If condition={showEditComment && !editing}>
           <IconButton onClick={() => {
             setShowWriteComment(false)
-            setEditing(!editing)
-            writeCommentFunctions.setCommentContent(comment.content)
+            setReplying(false)
+            setEditing(true)
           }}><Edit />
           </IconButton>
         </If>
         <If condition={showEditComment && editing}>
           <Button onClick={() => {
             setShowWriteComment(false)
-            setEditing(!editing)
-            writeCommentFunctions.setCommentContent(comment.content)
+            setEditing(false)
+            setReplying(false)
           }}>Dismiss</Button>
         </If>
-
-        {showDeleteComment ? <IconButton onClick={writeCommentFunctions.removeComment(comment)}><Delete></Delete></IconButton> : null}
+        {showDeleteComment ?
+          <IconButton
+            onClick={writeCommentFunctions.removeComment(comment)}>
+            <Delete />
+          </IconButton> : null}
         {comment.createdAt !== comment.updatedAt && (
           <p style={{ textAlign: "left", color: "gray" }}>Updated {formatDistanceToNow(new Date(comment.updatedAt))} ago</p>
         )}
@@ -147,20 +193,21 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
 }
 
 const MyComment = ({ writeCommentFunctions, comment, allComments = [], audioLists = [] }) => {
-
   const childComments = () => allComments.filter(c => c.parentId === comment.id)
-
   return (
-    <Comment writeCommentFunctions={writeCommentFunctions} comment={comment} currentTrackMetaData={comment.submission}>
+    <Comment
+      writeCommentFunctions={writeCommentFunctions}
+      comment={comment}
+      currentTrackMetaData={comment.submission}>
       {childComments().map((childComment) => (
         <MyComment
           key={childComment.id}
           writeCommentFunctions={writeCommentFunctions}
           comment={childComment}
           allComments={allComments}
-          audioLists={audioLists}>
-        </MyComment>
-      ))}
+          audioLists={audioLists} />
+      ))
+      }
     </Comment >
   )
 }
@@ -176,7 +223,7 @@ const FeedbackSection = ({
   onSuccess = () => { } }) => {
   const user = useUser()
   const { profile } = useProfile()
-  const [commentContent, setCommentContent] = useState('')
+  const [] = useState('')
   const [comments, setComments] = useState([])
   const [showAllComments, setShowAllComments] = useState(showAll)
   const [loading, setLoading] = useState(false)
@@ -301,27 +348,24 @@ const FeedbackSection = ({
   useEffect(() => {
     if (createCommentRequestData) {
       onSuccess()
-      setCommentContent('')
-      // refetchCommentData({ filter: { submissionId: { eq: metaData.submissionId } } })
-      // refetchCommentData()
     }
   }, [createCommentRequestData])
 
 
-  const submitComment = ({ parentId, submissionId, assignmentId: parentAssignmentId, workshopId: parentWorkshopId }) => (e) => {
-    e.preventDefault()
-    const input = {
-      email: user?.email,
-      assignmentId: assignmentId || parentAssignmentId,
-      submissionId,
-      content: commentContent,
-      parentId,
-      workshopId: workshopId || parentWorkshopId,
-      type: "Comment"
+  const submitComment = ({ parentId, submissionId: parentSubmissionId, assignmentId: parentAssignmentId, workshopId: parentWorkshopId }) =>
+    (content = '') => (e) => {
+      e.preventDefault()
+      const input = {
+        email: user?.email,
+        assignmentId: assignmentId || parentAssignmentId,
+        submissionId: submissionId || parentSubmissionId,
+        content,
+        parentId,
+        workshopId: workshopId || parentWorkshopId,
+        type: "Comment"
+      }
+      return createCommentRequest({ variables: { input } })
     }
-
-    return createCommentRequest({ variables: { input } })
-  }
 
   const removeComment = comment => (e) => {
     e.preventDefault()
@@ -332,16 +376,14 @@ const FeedbackSection = ({
     if (comments.filter(c => c.parentId === comment.id).length > 0) {
       return updateCommentRequest({ variables: { input: { ...input, content: `[COMMENT WAS DELETED]` } } })
     }
-
     return deleteCommentRequest({ variables: { input } })
   }
 
-  const editComment = commentId => e => {
+  const editComment = ({ commentId, content }) => e => {
     const input = {
       id: commentId,
-      content: commentContent
+      content
     }
-
     return updateCommentRequest({ variables: { input } })
   }
 
@@ -364,35 +406,37 @@ const FeedbackSection = ({
           </Badge>
         </Typography>
         <If condition={!loading} fallbackContent={<CircularProgress />}>
-          <If condition={requestedFeedback || !!comments.length || !submissionId} fallbackContent={<Typography><em>Feedback not requested here.</em></Typography>}>
-            <If condition={!!showToggle}>
-              <ToggleButtonGroup
-                exclusive
-                value={!!showAllComments ? "all" : "me"}
-                onChange={(e, value) =>
-                  setShowAllComments(value === "all")}
-                sx={{ float: "right" }}>
-                <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
-                <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
-              </ToggleButtonGroup>
-            </If>
-            {submissionId ? <WriteComment
-              commentContent={commentContent}
-              setCommentContent={setCommentContent}
-              submitComment={submitComment({ submissionId })}
-            /> : null}
-            {parentComments && parentComments
-              .map(comment => (
-                <MyComment key={comment.id} writeCommentFunctions={{ commentContent, setCommentContent, submitComment, removeComment, editComment }} comment={comment} allComments={comments}></MyComment>
-              )
-              )}
+          {/* JUST allow comments on any track for now. */}
+          {/* <If condition={requestedFeedback || !!comments.length || !submissionId} fallbackContent={<Typography><em>Feedback not requested here.</em></Typography>}> */}
+          <If condition={!!showToggle}>
+            <ToggleButtonGroup
+              exclusive
+              value={!!showAllComments ? "all" : "me"}
+              onChange={(e, value) =>
+                setShowAllComments(value === "all")}
+              sx={{ float: "right" }}>
+              <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
+              <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
+            </ToggleButtonGroup>
           </If>
+          <If condition={!!submissionId}>
+            <WriteComment submitComment={submitComment({ submissionId, assignmentId, workshopId })} />
+          </If>
+          {parentComments && parentComments
+            .map(comment => (
+              <MyComment
+                key={comment.id}
+                writeCommentFunctions={{ submitComment, removeComment, editComment }}
+                comment={comment}
+                allComments={comments} />
+            )
+            )}
+          {/* </If> */}
         </If>
 
       </Grid>
 
     </Grid>)
 }
-
 
 export { WriteComment, Comment, MyComment, FeedbackSection }

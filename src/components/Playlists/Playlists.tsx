@@ -35,7 +35,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
   })
 
   const [fetchAssignments, { data: fetchAssignmentsData, loading: fetchAssignmentsLoading, error: fetchAssignmentsError }] = useLazyQuery(
-    gql(listFileRequests.replace('submissions {', 'submissions(limit: 5000) {'))
+    gql(listFileRequests)
   )
 
   const fetchMyAssignments = () => {
