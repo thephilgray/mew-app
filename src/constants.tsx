@@ -2,7 +2,7 @@ import React from "react";
 import {
     Home, Person, Groups, ManageAccounts, Extension, GroupAdd, EditAttributes, Workspaces,
     Forum, Assignment, ModeEdit, PlaylistPlay, AssignmentTurnedIn, SendTimeExtension,
-    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass
+    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass, AssignmentReturn
 } from "@mui/icons-material";
 import { pathToRegexp } from "path-to-regexp";
 
@@ -82,6 +82,26 @@ export const EXTENSIONS_BY_FILETYPE = {
     'audio/x-midi': '.midi'
 }
 
+export const ACCEPTED_FILETYPES = [
+    // 'audio/wav',
+    // 'audio/s-wav',
+    // 'audio/x-wav',
+    // 'audio/aiff',
+    // 'audio/x-aiff',
+    'audio/mpeg',
+    'audio/mp3',
+    'audio/mpeg3',
+    'audio/mpg',
+    'audio/x-mp3',
+    'audio/x-mpeg',
+    'audio/x-mpeg3',
+    'audio/x-mpg',
+    'audio/mp4',
+    'audio/m4a',
+    'audio/x-m4a',
+    'audio/ogg',
+]
+
 export enum Group {
     admin = 'admin',
     editor = 'editor',
@@ -107,6 +127,7 @@ export enum ROUTE_NAMES {
     NEW_ASSIGNMENT = 'newAssignment',
     EDIT_ASSIGNMENT = 'editAssignment',
     NEW_SUBMISSION = 'newPublicSubmission',
+    EDIT_SUBMISSION = 'editPublicSubmission',
     NEW_SUBMISSION_EXTENSION = 'newPublicSubmissionExtension',
     PLAYLISTS = 'playlists',
     PLAYLIST = 'playlist',
@@ -261,6 +282,14 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         name: 'New Submission',
         icon: props => <AssignmentTurnedIn {...props} />,
         public: true
+    },
+    [ROUTE_NAMES.EDIT_SUBMISSION]: {
+        path: '/app/submissions/:submissionId/edit',
+        getPath: ({ submissionId = '' }): string => `/app/submissions/${submissionId}/edit`,
+        navPaths: defaultNav,
+        name: 'Edit Submission',
+        groups: [Group.admin, Group.member],
+        icon: props => <AssignmentReturn {...props} />,
     },
     [ROUTE_NAMES.NEW_SUBMISSION_EXTENSION]: {
         path: '/app/submissions/:assignmentId/:extensionCode',

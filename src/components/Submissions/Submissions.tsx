@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import {
     Badge,
     Box,
@@ -374,6 +374,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             width: 200,
         },
         ...(!!viewAdmin || !isExpired ? [{
+            field: 'edit',
+            headerName: 'Edit',
+            width: 160,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            renderCell: ({ row, value = '' }) => <IconButton onClick={() => navigate(ROUTES.editPublicSubmission.getPath({ assignmentId, submissionId: row.id }))}><Edit /></IconButton>
+        }] : []),
+        ...(!!viewAdmin ? [{
             field: 'delete',
             headerName: 'Delete',
             width: 160,
