@@ -5,7 +5,6 @@ import { RouteComponentProps } from '@reach/router'
 import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, SkipNext } from '@mui/icons-material'
 import { Controller, useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
-import styled from '@emotion/styled'
 import { green } from '@mui/material/colors'
 import { Theme } from '@mui/material/styles'
 import { isPast } from 'date-fns/esm'
@@ -21,13 +20,14 @@ import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
 import If from '../If'
 import ImagePicker, { uploadImage } from '../ImagePicker'
 import { GiveFeedback } from './GiveFeedback'
-import { getCloudFrontURL, getDisplayName, searchMembersFilterOptions } from '../../utils'
+import { getCloudFrontURL, getDisplayName, getFileDuration, searchMembersFilterOptions } from '../../utils'
 import { useLazyQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import uniqBy from 'lodash/uniqBy'
 import { Link, navigate } from 'gatsby'
-import { ROUTES } from '../../constants'
+import { ACCEPTED_FILETYPES, ROUTES } from '../../constants'
 import Loading from '../Loading'
+import { StyledFileDropWrapper } from './StyledFileDropWrapper'
 
 type Inputs = {
     name: string
@@ -44,61 +44,6 @@ type Inputs = {
     addArtwork: boolean
     addLyrics: boolean
 }
-
-const StyledFileDropWrapper = styled.div`
-    border: 1px solid black;
-    // width: 600;
-    color: black;
-    padding: 1rem;
-    height: 100%;
-    display: flex;
-    align-items: center;
-
-    .file-drop {
-        /* relatively position the container bc the contents are absolute */
-        position: relative;
-        minHeight: 100px;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-    }
-
-    .file-drop > .file-drop-target {
-        /* basic styles */
-        // position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        border-radius: 2px;
-
-        /* horizontally and vertically center all content */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
-        text-align: center;
-    }
-
-    .file-drop > .file-drop-target.file-drop-dragging-over-frame {
-        /* overlay a black mask when dragging over the frame */
-        border: none;
-        background-color: rgba(0, 0, 0, 0.15);
-        box-shadow: none;
-        z-index: 50;
-        opacity: 1;
-
-        /* typography */
-        color: white;
-    }
-
-    .file-drop > .file-drop-target.file-drop-dragging-over-target {
-        /* turn stuff orange when we are dragging over the target */
-        color: ${({ theme }: { theme?: Theme }) => theme?.palette.primary.main};
-        box-shadow: ${({ theme }: { theme?: Theme }) => `0 0 13px 3px ${theme?.palette.primary.main}`};
-    }
-`
 
 type AudioFileBlob = Blob & { name: string }
 
@@ -170,26 +115,6 @@ const NewPublicSubmission: React.FC<
     const hasStarted = fileRequestData?.startDate ? isPast(new Date(fileRequestData?.startDate)) : true
     const isValid = viewAdmin || Boolean(expiration && !isPast(new Date(expiration)) && hasStarted)
     const userHasSubmitted = fileRequestData?.submissions?.items?.find(item => item.email === (profile?.email || watch('email')))
-
-    const ACCEPTED_FILETYPES = [
-        // 'audio/wav',
-        // 'audio/s-wav',
-        // 'audio/x-wav',
-        // 'audio/aiff',
-        // 'audio/x-aiff',
-        'audio/mpeg',
-        'audio/mp3',
-        'audio/mpeg3',
-        'audio/mpg',
-        'audio/x-mp3',
-        'audio/x-mpeg',
-        'audio/x-mpeg3',
-        'audio/x-mpg',
-        'audio/mp4',
-        'audio/m4a',
-        'audio/x-m4a',
-        'audio/ogg',
-    ]
 
     useEffect(() => {
         console.log({ errors })
@@ -279,30 +204,6 @@ const NewPublicSubmission: React.FC<
             setValue('artist', getDisplayName(profile))
         }
     }, [profile])
-
-    // https://ourcodeworld.com/articles/read/1036/how-to-retrieve-the-duration-of-a-mp3-wav-audio-file-in-the-browser-with-javascript
-    const getFileDuration = async (file) => {
-        return new Promise(resolve => {
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                try {
-                    audioContext.decodeAudioData(event.target.result, function (buffer) {
-                        var duration = Math.trunc(buffer.duration);
-                        resolve(duration)
-                    });
-                } catch (error) {
-                    resolve(0)
-                }
-            };
-            reader.onerror = function (event) {
-                console.error("An error ocurred reading the file: ", event);
-                resolve(0)
-            };
-            setTimeout(() => resolve(0), 1000)
-            reader.readAsArrayBuffer(file);
-        })
-    }
 
     const onSubmit = async (values: Inputs) => {
         setSubmitLoading(true)

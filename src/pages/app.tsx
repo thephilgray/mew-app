@@ -30,6 +30,7 @@ import hash from 'object-hash'
 import { AudioPlayerProvider } from '../components/AudioPlayer/audio-player.context';
 import EditPlaylist from '../components/Playlists/EditPlaylist';
 import NewStems from '../components/Stems/NewStems';
+import EditPublicSubmission from '../components/Submissions/EditPublicSubmission';
 
 
 const componentToRoutesMap = {
@@ -51,6 +52,7 @@ const componentToRoutesMap = {
     [ROUTE_NAMES.EDIT_ASSIGNMENT]: EditPublicAssignment,
     [ROUTE_NAMES.ASSIGNMENT_PLAYLIST]: Playlist,
     [ROUTE_NAMES.NEW_SUBMISSION]: NewPublicSubmission,
+    [ROUTE_NAMES.EDIT_SUBMISSION]: EditPublicSubmission,
     [ROUTE_NAMES.NEW_SUBMISSION_EXTENSION]: NewPublicSubmission,
     [ROUTE_NAMES.PLAYLISTS]: Playlists,
     [ROUTE_NAMES.PLAYLIST]: Playlist,
