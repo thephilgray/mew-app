@@ -11,7 +11,7 @@ import { gql, useQuery } from '@apollo/react-hooks'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { getCloudFrontURL } from '../../utils'
-import { listComments } from '../../graphql/queries'
+import { listComments } from '../feedback.queries'
 import mewAppLogo from '../../assets/mewlogo.png'
 import Error from '../Error'
 import { FileRequest } from '../../models'
