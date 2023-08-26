@@ -633,7 +633,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             {/* </If> */}
             <If If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
                 <Grid item xs={12}>
-                    <Card sx={{ display: 'flex', height: '380px', backgroundImage: palette ? `linear-gradient(${palette[0]}80, ${palette[1]}80), url(${PLAYLIST_ARTWORK})` : '', backgroundSize: 'cover' }}>
+                    <Card sx={{
+                        display: 'flex',
+                        height: '380px',
+                        backgroundImage: palette ? `linear-gradient(${palette[0]}80, ${palette[1]}80), url(${PLAYLIST_ARTWORK})` : `url(${PLAYLIST_ARTWORK})`,
+                        backgroundSize: 'cover'
+                    }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <CardContent sx={{ flex: '1 0 auto' }}>
                                 <Typography component="h2" variant="h5" color="white" style={{ lineHeight: "37px", backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, padding: "4px 7px" }}>
