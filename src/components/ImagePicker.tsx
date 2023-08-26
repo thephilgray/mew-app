@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Resizer from "react-image-file-resizer";
-import { useProfile } from '../auth/hooks';
 import { Storage } from 'aws-amplify';
 import { Avatar, Box, IconButton, Skeleton } from '@mui/material';
 import { Close } from '@mui/icons-material';
