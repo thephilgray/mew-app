@@ -12,7 +12,43 @@ import { ROUTES } from '../../constants'
 import { navigate } from 'gatsby'
 import { useProfile, useUser, useViewAdmin } from '../../auth/hooks';
 import { gql, useLazyQuery } from '@apollo/react-hooks';
-import { listFileRequests } from '../../graphql/queries';
+// import { listFileRequests } from '../../graphql/queries';
+
+const listFileRequests = `
+  query ListFileRequests(
+    $filter: ModelFileRequestFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFileRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            profile {
+              email
+              id
+            }
+          }
+        }
+      }
+    }
+  }`;
 
 type AssignmentsProps = {
 

@@ -51,7 +51,7 @@ export const GiveFeedback: React.FC<{
       submissions.filter(o =>
         o.email !== user.email &&
         o.requestFeedback &&
-        uniqBy(o.comments.items, 'email').length <= MAX_FEEDBACK &&
+        uniqBy(o.comments.items, 'email').length < MAX_FEEDBACK &&
         o.comments.items.filter(c => c.email === user.email).length === 0
       ),
       o => feedbackGivenCounts[o.email]
