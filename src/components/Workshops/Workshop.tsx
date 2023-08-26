@@ -3,14 +3,14 @@ import * as React from 'react'
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { gql, useQuery } from '@apollo/react-hooks'
 import { Add, Check, People, Settings } from '@mui/icons-material'
-import { Grid, IconButton, Typography, CardContent, CardMedia, Card, Chip, Box, } from '@mui/material'
+import { Grid, IconButton, Typography, CardContent, CardMedia, Card, Box, } from '@mui/material'
 import { makeStyles } from 'tss-react/mui';
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
 import format from 'date-fns/format'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { isPast } from 'date-fns/esm'
-import { getWorkshop } from '../../graphql/queries'
+import { getWorkshop } from './workshop.queries'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group, ROUTES } from '../../constants'
 import { useUser, useViewAdmin } from '../../auth/hooks';

@@ -46,6 +46,13 @@ const listFileRequests = `
             }
           }
         }
+        workshop {
+          artwork {
+            id
+            path
+            credit
+          }
+        }
       }
     }
   }`;

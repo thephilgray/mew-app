@@ -11,13 +11,12 @@ import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group, ROUTES } from '../../constants'
 import { useProfile, useUser } from '../../auth/hooks'
-import { getProfile } from '../../graphql/queries';
+import { getProfile } from '../../auth/hooks.queries';
 import AppBreadcrumbs from '../AppBreadcrumbs';
 import { v4 as uuidv4 } from 'uuid';
 import { navigate } from 'gatsby';
 import { getCloudFrontURL } from '../../utils';
 import ImagePicker, { uploadImage } from '../ImagePicker';
-import If from '../If';
 import { useLocation } from 'react-use';
 import ConnectMailchimpButton from '../ConnectMailchimpButton';
 import Loading from '../Loading';
