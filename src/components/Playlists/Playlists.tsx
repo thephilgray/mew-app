@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { listFileRequests, playlistsByDate } from '../../graphql/queries';
 import { gql, useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useProfile, useViewAdmin } from '../../auth/hooks';
 import CardGrid, { SkeletonCardGrid } from '../CardGrid';
@@ -12,7 +11,135 @@ import { Link, navigate } from 'gatsby';
 import { compareDesc } from "date-fns"
 import { EditRounded } from '@mui/icons-material';
 
+const playlistsByDate = /* GraphQL */ `
+  query PlaylistsByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPlaylistFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    playlistsByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+          }
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+      }
+    }
+  }
+`;
 
+const listFileRequests = /* GraphQL */ `
+  query ListFileRequests(
+    $filter: ModelFileRequestFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFileRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        startDate
+        expiration
+        title
+        artwork {
+          id
+          path
+          credit
+        }
+        workshop {
+          id
+          artwork {
+            id
+            path
+            credit
+          }
+        }
+        workshopId
+        playlist {
+          tracks {
+            items {
+              order
+              id
+              createdAt
+              updatedAt
+              playlistTracksId
+              trackSubmissionId
+            }
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            links {
+              id
+              text
+              url
+            }
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+      }
+    }
+  }
+`;
 type PlaylistsProps = {
 
 };
