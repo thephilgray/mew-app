@@ -21,7 +21,7 @@ import isNumber from 'lodash/isNumber'
 import sum from 'lodash/sum'
 import isPast from 'date-fns/isPast'
 import { FeedbackSection } from '../Feedback'
-import { getFileRequest, getPlaylist, listPlaylists, playlistsByDate } from '../../graphql/queries'
+import { getFileRequest, getPlaylist, playlistsByDate } from './playlist.queries'
 import If from '../If';
 import { getCloudFrontURL } from '../../utils';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
@@ -142,7 +142,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     };
 
 
-    const PLAYLIST_ARTWORK = data?.artwork?.path && getCloudFrontURL(data.artwork.path) || mewAppLogo;
+    const playlistArtworkPath = data?.artwork?.path || data?.fileRequest?.artwork?.path || data?.workshop?.artwork?.path
+    const PLAYLIST_ARTWORK = playlistArtworkPath ? getCloudFrontURL(playlistArtworkPath) : mewAppLogo;
     const SONG_ARTWORK = audioLists[currentIndex]?.cover;
     const { color, palette } = useColorThief(PLAYLIST_ARTWORK, {
         format: 'hex',

@@ -10,136 +10,8 @@ import isPast from 'date-fns/isPast'
 import { Link, navigate } from 'gatsby';
 import { compareDesc } from "date-fns"
 import { EditRounded } from '@mui/icons-material';
+import { listFileRequests, playlistsByDate } from './playlist.queries';
 
-const playlistsByDate = /* GraphQL */ `
-  query PlaylistsByDate(
-    $type: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelPlaylistFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    playlistsByDate(
-      type: $type
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        tracks {
-          items {
-            order
-            id
-            createdAt
-            updatedAt
-            playlistTracksId
-            trackSubmissionId
-          }
-        }
-        owner {
-          email
-          id
-          name
-          displayName
-        }
-        public
-        title
-        artwork {
-          id
-          path
-          credit
-        }
-        type
-        createdAt
-        id
-        updatedAt
-        profilePlaylistsId
-        playlistOwnerId
-      }
-    }
-  }
-`;
-
-const listFileRequests = /* GraphQL */ `
-  query ListFileRequests(
-    $filter: ModelFileRequestFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listFileRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        startDate
-        expiration
-        title
-        artwork {
-          id
-          path
-          credit
-        }
-        workshop {
-          id
-          artwork {
-            id
-            path
-            credit
-          }
-        }
-        workshopId
-        playlist {
-          tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-            }
-          }
-          owner {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-            }
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-          }
-          public
-          title
-          artwork {
-            id
-            path
-            credit
-          }
-          type
-          createdAt
-          id
-          updatedAt
-          profilePlaylistsId
-          playlistOwnerId
-        }
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-      }
-    }
-  }
-`;
 type PlaylistsProps = {
 
 };
@@ -210,7 +82,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
     }) :
     ({
       default: true,
-      artwork: item.artwork,
+      artwork: item.artwork || item?.workshop?.artwork,
       createdAt: item.createdAt,
       id: item.id,
       owner: item.workshop?.host,
