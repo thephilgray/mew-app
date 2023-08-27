@@ -106,7 +106,8 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
                 ? item?.submissions?.items
                 : []
 
-            const artwork = item?.artwork?.path && getCloudFrontURL(item.artwork.path)
+            const artworkPath = item?.artwork?.path || data?.getWorkshop?.artwork?.path
+            const artwork = artworkPath ? getCloudFrontURL(artworkPath) : ''
             const mySubmissions = submissions.filter(submission => submission?.email === user.email)
             return {
                 ...item,
@@ -126,6 +127,7 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     const sumByCondition = (arr, fn) => arr.reduce((acc, curr) => fn(curr) ? fn(curr) + acc : acc, 0)
     const myTotalComplete = sumByCondition(rows, r => r.mySubmissions.length > 0 && r.required)
     const totalRequired = sumByCondition(rows, r => r.required)
+
 
     const AssignmentsView = () => <>
         <Grid item xs={12}>

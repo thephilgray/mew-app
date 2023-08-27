@@ -26,6 +26,13 @@ export const getWorkshop = /* GraphQL */ `
             }
           }
           workshopId
+          workshop{
+            artwork {
+              id
+              path
+              credit
+            }            
+          }
           playlist {
             public
             title
