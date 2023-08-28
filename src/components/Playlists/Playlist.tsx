@@ -7,7 +7,6 @@ import gql from 'graphql-tag'
 import { useLazyQuery, useMutation } from '@apollo/react-hooks'
 import { API } from 'aws-amplify'
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
-import { intervalToDuration, formatDuration } from "date-fns";
 import 'react-jinke-music-player/lib/styles/index.less'
 import './playlist.css'
 import mewAppLogo from '../../assets/mewlogo.png'
@@ -23,7 +22,7 @@ import isPast from 'date-fns/isPast'
 import { FeedbackSection } from '../Feedback'
 import { getFileRequest, getPlaylist, playlistsByDate } from './playlist.queries'
 import If from '../If';
-import { getCloudFrontURL } from '../../utils';
+import { formatAudioDuration, getCloudFrontURL } from '../../utils';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import { AudioPlayerContext, useClonePlaylist } from '../AudioPlayer/audio-player.context';
 import { Link, navigate } from 'gatsby';
@@ -292,21 +291,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         }
     }, [])
 
-
-    // https://stackoverflow.com/questions/48776140/format-a-duration-from-seconds-using-date-fns
-    const formatAudioDuration = (seconds = 0) => {
-        const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
-        const zeroPad = (num) => String(num).padStart(2, "0");
-        const formatted = formatDuration(duration, {
-            format: ["hours", "minutes", "seconds"],
-            zero: true,
-            delimiter: ":",
-            locale: {
-                formatDistance: (_token, count) => zeroPad(count)
-            }
-        });
-        return formatted;
-    }
 
     const fetchDuration = (path) => {
         return new Promise(resolve => {

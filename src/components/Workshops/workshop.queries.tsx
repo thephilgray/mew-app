@@ -23,6 +23,7 @@ export const getWorkshop = /* GraphQL */ `
             items {
               id
               email
+              duration
             }
           }
           workshopId
@@ -55,6 +56,7 @@ export const getWorkshop = /* GraphQL */ `
         items {
           id
           fileRequestId
+          duration
           artist
           name
           email
