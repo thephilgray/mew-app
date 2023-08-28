@@ -15,11 +15,12 @@ import GroupGuard from '../Auth/GroupGuard'
 import { Group, ROUTES } from '../../constants'
 import { useUser, useViewAdmin } from '../../auth/hooks';
 import If from '../If';
-import { getCloudFrontURL } from '../../utils';
+import { formatAudioDuration, getCloudFrontURL } from '../../utils';
 import Assignments from '../Assignments/Assignments'
 import { MembersAvatarGroup, WorkshopDates } from '../Workshops/WorkshopList';
 import Loading from '../Loading';
 import sumBy from 'lodash/sumBy'
+import sum from 'lodash/sum'
 import { DataGridWrapper } from '../DataGridWrapper';
 import { HostDisplay } from '../Avatar';
 
@@ -106,7 +107,8 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
                 ? item?.submissions?.items
                 : []
 
-            const artwork = item?.artwork?.path && getCloudFrontURL(item.artwork.path)
+            const artworkPath = item?.artwork?.path || data?.getWorkshop?.artwork?.path
+            const artwork = artworkPath ? getCloudFrontURL(artworkPath) : ''
             const mySubmissions = submissions.filter(submission => submission?.email === user.email)
             return {
                 ...item,
@@ -120,12 +122,15 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
 
     const memberships = data?.getWorkshop?.memberships?.items
     const totalSubmissions = sumBy(rows, r => r.submissions.length)
+    // const totalPlaylistDuration = trackDurations.length ? formatAudioDuration(sum(trackDurations)) : 0
+    const totalDuration = formatAudioDuration(sum(rows.map(r => sumBy(r.submissions, s => s.duration))))
     const myTotalSubmissions = sumBy(rows, r => r.mySubmissions.length)
 
     // lodash/sumBy doesn't sum by a condition, just a path: https://github.com/lodash/lodash/issues/4878
     const sumByCondition = (arr, fn) => arr.reduce((acc, curr) => fn(curr) ? fn(curr) + acc : acc, 0)
     const myTotalComplete = sumByCondition(rows, r => r.mySubmissions.length > 0 && r.required)
     const totalRequired = sumByCondition(rows, r => r.required)
+
 
     const AssignmentsView = () => <>
         <Grid item xs={12}>
@@ -186,6 +191,9 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
                                     </Typography>
                                     <Typography variant='h6' align='center'>
                                         {totalSubmissions}
+                                    </Typography>
+                                    <Typography variant='h6' align='center'>
+                                        {totalDuration}
                                     </Typography>
                                 </Box>
                             </Grid>

@@ -363,6 +363,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             valueFormatter: ({ value = false }) => value ? 'requested' : 'no'
         },
         {
+            field: 'comments',
+            headerName: 'Comments',
+            width: 100,
+            valueFormatter: ({ value }) => value?.items?.length || 0
+        },
+        {
             field: 'artwork',
             headerName: 'Artwork',
             width: 100,

@@ -1,5 +1,6 @@
 import { match } from 'path-to-regexp'
 import { matchSorter } from "match-sorter";
+import { intervalToDuration, formatDuration } from "date-fns";
 import { MAPPED_ROUTE_CONFIGS } from './constants';
 
 export const getCloudFrontURL = (path: string, level: 'public' | 'protected' | 'private' = 'public') =>
@@ -39,4 +40,19 @@ export const getFileDuration = async (file) => {
     setTimeout(() => resolve(0), 1000)
     reader.readAsArrayBuffer(file);
   })
+}
+
+// https://stackoverflow.com/questions/48776140/format-a-duration-from-seconds-using-date-fns
+export const formatAudioDuration = (seconds = 0) => {
+  const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
+  const zeroPad = (num) => String(num).padStart(2, "0");
+  const formatted = formatDuration(duration, {
+    format: ["hours", "minutes", "seconds"],
+    zero: true,
+    delimiter: ":",
+    locale: {
+      formatDistance: (_token, count) => zeroPad(count)
+    }
+  });
+  return formatted;
 }

@@ -7,7 +7,6 @@ import gql from 'graphql-tag'
 import { useLazyQuery, useMutation } from '@apollo/react-hooks'
 import { API } from 'aws-amplify'
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
-import { intervalToDuration, formatDuration } from "date-fns";
 import 'react-jinke-music-player/lib/styles/index.less'
 import './playlist.css'
 import mewAppLogo from '../../assets/mewlogo.png'
@@ -23,7 +22,7 @@ import isPast from 'date-fns/isPast'
 import { FeedbackSection } from '../Feedback'
 import { getFileRequest, getPlaylist, playlistsByDate } from './playlist.queries'
 import If from '../If';
-import { getCloudFrontURL } from '../../utils';
+import { formatAudioDuration, getCloudFrontURL } from '../../utils';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import { AudioPlayerContext, useClonePlaylist } from '../AudioPlayer/audio-player.context';
 import { Link, navigate } from 'gatsby';
@@ -293,21 +292,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     }, [])
 
 
-    // https://stackoverflow.com/questions/48776140/format-a-duration-from-seconds-using-date-fns
-    const formatAudioDuration = (seconds = 0) => {
-        const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
-        const zeroPad = (num) => String(num).padStart(2, "0");
-        const formatted = formatDuration(duration, {
-            format: ["hours", "minutes", "seconds"],
-            zero: true,
-            delimiter: ":",
-            locale: {
-                formatDistance: (_token, count) => zeroPad(count)
-            }
-        });
-        return formatted;
-    }
-
     const fetchDuration = (path) => {
         return new Promise(resolve => {
             const audio = document.createElement('audio');
@@ -330,7 +314,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     // @ts-ignore
                     for (let index = 0; index < data.submissions.items.length; index++) {
                         // @ts-ignore
-                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback } = data.submissions.items[index]
+                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile } = data.submissions.items[index]
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
@@ -343,6 +327,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 name,
                                 cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                                 singer: artist,
+                                profile,
                                 fileId,
                                 submissionId: id,
                                 lyrics,
@@ -362,7 +347,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     for (let index = 0; index < data.tracks.items.length; index++) {
                         // @ts-ignore
                         const { submission, order } = data.tracks.items[index];
-                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback } = submission
+                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile } = submission
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
@@ -376,6 +361,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 name,
                                 cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                                 singer: artist,
+                                profile,
                                 fileId,
                                 submissionId: id,
                                 lyrics,
@@ -644,9 +630,17 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 <Typography component="h2" variant="h5" color="white" style={{ lineHeight: "37px", backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, padding: "4px 7px" }}>
                                     {audioLists?.[currentIndex]?.name?.toString()}
                                 </Typography>
-                                <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
-                                    {audioLists?.[currentIndex]?.singer?.toString()}
-                                </Typography>
+                                <If condition={audioLists?.[currentIndex]?.profile?.id} fallbackContent={
+                                    <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
+                                        {audioLists?.[currentIndex]?.singer?.toString()}
+                                    </Typography>
+                                }>
+                                    <Link to={ROUTES.viewProfile.getPath({ profileId: audioLists?.[currentIndex]?.profile?.id })} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
+                                            {audioLists?.[currentIndex]?.singer?.toString()}
+                                        </Typography>
+                                    </Link>
+                                </If>
                             </CardContent>
                             <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)", width: '150px' }}>
                                 <IconButton aria-label="previous" onClick={() => playerRef.current.playPrev()}>
@@ -702,14 +696,15 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             </If>
 
             <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
-                <If condition={!!audioLists?.[currentIndex]?.lyrics}></If>
-                <Grid item xs={12}>
-                    <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-                        <Typography variant="body2">
-                            {audioLists?.[currentIndex]?.lyrics}
-                        </Typography>
-                    </pre>
-                </Grid>
+                <If condition={!!audioLists?.[currentIndex]?.lyrics}>
+                    <Grid item xs={12}>
+                        <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                            <Typography variant="body2">
+                                {audioLists?.[currentIndex]?.lyrics}
+                            </Typography>
+                        </pre>
+                    </Grid>
+                </If>
                 <Grid item xs={12} sx={{ pb: '100px' }}>
                     <If condition={!!loggedIn}
                         fallbackContent={<Alert severity="info">
