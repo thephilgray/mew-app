@@ -314,7 +314,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     // @ts-ignore
                     for (let index = 0; index < data.submissions.items.length; index++) {
                         // @ts-ignore
-                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback } = data.submissions.items[index]
+                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile } = data.submissions.items[index]
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
@@ -327,6 +327,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 name,
                                 cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                                 singer: artist,
+                                profile,
                                 fileId,
                                 submissionId: id,
                                 lyrics,
@@ -346,7 +347,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     for (let index = 0; index < data.tracks.items.length; index++) {
                         // @ts-ignore
                         const { submission, order } = data.tracks.items[index];
-                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback } = submission
+                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile } = submission
                         // don't add nonexistent or duplicate files to the playlist
                         if (fileId && !seenFileIds.includes(fileId)) {
                             const songFilePath = `${assignmentId}/${fileId}`
@@ -360,6 +361,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 name,
                                 cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
                                 singer: artist,
+                                profile,
                                 fileId,
                                 submissionId: id,
                                 lyrics,
@@ -628,9 +630,17 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 <Typography component="h2" variant="h5" color="white" style={{ lineHeight: "37px", backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, padding: "4px 7px" }}>
                                     {audioLists?.[currentIndex]?.name?.toString()}
                                 </Typography>
-                                <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
-                                    {audioLists?.[currentIndex]?.singer?.toString()}
-                                </Typography>
+                                <If condition={audioLists?.[currentIndex]?.profile?.id} fallbackContent={
+                                    <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
+                                        {audioLists?.[currentIndex]?.singer?.toString()}
+                                    </Typography>
+                                }>
+                                    <Link to={ROUTES.viewProfile.getPath({ profileId: audioLists?.[currentIndex]?.profile?.id })} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
+                                            {audioLists?.[currentIndex]?.singer?.toString()}
+                                        </Typography>
+                                    </Link>
+                                </If>
                             </CardContent>
                             <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)", width: '150px' }}>
                                 <IconButton aria-label="previous" onClick={() => playerRef.current.playPrev()}>
