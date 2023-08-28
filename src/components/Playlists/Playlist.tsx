@@ -686,14 +686,15 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             </If>
 
             <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
-                <If condition={!!audioLists?.[currentIndex]?.lyrics}></If>
-                <Grid item xs={12}>
-                    <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-                        <Typography variant="body2">
-                            {audioLists?.[currentIndex]?.lyrics}
-                        </Typography>
-                    </pre>
-                </Grid>
+                <If condition={!!audioLists?.[currentIndex]?.lyrics}>
+                    <Grid item xs={12}>
+                        <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                            <Typography variant="body2">
+                                {audioLists?.[currentIndex]?.lyrics}
+                            </Typography>
+                        </pre>
+                    </Grid>
+                </If>
                 <Grid item xs={12} sx={{ pb: '100px' }}>
                     <If condition={!!loggedIn}
                         fallbackContent={<Alert severity="info">
