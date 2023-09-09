@@ -36,7 +36,7 @@ import { useCopyToClipboard } from 'react-use'
 import * as mutations from '../../graphql/mutations'
 import { getFileRequest as getFileRequestQuery, playlistsByDate } from '../../graphql/queries'
 import ImagePicker, { uploadImage } from '../ImagePicker';
-import { getCloudFrontURL } from '../../utils';
+import { formatDateTimeInDefaultTimeZone, getCloudFrontURL } from '../../utils';
 import { ROUTES } from '../../constants';
 import { useProfile } from '../../auth/hooks';
 import If from '../If';
@@ -383,6 +383,11 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                     label="Scheduled Start"
                                     onChange={date => setStartDate(date)}
                                     value={startDate}
+                                    slotProps={{
+                                        textField: {
+                                            helperText: <>{formatDateTimeInDefaultTimeZone(startDate)}</>
+                                        }
+                                    }}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -390,8 +395,12 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                     label="Expiration"
                                     onChange={date => setExpiration(date)}
                                     value={expiration}
-                                    helperText={!!errors.expiration && <>Start date is required</>}
                                     error={!!errors.expiration}
+                                    slotProps={{
+                                        textField: {
+                                            helperText: <>{!!errors.expiration ? 'Start date is required' : formatDateTimeInDefaultTimeZone(expiration)}</>
+                                        }
+                                    }}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -404,6 +413,11 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
                                                 label="Playlist Start"
                                                 onChange={date => setPlaylistStartDate(date)}
                                                 value={playlistStartDate}
+                                                slotProps={{
+                                                    textField: {
+                                                        helperText: <>{formatDateTimeInDefaultTimeZone(playlistStartDate)}</>
+                                                    }
+                                                }}
                                             />
                                         </Grid>
                                         <If condition={fetchListPlaylistsData?.playlistsByDate?.items}>

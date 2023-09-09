@@ -6,13 +6,9 @@ import {
     TextField,
     Switch,
     FormControlLabel,
-    Snackbar,
-    IconButton,
     InputLabel,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { add } from 'date-fns/esm';
 import gql from 'graphql-tag';
@@ -21,13 +17,13 @@ import { Link, navigate } from 'gatsby';
 import { Editor } from '@tinymce/tinymce-react';
 import Error from '../Error';
 import AppBreadcrumbs from '../AppBreadcrumbs';
-import { FileCopy } from '@mui/icons-material';
 import { useCopyToClipboard } from 'react-use';
 import ImagePicker, { uploadImage } from '../ImagePicker';
 import { v4 as uuidv4 } from 'uuid';
 import { createFileRequest as createFileRequestMutation } from '../../graphql/mutations';
 import { ROUTES } from '../../constants';
 import { getWorkshop } from '../../graphql/queries';
+import { formatDateTimeInDefaultTimeZone } from '../../utils';
 
 type Inputs = {
     expiration: Date;
@@ -231,6 +227,11 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                                     label="Scheduled Start"
                                     onChange={date => setStartDate(date)}
                                     value={startDate}
+                                    slotProps={{
+                                        textField: {
+                                            helperText: <>{formatDateTimeInDefaultTimeZone(startDate)}</>
+                                        }
+                                    }}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -238,8 +239,12 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                                     label="Expiration"
                                     onChange={date => setExpiration(date)}
                                     value={expiration}
-                                    helperText={!!errors.expiration && <>Start date is required</>}
                                     error={!!errors.expiration}
+                                    slotProps={{
+                                        textField: {
+                                            helperText: !!errors.expiration ? <>Start date is required</> : <>{formatDateTimeInDefaultTimeZone(expiration)}</>
+                                        }
+                                    }}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -252,6 +257,11 @@ const NewPublicAssignment: React.FC<{ workshopId?: string }> = ({
                                                 label="Playlist Start"
                                                 onChange={date => setPlaylistStartDate(date)}
                                                 value={playlistStartDate}
+                                                slotProps={{
+                                                    textField: {
+                                                        helperText: <>{formatDateTimeInDefaultTimeZone(playlistStartDate)}</>
+                                                    }
+                                                }}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>

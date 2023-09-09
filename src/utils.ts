@@ -1,7 +1,8 @@
 import { match } from 'path-to-regexp'
 import { matchSorter } from "match-sorter";
 import { intervalToDuration, formatDuration } from "date-fns";
-import { MAPPED_ROUTE_CONFIGS } from './constants';
+import { DEFAULT_WORKSHOP_TIMEZONE, MAPPED_ROUTE_CONFIGS } from './constants';
+import { formatInTimeZone } from 'date-fns-tz';
 
 export const getCloudFrontURL = (path: string, level: 'public' | 'protected' | 'private' = 'public') =>
   `${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${level}/${path}`;
@@ -56,3 +57,6 @@ export const formatAudioDuration = (seconds = 0) => {
   });
   return formatted;
 }
+
+// in the future, host to set default timezone per workshop and pass in custom default when calling
+export const formatDateTimeInDefaultTimeZone = (dateTime, timeZone = DEFAULT_WORKSHOP_TIMEZONE) => dateTime ? formatInTimeZone(dateTime, timeZone, 'MM/dd/yyyy HH:mm zzz') : ''
