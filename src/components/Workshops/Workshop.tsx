@@ -20,6 +20,7 @@ import Assignments from '../Assignments/Assignments'
 import { MembersAvatarGroup, WorkshopDates } from '../Workshops/WorkshopList';
 import Loading from '../Loading';
 import sumBy from 'lodash/sumBy'
+import uniqBy from 'lodash/uniqBy'
 import sum from 'lodash/sum'
 import { DataGridWrapper } from '../DataGridWrapper';
 import { HostDisplay } from '../Avatar';
@@ -125,11 +126,16 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     // const totalPlaylistDuration = trackDurations.length ? formatAudioDuration(sum(trackDurations)) : 0
     const totalDuration = formatAudioDuration(sum(rows.map(r => sumBy(r.submissions, s => s.duration))))
     const myTotalSubmissions = sumBy(rows, r => r.mySubmissions.length)
+    const myRequiredSubmissions = rows?.filter(fileRequest => fileRequest.required && fileRequest.status === 'EXPIRED' && fileRequest.mySubmissions.length > 0)
 
     // lodash/sumBy doesn't sum by a condition, just a path: https://github.com/lodash/lodash/issues/4878
     const sumByCondition = (arr, fn) => arr.reduce((acc, curr) => fn(curr) ? fn(curr) + acc : acc, 0)
     const myTotalComplete = sumByCondition(rows, r => r.mySubmissions.length > 0 && r.required)
+    const workshopPasses = data?.getWorkshop?.passes || 0
+
     const totalRequired = sumByCondition(rows, r => r.required)
+    const myPassesRemaining = workshopPasses - (totalRequired - myRequiredSubmissions.length)
+    const passes = myPassesRemaining > 0 ? myPassesRemaining : 0
 
 
     const AssignmentsView = () => <>
@@ -172,30 +178,46 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
                                 </Grid>
 
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={5}>
                                 <Typography variant="body1">
                                     {data?.getWorkshop?.description}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12} sm={3}>
-
-                                <Box p={2} textAlign='center'>
-                                    <Typography lineHeight={0} variant='overline' align='center'>
-                                        Assignments Complete
-                                    </Typography>
-                                    <Typography variant='h6' align='center'>
-                                        {myTotalComplete} of {totalRequired}
-                                    </Typography>
-                                    <Typography lineHeight={0} variant='overline' align='center'>
-                                        All Submissions
-                                    </Typography>
-                                    <Typography variant='h6' align='center'>
-                                        {totalSubmissions}
-                                    </Typography>
-                                    <Typography variant='h6' align='center'>
-                                        {totalDuration}
-                                    </Typography>
-                                </Box>
+                            <Grid item xs={12} sm={4}>
+                                <Grid container p={2} textAlign='center'>
+                                    <Grid item xs={12} md={6}>
+                                        <Typography lineHeight={0} variant='overline' align='center'>
+                                            My Complete
+                                        </Typography>
+                                        <Typography variant='h6' align='center'>
+                                            {myTotalComplete} of {totalRequired}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <Typography lineHeight={0} variant='overline' align='center'>
+                                            My Passes
+                                        </Typography>
+                                        <Typography variant='h6' align='center'>
+                                            {passes}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <Typography lineHeight={0} variant='overline' align='center'>
+                                            Total Submissions
+                                        </Typography>
+                                        <Typography variant='h6' align='center'>
+                                            {totalSubmissions}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <Typography lineHeight={0} variant='overline' align='center'>
+                                            Total Duration
+                                        </Typography>
+                                        <Typography variant='h6' align='center'>
+                                            {totalDuration}
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </CardContent>
