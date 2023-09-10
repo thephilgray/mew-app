@@ -20,7 +20,6 @@ import Assignments from '../Assignments/Assignments'
 import { MembersAvatarGroup, WorkshopDates } from '../Workshops/WorkshopList';
 import Loading from '../Loading';
 import sumBy from 'lodash/sumBy'
-import uniqBy from 'lodash/uniqBy'
 import sum from 'lodash/sum'
 import { DataGridWrapper } from '../DataGridWrapper';
 import { HostDisplay } from '../Avatar';
@@ -126,7 +125,7 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     // const totalPlaylistDuration = trackDurations.length ? formatAudioDuration(sum(trackDurations)) : 0
     const totalDuration = formatAudioDuration(sum(rows.map(r => sumBy(r.submissions, s => s.duration))))
     const myTotalSubmissions = sumBy(rows, r => r.mySubmissions.length)
-    const myRequiredSubmissions = rows?.filter(fileRequest => fileRequest.required && fileRequest.status === 'EXPIRED' && fileRequest.mySubmissions.length > 0)
+    const myRequiredAndExpiredSubmissions = rows?.filter(fileRequest => fileRequest.required && fileRequest.status === 'EXPIRED' && fileRequest.mySubmissions.length > 0)
 
     // lodash/sumBy doesn't sum by a condition, just a path: https://github.com/lodash/lodash/issues/4878
     const sumByCondition = (arr, fn) => arr.reduce((acc, curr) => fn(curr) ? fn(curr) + acc : acc, 0)
@@ -134,7 +133,8 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
     const workshopPasses = data?.getWorkshop?.passes || 0
 
     const totalRequired = sumByCondition(rows, r => r.required)
-    const myPassesRemaining = workshopPasses - (totalRequired - myRequiredSubmissions.length)
+    const totalRequiredAndExpired = sumByCondition(rows, r => r.required && r.status === 'EXPIRED')
+    const myPassesRemaining = workshopPasses - (totalRequiredAndExpired - myRequiredAndExpiredSubmissions.length)
     const passes = myPassesRemaining > 0 ? myPassesRemaining : 0
 
 

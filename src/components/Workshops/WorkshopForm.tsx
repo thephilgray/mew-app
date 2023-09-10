@@ -1,34 +1,29 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Autocomplete,
     Button,
-    FormControl,
     FormControlLabel,
     FormGroup,
     Grid,
     InputLabel,
-    MenuItem,
-    Select,
     Switch,
     TextField,
     Typography,
 } from '@mui/material'
-import { listProfiles } from '../../graphql/queries'
+import { listProfiles } from '../../graphql/d3/queries'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
-import { useProfile, useUser } from '../../auth/hooks'
-import ImagePicker, { uploadImage } from '../ImagePicker'
+import { useProfile } from '../../auth/hooks'
+import ImagePicker from '../ImagePicker'
 import { getCloudFrontURL, getDisplayName, searchMembersFilterOptions } from '../../utils'
-import { v4 as uuidv4 } from 'uuid';
 import { DatePicker } from '@mui/x-date-pickers'
 import If from '../If'
 import ConnectMailchimpButton from '../ConnectMailchimpButton'
 
 export default function WorkshopForm({ onSubmit, setFormState, formState, loading }) {
     const { profile, refetch: refetchProfile } = useProfile()
-    const [image, setImage] = useState<string>('')
     const updateForm = (newValues) =>
         setFormState((prevState) => ({
             ...prevState,
@@ -42,9 +37,6 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
     }
 
     const { loading: listProfilesLoading, error: listProfilesError, data: listProfilesData } = useQuery(gql(listProfiles), { variables: { limit: 1000 } })
-    const ID = uuidv4()
-    const defaultHost = useMemo(() => formState?.email ? listProfilesData?.listProfiles?.items?.find(option => option.email === formState?.email) : null, [listProfilesData, formState?.email])
-
 
     useEffect(() => {
         refetchProfile()
@@ -89,13 +81,12 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                     <If condition={listProfilesData?.listProfiles}>
                         <Grid item xs={12}>
                             <Autocomplete
-                                key={ID}
                                 options={listProfilesData?.listProfiles?.items || []}
                                 getOptionLabel={getDisplayName}
-                                value={defaultHost}
+                                value={listProfilesData?.listProfiles?.items.find(profile => profile?.email === formState?.email)}
                                 onChange={(event, newValue) => {
                                     if (newValue?.email !== formState?.email) {
-                                        updateForm({ email: newValue?.email || null })
+                                        updateForm({ email: newValue?.email })
                                     }
                                 }}
                                 // filterOptions={searchMembersFilterOptions}
