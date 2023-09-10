@@ -50,7 +50,7 @@ type AudioFileBlob = Blob & { name: string }
 const NewPublicSubmission: React.FC<
     PropsWithChildren<RouteComponentProps<{ assignmentId: string; extensionCode?: string }>>
 > = ({ assignmentId = '', extensionCode = '' }) => {
-    const [upload, setUpload] = useState<AudioFileBlob | undefined>()
+    const [upload, setUpload] = useState<AudioFileBlob | null>(null)
     const [fileRequestData, setFileRequestData] = useState<{
         expiration: string
         title: string
@@ -72,6 +72,7 @@ const NewPublicSubmission: React.FC<
     const [showPlaylist, setShowPlaylist] = useState<boolean>(false)
     const [feedbackGiven, setFeedbackGiven] = useState<number>(0)
     const [submitters, setSubmitters] = useState([])
+    const [duration, setDuration] = useState(0)
     // const [stemsUsed, setStemsUsed] = useState([])
 
     const {
@@ -173,25 +174,60 @@ const NewPublicSubmission: React.FC<
         fileref?.current?.click()
     }
 
-    const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>): void => {
         if (!(e.target as HTMLInputElement).files && !(e.target as HTMLInputElement).files?.length) return
         // convert image file to base64 string
         const file = (e.target as HTMLInputElement).files?.[0]
         if (file && ACCEPTED_FILETYPES.includes(file.type)) {
+            let fileDuration;
+            try {
+                fileDuration = await getFileDuration(file)
+                if (fileDuration > 0) {
+                    setDuration(fileDuration)
+                } else {
+                    throw 'empty or unsupported file'
+                }
+
+            } catch (error) {
+                // something went wrong
+                console.error(error)
+                setUpload(null)
+                return setUploadAreaMessage('For some unknown reason, this file is not supported. For best results, convert to mp3.')
+            }
             setUpload(file)
             setUploadAreaMessage(file.name)
         }
+        else {
+            setUpload(null)
+            setUploadAreaMessage(`File must be of type: ${ACCEPTED_FILETYPES.join(', ')}`)
+        }
     }
 
-    const handleOnDrop = (files: FileList | null) => {
+    const handleOnDrop = async (files: FileList | null) => {
         if (!files) {
             return
         }
         const file = files[0]
         if (ACCEPTED_FILETYPES.includes(file.type) && files?.length) {
+            let fileDuration;
+            try {
+                fileDuration = await getFileDuration(file)
+                if (fileDuration > 0) {
+                    setDuration(fileDuration)
+                } else {
+                    throw 'empty or unsupported file'
+                }
+
+            } catch (error) {
+                // something went wrong
+                console.error(error)
+                setUpload(null)
+                return setUploadAreaMessage('For some unknown reason, this file is not supported. For best results, convert to mp3.')
+            }
             setUpload(file)
             setUploadAreaMessage(file.name)
         } else {
+            setUpload(null)
             setUploadAreaMessage(`File must be of type: ${ACCEPTED_FILETYPES.join(', ')}`)
         }
     }
@@ -213,14 +249,6 @@ const NewPublicSubmission: React.FC<
         const key = keyValues.map(encodeURIComponent).join('/')
         const emails = !!profile ? submitters.map(item => item.email) : email.split(',').map((email) => email.toLowerCase().trim())
         const fileExtension = upload?.name.split('.').pop()
-        let duration
-        try {
-            duration = await getFileDuration(upload)
-        } catch (error) {
-            // something went wrong
-            console.log(error)
-            duration = 0
-        }
 
         let ARTWORK_UPLOAD_PATH
         let ID
