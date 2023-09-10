@@ -16,6 +16,7 @@ import {
     TableContainer,
     Table,
     Snackbar,
+    Tooltip,
 } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -24,7 +25,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { Link } from 'gatsby'
 import { API } from 'aws-amplify'
 import Error from '../Error'
-import { Delete, FileCopy, Save } from '@mui/icons-material'
+import { Delete, FileCopy, Info, Language, Save } from '@mui/icons-material'
 import { useCopyToClipboard, usePrevious } from 'react-use'
 import {
     createExtension as createExtensionMutation,
@@ -34,6 +35,7 @@ import { extensionsByFileRequestId as extensionsByFileRequestIdQuery } from '../
 import { format } from 'date-fns'
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator'
 import { ROUTES } from '../../constants';
+import { formatDateTimeInDefaultTimeZone } from '../../utils';
 
 const customConfig: Config = {
     dictionaries: [adjectives, colors, animals],
@@ -183,6 +185,11 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
                                                 <TableCell align="center">{row.id}</TableCell>
                                                 <TableCell align="center">
                                                     {format(new Date(row.expiration), 'MM/dd/yyyy H:mm')}
+                                                    <Tooltip title={formatDateTimeInDefaultTimeZone(new Date(row.expiration))}>
+                                                        <IconButton>
+                                                            <Language />
+                                                        </IconButton>
+                                                    </Tooltip>
                                                 </TableCell>
                                                 <TableCell align="right">
                                                     <IconButton
@@ -238,6 +245,11 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
                                         setCurrentExtension((prev) => ({ ...prev, expiration: date }))
                                     }
                                     value={currentExtension.expiration}
+                                    slotProps={{
+                                        textField: {
+                                            helperText: <>{formatDateTimeInDefaultTimeZone(currentExtension.expiration)}</>
+                                        }
+                                    }}
                                 />
                             </Grid>
                             <Grid xs={5} item>
@@ -255,6 +267,11 @@ const ExtensionsDialog: React.FC<{ assignmentId: string; open: boolean; onCloseD
                                     }
                                     KeyboardButtonProps={{
                                         'aria-label': 'change time',
+                                    }}
+                                    slotProps={{
+                                        textField: {
+                                            helperText: <>{formatDateTimeInDefaultTimeZone(currentExtension.expiration)}</>
+                                        }
                                     }}
                                 />
                             </Grid>

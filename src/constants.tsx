@@ -377,3 +377,5 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
 export const MAPPED_ROUTE_CONFIGS = Object.entries(ROUTES).map(([routeName, config = {}]) => ({ ...config, routeName, pathRegex: pathToRegexp(config.path) }))
 
 // TODO: ADD Storage Paths with dynamic getters similar to ROUTES above
+
+export const DEFAULT_WORKSHOP_TIMEZONE = 'America/Los_Angeles';

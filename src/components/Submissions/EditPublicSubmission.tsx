@@ -45,6 +45,7 @@ export default function EditPublicSubmission({ submissionId }: Props) {
   const [updateFileRequestSubmissionRequest, { loading: updateLoading, error: updateError, data: updateData }] =
     useMutation(gql(updateFileRequestSubmission))
   const [viewAdmin] = useViewAdmin()
+  const [duration, setDuration] = useState(0)
   const user = useUser()
 
   const isMine = !!viewAdmin || user?.email === data?.getFileRequestSubmission?.email
@@ -52,8 +53,6 @@ export default function EditPublicSubmission({ submissionId }: Props) {
     ? isPast(new Date(data.getFileRequestSubmission.expiration as string))
     : false;
   const isActive = !!viewAdmin || !isExpired
-
-  console.log({ data, isExpired, isMine, isActive })
 
   // form stuff
 
@@ -88,7 +87,7 @@ export default function EditPublicSubmission({ submissionId }: Props) {
   const [uploadProgress, setUploadProgress] = useState({ loaded: 0, total: 1 })
   const [uploadAreaMessage, setUploadAreaMessage] = useState('Drop your track to replace what you previously uploaded. Leave empty to keep previous upload.')
   const [image, setImage] = useState<string>('')
-  const [upload, setUpload] = useState<AudioFileBlob | undefined>()
+  const [upload, setUpload] = useState<AudioFileBlob | null>(null)
   const [submitLoading, setSubmitLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
 
@@ -104,25 +103,60 @@ export default function EditPublicSubmission({ submissionId }: Props) {
     fileref?.current?.click()
   }
 
-  const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (!(e.target as HTMLInputElement).files && !(e.target as HTMLInputElement).files?.length) return
     // convert image file to base64 string
     const file = (e.target as HTMLInputElement).files?.[0]
     if (file && ACCEPTED_FILETYPES.includes(file.type)) {
+      let fileDuration;
+      try {
+        fileDuration = await getFileDuration(file)
+        if (fileDuration > 0) {
+          setDuration(fileDuration)
+        } else {
+          throw 'empty or unsupported file'
+        }
+
+      } catch (error) {
+        // something went wrong
+        console.error(error)
+        setUpload(null)
+        return setUploadAreaMessage('For some unknown reason, this file is not supported. For best results, convert to mp3.')
+      }
       setUpload(file)
       setUploadAreaMessage(file.name)
     }
+    else {
+      setUpload(null)
+      setUploadAreaMessage(`File must be of type: ${ACCEPTED_FILETYPES.join(', ')}`)
+    }
   }
 
-  const handleOnDrop = (files: FileList | null) => {
+  const handleOnDrop = async (files: FileList | null) => {
     if (!files) {
       return
     }
     const file = files[0]
     if (ACCEPTED_FILETYPES.includes(file.type) && files?.length) {
+      let fileDuration;
+      try {
+        fileDuration = await getFileDuration(file)
+        if (fileDuration > 0) {
+          setDuration(fileDuration)
+        } else {
+          throw 'empty or unsupported file'
+        }
+
+      } catch (error) {
+        // something went wrong
+        console.error(error)
+        setUpload(null)
+        return setUploadAreaMessage('For some unknown reason, this file is not supported. For best results, convert to mp3.')
+      }
       setUpload(file)
       setUploadAreaMessage(file.name)
     } else {
+      setUpload(null)
       setUploadAreaMessage(`File must be of type: ${ACCEPTED_FILETYPES.join(', ')}`)
     }
   }
@@ -164,7 +198,6 @@ export default function EditPublicSubmission({ submissionId }: Props) {
     let NEW_AUDIO_ID
     let NEW_AUDIO_UPLOAD_PATH
     let NEW_AUDIO_FILE_EXTENSION
-    let NEW_AUDIO_DURATION
     let OLD_AUDIO_UPLOAD_PATH
 
     if (upload) {
@@ -174,13 +207,6 @@ export default function EditPublicSubmission({ submissionId }: Props) {
       NEW_AUDIO_UPLOAD_PATH = [assignmentId, NEW_AUDIO_ID].map(encodeURIComponent).join('/')
       NEW_AUDIO_FILE_EXTENSION = upload?.name.split('.').pop()
 
-      try {
-        NEW_AUDIO_DURATION = await getFileDuration(upload)
-      } catch (error) {
-        // something went wrong
-        console.log(error)
-        NEW_AUDIO_DURATION = 0
-      }
 
       try {
         await Storage.put(NEW_AUDIO_UPLOAD_PATH, upload, {
@@ -218,7 +244,7 @@ export default function EditPublicSubmission({ submissionId }: Props) {
           ...upload && {
             fileId: NEW_AUDIO_ID,
             fileExtension: NEW_AUDIO_FILE_EXTENSION,
-            duration: NEW_AUDIO_DURATION
+            duration
           }
 
         }
