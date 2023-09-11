@@ -42,6 +42,7 @@ import {
     Delete,
     OpenInNew,
     DeleteForever,
+    Reviews,
 } from '@mui/icons-material';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import { uniqBy, pipe, map } from 'lodash/fp';
@@ -682,6 +683,16 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 <Add />
                             </IconButton>
                         )}
+                        <Button
+                            color="secondary"
+                            aria-label="GiveFeedback"
+                            component={Link}
+                            to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
+                            size="medium"
+                            startIcon={<Reviews />}
+                        >
+                            Give Feedback
+                        </Button>
                     </If>
                     <GroupGuard groups={[Group.admin]}>
                         {data.getFileRequest.submissions.items.length ? (
