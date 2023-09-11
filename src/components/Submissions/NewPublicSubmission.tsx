@@ -601,6 +601,7 @@ const NewPublicSubmission: React.FC<
             feedbackGiven={feedbackGiven}
             setFeedbackGiven={setFeedbackGiven}
             setShowPlaylist={setShowPlaylist}
+            showPlaylist={showPlaylist}
         />
     }
 

@@ -31,6 +31,7 @@ import { AudioPlayerProvider } from '../components/AudioPlayer/audio-player.cont
 import EditPlaylist from '../components/Playlists/EditPlaylist';
 import NewStems from '../components/Stems/NewStems';
 import EditPublicSubmission from '../components/Submissions/EditPublicSubmission';
+import GiveFeedbackStandalone from '../components/Submissions/GiveFeedbackStandalone';
 
 
 const componentToRoutesMap = {
@@ -50,6 +51,7 @@ const componentToRoutesMap = {
     [ROUTE_NAMES.ASSIGNMENT]: Submissions,
     [ROUTE_NAMES.NEW_ASSIGNMENT]: NewPublicAssignment,
     [ROUTE_NAMES.EDIT_ASSIGNMENT]: EditPublicAssignment,
+    [ROUTE_NAMES.ASSIGNMENT_GIVE_FEEDBACK]: GiveFeedbackStandalone,
     [ROUTE_NAMES.ASSIGNMENT_PLAYLIST]: Playlist,
     [ROUTE_NAMES.NEW_SUBMISSION]: NewPublicSubmission,
     [ROUTE_NAMES.EDIT_SUBMISSION]: EditPublicSubmission,

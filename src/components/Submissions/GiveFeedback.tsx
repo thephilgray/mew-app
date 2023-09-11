@@ -1,7 +1,7 @@
 
 
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import If from '../If'
 import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, IconButton, LinearProgress, Typography } from '@mui/material'
 import { SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, CheckCircleTwoTone } from '@mui/icons-material'
@@ -24,17 +24,20 @@ export const GiveFeedback: React.FC<{
   fileRequestData,
   feedbackGiven,
   setFeedbackGiven,
-  setShowPlaylist
+  setShowPlaylist,
+  showPlaylist
 }) => {
     const MAX_FEEDBACK = 3; // TODO: move to an admin setting
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [feedbackGivenOnLoad, setFeedbackGivenOnLoad] = useState(0)
     const assignmentId = fileRequestData?.id
     const user = useUser()
 
     const { data: commentsData, loading: commentsLoading, error: commentsError } = useQuery(gql(listComments), {
       variables: {
         filter: { assignmentId: { eq: assignmentId } }
-      }
+      },
+      fetchPolicy: 'no-cache'
     })
 
     const PLAYLIST_ARTWORK = fileRequestData?.artwork?.path && getCloudFrontURL(fileRequestData.artwork.path) || mewAppLogo;
@@ -45,6 +48,14 @@ export const GiveFeedback: React.FC<{
     });
 
     const feedbackGivenCounts = countBy(commentsData?.listComments?.items, 'email');
+
+    useEffect(() => {
+      if (!feedbackGiven && feedbackGivenCounts && feedbackGivenCounts[user?.email]) {
+        setFeedbackGiven(feedbackGivenCounts[user?.email])
+        setFeedbackGivenOnLoad(feedbackGivenCounts[user?.email])
+      }
+    }, [user, feedbackGivenCounts])
+
     const submissions = fileRequestData?.submissions?.items;
 
     const sortedSubmissions = sortBy(
@@ -55,7 +66,7 @@ export const GiveFeedback: React.FC<{
         o.comments.items.filter(c => c.email === user.email).length === 0
       ),
       o => feedbackGivenCounts[o.email]
-    ).slice(0, 3)
+    ).slice(0, MAX_FEEDBACK - feedbackGivenOnLoad)
 
     const selectedSongs = sortedSubmissions.map(submission => {
       const { name, fileId, artist, id, artwork, lyrics, workshopId } = submission
@@ -89,8 +100,13 @@ export const GiveFeedback: React.FC<{
     // @ts-ignore
     if (!commentsLoading && !fileRequestData?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
     if (!selectedSongs.length) return <>
+      <Typography variant='body1'>No more feedback to give for now!</Typography>
+    </>
+    if (!selectedSongs.length) return <>
       <Typography variant='body1'>Sorry. No one has requested feedback yet. Maybe you're the first!</Typography>
-      <Button sx={{ mt: 1 }} onClick={() => setShowPlaylist(false)} variant='contained' color='warning'>Quit</Button>
+      <If condition={showPlaylist}>
+        <Button sx={{ mt: 1 }} onClick={() => setShowPlaylist(false)} variant='contained' color='warning'>Quit</Button>
+      </If>
     </>
 
 
@@ -99,19 +115,25 @@ export const GiveFeedback: React.FC<{
     return (
       <If condition={!!currentSong}>
         <Grid item xs={12}>
-          <IconButton onClick={() => setCurrentIndex(previousIndex)}><SkipPreviousIcon></SkipPreviousIcon></IconButton>
+          <If condition={selectedSongs.length > 1}>
+            <IconButton onClick={() => setCurrentIndex(previousIndex)}><SkipPreviousIcon /></IconButton>
+          </If>
           Giving feedback for track {currentIndex + 1} of {selectedSongs.length}
-          <IconButton onClick={() => setCurrentIndex(nextIndex)}><SkipNextIcon></SkipNextIcon></IconButton>
-          <Button onClick={() => setShowPlaylist(false)} variant='contained' color='warning' sx={{ float: 'right' }}>Quit</Button>
+          <If condition={selectedSongs.length > 1}>
+            <IconButton onClick={() => setCurrentIndex(nextIndex)}><SkipNextIcon /></IconButton>
+          </If>
+          <If condition={showPlaylist}>
+            <Button onClick={() => setShowPlaylist(false)} variant='contained' color='warning' sx={{ float: 'right' }}>Quit</Button>
+          </If>
         </Grid>
         <Grid item xs={12} bottom={2}>
           <Box sx={{ display: 'flex', alignItems: 'center', pb: 2, pt: 2 }}>
             <Box sx={{ width: '100%', mr: 1 }}>
-              <LinearProgress color='success' variant="determinate" value={((feedbackGiven) / selectedSongs.length) * 100} />
+              <LinearProgress color='success' variant="determinate" value={((feedbackGiven) / MAX_FEEDBACK) * 100} />
             </Box>
             <Box sx={{ minWidth: 80 }}>
               <CheckCircleTwoTone color='success' sx={{ verticalAlign: 'bottom', mr: 1 }} />
-              <Typography variant="body2" component='span' color="text.secondary">{feedbackGiven} of {selectedSongs.length}</Typography>
+              <Typography variant="body2" component='span' color="text.secondary">{feedbackGiven || '0'} of {MAX_FEEDBACK}</Typography>
             </Box>
           </Box>
 

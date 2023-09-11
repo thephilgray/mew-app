@@ -2,7 +2,7 @@ import React from "react";
 import {
     Home, Person, Groups, ManageAccounts, Extension, GroupAdd, EditAttributes, Workspaces,
     Forum, Assignment, ModeEdit, PlaylistPlay, AssignmentTurnedIn, SendTimeExtension,
-    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass, AssignmentReturn
+    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass, AssignmentReturn, Feedback
 } from "@mui/icons-material";
 import { pathToRegexp } from "path-to-regexp";
 
@@ -126,6 +126,7 @@ export enum ROUTE_NAMES {
     ASSIGNMENT = 'assignment',
     NEW_ASSIGNMENT = 'newAssignment',
     EDIT_ASSIGNMENT = 'editAssignment',
+    ASSIGNMENT_GIVE_FEEDBACK = 'assignmentGiveFeedback',
     NEW_SUBMISSION = 'newPublicSubmission',
     EDIT_SUBMISSION = 'editPublicSubmission',
     NEW_SUBMISSION_EXTENSION = 'newPublicSubmissionExtension',
@@ -140,7 +141,7 @@ export enum ROUTE_NAMES {
     PROMPTS = 'prompts',
     NEW_PROMPT = 'newPrompt',
     SITE_SETTINGS = 'siteSettings',
-    PROFILE_CONNECTED_APPS = 'profileConnectedApps' // openAI oauth for all, mailchimp and youtube for admins
+    PROFILE_CONNECTED_APPS = 'profileConnectedApps', // openAI oauth for all, mailchimp and youtube for admins
 }
 
 const defaultNav = [ROUTE_NAMES.WORKSHOPS, ROUTE_NAMES.ASSIGNMENTS, ROUTE_NAMES.PLAYLISTS, ROUTE_NAMES.FEEDBACK, ROUTE_NAMES.STEMS, ROUTE_NAMES.PROMPTS];
@@ -274,6 +275,14 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         name: 'Playlist',
         icon: props => <PlaylistPlay {...props} />,
         public: true
+    },
+    [ROUTE_NAMES.ASSIGNMENT_GIVE_FEEDBACK]: {
+        path: '/app/assignments/:assignmentId/give-feedback',
+        getPath: ({ assignmentId = '' }): string => `/app/assignments/${assignmentId}/give-feedback`,
+        navPaths: defaultNav,
+        name: 'Give Feedback',
+        groups: [Group.admin, Group.member],
+        icon: props => <Feedback {...props} />,
     },
     [ROUTE_NAMES.NEW_SUBMISSION]: {
         path: '/app/submissions/:assignmentId',
