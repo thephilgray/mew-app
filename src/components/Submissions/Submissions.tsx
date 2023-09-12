@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, navigate } from 'gatsby';
 import {
+    Alert,
     Badge,
     Box,
     Button,
@@ -42,7 +43,7 @@ import {
     Delete,
     OpenInNew,
     DeleteForever,
-    Reviews,
+    RateReview,
 } from '@mui/icons-material';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import { uniqBy, pipe, map } from 'lodash/fp';
@@ -683,16 +684,29 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 <Add />
                             </IconButton>
                         )}
-                        <Button
-                            color="secondary"
-                            aria-label="GiveFeedback"
-                            component={Link}
-                            to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
-                            size="medium"
-                            startIcon={<Reviews />}
-                        >
-                            Give Feedback
-                        </Button>
+                        {!xs ? (
+                            <Button
+                                color="secondary"
+                                aria-label="Give Feedback"
+                                component={Link}
+                                to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
+                                size="medium"
+                                startIcon={<RateReview />}
+                            >
+                                Give Feedback
+                            </Button>
+                        ) : (
+                            <IconButton
+                                color="secondary"
+                                aria-label="Give Feedback"
+                                component={Link}
+                                to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
+                                size="medium"
+                            >
+                                <RateReview />
+                            </IconButton>
+                        )}
+
                     </If>
                     <GroupGuard groups={[Group.admin]}>
                         {data.getFileRequest.submissions.items.length ? (
@@ -700,6 +714,14 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                         ) : null}
                     </GroupGuard>
                 </Grid>
+                <If condition={!isExpired}>
+
+                    <Grid item xs={12}>
+                        <Alert severity="info" icon={<Edit />}>
+                            <Typography>You can edit your submissions prior to the deadline. Look for the Edit column below.</Typography>
+                        </Alert>
+                    </Grid>
+                </If>
                 <Grid
                     item
                     xs={12}

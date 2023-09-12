@@ -13,13 +13,14 @@ import { useForm } from 'react-hook-form';
 import { useBeforeUnload } from 'react-use';
 import { StyledFileDropWrapper } from './StyledFileDropWrapper';
 import { FileDrop } from 'react-file-drop';
-import { CheckCircle, CloudUpload, Save } from '@mui/icons-material';
+import { CheckCircle, CloudUpload, RateReview, Save } from '@mui/icons-material';
 import ImagePicker, { uploadImage } from '../ImagePicker';
 import { getCloudFrontURL, getFileDuration } from '../../utils';
 import { Storage } from 'aws-amplify';
 import { updateFileRequestSubmission } from '../../graphql/d3/mutations';
 import { green } from '@mui/material/colors';
 import ConfettiExplosion from 'react-confetti-explosion';
+import { Link, navigate } from '@reach/router';
 
 type Props = {
   submissionId: string
@@ -299,6 +300,10 @@ export default function EditPublicSubmission({ submissionId }: Props) {
                 <Grid item xs={12} sx={{ textAlign: 'center' }}>
                   <CheckCircle fontSize="large" htmlColor={green[500]} />
                   <Typography variant="h6">Successfully updated!</Typography>
+                  <Button
+                    color="primary"
+                    onClick={() => navigate(ROUTES.assignmentGiveFeedback.getPath({ assignmentId: data?.getFileRequestSubmission?.fileRequestId }))}
+                    startIcon={<RateReview />}>Give Feedback</Button>
                 </Grid></>}>
                 <Grid item xs={12}>
                   <Alert severity='info'>Currently, if you submitted with multiple submitters, an admin or the other submitters will also need to update their versions of the submission separately.</Alert>
