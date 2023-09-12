@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from '
 import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
-import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, SkipNext } from '@mui/icons-material'
+import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, SkipNext, Edit } from '@mui/icons-material'
 import { Controller, useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import { green } from '@mui/material/colors'
@@ -115,7 +115,7 @@ const NewPublicSubmission: React.FC<
 
     const hasStarted = fileRequestData?.startDate ? isPast(new Date(fileRequestData?.startDate)) : true
     const isValid = viewAdmin || Boolean(expiration && !isPast(new Date(expiration)) && hasStarted)
-    const userHasSubmitted = fileRequestData?.submissions?.items?.find(item => item.email === (profile?.email || watch('email')))
+    const previousUserSubmission = fileRequestData?.submissions?.items?.find(item => item.email === (profile?.email || watch('email')))
 
     useEffect(() => {
         console.log({ errors })
@@ -575,16 +575,17 @@ const NewPublicSubmission: React.FC<
                     <Grid item xs={12} sx={{ textAlign: 'center' }}>
                         <CheckCircle fontSize="large" htmlColor={green[500]} />
                         <Typography variant="h6">Success</Typography>
+                        <Alert severity="info" icon={<Edit />} sx={{ margin: 'auto', maxWidth: '500px' }}>
+                            <Typography>You can edit your submission(s) in <Link to={ROUTES.assignment.getPath({ assignmentId })}>My Submissions</Link>.</Typography>
+                        </Alert>
                     </Grid>
-                    <If condition={!!user && !feedbackGiven} >
+                    <If condition={!!user} >
                         <Grid item xs={12}>
                             <Typography variant="h3" sx={{ textAlign: 'center' }}>
                                 Give Feedback
                             </Typography>
                             <Alert sx={{ mt: 1 }} severity="success">Great job submitting something! Since you are so on top of things, you are invited to listen to up to 3 tracks and offer feedback before the playlist drops. Press the Begin button below to get started. Currently, if you quit, you won't be able to return to give feedback without submitting something else. <em>Hint: if no one has requested feedback yet, there's nothing to do here.</em></Alert>
                         </Grid>
-                    </If>
-                    <If condition={!!user}>
                         <Grid item xs={12} sx={{ textAlign: 'center' }}>
                             <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>{!feedbackGiven ? 'Begin' : 'Resume'}</Button>
                             <Button size="large" onClick={() => navigate(ROUTES.assignment.getPath({ assignmentId }))}>Quit</Button>
@@ -622,10 +623,10 @@ const NewPublicSubmission: React.FC<
                     </Alert>
                 </Grid>
             </If>
-            <If condition={!loading && !!userHasSubmitted && !uploadSuccess}>
+            <If condition={!loading && !!previousUserSubmission && !uploadSuccess}>
                 <Grid item xs={12}>
                     <Alert severity="warning">
-                        You've already submitted to this assignment. Are you sure you want to submit again?
+                        You've already submitted to this assignment. Are you sure you want to submit again? You can still <Link to={ROUTES.editPublicSubmission.getPath({ submissionId: previousUserSubmission?.id })}>edit you previous submission</Link>.
                     </Alert>
                 </Grid>
             </If>

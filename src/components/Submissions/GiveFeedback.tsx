@@ -166,7 +166,7 @@ export const GiveFeedback: React.FC<{
         </Grid >
         <If condition={!!currentSong?.lyrics}></If>
         <Grid item xs={12}>
-          <pre>
+          <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
             <Typography variant="body2">
               {currentSong?.lyrics}
             </Typography>

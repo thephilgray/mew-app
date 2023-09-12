@@ -29,7 +29,7 @@ const GiveFeedbackStandalone: React.FC<GiveFeedbackStandaloneProps> = ({ assignm
           path: ROUTES.assignment.getPath({ assignmentId }),
           name: data?.getFileRequest?.title || assignmentId,
         },
-        ROUTES.assignment]}
+        ROUTES.assignmentGiveFeedback]}
         workshop={data?.getFileRequest?.workshop}
         workshopId={data?.getFileRequest?.workshopId}
       />
