@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from 'react'
 import If from '../If'
-import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, IconButton, LinearProgress, Typography } from '@mui/material'
+import { Alert, Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, IconButton, LinearProgress, Typography } from '@mui/material'
 import { SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, CheckCircleTwoTone } from '@mui/icons-material'
 import { FeedbackSection } from '../Feedback'
 import useColorThief from 'use-color-thief'
@@ -99,9 +99,9 @@ export const GiveFeedback: React.FC<{
     if (commentsLoading) return <CircularProgress />
     // @ts-ignore
     if (!commentsLoading && !fileRequestData?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
-    if (!selectedSongs.length) return <>
-      <Typography variant='body1'>No more feedback to give for now!</Typography>
-    </>
+    if (!selectedSongs.length) return <Alert severity="warning">
+      <Typography variant='body1'>No more feedback to give! If you've given feedback for {MAX_FEEDBACK} tracks, wait for the playlist. Otherwise, check back later.</Typography>
+    </Alert>
     if (!selectedSongs.length) return <>
       <Typography variant='body1'>Sorry. No one has requested feedback yet. Maybe you're the first!</Typography>
       <If condition={showPlaylist}>
