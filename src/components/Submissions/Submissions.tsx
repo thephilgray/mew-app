@@ -684,30 +684,30 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 <Add />
                             </IconButton>
                         )}
-                        {!xs ? (
-                            <Button
-                                color="secondary"
-                                aria-label="Give Feedback"
-                                component={Link}
-                                to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
-                                size="medium"
-                                startIcon={<RateReview />}
-                            >
-                                Give Feedback
-                            </Button>
-                        ) : (
-                            <IconButton
-                                color="secondary"
-                                aria-label="Give Feedback"
-                                component={Link}
-                                to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
-                                size="medium"
-                            >
-                                <RateReview />
-                            </IconButton>
-                        )}
-
                     </If>
+                    {!xs ? (
+                        <Button
+                            color="secondary"
+                            aria-label="Give Feedback"
+                            component={Link}
+                            to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
+                            size="medium"
+                            startIcon={<RateReview />}
+                        >
+                            Give Feedback
+                        </Button>
+                    ) : (
+                        <IconButton
+                            color="secondary"
+                            aria-label="Give Feedback"
+                            component={Link}
+                            to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
+                            size="medium"
+                        >
+                            <RateReview />
+                        </IconButton>
+                    )}
+
                     <GroupGuard groups={[Group.admin]}>
                         {data.getFileRequest.submissions.items.length ? (
                             <Menu size="medium" items={menuItems} />
