@@ -584,7 +584,7 @@ const NewPublicSubmission: React.FC<
                             <Typography variant="h3" sx={{ textAlign: 'center' }}>
                                 Give Feedback
                             </Typography>
-                            <Alert sx={{ mt: 1 }} severity="success">Great job submitting something! Since you are so on top of things, you are invited to listen to up to 3 tracks and offer feedback before the playlist drops. Press the Begin button below to get started. Currently, if you quit, you won't be able to return to give feedback without submitting something else. <em>Hint: if no one has requested feedback yet, there's nothing to do here.</em></Alert>
+                            <Alert sx={{ mt: 1 }} severity="success">Great job submitting something! Since you are so on top of things, you are invited to listen to up to 3 tracks and offer feedback before the playlist drops. Press the Begin button below to get started. Press Quit to exit. You can resume giving feedback in <Link to={ROUTES.assignment.getPath({ assignmentId })}>My Submissions</Link>. <em>Hint: if no one has requested feedback yet, there's nothing to do here.</em></Alert>
                         </Grid>
                         <Grid item xs={12} sx={{ textAlign: 'center' }}>
                             <Button sx={{ mr: 1 }} size="large" endIcon={<PlayArrow />} variant="contained" color="success" onClick={() => setShowPlaylist(true)}>{!feedbackGiven ? 'Begin' : 'Resume'}</Button>
@@ -626,7 +626,7 @@ const NewPublicSubmission: React.FC<
             <If condition={!loading && !!previousUserSubmission && !uploadSuccess}>
                 <Grid item xs={12}>
                     <Alert severity="warning">
-                        You've already submitted to this assignment. Are you sure you want to submit again? You can still <Link to={ROUTES.editPublicSubmission.getPath({ submissionId: previousUserSubmission?.id })}>edit you previous submission</Link>.
+                        You've already submitted to this assignment. Are you sure you want to submit again? You can still <Link to={ROUTES.editPublicSubmission.getPath({ submissionId: previousUserSubmission?.id })}>edit your previous submission</Link>.
                     </Alert>
                 </Grid>
             </If>

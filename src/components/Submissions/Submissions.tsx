@@ -169,6 +169,10 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
         ? isPast(new Date(data.getFileRequest.expiration as string))
         : false;
 
+    const playlistIsLive = data?.getFileRequest?.playlistStartDate
+        ? isPast(new Date(data?.getFileRequest?.playlistStartDate as string))
+        : isExpired;
+
     useEffect(() => {
         if (copyToClipboardState.value) {
             setSnackbarToggles({ [snackbarConstants.COPY_SUCCESS]: true });
@@ -684,6 +688,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 <Add />
                             </IconButton>
                         )}
+                    </If>
+                    <If condition={!!viewAdmin || !playlistIsLive}>
                         {!xs ? (
                             <Button
                                 color="secondary"
@@ -706,8 +712,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 <RateReview />
                             </IconButton>
                         )}
-
                     </If>
+
                     <GroupGuard groups={[Group.admin]}>
                         {data.getFileRequest.submissions.items.length ? (
                             <Menu size="medium" items={menuItems} />
