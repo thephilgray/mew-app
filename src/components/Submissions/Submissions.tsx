@@ -169,6 +169,10 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
         ? isPast(new Date(data.getFileRequest.expiration as string))
         : false;
 
+    const playlistIsLive = data?.getFileRequest?.playlistStartDate
+        ? isPast(new Date(data?.getFileRequest?.playlistStartDate as string))
+        : isExpired;
+
     useEffect(() => {
         if (copyToClipboardState.value) {
             setSnackbarToggles({ [snackbarConstants.COPY_SUCCESS]: true });
@@ -685,28 +689,30 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                             </IconButton>
                         )}
                     </If>
-                    {!xs ? (
-                        <Button
-                            color="secondary"
-                            aria-label="Give Feedback"
-                            component={Link}
-                            to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
-                            size="medium"
-                            startIcon={<RateReview />}
-                        >
-                            Give Feedback
-                        </Button>
-                    ) : (
-                        <IconButton
-                            color="secondary"
-                            aria-label="Give Feedback"
-                            component={Link}
-                            to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
-                            size="medium"
-                        >
-                            <RateReview />
-                        </IconButton>
-                    )}
+                    <If condition={!!viewAdmin || !playlistIsLive}>
+                        {!xs ? (
+                            <Button
+                                color="secondary"
+                                aria-label="Give Feedback"
+                                component={Link}
+                                to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
+                                size="medium"
+                                startIcon={<RateReview />}
+                            >
+                                Give Feedback
+                            </Button>
+                        ) : (
+                            <IconButton
+                                color="secondary"
+                                aria-label="Give Feedback"
+                                component={Link}
+                                to={ROUTES.assignmentGiveFeedback.getPath({ assignmentId })}
+                                size="medium"
+                            >
+                                <RateReview />
+                            </IconButton>
+                        )}
+                    </If>
 
                     <GroupGuard groups={[Group.admin]}>
                         {data.getFileRequest.submissions.items.length ? (
