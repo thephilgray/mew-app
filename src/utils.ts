@@ -64,4 +64,4 @@ export const formatAudioDuration = (seconds = 0) => {
 }
 
 // in the future, host to set default timezone per workshop and pass in custom default when calling
-export const formatDateTimeInDefaultTimeZone = (dateTime, timeZone = DEFAULT_WORKSHOP_TIMEZONE) => dateTime ? formatInTimeZone(dateTime, timeZone, 'MM/dd/yyyy HH:mm zzz') : ''
+export const formatDateTimeInDefaultTimeZone = (dateTime, timeZone = DEFAULT_WORKSHOP_TIMEZONE) => dateTime ? formatInTimeZone(dateTime, timeZone, 'MM/dd/yyyy hh:mm aaa zzz') : ''
