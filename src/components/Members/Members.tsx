@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Avatar, Button, Chip, CircularProgress, Grid, IconButton, Typography } from '@mui/material'
+import { Alert, Avatar, Button, Chip, CircularProgress, Grid, IconButton, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
-import { countBy, entries, groupBy, head, keyBy, last, maxBy, uniqBy, uniqueId } from 'lodash'
+import { countBy, entries, groupBy, head, keyBy, last, maxBy, uniqBy } from 'lodash'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
-import styled from '@emotion/styled'
 import { Add, Delete, Sync } from '@mui/icons-material'
 import { updateMembershipService } from '../../graphql/mutations'
 import { ROUTES } from '../../constants';
@@ -16,6 +15,7 @@ import { DataGridWrapper } from '../DataGridWrapper';
 import { Link } from 'gatsby';
 import { getCloudFrontURL, getDisplayName } from '../../utils';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
+import { darken, lighten, styled } from '@mui/material/styles';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -23,6 +23,16 @@ const StyledChip = styled(Chip)`
     margin: 0.25rem;
 `
 
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+    '& .member--out': {
+        backgroundColor: lighten(theme.palette.error.light, 0.8),
+        '&:hover': {
+            backgroundColor: lighten(theme.palette.error.main, 0.8),
+
+        }
+
+    }
+}))
 // get workshop
 // if workshop features mailchimp enabled
 // sync mallchimp members 'SYNC' action to mewMemberService
@@ -246,6 +256,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             submissions: member.submissions.items.length,
             required,
             passes,
+            passesRemaining,
             mailchimpSubscribed: !!(
                 member.mailchimp &&
                 member.mailchimp.status === 'subscribed' &&
@@ -465,6 +476,9 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 </Grid>
             )}
             <Grid item xs={12}>
+                {<Alert severity='info'>Members who have missed too many deadlines are highlighted in red below. Click the trash icon in the Membership column to remove membership.</Alert>}
+            </Grid>
+            <Grid item xs={12}>
                 <StyledChip label={`All Assignments: ${totalAssignments}`} />
                 <StyledChip label={`Required: ${workshopRequiredAssignments}`} />
                 <StyledChip label={`Active: ${activeAssignments}`} />
@@ -473,11 +487,12 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             </Grid>
             <Grid item xs={12}>
                 <DataGridWrapper>
-                    <DataGrid
+                    <StyledDataGrid
                         // checkboxSelection
                         rows={userRows}
                         columns={columns}
                         disableRowSelectionOnClick={true}
+                        getRowClassName={(params) => `member--${params.row.passesRemaining < 0 ? 'out' : 'active'}`}
                         initialState={{
                             sorting: {
                                 sortModel: [{ field: 'required', sort: 'desc' }],
