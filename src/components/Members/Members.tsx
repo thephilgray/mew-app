@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Alert, Avatar, Button, Chip, CircularProgress, Grid, IconButton, Switch, Typography } from '@mui/material'
+import { Alert, Avatar, Button, Chip, CircularProgress, FormControlLabel, Grid, IconButton, Switch, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
@@ -486,7 +486,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             <Grid item xs={12}>
                 {<Alert severity='info'>Members who have missed too many deadlines are highlighted in red below. Click the trash icon in the <strong>Membership</strong> column to remove membership. You will be prompted with a confirm dialog first. Removing Login or other functionality is NOT recommended but here for debugging and abuse prevention purposes.
                     <br />
-                    <Switch checked={showDeleteForAll} onChange={e => setShowDeleteForAll(e.target.checked)} color="warning" />Show remove controls for all members?
+                    <FormControlLabel control={<Switch checked={showDeleteForAll} onChange={e => setShowDeleteForAll(e.target.checked)} color="warning" />} label="Show remove controls for all members?" />
                 </Alert>}
             </Grid>
             <Grid item xs={12}>
