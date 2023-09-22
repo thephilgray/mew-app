@@ -486,7 +486,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             <Grid item xs={12}>
                 {<Alert severity='info'>Members who have missed too many deadlines are highlighted in red below. Click the trash icon in the <strong>Membership</strong> column to remove membership. You will be prompted with a confirm dialog first. Removing Login or other functionality is NOT recommended but here for debugging and abuse prevention purposes.
                     <br />
-                    <Switch checked={showDeleteForAll} onChange={e => setShowDeleteForAll(e.target.checked)} />Show remove controls for all members?
+                    <Switch checked={showDeleteForAll} onChange={e => setShowDeleteForAll(e.target.checked)} color="warning" />Show remove controls for all members?
                 </Alert>}
             </Grid>
             <Grid item xs={12}>
