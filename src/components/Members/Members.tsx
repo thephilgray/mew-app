@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Alert, Avatar, Button, Chip, CircularProgress, Grid, IconButton, Typography } from '@mui/material'
+import { Alert, Avatar, Button, Chip, CircularProgress, Grid, IconButton, Switch, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
@@ -16,6 +16,7 @@ import { Link } from 'gatsby';
 import { getCloudFrontURL, getDisplayName } from '../../utils';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import { darken, lighten, styled } from '@mui/material/styles';
+import If from '../If';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -126,6 +127,7 @@ const GET_WORKSHOP = gql`
 
 const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     const [dialogSettings, setDialogSettings] = useState(null)
+    const [showDeleteForAll, setShowDeleteForAll] = useState(false)
     // query all submissions and mailchimp audience and join data by email address
     const { loading, error, data, refetch } = useQuery(GET_WORKSHOP, {
         variables: { id: workshopId },
@@ -356,29 +358,31 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             renderCell: ({ row, value = '' }) => (
                 <>
                     {value ? 'Yes' : 'No'}
-                    <IconButton
-                        onClick={() => value ? setDialogSettings({
-                            user: row,
-                            dialogType: 'MEMBERSHIP',
-                            handleDelete: () => onUpdateMembershipService({
-                                action: value ? 'DISABLE_MEMBERSHIP' : 'ADD_MEMBERSHIP',
-                                membershipPayload: {
-                                    emailAddress: row.email,
-                                    ...(row.name && { fullName: row.name }),
-                                },
-                            })
-                        }) :
-                            onUpdateMembershipService({
-                                action: value ? 'DISABLE_MEMBERSHIP' : 'ADD_MEMBERSHIP',
-                                membershipPayload: {
-                                    emailAddress: row.email,
-                                    ...(row.name && { fullName: row.name }),
-                                },
-                            })
-                        }
-                        size="large">
-                        {value ? <Delete /> : <Add />}
-                    </IconButton>
+                    <If condition={!value || row.passesRemaining < 0 || showDeleteForAll}>
+                        <IconButton
+                            onClick={() => value ? setDialogSettings({
+                                user: row,
+                                dialogType: 'MEMBERSHIP',
+                                handleDelete: () => onUpdateMembershipService({
+                                    action: value ? 'DISABLE_MEMBERSHIP' : 'ADD_MEMBERSHIP',
+                                    membershipPayload: {
+                                        emailAddress: row.email,
+                                        ...(row.name && { fullName: row.name }),
+                                    },
+                                })
+                            }) :
+                                onUpdateMembershipService({
+                                    action: value ? 'DISABLE_MEMBERSHIP' : 'ADD_MEMBERSHIP',
+                                    membershipPayload: {
+                                        emailAddress: row.email,
+                                        ...(row.name && { fullName: row.name }),
+                                    },
+                                })
+                            }
+                            size="large">
+                            {value ? <Delete /> : <Add />}
+                        </IconButton>
+                    </If>
                 </>
             ),
             width: 150,
@@ -389,29 +393,31 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             renderCell: ({ row, value = '' }) => (
                 <>
                     {value ? 'Yes' : 'No'}
-                    <IconButton
-                        onClick={() => value ? setDialogSettings({
-                            user: row,
-                            dialogType: 'LOGIN',
-                            handleDelete: () => onUpdateMembershipService({
-                                action: 'DISABLE_LOGIN',
-                                membershipPayload: {
-                                    emailAddress: row.email,
-                                    ...(row.name && { fullName: row.name }),
-                                },
-                            })
-                        }) :
-                            onUpdateMembershipService({
-                                action: 'ADD_LOGIN',
-                                membershipPayload: {
-                                    emailAddress: row.email,
-                                    ...(row.name && { fullName: row.name }),
-                                },
-                            })
-                        }
-                        size="large">
-                        {value ? <Delete /> : <Add />}
-                    </IconButton>
+                    <If condition={!value || row.passesRemaining < 0 || showDeleteForAll}>
+                        <IconButton
+                            onClick={() => value ? setDialogSettings({
+                                user: row,
+                                dialogType: 'LOGIN',
+                                handleDelete: () => onUpdateMembershipService({
+                                    action: 'DISABLE_LOGIN',
+                                    membershipPayload: {
+                                        emailAddress: row.email,
+                                        ...(row.name && { fullName: row.name }),
+                                    },
+                                })
+                            }) :
+                                onUpdateMembershipService({
+                                    action: 'ADD_LOGIN',
+                                    membershipPayload: {
+                                        emailAddress: row.email,
+                                        ...(row.name && { fullName: row.name }),
+                                    },
+                                })
+                            }
+                            size="large">
+                            {value ? <Delete /> : <Add />}
+                        </IconButton>
+                    </If>
                 </>
             ),
         },
@@ -423,29 +429,31 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                     renderCell: ({ row, value = '' }) => (
                         <>
                             {value ? 'Yes' : 'No'}
-                            <IconButton
-                                onClick={() => value ? setDialogSettings({
-                                    user: row,
-                                    dialogType: 'MEMBERSHIP_MAILCHIMP',
-                                    handleDelete: () => onUpdateMembershipService({
-                                        action: 'DISABLE_MAILCHIMP_SUBSCRIPTION',
-                                        membershipPayload: {
-                                            emailAddress: row.email,
-                                            ...(row.name && { fullName: row.name }),
-                                        },
-                                    })
-                                }) :
-                                    onUpdateMembershipService({
-                                        action: 'ADD_MAILCHIMP_SUBSCRIPTION',
-                                        membershipPayload: {
-                                            emailAddress: row.email,
-                                            ...(row.name && { fullName: row.name }),
-                                        },
-                                    })
-                                }
-                                size="large">
-                                {value ? <Delete /> : <Add />}
-                            </IconButton>
+                            <If condition={!value || row.passesRemaining < 0 || showDeleteForAll}>
+                                <IconButton
+                                    onClick={() => value ? setDialogSettings({
+                                        user: row,
+                                        dialogType: 'MEMBERSHIP_MAILCHIMP',
+                                        handleDelete: () => onUpdateMembershipService({
+                                            action: 'DISABLE_MAILCHIMP_SUBSCRIPTION',
+                                            membershipPayload: {
+                                                emailAddress: row.email,
+                                                ...(row.name && { fullName: row.name }),
+                                            },
+                                        })
+                                    }) :
+                                        onUpdateMembershipService({
+                                            action: 'ADD_MAILCHIMP_SUBSCRIPTION',
+                                            membershipPayload: {
+                                                emailAddress: row.email,
+                                                ...(row.name && { fullName: row.name }),
+                                            },
+                                        })
+                                    }
+                                    size="large">
+                                    {value ? <Delete /> : <Add />}
+                                </IconButton>
+                            </If>
                         </>
                     ),
                 },
@@ -476,7 +484,10 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 </Grid>
             )}
             <Grid item xs={12}>
-                {<Alert severity='info'>Members who have missed too many deadlines are highlighted in red below. Click the trash icon in the Membership column to remove membership.</Alert>}
+                {<Alert severity='info'>Members who have missed too many deadlines are highlighted in red below. Click the trash icon in the <strong>Membership</strong> column to remove membership. You will be prompted with a confirm dialog first. Removing Login or other functionality is NOT recommended but here for debugging and abuse prevention purposes.
+                    <br />
+                    <Switch checked={showDeleteForAll} onChange={e => setShowDeleteForAll(e.target.checked)} />Show remove controls for all members?
+                </Alert>}
             </Grid>
             <Grid item xs={12}>
                 <StyledChip label={`All Assignments: ${totalAssignments}`} />
