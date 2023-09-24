@@ -5,9 +5,9 @@ import AppBreadcrumbs from '../AppBreadcrumbs';
 import { ROUTES } from '../../constants';
 import { Avatar, Grid } from '@mui/material';
 import AddMyLocationButton from './AddMyLocationButton';
-import { membershipsByWorkshopId } from '../../graphql/queries';
 import { gql, useQuery } from '@apollo/client';
-import { compareAsc, compareDesc } from 'date-fns';
+import { compareAsc } from 'date-fns';
+import { membershipsByWorkshopId } from './members.queries';
 
 type MapProps = {
 
