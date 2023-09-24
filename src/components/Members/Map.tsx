@@ -14,7 +14,7 @@ type MapProps = {
 };
 
 const MembersMap: React.FC<MapProps> = ({ workshopId = '' }) => {
-  const { loading, error, data, refetch } = useQuery(gql(membershipsByWorkshopId), { variables: { workshopId } })
+  const { loading, error, data, refetch } = useQuery(gql(membershipsByWorkshopId), { variables: { workshopId, limit: 1000 } })
   const membersWithLocation = data?.membershipsByWorkshopId?.items?.map(({ profile, id }) => ({ ...profile, key: id }))?.sort((a, b) => compareAsc(new Date(a.updatedAt), new Date(b.updatedAt)))?.filter(p => p.location)
   return <Grid container spacing={2}>
     <Grid item xs={12}>
