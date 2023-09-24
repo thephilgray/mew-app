@@ -2,7 +2,7 @@ import React from "react";
 import {
     Home, Person, Groups, ManageAccounts, Extension, GroupAdd, EditAttributes, Workspaces,
     Forum, Assignment, ModeEdit, PlaylistPlay, AssignmentTurnedIn, SendTimeExtension,
-    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass, AssignmentReturn, Feedback
+    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass, AssignmentReturn, Feedback, Map
 } from "@mui/icons-material";
 import { pathToRegexp } from "path-to-regexp";
 
@@ -119,6 +119,7 @@ export enum ROUTE_NAMES {
     NEW_WORKSHOP = 'newWorkshop',
     EDIT_WORKSHOP = 'editWorkshop',
     WORKSHOP_MEMBERS = 'workshopMembers',
+    WORKSHOP_MEMBERS_MAP = 'workshopMembersMap',
     WORKSHOP_FEEDBACK = 'workshopFeedback',
     WORKSHOP_STEMS = 'workshopStems',
     ASSIGNMENT_PLAYLIST = 'assignmentPlaylist',
@@ -145,6 +146,7 @@ export enum ROUTE_NAMES {
 }
 
 const defaultNav = [ROUTE_NAMES.WORKSHOPS, ROUTE_NAMES.ASSIGNMENTS, ROUTE_NAMES.PLAYLISTS, ROUTE_NAMES.FEEDBACK, ROUTE_NAMES.STEMS, ROUTE_NAMES.PROMPTS];
+const workshopNav = [...defaultNav, ROUTE_NAMES.WORKSHOP_MEMBERS_MAP]
 
 export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
     [ROUTE_NAMES.HOME]: {
@@ -192,7 +194,7 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}`,
         getName: ({ name = '' }): string => name,
         name: 'Workshop',
-        navPaths: defaultNav,
+        navPaths: workshopNav,
         groups: [Group.admin, Group.member],
         icon: props => <Groups {...props} />,
     },
@@ -207,7 +209,7 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         path: '/app/workshops/:workshopId/settings',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/settings`,
         name: 'Settings',
-        navPaths: defaultNav,
+        navPaths: workshopNav,
         groups: [Group.admin],
         icon: props => <EditAttributes {...props} />,
     },
@@ -215,15 +217,23 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         path: '/app/workshops/:workshopId/members',
         name: 'Members',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/members`,
-        navPaths: defaultNav,
+        navPaths: workshopNav,
         groups: [Group.admin],
         icon: props => <Groups {...props} />,
+    },
+    [ROUTE_NAMES.WORKSHOP_MEMBERS_MAP]: {
+        path: '/app/workshops/:workshopId/members/map',
+        name: 'Members Map',
+        getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/members/map`,
+        navPaths: workshopNav,
+        groups: [Group.admin, Group.member],
+        icon: props => <Map {...props} />,
     },
     [ROUTE_NAMES.WORKSHOP_FEEDBACK]: {
         path: '/app/workshops/:workshopId/feedback',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/feedback`,
         name: 'Feedback',
-        navPaths: defaultNav,
+        navPaths: workshopNav,
         groups: [Group.admin, Group.member],
         icon: props => <Forum {...props} />,
     },
@@ -231,7 +241,7 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         path: '/app/workshops/:workshopId/stems',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/stems`,
         name: 'Stems',
-        navPaths: defaultNav,
+        navPaths: workshopNav,
         groups: [Group.admin, Group.member],
         icon: props => <Grass {...props} />,
     },
@@ -256,7 +266,7 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         path: '/app/workshops/:workshopId/new-assignment',
         name: 'New Assignment',
         getPath: ({ workshopId = '' }): string => `/app/workshops/${workshopId}/new-assignment`,
-        navPaths: defaultNav,
+        navPaths: workshopNav,
         groups: [Group.admin],
         icon: props => <Assignment {...props} />,
     },

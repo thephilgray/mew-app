@@ -147,6 +147,7 @@ export type Profile = {
   features?: Features | null,
   playlists?: ModelPlaylistConnection | null,
   uploadedStems?: ModelStemConnection | null,
+  location?: Location | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -425,6 +426,12 @@ export type ModelStemConnection = {
   __typename: "ModelStemConnection",
   items:  Array<Stem | null >,
   nextToken?: string | null,
+};
+
+export type Location = {
+  __typename: "Location",
+  latitude?: string | null,
+  longitude?: string | null,
 };
 
 export type UpdateAPIKeyInput = {
@@ -762,12 +769,18 @@ export type CreateProfileInput = {
   bio?: string | null,
   sub?: string | null,
   features?: FeaturesInput | null,
+  location?: LocationInput | null,
 };
 
 export type LinkInput = {
   id?: string | null,
   text?: string | null,
   url?: string | null,
+};
+
+export type LocationInput = {
+  latitude?: string | null,
+  longitude?: string | null,
 };
 
 export type ModelProfileConditionInput = {
@@ -791,6 +804,7 @@ export type UpdateProfileInput = {
   bio?: string | null,
   sub?: string | null,
   features?: FeaturesInput | null,
+  location?: LocationInput | null,
 };
 
 export type DeleteProfileInput = {
@@ -1403,6 +1417,11 @@ export type CreateAPIKeyMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1465,6 +1484,11 @@ export type UpdateAPIKeyMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1526,6 +1550,11 @@ export type DeleteAPIKeyMutation = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -2117,6 +2146,11 @@ export type CreateFileRequestSubmissionMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2276,6 +2310,11 @@ export type UpdateFileRequestSubmissionMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2434,6 +2473,11 @@ export type DeleteFileRequestSubmissionMutation = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -2875,6 +2919,11 @@ export type CreatePlaylistMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2958,6 +3007,11 @@ export type UpdatePlaylistMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -3040,6 +3094,11 @@ export type DeletePlaylistMutation = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -3160,6 +3219,11 @@ export type CreateMembershipMutation = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -3304,6 +3368,11 @@ export type UpdateMembershipMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -3446,6 +3515,11 @@ export type DeleteMembershipMutation = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -3603,6 +3677,11 @@ export type CreateWorkshopMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -3739,6 +3818,11 @@ export type UpdateWorkshopMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -3874,6 +3958,11 @@ export type DeleteWorkshopMutation = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -4031,6 +4120,11 @@ export type CreateProfileMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    location?:  {
+      __typename: "Location",
+      latitude?: string | null,
+      longitude?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -4168,6 +4262,11 @@ export type UpdateProfileMutation = {
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    location?:  {
+      __typename: "Location",
+      latitude?: string | null,
+      longitude?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -4307,6 +4406,11 @@ export type DeleteProfileMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    location?:  {
+      __typename: "Location",
+      latitude?: string | null,
+      longitude?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -4364,6 +4468,11 @@ export type CreateCommentMutation = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -4590,6 +4699,11 @@ export type UpdateCommentMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -4814,6 +4928,11 @@ export type DeleteCommentMutation = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -5059,6 +5178,11 @@ export type CreateStemMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -5143,6 +5267,11 @@ export type UpdateStemMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -5226,6 +5355,11 @@ export type DeleteStemMutation = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -5622,6 +5756,11 @@ export type GetAPIKeyQuery = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -6177,6 +6316,11 @@ export type GetFileRequestSubmissionQuery = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -6742,6 +6886,11 @@ export type GetPlaylistQuery = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -6955,6 +7104,11 @@ export type GetMembershipQuery = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -7295,6 +7449,11 @@ export type GetWorkshopQuery = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -7509,6 +7668,11 @@ export type GetProfileQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    location?:  {
+      __typename: "Location",
+      latitude?: string | null,
+      longitude?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -7566,6 +7730,11 @@ export type ListProfilesQuery = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -7627,6 +7796,11 @@ export type ProfileByProfileIdQuery = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -7685,6 +7859,11 @@ export type GetCommentQuery = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -8100,6 +8279,11 @@ export type GetStemQuery = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -8431,6 +8615,11 @@ export type OnCreateAPIKeySubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -8492,6 +8681,11 @@ export type OnUpdateAPIKeySubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -8552,6 +8746,11 @@ export type OnDeleteAPIKeySubscription = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -9136,6 +9335,11 @@ export type OnCreateFileRequestSubmissionSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -9294,6 +9498,11 @@ export type OnUpdateFileRequestSubmissionSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -9451,6 +9660,11 @@ export type OnDeleteFileRequestSubmissionSubscription = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -9888,6 +10102,11 @@ export type OnCreatePlaylistSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -9970,6 +10189,11 @@ export type OnUpdatePlaylistSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -10051,6 +10275,11 @@ export type OnDeletePlaylistSubscription = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -10170,6 +10399,11 @@ export type OnCreateMembershipSubscription = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -10313,6 +10547,11 @@ export type OnUpdateMembershipSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -10454,6 +10693,11 @@ export type OnDeleteMembershipSubscription = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -10610,6 +10854,11 @@ export type OnCreateWorkshopSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -10745,6 +10994,11 @@ export type OnUpdateWorkshopSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -10879,6 +11133,11 @@ export type OnDeleteWorkshopSubscription = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -11035,6 +11294,11 @@ export type OnCreateProfileSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    location?:  {
+      __typename: "Location",
+      latitude?: string | null,
+      longitude?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -11171,6 +11435,11 @@ export type OnUpdateProfileSubscription = {
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
+    } | null,
+    location?:  {
+      __typename: "Location",
+      latitude?: string | null,
+      longitude?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -11309,6 +11578,11 @@ export type OnDeleteProfileSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    location?:  {
+      __typename: "Location",
+      latitude?: string | null,
+      longitude?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -11365,6 +11639,11 @@ export type OnCreateCommentSubscription = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -11590,6 +11869,11 @@ export type OnUpdateCommentSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -11813,6 +12097,11 @@ export type OnDeleteCommentSubscription = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -12057,6 +12346,11 @@ export type OnCreateStemSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -12140,6 +12434,11 @@ export type OnUpdateStemSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -12222,6 +12521,11 @@ export type OnDeleteStemSubscription = {
       uploadedStems?:  {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,

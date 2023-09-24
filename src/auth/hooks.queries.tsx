@@ -88,6 +88,10 @@ export const getProfile = /* GraphQL */ `
           id
         }
       }
+      location {
+        latitude
+        longitude
+      }
       createdAt
       updatedAt
     }

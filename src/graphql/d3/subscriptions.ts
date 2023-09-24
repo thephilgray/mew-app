@@ -51,6 +51,11 @@ export const onCreateAPIKey = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -109,6 +114,11 @@ export const onUpdateAPIKey = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -165,6 +175,11 @@ export const onDeleteAPIKey = /* GraphQL */ `
         }
         uploadedStems {
           nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
           __typename
         }
         createdAt
@@ -743,6 +758,11 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -900,6 +920,11 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -1055,6 +1080,11 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
         }
         uploadedStems {
           nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
           __typename
         }
         createdAt
@@ -1481,6 +1511,11 @@ export const onCreatePlaylist = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -1560,6 +1595,11 @@ export const onUpdatePlaylist = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -1637,6 +1677,11 @@ export const onDeletePlaylist = /* GraphQL */ `
         }
         uploadedStems {
           nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
           __typename
         }
         createdAt
@@ -1755,6 +1800,11 @@ export const onCreateMembership = /* GraphQL */ `
         }
         uploadedStems {
           nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
           __typename
         }
         createdAt
@@ -1898,6 +1948,11 @@ export const onUpdateMembership = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -2037,6 +2092,11 @@ export const onDeleteMembership = /* GraphQL */ `
         }
         uploadedStems {
           nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
           __typename
         }
         createdAt
@@ -2191,6 +2251,11 @@ export const onCreateWorkshop = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -2323,6 +2388,11 @@ export const onUpdateWorkshop = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -2453,6 +2523,11 @@ export const onDeleteWorkshop = /* GraphQL */ `
         }
         uploadedStems {
           nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
           __typename
         }
         createdAt
@@ -2608,6 +2683,11 @@ export const onCreateProfile = /* GraphQL */ `
         nextToken
         __typename
       }
+      location {
+        latitude
+        longitude
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2740,6 +2820,11 @@ export const onUpdateProfile = /* GraphQL */ `
           __typename
         }
         nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
         __typename
       }
       createdAt
@@ -2876,6 +2961,11 @@ export const onDeleteProfile = /* GraphQL */ `
         nextToken
         __typename
       }
+      location {
+        latitude
+        longitude
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2927,6 +3017,11 @@ export const onCreateComment = /* GraphQL */ `
         }
         uploadedStems {
           nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
           __typename
         }
         createdAt
@@ -3150,6 +3245,11 @@ export const onUpdateComment = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -3369,6 +3469,11 @@ export const onDeleteComment = /* GraphQL */ `
         }
         uploadedStems {
           nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
           __typename
         }
         createdAt
@@ -3611,6 +3716,11 @@ export const onCreateStem = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -3691,6 +3801,11 @@ export const onUpdateStem = /* GraphQL */ `
           nextToken
           __typename
         }
+        location {
+          latitude
+          longitude
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -3769,6 +3884,11 @@ export const onDeleteStem = /* GraphQL */ `
         }
         uploadedStems {
           nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
           __typename
         }
         createdAt
