@@ -7,7 +7,7 @@ import { CognitoUser } from '@aws-amplify/auth'
 import { Profile } from '../API'
 import { getProfile } from './hooks.queries'
 import { usePrevious } from 'react-use'
-import { createProfile } from '../graphql/mutations'
+import { createProfile } from '../graphql/d3/mutations'
 
 export function useAuth() {
     const [user, setUser] = React.useState<CognitoUser | null>(null)

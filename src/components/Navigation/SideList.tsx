@@ -25,7 +25,7 @@ export default function NavList() {
   }, [location])
 
   const getUrl = (navPath) => {
-    const { params } = ROUTES[navPath];
+    const { params } = routeConfig;
     const url = ROUTES[navPath]?.getPath ? ROUTES[navPath]?.getPath(params) : ROUTES[navPath].path;
     return url;
   }

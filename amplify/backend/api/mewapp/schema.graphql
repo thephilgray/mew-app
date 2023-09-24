@@ -15,6 +15,11 @@ type Features {
   mailchimp: MailchimpIntegration
 }
 
+type Location {
+  latitude: String
+  longitude: String
+}
+
 type APIKey
   @model
   @auth(
@@ -301,6 +306,7 @@ type Profile
   playlists: [Playlist] @hasMany(limit: 1000)
   uploadedStems: [Stem] @hasMany(indexName: "stemsByEmail", fields: ["email"])
   # downloadedStems: [Stem] @manyToMany(relationName: "SavedStems")
+  location: Location
 }
 
 type Comment

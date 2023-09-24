@@ -32,6 +32,7 @@ import EditPlaylist from '../components/Playlists/EditPlaylist';
 import NewStems from '../components/Stems/NewStems';
 import EditPublicSubmission from '../components/Submissions/EditPublicSubmission';
 import GiveFeedbackStandalone from '../components/Submissions/GiveFeedbackStandalone';
+import Map from '../components/Members/Map';
 
 
 const componentToRoutesMap = {
@@ -45,6 +46,7 @@ const componentToRoutesMap = {
     [ROUTE_NAMES.NEW_WORKSHOP]: NewWorkshop,
     [ROUTE_NAMES.EDIT_WORKSHOP]: EditWorkshop,
     [ROUTE_NAMES.WORKSHOP_MEMBERS]: Members,
+    [ROUTE_NAMES.WORKSHOP_MEMBERS_MAP]: Map,
     [ROUTE_NAMES.WORKSHOP_FEEDBACK]: FeedbackSection,
     [ROUTE_NAMES.WORKSHOP_STEMS]: Stems,
     [ROUTE_NAMES.ASSIGNMENTS]: Assignments,
