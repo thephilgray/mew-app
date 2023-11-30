@@ -1161,12 +1161,14 @@ exports.handler = async (event) => {
   let serverPrefix;
   let listId;
   let mailchimpMembers;
+  let sessionTag = '';
 
   if (enableMailchimpIntegration) {
     const mailchimpSettings =
       getWorkshopResult.data.getWorkshop.features.mailchimp;
     serverPrefix = mailchimpSettings.serverPrefix;
     listId = mailchimpSettings.listId;
+    sessionTag = mailchimpSettings.sessionTag;
     apiKeyName = mailchimpSettings.apiKeyName;
   }
 
@@ -1429,11 +1431,18 @@ exports.handler = async (event) => {
         full_name: fullName,
         status: mailchimpStatus,
       } of mailchimpMembers) {
-        const status = mailchimpTags.some(
-          (item) => item.name && item.name.toUpperCase() === 'OUT'
-        )
-          ? 'OUT'
-          : 'ACTIVE';
+        const status =
+          mailchimpTags.some(
+            (item) => item.name && item.name.toUpperCase() === 'OUT'
+          ) ||
+          (sessionTag &&
+            !mailchimpTags.some(
+              (item) =>
+                item.name &&
+                item.name.toUpperCase() === sessionTag.toUpperCase()
+            ))
+            ? 'OUT'
+            : 'ACTIVE';
         const isActive = status === 'ACTIVE';
         if (isActive) {
           const cognitoUser = await addLogin({

@@ -193,6 +193,16 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                                     onChange={onFieldChange}
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="standard"
+                                    name="session tag"
+                                    label="Session Tag"
+                                    value={formState.sessionTag}
+                                    onChange={onFieldChange}
+                                    helperText={"Used to filter list. Example: 2023 08 AUG"}
+                                />
+                            </Grid>
                         </If>
                         <Grid item xs={12}>
                             <FormGroup>
