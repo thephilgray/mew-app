@@ -1431,37 +1431,38 @@ exports.handler = async (event) => {
         full_name: fullName,
         status: mailchimpStatus,
       } of mailchimpMembers) {
-        const status =
-          mailchimpTags.some(
-            (item) => item.name && item.name.toUpperCase() === 'OUT'
-          ) ||
-          (sessionTag &&
-            !mailchimpTags.some(
-              (item) =>
-                item.name &&
-                item.name.toUpperCase() === sessionTag.toUpperCase()
-            ))
-            ? 'OUT'
-            : 'ACTIVE';
-        const isActive = status === 'ACTIVE';
-        if (isActive) {
-          const cognitoUser = await addLogin({
-            emailAddress,
-            fullName,
-            groupName: 'member',
-          });
-          if (cognitoUser) {
-            await addOrUpdateMembership({
-              contactId,
+        const hasSessionTag = mailchimpTags.some(
+          (item) =>
+            item.name && item.name.toUpperCase() === sessionTag.toUpperCase()
+        );
+        const hasOutTag = mailchimpTags.some(
+          (item) => item.name && item.name.toUpperCase() === 'OUT'
+        );
+        const filtered = sessionTag && !hasSessionTag;
+
+        if (!filtered) {
+          const isActive = sessionTag
+            ? hasSessionTag && !hasOutTag
+            : !hasOutTag;
+          const status = isActive ? 'ACTIVE' : 'OUT';
+          let cognitoUser;
+          if (isActive) {
+            cognitoUser = await addLogin({
               emailAddress,
               fullName,
-              mailchimpId,
-              mailchimpStatus,
-              uniqueEmailId,
-              status,
-              mailchimpTags,
+              groupName: 'member',
             });
           }
+          await addOrUpdateMembership({
+            contactId,
+            emailAddress,
+            fullName,
+            mailchimpId,
+            mailchimpStatus,
+            uniqueEmailId,
+            status,
+            mailchimpTags,
+          });
         }
       }
       break;
