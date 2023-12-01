@@ -68,6 +68,7 @@ const getWorkshop = /* GraphQL */ gql`
           apiKeyName
           listId
           serverPrefix
+          sessionTag
         }
       }
       memberships(limit: 1000) {

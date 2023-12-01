@@ -32,7 +32,7 @@ export const getWorkshop = /* GraphQL */ `
               id
               path
               credit
-            }            
+            }
           }
           playlist {
             public
@@ -79,6 +79,7 @@ export const getWorkshop = /* GraphQL */ `
           apiKeyName
           listId
           serverPrefix
+          sessionTag
         }
       }
       description

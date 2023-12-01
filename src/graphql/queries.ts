@@ -218,6 +218,7 @@ export const getAPIKey = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -409,6 +410,7 @@ export const listAPIKeys = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -836,6 +838,7 @@ export const getFileRequest = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -931,6 +934,7 @@ export const getFileRequest = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -1178,6 +1182,7 @@ export const getFileRequest = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -1391,6 +1396,7 @@ export const listFileRequests = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -1721,6 +1727,7 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -2053,6 +2060,7 @@ export const fileRequestsByDate = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -2373,6 +2381,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -2766,6 +2775,7 @@ export const getFileRequestSubmission = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -3441,6 +3451,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -3876,6 +3887,7 @@ export const submissionsByFileRequestId = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -4311,6 +4323,7 @@ export const submissionsByEmail = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -4746,6 +4759,7 @@ export const submissionsByWorkshopId = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -5170,6 +5184,7 @@ export const getTrack = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -5487,6 +5502,7 @@ export const getTrack = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -6137,6 +6153,7 @@ export const getPlaylist = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -6377,6 +6394,7 @@ export const listPlaylists = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -6592,6 +6610,7 @@ export const playlistsByDate = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -6804,6 +6823,7 @@ export const getMembership = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -6899,6 +6919,7 @@ export const getMembership = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -7216,6 +7237,7 @@ export const getMembership = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -7550,6 +7572,7 @@ export const listMemberships = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -7714,6 +7737,7 @@ export const listMemberships = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -7924,6 +7948,7 @@ export const membershipsByWorkshopId = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -8088,6 +8113,7 @@ export const membershipsByWorkshopId = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -8298,6 +8324,7 @@ export const membershipsByEmail = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -8462,6 +8489,7 @@ export const membershipsByEmail = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -8911,6 +8939,7 @@ export const getWorkshop = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -9131,6 +9160,7 @@ export const getWorkshop = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -9512,6 +9542,7 @@ export const listWorkshops = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -9607,6 +9638,7 @@ export const listWorkshops = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -9853,6 +9885,7 @@ export const getProfile = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -10246,6 +10279,7 @@ export const getProfile = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -10654,6 +10688,7 @@ export const listProfiles = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -10972,6 +11007,7 @@ export const profileByProfileId = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -11281,6 +11317,7 @@ export const getComment = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -11595,6 +11632,7 @@ export const getComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -11916,6 +11954,7 @@ export const getComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -12231,6 +12270,7 @@ export const getComment = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -12326,6 +12366,7 @@ export const getComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -12537,6 +12578,7 @@ export const listComments = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -12934,6 +12976,7 @@ export const listComments = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -13130,6 +13173,7 @@ export const commentsByDate = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -13527,6 +13571,7 @@ export const commentsByDate = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -13946,6 +13991,7 @@ export const getStem = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -14195,6 +14241,7 @@ export const listStems = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -14419,6 +14466,7 @@ export const stemsByDate = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -14713,6 +14761,7 @@ export const getSubmissionStems = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -15047,6 +15096,7 @@ export const getSubmissionStems = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }

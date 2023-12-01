@@ -286,6 +286,7 @@ export const createAPIKey = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -600,6 +601,7 @@ export const updateAPIKey = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -914,6 +916,7 @@ export const deleteAPIKey = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -1364,6 +1367,7 @@ export const createFileRequest = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -1459,6 +1463,7 @@ export const createFileRequest = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -1706,6 +1711,7 @@ export const createFileRequest = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -2094,6 +2100,7 @@ export const updateFileRequest = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -2189,6 +2196,7 @@ export const updateFileRequest = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -2436,6 +2444,7 @@ export const updateFileRequest = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -2824,6 +2833,7 @@ export const deleteFileRequest = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -2919,6 +2929,7 @@ export const deleteFileRequest = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -3166,6 +3177,7 @@ export const deleteFileRequest = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -3380,6 +3392,7 @@ export const createFileRequestSubmission = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -3773,6 +3786,7 @@ export const createFileRequestSubmission = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -4350,6 +4364,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -4743,6 +4758,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -5320,6 +5336,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -5713,6 +5730,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -6384,6 +6402,7 @@ export const createTrack = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -6701,6 +6720,7 @@ export const createTrack = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -7008,6 +7028,7 @@ export const updateTrack = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -7325,6 +7346,7 @@ export const updateTrack = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -7632,6 +7654,7 @@ export const deleteTrack = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -7949,6 +7972,7 @@ export const deleteTrack = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -8345,6 +8369,7 @@ export const createPlaylist = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -8772,6 +8797,7 @@ export const updatePlaylist = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -9199,6 +9225,7 @@ export const deletePlaylist = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -9449,6 +9476,7 @@ export const createMembership = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -9544,6 +9572,7 @@ export const createMembership = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -9861,6 +9890,7 @@ export const createMembership = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -10273,6 +10303,7 @@ export const updateMembership = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -10368,6 +10399,7 @@ export const updateMembership = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -10685,6 +10717,7 @@ export const updateMembership = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -11097,6 +11130,7 @@ export const deleteMembership = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -11192,6 +11226,7 @@ export const deleteMembership = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -11509,6 +11544,7 @@ export const deleteMembership = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -12093,6 +12129,7 @@ export const createWorkshop = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -12313,6 +12350,7 @@ export const createWorkshop = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -12869,6 +12907,7 @@ export const updateWorkshop = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -13089,6 +13128,7 @@ export const updateWorkshop = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -13645,6 +13685,7 @@ export const deleteWorkshop = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -13865,6 +13906,7 @@ export const deleteWorkshop = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -14242,6 +14284,7 @@ export const createProfile = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -14635,6 +14678,7 @@ export const createProfile = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -14955,6 +14999,7 @@ export const updateProfile = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -15348,6 +15393,7 @@ export const updateProfile = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -15668,6 +15714,7 @@ export const deleteProfile = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -16061,6 +16108,7 @@ export const deleteProfile = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -16463,6 +16511,7 @@ export const createComment = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -16777,6 +16826,7 @@ export const createComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -17098,6 +17148,7 @@ export const createComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -17413,6 +17464,7 @@ export const createComment = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -17508,6 +17560,7 @@ export const createComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -17842,6 +17895,7 @@ export const updateComment = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -18156,6 +18210,7 @@ export const updateComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -18477,6 +18532,7 @@ export const updateComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -18792,6 +18848,7 @@ export const updateComment = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -18887,6 +18944,7 @@ export const updateComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -19221,6 +19279,7 @@ export const deleteComment = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -19535,6 +19594,7 @@ export const deleteComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -19856,6 +19916,7 @@ export const deleteComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -20171,6 +20232,7 @@ export const deleteComment = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -20266,6 +20328,7 @@ export const deleteComment = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -20713,6 +20776,7 @@ export const createStem = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -21143,6 +21207,7 @@ export const updateStem = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -21573,6 +21638,7 @@ export const deleteStem = /* GraphQL */ `
             enabled
             apiKeyName
             listId
+            sessionTag
             serverPrefix
             __typename
           }
@@ -21905,6 +21971,7 @@ export const createSubmissionStems = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -22239,6 +22306,7 @@ export const createSubmissionStems = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -22537,6 +22605,7 @@ export const updateSubmissionStems = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -22871,6 +22940,7 @@ export const updateSubmissionStems = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -23169,6 +23239,7 @@ export const deleteSubmissionStems = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }
@@ -23503,6 +23574,7 @@ export const deleteSubmissionStems = /* GraphQL */ `
               enabled
               apiKeyName
               listId
+              sessionTag
               serverPrefix
               __typename
             }

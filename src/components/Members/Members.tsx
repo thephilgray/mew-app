@@ -83,6 +83,7 @@ const GET_WORKSHOP = gql`
                     apiKeyName
                     listId
                     serverPrefix
+                    sessionTag
                 }
             }
             createdAt
