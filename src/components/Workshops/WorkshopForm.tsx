@@ -196,7 +196,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                             <Grid item xs={12}>
                                 <TextField
                                     variant="standard"
-                                    name="session tag"
+                                    name="sessionTag"
                                     label="Session Tag"
                                     value={formState.sessionTag}
                                     onChange={onFieldChange}
