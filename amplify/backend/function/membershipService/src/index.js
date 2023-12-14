@@ -68,6 +68,7 @@ const getWorkshop = /* GraphQL */ gql`
           apiKeyName
           listId
           serverPrefix
+          sessionTag
         }
       }
       memberships(limit: 1000) {
@@ -1011,6 +1012,9 @@ async function updateMailchimpMemberTags({
   const subscriber_hash = getSubscriberHash(emailAddress);
 
   try {
+    console.log(
+      `updating mailchimp list member tags for listId ${listId} and email address ${emailAddress} with subscriber_hash ${subscriber_hash}`
+    );
     await mailchimp.lists.updateListMemberTags(listId, subscriber_hash, {
       tags,
     });
@@ -1161,12 +1165,14 @@ exports.handler = async (event) => {
   let serverPrefix;
   let listId;
   let mailchimpMembers;
+  let sessionTag = '';
 
   if (enableMailchimpIntegration) {
     const mailchimpSettings =
       getWorkshopResult.data.getWorkshop.features.mailchimp;
     serverPrefix = mailchimpSettings.serverPrefix;
     listId = mailchimpSettings.listId;
+    sessionTag = mailchimpSettings.sessionTag;
     apiKeyName = mailchimpSettings.apiKeyName;
   }
 
@@ -1270,13 +1276,17 @@ exports.handler = async (event) => {
         membershipId: member.id,
       };
 
+      console.log({ updateMembershipVariables });
+
       let updateMembershipResult;
       try {
         updateMembershipResult = await appSyncClient.mutate({
           mutation: updateMembership,
           variables: updateMembershipVariables,
         });
-        console.log({ updateMembershipResult });
+        console.log({
+          updateMembershipResult: updateMembershipResult.data.updateMembership,
+        });
       } catch (error) {
         console.log(`Error with updateMembership`);
         console.log(error);
@@ -1369,6 +1379,7 @@ exports.handler = async (event) => {
   }
 
   async function disableMailchimpSubscription({ emailAddress }) {
+    console.log(`inside of disableMailchimpSubscription for ${emailAddress}`);
     // MEW-specific MC logic
     const updatedMember = await updateMailchimpMemberTags({
       emailAddress,
@@ -1377,6 +1388,8 @@ exports.handler = async (event) => {
       listId,
       tags: [{ name: 'OUT', status: 'active' }],
     });
+
+    console.log({ updatedMember });
 
     if (updatedMember) {
       const {
@@ -1420,6 +1433,7 @@ exports.handler = async (event) => {
         serverPrefix,
         listId,
       });
+      // console.log({ mailchimpMembers });
       for await (const {
         id: mailchimpId,
         tags: mailchimpTags,
@@ -1429,13 +1443,27 @@ exports.handler = async (event) => {
         full_name: fullName,
         status: mailchimpStatus,
       } of mailchimpMembers) {
-        const status = mailchimpTags.some(
+        const hasSessionTag = mailchimpTags.some(
+          (item) =>
+            item.name && item.name.toUpperCase() === sessionTag.toUpperCase()
+        );
+        const hasOutTag = mailchimpTags.some(
           (item) => item.name && item.name.toUpperCase() === 'OUT'
-        )
-          ? 'OUT'
-          : 'ACTIVE';
-        const isActive = status === 'ACTIVE';
-        if (isActive) {
+        );
+        const filtered = sessionTag && !hasSessionTag;
+
+        if (!filtered) {
+          const isActive = sessionTag
+            ? hasSessionTag && !hasOutTag
+            : !hasOutTag;
+          const status = isActive ? 'ACTIVE' : 'OUT';
+          console.log({
+            hasSessionTag,
+            hasOutTag,
+            mailchimpTags,
+            isActive,
+            status,
+          });
           const cognitoUser = await addLogin({
             emailAddress,
             fullName,

@@ -28,6 +28,7 @@ export default function NewWorkshop() {
         artwork: null,
         artworkCredit: '',
         listId: '',
+        sessionTag: '',
         enableMailchimpIntegration: false,
     }
 
@@ -83,6 +84,7 @@ export default function NewWorkshop() {
                                 apiKeyName: profile?.features?.mailchimp?.apiKeyName,
                                 serverPrefix: profile?.features?.mailchimp?.serverPrefix,
                                 listId: formState.listId,
+                                sessionTag: formState.sessionTag,
                             },
                         },
                     }),
@@ -99,7 +101,7 @@ export default function NewWorkshop() {
         if (workshopResponse?.data?.createWorkshop?.id) {
             if (formState.email && !updateMembershipServiceResponse.called) {
                 onUpdateMembershipService({
-                    action: 'ADD_MEMBERSHIP',
+                    action: formState.enableMailchimpIntegration ? 'ADD_MAILCHIMP_SUBSCRIPTION' : 'ADD_MEMBERSHIP',
                     membershipPayload: {
                         emailAddress: formState.email
                     },

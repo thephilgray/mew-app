@@ -2198,6 +2198,7 @@ export const onCreateWorkshop = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -2335,6 +2336,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -2472,6 +2474,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -2640,6 +2643,7 @@ export const onCreateProfile = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -2779,6 +2783,7 @@ export const onUpdateProfile = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -2918,6 +2923,7 @@ export const onDeleteProfile = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }

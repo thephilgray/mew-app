@@ -35,6 +35,7 @@ export default function EditWorkshop({ workshopId = '' }) {
         artwork: null,
         artworkCredit: '',
         listId: '',
+        sessionTag: '',
         enableMailchimpIntegration: false,
     }
 
@@ -69,6 +70,7 @@ export default function EditWorkshop({ workshopId = '' }) {
                 status: data.getWorkshop.status,
                 passes: data.getWorkshop.passes || 0,
                 listId: data.getWorkshop.features?.mailchimp?.listId || '',
+                sessionTag: data.getWorkshop.features?.mailchimp?.sessionTag || '',
                 enableMailchimpIntegration: data.getWorkshop.features?.mailchimp?.enabled || false,
             })
         }
@@ -115,6 +117,7 @@ export default function EditWorkshop({ workshopId = '' }) {
                                 apiKeyName: profile?.features?.mailchimp?.apiKeyName,
                                 serverPrefix: profile?.features?.mailchimp?.serverPrefix,
                                 listId: formState.listId,
+                                sessionTag: formState.sessionTag,
                             },
                         },
                     }),

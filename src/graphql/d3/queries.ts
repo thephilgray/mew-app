@@ -1713,6 +1713,7 @@ export const getWorkshop = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
@@ -1939,6 +1940,7 @@ export const getProfile = /* GraphQL */ `
           enabled
           apiKeyName
           listId
+          sessionTag
           serverPrefix
           __typename
         }
