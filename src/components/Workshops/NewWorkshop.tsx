@@ -101,7 +101,7 @@ export default function NewWorkshop() {
         if (workshopResponse?.data?.createWorkshop?.id) {
             if (formState.email && !updateMembershipServiceResponse.called) {
                 onUpdateMembershipService({
-                    action: 'ADD_MEMBERSHIP',
+                    action: formState.enableMailchimpIntegration ? 'ADD_MAILCHIMP_SUBSCRIPTION' : 'ADD_MEMBERSHIP',
                     membershipPayload: {
                         emailAddress: formState.email
                     },
