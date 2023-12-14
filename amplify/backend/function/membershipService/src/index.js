@@ -1012,6 +1012,9 @@ async function updateMailchimpMemberTags({
   const subscriber_hash = getSubscriberHash(emailAddress);
 
   try {
+    console.log(
+      `updating mailchimp list member tags for listId ${listId} and email address ${emailAddress} with subscriber_hash ${subscriber_hash}`
+    );
     await mailchimp.lists.updateListMemberTags(listId, subscriber_hash, {
       tags,
     });
@@ -1273,13 +1276,17 @@ exports.handler = async (event) => {
         membershipId: member.id,
       };
 
+      console.log({ updateMembershipVariables });
+
       let updateMembershipResult;
       try {
         updateMembershipResult = await appSyncClient.mutate({
           mutation: updateMembership,
           variables: updateMembershipVariables,
         });
-        console.log({ updateMembershipResult });
+        console.log({
+          updateMembershipResult: updateMembershipResult.data.updateMembership,
+        });
       } catch (error) {
         console.log(`Error with updateMembership`);
         console.log(error);
@@ -1372,6 +1379,7 @@ exports.handler = async (event) => {
   }
 
   async function disableMailchimpSubscription({ emailAddress }) {
+    console.log(`inside of disableMailchimpSubscription for ${emailAddress}`);
     // MEW-specific MC logic
     const updatedMember = await updateMailchimpMemberTags({
       emailAddress,
@@ -1380,6 +1388,8 @@ exports.handler = async (event) => {
       listId,
       tags: [{ name: 'OUT', status: 'active' }],
     });
+
+    console.log({ updatedMember });
 
     if (updatedMember) {
       const {
@@ -1423,6 +1433,7 @@ exports.handler = async (event) => {
         serverPrefix,
         listId,
       });
+      // console.log({ mailchimpMembers });
       for await (const {
         id: mailchimpId,
         tags: mailchimpTags,
@@ -1446,24 +1457,30 @@ exports.handler = async (event) => {
             ? hasSessionTag && !hasOutTag
             : !hasOutTag;
           const status = isActive ? 'ACTIVE' : 'OUT';
-          let cognitoUser;
-          if (isActive) {
-            cognitoUser = await addLogin({
-              emailAddress,
-              fullName,
-              groupName: 'member',
-            });
-          }
-          await addOrUpdateMembership({
-            contactId,
+          console.log({
+            hasSessionTag,
+            hasOutTag,
+            mailchimpTags,
+            isActive,
+            status,
+          });
+          const cognitoUser = await addLogin({
             emailAddress,
             fullName,
-            mailchimpId,
-            mailchimpStatus,
-            uniqueEmailId,
-            status,
-            mailchimpTags,
+            groupName: 'member',
           });
+          if (cognitoUser) {
+            await addOrUpdateMembership({
+              contactId,
+              emailAddress,
+              fullName,
+              mailchimpId,
+              mailchimpStatus,
+              uniqueEmailId,
+              status,
+              mailchimpTags,
+            });
+          }
         }
       }
       break;

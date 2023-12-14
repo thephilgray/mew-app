@@ -353,7 +353,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             headerName: 'Status',
             width: 150,
         },
-        {
+        ...(data?.getWorkshop?.features?.mailchimp?.enabled ? [] : [{
             field: 'membership',
             headerName: 'Membership',
             renderCell: ({ row, value = '' }) => (
@@ -387,41 +387,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 </>
             ),
             width: 150,
-        },
-        {
-            field: 'loginEnabled',
-            headerName: 'Login',
-            renderCell: ({ row, value = '' }) => (
-                <>
-                    {value ? 'Yes' : 'No'}
-                    <If condition={!value || row.passesRemaining < 0 || showDeleteForAll}>
-                        <IconButton
-                            onClick={() => value ? setDialogSettings({
-                                user: row,
-                                dialogType: 'LOGIN',
-                                handleDelete: () => onUpdateMembershipService({
-                                    action: 'DISABLE_LOGIN',
-                                    membershipPayload: {
-                                        emailAddress: row.email,
-                                        ...(row.name && { fullName: row.name }),
-                                    },
-                                })
-                            }) :
-                                onUpdateMembershipService({
-                                    action: 'ADD_LOGIN',
-                                    membershipPayload: {
-                                        emailAddress: row.email,
-                                        ...(row.name && { fullName: row.name }),
-                                    },
-                                })
-                            }
-                            size="large">
-                            {value ? <Delete /> : <Add />}
-                        </IconButton>
-                    </If>
-                </>
-            ),
-        },
+        }]),
         ...(data?.getWorkshop?.features?.mailchimp?.enabled
             ? [
                 {
@@ -460,6 +426,41 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 },
             ]
             : []),
+        {
+            field: 'loginEnabled',
+            headerName: 'Login',
+            renderCell: ({ row, value = '' }) => (
+                <>
+                    {value ? 'Yes' : 'No'}
+                    <If condition={!value || row.passesRemaining < 0 || showDeleteForAll}>
+                        <IconButton
+                            onClick={() => value ? setDialogSettings({
+                                user: row,
+                                dialogType: 'LOGIN',
+                                handleDelete: () => onUpdateMembershipService({
+                                    action: 'DISABLE_LOGIN',
+                                    membershipPayload: {
+                                        emailAddress: row.email,
+                                        ...(row.name && { fullName: row.name }),
+                                    },
+                                })
+                            }) :
+                                onUpdateMembershipService({
+                                    action: 'ADD_LOGIN',
+                                    membershipPayload: {
+                                        emailAddress: row.email,
+                                        ...(row.name && { fullName: row.name }),
+                                    },
+                                })
+                            }
+                            size="large">
+                            {value ? <Delete /> : <Add />}
+                        </IconButton>
+                    </If>
+                </>
+            ),
+        },
+
     ]
 
     return (
