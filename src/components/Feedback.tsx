@@ -131,7 +131,7 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
           </If>
         </h4>
         <If condition={!editing}>
-          <Typography sx={{ textAlign: "left", pt: 1 }}>
+          <Typography sx={{ textAlign: "left", pt: 1, wordWrap: 'break-word' }}>
             {comment.content}
           </Typography>
         </If>
