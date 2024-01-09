@@ -54,11 +54,13 @@ export const formatAudioDuration = (seconds = 0) => {
   const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
   const zeroPad = (num) => String(num).padStart(2, "0");
   const formatted = formatDuration(duration, {
-    format: ["hours", "minutes", "seconds"],
+    format: seconds < 86400 ? ["hours", "minutes", "seconds"] : ["days", "hours", "minutes"],
     zero: true,
-    delimiter: ":",
-    locale: {
-      formatDistance: (_token, count) => zeroPad(count)
+    ...seconds < 86400 && {
+      delimiter: ":",
+      locale: {
+        formatDistance: (_token, count) => zeroPad(count)
+      }
     }
   });
   return formatted;
