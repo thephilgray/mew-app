@@ -107,6 +107,7 @@ export enum Group {
     editor = 'editor',
     member = 'member',
     community = 'community',
+    cognito_admin = 'cognito_admin'
 }
 
 export enum ROUTE_NAMES {

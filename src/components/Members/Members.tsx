@@ -9,14 +9,15 @@ import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
 import { Add, Delete, Sync } from '@mui/icons-material'
 import { updateMembershipService } from '../../graphql/mutations'
-import { ROUTES } from '../../constants';
+import { Group, ROUTES } from '../../constants';
 import Loading from '../Loading';
 import { DataGridWrapper } from '../DataGridWrapper';
 import { Link } from 'gatsby';
 import { getCloudFrontURL, getDisplayName } from '../../utils';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
-import { darken, lighten, styled } from '@mui/material/styles';
+import { lighten, styled } from '@mui/material/styles';
 import If from '../If';
+import { useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -129,6 +130,9 @@ const GET_WORKSHOP = gql`
 const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     const [dialogSettings, setDialogSettings] = useState(null)
     const [showDeleteForAll, setShowDeleteForAll] = useState(false)
+    const [showDeleteLogin, setShowDeleteLogin] = useState(false)
+    const isCognitoAdmin = useUserInAtLeastOneOfTheseGroups([Group.cognito_admin])
+
     // query all submissions and mailchimp audience and join data by email address
     const { loading, error, data, refetch } = useQuery(GET_WORKSHOP, {
         variables: { id: workshopId },
@@ -392,7 +396,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             ? [
                 {
                     field: 'mailchimpSubscribed',
-                    headerName: 'Mailchimp',
+                    headerName: 'Membership',
                     renderCell: ({ row, value = '' }) => (
                         <>
                             {value ? 'Yes' : 'No'}
@@ -432,7 +436,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             renderCell: ({ row, value = '' }) => (
                 <>
                     {value ? 'Yes' : 'No'}
-                    <If condition={!value || row.passesRemaining < 0 || showDeleteForAll}>
+                    <If condition={!value || isCognitoAdmin && showDeleteLogin}>
                         <IconButton
                             onClick={() => value ? setDialogSettings({
                                 user: row,
@@ -486,9 +490,15 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 </Grid>
             )}
             <Grid item xs={12}>
-                {<Alert severity='info'>Members who have missed too many deadlines are highlighted in red below. Click the trash icon in the <strong>Membership</strong> column to remove membership. You will be prompted with a confirm dialog first. Removing Login or other functionality is NOT recommended but here for debugging and abuse prevention purposes.
+                {<Alert severity='info'>Members who have missed too many deadlines are highlighted in red below. Click the trash icon in the <strong>Membership</strong> column to remove membership. You will be prompted with a confirm dialog first.
+                    <If condition={isCognitoAdmin}>{' '}Removing Login is NOT recommended but here for debugging and abuse prevention purposes.</If>
                     <br />
-                    <FormControlLabel control={<Switch checked={showDeleteForAll} onChange={e => setShowDeleteForAll(e.target.checked)} color="warning" />} label="Show remove controls for all members?" />
+                    <br />
+                    <FormControlLabel control={<Switch checked={showDeleteForAll} onChange={e => setShowDeleteForAll(e.target.checked)} color="warning" />} label="Show remove membership controls for all members?" />
+                    <If condition={isCognitoAdmin}>
+                        <br />
+                        <FormControlLabel control={<Switch checked={showDeleteLogin} onChange={e => setShowDeleteLogin(e.target.checked)} color="error" />} label="Show remove login controls?" />
+                    </If>
                 </Alert>}
             </Grid>
             <Grid item xs={12}>
