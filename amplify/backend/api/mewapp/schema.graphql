@@ -306,6 +306,7 @@ type Profile
   features: Features
   playlists: [Playlist] @hasMany(limit: 1000)
   uploadedStems: [Stem] @hasMany(indexName: "stemsByEmail", fields: ["email"])
+  prompts: [Prompt] @hasMany(indexName: "promptsByEmail", fields: ["email"])
   # downloadedStems: [Stem] @manyToMany(relationName: "SavedStems")
   location: Location
 }
@@ -374,6 +375,30 @@ type Stem
     )
   createdAt: String
   # downloadedBy: [Profile] @manyToMany(relationName: "SavedStems")
+}
+
+type Prompt
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  title: String!
+  content: String!
+  authorEmail: String @index(name: "promptsByEmail")
+  author: Profile @belongsTo(fields: ["authorEmail"])
+  type: String
+    @index(
+      name: "promptsByDate"
+      queryField: "promptsByDate"
+      sortKeyFields: ["createdAt"]
+    )
+  createdAt: String
 }
 
 input SongData {

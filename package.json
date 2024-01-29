@@ -14,7 +14,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "codegen": "amplify codegen --maxDepth 5 && amplify codegen --maxDepth 4 --output-dir src/graphql/d4 && amplify codegen --maxDepth 3 --output-dir src/graphql/d3"
+    "codegen": "amplify codegen"
   },
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",

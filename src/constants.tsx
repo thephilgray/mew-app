@@ -375,14 +375,14 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         path: '/app/prompts',
         name: 'Prompts',
         navPaths: defaultNav,
-        groups: [Group.admin],
+        groups: [Group.admin, Group.member],
         icon: props => <Terminal {...props} />,
     },
     [ROUTE_NAMES.NEW_PROMPT]: {
         path: '/app/prompts/new',
         name: 'New Prompt',
         navPaths: defaultNav,
-        groups: [Group.admin],
+        groups: [Group.admin, Group.member],
         icon: props => <PostAdd {...props} />,
     },
     [ROUTE_NAMES.SITE_SETTINGS]: {

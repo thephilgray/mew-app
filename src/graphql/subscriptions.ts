@@ -2,999 +2,106 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateAPIKey = /* GraphQL */ `
-  subscription OnCreateAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
-    onCreateAPIKey(filter: $filter) {
-      id
-      keyName
-      createdAt
-      profileID
+import * as APITypes from "../API";
+type GeneratedSubscription<InputType, OutputType> = string & {
+  __generatedSubscriptionInput: InputType;
+  __generatedSubscriptionOutput: OutputType;
+};
+
+export const onCreateAPIKey = /* GraphQL */ `subscription OnCreateAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
+  onCreateAPIKey(filter: $filter) {
+    id
+    keyName
+    createdAt
+    profileID
+    email
+    profile {
       email
-      profile {
-        email
+      id
+      name
+      displayName
+      links {
         id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
+        text
+        url
         __typename
       }
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateAPIKey = /* GraphQL */ `
-  subscription OnUpdateAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
-    onUpdateAPIKey(filter: $filter) {
-      id
-      keyName
-      createdAt
-      profileID
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
           id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
             id
             name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
+            displayName
+            avatar
+            bio
+            sub
             createdAt
             updatedAt
             __typename
           }
-          nextToken
+          updatedAt
           __typename
         }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
+        nextToken
         __typename
       }
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteAPIKey = /* GraphQL */ `
-  subscription OnDeleteAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
-    onDeleteAPIKey(filter: $filter) {
-      id
-      keyName
-      createdAt
-      profileID
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
+      workshops {
+        items {
           id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
+          name
+          email
+          fileRequests {
+            nextToken
             __typename
           }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
             id
             name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
+            displayName
+            avatar
+            bio
+            sub
             createdAt
             updatedAt
             __typename
           }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
+          startDate
+          endDate
+          memberships {
+            nextToken
             __typename
           }
-          nextToken
+          createdAt
+          updatedAt
           __typename
         }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateExtension = /* GraphQL */ `
-  subscription OnCreateExtension(
-    $filter: ModelSubscriptionExtensionFilterInput
-  ) {
-    onCreateExtension(filter: $filter) {
-      id
-      expiration
-      assignmentId
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateExtension = /* GraphQL */ `
-  subscription OnUpdateExtension(
-    $filter: ModelSubscriptionExtensionFilterInput
-  ) {
-    onUpdateExtension(filter: $filter) {
-      id
-      expiration
-      assignmentId
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteExtension = /* GraphQL */ `
-  subscription OnDeleteExtension(
-    $filter: ModelSubscriptionExtensionFilterInput
-  ) {
-    onDeleteExtension(filter: $filter) {
-      id
-      expiration
-      assignmentId
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateFileRequest = /* GraphQL */ `
-  subscription OnCreateFileRequest(
-    $filter: ModelSubscriptionFileRequestFilterInput
-  ) {
-    onCreateFileRequest(filter: $filter) {
-      id
-      startDate
-      expiration
-      title
-      details
-      required
-      artwork {
-        id
-        path
-        credit
+        nextToken
         __typename
       }
       submissions {
@@ -1008,45 +115,7 @@ export const onCreateFileRequest = /* GraphQL */ `
             title
             details
             required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             playlistStartDate
             playlistExternalUrl
             type
@@ -1063,47 +132,9 @@ export const onCreateFileRequest = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -1112,31 +143,10 @@ export const onCreateFileRequest = /* GraphQL */ `
           fileExtension
           rating
           comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -1157,350 +167,50 @@ export const onCreateFileRequest = /* GraphQL */ `
         nextToken
         __typename
       }
-      workshop {
-        id
-        name
-        email
-        fileRequests {
-          items {
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
             id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
+            status
+            passes
+            description
+            startDate
+            endDate
             createdAt
             updatedAt
             __typename
           }
-          nextToken
-          __typename
-        }
-        status
-        passes
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        description
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        host {
-          email
-          id
-          name
-          displayName
-          links {
+          profile {
+            email
             id
-            text
-            url
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
             __typename
           }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        startDate
-        endDate
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      extensions {
-        items {
-          id
-          expiration
-          assignmentId
           createdAt
           updatedAt
           __typename
@@ -1508,225 +218,230 @@ export const onCreateFileRequest = /* GraphQL */ `
         nextToken
         __typename
       }
-      playlist {
-        tracks {
-          items {
-            order
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            id
-            createdAt
-            updatedAt
-            playlistTracksId
-            trackSubmissionId
-            __typename
-          }
-          nextToken
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
           __typename
         }
-        owner {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
             nextToken
             __typename
           }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateAPIKeySubscriptionVariables,
+  APITypes.OnCreateAPIKeySubscription
+>;
+export const onUpdateAPIKey = /* GraphQL */ `subscription OnUpdateAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
+  onUpdateAPIKey(filter: $filter) {
+    id
+    keyName
+    createdAt
+    profileID
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
+          status
+          passes
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
             nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
             __typename
           }
           createdAt
           updatedAt
           __typename
         }
-        public
-        title
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        type
-        createdAt
-        id
-        updatedAt
-        profilePlaylistsId
-        playlistOwnerId
-        __typename
-      }
-      playlistStartDate
-      playlistExternalUrl
-      type
-      createdAt
-      updatedAt
-      fileRequestPlaylistId
-      __typename
-    }
-  }
-`;
-export const onUpdateFileRequest = /* GraphQL */ `
-  subscription OnUpdateFileRequest(
-    $filter: ModelSubscriptionFileRequestFilterInput
-  ) {
-    onUpdateFileRequest(filter: $filter) {
-      id
-      startDate
-      expiration
-      title
-      details
-      required
-      artwork {
-        id
-        path
-        credit
+        nextToken
         __typename
       }
       submissions {
@@ -1740,45 +455,7 @@ export const onUpdateFileRequest = /* GraphQL */ `
             title
             details
             required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             playlistStartDate
             playlistExternalUrl
             type
@@ -1795,47 +472,9 @@ export const onUpdateFileRequest = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -1844,31 +483,10 @@ export const onUpdateFileRequest = /* GraphQL */ `
           fileExtension
           rating
           comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -1889,350 +507,50 @@ export const onUpdateFileRequest = /* GraphQL */ `
         nextToken
         __typename
       }
-      workshop {
-        id
-        name
-        email
-        fileRequests {
-          items {
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
             id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
+            status
+            passes
+            description
+            startDate
+            endDate
             createdAt
             updatedAt
             __typename
           }
-          nextToken
-          __typename
-        }
-        status
-        passes
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        description
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        host {
-          email
-          id
-          name
-          displayName
-          links {
+          profile {
+            email
             id
-            text
-            url
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
             __typename
           }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        startDate
-        endDate
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      extensions {
-        items {
-          id
-          expiration
-          assignmentId
           createdAt
           updatedAt
           __typename
@@ -2240,225 +558,230 @@ export const onUpdateFileRequest = /* GraphQL */ `
         nextToken
         __typename
       }
-      playlist {
-        tracks {
-          items {
-            order
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            id
-            createdAt
-            updatedAt
-            playlistTracksId
-            trackSubmissionId
-            __typename
-          }
-          nextToken
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
           __typename
         }
-        owner {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
             nextToken
             __typename
           }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAPIKeySubscriptionVariables,
+  APITypes.OnUpdateAPIKeySubscription
+>;
+export const onDeleteAPIKey = /* GraphQL */ `subscription OnDeleteAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
+  onDeleteAPIKey(filter: $filter) {
+    id
+    keyName
+    createdAt
+    profileID
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
+          status
+          passes
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
             nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
             __typename
           }
           createdAt
           updatedAt
           __typename
         }
-        public
-        title
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        type
-        createdAt
-        id
-        updatedAt
-        profilePlaylistsId
-        playlistOwnerId
-        __typename
-      }
-      playlistStartDate
-      playlistExternalUrl
-      type
-      createdAt
-      updatedAt
-      fileRequestPlaylistId
-      __typename
-    }
-  }
-`;
-export const onDeleteFileRequest = /* GraphQL */ `
-  subscription OnDeleteFileRequest(
-    $filter: ModelSubscriptionFileRequestFilterInput
-  ) {
-    onDeleteFileRequest(filter: $filter) {
-      id
-      startDate
-      expiration
-      title
-      details
-      required
-      artwork {
-        id
-        path
-        credit
+        nextToken
         __typename
       }
       submissions {
@@ -2472,45 +795,7 @@ export const onDeleteFileRequest = /* GraphQL */ `
             title
             details
             required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             playlistStartDate
             playlistExternalUrl
             type
@@ -2527,47 +812,9 @@ export const onDeleteFileRequest = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -2576,31 +823,10 @@ export const onDeleteFileRequest = /* GraphQL */ `
           fileExtension
           rating
           comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -2621,350 +847,50 @@ export const onDeleteFileRequest = /* GraphQL */ `
         nextToken
         __typename
       }
-      workshop {
-        id
-        name
-        email
-        fileRequests {
-          items {
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
             id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
+            status
+            passes
+            description
+            startDate
+            endDate
             createdAt
             updatedAt
             __typename
           }
-          nextToken
-          __typename
-        }
-        status
-        passes
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        description
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        host {
-          email
-          id
-          name
-          displayName
-          links {
+          profile {
+            email
             id
-            text
-            url
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
             __typename
           }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        startDate
-        endDate
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      extensions {
-        items {
-          id
-          expiration
-          assignmentId
           createdAt
           updatedAt
           __typename
@@ -2972,451 +898,20 @@ export const onDeleteFileRequest = /* GraphQL */ `
         nextToken
         __typename
       }
-      playlist {
-        tracks {
-          items {
-            order
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            id
-            createdAt
-            updatedAt
-            playlistTracksId
-            trackSubmissionId
-            __typename
-          }
-          nextToken
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
           __typename
         }
-        owner {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        public
-        title
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        type
-        createdAt
-        id
-        updatedAt
-        profilePlaylistsId
-        playlistOwnerId
         __typename
       }
-      playlistStartDate
-      playlistExternalUrl
-      type
-      createdAt
-      updatedAt
-      fileRequestPlaylistId
-      __typename
-    }
-  }
-`;
-export const onCreateFileRequestSubmission = /* GraphQL */ `
-  subscription OnCreateFileRequestSubmission(
-    $filter: ModelSubscriptionFileRequestSubmissionFilterInput
-  ) {
-    onCreateFileRequestSubmission(filter: $filter) {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            items {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshopId
-        extensions {
-          items {
-            id
-            expiration
-            assignmentId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        playlist {
+      playlists {
+        items {
           tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-              __typename
-            }
             nextToken
             __typename
           }
@@ -3425,47 +920,9 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -3486,2479 +943,66 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `
           playlistOwnerId
           __typename
         }
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        items {
-          id
-          content
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissionId
-          submission {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          assignmentId
-          assignment {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          workshopId
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          parentId
-          type
-          createdAt
-          updatedAt
-          __typename
-        }
         nextToken
         __typename
       }
-      stems {
+      uploadedStems {
         items {
           id
-          fileRequestSubmissionID
-          stemID
-          fileRequestSubmission {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          stem {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      workshopId
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateFileRequestSubmission = /* GraphQL */ `
-  subscription OnUpdateFileRequestSubmission(
-    $filter: ModelSubscriptionFileRequestSubmissionFilterInput
-  ) {
-    onUpdateFileRequestSubmission(filter: $filter) {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            items {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshopId
-        extensions {
-          items {
-            id
-            expiration
-            assignmentId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        playlist {
-          tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          owner {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          public
           title
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          type
-          createdAt
-          id
-          updatedAt
-          profilePlaylistsId
-          playlistOwnerId
-          __typename
-        }
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        items {
-          id
-          content
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissionId
-          submission {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          assignmentId
-          assignment {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          workshopId
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          parentId
-          type
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      stems {
-        items {
-          id
-          fileRequestSubmissionID
-          stemID
-          fileRequestSubmission {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          stem {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      workshopId
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteFileRequestSubmission = /* GraphQL */ `
-  subscription OnDeleteFileRequestSubmission(
-    $filter: ModelSubscriptionFileRequestSubmissionFilterInput
-  ) {
-    onDeleteFileRequestSubmission(filter: $filter) {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            items {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            nextToken
-            __typename
-          }
+          bpm
+          key
+          scale
+          instruments
+          notes
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
-          status
-          passes
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
             email
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
           }
-          startDate
-          endDate
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
+          stemGroupId
+          filePath
+          artist
+          type
           createdAt
           updatedAt
           __typename
         }
-        workshopId
-        extensions {
-          items {
-            id
-            expiration
-            assignmentId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        playlist {
-          tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          owner {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          public
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
           title
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          type
-          createdAt
-          id
-          updatedAt
-          profilePlaylistsId
-          playlistOwnerId
-          __typename
-        }
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        items {
-          id
           content
-          email
-          profile {
+          authorEmail
+          author {
             email
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
           }
-          submissionId
-          submission {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          assignmentId
-          assignment {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          workshopId
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          parentId
           type
           createdAt
           updatedAt
@@ -5967,133 +1011,83 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `
         nextToken
         __typename
       }
-      stems {
-        items {
-          id
-          fileRequestSubmissionID
-          stemID
-          fileRequestSubmission {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          stem {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
+      location {
+        latitude
+        longitude
         __typename
       }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      workshopId
       createdAt
       updatedAt
       __typename
     }
+    updatedAt
+    __typename
   }
-`;
-export const onCreateTrack = /* GraphQL */ `
-  subscription OnCreateTrack($filter: ModelSubscriptionTrackFilterInput) {
-    onCreateTrack(filter: $filter) {
-      order
-      submission {
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAPIKeySubscriptionVariables,
+  APITypes.OnDeleteAPIKeySubscription
+>;
+export const onCreateExtension = /* GraphQL */ `subscription OnCreateExtension($filter: ModelSubscriptionExtensionFilterInput) {
+  onCreateExtension(filter: $filter) {
+    id
+    expiration
+    assignmentId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateExtensionSubscriptionVariables,
+  APITypes.OnCreateExtensionSubscription
+>;
+export const onUpdateExtension = /* GraphQL */ `subscription OnUpdateExtension($filter: ModelSubscriptionExtensionFilterInput) {
+  onUpdateExtension(filter: $filter) {
+    id
+    expiration
+    assignmentId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateExtensionSubscriptionVariables,
+  APITypes.OnUpdateExtensionSubscription
+>;
+export const onDeleteExtension = /* GraphQL */ `subscription OnDeleteExtension($filter: ModelSubscriptionExtensionFilterInput) {
+  onDeleteExtension(filter: $filter) {
+    id
+    expiration
+    assignmentId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteExtensionSubscriptionVariables,
+  APITypes.OnDeleteExtensionSubscription
+>;
+export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileRequest(
+  $filter: ModelSubscriptionFileRequestFilterInput
+) {
+  onCreateFileRequest(filter: $filter) {
+    id
+    startDate
+    expiration
+    title
+    details
+    required
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    submissions {
+      items {
         id
         fileRequestId
         fileRequest {
@@ -6110,23 +1104,6 @@ export const onCreateTrack = /* GraphQL */ `
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -6134,86 +1111,23 @@ export const onCreateTrack = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
           }
           workshopId
           extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -6248,115 +1162,33 @@ export const onCreateTrack = /* GraphQL */ `
           bio
           sub
           apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
           playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             nextToken
             __typename
           }
           uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
+            nextToken
+            __typename
+          }
+          prompts {
             nextToken
             __typename
           }
@@ -6377,67 +1209,9 @@ export const onCreateTrack = /* GraphQL */ `
             id
             content
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             submissionId
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             assignmentId
-            assignment {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             workshopId
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             parentId
             type
             createdAt
@@ -6452,42 +1226,6 @@ export const onCreateTrack = /* GraphQL */ `
             id
             fileRequestSubmissionID
             stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -6509,5211 +1247,10 @@ export const onCreateTrack = /* GraphQL */ `
         updatedAt
         __typename
       }
-      playlist {
-        tracks {
-          items {
-            order
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            id
-            createdAt
-            updatedAt
-            playlistTracksId
-            trackSubmissionId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        owner {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        public
-        title
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        type
-        createdAt
-        id
-        updatedAt
-        profilePlaylistsId
-        playlistOwnerId
-        __typename
-      }
-      id
-      createdAt
-      updatedAt
-      playlistTracksId
-      trackSubmissionId
+      nextToken
       __typename
     }
-  }
-`;
-export const onUpdateTrack = /* GraphQL */ `
-  subscription OnUpdateTrack($filter: ModelSubscriptionTrackFilterInput) {
-    onUpdateTrack(filter: $filter) {
-      order
-      submission {
-        id
-        fileRequestId
-        fileRequest {
-          id
-          startDate
-          expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
-          createdAt
-          updatedAt
-          fileRequestPlaylistId
-          __typename
-        }
-        artist
-        name
-        email
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileId
-        fileExtension
-        rating
-        comments {
-          items {
-            id
-            content
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            submissionId
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            assignmentId
-            assignment {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            workshopId
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        stems {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      playlist {
-        tracks {
-          items {
-            order
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            id
-            createdAt
-            updatedAt
-            playlistTracksId
-            trackSubmissionId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        owner {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        public
-        title
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        type
-        createdAt
-        id
-        updatedAt
-        profilePlaylistsId
-        playlistOwnerId
-        __typename
-      }
-      id
-      createdAt
-      updatedAt
-      playlistTracksId
-      trackSubmissionId
-      __typename
-    }
-  }
-`;
-export const onDeleteTrack = /* GraphQL */ `
-  subscription OnDeleteTrack($filter: ModelSubscriptionTrackFilterInput) {
-    onDeleteTrack(filter: $filter) {
-      order
-      submission {
-        id
-        fileRequestId
-        fileRequest {
-          id
-          startDate
-          expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
-          createdAt
-          updatedAt
-          fileRequestPlaylistId
-          __typename
-        }
-        artist
-        name
-        email
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileId
-        fileExtension
-        rating
-        comments {
-          items {
-            id
-            content
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            submissionId
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            assignmentId
-            assignment {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            workshopId
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        stems {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      playlist {
-        tracks {
-          items {
-            order
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            id
-            createdAt
-            updatedAt
-            playlistTracksId
-            trackSubmissionId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        owner {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        public
-        title
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        type
-        createdAt
-        id
-        updatedAt
-        profilePlaylistsId
-        playlistOwnerId
-        __typename
-      }
-      id
-      createdAt
-      updatedAt
-      playlistTracksId
-      trackSubmissionId
-      __typename
-    }
-  }
-`;
-export const onCreatePlaylist = /* GraphQL */ `
-  subscription OnCreatePlaylist($filter: ModelSubscriptionPlaylistFilterInput) {
-    onCreatePlaylist(filter: $filter) {
-      tracks {
-        items {
-          order
-          submission {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          id
-          createdAt
-          updatedAt
-          playlistTracksId
-          trackSubmissionId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      owner {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      public
-      title
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      type
-      createdAt
-      id
-      updatedAt
-      profilePlaylistsId
-      playlistOwnerId
-      __typename
-    }
-  }
-`;
-export const onUpdatePlaylist = /* GraphQL */ `
-  subscription OnUpdatePlaylist($filter: ModelSubscriptionPlaylistFilterInput) {
-    onUpdatePlaylist(filter: $filter) {
-      tracks {
-        items {
-          order
-          submission {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          id
-          createdAt
-          updatedAt
-          playlistTracksId
-          trackSubmissionId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      owner {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      public
-      title
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      type
-      createdAt
-      id
-      updatedAt
-      profilePlaylistsId
-      playlistOwnerId
-      __typename
-    }
-  }
-`;
-export const onDeletePlaylist = /* GraphQL */ `
-  subscription OnDeletePlaylist($filter: ModelSubscriptionPlaylistFilterInput) {
-    onDeletePlaylist(filter: $filter) {
-      tracks {
-        items {
-          order
-          submission {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          id
-          createdAt
-          updatedAt
-          playlistTracksId
-          trackSubmissionId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      owner {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      public
-      title
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      type
-      createdAt
-      id
-      updatedAt
-      profilePlaylistsId
-      playlistOwnerId
-      __typename
-    }
-  }
-`;
-export const onCreateMembership = /* GraphQL */ `
-  subscription OnCreateMembership(
-    $filter: ModelSubscriptionMembershipFilterInput
-  ) {
-    onCreateMembership(filter: $filter) {
-      id
-      workshopId
-      email
-      status
-      workshop {
-        id
-        name
-        email
-        fileRequests {
-          items {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        status
-        passes
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        description
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        host {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        startDate
-        endDate
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      mailchimp {
-        id
-        emailAddress
-        status
-        fullName
-        uniqueEmailId
-        contactId
-        tags {
-          id
-          name
-          __typename
-        }
-        __typename
-      }
-      submissions {
-        items {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          workshopId
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateMembership = /* GraphQL */ `
-  subscription OnUpdateMembership(
-    $filter: ModelSubscriptionMembershipFilterInput
-  ) {
-    onUpdateMembership(filter: $filter) {
-      id
-      workshopId
-      email
-      status
-      workshop {
-        id
-        name
-        email
-        fileRequests {
-          items {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        status
-        passes
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        description
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        host {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        startDate
-        endDate
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      mailchimp {
-        id
-        emailAddress
-        status
-        fullName
-        uniqueEmailId
-        contactId
-        tags {
-          id
-          name
-          __typename
-        }
-        __typename
-      }
-      submissions {
-        items {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          workshopId
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteMembership = /* GraphQL */ `
-  subscription OnDeleteMembership(
-    $filter: ModelSubscriptionMembershipFilterInput
-  ) {
-    onDeleteMembership(filter: $filter) {
-      id
-      workshopId
-      email
-      status
-      workshop {
-        id
-        name
-        email
-        fileRequests {
-          items {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        status
-        passes
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        description
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        host {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        startDate
-        endDate
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      mailchimp {
-        id
-        emailAddress
-        status
-        fullName
-        uniqueEmailId
-        contactId
-        tags {
-          id
-          name
-          __typename
-        }
-        __typename
-      }
-      submissions {
-        items {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          workshopId
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateWorkshop = /* GraphQL */ `
-  subscription OnCreateWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
-    onCreateWorkshop(filter: $filter) {
+    workshop {
       id
       name
       email
@@ -11732,23 +1269,6 @@ export const onCreateWorkshop = /* GraphQL */ `
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -11756,86 +1276,23 @@ export const onCreateWorkshop = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
           }
           workshopId
           extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -11866,45 +1323,7 @@ export const onCreateWorkshop = /* GraphQL */ `
             title
             details
             required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             playlistStartDate
             playlistExternalUrl
             type
@@ -11921,47 +1340,9 @@ export const onCreateWorkshop = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -11970,31 +1351,10 @@ export const onCreateWorkshop = /* GraphQL */ `
           fileExtension
           rating
           comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -12056,18 +1416,6 @@ export const onCreateWorkshop = /* GraphQL */ `
             createdAt
             profileID
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             updatedAt
             __typename
           }
@@ -12079,44 +1427,11 @@ export const onCreateWorkshop = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -12128,54 +1443,12 @@ export const onCreateWorkshop = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -12193,44 +1466,6 @@ export const onCreateWorkshop = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -12251,30 +1486,8 @@ export const onCreateWorkshop = /* GraphQL */ `
         }
         playlists {
           items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -12295,28 +1508,26 @@ export const onCreateWorkshop = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             stemGroupId
             filePath
             artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
             type
             createdAt
             updatedAt
@@ -12346,44 +1557,11 @@ export const onCreateWorkshop = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -12393,47 +1571,9 @@ export const onCreateWorkshop = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -12445,31 +1585,9 @@ export const onCreateWorkshop = /* GraphQL */ `
             fullName
             uniqueEmailId
             contactId
-            tags {
-              id
-              name
-              __typename
-            }
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -12484,11 +1602,421 @@ export const onCreateWorkshop = /* GraphQL */ `
       updatedAt
       __typename
     }
+    workshopId
+    extensions {
+      items {
+        id
+        expiration
+        assignmentId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlist {
+      tracks {
+        items {
+          order
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          playlistTracksId
+          trackSubmissionId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    playlistStartDate
+    playlistExternalUrl
+    type
+    createdAt
+    updatedAt
+    fileRequestPlaylistId
+    __typename
   }
-`;
-export const onUpdateWorkshop = /* GraphQL */ `
-  subscription OnUpdateWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
-    onUpdateWorkshop(filter: $filter) {
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateFileRequestSubscriptionVariables,
+  APITypes.OnCreateFileRequestSubscription
+>;
+export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileRequest(
+  $filter: ModelSubscriptionFileRequestFilterInput
+) {
+  onUpdateFileRequest(filter: $filter) {
+    id
+    startDate
+    expiration
+    title
+    details
+    required
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshop {
       id
       name
       email
@@ -12507,23 +2035,6 @@ export const onUpdateWorkshop = /* GraphQL */ `
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -12531,86 +2042,23 @@ export const onUpdateWorkshop = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
           }
           workshopId
           extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -12641,45 +2089,7 @@ export const onUpdateWorkshop = /* GraphQL */ `
             title
             details
             required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             playlistStartDate
             playlistExternalUrl
             type
@@ -12696,47 +2106,9 @@ export const onUpdateWorkshop = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -12745,31 +2117,10 @@ export const onUpdateWorkshop = /* GraphQL */ `
           fileExtension
           rating
           comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -12831,18 +2182,6 @@ export const onUpdateWorkshop = /* GraphQL */ `
             createdAt
             profileID
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             updatedAt
             __typename
           }
@@ -12854,44 +2193,11 @@ export const onUpdateWorkshop = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -12903,54 +2209,12 @@ export const onUpdateWorkshop = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -12968,44 +2232,6 @@ export const onUpdateWorkshop = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -13026,30 +2252,8 @@ export const onUpdateWorkshop = /* GraphQL */ `
         }
         playlists {
           items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -13070,28 +2274,26 @@ export const onUpdateWorkshop = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             stemGroupId
             filePath
             artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
             type
             createdAt
             updatedAt
@@ -13121,44 +2323,11 @@ export const onUpdateWorkshop = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -13168,47 +2337,9 @@ export const onUpdateWorkshop = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -13220,31 +2351,9 @@ export const onUpdateWorkshop = /* GraphQL */ `
             fullName
             uniqueEmailId
             contactId
-            tags {
-              id
-              name
-              __typename
-            }
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -13259,11 +2368,421 @@ export const onUpdateWorkshop = /* GraphQL */ `
       updatedAt
       __typename
     }
+    workshopId
+    extensions {
+      items {
+        id
+        expiration
+        assignmentId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlist {
+      tracks {
+        items {
+          order
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          playlistTracksId
+          trackSubmissionId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    playlistStartDate
+    playlistExternalUrl
+    type
+    createdAt
+    updatedAt
+    fileRequestPlaylistId
+    __typename
   }
-`;
-export const onDeleteWorkshop = /* GraphQL */ `
-  subscription OnDeleteWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
-    onDeleteWorkshop(filter: $filter) {
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateFileRequestSubscriptionVariables,
+  APITypes.OnUpdateFileRequestSubscription
+>;
+export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileRequest(
+  $filter: ModelSubscriptionFileRequestFilterInput
+) {
+  onDeleteFileRequest(filter: $filter) {
+    id
+    startDate
+    expiration
+    title
+    details
+    required
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshop {
       id
       name
       email
@@ -13282,23 +2801,6 @@ export const onDeleteWorkshop = /* GraphQL */ `
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -13306,86 +2808,23 @@ export const onDeleteWorkshop = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
           }
           workshopId
           extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -13416,45 +2855,7 @@ export const onDeleteWorkshop = /* GraphQL */ `
             title
             details
             required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             playlistStartDate
             playlistExternalUrl
             type
@@ -13471,47 +2872,9 @@ export const onDeleteWorkshop = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -13520,31 +2883,10 @@ export const onDeleteWorkshop = /* GraphQL */ `
           fileExtension
           rating
           comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -13606,18 +2948,6 @@ export const onDeleteWorkshop = /* GraphQL */ `
             createdAt
             profileID
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             updatedAt
             __typename
           }
@@ -13629,44 +2959,11 @@ export const onDeleteWorkshop = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -13678,54 +2975,12 @@ export const onDeleteWorkshop = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -13743,44 +2998,6 @@ export const onDeleteWorkshop = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -13801,30 +3018,8 @@ export const onDeleteWorkshop = /* GraphQL */ `
         }
         playlists {
           items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -13845,28 +3040,26 @@ export const onDeleteWorkshop = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             stemGroupId
             filePath
             artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
             type
             createdAt
             updatedAt
@@ -13896,44 +3089,11 @@ export const onDeleteWorkshop = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -13943,47 +3103,9 @@ export const onDeleteWorkshop = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -13995,31 +3117,9 @@ export const onDeleteWorkshop = /* GraphQL */ `
             fullName
             uniqueEmailId
             contactId
-            tags {
-              id
-              name
-              __typename
-            }
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -14034,2151 +3134,62 @@ export const onDeleteWorkshop = /* GraphQL */ `
       updatedAt
       __typename
     }
-  }
-`;
-export const onCreateProfile = /* GraphQL */ `
-  subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
-    onCreateProfile(filter: $filter) {
-      email
-      id
-      name
-      displayName
-      links {
+    workshopId
+    extensions {
+      items {
         id
-        text
-        url
+        expiration
+        assignmentId
+        createdAt
+        updatedAt
         __typename
       }
-      avatar
-      bio
-      sub
-      apiKeys {
+      nextToken
+      __typename
+    }
+    playlist {
+      tracks {
         items {
-          id
-          keyName
-          createdAt
-          profileID
-          email
-          profile {
-            email
+          order
+          submission {
             id
+            fileRequestId
+            artist
             name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      workshops {
-        items {
-          id
-          name
-          email
-          fileRequests {
-            items {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
             email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      submissions {
-        items {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
+            createdAt
+            updatedAt
+            __typename
+          }
+          playlist {
+            public
+            title
             type
             createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
             id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
             updatedAt
+            profilePlaylistsId
+            playlistOwnerId
             __typename
           }
-          fileId
-          fileExtension
-          rating
-          comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          workshopId
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      memberships {
-        items {
           id
-          workshopId
-          email
-          status
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          mailchimp {
-            id
-            emailAddress
-            status
-            fullName
-            uniqueEmailId
-            contactId
-            tags {
-              id
-              name
-              __typename
-            }
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
+          playlistTracksId
+          trackSubmissionId
           __typename
         }
         nextToken
         __typename
       }
-      features {
-        mailchimp {
-          enabled
-          apiKeyName
-          listId
-          sessionTag
-          serverPrefix
-          __typename
-        }
-        __typename
-      }
-      playlists {
-        items {
-          tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          owner {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          public
-          title
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          type
-          createdAt
-          id
-          updatedAt
-          profilePlaylistsId
-          playlistOwnerId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      uploadedStems {
-        items {
-          id
-          title
-          bpm
-          key
-          scale
-          instruments
-          notes
-          submissions {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          fileSize
-          fileExtension
-          creatorEmail
-          creator {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          stemGroupId
-          filePath
-          artist
-          type
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      location {
-        latitude
-        longitude
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateProfile = /* GraphQL */ `
-  subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
-    onUpdateProfile(filter: $filter) {
-      email
-      id
-      name
-      displayName
-      links {
-        id
-        text
-        url
-        __typename
-      }
-      avatar
-      bio
-      sub
-      apiKeys {
-        items {
-          id
-          keyName
-          createdAt
-          profileID
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      workshops {
-        items {
-          id
-          name
-          email
-          fileRequests {
-            items {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      submissions {
-        items {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          workshopId
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      memberships {
-        items {
-          id
-          workshopId
-          email
-          status
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          mailchimp {
-            id
-            emailAddress
-            status
-            fullName
-            uniqueEmailId
-            contactId
-            tags {
-              id
-              name
-              __typename
-            }
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      features {
-        mailchimp {
-          enabled
-          apiKeyName
-          listId
-          sessionTag
-          serverPrefix
-          __typename
-        }
-        __typename
-      }
-      playlists {
-        items {
-          tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          owner {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          public
-          title
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          type
-          createdAt
-          id
-          updatedAt
-          profilePlaylistsId
-          playlistOwnerId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      uploadedStems {
-        items {
-          id
-          title
-          bpm
-          key
-          scale
-          instruments
-          notes
-          submissions {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          fileSize
-          fileExtension
-          creatorEmail
-          creator {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          stemGroupId
-          filePath
-          artist
-          type
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      location {
-        latitude
-        longitude
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteProfile = /* GraphQL */ `
-  subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
-    onDeleteProfile(filter: $filter) {
-      email
-      id
-      name
-      displayName
-      links {
-        id
-        text
-        url
-        __typename
-      }
-      avatar
-      bio
-      sub
-      apiKeys {
-        items {
-          id
-          keyName
-          createdAt
-          profileID
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      workshops {
-        items {
-          id
-          name
-          email
-          fileRequests {
-            items {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      submissions {
-        items {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            items {
-              id
-              content
-              email
-              submissionId
-              assignmentId
-              workshopId
-              parentId
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          stems {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          workshopId
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      memberships {
-        items {
-          id
-          workshopId
-          email
-          status
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          profile {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          mailchimp {
-            id
-            emailAddress
-            status
-            fullName
-            uniqueEmailId
-            contactId
-            tags {
-              id
-              name
-              __typename
-            }
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      features {
-        mailchimp {
-          enabled
-          apiKeyName
-          listId
-          sessionTag
-          serverPrefix
-          __typename
-        }
-        __typename
-      }
-      playlists {
-        items {
-          tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          owner {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          public
-          title
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          type
-          createdAt
-          id
-          updatedAt
-          profilePlaylistsId
-          playlistOwnerId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      uploadedStems {
-        items {
-          id
-          title
-          bpm
-          key
-          scale
-          instruments
-          notes
-          submissions {
-            items {
-              id
-              fileRequestSubmissionID
-              stemID
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          fileSize
-          fileExtension
-          creatorEmail
-          creator {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          stemGroupId
-          filePath
-          artist
-          type
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      location {
-        latitude
-        longitude
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onCreateComment(filter: $filter) {
-      id
-      content
-      email
-      profile {
+      owner {
         email
         id
         name
@@ -16199,18 +3210,6 @@ export const onCreateComment = /* GraphQL */ `
             createdAt
             profileID
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             updatedAt
             __typename
           }
@@ -16222,44 +3221,11 @@ export const onCreateComment = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -16271,54 +3237,12 @@ export const onCreateComment = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -16336,44 +3260,6 @@ export const onCreateComment = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -16394,30 +3280,8 @@ export const onCreateComment = /* GraphQL */ `
         }
         playlists {
           items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -16438,28 +3302,26 @@ export const onCreateComment = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             stemGroupId
             filePath
             artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
             type
             createdAt
             updatedAt
@@ -16477,736 +3339,117 @@ export const onCreateComment = /* GraphQL */ `
         updatedAt
         __typename
       }
-      submissionId
-      submission {
+      public
+      title
+      artwork {
         id
-        fileRequestId
-        fileRequest {
+        path
+        credit
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    playlistStartDate
+    playlistExternalUrl
+    type
+    createdAt
+    updatedAt
+    fileRequestPlaylistId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteFileRequestSubscriptionVariables,
+  APITypes.OnDeleteFileRequestSubscription
+>;
+export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreateFileRequestSubmission(
+  $filter: ModelSubscriptionFileRequestSubmissionFilterInput
+) {
+  onCreateFileRequestSubmission(filter: $filter) {
+    id
+    fileRequestId
+    fileRequest {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        items {
           id
-          startDate
-          expiration
-          title
-          details
-          required
-          artwork {
+          fileRequestId
+          fileRequest {
             id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
-          createdAt
-          updatedAt
-          fileRequestPlaylistId
-          __typename
-        }
-        artist
-        name
-        email
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileId
-        fileExtension
-        rating
-        comments {
-          items {
-            id
-            content
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            submissionId
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            assignmentId
-            assignment {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            workshopId
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        stems {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      assignmentId
-      assignment {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            items {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
-            avatar
-            bio
-            sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshopId
-        extensions {
-          items {
-            id
             expiration
-            assignmentId
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
             createdAt
             updatedAt
+            fileRequestPlaylistId
             __typename
           }
-          nextToken
-          __typename
-        }
-        playlist {
-          tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          owner {
+          artist
+          name
+          email
+          profile {
             email
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
           }
-          public
-          title
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
           artwork {
             id
             path
             credit
             __typename
           }
-          type
+          lyrics
+          requestFeedback
+          duration
+          workshopId
           createdAt
-          id
           updatedAt
-          profilePlaylistsId
-          playlistOwnerId
           __typename
         }
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
+        nextToken
         __typename
       }
-      workshopId
       workshop {
         id
         name
@@ -17219,45 +3462,7 @@ export const onCreateComment = /* GraphQL */ `
             title
             details
             required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             playlistStartDate
             playlistExternalUrl
             type
@@ -17273,54 +3478,12 @@ export const onCreateComment = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -17367,115 +3530,33 @@ export const onCreateComment = /* GraphQL */ `
           bio
           sub
           apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
           playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             nextToken
             __typename
           }
           uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
+            nextToken
+            __typename
+          }
+          prompts {
             nextToken
             __typename
           }
@@ -17496,44 +3577,6 @@ export const onCreateComment = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -17545,461 +3588,34 @@ export const onCreateComment = /* GraphQL */ `
         updatedAt
         __typename
       }
-      parentId
-      type
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onUpdateComment(filter: $filter) {
-      id
-      content
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
+      workshopId
+      extensions {
+        items {
           id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      submissionId
-      submission {
-        id
-        fileRequestId
-        fileRequest {
-          id
-          startDate
           expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
+          assignmentId
           createdAt
           updatedAt
-          fileRequestPlaylistId
           __typename
         }
-        artist
-        name
-        email
-        profile {
+        nextToken
+        __typename
+      }
+      playlist {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
           email
           id
           name
@@ -18014,115 +3630,33 @@ export const onUpdateComment = /* GraphQL */ `
           bio
           sub
           apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
           playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             nextToken
             __typename
           }
           uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
+            nextToken
+            __typename
+          }
+          prompts {
             nextToken
             __typename
           }
@@ -18135,279 +3669,88 @@ export const onUpdateComment = /* GraphQL */ `
           updatedAt
           __typename
         }
-        fileId
-        fileExtension
-        rating
-        comments {
-          items {
-            id
-            content
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            submissionId
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            assignmentId
-            assignment {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            workshopId
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        stems {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
+        public
+        title
         artwork {
           id
           path
           credit
           __typename
         }
-        lyrics
-        requestFeedback
-        duration
-        workshopId
+        type
         createdAt
+        id
         updatedAt
+        profilePlaylistsId
+        playlistOwnerId
         __typename
       }
-      assignmentId
-      assignment {
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    artist
+    name
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
         id
-        startDate
-        expiration
-        title
-        details
-        required
-        artwork {
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
           id
-          path
-          credit
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
             createdAt
             updatedAt
             __typename
           }
-          nextToken
+          updatedAt
           __typename
         }
-        workshop {
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
           id
           name
           email
           fileRequests {
-            items {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           status
           passes
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
           description
@@ -18422,47 +3765,9 @@ export const onUpdateComment = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -18470,15 +3775,6 @@ export const onUpdateComment = /* GraphQL */ `
           startDate
           endDate
           memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -18486,30 +3782,137 @@ export const onUpdateComment = /* GraphQL */ `
           updatedAt
           __typename
         }
-        workshopId
-        extensions {
-          items {
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
             id
+            startDate
             expiration
-            assignmentId
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
             createdAt
             updatedAt
             __typename
           }
-          nextToken
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
           __typename
         }
-        playlist {
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
           tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-              __typename
-            }
             nextToken
             __typename
           }
@@ -18518,47 +3921,9 @@ export const onUpdateComment = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -18579,15 +3944,523 @@ export const onUpdateComment = /* GraphQL */ `
           playlistOwnerId
           __typename
         }
-        playlistStartDate
-        playlistExternalUrl
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    fileId
+    fileExtension
+    rating
+    comments {
+      items {
+        id
+        content
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissionId
+        submission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        assignmentId
+        assignment {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        parentId
         type
         createdAt
         updatedAt
-        fileRequestPlaylistId
         __typename
       }
-      workshopId
+      nextToken
+      __typename
+    }
+    stems {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        fileRequestSubmission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        stem {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    lyrics
+    requestFeedback
+    duration
+    workshopId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateFileRequestSubmissionSubscriptionVariables,
+  APITypes.OnCreateFileRequestSubmissionSubscription
+>;
+export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdateFileRequestSubmission(
+  $filter: ModelSubscriptionFileRequestSubmissionFilterInput
+) {
+  onUpdateFileRequestSubmission(filter: $filter) {
+    id
+    fileRequestId
+    fileRequest {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       workshop {
         id
         name
@@ -18600,45 +4473,7 @@ export const onUpdateComment = /* GraphQL */ `
             title
             details
             required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             playlistStartDate
             playlistExternalUrl
             type
@@ -18654,54 +4489,12 @@ export const onUpdateComment = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -18748,115 +4541,33 @@ export const onUpdateComment = /* GraphQL */ `
           bio
           sub
           apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
           playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             nextToken
             __typename
           }
           uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
+            nextToken
+            __typename
+          }
+          prompts {
             nextToken
             __typename
           }
@@ -18877,44 +4588,6 @@ export const onUpdateComment = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -18926,461 +4599,34 @@ export const onUpdateComment = /* GraphQL */ `
         updatedAt
         __typename
       }
-      parentId
-      type
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
-    onDeleteComment(filter: $filter) {
-      id
-      content
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
+      workshopId
+      extensions {
+        items {
           id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            submissions {
-              nextToken
-              __typename
-            }
-            fileSize
-            fileExtension
-            creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      submissionId
-      submission {
-        id
-        fileRequestId
-        fileRequest {
-          id
-          startDate
           expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
+          assignmentId
           createdAt
           updatedAt
-          fileRequestPlaylistId
           __typename
         }
-        artist
-        name
-        email
-        profile {
+        nextToken
+        __typename
+      }
+      playlist {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
           email
           id
           name
@@ -19395,115 +4641,33 @@ export const onDeleteComment = /* GraphQL */ `
           bio
           sub
           apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
           playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             nextToken
             __typename
           }
           uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
+            nextToken
+            __typename
+          }
+          prompts {
             nextToken
             __typename
           }
@@ -19516,279 +4680,88 @@ export const onDeleteComment = /* GraphQL */ `
           updatedAt
           __typename
         }
-        fileId
-        fileExtension
-        rating
-        comments {
-          items {
-            id
-            content
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            submissionId
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            assignmentId
-            assignment {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            workshopId
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        stems {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
+        public
+        title
         artwork {
           id
           path
           credit
           __typename
         }
-        lyrics
-        requestFeedback
-        duration
-        workshopId
+        type
         createdAt
+        id
         updatedAt
+        profilePlaylistsId
+        playlistOwnerId
         __typename
       }
-      assignmentId
-      assignment {
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    artist
+    name
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
         id
-        startDate
-        expiration
-        title
-        details
-        required
-        artwork {
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
           id
-          path
-          credit
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            artist
-            name
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            fileId
-            fileExtension
-            rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            lyrics
-            requestFeedback
-            duration
-            workshopId
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
             createdAt
             updatedAt
             __typename
           }
-          nextToken
+          updatedAt
           __typename
         }
-        workshop {
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
           id
           name
           email
           fileRequests {
-            items {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           status
           passes
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
           description
@@ -19803,47 +4776,9 @@ export const onDeleteComment = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -19851,15 +4786,6 @@ export const onDeleteComment = /* GraphQL */ `
           startDate
           endDate
           memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
@@ -19867,30 +4793,137 @@ export const onDeleteComment = /* GraphQL */ `
           updatedAt
           __typename
         }
-        workshopId
-        extensions {
-          items {
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
             id
+            startDate
             expiration
-            assignmentId
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
             createdAt
             updatedAt
             __typename
           }
-          nextToken
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
           __typename
         }
-        playlist {
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
           tracks {
-            items {
-              order
-              id
-              createdAt
-              updatedAt
-              playlistTracksId
-              trackSubmissionId
-              __typename
-            }
             nextToken
             __typename
           }
@@ -19899,47 +4932,9 @@ export const onDeleteComment = /* GraphQL */ `
             id
             name
             displayName
-            links {
-              id
-              text
-              url
-              __typename
-            }
             avatar
             bio
             sub
-            apiKeys {
-              nextToken
-              __typename
-            }
-            workshops {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            memberships {
-              nextToken
-              __typename
-            }
-            features {
-              __typename
-            }
-            playlists {
-              nextToken
-              __typename
-            }
-            uploadedStems {
-              nextToken
-              __typename
-            }
-            location {
-              latitude
-              longitude
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -19960,15 +4955,523 @@ export const onDeleteComment = /* GraphQL */ `
           playlistOwnerId
           __typename
         }
-        playlistStartDate
-        playlistExternalUrl
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    fileId
+    fileExtension
+    rating
+    comments {
+      items {
+        id
+        content
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissionId
+        submission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        assignmentId
+        assignment {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        parentId
         type
         createdAt
         updatedAt
-        fileRequestPlaylistId
         __typename
       }
-      workshopId
+      nextToken
+      __typename
+    }
+    stems {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        fileRequestSubmission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        stem {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    lyrics
+    requestFeedback
+    duration
+    workshopId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateFileRequestSubmissionSubscriptionVariables,
+  APITypes.OnUpdateFileRequestSubmissionSubscription
+>;
+export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDeleteFileRequestSubmission(
+  $filter: ModelSubscriptionFileRequestSubmissionFilterInput
+) {
+  onDeleteFileRequestSubmission(filter: $filter) {
+    id
+    fileRequestId
+    fileRequest {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       workshop {
         id
         name
@@ -19981,45 +5484,7 @@ export const onDeleteComment = /* GraphQL */ `
             title
             details
             required
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             workshopId
-            extensions {
-              nextToken
-              __typename
-            }
-            playlist {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             playlistStartDate
             playlistExternalUrl
             type
@@ -20035,54 +5500,12 @@ export const onDeleteComment = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -20129,115 +5552,33 @@ export const onDeleteComment = /* GraphQL */ `
           bio
           sub
           apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
             nextToken
             __typename
           }
           features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
             __typename
           }
           playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
             nextToken
             __typename
           }
           uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
+            nextToken
+            __typename
+          }
+          prompts {
             nextToken
             __typename
           }
@@ -20258,44 +5599,6 @@ export const onDeleteComment = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -20307,25 +5610,1169 @@ export const onDeleteComment = /* GraphQL */ `
         updatedAt
         __typename
       }
-      parentId
+      workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlist {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
       type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    artist
+    name
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
       createdAt
       updatedAt
       __typename
     }
-  }
-`;
-export const onCreateStem = /* GraphQL */ `
-  subscription OnCreateStem($filter: ModelSubscriptionStemFilterInput) {
-    onCreateStem(filter: $filter) {
+    fileId
+    fileExtension
+    rating
+    comments {
+      items {
+        id
+        content
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissionId
+        submission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        assignmentId
+        assignment {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    stems {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        fileRequestSubmission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        stem {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    artwork {
       id
-      title
-      bpm
-      key
-      scale
-      instruments
-      notes
-      submissions {
+      path
+      credit
+      __typename
+    }
+    lyrics
+    requestFeedback
+    duration
+    workshopId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteFileRequestSubmissionSubscriptionVariables,
+  APITypes.OnDeleteFileRequestSubmissionSubscription
+>;
+export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: ModelSubscriptionTrackFilterInput) {
+  onCreateTrack(filter: $filter) {
+    order
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
         items {
           id
           fileRequestSubmissionID
@@ -20333,54 +6780,12 @@ export const onCreateStem = /* GraphQL */ `
           fileRequestSubmission {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -20397,25 +6802,17594 @@ export const onCreateStem = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    playlist {
+      tracks {
+        items {
+          order
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          playlistTracksId
+          trackSubmissionId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    playlistTracksId
+    trackSubmissionId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateTrackSubscriptionVariables,
+  APITypes.OnCreateTrackSubscription
+>;
+export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: ModelSubscriptionTrackFilterInput) {
+  onUpdateTrack(filter: $filter) {
+    order
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    playlist {
+      tracks {
+        items {
+          order
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          playlistTracksId
+          trackSubmissionId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    playlistTracksId
+    trackSubmissionId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateTrackSubscriptionVariables,
+  APITypes.OnUpdateTrackSubscription
+>;
+export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: ModelSubscriptionTrackFilterInput) {
+  onDeleteTrack(filter: $filter) {
+    order
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    playlist {
+      tracks {
+        items {
+          order
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          id
+          createdAt
+          updatedAt
+          playlistTracksId
+          trackSubmissionId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    playlistTracksId
+    trackSubmissionId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteTrackSubscriptionVariables,
+  APITypes.OnDeleteTrackSubscription
+>;
+export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($filter: ModelSubscriptionPlaylistFilterInput) {
+  onCreatePlaylist(filter: $filter) {
+    tracks {
+      items {
+        order
+        submission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        playlistTracksId
+        trackSubmissionId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    owner {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    public
+    title
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    type
+    createdAt
+    id
+    updatedAt
+    profilePlaylistsId
+    playlistOwnerId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreatePlaylistSubscriptionVariables,
+  APITypes.OnCreatePlaylistSubscription
+>;
+export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($filter: ModelSubscriptionPlaylistFilterInput) {
+  onUpdatePlaylist(filter: $filter) {
+    tracks {
+      items {
+        order
+        submission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        playlistTracksId
+        trackSubmissionId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    owner {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    public
+    title
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    type
+    createdAt
+    id
+    updatedAt
+    profilePlaylistsId
+    playlistOwnerId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdatePlaylistSubscriptionVariables,
+  APITypes.OnUpdatePlaylistSubscription
+>;
+export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($filter: ModelSubscriptionPlaylistFilterInput) {
+  onDeletePlaylist(filter: $filter) {
+    tracks {
+      items {
+        order
+        submission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        playlistTracksId
+        trackSubmissionId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    owner {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    public
+    title
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    type
+    createdAt
+    id
+    updatedAt
+    profilePlaylistsId
+    playlistOwnerId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeletePlaylistSubscriptionVariables,
+  APITypes.OnDeletePlaylistSubscription
+>;
+export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership(
+  $filter: ModelSubscriptionMembershipFilterInput
+) {
+  onCreateMembership(filter: $filter) {
+    id
+    workshopId
+    email
+    status
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    mailchimp {
+      id
+      emailAddress
+      status
+      fullName
+      uniqueEmailId
+      contactId
+      tags {
+        id
+        name
+        __typename
+      }
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMembershipSubscriptionVariables,
+  APITypes.OnCreateMembershipSubscription
+>;
+export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership(
+  $filter: ModelSubscriptionMembershipFilterInput
+) {
+  onUpdateMembership(filter: $filter) {
+    id
+    workshopId
+    email
+    status
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    mailchimp {
+      id
+      emailAddress
+      status
+      fullName
+      uniqueEmailId
+      contactId
+      tags {
+        id
+        name
+        __typename
+      }
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMembershipSubscriptionVariables,
+  APITypes.OnUpdateMembershipSubscription
+>;
+export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership(
+  $filter: ModelSubscriptionMembershipFilterInput
+) {
+  onDeleteMembership(filter: $filter) {
+    id
+    workshopId
+    email
+    status
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    mailchimp {
+      id
+      emailAddress
+      status
+      fullName
+      uniqueEmailId
+      contactId
+      tags {
+        id
+        name
+        __typename
+      }
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMembershipSubscriptionVariables,
+  APITypes.OnDeleteMembershipSubscription
+>;
+export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
+  onCreateWorkshop(filter: $filter) {
+    id
+    name
+    email
+    fileRequests {
+      items {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    status
+    passes
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    description
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    host {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    startDate
+    endDate
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateWorkshopSubscriptionVariables,
+  APITypes.OnCreateWorkshopSubscription
+>;
+export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
+  onUpdateWorkshop(filter: $filter) {
+    id
+    name
+    email
+    fileRequests {
+      items {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    status
+    passes
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    description
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    host {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    startDate
+    endDate
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateWorkshopSubscriptionVariables,
+  APITypes.OnUpdateWorkshopSubscription
+>;
+export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
+  onDeleteWorkshop(filter: $filter) {
+    id
+    name
+    email
+    fileRequests {
+      items {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    status
+    passes
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    description
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    host {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    startDate
+    endDate
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteWorkshopSubscriptionVariables,
+  APITypes.OnDeleteWorkshopSubscription
+>;
+export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
+  onCreateProfile(filter: $filter) {
+    email
+    id
+    name
+    displayName
+    links {
+      id
+      text
+      url
+      __typename
+    }
+    avatar
+    bio
+    sub
+    apiKeys {
+      items {
+        id
+        keyName
+        createdAt
+        profileID
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    playlists {
+      items {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    uploadedStems {
+      items {
+        id
+        title
+        bpm
+        key
+        scale
+        instruments
+        notes
+        submissions {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        fileSize
+        fileExtension
+        creatorEmail
+        creator {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        stemGroupId
+        filePath
+        artist
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    prompts {
+      items {
+        id
+        title
+        content
+        authorEmail
+        author {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    location {
+      latitude
+      longitude
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateProfileSubscriptionVariables,
+  APITypes.OnCreateProfileSubscription
+>;
+export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
+  onUpdateProfile(filter: $filter) {
+    email
+    id
+    name
+    displayName
+    links {
+      id
+      text
+      url
+      __typename
+    }
+    avatar
+    bio
+    sub
+    apiKeys {
+      items {
+        id
+        keyName
+        createdAt
+        profileID
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    playlists {
+      items {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    uploadedStems {
+      items {
+        id
+        title
+        bpm
+        key
+        scale
+        instruments
+        notes
+        submissions {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        fileSize
+        fileExtension
+        creatorEmail
+        creator {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        stemGroupId
+        filePath
+        artist
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    prompts {
+      items {
+        id
+        title
+        content
+        authorEmail
+        author {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    location {
+      latitude
+      longitude
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateProfileSubscriptionVariables,
+  APITypes.OnUpdateProfileSubscription
+>;
+export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
+  onDeleteProfile(filter: $filter) {
+    email
+    id
+    name
+    displayName
+    links {
+      id
+      text
+      url
+      __typename
+    }
+    avatar
+    bio
+    sub
+    apiKeys {
+      items {
+        id
+        keyName
+        createdAt
+        profileID
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    playlists {
+      items {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    uploadedStems {
+      items {
+        id
+        title
+        bpm
+        key
+        scale
+        instruments
+        notes
+        submissions {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        fileSize
+        fileExtension
+        creatorEmail
+        creator {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        stemGroupId
+        filePath
+        artist
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    prompts {
+      items {
+        id
+        title
+        content
+        authorEmail
+        author {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    location {
+      latitude
+      longitude
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteProfileSubscriptionVariables,
+  APITypes.OnDeleteProfileSubscription
+>;
+export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onCreateComment(filter: $filter) {
+    id
+    content
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    assignmentId
+    assignment {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlist {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    parentId
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateCommentSubscriptionVariables,
+  APITypes.OnCreateCommentSubscription
+>;
+export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onUpdateComment(filter: $filter) {
+    id
+    content
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    assignmentId
+    assignment {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlist {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    parentId
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateCommentSubscriptionVariables,
+  APITypes.OnUpdateCommentSubscription
+>;
+export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
+  onDeleteComment(filter: $filter) {
+    id
+    content
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    assignmentId
+    assignment {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      extensions {
+        items {
+          id
+          expiration
+          assignmentId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlist {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    parentId
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteCommentSubscriptionVariables,
+  APITypes.OnDeleteCommentSubscription
+>;
+export const onCreateStem = /* GraphQL */ `subscription OnCreateStem($filter: ModelSubscriptionStemFilterInput) {
+  onCreateStem(filter: $filter) {
+    id
+    title
+    bpm
+    key
+    scale
+    instruments
+    notes
+    submissions {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        fileRequestSubmission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        stem {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    fileSize
+    fileExtension
+    creatorEmail
+    creator {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    stemGroupId
+    filePath
+    artist
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateStemSubscriptionVariables,
+  APITypes.OnCreateStemSubscription
+>;
+export const onUpdateStem = /* GraphQL */ `subscription OnUpdateStem($filter: ModelSubscriptionStemFilterInput) {
+  onUpdateStem(filter: $filter) {
+    id
+    title
+    bpm
+    key
+    scale
+    instruments
+    notes
+    submissions {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        fileRequestSubmission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        stem {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    fileSize
+    fileExtension
+    creatorEmail
+    creator {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    stemGroupId
+    filePath
+    artist
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateStemSubscriptionVariables,
+  APITypes.OnUpdateStemSubscription
+>;
+export const onDeleteStem = /* GraphQL */ `subscription OnDeleteStem($filter: ModelSubscriptionStemFilterInput) {
+  onDeleteStem(filter: $filter) {
+    id
+    title
+    bpm
+    key
+    scale
+    instruments
+    notes
+    submissions {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        fileRequestSubmission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        stem {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    fileSize
+    fileExtension
+    creatorEmail
+    creator {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    stemGroupId
+    filePath
+    artist
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteStemSubscriptionVariables,
+  APITypes.OnDeleteStemSubscription
+>;
+export const onCreatePrompt = /* GraphQL */ `subscription OnCreatePrompt($filter: ModelSubscriptionPromptFilterInput) {
+  onCreatePrompt(filter: $filter) {
+    id
+    title
+    content
+    authorEmail
+    author {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreatePromptSubscriptionVariables,
+  APITypes.OnCreatePromptSubscription
+>;
+export const onUpdatePrompt = /* GraphQL */ `subscription OnUpdatePrompt($filter: ModelSubscriptionPromptFilterInput) {
+  onUpdatePrompt(filter: $filter) {
+    id
+    title
+    content
+    authorEmail
+    author {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdatePromptSubscriptionVariables,
+  APITypes.OnUpdatePromptSubscription
+>;
+export const onDeletePrompt = /* GraphQL */ `subscription OnDeletePrompt($filter: ModelSubscriptionPromptFilterInput) {
+  onDeletePrompt(filter: $filter) {
+    id
+    title
+    content
+    authorEmail
+    author {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        items {
+          id
+          keyName
+          createdAt
+          profileID
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        items {
+          id
+          title
+          bpm
+          key
+          scale
+          instruments
+          notes
+          submissions {
+            nextToken
+            __typename
+          }
+          fileSize
+          fileExtension
+          creatorEmail
+          creator {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          stemGroupId
+          filePath
+          artist
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      prompts {
+        items {
+          id
+          title
+          content
+          authorEmail
+          author {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeletePromptSubscriptionVariables,
+  APITypes.OnDeletePromptSubscription
+>;
+export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmissionStems(
+  $filter: ModelSubscriptionSubmissionStemsFilterInput
+) {
+  onCreateSubmissionStems(filter: $filter) {
+    id
+    fileRequestSubmissionID
+    stemID
+    fileRequestSubmission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    stem {
+      id
+      title
+      bpm
+      key
+      scale
+      instruments
+      notes
+      submissions {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
             stemGroupId
             filePath
             artist
@@ -20455,18 +24429,6 @@ export const onCreateStem = /* GraphQL */ `
             createdAt
             profileID
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             updatedAt
             __typename
           }
@@ -20478,44 +24440,11 @@ export const onCreateStem = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -20527,54 +24456,12 @@ export const onCreateStem = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -20592,44 +24479,6 @@ export const onCreateStem = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -20650,30 +24499,8 @@ export const onCreateStem = /* GraphQL */ `
         }
         playlists {
           items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -20694,28 +24521,26 @@ export const onCreateStem = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             stemGroupId
             filePath
             artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
             type
             createdAt
             updatedAt
@@ -20741,19 +24566,391 @@ export const onCreateStem = /* GraphQL */ `
       updatedAt
       __typename
     }
+    createdAt
+    updatedAt
+    __typename
   }
-`;
-export const onUpdateStem = /* GraphQL */ `
-  subscription OnUpdateStem($filter: ModelSubscriptionStemFilterInput) {
-    onUpdateStem(filter: $filter) {
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateSubmissionStemsSubscriptionVariables,
+  APITypes.OnCreateSubmissionStemsSubscription
+>;
+export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmissionStems(
+  $filter: ModelSubscriptionSubmissionStemsFilterInput
+) {
+  onUpdateSubmissionStems(filter: $filter) {
+    id
+    fileRequestSubmissionID
+    stemID
+    fileRequestSubmission {
       id
-      title
-      bpm
-      key
-      scale
-      instruments
-      notes
-      submissions {
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
         items {
           id
           fileRequestSubmissionID
@@ -20761,54 +24958,12 @@ export const onUpdateStem = /* GraphQL */ `
           fileRequestSubmission {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -20825,25 +24980,79 @@ export const onUpdateStem = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    stem {
+      id
+      title
+      bpm
+      key
+      scale
+      instruments
+      notes
+      submissions {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
             stemGroupId
             filePath
             artist
@@ -20883,18 +25092,6 @@ export const onUpdateStem = /* GraphQL */ `
             createdAt
             profileID
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             updatedAt
             __typename
           }
@@ -20906,44 +25103,11 @@ export const onUpdateStem = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -20955,54 +25119,12 @@ export const onUpdateStem = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -21020,44 +25142,6 @@ export const onUpdateStem = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -21078,30 +25162,8 @@ export const onUpdateStem = /* GraphQL */ `
         }
         playlists {
           items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -21122,28 +25184,26 @@ export const onUpdateStem = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             stemGroupId
             filePath
             artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
             type
             createdAt
             updatedAt
@@ -21169,19 +25229,391 @@ export const onUpdateStem = /* GraphQL */ `
       updatedAt
       __typename
     }
+    createdAt
+    updatedAt
+    __typename
   }
-`;
-export const onDeleteStem = /* GraphQL */ `
-  subscription OnDeleteStem($filter: ModelSubscriptionStemFilterInput) {
-    onDeleteStem(filter: $filter) {
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateSubmissionStemsSubscriptionVariables,
+  APITypes.OnUpdateSubmissionStemsSubscription
+>;
+export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmissionStems(
+  $filter: ModelSubscriptionSubmissionStemsFilterInput
+) {
+  onDeleteSubmissionStems(filter: $filter) {
+    id
+    fileRequestSubmissionID
+    stemID
+    fileRequestSubmission {
       id
-      title
-      bpm
-      key
-      scale
-      instruments
-      notes
-      submissions {
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
         items {
           id
           fileRequestSubmissionID
@@ -21189,54 +25621,12 @@ export const onDeleteStem = /* GraphQL */ `
           fileRequestSubmission {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -21253,25 +25643,79 @@ export const onDeleteStem = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    stem {
+      id
+      title
+      bpm
+      key
+      scale
+      instruments
+      notes
+      submissions {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
             stemGroupId
             filePath
             artist
@@ -21311,18 +25755,6 @@ export const onDeleteStem = /* GraphQL */ `
             createdAt
             profileID
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             updatedAt
             __typename
           }
@@ -21334,44 +25766,11 @@ export const onDeleteStem = /* GraphQL */ `
             id
             name
             email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             status
             passes
-            features {
-              __typename
-            }
             description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             startDate
             endDate
-            memberships {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -21383,54 +25782,12 @@ export const onDeleteStem = /* GraphQL */ `
           items {
             id
             fileRequestId
-            fileRequest {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
             artist
             name
             email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             fileId
             fileExtension
             rating
-            comments {
-              nextToken
-              __typename
-            }
-            stems {
-              nextToken
-              __typename
-            }
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             lyrics
             requestFeedback
             duration
@@ -21448,44 +25805,6 @@ export const onDeleteStem = /* GraphQL */ `
             workshopId
             email
             status
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            mailchimp {
-              id
-              emailAddress
-              status
-              fullName
-              uniqueEmailId
-              contactId
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
             createdAt
             updatedAt
             __typename
@@ -21506,30 +25825,8 @@ export const onDeleteStem = /* GraphQL */ `
         }
         playlists {
           items {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             public
             title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
             type
             createdAt
             id
@@ -21550,28 +25847,26 @@ export const onDeleteStem = /* GraphQL */ `
             scale
             instruments
             notes
-            submissions {
-              nextToken
-              __typename
-            }
             fileSize
             fileExtension
             creatorEmail
-            creator {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
             stemGroupId
             filePath
             artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
             type
             createdAt
             updatedAt
@@ -21597,1904 +25892,12 @@ export const onDeleteStem = /* GraphQL */ `
       updatedAt
       __typename
     }
+    createdAt
+    updatedAt
+    __typename
   }
-`;
-export const onCreateSubmissionStems = /* GraphQL */ `
-  subscription OnCreateSubmissionStems(
-    $filter: ModelSubscriptionSubmissionStemsFilterInput
-  ) {
-    onCreateSubmissionStems(filter: $filter) {
-      id
-      fileRequestSubmissionID
-      stemID
-      fileRequestSubmission {
-        id
-        fileRequestId
-        fileRequest {
-          id
-          startDate
-          expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
-          createdAt
-          updatedAt
-          fileRequestPlaylistId
-          __typename
-        }
-        artist
-        name
-        email
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileId
-        fileExtension
-        rating
-        comments {
-          items {
-            id
-            content
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            submissionId
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            assignmentId
-            assignment {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            workshopId
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        stems {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      stem {
-        id
-        title
-        bpm
-        key
-        scale
-        instruments
-        notes
-        submissions {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        fileSize
-        fileExtension
-        creatorEmail
-        creator {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        stemGroupId
-        filePath
-        artist
-        type
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateSubmissionStems = /* GraphQL */ `
-  subscription OnUpdateSubmissionStems(
-    $filter: ModelSubscriptionSubmissionStemsFilterInput
-  ) {
-    onUpdateSubmissionStems(filter: $filter) {
-      id
-      fileRequestSubmissionID
-      stemID
-      fileRequestSubmission {
-        id
-        fileRequestId
-        fileRequest {
-          id
-          startDate
-          expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
-          createdAt
-          updatedAt
-          fileRequestPlaylistId
-          __typename
-        }
-        artist
-        name
-        email
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileId
-        fileExtension
-        rating
-        comments {
-          items {
-            id
-            content
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            submissionId
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            assignmentId
-            assignment {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            workshopId
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        stems {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      stem {
-        id
-        title
-        bpm
-        key
-        scale
-        instruments
-        notes
-        submissions {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        fileSize
-        fileExtension
-        creatorEmail
-        creator {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        stemGroupId
-        filePath
-        artist
-        type
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteSubmissionStems = /* GraphQL */ `
-  subscription OnDeleteSubmissionStems(
-    $filter: ModelSubscriptionSubmissionStemsFilterInput
-  ) {
-    onDeleteSubmissionStems(filter: $filter) {
-      id
-      fileRequestSubmissionID
-      stemID
-      fileRequestSubmission {
-        id
-        fileRequestId
-        fileRequest {
-          id
-          startDate
-          expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            fileRequests {
-              nextToken
-              __typename
-            }
-            submissions {
-              nextToken
-              __typename
-            }
-            status
-            passes
-            features {
-              __typename
-            }
-            description
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            host {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            startDate
-            endDate
-            memberships {
-              nextToken
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            items {
-              id
-              expiration
-              assignmentId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          playlist {
-            tracks {
-              nextToken
-              __typename
-            }
-            owner {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            public
-            title
-            artwork {
-              id
-              path
-              credit
-              __typename
-            }
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
-          createdAt
-          updatedAt
-          fileRequestPlaylistId
-          __typename
-        }
-        artist
-        name
-        email
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileId
-        fileExtension
-        rating
-        comments {
-          items {
-            id
-            content
-            email
-            profile {
-              email
-              id
-              name
-              displayName
-              avatar
-              bio
-              sub
-              createdAt
-              updatedAt
-              __typename
-            }
-            submissionId
-            submission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            assignmentId
-            assignment {
-              id
-              startDate
-              expiration
-              title
-              details
-              required
-              workshopId
-              playlistStartDate
-              playlistExternalUrl
-              type
-              createdAt
-              updatedAt
-              fileRequestPlaylistId
-              __typename
-            }
-            workshopId
-            workshop {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        stems {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      stem {
-        id
-        title
-        bpm
-        key
-        scale
-        instruments
-        notes
-        submissions {
-          items {
-            id
-            fileRequestSubmissionID
-            stemID
-            fileRequestSubmission {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            stem {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        fileSize
-        fileExtension
-        creatorEmail
-        creator {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            items {
-              id
-              keyName
-              createdAt
-              profileID
-              email
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          workshops {
-            items {
-              id
-              name
-              email
-              status
-              passes
-              description
-              startDate
-              endDate
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          submissions {
-            items {
-              id
-              fileRequestId
-              artist
-              name
-              email
-              fileId
-              fileExtension
-              rating
-              lyrics
-              requestFeedback
-              duration
-              workshopId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          memberships {
-            items {
-              id
-              workshopId
-              email
-              status
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          features {
-            mailchimp {
-              enabled
-              apiKeyName
-              listId
-              sessionTag
-              serverPrefix
-              __typename
-            }
-            __typename
-          }
-          playlists {
-            items {
-              public
-              title
-              type
-              createdAt
-              id
-              updatedAt
-              profilePlaylistsId
-              playlistOwnerId
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            items {
-              id
-              title
-              bpm
-              key
-              scale
-              instruments
-              notes
-              fileSize
-              fileExtension
-              creatorEmail
-              stemGroupId
-              filePath
-              artist
-              type
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        stemGroupId
-        filePath
-        artist
-        type
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteSubmissionStemsSubscriptionVariables,
+  APITypes.OnDeleteSubmissionStemsSubscription
+>;
