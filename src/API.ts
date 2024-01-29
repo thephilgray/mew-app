@@ -147,6 +147,7 @@ export type Profile = {
   features?: Features | null,
   playlists?: ModelPlaylistConnection | null,
   uploadedStems?: ModelStemConnection | null,
+  prompts?: ModelPromptConnection | null,
   location?: Location | null,
   createdAt: string,
   updatedAt: string,
@@ -376,6 +377,7 @@ export type MailchimpIntegration = {
   enabled?: boolean | null,
   apiKeyName?: string | null,
   listId?: string | null,
+  sessionTag?: string | null,
   serverPrefix?: string | null,
 };
 
@@ -426,6 +428,24 @@ export type ModelStemConnection = {
   __typename: "ModelStemConnection",
   items:  Array<Stem | null >,
   nextToken?: string | null,
+};
+
+export type ModelPromptConnection = {
+  __typename: "ModelPromptConnection",
+  items:  Array<Prompt | null >,
+  nextToken?: string | null,
+};
+
+export type Prompt = {
+  __typename: "Prompt",
+  id: string,
+  title: string,
+  content: string,
+  authorEmail?: string | null,
+  author?: Profile | null,
+  type?: string | null,
+  createdAt?: string | null,
+  updatedAt: string,
 };
 
 export type Location = {
@@ -726,6 +746,7 @@ export type MailchimpIntegrationInput = {
   enabled?: boolean | null,
   apiKeyName?: string | null,
   listId?: string | null,
+  sessionTag?: string | null,
   serverPrefix?: string | null,
 };
 
@@ -910,6 +931,39 @@ export type UpdateStemInput = {
 };
 
 export type DeleteStemInput = {
+  id: string,
+};
+
+export type CreatePromptInput = {
+  id?: string | null,
+  title: string,
+  content: string,
+  authorEmail?: string | null,
+  type?: string | null,
+  createdAt?: string | null,
+};
+
+export type ModelPromptConditionInput = {
+  title?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  authorEmail?: ModelStringInput | null,
+  type?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelPromptConditionInput | null > | null,
+  or?: Array< ModelPromptConditionInput | null > | null,
+  not?: ModelPromptConditionInput | null,
+};
+
+export type UpdatePromptInput = {
+  id: string,
+  title?: string | null,
+  content?: string | null,
+  authorEmail?: string | null,
+  type?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeletePromptInput = {
   id: string,
 };
 
@@ -1109,6 +1163,18 @@ export type ModelStemFilterInput = {
   not?: ModelStemFilterInput | null,
 };
 
+export type ModelPromptFilterInput = {
+  id?: ModelIDInput | null,
+  title?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  authorEmail?: ModelStringInput | null,
+  type?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelPromptFilterInput | null > | null,
+  or?: Array< ModelPromptFilterInput | null > | null,
+  not?: ModelPromptFilterInput | null,
+};
+
 export type ModelSubmissionStemsFilterInput = {
   id?: ModelIDInput | null,
   fileRequestSubmissionID?: ModelIDInput | null,
@@ -1299,6 +1365,17 @@ export type ModelSubscriptionStemFilterInput = {
   or?: Array< ModelSubscriptionStemFilterInput | null > | null,
 };
 
+export type ModelSubscriptionPromptFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  content?: ModelSubscriptionStringInput | null,
+  authorEmail?: ModelSubscriptionStringInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionPromptFilterInput | null > | null,
+  or?: Array< ModelSubscriptionPromptFilterInput | null > | null,
+};
+
 export type ModelSubscriptionSubmissionStemsFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   fileRequestSubmissionID?: ModelSubscriptionIDInput | null,
@@ -1358,6 +1435,9 @@ export type RunProcessAudioTaskMutation = {
   runProcessAudioTask?: string | null,
 };
 
+export type PopulateMembersMutationVariables = {
+};
+
 export type PopulateMembersMutation = {
   populateMembers?: Array< string | null > | null,
 };
@@ -1415,6 +1495,10 @@ export type CreateAPIKeyMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -1484,6 +1568,10 @@ export type UpdateAPIKeyMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -1549,6 +1637,10 @@ export type DeleteAPIKeyMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -2146,6 +2238,10 @@ export type CreateFileRequestSubmissionMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -2310,6 +2406,10 @@ export type UpdateFileRequestSubmissionMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -2472,6 +2572,10 @@ export type DeleteFileRequestSubmissionMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -2919,6 +3023,10 @@ export type CreatePlaylistMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -3007,6 +3115,10 @@ export type UpdatePlaylistMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -3093,6 +3205,10 @@ export type DeletePlaylistMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -3218,6 +3334,10 @@ export type CreateMembershipMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -3368,6 +3488,10 @@ export type UpdateMembershipMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -3516,6 +3640,10 @@ export type DeleteMembershipMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -3625,6 +3753,7 @@ export type CreateWorkshopMutation = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -3675,6 +3804,10 @@ export type CreateWorkshopMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -3766,6 +3899,7 @@ export type UpdateWorkshopMutation = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -3816,6 +3950,10 @@ export type UpdateWorkshopMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -3907,6 +4045,7 @@ export type DeleteWorkshopMutation = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -3957,6 +4096,10 @@ export type DeleteWorkshopMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -4079,6 +4222,7 @@ export type CreateProfileMutation = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -4114,6 +4258,20 @@ export type CreateProfileMutation = {
         stemGroupId?: string | null,
         filePath?: string | null,
         artist?: string | null,
+        type?: string | null,
+        createdAt?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    prompts?:  {
+      __typename: "ModelPromptConnection",
+      items:  Array< {
+        __typename: "Prompt",
+        id: string,
+        title: string,
+        content: string,
+        authorEmail?: string | null,
         type?: string | null,
         createdAt?: string | null,
         updatedAt: string,
@@ -4222,6 +4380,7 @@ export type UpdateProfileMutation = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -4257,6 +4416,20 @@ export type UpdateProfileMutation = {
         stemGroupId?: string | null,
         filePath?: string | null,
         artist?: string | null,
+        type?: string | null,
+        createdAt?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    prompts?:  {
+      __typename: "ModelPromptConnection",
+      items:  Array< {
+        __typename: "Prompt",
+        id: string,
+        title: string,
+        content: string,
+        authorEmail?: string | null,
         type?: string | null,
         createdAt?: string | null,
         updatedAt: string,
@@ -4365,6 +4538,7 @@ export type DeleteProfileMutation = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -4400,6 +4574,20 @@ export type DeleteProfileMutation = {
         stemGroupId?: string | null,
         filePath?: string | null,
         artist?: string | null,
+        type?: string | null,
+        createdAt?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    prompts?:  {
+      __typename: "ModelPromptConnection",
+      items:  Array< {
+        __typename: "Prompt",
+        id: string,
+        title: string,
+        content: string,
+        authorEmail?: string | null,
         type?: string | null,
         createdAt?: string | null,
         updatedAt: string,
@@ -4467,6 +4655,10 @@ export type CreateCommentMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -4699,6 +4891,10 @@ export type UpdateCommentMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -4927,6 +5123,10 @@ export type DeleteCommentMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -5178,6 +5378,10 @@ export type CreateStemMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -5265,6 +5469,10 @@ export type UpdateStemMutation = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -5356,6 +5564,10 @@ export type DeleteStemMutation = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -5367,6 +5579,222 @@ export type DeleteStemMutation = {
     stemGroupId?: string | null,
     filePath?: string | null,
     artist?: string | null,
+    type?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreatePromptMutationVariables = {
+  input: CreatePromptInput,
+  condition?: ModelPromptConditionInput | null,
+};
+
+export type CreatePromptMutation = {
+  createPrompt?:  {
+    __typename: "Prompt",
+    id: string,
+    title: string,
+    content: string,
+    authorEmail?: string | null,
+    author?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      displayName?: string | null,
+      links?:  Array< {
+        __typename: "Link",
+        id?: string | null,
+        text?: string | null,
+        url?: string | null,
+      } | null > | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+      } | null,
+      workshops?:  {
+        __typename: "ModelWorkshopConnection",
+        nextToken?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+      } | null,
+      features?:  {
+        __typename: "Features",
+      } | null,
+      playlists?:  {
+        __typename: "ModelPlaylistConnection",
+        nextToken?: string | null,
+      } | null,
+      uploadedStems?:  {
+        __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    type?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdatePromptMutationVariables = {
+  input: UpdatePromptInput,
+  condition?: ModelPromptConditionInput | null,
+};
+
+export type UpdatePromptMutation = {
+  updatePrompt?:  {
+    __typename: "Prompt",
+    id: string,
+    title: string,
+    content: string,
+    authorEmail?: string | null,
+    author?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      displayName?: string | null,
+      links?:  Array< {
+        __typename: "Link",
+        id?: string | null,
+        text?: string | null,
+        url?: string | null,
+      } | null > | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+      } | null,
+      workshops?:  {
+        __typename: "ModelWorkshopConnection",
+        nextToken?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+      } | null,
+      features?:  {
+        __typename: "Features",
+      } | null,
+      playlists?:  {
+        __typename: "ModelPlaylistConnection",
+        nextToken?: string | null,
+      } | null,
+      uploadedStems?:  {
+        __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    type?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeletePromptMutationVariables = {
+  input: DeletePromptInput,
+  condition?: ModelPromptConditionInput | null,
+};
+
+export type DeletePromptMutation = {
+  deletePrompt?:  {
+    __typename: "Prompt",
+    id: string,
+    title: string,
+    content: string,
+    authorEmail?: string | null,
+    author?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      displayName?: string | null,
+      links?:  Array< {
+        __typename: "Link",
+        id?: string | null,
+        text?: string | null,
+        url?: string | null,
+      } | null > | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+      } | null,
+      workshops?:  {
+        __typename: "ModelWorkshopConnection",
+        nextToken?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+      } | null,
+      features?:  {
+        __typename: "Features",
+      } | null,
+      playlists?:  {
+        __typename: "ModelPlaylistConnection",
+        nextToken?: string | null,
+      } | null,
+      uploadedStems?:  {
+        __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     type?: string | null,
     createdAt?: string | null,
     updatedAt: string,
@@ -5755,6 +6183,10 @@ export type GetAPIKeyQuery = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -6315,6 +6747,10 @@ export type GetFileRequestSubmissionQuery = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -6886,6 +7322,10 @@ export type GetPlaylistQuery = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -7103,6 +7543,10 @@ export type GetMembershipQuery = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -7397,6 +7841,7 @@ export type GetWorkshopQuery = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -7447,6 +7892,10 @@ export type GetWorkshopQuery = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -7627,6 +8076,7 @@ export type GetProfileQuery = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -7662,6 +8112,20 @@ export type GetProfileQuery = {
         stemGroupId?: string | null,
         filePath?: string | null,
         artist?: string | null,
+        type?: string | null,
+        createdAt?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    prompts?:  {
+      __typename: "ModelPromptConnection",
+      items:  Array< {
+        __typename: "Prompt",
+        id: string,
+        title: string,
+        content: string,
+        authorEmail?: string | null,
         type?: string | null,
         createdAt?: string | null,
         updatedAt: string,
@@ -7731,6 +8195,10 @@ export type ListProfilesQuery = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -7796,6 +8264,10 @@ export type ProfileByProfileIdQuery = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -7858,6 +8330,10 @@ export type GetCommentQuery = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -8279,6 +8755,10 @@ export type GetStemQuery = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -8387,6 +8867,150 @@ export type StemsByDateQuery = {
       stemGroupId?: string | null,
       filePath?: string | null,
       artist?: string | null,
+      type?: string | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetPromptQueryVariables = {
+  id: string,
+};
+
+export type GetPromptQuery = {
+  getPrompt?:  {
+    __typename: "Prompt",
+    id: string,
+    title: string,
+    content: string,
+    authorEmail?: string | null,
+    author?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      displayName?: string | null,
+      links?:  Array< {
+        __typename: "Link",
+        id?: string | null,
+        text?: string | null,
+        url?: string | null,
+      } | null > | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+      } | null,
+      workshops?:  {
+        __typename: "ModelWorkshopConnection",
+        nextToken?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+      } | null,
+      features?:  {
+        __typename: "Features",
+      } | null,
+      playlists?:  {
+        __typename: "ModelPlaylistConnection",
+        nextToken?: string | null,
+      } | null,
+      uploadedStems?:  {
+        __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    type?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListPromptsQueryVariables = {
+  filter?: ModelPromptFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPromptsQuery = {
+  listPrompts?:  {
+    __typename: "ModelPromptConnection",
+    items:  Array< {
+      __typename: "Prompt",
+      id: string,
+      title: string,
+      content: string,
+      authorEmail?: string | null,
+      author?:  {
+        __typename: "Profile",
+        email: string,
+        id: string,
+        name?: string | null,
+        displayName?: string | null,
+        avatar?: string | null,
+        bio?: string | null,
+        sub?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      type?: string | null,
+      createdAt?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type PromptsByDateQueryVariables = {
+  type: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPromptFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type PromptsByDateQuery = {
+  promptsByDate?:  {
+    __typename: "ModelPromptConnection",
+    items:  Array< {
+      __typename: "Prompt",
+      id: string,
+      title: string,
+      content: string,
+      authorEmail?: string | null,
+      author?:  {
+        __typename: "Profile",
+        email: string,
+        id: string,
+        name?: string | null,
+        displayName?: string | null,
+        avatar?: string | null,
+        bio?: string | null,
+        sub?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       type?: string | null,
       createdAt?: string | null,
       updatedAt: string,
@@ -8615,6 +9239,10 @@ export type OnCreateAPIKeySubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -8681,6 +9309,10 @@ export type OnUpdateAPIKeySubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -8745,6 +9377,10 @@ export type OnDeleteAPIKeySubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -9335,6 +9971,10 @@ export type OnCreateFileRequestSubmissionSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -9498,6 +10138,10 @@ export type OnUpdateFileRequestSubmissionSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -9659,6 +10303,10 @@ export type OnDeleteFileRequestSubmissionSubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -10102,6 +10750,10 @@ export type OnCreatePlaylistSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -10189,6 +10841,10 @@ export type OnUpdatePlaylistSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -10274,6 +10930,10 @@ export type OnDeletePlaylistSubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -10398,6 +11058,10 @@ export type OnCreateMembershipSubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -10547,6 +11211,10 @@ export type OnUpdateMembershipSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -10694,6 +11362,10 @@ export type OnDeleteMembershipSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -10802,6 +11474,7 @@ export type OnCreateWorkshopSubscription = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -10852,6 +11525,10 @@ export type OnCreateWorkshopSubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -10942,6 +11619,7 @@ export type OnUpdateWorkshopSubscription = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -10992,6 +11670,10 @@ export type OnUpdateWorkshopSubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -11082,6 +11764,7 @@ export type OnDeleteWorkshopSubscription = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -11132,6 +11815,10 @@ export type OnDeleteWorkshopSubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -11253,6 +11940,7 @@ export type OnCreateProfileSubscription = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -11288,6 +11976,20 @@ export type OnCreateProfileSubscription = {
         stemGroupId?: string | null,
         filePath?: string | null,
         artist?: string | null,
+        type?: string | null,
+        createdAt?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    prompts?:  {
+      __typename: "ModelPromptConnection",
+      items:  Array< {
+        __typename: "Prompt",
+        id: string,
+        title: string,
+        content: string,
+        authorEmail?: string | null,
         type?: string | null,
         createdAt?: string | null,
         updatedAt: string,
@@ -11395,6 +12097,7 @@ export type OnUpdateProfileSubscription = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -11430,6 +12133,20 @@ export type OnUpdateProfileSubscription = {
         stemGroupId?: string | null,
         filePath?: string | null,
         artist?: string | null,
+        type?: string | null,
+        createdAt?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    prompts?:  {
+      __typename: "ModelPromptConnection",
+      items:  Array< {
+        __typename: "Prompt",
+        id: string,
+        title: string,
+        content: string,
+        authorEmail?: string | null,
         type?: string | null,
         createdAt?: string | null,
         updatedAt: string,
@@ -11537,6 +12254,7 @@ export type OnDeleteProfileSubscription = {
         enabled?: boolean | null,
         apiKeyName?: string | null,
         listId?: string | null,
+        sessionTag?: string | null,
         serverPrefix?: string | null,
       } | null,
     } | null,
@@ -11572,6 +12290,20 @@ export type OnDeleteProfileSubscription = {
         stemGroupId?: string | null,
         filePath?: string | null,
         artist?: string | null,
+        type?: string | null,
+        createdAt?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    prompts?:  {
+      __typename: "ModelPromptConnection",
+      items:  Array< {
+        __typename: "Prompt",
+        id: string,
+        title: string,
+        content: string,
+        authorEmail?: string | null,
         type?: string | null,
         createdAt?: string | null,
         updatedAt: string,
@@ -11638,6 +12370,10 @@ export type OnCreateCommentSubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -11869,6 +12605,10 @@ export type OnUpdateCommentSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -12096,6 +12836,10 @@ export type OnDeleteCommentSubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -12346,6 +13090,10 @@ export type OnCreateStemSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -12432,6 +13180,10 @@ export type OnUpdateStemSubscription = {
       } | null,
       uploadedStems?:  {
         __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
         nextToken?: string | null,
       } | null,
       location?:  {
@@ -12522,6 +13274,10 @@ export type OnDeleteStemSubscription = {
         __typename: "ModelStemConnection",
         nextToken?: string | null,
       } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
       location?:  {
         __typename: "Location",
         latitude?: string | null,
@@ -12533,6 +13289,219 @@ export type OnDeleteStemSubscription = {
     stemGroupId?: string | null,
     filePath?: string | null,
     artist?: string | null,
+    type?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreatePromptSubscriptionVariables = {
+  filter?: ModelSubscriptionPromptFilterInput | null,
+};
+
+export type OnCreatePromptSubscription = {
+  onCreatePrompt?:  {
+    __typename: "Prompt",
+    id: string,
+    title: string,
+    content: string,
+    authorEmail?: string | null,
+    author?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      displayName?: string | null,
+      links?:  Array< {
+        __typename: "Link",
+        id?: string | null,
+        text?: string | null,
+        url?: string | null,
+      } | null > | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+      } | null,
+      workshops?:  {
+        __typename: "ModelWorkshopConnection",
+        nextToken?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+      } | null,
+      features?:  {
+        __typename: "Features",
+      } | null,
+      playlists?:  {
+        __typename: "ModelPlaylistConnection",
+        nextToken?: string | null,
+      } | null,
+      uploadedStems?:  {
+        __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    type?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdatePromptSubscriptionVariables = {
+  filter?: ModelSubscriptionPromptFilterInput | null,
+};
+
+export type OnUpdatePromptSubscription = {
+  onUpdatePrompt?:  {
+    __typename: "Prompt",
+    id: string,
+    title: string,
+    content: string,
+    authorEmail?: string | null,
+    author?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      displayName?: string | null,
+      links?:  Array< {
+        __typename: "Link",
+        id?: string | null,
+        text?: string | null,
+        url?: string | null,
+      } | null > | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+      } | null,
+      workshops?:  {
+        __typename: "ModelWorkshopConnection",
+        nextToken?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+      } | null,
+      features?:  {
+        __typename: "Features",
+      } | null,
+      playlists?:  {
+        __typename: "ModelPlaylistConnection",
+        nextToken?: string | null,
+      } | null,
+      uploadedStems?:  {
+        __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    type?: string | null,
+    createdAt?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePromptSubscriptionVariables = {
+  filter?: ModelSubscriptionPromptFilterInput | null,
+};
+
+export type OnDeletePromptSubscription = {
+  onDeletePrompt?:  {
+    __typename: "Prompt",
+    id: string,
+    title: string,
+    content: string,
+    authorEmail?: string | null,
+    author?:  {
+      __typename: "Profile",
+      email: string,
+      id: string,
+      name?: string | null,
+      displayName?: string | null,
+      links?:  Array< {
+        __typename: "Link",
+        id?: string | null,
+        text?: string | null,
+        url?: string | null,
+      } | null > | null,
+      avatar?: string | null,
+      bio?: string | null,
+      sub?: string | null,
+      apiKeys?:  {
+        __typename: "ModelAPIKeyConnection",
+        nextToken?: string | null,
+      } | null,
+      workshops?:  {
+        __typename: "ModelWorkshopConnection",
+        nextToken?: string | null,
+      } | null,
+      submissions?:  {
+        __typename: "ModelFileRequestSubmissionConnection",
+        nextToken?: string | null,
+      } | null,
+      memberships?:  {
+        __typename: "ModelMembershipConnection",
+        nextToken?: string | null,
+      } | null,
+      features?:  {
+        __typename: "Features",
+      } | null,
+      playlists?:  {
+        __typename: "ModelPlaylistConnection",
+        nextToken?: string | null,
+      } | null,
+      uploadedStems?:  {
+        __typename: "ModelStemConnection",
+        nextToken?: string | null,
+      } | null,
+      prompts?:  {
+        __typename: "ModelPromptConnection",
+        nextToken?: string | null,
+      } | null,
+      location?:  {
+        __typename: "Location",
+        latitude?: string | null,
+        longitude?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     type?: string | null,
     createdAt?: string | null,
     updatedAt: string,
