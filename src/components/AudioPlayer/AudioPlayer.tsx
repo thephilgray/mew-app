@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 import { AudioPlayerContext, useDownload } from './audio-player.context';
 import { useAppStore } from '../../store';
+import { navigate } from 'gatsby';
+import { ROUTES } from '../../constants';
 
 type AudioPlayerProps = {
 };
 
 const AudioPlayer: React.FC<AudioPlayerProps> = () => {
-  const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying } = useContext(AudioPlayerContext)
+  const { playerRef, audioLists, setCurrentIndex, currentIndex, setIsPlaying, playlistId, assignmentId } = useContext(AudioPlayerContext)
   const { isWriting, setIsWriting } = useAppStore()
   const metaData = audioLists[currentIndex]
   const download = useDownload({
@@ -29,7 +31,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
     audioLists={audioLists}
     autoPlay={true}
     autoPlayInitLoadPlayList={false}
-    quietUpdate
+    // quietUpdate
+    clearPriorAudioLists
     spaceBar
     playIndex={currentIndex}
     onPlayIndexChange={(playIndex) => {
@@ -71,6 +74,19 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
     }}
     onAudioError={() => {
       setIsPlaying(false)
+    }}
+    onCoverClick={(mode) => {
+      // don't do anything if in mini mode
+      if (mode === 'mini') {
+        return;
+      }
+      // otherwise, navigate to the playlist page using either the playlistId or assignmentId
+      if (playlistId) {
+        navigate(ROUTES.playlist.getPath({ playlistId }))
+      }
+      if (assignmentId) {
+        navigate(ROUTES.assignmentPlaylist.getPath({ assignmentId }))
+      }
     }}
   />
 }

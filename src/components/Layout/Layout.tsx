@@ -9,6 +9,7 @@ import { LayoutProvider, useLayout } from './layout.context'
 import If from '../If'
 import './layout.css'
 import { createBreakpoint } from 'react-use'
+import AudioPlayer from '../AudioPlayer/AudioPlayer'
 
 export const useBreakpoint = createBreakpoint({ L: 1200, S: 600, XS: 0 })
 
@@ -18,7 +19,7 @@ const InnerLayout = ({ children, siteTitle }) => {
     const breakpoint = useBreakpoint()
     const lg = breakpoint === "L"
 
-    return <Box sx={{ display: { xs: 'block', lg: 'flex' }, flexWrap: { lg: 'wrap' } }}>
+    return <Box sx={{ display: { xs: 'block', lg: 'flex' }, flexWrap: { lg: 'wrap' }, paddingBottom: '4rem' }}>
         <AppHeader siteTitle={siteTitle} />
         <If condition={!!user}>
             <SideNav />
@@ -39,6 +40,11 @@ const InnerLayout = ({ children, siteTitle }) => {
                 <DrawerHeader />
             </If>
             {children}
+        </Box>
+        <Box>
+            <If condition={!!user}>
+                < AudioPlayer />
+            </If>
         </Box>
     </Box >
 }
