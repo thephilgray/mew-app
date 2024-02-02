@@ -48,7 +48,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     assignmentId = '',
     playlistId,
 }) => {
-    const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef } = useContext(AudioPlayerContext)
+    const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef, playlistId: globalPlaylistId, setPlaylistId: setGlobalPlaylistId, assignmentId: globalAssignmentId, setAssignmentId: setGlobalAssignmentId } = useContext(AudioPlayerContext)
     const [loading, setLoading] = useState(false)
     const [addSongsToPlaylistLoading, setAddSongsToPlaylistLoading] = useState(false)
     const [toggleTrackView, setToggleTrackView] = useState(false)
@@ -153,16 +153,30 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const canView = !!viewAdmin || (data?.playlistStartDate ? isPast(new Date(data?.playlistStartDate)) : true)
 
     useEffect(() => {
-        // ensures that we don't show the previous loaded playlist
-        setAudioLists([])
+
+        if (playlistId) {
+            if (globalPlaylistId !== playlistId) {
+                setAudioLists([])
+                setGlobalPlaylistId(playlistId)
+                setGlobalAssignmentId(null)
+                setCurrentIndex(0) // or query param
+            }
+        }
+
+        if (assignmentId) {
+            if (globalAssignmentId !== assignmentId) {
+                setAudioLists([])
+                setGlobalAssignmentId(assignmentId)
+                setGlobalPlaylistId(null)
+                setCurrentIndex(0) // or query param
+            }
+        }
 
         return () => {
-            // ensures that we show the cover page after navigating away or to different playlists
-            setIsPlaying(false)
-            setCurrentIndex(null)
-            playerRef.current = null;
+
         }
-    }, [])
+    }, [playlistId, assignmentId])
+
 
     // switch the current index if track in the query params
     useEffect(() => {
@@ -615,9 +629,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 </Grid>
             </If >
             {/* <If condition={isNumber(currentIndex) && !!audioLists.length}> */}
-            < AudioPlayer />
+            {/* for auth users, the player is part of the global layout */}
+            <If condition={!user}>
+                < AudioPlayer />
+            </If>
             {/* </If> */}
-            <If If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
+            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
                 <Grid item xs={12}>
                     <Card sx={{
                         display: 'flex',

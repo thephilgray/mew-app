@@ -4,15 +4,18 @@ import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import { getCloudFrontURL } from '../../utils'
 import { EXTENSIONS_BY_FILETYPE } from '../../constants'
 import { usePrevious } from 'react-use'
+import { Track } from '../../API'
 
 export function useAudioPlayerContextState() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [audioLists, setAudioLists] = useState<Array<ReactJkMusicPlayerAudioListProps>>([])
-  const [currentIndex, setCurrentIndex] = useState(null)
-  const playerRef = useRef()
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const playerRef = useRef(null)
   const [audioSrc, setAudioSrc] = useState(null)
   const [clonedPlaylistItems, setClonedPlaylistItems] = useState([])
   const [isWriting, setIsWriting] = useState(false)
+  const [playlistId, setPlaylistId] = useState(null)
+  const [assignmentId, setAssignmentId] = useState(null)
 
   return {
     isPlaying,
@@ -27,22 +30,32 @@ export function useAudioPlayerContextState() {
     clonedPlaylistItems,
     setClonedPlaylistItems,
     isWriting,
-    setIsWriting
+    setIsWriting,
+    playlistId,
+    setPlaylistId,
+    assignmentId,
+    setAssignmentId
   }
 }
 
 interface AudioPlayerContextState {
-  isPlaying: Boolean
-  setIsPlaying: React.Dispatch<React.SetStateAction<Boolean>>
-  audioLists: Array<ReactJkMusicPlayerAudioListProps>
-  setAudioLists: React.Dispatch<React.SetStateAction<Array<ReactJkMusicPlayerAudioListProps>>>
-  currentIndex: number | null
-  setCurrentIndex: React.Dispatch<React.SetStateAction<Number>>
-  playerRef: React.RefObject<HTMLAudioElement>,
-  audioSrc: String | null,
-  setAudioSrc: React.Dispatch<React.SetStateAction<String>>
-  // clonedPlaylistItems: Array<> TODO: once src/models is re-generated
-  // setClonedPlaylistItems TODO: once src/models is re-generated
+  isPlaying: boolean
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>
+  audioLists: Array<ReactJkMusicPlayerAudioListProps> | []
+  setAudioLists: React.Dispatch<React.SetStateAction<Array<ReactJkMusicPlayerAudioListProps> | []>>
+  currentIndex: number
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>
+  playerRef: React.RefObject<HTMLAudioElement>
+  audioSrc: string | null
+  setAudioSrc: React.Dispatch<React.SetStateAction<any>>
+  clonedPlaylistItems: Array<Track> | []
+  setClonedPlaylistItems: React.Dispatch<React.SetStateAction<Array<Track> | []>>
+  isWriting: boolean
+  setIsWriting: React.Dispatch<React.SetStateAction<boolean>>
+  playlistId: string | null
+  setPlaylistId: React.Dispatch<React.SetStateAction<string | null>>
+  assignmentId: string | null
+  setAssignmentId: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 export const AudioPlayerContext = createContext<AudioPlayerContextState>({
@@ -50,16 +63,20 @@ export const AudioPlayerContext = createContext<AudioPlayerContextState>({
   setIsPlaying: () => { },
   audioLists: [],
   setAudioLists: () => { },
-  currentIndex: null,
-  setCurrentIndex: () => { },
+  currentIndex: 0,
+  setCurrentIndex: () => 0,
   playerRef: { current: null },
   audioSrc: null,
-  setAudioSrc: () => { },
+  setAudioSrc: () => null,
   clonedPlaylistItems: [],
-  setClonedPlaylistItems: () => { },
+  setClonedPlaylistItems: () => [],
   // connection to feedback, whether a user is writing a comment
   isWriting: false,
-  setIsWriting: () => { }
+  setIsWriting: () => { },
+  playlistId: null,
+  setPlaylistId: () => { },
+  assignmentId: null,
+  setAssignmentId: () => { }
 })
 
 interface AudioPlayerProps {
@@ -81,7 +98,7 @@ export const usePlayingState = () => {
   return [isPlaying, setIsPlaying];
 }
 
-export const useDownload = ({ filePath, filename }) => async () => {
+export const useDownload = ({ filePath, filename }: { filePath: string, filename: string }) => async () => {
   // const result = await Storage.get(songFilePath, { download: true })
   // @ts-ignore
   // const url = window.URL.createObjectURL(result.Body)
@@ -124,7 +141,7 @@ export const useSimplePlayer = () => {
     playerRef?.current?.pause()
   }
 
-  const playAudio = (audioPath) => {
+  const playAudio = (audioPath: string | null) => {
     pauseAudio()
     if (audioPath) {
       const src = getCloudFrontURL(audioPath)
