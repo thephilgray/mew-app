@@ -33,6 +33,7 @@ import NewStems from '../components/Stems/NewStems';
 import EditPublicSubmission from '../components/Submissions/EditPublicSubmission';
 import GiveFeedbackStandalone from '../components/Submissions/GiveFeedbackStandalone';
 import Map from '../components/Members/Map';
+import MySubmissions from '../components/Submissions/MySubmissions';
 
 
 const componentToRoutesMap = {
@@ -58,6 +59,7 @@ const componentToRoutesMap = {
     [ROUTE_NAMES.NEW_SUBMISSION]: NewPublicSubmission,
     [ROUTE_NAMES.EDIT_SUBMISSION]: EditPublicSubmission,
     [ROUTE_NAMES.NEW_SUBMISSION_EXTENSION]: NewPublicSubmission,
+    [ROUTE_NAMES.MY_SUBMISSIONS]: MySubmissions,
     [ROUTE_NAMES.PLAYLISTS]: Playlists,
     [ROUTE_NAMES.PLAYLIST]: Playlist,
     [ROUTE_NAMES.NEW_PLAYLIST]: EditPlaylist,
