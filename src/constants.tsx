@@ -2,9 +2,10 @@ import React from "react";
 import {
     Home, Person, Groups, ManageAccounts, Extension, GroupAdd, EditAttributes, Workspaces,
     Forum, Assignment, ModeEdit, PlaylistPlay, AssignmentTurnedIn, SendTimeExtension,
-    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass, AssignmentReturn, Feedback, Map
+    PlaylistAdd, List, PlaylistAddCircle, Terminal, AppSettingsAlt, PostAdd, Grass, AssignmentReturn, Feedback, Map, LibraryMusic
 } from "@mui/icons-material";
 import { pathToRegexp } from "path-to-regexp";
+import MySubmissions from "./components/Submissions/MySubmissions";
 
 export const KEYS = ['C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭', 'G', 'G♯/A♭', 'A', 'A♯/B♭', 'B']
 
@@ -132,6 +133,7 @@ export enum ROUTE_NAMES {
     NEW_SUBMISSION = 'newPublicSubmission',
     EDIT_SUBMISSION = 'editPublicSubmission',
     NEW_SUBMISSION_EXTENSION = 'newPublicSubmissionExtension',
+    MY_SUBMISSIONS = 'mySubmissions',
     PLAYLISTS = 'playlists',
     PLAYLIST = 'playlist',
     NEW_PLAYLIST = 'newPlaylist',
@@ -146,7 +148,7 @@ export enum ROUTE_NAMES {
     PROFILE_CONNECTED_APPS = 'profileConnectedApps', // openAI oauth for all, mailchimp and youtube for admins
 }
 
-const defaultNav = [ROUTE_NAMES.WORKSHOPS, ROUTE_NAMES.ASSIGNMENTS, ROUTE_NAMES.PLAYLISTS, ROUTE_NAMES.FEEDBACK, ROUTE_NAMES.STEMS, ROUTE_NAMES.PROMPTS];
+const defaultNav = [ROUTE_NAMES.WORKSHOPS, ROUTE_NAMES.ASSIGNMENTS, ROUTE_NAMES.PLAYLISTS, ROUTE_NAMES.FEEDBACK, ROUTE_NAMES.MY_SUBMISSIONS, ROUTE_NAMES.STEMS, ROUTE_NAMES.PROMPTS];
 const workshopNav = [...defaultNav, ROUTE_NAMES.WORKSHOP_MEMBERS_MAP]
 
 export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
@@ -319,6 +321,13 @@ export const ROUTES: { [key in ROUTE_NAMES]?: any } = {
         navPaths: defaultNav,
         icon: props => <SendTimeExtension {...props} />,
         public: true
+    },
+    [ROUTE_NAMES.MY_SUBMISSIONS]: {
+        path: '/app/my-submissions',
+        navPaths: defaultNav,
+        name: 'My Submissions',
+        groups: [Group.admin, Group.member],
+        icon: props => <LibraryMusic {...props} />,
     },
     [ROUTE_NAMES.PLAYLISTS]: {
         path: '/app/playlists',
