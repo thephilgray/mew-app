@@ -373,19 +373,32 @@ const listCognitoUsers = async () => {
     // AttributesToGet: ['email', 'sub', 'name'],
     AttributesToGet: null, // get all attributes
     // Filter: 'STRING_VALUE',
-    // Limit: 'NUMBER_VALUE',
-    // PaginationToken: 'STRING_VALUE'
+    Limit: 60,
+    PaginationToken: '',
   };
-  let response;
-  try {
-    response = await cognitoidentityserviceprovider
-      .listUsers(listUsersParams)
-      .promise();
-  } catch (error) {
-    console.log(`error with listUsers`);
-    console.log(error);
+  let users = [];
+  let more = true;
+
+  while (more) {
+    try {
+      const response = await cognitoidentityserviceprovider
+        .listUsers(listUsersParams)
+        .promise();
+
+      users = users.concat(response.Users);
+
+      if (response.PaginationToken) {
+        listUsersParams.PaginationToken = response.PaginationToken;
+      } else {
+        more = false;
+      }
+    } catch (error) {
+      more = false;
+      console.log(`error with listUsers`);
+      console.log(error);
+    }
   }
-  return response.Users;
+  return users;
 };
 
 const signupUser = async ({ email, name }) => {
