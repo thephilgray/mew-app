@@ -374,7 +374,7 @@ const listCognitoUsers = async () => {
     AttributesToGet: null, // get all attributes
     // Filter: 'STRING_VALUE',
     Limit: 60,
-    PaginationToken: '',
+    // PaginationToken: 'STRING_VALUE',
   };
   let users = [];
   let more = true;
