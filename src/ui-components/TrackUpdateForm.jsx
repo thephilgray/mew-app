@@ -9,12 +9,12 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { API } from "aws-amplify";
-import { getMembership } from "../graphql/queries";
-import { updateMembership } from "../graphql/mutations";
-export default function MembershipUpdateForm(props) {
+import { getTrack } from "../graphql/queries";
+import { updateTrack } from "../graphql/mutations";
+export default function TrackUpdateForm(props) {
   const {
     id: idProp,
-    membership: membershipModelProp,
+    track: trackModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -24,36 +24,35 @@ export default function MembershipUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    status: "",
+    order: "",
   };
-  const [status, setStatus] = React.useState(initialValues.status);
+  const [order, setOrder] = React.useState(initialValues.order);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = membershipRecord
-      ? { ...initialValues, ...membershipRecord }
+    const cleanValues = trackRecord
+      ? { ...initialValues, ...trackRecord }
       : initialValues;
-    setStatus(cleanValues.status);
+    setOrder(cleanValues.order);
     setErrors({});
   };
-  const [membershipRecord, setMembershipRecord] =
-    React.useState(membershipModelProp);
+  const [trackRecord, setTrackRecord] = React.useState(trackModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? (
             await API.graphql({
-              query: getMembership.replaceAll("__typename", ""),
+              query: getTrack.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
-          )?.data?.getMembership
-        : membershipModelProp;
-      setMembershipRecord(record);
+          )?.data?.getTrack
+        : trackModelProp;
+      setTrackRecord(record);
     };
     queryData();
-  }, [idProp, membershipModelProp]);
-  React.useEffect(resetStateValues, [membershipRecord]);
+  }, [idProp, trackModelProp]);
+  React.useEffect(resetStateValues, [trackRecord]);
   const validations = {
-    status: [],
+    order: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -81,7 +80,7 @@ export default function MembershipUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          status: status ?? null,
+          order,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -112,10 +111,10 @@ export default function MembershipUpdateForm(props) {
             }
           });
           await API.graphql({
-            query: updateMembership.replaceAll("__typename", ""),
+            query: updateTrack.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: membershipRecord.id,
+                id: trackRecord.id,
                 ...modelFields,
               },
             },
@@ -130,32 +129,36 @@ export default function MembershipUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "MembershipUpdateForm")}
+      {...getOverrideProps(overrides, "TrackUpdateForm")}
       {...rest}
     >
       <TextField
-        label="Status"
-        isRequired={false}
+        label="Order"
+        isRequired={true}
         isReadOnly={false}
-        value={status}
+        type="number"
+        step="any"
+        value={order}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              status: value,
+              order: value,
             };
             const result = onChange(modelFields);
-            value = result?.status ?? value;
+            value = result?.order ?? value;
           }
-          if (errors.status?.hasError) {
-            runValidationTasks("status", value);
+          if (errors.order?.hasError) {
+            runValidationTasks("order", value);
           }
-          setStatus(value);
+          setOrder(value);
         }}
-        onBlur={() => runValidationTasks("status", status)}
-        errorMessage={errors.status?.errorMessage}
-        hasError={errors.status?.hasError}
-        {...getOverrideProps(overrides, "status")}
+        onBlur={() => runValidationTasks("order", order)}
+        errorMessage={errors.order?.errorMessage}
+        hasError={errors.order?.hasError}
+        {...getOverrideProps(overrides, "order")}
       ></TextField>
       <Flex
         justifyContent="space-between"
@@ -168,7 +171,7 @@ export default function MembershipUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || membershipModelProp)}
+          isDisabled={!(idProp || trackModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -180,7 +183,7 @@ export default function MembershipUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || membershipModelProp) ||
+              !(idProp || trackModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

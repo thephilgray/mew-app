@@ -7,10 +7,10 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { APIKey } from "../models";
-import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { API } from "aws-amplify";
+import { getAPIKey } from "../graphql/queries";
+import { updateAPIKey } from "../graphql/mutations";
 export default function APIKeyUpdateForm(props) {
   const {
     id: idProp,
@@ -45,7 +45,12 @@ export default function APIKeyUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(APIKey, idProp)
+        ? (
+            await API.graphql({
+              query: getAPIKey.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getAPIKey
         : aPIKeyModelProp;
       setAPIKeyRecord(record);
     };
@@ -101,7 +106,7 @@ export default function APIKeyUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           keyName,
-          createdAt,
+          createdAt: createdAt ?? null,
           profileID,
         };
         const validationResponses = await Promise.all(
@@ -128,21 +133,26 @@ export default function APIKeyUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            APIKey.copyOf(aPIKeyRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await API.graphql({
+            query: updateAPIKey.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: aPIKeyRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

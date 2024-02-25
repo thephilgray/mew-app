@@ -14,7 +14,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "codegen": "amplify codegen"
+    "codegen": "make codegen"
   },
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",

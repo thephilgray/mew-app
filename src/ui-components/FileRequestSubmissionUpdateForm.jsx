@@ -13,10 +13,10 @@ import {
   SwitchField,
   TextField,
 } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { FileRequestSubmission } from "../models";
-import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { API } from "aws-amplify";
+import { getFileRequestSubmission } from "../graphql/queries";
+import { updateFileRequestSubmission } from "../graphql/mutations";
 export default function FileRequestSubmissionUpdateForm(props) {
   const {
     id: idProp,
@@ -37,6 +37,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
     rating: "",
     lyrics: "",
     requestFeedback: false,
+    duration: "",
   };
   const [artist, setArtist] = React.useState(initialValues.artist);
   const [name, setName] = React.useState(initialValues.name);
@@ -49,6 +50,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
   const [requestFeedback, setRequestFeedback] = React.useState(
     initialValues.requestFeedback
   );
+  const [duration, setDuration] = React.useState(initialValues.duration);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = fileRequestSubmissionRecord
@@ -61,6 +63,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
     setRating(cleanValues.rating);
     setLyrics(cleanValues.lyrics);
     setRequestFeedback(cleanValues.requestFeedback);
+    setDuration(cleanValues.duration);
     setErrors({});
   };
   const [fileRequestSubmissionRecord, setFileRequestSubmissionRecord] =
@@ -68,7 +71,12 @@ export default function FileRequestSubmissionUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(FileRequestSubmission, idProp)
+        ? (
+            await API.graphql({
+              query: getFileRequestSubmission.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getFileRequestSubmission
         : fileRequestSubmissionModelProp;
       setFileRequestSubmissionRecord(record);
     };
@@ -83,6 +91,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
     rating: [],
     lyrics: [],
     requestFeedback: [],
+    duration: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -110,13 +119,14 @@ export default function FileRequestSubmissionUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          artist,
-          name,
-          fileId,
-          fileExtension,
-          rating,
-          lyrics,
-          requestFeedback,
+          artist: artist ?? null,
+          name: name ?? null,
+          fileId: fileId ?? null,
+          fileExtension: fileExtension ?? null,
+          rating: rating ?? null,
+          lyrics: lyrics ?? null,
+          requestFeedback: requestFeedback ?? null,
+          duration: duration ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -142,24 +152,26 @@ export default function FileRequestSubmissionUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            FileRequestSubmission.copyOf(
-              fileRequestSubmissionRecord,
-              (updated) => {
-                Object.assign(updated, modelFields);
-              }
-            )
-          );
+          await API.graphql({
+            query: updateFileRequestSubmission.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: fileRequestSubmissionRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -182,6 +194,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
               rating,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.artist ?? value;
@@ -212,6 +225,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
               rating,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -242,6 +256,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
               rating,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.fileId ?? value;
@@ -272,6 +287,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
               rating,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.fileExtension ?? value;
@@ -306,6 +322,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
               rating: value,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.rating ?? value;
@@ -336,6 +353,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
               rating,
               lyrics: value,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.lyrics ?? value;
@@ -366,6 +384,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
               rating,
               lyrics,
               requestFeedback: value,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.requestFeedback ?? value;
@@ -380,6 +399,41 @@ export default function FileRequestSubmissionUpdateForm(props) {
         hasError={errors.requestFeedback?.hasError}
         {...getOverrideProps(overrides, "requestFeedback")}
       ></SwitchField>
+      <TextField
+        label="Duration"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={duration}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              artist,
+              name,
+              fileId,
+              fileExtension,
+              rating,
+              lyrics,
+              requestFeedback,
+              duration: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.duration ?? value;
+          }
+          if (errors.duration?.hasError) {
+            runValidationTasks("duration", value);
+          }
+          setDuration(value);
+        }}
+        onBlur={() => runValidationTasks("duration", duration)}
+        errorMessage={errors.duration?.errorMessage}
+        hasError={errors.duration?.hasError}
+        {...getOverrideProps(overrides, "duration")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

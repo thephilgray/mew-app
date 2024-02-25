@@ -9,8 +9,8 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { API } from "aws-amplify";
-import { createAPIKey } from "../graphql/mutations";
-export default function APIKeyCreateForm(props) {
+import { createPrompt } from "../graphql/mutations";
+export default function PromptCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -22,24 +22,28 @@ export default function APIKeyCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    keyName: "",
+    title: "",
+    content: "",
+    type: "",
     createdAt: "",
-    profileID: "",
   };
-  const [keyName, setKeyName] = React.useState(initialValues.keyName);
+  const [title, setTitle] = React.useState(initialValues.title);
+  const [content, setContent] = React.useState(initialValues.content);
+  const [type, setType] = React.useState(initialValues.type);
   const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
-  const [profileID, setProfileID] = React.useState(initialValues.profileID);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setKeyName(initialValues.keyName);
+    setTitle(initialValues.title);
+    setContent(initialValues.content);
+    setType(initialValues.type);
     setCreatedAt(initialValues.createdAt);
-    setProfileID(initialValues.profileID);
     setErrors({});
   };
   const validations = {
-    keyName: [{ type: "Required" }],
+    title: [{ type: "Required" }],
+    content: [{ type: "Required" }],
+    type: [],
     createdAt: [],
-    profileID: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -58,23 +62,6 @@ export default function APIKeyCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
-  const convertToLocal = (date) => {
-    const df = new Intl.DateTimeFormat("default", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      calendar: "iso8601",
-      numberingSystem: "latn",
-      hourCycle: "h23",
-    });
-    const parts = df.formatToParts(date).reduce((acc, part) => {
-      acc[part.type] = part.value;
-      return acc;
-    }, {});
-    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
-  };
   return (
     <Grid
       as="form"
@@ -84,9 +71,10 @@ export default function APIKeyCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          keyName,
+          title,
+          content,
+          type,
           createdAt,
-          profileID,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -117,7 +105,7 @@ export default function APIKeyCreateForm(props) {
             }
           });
           await API.graphql({
-            query: createAPIKey.replaceAll("__typename", ""),
+            query: createPrompt.replaceAll("__typename", ""),
             variables: {
               input: {
                 ...modelFields,
@@ -137,49 +125,103 @@ export default function APIKeyCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "APIKeyCreateForm")}
+      {...getOverrideProps(overrides, "PromptCreateForm")}
       {...rest}
     >
       <TextField
-        label="Key name"
+        label="Title"
         isRequired={true}
         isReadOnly={false}
-        value={keyName}
+        value={title}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              keyName: value,
+              title: value,
+              content,
+              type,
               createdAt,
-              profileID,
             };
             const result = onChange(modelFields);
-            value = result?.keyName ?? value;
+            value = result?.title ?? value;
           }
-          if (errors.keyName?.hasError) {
-            runValidationTasks("keyName", value);
+          if (errors.title?.hasError) {
+            runValidationTasks("title", value);
           }
-          setKeyName(value);
+          setTitle(value);
         }}
-        onBlur={() => runValidationTasks("keyName", keyName)}
-        errorMessage={errors.keyName?.errorMessage}
-        hasError={errors.keyName?.hasError}
-        {...getOverrideProps(overrides, "keyName")}
+        onBlur={() => runValidationTasks("title", title)}
+        errorMessage={errors.title?.errorMessage}
+        hasError={errors.title?.hasError}
+        {...getOverrideProps(overrides, "title")}
+      ></TextField>
+      <TextField
+        label="Content"
+        isRequired={true}
+        isReadOnly={false}
+        value={content}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              content: value,
+              type,
+              createdAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.content ?? value;
+          }
+          if (errors.content?.hasError) {
+            runValidationTasks("content", value);
+          }
+          setContent(value);
+        }}
+        onBlur={() => runValidationTasks("content", content)}
+        errorMessage={errors.content?.errorMessage}
+        hasError={errors.content?.hasError}
+        {...getOverrideProps(overrides, "content")}
+      ></TextField>
+      <TextField
+        label="Type"
+        isRequired={false}
+        isReadOnly={false}
+        value={type}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              content,
+              type: value,
+              createdAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.type ?? value;
+          }
+          if (errors.type?.hasError) {
+            runValidationTasks("type", value);
+          }
+          setType(value);
+        }}
+        onBlur={() => runValidationTasks("type", type)}
+        errorMessage={errors.type?.errorMessage}
+        hasError={errors.type?.hasError}
+        {...getOverrideProps(overrides, "type")}
       ></TextField>
       <TextField
         label="Created at"
         isRequired={false}
         isReadOnly={false}
-        type="datetime-local"
-        value={createdAt && convertToLocal(new Date(createdAt))}
+        value={createdAt}
         onChange={(e) => {
-          let value =
-            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              keyName,
+              title,
+              content,
+              type,
               createdAt: value,
-              profileID,
             };
             const result = onChange(modelFields);
             value = result?.createdAt ?? value;
@@ -193,32 +235,6 @@ export default function APIKeyCreateForm(props) {
         errorMessage={errors.createdAt?.errorMessage}
         hasError={errors.createdAt?.hasError}
         {...getOverrideProps(overrides, "createdAt")}
-      ></TextField>
-      <TextField
-        label="Profile id"
-        isRequired={true}
-        isReadOnly={false}
-        value={profileID}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              keyName,
-              createdAt,
-              profileID: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.profileID ?? value;
-          }
-          if (errors.profileID?.hasError) {
-            runValidationTasks("profileID", value);
-          }
-          setProfileID(value);
-        }}
-        onBlur={() => runValidationTasks("profileID", profileID)}
-        errorMessage={errors.profileID?.errorMessage}
-        hasError={errors.profileID?.hasError}
-        {...getOverrideProps(overrides, "profileID")}
       ></TextField>
       <Flex
         justifyContent="space-between"

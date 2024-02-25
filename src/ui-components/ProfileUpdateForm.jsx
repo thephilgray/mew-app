@@ -7,14 +7,14 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Profile } from "../models";
-import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { API } from "aws-amplify";
+import { getProfile } from "../graphql/queries";
+import { updateProfile } from "../graphql/mutations";
 export default function ProfileUpdateForm(props) {
   const {
     email: emailProp,
-    profile,
+    profile: profileModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -26,12 +26,16 @@ export default function ProfileUpdateForm(props) {
   const initialValues = {
     email: "",
     name: "",
+    displayName: "",
     avatar: "",
     bio: "",
     sub: "",
   };
   const [email, setEmail] = React.useState(initialValues.email);
   const [name, setName] = React.useState(initialValues.name);
+  const [displayName, setDisplayName] = React.useState(
+    initialValues.displayName
+  );
   const [avatar, setAvatar] = React.useState(initialValues.avatar);
   const [bio, setBio] = React.useState(initialValues.bio);
   const [sub, setSub] = React.useState(initialValues.sub);
@@ -42,25 +46,32 @@ export default function ProfileUpdateForm(props) {
       : initialValues;
     setEmail(cleanValues.email);
     setName(cleanValues.name);
+    setDisplayName(cleanValues.displayName);
     setAvatar(cleanValues.avatar);
     setBio(cleanValues.bio);
     setSub(cleanValues.sub);
     setErrors({});
   };
-  const [profileRecord, setProfileRecord] = React.useState(profile);
+  const [profileRecord, setProfileRecord] = React.useState(profileModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = emailProp
-        ? await DataStore.query(Profile, emailProp)
-        : profile;
+        ? (
+            await API.graphql({
+              query: getProfile.replaceAll("__typename", ""),
+              variables: { email: emailProp },
+            })
+          )?.data?.getProfile
+        : profileModelProp;
       setProfileRecord(record);
     };
     queryData();
-  }, [emailProp, profile]);
+  }, [emailProp, profileModelProp]);
   React.useEffect(resetStateValues, [profileRecord]);
   const validations = {
     email: [{ type: "Required" }],
     name: [],
+    displayName: [],
     avatar: [],
     bio: [],
     sub: [],
@@ -70,9 +81,10 @@ export default function ProfileUpdateForm(props) {
     currentValue,
     getDisplayValue
   ) => {
-    const value = getDisplayValue
-      ? getDisplayValue(currentValue)
-      : currentValue;
+    const value =
+      currentValue && getDisplayValue
+        ? getDisplayValue(currentValue)
+        : currentValue;
     let validationResponse = validateField(value, validations[fieldName]);
     const customValidator = fetchByPath(onValidate, fieldName);
     if (customValidator) {
@@ -91,10 +103,11 @@ export default function ProfileUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           email,
-          name,
-          avatar,
-          bio,
-          sub,
+          name: name ?? null,
+          displayName: displayName ?? null,
+          avatar: avatar ?? null,
+          bio: bio ?? null,
+          sub: sub ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -120,21 +133,26 @@ export default function ProfileUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            Profile.copyOf(profileRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await API.graphql({
+            query: updateProfile.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                email: profileRecord.email,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -152,6 +170,7 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email: value,
               name,
+              displayName,
               avatar,
               bio,
               sub,
@@ -180,6 +199,7 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email,
               name: value,
+              displayName,
               avatar,
               bio,
               sub,
@@ -198,6 +218,35 @@ export default function ProfileUpdateForm(props) {
         {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
+        label="Display name"
+        isRequired={false}
+        isReadOnly={false}
+        value={displayName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              email,
+              name,
+              displayName: value,
+              avatar,
+              bio,
+              sub,
+            };
+            const result = onChange(modelFields);
+            value = result?.displayName ?? value;
+          }
+          if (errors.displayName?.hasError) {
+            runValidationTasks("displayName", value);
+          }
+          setDisplayName(value);
+        }}
+        onBlur={() => runValidationTasks("displayName", displayName)}
+        errorMessage={errors.displayName?.errorMessage}
+        hasError={errors.displayName?.hasError}
+        {...getOverrideProps(overrides, "displayName")}
+      ></TextField>
+      <TextField
         label="Avatar"
         isRequired={false}
         isReadOnly={false}
@@ -208,6 +257,7 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email,
               name,
+              displayName,
               avatar: value,
               bio,
               sub,
@@ -236,6 +286,7 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email,
               name,
+              displayName,
               avatar,
               bio: value,
               sub,
@@ -264,6 +315,7 @@ export default function ProfileUpdateForm(props) {
             const modelFields = {
               email,
               name,
+              displayName,
               avatar,
               bio,
               sub: value,
@@ -292,7 +344,7 @@ export default function ProfileUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(emailProp || profile)}
+          isDisabled={!(emailProp || profileModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -304,7 +356,7 @@ export default function ProfileUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(emailProp || profile) ||
+              !(emailProp || profileModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

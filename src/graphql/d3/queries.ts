@@ -672,6 +672,22 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
       nextToken
       __typename
     }
+    reactions {
+      items {
+        id
+        email
+        reactionName
+        commentId
+        submissionId
+        createdAt
+        viewed
+        updatedAt
+        fileRequestSubmissionReactionsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     stems {
       items {
         id
@@ -751,6 +767,10 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
       fileExtension
       rating
       comments {
+        nextToken
+        __typename
+      }
+      reactions {
         nextToken
         __typename
       }
@@ -835,6 +855,10 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
         nextToken
         __typename
       }
+      reactions {
+        nextToken
+        __typename
+      }
       stems {
         nextToken
         __typename
@@ -913,6 +937,10 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
       fileExtension
       rating
       comments {
+        nextToken
+        __typename
+      }
+      reactions {
         nextToken
         __typename
       }
@@ -997,6 +1025,10 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
         nextToken
         __typename
       }
+      reactions {
+        nextToken
+        __typename
+      }
       stems {
         nextToken
         __typename
@@ -1064,6 +1096,10 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
       fileExtension
       rating
       comments {
+        nextToken
+        __typename
+      }
+      reactions {
         nextToken
         __typename
       }
@@ -2233,6 +2269,484 @@ export const profileByProfileId = /* GraphQL */ `query ProfileByProfileId(
   APITypes.ProfileByProfileIdQueryVariables,
   APITypes.ProfileByProfileIdQuery
 >;
+export const getReaction = /* GraphQL */ `query GetReaction($id: ID!) {
+  getReaction(id: $id) {
+    id
+    email
+    reactionName
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    commentId
+    comment {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      assignmentId
+      assignment {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      parentId
+      type
+      createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    viewed
+    updatedAt
+    fileRequestSubmissionReactionsId
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetReactionQueryVariables,
+  APITypes.GetReactionQuery
+>;
+export const listReactions = /* GraphQL */ `query ListReactions(
+  $filter: ModelReactionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listReactions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      email
+      reactionName
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      commentId
+      comment {
+        id
+        content
+        email
+        submissionId
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      viewed
+      updatedAt
+      fileRequestSubmissionReactionsId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListReactionsQueryVariables,
+  APITypes.ListReactionsQuery
+>;
+export const getMention = /* GraphQL */ `query GetMention($id: ID!) {
+  getMention(id: $id) {
+    id
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    commentId
+    comment {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      assignmentId
+      assignment {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      parentId
+      type
+      createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+    createdAt
+    viewed
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMentionQueryVariables,
+  APITypes.GetMentionQuery
+>;
+export const listMentions = /* GraphQL */ `query ListMentions(
+  $filter: ModelMentionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMentions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      commentId
+      comment {
+        id
+        content
+        email
+        submissionId
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      viewed
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMentionsQueryVariables,
+  APITypes.ListMentionsQuery
+>;
 export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
   getComment(id: $id) {
     id
@@ -2331,6 +2845,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
       fileExtension
       rating
       comments {
+        nextToken
+        __typename
+      }
+      reactions {
         nextToken
         __typename
       }
@@ -2457,6 +2975,35 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
     parentId
     type
     createdAt
+    mentions {
+      items {
+        id
+        email
+        commentId
+        createdAt
+        viewed
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    reactions {
+      items {
+        id
+        email
+        reactionName
+        commentId
+        submissionId
+        createdAt
+        viewed
+        updatedAt
+        fileRequestSubmissionReactionsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -2539,6 +3086,14 @@ export const listComments = /* GraphQL */ `query ListComments(
       parentId
       type
       createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
       updatedAt
       __typename
     }
@@ -2634,6 +3189,14 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
       parentId
       type
       createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
       updatedAt
       __typename
     }
@@ -3030,6 +3593,10 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
       fileExtension
       rating
       comments {
+        nextToken
+        __typename
+      }
+      reactions {
         nextToken
         __typename
       }

@@ -6,7 +6,16 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+export declare type EscapeHatchProps = {
+    [elementHierarchy: string]: Record<string, unknown>;
+} | null;
+export declare type VariantValues = {
+    [key: string]: string;
+};
+export declare type Variant = {
+    variantValues: VariantValues;
+    overrides: EscapeHatchProps;
+};
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -16,11 +25,17 @@ export declare type WorkshopCreateFormInputValues = {
     name?: string;
     status?: string;
     passes?: number;
+    description?: string;
+    startDate?: string;
+    endDate?: string;
 };
 export declare type WorkshopCreateFormValidationValues = {
     name?: ValidationFunction<string>;
     status?: ValidationFunction<string>;
     passes?: ValidationFunction<number>;
+    description?: ValidationFunction<string>;
+    startDate?: ValidationFunction<string>;
+    endDate?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type WorkshopCreateFormOverridesProps = {
@@ -28,6 +43,9 @@ export declare type WorkshopCreateFormOverridesProps = {
     name?: PrimitiveOverrideProps<TextFieldProps>;
     status?: PrimitiveOverrideProps<TextFieldProps>;
     passes?: PrimitiveOverrideProps<TextFieldProps>;
+    description?: PrimitiveOverrideProps<TextFieldProps>;
+    startDate?: PrimitiveOverrideProps<TextFieldProps>;
+    endDate?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type WorkshopCreateFormProps = React.PropsWithChildren<{
     overrides?: WorkshopCreateFormOverridesProps | undefined | null;

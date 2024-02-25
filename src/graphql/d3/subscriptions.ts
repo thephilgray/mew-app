@@ -820,6 +820,22 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
       nextToken
       __typename
     }
+    reactions {
+      items {
+        id
+        email
+        reactionName
+        commentId
+        submissionId
+        createdAt
+        viewed
+        updatedAt
+        fileRequestSubmissionReactionsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     stems {
       items {
         id
@@ -983,6 +999,22 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
         type
         createdAt
         updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    reactions {
+      items {
+        id
+        email
+        reactionName
+        commentId
+        submissionId
+        createdAt
+        viewed
+        updatedAt
+        fileRequestSubmissionReactionsId
         __typename
       }
       nextToken
@@ -1156,6 +1188,22 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
       nextToken
       __typename
     }
+    reactions {
+      items {
+        id
+        email
+        reactionName
+        commentId
+        submissionId
+        createdAt
+        viewed
+        updatedAt
+        fileRequestSubmissionReactionsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     stems {
       items {
         id
@@ -1228,6 +1276,10 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
       fileExtension
       rating
       comments {
+        nextToken
+        __typename
+      }
+      reactions {
         nextToken
         __typename
       }
@@ -1338,6 +1390,10 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
         nextToken
         __typename
       }
+      reactions {
+        nextToken
+        __typename
+      }
       stems {
         nextToken
         __typename
@@ -1442,6 +1498,10 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
       fileExtension
       rating
       comments {
+        nextToken
+        __typename
+      }
+      reactions {
         nextToken
         __typename
       }
@@ -3134,6 +3194,1092 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
   APITypes.OnDeleteProfileSubscriptionVariables,
   APITypes.OnDeleteProfileSubscription
 >;
+export const onCreateReaction = /* GraphQL */ `subscription OnCreateReaction($filter: ModelSubscriptionReactionFilterInput) {
+  onCreateReaction(filter: $filter) {
+    id
+    email
+    reactionName
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    commentId
+    comment {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      assignmentId
+      assignment {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      parentId
+      type
+      createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    viewed
+    updatedAt
+    fileRequestSubmissionReactionsId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateReactionSubscriptionVariables,
+  APITypes.OnCreateReactionSubscription
+>;
+export const onUpdateReaction = /* GraphQL */ `subscription OnUpdateReaction($filter: ModelSubscriptionReactionFilterInput) {
+  onUpdateReaction(filter: $filter) {
+    id
+    email
+    reactionName
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    commentId
+    comment {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      assignmentId
+      assignment {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      parentId
+      type
+      createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    viewed
+    updatedAt
+    fileRequestSubmissionReactionsId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateReactionSubscriptionVariables,
+  APITypes.OnUpdateReactionSubscription
+>;
+export const onDeleteReaction = /* GraphQL */ `subscription OnDeleteReaction($filter: ModelSubscriptionReactionFilterInput) {
+  onDeleteReaction(filter: $filter) {
+    id
+    email
+    reactionName
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    commentId
+    comment {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      assignmentId
+      assignment {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      parentId
+      type
+      createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    viewed
+    updatedAt
+    fileRequestSubmissionReactionsId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteReactionSubscriptionVariables,
+  APITypes.OnDeleteReactionSubscription
+>;
+export const onCreateMention = /* GraphQL */ `subscription OnCreateMention($filter: ModelSubscriptionMentionFilterInput) {
+  onCreateMention(filter: $filter) {
+    id
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    commentId
+    comment {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      assignmentId
+      assignment {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      parentId
+      type
+      createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+    createdAt
+    viewed
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMentionSubscriptionVariables,
+  APITypes.OnCreateMentionSubscription
+>;
+export const onUpdateMention = /* GraphQL */ `subscription OnUpdateMention($filter: ModelSubscriptionMentionFilterInput) {
+  onUpdateMention(filter: $filter) {
+    id
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    commentId
+    comment {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      assignmentId
+      assignment {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      parentId
+      type
+      createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+    createdAt
+    viewed
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMentionSubscriptionVariables,
+  APITypes.OnUpdateMentionSubscription
+>;
+export const onDeleteMention = /* GraphQL */ `subscription OnDeleteMention($filter: ModelSubscriptionMentionFilterInput) {
+  onDeleteMention(filter: $filter) {
+    id
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    commentId
+    comment {
+      id
+      content
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissionId
+      submission {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      assignmentId
+      assignment {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      parentId
+      type
+      createdAt
+      mentions {
+        nextToken
+        __typename
+      }
+      reactions {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+    createdAt
+    viewed
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMentionSubscriptionVariables,
+  APITypes.OnDeleteMentionSubscription
+>;
 export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
   onCreateComment(filter: $filter) {
     id
@@ -3232,6 +4378,10 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
       fileExtension
       rating
       comments {
+        nextToken
+        __typename
+      }
+      reactions {
         nextToken
         __typename
       }
@@ -3358,6 +4508,35 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
     parentId
     type
     createdAt
+    mentions {
+      items {
+        id
+        email
+        commentId
+        createdAt
+        viewed
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    reactions {
+      items {
+        id
+        email
+        reactionName
+        commentId
+        submissionId
+        createdAt
+        viewed
+        updatedAt
+        fileRequestSubmissionReactionsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -3467,6 +4646,10 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
         nextToken
         __typename
       }
+      reactions {
+        nextToken
+        __typename
+      }
       stems {
         nextToken
         __typename
@@ -3590,6 +4773,35 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
     parentId
     type
     createdAt
+    mentions {
+      items {
+        id
+        email
+        commentId
+        createdAt
+        viewed
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    reactions {
+      items {
+        id
+        email
+        reactionName
+        commentId
+        submissionId
+        createdAt
+        viewed
+        updatedAt
+        fileRequestSubmissionReactionsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -3699,6 +4911,10 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
         nextToken
         __typename
       }
+      reactions {
+        nextToken
+        __typename
+      }
       stems {
         nextToken
         __typename
@@ -3822,6 +5038,35 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
     parentId
     type
     createdAt
+    mentions {
+      items {
+        id
+        email
+        commentId
+        createdAt
+        viewed
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    reactions {
+      items {
+        id
+        email
+        reactionName
+        commentId
+        submissionId
+        createdAt
+        viewed
+        updatedAt
+        fileRequestSubmissionReactionsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -4361,6 +5606,10 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
         nextToken
         __typename
       }
+      reactions {
+        nextToken
+        __typename
+      }
       stems {
         nextToken
         __typename
@@ -4471,6 +5720,10 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
         nextToken
         __typename
       }
+      reactions {
+        nextToken
+        __typename
+      }
       stems {
         nextToken
         __typename
@@ -4578,6 +5831,10 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
       fileExtension
       rating
       comments {
+        nextToken
+        __typename
+      }
+      reactions {
         nextToken
         __typename
       }

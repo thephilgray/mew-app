@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { APIKey } from "../API.ts";
+import { Prompt } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -22,32 +22,35 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type APIKeyUpdateFormInputValues = {
-    keyName?: string;
+export declare type PromptUpdateFormInputValues = {
+    title?: string;
+    content?: string;
+    type?: string;
     createdAt?: string;
-    profileID?: string;
 };
-export declare type APIKeyUpdateFormValidationValues = {
-    keyName?: ValidationFunction<string>;
+export declare type PromptUpdateFormValidationValues = {
+    title?: ValidationFunction<string>;
+    content?: ValidationFunction<string>;
+    type?: ValidationFunction<string>;
     createdAt?: ValidationFunction<string>;
-    profileID?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type APIKeyUpdateFormOverridesProps = {
-    APIKeyUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    keyName?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type PromptUpdateFormOverridesProps = {
+    PromptUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    title?: PrimitiveOverrideProps<TextFieldProps>;
+    content?: PrimitiveOverrideProps<TextFieldProps>;
+    type?: PrimitiveOverrideProps<TextFieldProps>;
     createdAt?: PrimitiveOverrideProps<TextFieldProps>;
-    profileID?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type APIKeyUpdateFormProps = React.PropsWithChildren<{
-    overrides?: APIKeyUpdateFormOverridesProps | undefined | null;
+export declare type PromptUpdateFormProps = React.PropsWithChildren<{
+    overrides?: PromptUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    aPIKey?: APIKey;
-    onSubmit?: (fields: APIKeyUpdateFormInputValues) => APIKeyUpdateFormInputValues;
-    onSuccess?: (fields: APIKeyUpdateFormInputValues) => void;
-    onError?: (fields: APIKeyUpdateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: APIKeyUpdateFormInputValues) => APIKeyUpdateFormInputValues;
-    onValidate?: APIKeyUpdateFormValidationValues;
+    prompt?: Prompt;
+    onSubmit?: (fields: PromptUpdateFormInputValues) => PromptUpdateFormInputValues;
+    onSuccess?: (fields: PromptUpdateFormInputValues) => void;
+    onError?: (fields: PromptUpdateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: PromptUpdateFormInputValues) => PromptUpdateFormInputValues;
+    onValidate?: PromptUpdateFormValidationValues;
 } & React.CSSProperties>;
-export default function APIKeyUpdateForm(props: APIKeyUpdateFormProps): React.ReactElement;
+export default function PromptUpdateForm(props: PromptUpdateFormProps): React.ReactElement;

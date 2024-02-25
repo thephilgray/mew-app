@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { Membership } from "../API.ts";
+import { Track } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -22,26 +22,26 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type MembershipUpdateFormInputValues = {
-    status?: string;
+export declare type TrackUpdateFormInputValues = {
+    order?: number;
 };
-export declare type MembershipUpdateFormValidationValues = {
-    status?: ValidationFunction<string>;
+export declare type TrackUpdateFormValidationValues = {
+    order?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type MembershipUpdateFormOverridesProps = {
-    MembershipUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    status?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type TrackUpdateFormOverridesProps = {
+    TrackUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    order?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type MembershipUpdateFormProps = React.PropsWithChildren<{
-    overrides?: MembershipUpdateFormOverridesProps | undefined | null;
+export declare type TrackUpdateFormProps = React.PropsWithChildren<{
+    overrides?: TrackUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    membership?: Membership;
-    onSubmit?: (fields: MembershipUpdateFormInputValues) => MembershipUpdateFormInputValues;
-    onSuccess?: (fields: MembershipUpdateFormInputValues) => void;
-    onError?: (fields: MembershipUpdateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: MembershipUpdateFormInputValues) => MembershipUpdateFormInputValues;
-    onValidate?: MembershipUpdateFormValidationValues;
+    track?: Track;
+    onSubmit?: (fields: TrackUpdateFormInputValues) => TrackUpdateFormInputValues;
+    onSuccess?: (fields: TrackUpdateFormInputValues) => void;
+    onError?: (fields: TrackUpdateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: TrackUpdateFormInputValues) => TrackUpdateFormInputValues;
+    onValidate?: TrackUpdateFormValidationValues;
 } & React.CSSProperties>;
-export default function MembershipUpdateForm(props: MembershipUpdateFormProps): React.ReactElement;
+export default function TrackUpdateForm(props: TrackUpdateFormProps): React.ReactElement;

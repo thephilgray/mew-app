@@ -13,10 +13,10 @@ import {
   SwitchField,
   TextField,
 } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { FileRequest } from "../models";
-import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { API } from "aws-amplify";
+import { getFileRequest } from "../graphql/queries";
+import { updateFileRequest } from "../graphql/mutations";
 export default function FileRequestUpdateForm(props) {
   const {
     id: idProp,
@@ -30,24 +30,43 @@ export default function FileRequestUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
+    startDate: "",
     expiration: "",
     title: "",
     details: "",
     required: false,
+    playlistStartDate: "",
+    playlistExternalUrl: "",
+    type: "",
+    createdAt: "",
   };
+  const [startDate, setStartDate] = React.useState(initialValues.startDate);
   const [expiration, setExpiration] = React.useState(initialValues.expiration);
   const [title, setTitle] = React.useState(initialValues.title);
   const [details, setDetails] = React.useState(initialValues.details);
   const [required, setRequired] = React.useState(initialValues.required);
+  const [playlistStartDate, setPlaylistStartDate] = React.useState(
+    initialValues.playlistStartDate
+  );
+  const [playlistExternalUrl, setPlaylistExternalUrl] = React.useState(
+    initialValues.playlistExternalUrl
+  );
+  const [type, setType] = React.useState(initialValues.type);
+  const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = fileRequestRecord
       ? { ...initialValues, ...fileRequestRecord }
       : initialValues;
+    setStartDate(cleanValues.startDate);
     setExpiration(cleanValues.expiration);
     setTitle(cleanValues.title);
     setDetails(cleanValues.details);
     setRequired(cleanValues.required);
+    setPlaylistStartDate(cleanValues.playlistStartDate);
+    setPlaylistExternalUrl(cleanValues.playlistExternalUrl);
+    setType(cleanValues.type);
+    setCreatedAt(cleanValues.createdAt);
     setErrors({});
   };
   const [fileRequestRecord, setFileRequestRecord] =
@@ -55,7 +74,12 @@ export default function FileRequestUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(FileRequest, idProp)
+        ? (
+            await API.graphql({
+              query: getFileRequest.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getFileRequest
         : fileRequestModelProp;
       setFileRequestRecord(record);
     };
@@ -63,10 +87,15 @@ export default function FileRequestUpdateForm(props) {
   }, [idProp, fileRequestModelProp]);
   React.useEffect(resetStateValues, [fileRequestRecord]);
   const validations = {
+    startDate: [],
     expiration: [{ type: "Required" }],
     title: [],
     details: [],
     required: [],
+    playlistStartDate: [],
+    playlistExternalUrl: [],
+    type: [],
+    createdAt: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -111,10 +140,15 @@ export default function FileRequestUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
+          startDate: startDate ?? null,
           expiration,
-          title,
-          details,
-          required,
+          title: title ?? null,
+          details: details ?? null,
+          required: required ?? null,
+          playlistStartDate: playlistStartDate ?? null,
+          playlistExternalUrl: playlistExternalUrl ?? null,
+          type: type ?? null,
+          createdAt: createdAt ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -140,27 +174,66 @@ export default function FileRequestUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            FileRequest.copyOf(fileRequestRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await API.graphql({
+            query: updateFileRequest.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: fileRequestRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
       {...getOverrideProps(overrides, "FileRequestUpdateForm")}
       {...rest}
     >
+      <TextField
+        label="Start date"
+        isRequired={false}
+        isReadOnly={false}
+        type="datetime-local"
+        value={startDate && convertToLocal(new Date(startDate))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              startDate: value,
+              expiration,
+              title,
+              details,
+              required,
+              playlistStartDate,
+              playlistExternalUrl,
+              type,
+              createdAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.startDate ?? value;
+          }
+          if (errors.startDate?.hasError) {
+            runValidationTasks("startDate", value);
+          }
+          setStartDate(value);
+        }}
+        onBlur={() => runValidationTasks("startDate", startDate)}
+        errorMessage={errors.startDate?.errorMessage}
+        hasError={errors.startDate?.hasError}
+        {...getOverrideProps(overrides, "startDate")}
+      ></TextField>
       <TextField
         label="Expiration"
         isRequired={true}
@@ -172,10 +245,15 @@ export default function FileRequestUpdateForm(props) {
             e.target.value === "" ? "" : new Date(e.target.value).toISOString();
           if (onChange) {
             const modelFields = {
+              startDate,
               expiration: value,
               title,
               details,
               required,
+              playlistStartDate,
+              playlistExternalUrl,
+              type,
+              createdAt,
             };
             const result = onChange(modelFields);
             value = result?.expiration ?? value;
@@ -199,10 +277,15 @@ export default function FileRequestUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              startDate,
               expiration,
               title: value,
               details,
               required,
+              playlistStartDate,
+              playlistExternalUrl,
+              type,
+              createdAt,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -226,10 +309,15 @@ export default function FileRequestUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              startDate,
               expiration,
               title,
               details: value,
               required,
+              playlistStartDate,
+              playlistExternalUrl,
+              type,
+              createdAt,
             };
             const result = onChange(modelFields);
             value = result?.details ?? value;
@@ -253,10 +341,15 @@ export default function FileRequestUpdateForm(props) {
           let value = e.target.checked;
           if (onChange) {
             const modelFields = {
+              startDate,
               expiration,
               title,
               details,
               required: value,
+              playlistStartDate,
+              playlistExternalUrl,
+              type,
+              createdAt,
             };
             const result = onChange(modelFields);
             value = result?.required ?? value;
@@ -271,6 +364,140 @@ export default function FileRequestUpdateForm(props) {
         hasError={errors.required?.hasError}
         {...getOverrideProps(overrides, "required")}
       ></SwitchField>
+      <TextField
+        label="Playlist start date"
+        isRequired={false}
+        isReadOnly={false}
+        type="datetime-local"
+        value={playlistStartDate && convertToLocal(new Date(playlistStartDate))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              startDate,
+              expiration,
+              title,
+              details,
+              required,
+              playlistStartDate: value,
+              playlistExternalUrl,
+              type,
+              createdAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.playlistStartDate ?? value;
+          }
+          if (errors.playlistStartDate?.hasError) {
+            runValidationTasks("playlistStartDate", value);
+          }
+          setPlaylistStartDate(value);
+        }}
+        onBlur={() =>
+          runValidationTasks("playlistStartDate", playlistStartDate)
+        }
+        errorMessage={errors.playlistStartDate?.errorMessage}
+        hasError={errors.playlistStartDate?.hasError}
+        {...getOverrideProps(overrides, "playlistStartDate")}
+      ></TextField>
+      <TextField
+        label="Playlist external url"
+        isRequired={false}
+        isReadOnly={false}
+        value={playlistExternalUrl}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              startDate,
+              expiration,
+              title,
+              details,
+              required,
+              playlistStartDate,
+              playlistExternalUrl: value,
+              type,
+              createdAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.playlistExternalUrl ?? value;
+          }
+          if (errors.playlistExternalUrl?.hasError) {
+            runValidationTasks("playlistExternalUrl", value);
+          }
+          setPlaylistExternalUrl(value);
+        }}
+        onBlur={() =>
+          runValidationTasks("playlistExternalUrl", playlistExternalUrl)
+        }
+        errorMessage={errors.playlistExternalUrl?.errorMessage}
+        hasError={errors.playlistExternalUrl?.hasError}
+        {...getOverrideProps(overrides, "playlistExternalUrl")}
+      ></TextField>
+      <TextField
+        label="Type"
+        isRequired={false}
+        isReadOnly={false}
+        value={type}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              startDate,
+              expiration,
+              title,
+              details,
+              required,
+              playlistStartDate,
+              playlistExternalUrl,
+              type: value,
+              createdAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.type ?? value;
+          }
+          if (errors.type?.hasError) {
+            runValidationTasks("type", value);
+          }
+          setType(value);
+        }}
+        onBlur={() => runValidationTasks("type", type)}
+        errorMessage={errors.type?.errorMessage}
+        hasError={errors.type?.hasError}
+        {...getOverrideProps(overrides, "type")}
+      ></TextField>
+      <TextField
+        label="Created at"
+        isRequired={false}
+        isReadOnly={false}
+        value={createdAt}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              startDate,
+              expiration,
+              title,
+              details,
+              required,
+              playlistStartDate,
+              playlistExternalUrl,
+              type,
+              createdAt: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.createdAt ?? value;
+          }
+          if (errors.createdAt?.hasError) {
+            runValidationTasks("createdAt", value);
+          }
+          setCreatedAt(value);
+        }}
+        onBlur={() => runValidationTasks("createdAt", createdAt)}
+        errorMessage={errors.createdAt?.errorMessage}
+        hasError={errors.createdAt?.hasError}
+        {...getOverrideProps(overrides, "createdAt")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
