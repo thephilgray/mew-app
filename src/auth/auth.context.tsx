@@ -17,7 +17,9 @@ interface AuthState {
     setAuthStage(): Promise<void>,
     viewAdmin: Boolean | null,
     setViewAdmin(): Promise<void>,
-    refetchProfile(): Promise<void>
+    refetchProfile(): Promise<void>,
+    errorState: Error | null,
+    setErrorState(): Promise<void>
 }
 
 export const AuthContext = React.createContext<AuthState>({
@@ -32,7 +34,9 @@ export const AuthContext = React.createContext<AuthState>({
     authStage: 1,
     viewAdmin: null,
     setViewAdmin: () => { },
-    refetchProfile: () => { }
+    refetchProfile: () => { },
+    errorState: null,
+    setErrorState: () => { }
 })
 
 interface AuthProps {

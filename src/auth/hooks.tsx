@@ -17,6 +17,7 @@ export function useAuth() {
     const [loading, setLoading] = React.useState<Boolean>(true)
     const [authStage, setAuthStage] = React.useState(1)
     const [viewAdmin, setViewAdmin] = React.useState<Boolean | null>(null)
+    const [errorState, setErrorState] = React.useState<Error | null>(null)
 
     React.useEffect(() => {
         let active = true
@@ -89,8 +90,17 @@ export function useAuth() {
     const signIn = React.useCallback(
         async ({ email }: SignInInput) => {
             setLoading(true)
-            setCognitoUser(await Auth.signIn(email))
-            setLoading(false)
+            let authUser
+            try {
+                authUser = await Auth.signIn(email)
+                setCognitoUser(authUser)
+                setLoading(false)
+
+            } catch (error) {
+                setErrorState(error)
+                setLoading(false)
+                throw error;
+            }
         },
         [setCognitoUser],
     )
@@ -108,7 +118,7 @@ export function useAuth() {
                 const user = await Auth.currentAuthenticatedUser()
                 setUser(user)
             } catch (err) {
-                console.log('Apparently the user did not enter the right code')
+                setErrorState({ message: err, code: 'wrong or expired code' })
             }
             setLoading(false)
         },
@@ -146,6 +156,8 @@ export function useAuth() {
         setAuthStage,
         viewAdmin,
         setViewAdmin,
+        errorState,
+        setErrorState,
         refetchProfile: fetchUserProfile
     }
 }
@@ -244,4 +256,9 @@ export const useAuthStage = () => {
 export const useViewAdmin = () => {
     const { viewAdmin, setViewAdmin } = React.useContext(AuthContext)
     return [viewAdmin, setViewAdmin];
+}
+
+export const useAuthErrorState = () => {
+    const { errorState, setErrorState } = React.useContext(AuthContext)
+    return [errorState, setErrorState];
 }

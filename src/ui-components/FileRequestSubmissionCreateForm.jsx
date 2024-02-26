@@ -13,10 +13,9 @@ import {
   SwitchField,
   TextField,
 } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { FileRequestSubmission } from "../models";
-import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { API } from "aws-amplify";
+import { createFileRequestSubmission } from "../graphql/mutations";
 export default function FileRequestSubmissionCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -36,6 +35,7 @@ export default function FileRequestSubmissionCreateForm(props) {
     rating: "",
     lyrics: "",
     requestFeedback: false,
+    duration: "",
   };
   const [artist, setArtist] = React.useState(initialValues.artist);
   const [name, setName] = React.useState(initialValues.name);
@@ -48,6 +48,7 @@ export default function FileRequestSubmissionCreateForm(props) {
   const [requestFeedback, setRequestFeedback] = React.useState(
     initialValues.requestFeedback
   );
+  const [duration, setDuration] = React.useState(initialValues.duration);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setArtist(initialValues.artist);
@@ -57,6 +58,7 @@ export default function FileRequestSubmissionCreateForm(props) {
     setRating(initialValues.rating);
     setLyrics(initialValues.lyrics);
     setRequestFeedback(initialValues.requestFeedback);
+    setDuration(initialValues.duration);
     setErrors({});
   };
   const validations = {
@@ -67,6 +69,7 @@ export default function FileRequestSubmissionCreateForm(props) {
     rating: [],
     lyrics: [],
     requestFeedback: [],
+    duration: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -101,6 +104,7 @@ export default function FileRequestSubmissionCreateForm(props) {
           rating,
           lyrics,
           requestFeedback,
+          duration,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -126,11 +130,18 @@ export default function FileRequestSubmissionCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(new FileRequestSubmission(modelFields));
+          await API.graphql({
+            query: createFileRequestSubmission.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -139,7 +150,8 @@ export default function FileRequestSubmissionCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -162,6 +174,7 @@ export default function FileRequestSubmissionCreateForm(props) {
               rating,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.artist ?? value;
@@ -192,6 +205,7 @@ export default function FileRequestSubmissionCreateForm(props) {
               rating,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -222,6 +236,7 @@ export default function FileRequestSubmissionCreateForm(props) {
               rating,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.fileId ?? value;
@@ -252,6 +267,7 @@ export default function FileRequestSubmissionCreateForm(props) {
               rating,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.fileExtension ?? value;
@@ -286,6 +302,7 @@ export default function FileRequestSubmissionCreateForm(props) {
               rating: value,
               lyrics,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.rating ?? value;
@@ -316,6 +333,7 @@ export default function FileRequestSubmissionCreateForm(props) {
               rating,
               lyrics: value,
               requestFeedback,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.lyrics ?? value;
@@ -346,6 +364,7 @@ export default function FileRequestSubmissionCreateForm(props) {
               rating,
               lyrics,
               requestFeedback: value,
+              duration,
             };
             const result = onChange(modelFields);
             value = result?.requestFeedback ?? value;
@@ -360,6 +379,41 @@ export default function FileRequestSubmissionCreateForm(props) {
         hasError={errors.requestFeedback?.hasError}
         {...getOverrideProps(overrides, "requestFeedback")}
       ></SwitchField>
+      <TextField
+        label="Duration"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={duration}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              artist,
+              name,
+              fileId,
+              fileExtension,
+              rating,
+              lyrics,
+              requestFeedback,
+              duration: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.duration ?? value;
+          }
+          if (errors.duration?.hasError) {
+            runValidationTasks("duration", value);
+          }
+          setDuration(value);
+        }}
+        onBlur={() => runValidationTasks("duration", duration)}
+        errorMessage={errors.duration?.errorMessage}
+        hasError={errors.duration?.hasError}
+        {...getOverrideProps(overrides, "duration")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

@@ -7,14 +7,14 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Workshop } from "../models";
-import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { API } from "aws-amplify";
+import { getWorkshop } from "../graphql/queries";
+import { updateWorkshop } from "../graphql/mutations";
 export default function WorkshopUpdateForm(props) {
   const {
     id: idProp,
-    workshop,
+    workshop: workshopModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -27,10 +27,18 @@ export default function WorkshopUpdateForm(props) {
     name: "",
     status: "",
     passes: "",
+    description: "",
+    startDate: "",
+    endDate: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [status, setStatus] = React.useState(initialValues.status);
   const [passes, setPasses] = React.useState(initialValues.passes);
+  const [description, setDescription] = React.useState(
+    initialValues.description
+  );
+  const [startDate, setStartDate] = React.useState(initialValues.startDate);
+  const [endDate, setEndDate] = React.useState(initialValues.endDate);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = workshopRecord
@@ -39,32 +47,44 @@ export default function WorkshopUpdateForm(props) {
     setName(cleanValues.name);
     setStatus(cleanValues.status);
     setPasses(cleanValues.passes);
+    setDescription(cleanValues.description);
+    setStartDate(cleanValues.startDate);
+    setEndDate(cleanValues.endDate);
     setErrors({});
   };
-  const [workshopRecord, setWorkshopRecord] = React.useState(workshop);
+  const [workshopRecord, setWorkshopRecord] = React.useState(workshopModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Workshop, idProp)
-        : workshop;
+        ? (
+            await API.graphql({
+              query: getWorkshop.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getWorkshop
+        : workshopModelProp;
       setWorkshopRecord(record);
     };
     queryData();
-  }, [idProp, workshop]);
+  }, [idProp, workshopModelProp]);
   React.useEffect(resetStateValues, [workshopRecord]);
   const validations = {
     name: [],
     status: [],
     passes: [],
+    description: [],
+    startDate: [],
+    endDate: [],
   };
   const runValidationTasks = async (
     fieldName,
     currentValue,
     getDisplayValue
   ) => {
-    const value = getDisplayValue
-      ? getDisplayValue(currentValue)
-      : currentValue;
+    const value =
+      currentValue && getDisplayValue
+        ? getDisplayValue(currentValue)
+        : currentValue;
     let validationResponse = validateField(value, validations[fieldName]);
     const customValidator = fetchByPath(onValidate, fieldName);
     if (customValidator) {
@@ -72,6 +92,23 @@ export default function WorkshopUpdateForm(props) {
     }
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
+  };
+  const convertToLocal = (date) => {
+    const df = new Intl.DateTimeFormat("default", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      calendar: "iso8601",
+      numberingSystem: "latn",
+      hourCycle: "h23",
+    });
+    const parts = df.formatToParts(date).reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
+    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
   };
   return (
     <Grid
@@ -82,9 +119,12 @@ export default function WorkshopUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          name,
-          status,
-          passes,
+          name: name ?? null,
+          status: status ?? null,
+          passes: passes ?? null,
+          description: description ?? null,
+          startDate: startDate ?? null,
+          endDate: endDate ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -110,21 +150,26 @@ export default function WorkshopUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            Workshop.copyOf(workshopRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await API.graphql({
+            query: updateWorkshop.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: workshopRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -143,6 +188,9 @@ export default function WorkshopUpdateForm(props) {
               name: value,
               status,
               passes,
+              description,
+              startDate,
+              endDate,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -169,6 +217,9 @@ export default function WorkshopUpdateForm(props) {
               name,
               status: value,
               passes,
+              description,
+              startDate,
+              endDate,
             };
             const result = onChange(modelFields);
             value = result?.status ?? value;
@@ -199,6 +250,9 @@ export default function WorkshopUpdateForm(props) {
               name,
               status,
               passes: value,
+              description,
+              startDate,
+              endDate,
             };
             const result = onChange(modelFields);
             value = result?.passes ?? value;
@@ -213,6 +267,97 @@ export default function WorkshopUpdateForm(props) {
         hasError={errors.passes?.hasError}
         {...getOverrideProps(overrides, "passes")}
       ></TextField>
+      <TextField
+        label="Description"
+        isRequired={false}
+        isReadOnly={false}
+        value={description}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              status,
+              passes,
+              description: value,
+              startDate,
+              endDate,
+            };
+            const result = onChange(modelFields);
+            value = result?.description ?? value;
+          }
+          if (errors.description?.hasError) {
+            runValidationTasks("description", value);
+          }
+          setDescription(value);
+        }}
+        onBlur={() => runValidationTasks("description", description)}
+        errorMessage={errors.description?.errorMessage}
+        hasError={errors.description?.hasError}
+        {...getOverrideProps(overrides, "description")}
+      ></TextField>
+      <TextField
+        label="Start date"
+        isRequired={false}
+        isReadOnly={false}
+        type="datetime-local"
+        value={startDate && convertToLocal(new Date(startDate))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              name,
+              status,
+              passes,
+              description,
+              startDate: value,
+              endDate,
+            };
+            const result = onChange(modelFields);
+            value = result?.startDate ?? value;
+          }
+          if (errors.startDate?.hasError) {
+            runValidationTasks("startDate", value);
+          }
+          setStartDate(value);
+        }}
+        onBlur={() => runValidationTasks("startDate", startDate)}
+        errorMessage={errors.startDate?.errorMessage}
+        hasError={errors.startDate?.hasError}
+        {...getOverrideProps(overrides, "startDate")}
+      ></TextField>
+      <TextField
+        label="End date"
+        isRequired={false}
+        isReadOnly={false}
+        type="datetime-local"
+        value={endDate && convertToLocal(new Date(endDate))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          if (onChange) {
+            const modelFields = {
+              name,
+              status,
+              passes,
+              description,
+              startDate,
+              endDate: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.endDate ?? value;
+          }
+          if (errors.endDate?.hasError) {
+            runValidationTasks("endDate", value);
+          }
+          setEndDate(value);
+        }}
+        onBlur={() => runValidationTasks("endDate", endDate)}
+        errorMessage={errors.endDate?.errorMessage}
+        hasError={errors.endDate?.hasError}
+        {...getOverrideProps(overrides, "endDate")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
@@ -224,7 +369,7 @@ export default function WorkshopUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || workshop)}
+          isDisabled={!(idProp || workshopModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -236,7 +381,7 @@ export default function WorkshopUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || workshop) ||
+              !(idProp || workshopModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

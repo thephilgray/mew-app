@@ -17,7 +17,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
     filename: `${metaData?.name} - ${metaData?.singer}`
   })
 
-  return <ReactJkMusicPlayer
+  return audioLists.length ? <ReactJkMusicPlayer
     getAudioInstance={(instance) => {
       playerRef.current = instance
     }}
@@ -88,6 +88,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
         navigate(ROUTES.assignmentPlaylist.getPath({ assignmentId }))
       }
     }}
-  />
+  /> : null
 }
 export default AudioPlayer;

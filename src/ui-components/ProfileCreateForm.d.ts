@@ -6,7 +6,16 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+export declare type EscapeHatchProps = {
+    [elementHierarchy: string]: Record<string, unknown>;
+} | null;
+export declare type VariantValues = {
+    [key: string]: string;
+};
+export declare type Variant = {
+    variantValues: VariantValues;
+    overrides: EscapeHatchProps;
+};
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -15,6 +24,7 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type ProfileCreateFormInputValues = {
     email?: string;
     name?: string;
+    displayName?: string;
     avatar?: string;
     bio?: string;
     sub?: string;
@@ -22,6 +32,7 @@ export declare type ProfileCreateFormInputValues = {
 export declare type ProfileCreateFormValidationValues = {
     email?: ValidationFunction<string>;
     name?: ValidationFunction<string>;
+    displayName?: ValidationFunction<string>;
     avatar?: ValidationFunction<string>;
     bio?: ValidationFunction<string>;
     sub?: ValidationFunction<string>;
@@ -31,6 +42,7 @@ export declare type ProfileCreateFormOverridesProps = {
     ProfileCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     email?: PrimitiveOverrideProps<TextFieldProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
+    displayName?: PrimitiveOverrideProps<TextFieldProps>;
     avatar?: PrimitiveOverrideProps<TextFieldProps>;
     bio?: PrimitiveOverrideProps<TextFieldProps>;
     sub?: PrimitiveOverrideProps<TextFieldProps>;

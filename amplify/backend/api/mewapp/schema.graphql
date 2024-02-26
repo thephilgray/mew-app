@@ -136,6 +136,7 @@ type FileRequestSubmission
   fileExtension: String
   rating: Int
   comments: [Comment] @hasMany(indexName: "bySubmission", fields: ["id"])
+  # reactions: [Reaction] @hasMany
   stems: [Stem] @manyToMany(relationName: "SubmissionStems")
   artwork: Artwork
   lyrics: String
@@ -309,7 +310,49 @@ type Profile
   prompts: [Prompt] @hasMany(indexName: "promptsByEmail", fields: ["email"])
   # downloadedStems: [Stem] @manyToMany(relationName: "SavedStems")
   location: Location
+  # mentions: [Mentions] @hasMany(indexName: "mentionsByEmail", fields: ["email"])
 }
+
+# type Reaction
+#   @model
+#   @auth(
+#     rules: [
+#       { allow: private, provider: iam }
+#       { allow: private, operations: [read, create, update, delete] }
+#       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+#       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+#     ]
+#   ) {
+#   id: ID!
+#   email: String! @index(name: "reactionsByEmail")
+#   reactionName: String
+#   profile: Profile @hasOne(fields: ["email"])
+#   commentId: ID
+#   comment: Comment @belongsTo(fields: ["commentId"])
+#   submissionId: ID
+#   submission: FileRequestSubmission @belongsTo(fields: ["submissionId"])
+#   createdAt: String
+#   viewed: Boolean
+# }
+
+# type Mention
+#   @model
+#   @auth(
+#     rules: [
+#       { allow: private, provider: iam }
+#       { allow: private, operations: [read, create, update, delete] }
+#       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+#       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
+#     ]
+#   ) {
+#   id: ID!
+#   email: String! @index(name: "mentionsByEmail")
+#   profile: Profile @hasOne(fields: ["email"])
+#   commentId: ID @index(name: "mentionsByComment")
+#   comment: Comment @belongsTo(fields: ["commentId"])
+#   createdAt: String
+#   viewed: Boolean
+# }
 
 type Comment
   @model
@@ -339,6 +382,9 @@ type Comment
       sortKeyFields: ["createdAt"]
     )
   createdAt: String
+  # mentions: [Mention] @hasMany(indexName: "mentionsByComment", fields: ["id"])
+  # reactions: [Reaction]
+  #   @hasMany(indexName: "reactionsByEmail", fields: ["email"])
 }
 
 type Stem
