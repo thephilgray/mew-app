@@ -5,6 +5,7 @@ import { Delete, Edit, Send, Comment as CommentIcon, Person, People, Save } from
 import { Link } from "@reach/router"
 import { gql, useMutation } from "@apollo/client"
 import { createComment, deleteComment, updateComment } from "../graphql/d3/mutations"
+// import { createMention } from "../graphql/d3/mutations"
 import { API, graphqlOperation } from "aws-amplify"
 import { listComments, commentsByDate, getFileRequestSubmission } from "./feedback.queries"
 import { compareDesc, formatDistanceToNow, isPast } from "date-fns"
@@ -236,6 +237,11 @@ const FeedbackSection = ({
     { error: createCommentRequestError, data: createCommentRequestData }
   ] = useMutation(gql(createComment))
 
+  // const [
+  //   createMentionRequest,
+  //   { error: createMentionRequestError, data: createMentionRequestData }
+  // ] = useMutation(gql(createMention))
+
   const [
     deleteCommentRequest,
     { error: deleteCommentRequestError, data: deleteCommentRequestData }
@@ -368,6 +374,18 @@ const FeedbackSection = ({
         type: "Comment"
       }
       return createCommentRequest({ variables: { input } })
+      // .then((resp) => {
+      //   if (resp?.data?.createComment?.id) {
+      //     return createMentionRequest({
+      //       variables: {
+      //         input: {
+      //           email: user?.email,
+      //           commentId: resp?.data?.createComment?.id
+      //         }
+      //       }
+      //     })
+      //   }
+      // })
     }
 
   const removeComment = comment => (e) => {

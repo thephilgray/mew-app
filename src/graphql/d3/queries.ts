@@ -2233,198 +2233,6 @@ export const profileByProfileId = /* GraphQL */ `query ProfileByProfileId(
   APITypes.ProfileByProfileIdQueryVariables,
   APITypes.ProfileByProfileIdQuery
 >;
-export const getMention = /* GraphQL */ `query GetMention($id: ID!) {
-  getMention(id: $id) {
-    id
-    email
-    profile {
-      email
-      id
-      name
-      displayName
-      links {
-        id
-        text
-        url
-        __typename
-      }
-      avatar
-      bio
-      sub
-      apiKeys {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      submissions {
-        nextToken
-        __typename
-      }
-      memberships {
-        nextToken
-        __typename
-      }
-      features {
-        __typename
-      }
-      playlists {
-        nextToken
-        __typename
-      }
-      uploadedStems {
-        nextToken
-        __typename
-      }
-      prompts {
-        nextToken
-        __typename
-      }
-      location {
-        latitude
-        longitude
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    commentId
-    comment {
-      id
-      content
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      submissionId
-      submission {
-        id
-        fileRequestId
-        artist
-        name
-        email
-        fileId
-        fileExtension
-        rating
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      assignmentId
-      assignment {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      workshopId
-      workshop {
-        id
-        name
-        email
-        status
-        passes
-        description
-        startDate
-        endDate
-        createdAt
-        updatedAt
-        __typename
-      }
-      parentId
-      type
-      createdAt
-      mentions {
-        nextToken
-        __typename
-      }
-      updatedAt
-      __typename
-    }
-    createdAt
-    viewed
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetMentionQueryVariables,
-  APITypes.GetMentionQuery
->;
-export const listMentions = /* GraphQL */ `query ListMentions(
-  $filter: ModelMentionFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listMentions(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      commentId
-      comment {
-        id
-        content
-        email
-        submissionId
-        assignmentId
-        workshopId
-        parentId
-        type
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      viewed
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListMentionsQueryVariables,
-  APITypes.ListMentionsQuery
->;
 export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
   getComment(id: $id) {
     id
@@ -2649,19 +2457,6 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
     parentId
     type
     createdAt
-    mentions {
-      items {
-        id
-        email
-        commentId
-        createdAt
-        viewed
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     updatedAt
     __typename
   }
@@ -2744,10 +2539,6 @@ export const listComments = /* GraphQL */ `query ListComments(
       parentId
       type
       createdAt
-      mentions {
-        nextToken
-        __typename
-      }
       updatedAt
       __typename
     }
@@ -2843,10 +2634,6 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
       parentId
       type
       createdAt
-      mentions {
-        nextToken
-        __typename
-      }
       updatedAt
       __typename
     }
