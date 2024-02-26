@@ -181,7 +181,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     // switch the current index if track in the query params
     useEffect(() => {
         // still very hacky and somewhat glitchy but seems to work in most cases
-        if (audioLists.length > 0 && [null, 0].includes(currentIndex)) {
+        if (audioLists.length > 0) {
             const params = new URLSearchParams(window.location.search)
             const track = params.get('track') // track is actually submissionId
             if (track) {
@@ -319,6 +319,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
     useEffect(() => {
         async function addSongsToPlaylist() {
+            if (!canView) return;
             setAddSongsToPlaylistLoading(true)
             const songs: Array<ReactJkMusicPlayerAudioListProps> = []
             const seenFileIds: string[] = []
@@ -393,7 +394,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             setAddSongsToPlaylistLoading(false)
         }
         addSongsToPlaylist()
-    }, [data])
+    }, [data, canView])
 
     useEffect(() => {
         let isSubscribed = true

@@ -7,7 +7,7 @@ import { gql, useMutation } from "@apollo/client"
 import { createComment, deleteComment, updateComment } from "../graphql/d3/mutations"
 import { API, graphqlOperation } from "aws-amplify"
 import { listComments, commentsByDate, getFileRequestSubmission } from "./feedback.queries"
-import { compareDesc, formatDistanceToNow } from "date-fns"
+import { compareDesc, formatDistanceToNow, isPast } from "date-fns"
 import { onCreateComment, onDeleteComment, onUpdateComment } from "../graphql/d3/subscriptions"
 import { getCloudFrontURL, getDisplayName } from "../utils"
 import If from "./If"
@@ -107,6 +107,8 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
   const basePathToTrack = comment?.assignment?.playlist ?
     ROUTES.playlist.getPath({ playlistId: comment.assignment.playlist.id }) :
     ROUTES.assignmentPlaylist.getPath({ assignmentId: comment?.assignmentId });
+  const startDate = comment?.assignment?.playlistStartDate;
+  const canView = !!viewAdmin || (startDate ? isPast(new Date(startDate)) : true)
 
   return (<Paper elevation={1} sx={{ p: 2, mb: 1 }} key={comment.id}>
     <Grid container wrap="nowrap" spacing={2}>
@@ -125,9 +127,11 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
           </Link>
           <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – </span>
           <If condition={comment?.submission?.id} fallbackContent={<em>Submission deleted</em>}>
-            <Link to={basePathToTrack + `?track=${comment?.submission?.id}`}>
-              <em>{comment?.submission?.name} by {comment?.submission?.artist}</em>
-            </Link>
+            <If condition={canView} fallbackContent={<em>{comment?.submission?.name} by {comment?.submission?.artist}</em>}>
+              <Link to={basePathToTrack + `?track=${comment?.submission?.id}`}>
+                <em>{comment?.submission?.name} by {comment?.submission?.artist}</em>
+              </Link>
+            </If>
           </If>
         </h4>
         <If condition={!editing}>
