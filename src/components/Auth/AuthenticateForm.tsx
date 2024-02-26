@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { Button, Grid, Input, Link, Typography } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
-import { useAnswerCustomChallenge, useAuthStage, useSignIn, useSignUp } from '../../auth/hooks'
+import { useAnswerCustomChallenge, useAuthStage, useSignIn, useSignUp, useAuthErrorState } from '../../auth/hooks'
 
 const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
     const signIn = useSignIn()
     const signup = useSignUp()
     const answerCustomChallenge = useAnswerCustomChallenge()
     const [authStage, setAuthStage] = useAuthStage()
+    const [errorState, setErrorState] = useAuthErrorState()
 
     const [state, setState] = useState({
         username: ``,
@@ -27,10 +28,12 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
         try {
             // await signIn(username)
             await signIn({ email: username })
-            setState((prevState) => ({ ...prevState, stage: 2, error: null }))
+            setState((prevState) => ({ ...prevState, stage: 2 }))
+            setErrorState(null);
             setAuthStage(2)
         } catch (err) {
-            setState((prevState) => ({ ...prevState, error: err }))
+            setErrorState(err);
+            setState((prevState) => ({ ...prevState }))
         }
     }
 
@@ -44,8 +47,8 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
         try {
             await answerCustomChallenge({ answer: verifyCode })
         } catch (err) {
-            console.log({ err })
-            setState((prevState) => ({ ...prevState, error: err }))
+            setErrorState(err);
+            setState((prevState) => ({ ...prevState }))
         }
     }
 
@@ -56,12 +59,13 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
             await signup({ email: username.toLowerCase(), name })
             await loginHandler()
         } catch (err) {
-            setState((prevState) => ({ ...prevState, error: err }))
+            setErrorState(err);
+            setState((prevState) => ({ ...prevState }))
         }
     }
 
-    const userNotFound = state.error?.code === 'UserNotFoundException'
-    const userAlreadyExists = state.error?.code === 'UsernameExistsException'
+    const userNotFound = errorState?.code === 'UserNotFoundException'
+    const userAlreadyExists = errorState?.code === 'UsernameExistsException'
 
     const signupLink = (
         <Link
@@ -69,7 +73,8 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
             variant="body2"
             onClick={(e) => {
                 e.preventDefault()
-                setState((prevState) => ({ ...prevState, stage: 0, error: null }))
+                setState((prevState) => ({ ...prevState, stage: 0 }))
+                setErrorState(null)
                 setAuthStage(0)
             }}
             underline="hover">
@@ -83,7 +88,8 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
             variant="body2"
             onClick={(e) => {
                 e.preventDefault()
-                setState((prevState) => ({ ...prevState, stage: 1, error: null }))
+                setState((prevState) => ({ ...prevState, stage: 1 }))
+                setErrorState(null)
                 setAuthStage(1)
             }}
             underline="hover">
@@ -103,11 +109,11 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                             <Typography>User already exists. Try signing in.</Typography>
                         )}
                         {authStage === 1 && userNotFound && (
-                            <Typography>User not found. Trying signing up.</Typography>
+                            <Typography>User not found. Hint: you may have signed up using a capital first letter and this is case sensitive.</Typography>
                         )}
-                        {state.error && ![userAlreadyExists, userNotFound].some(Boolean) && (
+                        {errorState && ![userAlreadyExists, userNotFound].some(Boolean) && (
                             <Typography>
-                                Something went wrong. Error code: {state.error?.code}. {signinLink}
+                                Something went wrong. Error code: {errorState?.code}. {signinLink}
                             </Typography>
                         )}
                     </Grid>
@@ -147,7 +153,7 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                                     </Grid>
                                     <Grid item>
                                         <Button
-                                            disabled={authStage === 0}
+                                            disabled={authStage === 0 || !state.username}
                                             type="submit"
                                             variant="contained"
                                             color="primary"
@@ -176,7 +182,7 @@ const AuthenticateForm: React.FC<RouteComponentProps> = (): JSX.Element => {
                                         />
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained" color="primary" type="submit">
+                                        <Button disabled={!state.verifyCode} variant="contained" color="primary" type="submit">
                                             <span>Verify</span>
                                         </Button>
                                     </Grid>
