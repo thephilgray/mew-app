@@ -917,22 +917,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
       nextToken
       __typename
     }
-    reactions {
-      items {
-        id
-        email
-        reactionName
-        commentId
-        submissionId
-        createdAt
-        viewed
-        updatedAt
-        fileRequestSubmissionReactionsId
-        __typename
-      }
-      nextToken
-      __typename
-    }
     stems {
       items {
         id
@@ -1097,22 +1081,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
         type
         createdAt
         updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    reactions {
-      items {
-        id
-        email
-        reactionName
-        commentId
-        submissionId
-        createdAt
-        viewed
-        updatedAt
-        fileRequestSubmissionReactionsId
         __typename
       }
       nextToken
@@ -1287,22 +1255,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
       nextToken
       __typename
     }
-    reactions {
-      items {
-        id
-        email
-        reactionName
-        commentId
-        submissionId
-        createdAt
-        viewed
-        updatedAt
-        fileRequestSubmissionReactionsId
-        __typename
-      }
-      nextToken
-      __typename
-    }
     stems {
       items {
         id
@@ -1378,10 +1330,6 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
       fileExtension
       rating
       comments {
-        nextToken
-        __typename
-      }
-      reactions {
         nextToken
         __typename
       }
@@ -1495,10 +1443,6 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
         nextToken
         __typename
       }
-      reactions {
-        nextToken
-        __typename
-      }
       stems {
         nextToken
         __typename
@@ -1606,10 +1550,6 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
       fileExtension
       rating
       comments {
-        nextToken
-        __typename
-      }
-      reactions {
         nextToken
         __typename
       }
@@ -3332,657 +3272,6 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
   APITypes.DeleteProfileMutationVariables,
   APITypes.DeleteProfileMutation
 >;
-export const createReaction = /* GraphQL */ `mutation CreateReaction(
-  $input: CreateReactionInput!
-  $condition: ModelReactionConditionInput
-) {
-  createReaction(input: $input, condition: $condition) {
-    id
-    email
-    reactionName
-    profile {
-      email
-      id
-      name
-      displayName
-      links {
-        id
-        text
-        url
-        __typename
-      }
-      avatar
-      bio
-      sub
-      apiKeys {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      submissions {
-        nextToken
-        __typename
-      }
-      memberships {
-        nextToken
-        __typename
-      }
-      features {
-        __typename
-      }
-      playlists {
-        nextToken
-        __typename
-      }
-      uploadedStems {
-        nextToken
-        __typename
-      }
-      prompts {
-        nextToken
-        __typename
-      }
-      location {
-        latitude
-        longitude
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    commentId
-    comment {
-      id
-      content
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      submissionId
-      submission {
-        id
-        fileRequestId
-        artist
-        name
-        email
-        fileId
-        fileExtension
-        rating
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      assignmentId
-      assignment {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      workshopId
-      workshop {
-        id
-        name
-        email
-        status
-        passes
-        description
-        startDate
-        endDate
-        createdAt
-        updatedAt
-        __typename
-      }
-      parentId
-      type
-      createdAt
-      mentions {
-        nextToken
-        __typename
-      }
-      reactions {
-        nextToken
-        __typename
-      }
-      updatedAt
-      __typename
-    }
-    submissionId
-    submission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        nextToken
-        __typename
-      }
-      reactions {
-        nextToken
-        __typename
-      }
-      stems {
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      workshopId
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    viewed
-    updatedAt
-    fileRequestSubmissionReactionsId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateReactionMutationVariables,
-  APITypes.CreateReactionMutation
->;
-export const updateReaction = /* GraphQL */ `mutation UpdateReaction(
-  $input: UpdateReactionInput!
-  $condition: ModelReactionConditionInput
-) {
-  updateReaction(input: $input, condition: $condition) {
-    id
-    email
-    reactionName
-    profile {
-      email
-      id
-      name
-      displayName
-      links {
-        id
-        text
-        url
-        __typename
-      }
-      avatar
-      bio
-      sub
-      apiKeys {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      submissions {
-        nextToken
-        __typename
-      }
-      memberships {
-        nextToken
-        __typename
-      }
-      features {
-        __typename
-      }
-      playlists {
-        nextToken
-        __typename
-      }
-      uploadedStems {
-        nextToken
-        __typename
-      }
-      prompts {
-        nextToken
-        __typename
-      }
-      location {
-        latitude
-        longitude
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    commentId
-    comment {
-      id
-      content
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      submissionId
-      submission {
-        id
-        fileRequestId
-        artist
-        name
-        email
-        fileId
-        fileExtension
-        rating
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      assignmentId
-      assignment {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      workshopId
-      workshop {
-        id
-        name
-        email
-        status
-        passes
-        description
-        startDate
-        endDate
-        createdAt
-        updatedAt
-        __typename
-      }
-      parentId
-      type
-      createdAt
-      mentions {
-        nextToken
-        __typename
-      }
-      reactions {
-        nextToken
-        __typename
-      }
-      updatedAt
-      __typename
-    }
-    submissionId
-    submission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        nextToken
-        __typename
-      }
-      reactions {
-        nextToken
-        __typename
-      }
-      stems {
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      workshopId
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    viewed
-    updatedAt
-    fileRequestSubmissionReactionsId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateReactionMutationVariables,
-  APITypes.UpdateReactionMutation
->;
-export const deleteReaction = /* GraphQL */ `mutation DeleteReaction(
-  $input: DeleteReactionInput!
-  $condition: ModelReactionConditionInput
-) {
-  deleteReaction(input: $input, condition: $condition) {
-    id
-    email
-    reactionName
-    profile {
-      email
-      id
-      name
-      displayName
-      links {
-        id
-        text
-        url
-        __typename
-      }
-      avatar
-      bio
-      sub
-      apiKeys {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      submissions {
-        nextToken
-        __typename
-      }
-      memberships {
-        nextToken
-        __typename
-      }
-      features {
-        __typename
-      }
-      playlists {
-        nextToken
-        __typename
-      }
-      uploadedStems {
-        nextToken
-        __typename
-      }
-      prompts {
-        nextToken
-        __typename
-      }
-      location {
-        latitude
-        longitude
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    commentId
-    comment {
-      id
-      content
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      submissionId
-      submission {
-        id
-        fileRequestId
-        artist
-        name
-        email
-        fileId
-        fileExtension
-        rating
-        lyrics
-        requestFeedback
-        duration
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      assignmentId
-      assignment {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      workshopId
-      workshop {
-        id
-        name
-        email
-        status
-        passes
-        description
-        startDate
-        endDate
-        createdAt
-        updatedAt
-        __typename
-      }
-      parentId
-      type
-      createdAt
-      mentions {
-        nextToken
-        __typename
-      }
-      reactions {
-        nextToken
-        __typename
-      }
-      updatedAt
-      __typename
-    }
-    submissionId
-    submission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        nextToken
-        __typename
-      }
-      reactions {
-        nextToken
-        __typename
-      }
-      stems {
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      workshopId
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    viewed
-    updatedAt
-    fileRequestSubmissionReactionsId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteReactionMutationVariables,
-  APITypes.DeleteReactionMutation
->;
 export const createMention = /* GraphQL */ `mutation CreateMention(
   $input: CreateMentionInput!
   $condition: ModelMentionConditionInput
@@ -4114,10 +3403,6 @@ export const createMention = /* GraphQL */ `mutation CreateMention(
       type
       createdAt
       mentions {
-        nextToken
-        __typename
-      }
-      reactions {
         nextToken
         __typename
       }
@@ -4268,10 +3553,6 @@ export const updateMention = /* GraphQL */ `mutation UpdateMention(
         nextToken
         __typename
       }
-      reactions {
-        nextToken
-        __typename
-      }
       updatedAt
       __typename
     }
@@ -4419,10 +3700,6 @@ export const deleteMention = /* GraphQL */ `mutation DeleteMention(
         nextToken
         __typename
       }
-      reactions {
-        nextToken
-        __typename
-      }
       updatedAt
       __typename
     }
@@ -4540,10 +3817,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         nextToken
         __typename
       }
-      reactions {
-        nextToken
-        __typename
-      }
       stems {
         nextToken
         __typename
@@ -4675,22 +3948,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         createdAt
         viewed
         updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    reactions {
-      items {
-        id
-        email
-        reactionName
-        commentId
-        submissionId
-        createdAt
-        viewed
-        updatedAt
-        fileRequestSubmissionReactionsId
         __typename
       }
       nextToken
@@ -4808,10 +4065,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         nextToken
         __typename
       }
-      reactions {
-        nextToken
-        __typename
-      }
       stems {
         nextToken
         __typename
@@ -4943,22 +4196,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         createdAt
         viewed
         updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    reactions {
-      items {
-        id
-        email
-        reactionName
-        commentId
-        submissionId
-        createdAt
-        viewed
-        updatedAt
-        fileRequestSubmissionReactionsId
         __typename
       }
       nextToken
@@ -5076,10 +4313,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         nextToken
         __typename
       }
-      reactions {
-        nextToken
-        __typename
-      }
       stems {
         nextToken
         __typename
@@ -5211,22 +4444,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         createdAt
         viewed
         updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    reactions {
-      items {
-        id
-        email
-        reactionName
-        commentId
-        submissionId
-        createdAt
-        viewed
-        updatedAt
-        fileRequestSubmissionReactionsId
         __typename
       }
       nextToken
@@ -5790,10 +5007,6 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
         nextToken
         __typename
       }
-      reactions {
-        nextToken
-        __typename
-      }
       stems {
         nextToken
         __typename
@@ -5905,10 +5118,6 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
         nextToken
         __typename
       }
-      reactions {
-        nextToken
-        __typename
-      }
       stems {
         nextToken
         __typename
@@ -6017,10 +5226,6 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
       fileExtension
       rating
       comments {
-        nextToken
-        __typename
-      }
-      reactions {
         nextToken
         __typename
       }
