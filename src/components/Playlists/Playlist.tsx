@@ -48,7 +48,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     assignmentId = '',
     playlistId,
 }) => {
-    const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef, playlistId: globalPlaylistId, setPlaylistId: setGlobalPlaylistId, assignmentId: globalAssignmentId, setAssignmentId: setGlobalAssignmentId } = useContext(AudioPlayerContext)
+    const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef, playlistId: globalPlaylistId, setPlaylistId: setGlobalPlaylistId, assignmentId: globalAssignmentId, setAssignmentId: setGlobalAssignmentId, previousAssignmentId } = useContext(AudioPlayerContext)
     const [loading, setLoading] = useState(false)
     const [addSongsToPlaylistLoading, setAddSongsToPlaylistLoading] = useState(false)
     const [toggleTrackView, setToggleTrackView] = useState(false)
@@ -153,9 +153,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const canView = !!viewAdmin || (data?.playlistStartDate ? isPast(new Date(data?.playlistStartDate)) : true)
 
     useEffect(() => {
-
         if (playlistId) {
-            if (globalPlaylistId !== playlistId) {
+            if (globalPlaylistId != previousAssignmentId) {
                 setAudioLists([])
                 setGlobalPlaylistId(playlistId)
                 setGlobalAssignmentId(null)
@@ -164,7 +163,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         }
 
         if (assignmentId) {
-            if (globalAssignmentId !== assignmentId) {
+            if (globalPlaylistId != previousAssignmentId) {
                 setAudioLists([])
                 setGlobalAssignmentId(assignmentId)
                 setGlobalPlaylistId(null)
@@ -175,7 +174,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         return () => {
 
         }
-    }, [playlistId, assignmentId])
+    }, [playlistId, assignmentId, globalAssignmentId])
 
 
     // switch the current index if track in the query params

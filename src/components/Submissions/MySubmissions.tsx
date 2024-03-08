@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { submissionsByEmail } from '../../graphql/d3/queries'
 import { useUser } from '../../auth/hooks'
 import { gql, useQuery } from '@apollo/react-hooks'
-import { Grid, SortDirection } from '@mui/material'
+import { Button, Grid, IconButton, SortDirection } from '@mui/material'
 import { DataGridWrapper } from '../DataGridWrapper'
 import { DataGrid, GridOverlay, GridColDef } from '@mui/x-data-grid'
 import { Typography } from '@mui/material'
-import { format } from 'date-fns';
+import { format, compareDesc } from 'date-fns';
 import { getCloudFrontURL } from '../../utils'
-import { OpenInNew } from '@mui/icons-material'
-import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer'
+import { OpenInNew, PlayArrow, PlayArrowTwoTone as PlayArrowIcon } from '@mui/icons-material'
 import Loading from '../Loading'
 import Error from '../Error'
+import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
+import mewAppLogo from '../../assets/mewlogo.png'
+import { AudioPlayerContext } from '../AudioPlayer/audio-player.context'
+import { Link } from 'gatsby'
+import { ROUTES } from '../../constants'
 
 function MySubmissions() {
   const user = useUser()
+  const { setAudioLists, setCurrentIndex, playlistId: globalPlaylistId, setPlaylistId: setGlobalPlaylistId, playerRef } = useContext(AudioPlayerContext)
+  const [songs, setSongs] = useState([]);
+  const [songsLoading, setSongsLoading] = useState(false);
+  const PLAYLIST_ID = 'MY_SUBMISSIONS';
   const { data, loading, error } = useQuery(gql(submissionsByEmail), {
     variables: {
       email: user?.email,
@@ -23,6 +31,62 @@ function MySubmissions() {
     fetchPolicy: 'no-cache'
   })
 
+  useEffect(() => {
+    if (data?.submissionsByEmail?.items?.length && !songs.length) {
+      setSongsLoading(true)
+      const seenFileIds: string[] = []
+
+      const sortedSongs = data.submissionsByEmail.items.reduce((acc, curr, index) => {
+        // @ts-ignore
+        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, fileRequestId, workshop, createdAt, fileRequest } = curr
+        // don't add nonexistent or duplicate files to the playlist
+        if (fileId && !seenFileIds.includes(fileId)) {
+          const songFilePath = `${fileRequestId}/${fileId}`
+          const musicSrc = getCloudFrontURL(songFilePath)
+          // const trackDuration = await fetchDuration(musicSrc)
+          // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
+          const song = {
+            id,
+            musicSrc,
+            trackDuration: duration,
+            name,
+            artwork,
+            cover: artwork?.path && getCloudFrontURL(artwork.path) || workshop?.artwork?.path && getCloudFrontURL(workshop?.artwork?.path) || mewAppLogo,
+            singer: artist,
+            profile,
+            fileId,
+            submissionId: id,
+            lyrics,
+            workshopId,
+            assignmentId: fileRequestId,
+            requestFeedback,
+            createdAt,
+            assignmentTitle: fileRequest?.title
+          }
+          seenFileIds.push(fileId)
+          return acc.concat(song)
+        } else {
+          return acc;
+        }
+      }, [])
+        .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
+        .map((song, index) => ({ ...song, index }))
+
+      setSongs(sortedSongs)
+      setSongsLoading(false)
+    }
+  }, [data])
+
+
+  const play = (index) => {
+    if (index > -1) {
+      setCurrentIndex(index)
+    }
+    if (globalPlaylistId != PLAYLIST_ID) {
+      setAudioLists(songs)
+      setGlobalPlaylistId(PLAYLIST_ID)
+    }
+  }
 
   const sortModel = [
     {
@@ -33,15 +97,15 @@ function MySubmissions() {
 
   const columns: GridColDef[] = [
     {
-      field: 'play',
+      field: 'index',
       headerName: 'Listen',
       width: 100,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
-      renderCell: ({ row, value = '' }) => <SimplePlayerButton audioPath={`${row.fileRequestId}/${row.fileId}`} />
+      renderCell: ({ row, value = '' }) => <IconButton onClick={() => play(row.index)}><PlayArrowIcon /></IconButton>
     },
     {
-      field: 'artist',
+      field: 'singer',
       headerName: 'Artist Byline',
       width: 200,
     },
@@ -59,6 +123,12 @@ function MySubmissions() {
       //@ts-ignore
       valueFormatter: ({ value = '' }: ColDef) =>
         value && format(new Date(value), 'MM/dd/yyyy H:mm'),
+    },
+    {
+      field: 'assignmentId',
+      headerName: 'Assignment',
+      width: 300,
+      renderCell: ({ row, value = {} }) => value ? <Link to={ROUTES.assignment.getPath({ assignmentId: value })}>{row.assignmentTitle}</Link> : null
     },
     // {
     //   field: 'comments',
@@ -79,7 +149,7 @@ function MySubmissions() {
     }
   ];
 
-  if (loading) return <Loading />;
+  if (loading || songsLoading) return <Loading />;
   if (error) return <Error errorMessage={error.message} />;
 
   return (
@@ -91,7 +161,6 @@ function MySubmissions() {
         item
         xs={12}
       >
-        <SimplePlayer />
         <DataGridWrapper>
           <DataGrid
             slots={{
@@ -101,7 +170,7 @@ function MySubmissions() {
             }}
             autoHeight
             checkboxSelection={false}
-            rows={data?.submissionsByEmail?.items || []}
+            rows={songs}
             columns={columns}
             sortModel={sortModel}
             initialState={{

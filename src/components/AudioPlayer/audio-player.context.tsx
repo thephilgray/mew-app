@@ -16,6 +16,7 @@ export function useAudioPlayerContextState() {
   const [isWriting, setIsWriting] = useState(false)
   const [playlistId, setPlaylistId] = useState(null)
   const [assignmentId, setAssignmentId] = useState(null)
+  const previousAssignmentId = usePrevious(assignmentId)
 
   return {
     isPlaying,
@@ -34,7 +35,8 @@ export function useAudioPlayerContextState() {
     playlistId,
     setPlaylistId,
     assignmentId,
-    setAssignmentId
+    setAssignmentId,
+    previousAssignmentId
   }
 }
 
@@ -56,6 +58,7 @@ interface AudioPlayerContextState {
   setPlaylistId: React.Dispatch<React.SetStateAction<string | null>>
   assignmentId: string | null
   setAssignmentId: React.Dispatch<React.SetStateAction<string | null>>
+  previousAssignmentId: string | null
 }
 
 export const AudioPlayerContext = createContext<AudioPlayerContextState>({
@@ -76,7 +79,8 @@ export const AudioPlayerContext = createContext<AudioPlayerContextState>({
   playlistId: null,
   setPlaylistId: () => { },
   assignmentId: null,
-  setAssignmentId: () => { }
+  setAssignmentId: () => { },
+  previousAssignmentId: null
 })
 
 interface AudioPlayerProps {

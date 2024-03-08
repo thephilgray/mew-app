@@ -80,6 +80,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = () => {
       if (mode === 'mini') {
         return;
       }
+      // exception for the MySubmissions page; TODO: move to shared constant
+      if (playlistId === 'MY_SUBMISSIONS') return;
       // otherwise, navigate to the playlist page using either the playlistId or assignmentId
       if (playlistId) {
         navigate(ROUTES.playlist.getPath({ playlistId }))
