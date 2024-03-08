@@ -122,15 +122,15 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
         </Link>
       </Grid>
       <Grid justifyContent="left" item xs zeroMinWidth>
-        <h4 style={{ margin: 0, textAlign: "left" }}>
+        <h4 style={{ margin: 0, textAlign: "left", wordWrap: 'break-word' }}>
           <Link to={`/app/profile/${comment.profile.id}`}>
             {comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}
           </Link>
           <span style={{ textAlign: "left", color: "gray" }}> – {formatDistanceToNow(new Date(comment.createdAt))} ago – </span>
           <If condition={comment?.submission?.id} fallbackContent={<em>Submission deleted</em>}>
-            <If condition={canView} fallbackContent={<em>{comment?.submission?.name} by {comment?.submission?.artist}</em>}>
+            <If condition={canView} fallbackContent={<em style={{ wordWrap: 'break-word' }}>{comment?.submission?.name} by {comment?.submission?.artist}</em>}>
               <Link to={basePathToTrack + `?track=${comment?.submission?.id}`}>
-                <em>{comment?.submission?.name} by {comment?.submission?.artist}</em>
+                <em style={{ wordWrap: 'break-word' }}>{comment?.submission?.name} by {comment?.submission?.artist}</em>
               </Link>
             </If>
           </If>
