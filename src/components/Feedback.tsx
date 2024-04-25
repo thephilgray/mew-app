@@ -231,6 +231,7 @@ const FeedbackSection = ({
   const [comments, setComments] = useState([])
   const [showAllComments, setShowAllComments] = useState(showAll)
   const [loading, setLoading] = useState(false)
+  const [commentsForMe, setCommentsForMe] = useState([])
 
   const [
     createCommentRequest,
@@ -262,11 +263,15 @@ const FeedbackSection = ({
     if (!profile) return;
     let query = listComments;
     let variables = {}
+    let myCommentsVariables = {};
+
     if (isFeedbackPage) {
       // show all feedback from all workshops the user has an active membership
       const workshopIds = profile?.memberships?.items
         ?.filter(item => item.status === "ACTIVE")
         ?.map(item => item.workshopId) || []
+
+      const mySubmissionIds = profile?.submissions?.items?.map(item => item?.id) || [];
 
       query = commentsByDate
       variables = {
@@ -275,6 +280,14 @@ const FeedbackSection = ({
         sortDirection: "DESC",
         filter: {
           or: workshopIds.map(id => ({ workshopId: { eq: id } })),
+        }
+      }
+
+      myCommentsVariables = {
+        ...variables,
+        limit: 500,
+        filter: {
+          or: mySubmissionIds.map(id => ({ submissionId: { eq: id } }))
         }
       }
     }
@@ -306,6 +319,14 @@ const FeedbackSection = ({
       // global feedback page
       if (isFeedbackPage || isSubmissionsPage) {
         setComments(result?.data?.commentsByDate?.items)
+        if (isFeedbackPage) {
+          const myComments = await API.graphql({
+            query: commentsByDate,
+            variables: myCommentsVariables
+          })
+
+          setCommentsForMe(myComments?.data?.commentsByDate?.items);
+        }
       }
       else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
         setComments(result?.data?.getFileRequestSubmission?.comments?.items)
@@ -408,13 +429,14 @@ const FeedbackSection = ({
     return updateCommentRequest({ variables: { input } })
   }
 
-  const filteredComments = comments.filter(item => {
-    if (showAllComments) return item
-    if (showByMe) {
-      if (item?.email === user.email) return item
-    }
-    else if (item?.submission?.email === user.email) return item
-  }).sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
+  const filteredComments = (isFeedbackPage && !showAllComments) ? commentsForMe :
+    comments.filter(item => {
+      if (showAllComments) return item
+      if (showByMe) {
+        if (item?.email === user.email) return item
+      }
+      else if (item?.submission?.email === user.email) return item
+    }).sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
 
   const parentComments = filteredComments.filter(c => c.parentId == null)
   return (
