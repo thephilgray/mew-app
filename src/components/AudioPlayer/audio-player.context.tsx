@@ -17,6 +17,7 @@ export function useAudioPlayerContextState() {
   const [playlistId, setPlaylistId] = useState(null)
   const [assignmentId, setAssignmentId] = useState(null)
   const previousAssignmentId = usePrevious(assignmentId)
+  const previousPlaylistId = usePrevious(playlistId)
 
   return {
     isPlaying,
@@ -36,7 +37,8 @@ export function useAudioPlayerContextState() {
     setPlaylistId,
     assignmentId,
     setAssignmentId,
-    previousAssignmentId
+    previousAssignmentId,
+    previousPlaylistId
   }
 }
 

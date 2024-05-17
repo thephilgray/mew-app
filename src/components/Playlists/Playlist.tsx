@@ -48,7 +48,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     assignmentId = '',
     playlistId,
 }) => {
-    const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef, playlistId: globalPlaylistId, setPlaylistId: setGlobalPlaylistId, assignmentId: globalAssignmentId, setAssignmentId: setGlobalAssignmentId, previousAssignmentId } = useContext(AudioPlayerContext)
+    const { audioLists, setAudioLists, currentIndex, setCurrentIndex, isPlaying, setIsPlaying, playerRef, playlistId: globalPlaylistId, setPlaylistId: setGlobalPlaylistId, assignmentId: globalAssignmentId, setAssignmentId: setGlobalAssignmentId, previousAssignmentId, previousPlaylistId } = useContext(AudioPlayerContext)
     const [loading, setLoading] = useState(false)
     const [addSongsToPlaylistLoading, setAddSongsToPlaylistLoading] = useState(false)
     const [toggleTrackView, setToggleTrackView] = useState(false)
@@ -154,20 +154,22 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
     useEffect(() => {
         if (playlistId) {
-            if (globalPlaylistId != previousAssignmentId) {
+            if (globalPlaylistId === null || globalPlaylistId != previousPlaylistId) {
                 setAudioLists([])
                 setGlobalPlaylistId(playlistId)
                 setGlobalAssignmentId(null)
                 setCurrentIndex(0) // or query param
+                setData(null)
             }
         }
 
         if (assignmentId) {
-            if (globalPlaylistId != previousAssignmentId) {
+            if (globalPlaylistId === null || globalPlaylistId != previousAssignmentId) {
                 setAudioLists([])
                 setGlobalAssignmentId(assignmentId)
                 setGlobalPlaylistId(null)
                 setCurrentIndex(0) // or query param
+                setData(null)
             }
         }
 
@@ -209,43 +211,43 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     }, [assignmentId, playlistId, loggedIn])
 
     useEffect(() => {
-        if (loggedIn) {
-            if (assignmentId) {
-                if (fetchGetFileRequestData?.getFileRequest && !data) {
-                    // lazy hack for now; we can just conditionally load this as playlistId
-                    if (fetchGetFileRequestData?.getFileRequest?.playlist?.id) {
-                        const queryParams = window.location.search;
-                        const redirectPath = `${ROUTES.playlist.getPath({ playlistId: fetchGetFileRequestData?.getFileRequest?.playlist?.id })}${queryParams}`
+        if (!loggedIn) return
+        if (assignmentId) {
+            if (fetchGetFileRequestData?.getFileRequest && !data) {
+                // lazy hack for now; we can just conditionally load this as playlistId
+                if (fetchGetFileRequestData?.getFileRequest?.playlist?.id) {
+                    const queryParams = window.location.search;
+                    const redirectPath = `${ROUTES.playlist.getPath({ playlistId: fetchGetFileRequestData?.getFileRequest?.playlist?.id })}${queryParams}`
 
-                        if (canView) {
-                            navigate(redirectPath, { replace: true })
-                        }
-                    }
-                    else {
-                        setData(fetchGetFileRequestData.getFileRequest)
+                    if (canView) {
+                        navigate(redirectPath, { replace: true })
                     }
                 }
-                if (fetchGetFileRequestError && !error) {
-                    // @ts-ignore
-                    setError(fetchGetFileRequestError)
-                }
-                if (loading) {
-                    setLoading(fetchGetFileRequestLoading)
-                }
-            } else if (playlistId) {
-                if (fetchGetPlaylistData?.getPlaylist && !data) {
-                    setData(fetchGetPlaylistData.getPlaylist)
-                }
-                if (fetchGetPlaylistError && !error) {
-                    // @ts-ignore
-                    setError(fetchGetPlaylistError)
-                }
-                if (loading) {
-                    setLoading(fetchGetPlaylistLoading)
+                else {
+                    setData(fetchGetFileRequestData.getFileRequest)
                 }
             }
+            if (fetchGetFileRequestError && !error) {
+                // @ts-ignore
+                setError(fetchGetFileRequestError)
+            }
+            if (loading) {
+                setLoading(fetchGetFileRequestLoading)
+            }
+        } else if (playlistId) {
+            if (fetchGetPlaylistData?.getPlaylist && !data) {
+                setData(fetchGetPlaylistData.getPlaylist)
+            }
+            if (fetchGetPlaylistError && !error) {
+                // @ts-ignore
+                setError(fetchGetPlaylistError)
+            }
+            if (loading) {
+                setLoading(fetchGetPlaylistLoading)
+            }
         }
-    }, [fetchGetFileRequestLoading, fetchGetFileRequestError, fetchGetFileRequestData, fetchGetPlaylistData, fetchGetPlaylistLoading, fetchGetPlaylistError])
+
+    }, [data, fetchGetFileRequestLoading, fetchGetFileRequestError, fetchGetFileRequestData, fetchGetPlaylistData, fetchGetPlaylistLoading, fetchGetPlaylistError])
 
     // Anonymous access
     useEffect(() => {
