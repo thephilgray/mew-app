@@ -359,7 +359,7 @@ export default function EditPublicSubmission({ submissionId }: Props) {
                           multiline
                           rows={6}
                           fullWidth
-                          label="Lyrics"
+                          label="Liner Notes"
                           {...register('lyrics')}
                           inputProps={{ maxLength: 5000 }}
                           helperText={`${5000 - (watch('lyrics')?.length || 0)} characters remaining`}

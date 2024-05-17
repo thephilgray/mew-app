@@ -318,7 +318,7 @@ export default function FileRequestSubmissionCreateForm(props) {
         {...getOverrideProps(overrides, "rating")}
       ></TextField>
       <TextField
-        label="Lyrics"
+        label="Liner Notes"
         isRequired={false}
         isReadOnly={false}
         value={lyrics}
