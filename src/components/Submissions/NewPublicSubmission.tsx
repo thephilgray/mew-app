@@ -354,7 +354,7 @@ const NewPublicSubmission: React.FC<
                             <FormGroup>
                                 <InputLabel>Options</InputLabel>
                                 <FormControlLabel control={<Switch {...register("addArtwork")} color="secondary" />} label="Add artwork" />
-                                <FormControlLabel control={<Switch {...register("addLyrics")} color="secondary" />} label="Add lyrics" />
+                                <FormControlLabel control={<Switch {...register("addLyrics")} color="secondary" />} label="Add liner notes" />
                                 {/* <FormControlLabel control={<Switch {...register("addStems")} color="secondary" />} label="Add stems used" /> */}
                                 <FormControlLabel control={<Switch defaultChecked={true} {...register("requestFeedback")} color="secondary" />} label="Request feedback" />
                             </FormGroup>
@@ -521,7 +521,7 @@ const NewPublicSubmission: React.FC<
                                 multiline
                                 rows={6}
                                 fullWidth
-                                label="Lyrics"
+                                label="Liner Notes"
                                 {...register('lyrics')}
                                 inputProps={{ maxLength: 5000 }}
                                 helperText={`${5000 - (watch('lyrics')?.length || 0)} characters remaining`}
