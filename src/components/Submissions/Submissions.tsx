@@ -81,7 +81,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     const [downloadLinkOptions, setDownloadLinkOptions] = useState<{
         [key: string]: boolean;
     }>({
-        stripMetadataForSoundCloud: true,
+        stripMetadataForSoundCloud: false,
     });
 
 
@@ -502,7 +502,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                             you ({user?.email || ''}) a temporary download link.
                         </Typography>
                     </DialogContent>
-                    <DialogContent dividers>
+                    {/* <DialogContent dividers>
                         <FormGroup>
                             <FormControlLabel
                                 control={
@@ -522,7 +522,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                                 label="Strip artist and title metadata (currently required for SoundCloud uploads)"
                             />
                         </FormGroup>
-                    </DialogContent>
+                    </DialogContent> */}
                     <DialogActions>
                         <Button autoFocus onClick={() => setDialogToggles({})}>
                             Cancel
@@ -719,7 +719,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                         )}
                     </If>
 
-                    {data.getFileRequest.submissions.items.length ? (
+                    {data.getFileRequest.submissions.items.length && (!!viewAdmin || isExpired) ? (
                             <Menu size="medium" items={menuItems.filter(item => !!viewAdmin || !item.admin)} />
                 ) : null}
                 </Grid>
