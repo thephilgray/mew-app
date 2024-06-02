@@ -84,9 +84,9 @@ export const EXTENSIONS_BY_FILETYPE = {
 }
 
 export const ACCEPTED_FILETYPES = [
-    // 'audio/wav',
-    // 'audio/s-wav',
-    // 'audio/x-wav',
+    'audio/wav',
+    'audio/s-wav',
+    'audio/x-wav',
     // 'audio/aiff',
     // 'audio/x-aiff',
     'audio/mpeg',
