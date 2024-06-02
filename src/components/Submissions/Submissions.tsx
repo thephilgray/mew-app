@@ -416,18 +416,21 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     if (!loading && !data?.getFileRequest?.submissions?.items)
         return <p>Assignment does not exist or has been deleted.</p>;
 
+    
     const menuItems = [
         {
             icon: <Assessment />,
             text: 'Download Report',
             key: 'downloadReport',
             onClick: downloadReport,
+            admin: true
         },
         {
             icon: <Email />,
             text: 'Email Download Link',
             key: 'emailDownloadLink',
             onClick: confirmEmailDownloadLink,
+            admin: false
         },
         {
             icon: downloadLoading ? (
@@ -438,6 +441,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             text: downloadLoading ? 'Downloading...' : 'Download Selected',
             key: 'downloadSelected',
             onClick: onDownloadSelected,
+            admin: true
         },
     ];
 
@@ -715,11 +719,9 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                         )}
                     </If>
 
-                    <GroupGuard groups={[Group.admin]}>
-                        {data.getFileRequest.submissions.items.length ? (
-                            <Menu size="medium" items={menuItems} />
-                        ) : null}
-                    </GroupGuard>
+                    {data.getFileRequest.submissions.items.length ? (
+                            <Menu size="medium" items={menuItems.filter(item => !!viewAdmin || !item.admin)} />
+                ) : null}
                 </Grid>
                 <If condition={!isExpired}>
 
