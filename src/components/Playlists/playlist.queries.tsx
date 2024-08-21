@@ -40,6 +40,7 @@ export const getFileRequest = /* GraphQL */ `
             createdAt
             updatedAt
           }
+
           artist
           name
           email
@@ -76,6 +77,10 @@ export const getFileRequest = /* GraphQL */ `
           requestFeedback
           duration
           workshopId
+            breakoutGroup {
+              id
+              name
+            }
           createdAt
           updatedAt
         }
@@ -87,6 +92,18 @@ export const getFileRequest = /* GraphQL */ `
           id
           path
           credit
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            members {
+              items {
+                id
+                email
+              }
+            }
+          }
         }
       }
       workshopId
@@ -464,3 +481,13 @@ export const listFileRequests = /* GraphQL */ `
     }
   }
 `;
+
+
+export const createTrack = /* GraphQL */ `mutation CreateTrack(
+  $input: CreateTrackInput!
+  $condition: ModelTrackConditionInput
+) {
+  createTrack(input: $input, condition: $condition) {
+    id
+  }
+}`;

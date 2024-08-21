@@ -2,7 +2,7 @@ import { Button, ButtonGroup, FormControlLabel, Grid, InputLabel, Paper, Switch,
 import React, { useMemo, useState, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import { createPlaylist, deletePlaylist, updatePlaylist } from '../../graphql/mutations';
+import { createPlaylist, deletePlaylist, updatePlaylist } from '../../graphql/d3/mutations';
 import { getCloudFrontURL } from '../../utils';
 import ImagePicker, { uploadImage } from '../ImagePicker';
 import { gql, useLazyQuery, useMutation } from '@apollo/react-hooks';

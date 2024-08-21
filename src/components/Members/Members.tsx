@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Alert, Avatar, Button, Chip, CircularProgress, FormControlLabel, Grid, IconButton, Switch, Typography } from '@mui/material'
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Alert, Autocomplete, Avatar, Button, Chip, CircularProgress, createFilterOptions, FormControl, FormControlLabel, FormHelperText, Grid, IconButton, Input, InputAdornment, InputBase, InputLabel, MenuItem, OutlinedInput, Select, Switch, TextField, Typography } from '@mui/material'
+import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
 import { countBy, entries, groupBy, head, keyBy, last, maxBy, uniqBy } from 'lodash'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
-import { Add, Delete, Sync } from '@mui/icons-material'
-import { updateMembershipService } from '../../graphql/mutations'
+import { Add, Delete, GroupAdd, Save, Sync } from '@mui/icons-material'
+import { updateMembershipService } from '../../graphql/d3/mutations'
 import { Group, ROUTES } from '../../constants';
 import Loading from '../Loading';
 import { DataGridWrapper } from '../DataGridWrapper';
@@ -18,6 +18,8 @@ import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import { lighten, styled } from '@mui/material/styles';
 import If from '../If';
 import { useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks';
+import { useForm } from 'react-hook-form';
+import { createBreakoutGroup, deleteBreakoutGroup } from '../../graphql/d3/mutations';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -59,6 +61,13 @@ const GET_WORKSHOP = gql`
                     updatedAt
                 }
                 nextToken
+            }
+            breakoutGroups {
+                items {
+                    id
+                    name
+                    description
+                }
             }
             submissions(limit: 1000) {
                 items {
@@ -110,6 +119,10 @@ const GET_WORKSHOP = gql`
                             name
                         }
                     }
+                    breakoutGroup {
+                        id
+                        name
+                    }
                     submissions(limit: 1000, filter: { workshopId: { eq: $id } }) {
                         items {
                             id
@@ -127,16 +140,47 @@ const GET_WORKSHOP = gql`
     }
 `
 
+type Inputs = {
+    breakoutGroupName: string
+}
+
+interface BreakoutGroupOptionType {
+    inputValue?: string;
+    name: string;
+    id: string;
+}
+
 const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     const [dialogSettings, setDialogSettings] = useState(null)
     const [showDeleteForAll, setShowDeleteForAll] = useState(false)
     const [showDeleteLogin, setShowDeleteLogin] = useState(false)
+    const [showAddBreakoutGroups, setShowBreakoutGroups] = useState(false);
     const isCognitoAdmin = useUserInAtLeastOneOfTheseGroups([Group.cognito_admin])
+    const [addMembersToBreakGroupLoading, setAddMembersToBreakGroupLoading] = useState(false)
+
+    const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
+
+    const filter = createFilterOptions<BreakoutGroupOptionType>();
+    const [breakoutGroupValue, setBreakoutGroupValue] = React.useState<BreakoutGroupOptionType | null>(null);
+
+
+    const [createBreakoutGroupMutation, { error: createBreakoutGroupError, data: createBreakoutGroupData }] = useMutation(gql(createBreakoutGroup));
+    const [deleteBreakoutGroupMutation, { error: deleteBreakoutGroupError, data: deleteBreakoutGroupData }] = useMutation(gql(deleteBreakoutGroup));
+
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        watch,
+        // formState: { errors },
+    } = useForm<Inputs>();
 
     // query all submissions and mailchimp audience and join data by email address
     const { loading, error, data, refetch } = useQuery(GET_WORKSHOP, {
         variables: { id: workshopId },
     })
+
 
     const [requestUpdateMembershipService, updateMembershipServiceResponse] = useMutation(gql(updateMembershipService))
 
@@ -189,6 +233,50 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             },
         })
     }
+    const getBreakoutRoomId = (breakoutGroupName: string) => workshopId.split('-')[0] + '-' + breakoutGroupName.toLowerCase()?.replace(/[^a-z0-9]/g, '-');
+    const addBreakoutGroup = async (breakoutGroupName: string) => {
+        if (!breakoutGroupName) return;
+        // create breakout group
+        await createBreakoutGroupMutation({
+            variables: {
+                input: {
+                    name: breakoutGroupName,
+                    workshopId,
+                    id: getBreakoutRoomId(breakoutGroupName),
+                },
+            },
+        })
+    }
+
+    const onDeleteBreakoutGroup = async (breakoutGroupId: string) => {
+        await deleteBreakoutGroupMutation({
+            variables: {
+                input: {
+                    id: breakoutGroupId,
+                },
+            },
+        })
+        if (breakoutGroupValue?.id === breakoutGroupId) {
+            setBreakoutGroupValue(null)
+        }
+    }
+
+    const handleAddMembersToBreakoutGroup = async (e) => {
+        e.preventDefault()
+        if (!breakoutGroupValue || !rowSelectionModel.length) return;
+        console.log('add members to breakout group', breakoutGroupValue.id, rowSelectionModel)
+        setAddMembersToBreakGroupLoading(true)
+        await onUpdateMembershipService({
+            action: 'ADD_MEMBERS_TO_BREAKOUT_GROUP',
+            membershipPayload: {
+                breakoutGroupId: breakoutGroupValue.id,
+                members: rowSelectionModel,
+            },
+        })
+        setAddMembersToBreakGroupLoading(false)
+        setBreakoutGroupValue(null)
+    }
+
 
     const mappedArray = data.getWorkshop?.fileRequests?.items
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -260,6 +348,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             email: member.email,
             name: member?.profile?.name || '',
             status: member?.status,
+            breakoutGroup: member?.breakoutGroup?.name || '',
             submissions: member.submissions.items.length,
             required,
             passes,
@@ -334,6 +423,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         },
         { field: 'email', headerName: 'Email', width: 300 },
         { field: 'name', headerName: 'Name', width: 200 },
+        ...(!!data?.getWorkshop?.breakoutGroups?.items?.length ? [{ field: 'breakoutGroup', headerName: 'Breakout Group', width: 200 }] : []),
         { field: 'submissions', headerName: 'Submitted', width: 120 },
         {
             field: 'required',
@@ -498,20 +588,141 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                     <If condition={isCognitoAdmin}>
                         <br />
                         <FormControlLabel control={<Switch checked={showDeleteLogin} onChange={e => setShowDeleteLogin(e.target.checked)} color="error" />} label="Show remove login controls?" />
+                        <br />
+                    </If>
+                    <If condition={data?.getWorkshop?.features?.mailchimp?.enabled}>
+                        <FormControlLabel control={<Switch checked={showAddBreakoutGroups} onChange={e => setShowBreakoutGroups(e.target.checked)} color="warning" />} label="Show breakout groups controls?" />
                     </If>
                 </Alert>}
             </Grid>
-            <Grid item xs={12}>
-                <StyledChip label={`All Assignments: ${totalAssignments}`} />
-                <StyledChip label={`Required: ${workshopRequiredAssignments}`} />
-                <StyledChip label={`Active: ${activeAssignments}`} />
-                <StyledChip label={`All Past Due: ${expiredAssignments}`} />
-                <StyledChip label={`Required Past Due: ${expiredAndDueAssignments}`} />
-            </Grid>
+            <If condition={showAddBreakoutGroups}>
+                <Grid item xs={12}>
+                    <Typography variant="h6" component="h3">
+                        Breakout Groups Editor
+                    </Typography>
+                </Grid>
+                <If condition={!!data?.getWorkshop?.breakoutGroups?.items}>
+                    <Grid item xs={12}>
+                        <p>Breakout Groups</p>
+                        {/* map through all the breakout groups in the workshop and create a chip with a delete button for each */}
+                        {data?.getWorkshop?.breakoutGroups?.items?.map((group) => (
+                            <StyledChip
+                                key={group.id}
+                                label={group.name}
+                                onDelete={() => onDeleteBreakoutGroup(group.id)}
+                            />
+                        ))}
+                    </Grid>
+                </If>
+                <Grid item xs={12} lg={6}>
+                    <p>Add {rowSelectionModel.length || 'selected'} user(s) below to {breakoutGroupValue?.name || 'selected'} breakout group.</p>
+                    <FormControl
+                        onSubmit={handleAddMembersToBreakoutGroup}
+                        component="form"
+                        sx={{ py: '.5rem' }}
+                        fullWidth>
+                        <Autocomplete
+                            fullWidth
+                            id="breakout-group-select"
+                            value={breakoutGroupValue}
+                            options={data?.getWorkshop?.breakoutGroups?.items}
+                            onChange={async (event, newValue) => {
+                                if (typeof newValue === 'string') {
+                                    setBreakoutGroupValue({
+                                        name: newValue,
+                                        id: getBreakoutRoomId(newValue)
+                                    });
+                                } else if (newValue && newValue.inputValue) {
+                                    // Create a new value from the user input
+                                    try {
+                                        await addBreakoutGroup(newValue.inputValue);
+                                        setBreakoutGroupValue({
+                                            name: newValue.inputValue,
+                                            id: getBreakoutRoomId(newValue.inputValue)
+                                        });
+                                    } catch {
+                                        setBreakoutGroupValue({
+                                            name: 'Error creating new group',
+                                            id: 'error'
+                                        });
+                                    }
+
+                                } else {
+                                    setBreakoutGroupValue(newValue);
+                                }
+                            }}
+                            filterOptions={(options, params) => {
+                                const filtered = filter(options, params);
+
+                                const { inputValue } = params;
+                                // Suggest the creation of a new value
+                                const isExisting = options.some((option) => inputValue === option.name);
+                                if (inputValue !== '' && !isExisting) {
+                                    filtered.push({
+                                        inputValue,
+                                        name: `Add "${inputValue}"`,
+                                        id: getBreakoutRoomId(inputValue)
+                                    });
+                                }
+
+                                return filtered;
+                            }}
+                            selectOnFocus
+                            clearOnBlur
+                            handleHomeEndKeys
+                            getOptionLabel={(option) => {
+                                // Value selected with enter, right from the input
+                                if (typeof option === 'string') {
+                                    return option;
+                                }
+                                // Add "xxx" option created dynamically
+                                if (option.inputValue) {
+                                    return option.inputValue;
+                                }
+                                // Regular option
+                                return option.name;
+                            }}
+                            renderOption={(props, option) => {
+                                const { ...optionProps } = props;
+                                return (
+                                    <li key={option.id} {...optionProps}>
+                                        {option.name}
+                                    </li>
+                                );
+                            }}
+                            freeSolo
+                            renderInput={(params) => (
+                                <TextField {...params} label="Breakout Group" />
+                            )}
+
+                        />
+                        <Button
+                            type="submit"
+                            disabled={!breakoutGroupValue || !rowSelectionModel.length}
+                            variant="contained"
+                            startIcon={addMembersToBreakGroupLoading ? <Loading /> : <GroupAdd />}>
+                            Add
+                        </Button>
+                    </FormControl>
+                </Grid>
+            </If>
+            <If condition={!showAddBreakoutGroups}>
+                <Grid item xs={12}>
+                    <StyledChip label={`All Assignments: ${totalAssignments}`} />
+                    <StyledChip label={`Required: ${workshopRequiredAssignments}`} />
+                    <StyledChip label={`Active: ${activeAssignments}`} />
+                    <StyledChip label={`All Past Due: ${expiredAssignments}`} />
+                    <StyledChip label={`Required Past Due: ${expiredAndDueAssignments}`} />
+                </Grid>
+            </If>
             <Grid item xs={12}>
                 <DataGridWrapper>
                     <StyledDataGrid
-                        // checkboxSelection
+                        checkboxSelection={showAddBreakoutGroups}
+                        onRowSelectionModelChange={(newRowSelectionModel) => {
+                            setRowSelectionModel(newRowSelectionModel);
+                        }}
+                        rowSelectionModel={rowSelectionModel}
                         rows={userRows}
                         columns={columns}
                         disableRowSelectionOnClick={true}

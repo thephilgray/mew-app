@@ -3,7 +3,7 @@ import { matchSorter } from "match-sorter";
 import { intervalToDuration, formatDuration } from "date-fns";
 import { DEFAULT_WORKSHOP_TIMEZONE, MAPPED_ROUTE_CONFIGS } from './constants';
 import { formatInTimeZone } from 'date-fns-tz';
-import { useState } from 'react';
+import { Workshop as WorkshopType } from '../../API';
 
 export const getCloudFrontURL = (path: string, level: 'public' | 'protected' | 'private' = 'public') =>
   `${process.env.GATSBY_CLOUDFRONT_DISTRIBUTION}/${level}/${path}`;
@@ -87,3 +87,18 @@ export const getGetLocationPromise = () => {
     }
   })
 }
+
+
+// option 1
+// if workshop has breakoutGroups
+// filter breakoutGroup members for the current user and display the group name
+
+// option 2
+// if workshop has breakoutGroups
+// filter workshop memberships for the current user and display the group name
+// by checking workshop memberships, we can also setup a guard for only active members to view the workshop
+
+export const getBreakoutGroupByMembership = (workshop: WorkshopType, user: any) => workshop?.memberships?.items?.find(m => m?.email === user?.email)?.breakoutGroup;
+export const getBreakoutGroup = (workshop: WorkshopType, user: any) => workshop?.breakoutGroups?.items?.find(g => g?.members?.items?.find(m => m?.email === user?.email));
+export const getBreakoutGroupName = (workshop: WorkshopType, user: any) => getBreakoutGroup(workshop, user)?.name || '';
+export const hasBreakoutGroup = (workshop: WorkshopType) => !!workshop?.breakoutGroups?.items?.length;

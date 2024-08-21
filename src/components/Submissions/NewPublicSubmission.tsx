@@ -2,27 +2,24 @@ import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from '
 import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
-import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, SkipNext, Edit } from '@mui/icons-material'
-import { Controller, useForm } from 'react-hook-form'
+import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, Edit } from '@mui/icons-material'
+import { useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import { green } from '@mui/material/colors'
-import { Theme } from '@mui/material/styles'
 import { isPast } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
 import { v4 as uuidv4 } from 'uuid'
 import ConfettiExplosion from 'react-confetti-explosion';
 
 import Error from '../Error'
-import { createFileRequestSubmission } from '../../graphql/mutations'
+import { createFileRequestSubmission } from './submissions.queries'
 import { getFileRequest as getFileRequestQuery } from '../../graphql/queries'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
 import If from '../If'
 import ImagePicker, { uploadImage } from '../ImagePicker'
 import { GiveFeedback } from './GiveFeedback'
-import { getCloudFrontURL, getDisplayName, getFileDuration, searchMembersFilterOptions } from '../../utils'
-import { useLazyQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
+import { getBreakoutGroupByMembership, getCloudFrontURL, getDisplayName, getFileDuration, searchMembersFilterOptions } from '../../utils'
 import uniqBy from 'lodash/uniqBy'
 import { Link, navigate } from 'gatsby'
 import { ACCEPTED_FILETYPES, ROUTES } from '../../constants'
@@ -74,6 +71,20 @@ const NewPublicSubmission: React.FC<
     const [submitters, setSubmitters] = useState([])
     const [duration, setDuration] = useState(0)
     // const [stemsUsed, setStemsUsed] = useState([])
+
+    const { breakoutGroupId } = useMemo((): { breakoutGroupId?: string } => {
+        if (fileRequestData) {
+            const workshop = fileRequestData?.workshop
+            console.log({ fileRequestData, workshop, user, breakoutGroup: getBreakoutGroupByMembership(workshop, user), breakoutGroup2: workshop?.memberships?.items })
+            return {
+                breakoutGroupId: getBreakoutGroupByMembership(workshop, user)?.id
+            }
+        } else {
+            return { breakoutGroupId: '' }
+        }
+
+    }, [fileRequestData, user])
+    console.log({ breakoutGroupId })
 
     const {
         register,
@@ -282,6 +293,7 @@ const NewPublicSubmission: React.FC<
                             email: emails[index],
                             fileExtension,
                             duration,
+                            breakoutGroupId,
                             workshopId: fileRequestData?.workshopId,
                             ...image && {
                                 artwork: {

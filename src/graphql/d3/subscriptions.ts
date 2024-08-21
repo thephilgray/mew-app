@@ -286,6 +286,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -328,6 +329,10 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -376,6 +381,16 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -428,6 +443,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -470,6 +486,10 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -518,6 +538,16 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -570,6 +600,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -612,6 +643,10 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -660,6 +695,16 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -727,6 +772,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -841,6 +887,41 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
     lyrics
     requestFeedback
     duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     workshopId
     createdAt
     updatedAt
@@ -895,6 +976,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -1009,6 +1091,41 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
     lyrics
     requestFeedback
     duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     workshopId
     createdAt
     updatedAt
@@ -1063,6 +1180,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -1177,6 +1295,41 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
     lyrics
     requestFeedback
     duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     workshopId
     createdAt
     updatedAt
@@ -1244,6 +1397,16 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -1272,6 +1435,16 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -1351,6 +1524,16 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -1379,6 +1562,16 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -1458,6 +1651,16 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -1486,6 +1689,16 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -1585,6 +1798,41 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
       credit
       __typename
     }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     type
     createdAt
     id
@@ -1673,6 +1921,41 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
       id
       path
       credit
+      __typename
+    }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
     type
@@ -1765,6 +2048,41 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
       credit
       __typename
     }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     type
     createdAt
     id
@@ -1778,6 +2096,363 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
   APITypes.OnDeletePlaylistSubscriptionVariables,
   APITypes.OnDeletePlaylistSubscription
 >;
+export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakoutGroup(
+  $filter: ModelSubscriptionBreakoutGroupFilterInput
+) {
+  onCreateBreakoutGroup(filter: $filter) {
+    id
+    name
+    description
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBreakoutGroupSubscriptionVariables,
+  APITypes.OnCreateBreakoutGroupSubscription
+>;
+export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakoutGroup(
+  $filter: ModelSubscriptionBreakoutGroupFilterInput
+) {
+  onUpdateBreakoutGroup(filter: $filter) {
+    id
+    name
+    description
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBreakoutGroupSubscriptionVariables,
+  APITypes.OnUpdateBreakoutGroupSubscription
+>;
+export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakoutGroup(
+  $filter: ModelSubscriptionBreakoutGroupFilterInput
+) {
+  onDeleteBreakoutGroup(filter: $filter) {
+    id
+    name
+    description
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBreakoutGroupSubscriptionVariables,
+  APITypes.OnDeleteBreakoutGroupSubscription
+>;
 export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership(
   $filter: ModelSubscriptionMembershipFilterInput
 ) {
@@ -1785,6 +2460,41 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
     id
     workshopId
     email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
     status
     workshop {
       id
@@ -1820,6 +2530,10 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -1913,6 +2627,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -1937,6 +2652,41 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
     id
     workshopId
     email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
     status
     workshop {
       id
@@ -1972,6 +2722,10 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -2065,6 +2819,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -2089,6 +2844,41 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
     id
     workshopId
     email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
     status
     workshop {
       id
@@ -2124,6 +2914,10 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -2217,6 +3011,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -2272,6 +3067,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -2354,6 +3150,19 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
       updatedAt
       __typename
     }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     startDate
     endDate
     memberships {
@@ -2361,6 +3170,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
         id
         workshopId
         email
+        breakoutGroupId
         status
         createdAt
         updatedAt
@@ -2416,6 +3226,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -2498,6 +3309,19 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
       updatedAt
       __typename
     }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     startDate
     endDate
     memberships {
@@ -2505,6 +3329,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
         id
         workshopId
         email
+        breakoutGroupId
         status
         createdAt
         updatedAt
@@ -2560,6 +3385,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -2642,6 +3468,19 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
       updatedAt
       __typename
     }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     startDate
     endDate
     memberships {
@@ -2649,6 +3488,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
         id
         workshopId
         email
+        breakoutGroupId
         status
         createdAt
         updatedAt
@@ -2724,6 +3564,7 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -2737,6 +3578,7 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
         id
         workshopId
         email
+        breakoutGroupId
         status
         createdAt
         updatedAt
@@ -2760,6 +3602,7 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
       items {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -2880,6 +3723,7 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -2893,6 +3737,7 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
         id
         workshopId
         email
+        breakoutGroupId
         status
         createdAt
         updatedAt
@@ -2916,6 +3761,7 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
       items {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -3036,6 +3882,7 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -3049,6 +3896,7 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
         id
         workshopId
         email
+        breakoutGroupId
         status
         createdAt
         updatedAt
@@ -3072,6 +3920,7 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
       items {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -3248,6 +4097,16 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -3292,6 +4151,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -3343,6 +4203,10 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -3480,6 +4344,16 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -3524,6 +4398,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -3575,6 +4450,10 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -3712,6 +4591,16 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -3756,6 +4645,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -3807,6 +4697,10 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -4374,6 +5268,16 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -4484,6 +5388,16 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -4594,6 +5508,16 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt

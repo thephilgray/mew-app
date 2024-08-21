@@ -64,6 +64,13 @@ export const getProfile = /* GraphQL */ `
             createdAt
             updatedAt
           }
+          breakoutGroup {
+            id
+            name
+            workshopId
+            createdAt
+            updatedAt
+          }
         }
       }
       features {
