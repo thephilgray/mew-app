@@ -30,7 +30,7 @@ import { useCopyToClipboard, usePrevious } from 'react-use'
 import {
     createExtension as createExtensionMutation,
     deleteExtension as deleteExtensionMutation,
-} from '../../graphql/mutations'
+} from '../../graphql/d3/mutations'
 import { extensionsByFileRequestId as extensionsByFileRequestIdQuery } from '../../graphql/queries'
 import { format } from 'date-fns'
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator'

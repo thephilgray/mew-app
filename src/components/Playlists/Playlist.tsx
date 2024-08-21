@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { useEffect, useState, PropsWithChildren, useContext, useRef } from 'react'
+import React, { useEffect, useState, useMemo, PropsWithChildren, useContext, useRef } from 'react'
 import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
@@ -20,14 +20,14 @@ import isNumber from 'lodash/isNumber'
 import sum from 'lodash/sum'
 import isPast from 'date-fns/isPast'
 import { FeedbackSection } from '../Feedback'
-import { getFileRequest, getPlaylist, playlistsByDate } from './playlist.queries'
+import { getFileRequest, getPlaylist, playlistsByDate, createTrack } from './playlist.queries'
 import If from '../If';
-import { formatAudioDuration, getCloudFrontURL } from '../../utils';
+import { formatAudioDuration, getBreakoutGroupName, hasBreakoutGroup, getCloudFrontURL, getBreakoutGroup } from '../../utils';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import { AudioPlayerContext, useClonePlaylist } from '../AudioPlayer/audio-player.context';
 import { Link, navigate } from 'gatsby';
-import { createTrack } from '../../graphql/mutations';
 import { LinkedMemberAvatar } from '../Avatar';
+import { usePrevious } from 'react-use';
 
 const GET_FILE_REQUEST = gql(getFileRequest)
 
@@ -52,6 +52,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const [loading, setLoading] = useState(false)
     const [addSongsToPlaylistLoading, setAddSongsToPlaylistLoading] = useState(false)
     const [toggleTrackView, setToggleTrackView] = useState(false)
+    const [toggleBreakoutView, setToggleBreakoutView] = useState<boolean | null>(null)
     const [data, setData] = useState<{
         expiration: string
         title: string
@@ -67,6 +68,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [trackDurations, setTrackDurations] = useState([])
     const [viewAdmin] = useViewAdmin()
+    const previousToggleBreakoutView = usePrevious(toggleBreakoutView)
+    const [songsShouldLoad, setSongsShouldLoad] = useState(true)
     // Authenticated user access
 
     const [fetchGetFileRequest, { loading: fetchGetFileRequestLoading, error: fetchGetFileRequestError, data: fetchGetFileRequestData }] = useLazyQuery(GET_FILE_REQUEST, {
@@ -90,6 +93,22 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const [fetchCreateTrack, { loading: fetchCreateTrackLoading, error: fetchCreateTrackError, data: fetchCreateTrackData }] = useMutation(gql(createTrack))
 
     const { setClonedPlaylistItems } = useClonePlaylist()
+
+
+    const { breakoutGroupName, breakoutGroupId } = useMemo((): { breakoutGroupName?: string, breakoutGroupId?: string } => {
+        if (fetchGetFileRequestData) {
+            const workshop = fetchGetFileRequestData.getFileRequest?.workshop
+            return {
+                breakoutGroupName: getBreakoutGroupName(workshop, user),
+                breakoutGroupId: getBreakoutGroup(workshop, user)?.id
+            }
+        } else {
+            return { breakoutGroupName: '', breakoutGroupId: '' }
+        }
+
+    }, [fetchGetFileRequestData, user])
+
+    const previousBreakoutGroupId = usePrevious(breakoutGroupId)
 
     // clones playlist or current track to a new playlist
     // TODO: rename, confusing
@@ -155,6 +174,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     useEffect(() => {
         if (playlistId) {
             if (globalPlaylistId === null || globalPlaylistId != previousPlaylistId) {
+                setSongsShouldLoad(true)
                 setAudioLists([])
                 setGlobalPlaylistId(playlistId)
                 setGlobalAssignmentId(null)
@@ -165,6 +185,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
         if (assignmentId) {
             if (globalPlaylistId === null || globalPlaylistId != previousAssignmentId) {
+                setSongsShouldLoad(true)
                 setAudioLists([])
                 setGlobalAssignmentId(assignmentId)
                 setGlobalPlaylistId(null)
@@ -318,84 +339,112 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         })
     }
 
-    useEffect(() => {
-        async function addSongsToPlaylist() {
-            if (!canView) return;
-            setAddSongsToPlaylistLoading(true)
-            const songs: Array<ReactJkMusicPlayerAudioListProps> = []
-            const seenFileIds: string[] = []
-            if (assignmentId) {
+    async function addSongsToPlaylist() {
+        const songs: Array<ReactJkMusicPlayerAudioListProps> = []
+        const seenFileIds: string[] = []
+        if (assignmentId) {
+            // @ts-ignore
+            if (data?.submissions?.items) {
                 // @ts-ignore
-                if (!audioLists.length && data?.submissions?.items) {
+                for (let index = 0; index < data.submissions.items.length; index++) {
                     // @ts-ignore
-                    for (let index = 0; index < data.submissions.items.length; index++) {
-                        // @ts-ignore
-                        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile } = data.submissions.items[index]
-                        // don't add nonexistent or duplicate files to the playlist
-                        if (fileId && !seenFileIds.includes(fileId)) {
-                            const songFilePath = `${assignmentId}/${fileId}`
-                            const musicSrc = getCloudFrontURL(songFilePath)
-                            // const trackDuration = await fetchDuration(musicSrc)
-                            // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
-                            songs.push({
-                                musicSrc,
-                                trackDuration: duration,
-                                name,
-                                cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
-                                singer: artist,
-                                profile,
-                                fileId,
-                                submissionId: id,
-                                lyrics,
-                                workshopId,
-                                assignmentId,
-                                requestFeedback,
-                            })
-                            seenFileIds.push(fileId)
-                        }
+                    const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup } = data.submissions.items[index]
+                    // don't add nonexistent or duplicate files to the playlist
+                    if (fileId && !seenFileIds.includes(fileId) && (!breakoutGroupId || (toggleBreakoutView && breakoutGroupId === breakoutGroup?.id)) || (!toggleBreakoutView)) {
+                        const songFilePath = `${assignmentId}/${fileId}`
+                        const musicSrc = getCloudFrontURL(songFilePath)
+                        // const trackDuration = await fetchDuration(musicSrc)
+                        // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
+                        songs.push({
+                            musicSrc,
+                            trackDuration: duration,
+                            name,
+                            cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
+                            singer: artist,
+                            profile,
+                            fileId,
+                            submissionId: id,
+                            lyrics,
+                            workshopId,
+                            assignmentId,
+                            requestFeedback,
+                        })
+                        seenFileIds.push(fileId)
                     }
-                    setAudioLists(songs)
                 }
-            } else if (playlistId) {
-                // @ts-ignore
-                if (!audioLists.length && data?.tracks?.items) {
-                    // @ts-ignore
-                    for (let index = 0; index < data.tracks.items.length; index++) {
-                        // @ts-ignore
-                        const { submission, order } = data.tracks.items[index];
-                        const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile } = submission
-                        // don't add nonexistent or duplicate files to the playlist
-                        if (fileId && !seenFileIds.includes(fileId)) {
-                            const songFilePath = `${assignmentId}/${fileId}`
-                            const musicSrc = getCloudFrontURL(songFilePath)
-                            // const trackDuration = await fetchDuration(musicSrc)
-                            // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
-                            songs.push({
-                                order,
-                                musicSrc,
-                                trackDuration: duration,
-                                name,
-                                cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
-                                singer: artist,
-                                profile,
-                                fileId,
-                                submissionId: id,
-                                lyrics,
-                                assignmentId,
-                                workshopId,
-                                requestFeedback,
-                            })
-                            seenFileIds.push(fileId)
-                        }
-                    }
-                    const sortedSongs = orderBy(songs, 'order')
-                    setAudioLists(sortedSongs)
-                }
+                setAudioLists(songs)
             }
-            setAddSongsToPlaylistLoading(false)
+        } else if (playlistId) {
+            // @ts-ignore
+            if (data?.tracks?.items) {
+                // @ts-ignore
+                for (let index = 0; index < data.tracks.items.length; index++) {
+                    // @ts-ignore
+                    const { submission, order } = data.tracks.items[index];
+                    const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile } = submission
+                    // don't add nonexistent or duplicate files to the playlist
+                    if (fileId && !seenFileIds.includes(fileId)) {
+                        const songFilePath = `${assignmentId}/${fileId}`
+                        const musicSrc = getCloudFrontURL(songFilePath)
+                        // const trackDuration = await fetchDuration(musicSrc)
+                        // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
+                        songs.push({
+                            order,
+                            musicSrc,
+                            trackDuration: duration,
+                            name,
+                            cover: artwork?.path && getCloudFrontURL(artwork.path) || PLAYLIST_ARTWORK || mewAppLogo,
+                            singer: artist,
+                            profile,
+                            fileId,
+                            submissionId: id,
+                            lyrics,
+                            assignmentId,
+                            workshopId,
+                            requestFeedback,
+                        })
+                        seenFileIds.push(fileId)
+                    }
+                }
+                const sortedSongs = orderBy(songs, 'order')
+                setAudioLists(sortedSongs)
+            }
         }
-        addSongsToPlaylist()
-    }, [data, canView])
+        setAddSongsToPlaylistLoading(false)
+    }
+
+    useEffect(() => {
+        if (!data || !canView || addSongsToPlaylistLoading || !songsShouldLoad) return;
+        console.log({ addSongsToPlaylistLoading, data, canView, assignmentId, playlistId, songsShouldLoad })
+        if (
+            (data?.submissions?.items || data?.tracks?.items) &&
+            (assignmentId || playlistId)
+        ) {
+            setAddSongsToPlaylistLoading(true)
+            addSongsToPlaylist()
+            setSongsShouldLoad(false)
+            console.log({ addSongsToPlaylistLoading, data, canView, assignmentId, playlistId, songsShouldLoad })
+        }
+    }, [data, canView, audioLists, addSongsToPlaylistLoading, songsShouldLoad])
+
+    useEffect(() => {
+        if (breakoutGroupId && toggleBreakoutView === null) {
+            setToggleBreakoutView(true);
+        }
+    }, [breakoutGroupId])
+
+    useEffect(() => {
+        if (!data || !breakoutGroupId) return;
+        console.log({ breakoutGroupId, previousBreakoutGroupId, toggleBreakoutView, previousToggleBreakoutView })
+        if (toggleBreakoutView !== previousToggleBreakoutView) {
+            console.log('breakout group set or view toggled')
+            setSongsShouldLoad(true)
+            setAddSongsToPlaylistLoading(false)
+            setAudioLists([])
+            console.log({ breakoutGroupId, previousBreakoutGroupId, toggleBreakoutView, previousToggleBreakoutView })
+        }
+
+    }, [toggleBreakoutView, breakoutGroupId, data])
 
     useEffect(() => {
         let isSubscribed = true
@@ -493,8 +542,18 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 </Grid>
             </If>
             <If condition={isNumber(currentIndex)}>
-                <Grid item xs={12} sx={{ pr: 1 }}>
-                    <Stack direction="row" spacing={1} alignItems="center" sx={{ float: 'right' }}>
+                <Grid item xs={12}>
+                    <If condition={!!breakoutGroupName}>
+                        <Stack direction="row" spacing={1} alignItems="center" justifyContent="end" sx={{ float: { xs: 'right', sm: 'left' }, width: { xs: '100%', md: 'auto' } }}>
+                            <Typography>Session</Typography>
+                            <Switch
+                                checked={toggleBreakoutView}
+                                onChange={e => setToggleBreakoutView(e.target.checked)}
+                            />
+                            <Typography>{breakoutGroupName}</Typography>
+                        </Stack>
+                    </If>
+                    <Stack direction="row" spacing={1} alignItems="center" justifyContent="end" sx={{ float: 'right', ml: 'auto', width: { xs: '100%', md: 'auto' } }}>
                         <Typography>Playlist</Typography>
                         <Switch
                             checked={toggleTrackView}
@@ -512,7 +571,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             image={PLAYLIST_ARTWORK}
                             title={data?.title}
                         >
-                            <If condition={audioLists.length}>
+                            <If condition={!!audioLists.length}>
                                 {!!isPlaying ?
                                     <IconButton
                                         title='Pause'
@@ -636,7 +695,11 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 < AudioPlayer />
             </If>
             {/* </If> */}
-            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
+            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView} fallbackContent={
+                <Grid item xs={12}>
+                    <p>No tracks in {toggleBreakoutView ? 'breakout view of ' : ''} playlist.</p>
+                </Grid>
+            }>
                 <Grid item xs={12}>
                     <Card sx={{
                         display: 'flex',
@@ -713,7 +776,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     </Card>
                 </Grid >
             </If>
-
             <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
                 <If condition={!!audioLists?.[currentIndex]?.lyrics}>
                     <Grid item xs={12}>

@@ -1,7 +1,7 @@
 
 
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import If from '../If'
 import { Alert, Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, IconButton, LinearProgress, Typography } from '@mui/material'
 import { SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, CheckCircleTwoTone } from '@mui/icons-material'
@@ -10,7 +10,7 @@ import useColorThief from 'use-color-thief'
 import { gql, useQuery } from '@apollo/react-hooks'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import { getCloudFrontURL } from '../../utils'
+import { getBreakoutGroup, getBreakoutGroupByMembership, getBreakoutGroupName, getCloudFrontURL } from '../../utils'
 import { listComments } from '../feedback.queries'
 import mewAppLogo from '../../assets/mewlogo.png'
 import Error from '../Error'
@@ -40,6 +40,24 @@ export const GiveFeedback: React.FC<{
       fetchPolicy: 'no-cache'
     })
 
+
+
+    const { breakoutGroupId } = useMemo((): { breakoutGroupName?: string, breakoutGroupId?: string } => {
+      if (fileRequestData) {
+        const workshop = fileRequestData?.workshop
+        console.log({ workshop, user })
+        return {
+          breakoutGroupName: getBreakoutGroupName(workshop, user),
+          breakoutGroupId: getBreakoutGroupByMembership(workshop, user)?.id
+        }
+      } else {
+        return { breakoutGroupName: '', breakoutGroupId: '' }
+      }
+
+    }, [fileRequestData, user])
+
+    console.log({ breakoutGroupId })
+
     const PLAYLIST_ARTWORK = fileRequestData?.artwork?.path && getCloudFrontURL(fileRequestData.artwork.path) || mewAppLogo;
     const { color, palette } = useColorThief(PLAYLIST_ARTWORK, {
       format: 'hex',
@@ -58,9 +76,11 @@ export const GiveFeedback: React.FC<{
 
     const submissions = fileRequestData?.submissions?.items;
 
+    console.log({ submissions, feedbackGivenCounts, feedbackGivenOnLoad, feedbackGiven, user, breakoutGroupId })
     const sortedSubmissions = sortBy(
       submissions.filter(o =>
         o.email !== user.email &&
+        (!breakoutGroupId || breakoutGroupId === o.breakoutGroupId) &&
         o.requestFeedback &&
         uniqBy(o.comments.items, 'email').length < MAX_FEEDBACK &&
         o.comments.items.filter(c => c.email === user.email).length === 0
@@ -133,7 +153,7 @@ export const GiveFeedback: React.FC<{
             </Box>
             <Box sx={{ minWidth: 80 }}>
               <CheckCircleTwoTone color='success' sx={{ verticalAlign: 'bottom', mr: 1 }} />
-              <Typography variant="body2" component='span' color="text.secondary">{feedbackGiven || '0'} of {MAX_FEEDBACK}</Typography>
+              <Typography variant="body2" component='span' color="text.secondary">{feedbackGiven || '0'} of {selectedSongs.length}</Typography>
             </Box>
           </Box>
 

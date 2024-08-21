@@ -33,7 +33,7 @@ import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { FileCopy } from '@mui/icons-material'
 import { useCopyToClipboard } from 'react-use'
-import * as mutations from '../../graphql/mutations'
+import * as mutations from '../../graphql/d3/mutations'
 import { getFileRequest as getFileRequestQuery, playlistsByDate } from '../../graphql/queries'
 import ImagePicker, { uploadImage } from '../ImagePicker';
 import { formatDateTimeInDefaultTimeZone, getCloudFrontURL } from '../../utils';
@@ -41,6 +41,7 @@ import { ROUTES } from '../../constants';
 import { useProfile } from '../../auth/hooks';
 import If from '../If';
 import { DateTimePicker } from '@mui/x-date-pickers';
+import { updateFileRequest } from './assignment.queries'
 
 type Inputs = {
     expiration: Date
@@ -185,7 +186,7 @@ const EditPublicAssignment: React.FC<{ workshopId: string, assignmentId: string 
             await uploadImage({ image, uploadPath: ARTWORK_UPLOAD_PATH, filename: 'artwork.jpg' })
         }
         await API.graphql({
-            query: mutations.updateFileRequest,
+            query: updateFileRequest,
             variables: {
                 input: {
                     id: assignmentId,

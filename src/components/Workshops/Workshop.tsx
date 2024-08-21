@@ -3,7 +3,7 @@ import * as React from 'react'
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { gql, useQuery } from '@apollo/react-hooks'
 import { Add, Check, People, Settings } from '@mui/icons-material'
-import { Grid, IconButton, Typography, CardContent, CardMedia, Card, Box, } from '@mui/material'
+import { Grid, IconButton, Typography, CardContent, CardMedia, Card } from '@mui/material'
 import { makeStyles } from 'tss-react/mui';
 import { Link, navigate } from 'gatsby'
 import Error from '../Error'
@@ -15,7 +15,7 @@ import GroupGuard from '../Auth/GroupGuard'
 import { Group, ROUTES } from '../../constants'
 import { useUser, useViewAdmin } from '../../auth/hooks';
 import If from '../If';
-import { formatAudioDuration, getCloudFrontURL } from '../../utils';
+import { formatAudioDuration, getBreakoutGroupName, getCloudFrontURL } from '../../utils';
 import Assignments from '../Assignments/Assignments'
 import { MembersAvatarGroup, WorkshopDates } from '../Workshops/WorkshopList';
 import Loading from '../Loading';
@@ -43,10 +43,20 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
             variables: { id: workshopId },
         },
     )
-    let workshop
-    if (data && data.getWorkshop) {
-        workshop = data.getWorkshop
-    }
+
+    const { breakoutGroupName, workshop } = React.useMemo(() => {
+        if (data?.getWorkshop) {
+            const fetchedWorkshop = data.getWorkshop
+            return {
+                breakoutGroupName: getBreakoutGroupName(fetchedWorkshop, user),
+                workshop: fetchedWorkshop
+            }
+        } else {
+            return { breakoutGroupName: '', workshop: {} }
+        }
+
+    }, [data, user])
+
 
     React.useEffect(() => {
         refetch()
@@ -120,7 +130,7 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
         },
     )
 
-    const memberships = data?.getWorkshop?.memberships?.items
+    const memberships = data?.getWorkshop?.memberships?.items.filter(m => breakoutGroupName ? m?.breakoutGroup?.name === breakoutGroupName : true)
     const totalSubmissions = sumBy(rows, r => r.submissions.length)
     // const totalPlaylistDuration = trackDurations.length ? formatAudioDuration(sum(trackDurations)) : 0
     const totalDuration = formatAudioDuration(sum(rows.map(r => sumBy(r.submissions, s => s.duration))))
@@ -160,6 +170,9 @@ const Workshop: React.FC<{ workshopId?: string }> = ({ workshopId = '' }) => {
                                 <WorkshopDates workshop={data?.getWorkshop} />
                             </div>
                             <Typography variant="h4" component="h1">{data?.getWorkshop?.name}</Typography>
+                            {
+                                breakoutGroupName ? <><Typography variant="h6" component="h1">{breakoutGroupName}</Typography></> : null
+                            }
                         </CardContent>
                     </CardMedia>
                     <CardContent>

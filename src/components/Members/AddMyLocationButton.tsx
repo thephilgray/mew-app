@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useProfile } from '../../auth/hooks';
 import { getGetLocationPromise } from '../../utils';
 import { AddLocation, EditLocation } from '@mui/icons-material';
-import { updateProfile } from '../../graphql/mutations';
+import { updateProfile } from '../../graphql/d3/mutations';
 import { gql, useMutation } from '@apollo/client';
 import If from '../If';
 

@@ -142,6 +142,12 @@ type FileRequestSubmission
   lyrics: String
   requestFeedback: Boolean
   duration: Int
+  breakoutGroupId: ID
+    @index(
+      name: "submissionsByBreakoutGroupId"
+      queryField: "submissionsByBreakoutGroupId"
+    )
+  breakoutGroup: BreakoutGroup @belongsTo(fields: ["breakoutGroupId"])
   workshopId: ID
     @index(
       name: "submissionsByWorkshopId"
@@ -154,7 +160,7 @@ type Track
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
+      { allow: private, provider: identityPool }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
@@ -169,7 +175,7 @@ type Playlist
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
+      { allow: private, provider: identityPool }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
@@ -180,6 +186,12 @@ type Playlist
   public: Boolean
   title: String
   artwork: Artwork
+  breakoutGroupId: ID
+    @index(
+      name: "playlistsByBreakoutGroupId"
+      queryField: "playlistsByBreakoutGroupId"
+    )
+  breakoutGroup: BreakoutGroup @belongsTo(fields: ["breakoutGroupId"])
   type: String
     @index(
       name: "playlistsByDate"
@@ -210,11 +222,50 @@ type Link {
   url: String
 }
 
+type BreakoutGroup
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: identityPool }
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
+      {
+        allow: groups
+        groups: ["admin", "editor"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  name: String
+  description: String
+  workshopId: ID
+    @index(
+      name: "breakoutGroupsByWorkshopId"
+      queryField: "breakoutGroupsByWorkshopId"
+    )
+  workshop: Workshop @belongsTo(fields: ["workshopId"])
+  submissions: [FileRequestSubmission]
+    @hasMany(
+      indexName: "submissionsByBreakoutGroupId"
+      fields: ["id"]
+      limit: 1000
+    )
+  playlists: [Playlist]
+    @hasMany(
+      indexName: "playlistsByBreakoutGroupId"
+      fields: ["id"]
+      limit: 1000
+    )
+  members: [Membership]
+    @hasMany(indexName: "membersByBreakoutGroupId", fields: ["id"], limit: 1000)
+}
+
 type Membership
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
+      { allow: private, provider: identityPool }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
@@ -232,6 +283,12 @@ type Membership
     )
   email: String!
     @index(name: "membershipsByEmail", queryField: "membershipsByEmail")
+  breakoutGroup: BreakoutGroup @belongsTo(fields: ["breakoutGroupId"])
+  breakoutGroupId: ID
+    @index(
+      name: "membersByBreakoutGroupId"
+      queryField: "membersByBreakoutGroupId"
+    )
   status: String
   workshop: Workshop @belongsTo(fields: ["workshopId"])
   profile: Profile @belongsTo(fields: ["email"])
@@ -244,7 +301,7 @@ type Workshop
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
+      { allow: private, provider: identityPool }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
@@ -267,7 +324,12 @@ type Workshop
   description: String
   artwork: Artwork
   host: Profile @belongsTo(fields: ["email"])
-
+  breakoutGroups: [BreakoutGroup]
+    @hasMany(
+      indexName: "breakoutGroupsByWorkshopId"
+      fields: ["id"]
+      limit: 1000
+    )
   startDate: AWSDateTime
   endDate: AWSDateTime
   memberships: [Membership]
@@ -278,7 +340,7 @@ type Profile
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
+      { allow: private, provider: identityPool }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
@@ -358,7 +420,7 @@ type Comment
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
+      { allow: private, provider: identityPool }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
@@ -391,10 +453,9 @@ type Stem
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
+      { allow: private, provider: identityPool }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
-      # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
     ]
   ) {
   id: ID!
@@ -427,7 +488,7 @@ type Prompt
   @model
   @auth(
     rules: [
-      { allow: private, provider: iam }
+      { allow: private, provider: identityPool }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
@@ -487,6 +548,8 @@ input MembershipServicePayload {
   mailchimpClientId: String
   mailchimpOauthCallback: String
   mailchimpApiKeyId: String
+  breakoutGroupId: ID
+  members: [ID!]
 }
 
 type Mutation {

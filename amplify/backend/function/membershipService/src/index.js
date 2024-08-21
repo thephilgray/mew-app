@@ -23,13 +23,13 @@ Parameters will be of the form { Name: 'secretName', Value: 'secretValue', ... }
 	REGION
 Amplify Params - DO NOT EDIT */
 
-const crypto = require('crypto');
-const AWS = require('aws-sdk');
-const mailchimp = require('@mailchimp/mailchimp_marketing');
-const AWSAppSyncClient = require('aws-appsync').default;
-require('cross-fetch/polyfill');
+const crypto = require("crypto");
+const AWS = require("aws-sdk");
+const mailchimp = require("@mailchimp/mailchimp_marketing");
+const AWSAppSyncClient = require("aws-appsync").default;
+require("cross-fetch/polyfill");
 const GRAPHQL_ENDPOINT = process.env.API_MEWAPP_GRAPHQLAPIENDPOINTOUTPUT;
-const gql = require('graphql-tag');
+const gql = require("graphql-tag");
 
 /** GRAPHQL QUERIES */
 const getWorkshop = /* GraphQL */ gql`
@@ -60,6 +60,11 @@ const getWorkshop = /* GraphQL */ gql`
           workshopId
         }
       }
+      breakoutGroups {
+        items {
+          id
+        }
+      }
       status
       passes
       features {
@@ -88,6 +93,10 @@ const getWorkshop = /* GraphQL */ gql`
               id
               name
             }
+          }
+          breakoutGroup {
+            id
+            name
           }
         }
       }
@@ -130,6 +139,23 @@ const createMembership = /* GraphQL */ gql`
         emailAddress
         id
         status
+      }
+    }
+  }
+`;
+
+const updateMembershipBreakoutGroup = /* GraphQL */ gql`
+  mutation updateMembershipBreakoutGroup(
+    $membershipId: ID!
+    $breakoutGroupId: ID
+  ) {
+    updateMembership(
+      input: { id: $membershipId, breakoutGroupId: $breakoutGroupId }
+    ) {
+      id
+      breakoutGroup {
+        id
+        name
       }
     }
   }
@@ -348,7 +374,7 @@ const updateWorkshopMailchimpIntegrationOnly = /* GraphQL */ gql`
 
 /** AWS SDK SETUP */
 
-const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
+const AWS_REGION = process.env.AWS_REGION || "us-east-1";
 AWS.config.update({
   region: AWS_REGION,
   credentials: new AWS.Credentials(
@@ -405,19 +431,19 @@ const signupUser = async ({ email, name }) => {
   var params = {
     UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID,
     Username: email /* required */,
-    MessageAction: 'SUPPRESS',
+    MessageAction: "SUPPRESS",
     UserAttributes: [
       {
-        Name: 'name',
+        Name: "name",
         Value: name,
       },
       {
-        Name: 'email',
+        Name: "email",
         Value: email,
       },
       {
-        Name: 'email_verified',
-        Value: 'true',
+        Name: "email_verified",
+        Value: "true",
       },
     ],
   };
@@ -496,11 +522,11 @@ let cognitoUsers;
 async function ensureCognitoUser({ email, name }) {
   if (!cognitoUsers) {
     try {
-      console.log('getting cognito users');
+      console.log("getting cognito users");
       cognitoUsers = await listCognitoUsers();
-      console.log('success: getting cognito users');
+      console.log("success: getting cognito users");
     } catch (error) {
-      console.log('error getting cognito users');
+      console.log("error getting cognito users");
       console.log(error);
       return undefined;
     }
@@ -512,12 +538,12 @@ async function ensureCognitoUser({ email, name }) {
 
   if (!currentCognitoUser) {
     try {
-      console.log('attempting to sign up user.');
+      console.log("attempting to sign up user.");
       const currentCognitoUserResult = await signupUser({ email, name });
       currentCognitoUser = currentCognitoUserResult.User;
-      console.log('success: sign up user.');
+      console.log("success: sign up user.");
     } catch (error) {
-      console.log('error signing up user');
+      console.log("error signing up user");
       console.log(error);
       return undefined;
     }
@@ -529,7 +555,7 @@ async function ensureCognitoUser({ email, name }) {
 
 async function setUserPassword({ userName }) {
   var params = {
-    Password: crypto.randomBytes(30).toString('hex') /* required */,
+    Password: crypto.randomBytes(30).toString("hex") /* required */,
     UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
     Username: userName /* required */,
     Permanent: true,
@@ -572,17 +598,17 @@ async function saveApiKey(email, profileID, apiKeyUpdate) {
     Name: `/mewapp-${process.env.ENV}/${profileID}/${apiKeyUpdate.keyName}`,
     Value: apiKeyUpdate.key,
     Overwrite: false,
-    Type: 'SecureString',
+    Type: "SecureString",
   };
 
   try {
     const ssm = new AWS.SSM({ region: process.env.REGION });
 
-    if (apiKeyUpdate.action === 'ADD') {
+    if (apiKeyUpdate.action === "ADD") {
       await ssm.putParameter(params).promise();
     }
 
-    if (apiKeyUpdate.action === 'DELETE') {
+    if (apiKeyUpdate.action === "DELETE") {
       await ssm.deleteParameter({ Name: params.Name }).promise();
     }
   } catch (exception) {
@@ -607,7 +633,7 @@ async function saveApiKey(email, profileID, apiKeyUpdate) {
   try {
     let variables;
 
-    if (apiKeyUpdate.action === 'ADD') {
+    if (apiKeyUpdate.action === "ADD") {
       variables = {
         keyName: params.Name,
         email,
@@ -620,7 +646,7 @@ async function saveApiKey(email, profileID, apiKeyUpdate) {
       });
     }
 
-    if (apiKeyUpdate.action === 'DELETE') {
+    if (apiKeyUpdate.action === "DELETE") {
       variables = {
         keyId: apiKeyUpdate.keyId,
       };
@@ -662,11 +688,11 @@ async function connectMailchimpAppOauth({
   const profileID = profile && profile.id;
 
   const tokenResponse = await fetch(
-    'https://login.mailchimp.com/oauth2/token',
+    "https://login.mailchimp.com/oauth2/token",
     {
-      method: 'POST',
+      method: "POST",
       body: new URLSearchParams({
-        grant_type: 'authorization_code',
+        grant_type: "authorization_code",
         client_id: MAILCHIMP_CLIENT_ID,
         client_secret: MAILCHIMP_CLIENT_SECRET,
         redirect_uri: OAUTH_CALLBACK,
@@ -679,7 +705,7 @@ async function connectMailchimpAppOauth({
   console.log({ access_token });
 
   const metadataResponse = await fetch(
-    'https://login.mailchimp.com/oauth2/metadata',
+    "https://login.mailchimp.com/oauth2/metadata",
     {
       headers: {
         Authorization: `OAuth ${access_token}`,
@@ -699,8 +725,8 @@ async function connectMailchimpAppOauth({
   console.log(response);
 
   await saveApiKey(email, profileID, {
-    action: 'ADD',
-    keyName: 'MAILCHIMP',
+    action: "ADD",
+    keyName: "MAILCHIMP",
     key: access_token,
   });
 
@@ -730,7 +756,7 @@ async function connectMailchimpAppOauth({
       throw updateGraphqlData.data.errors;
     }
   } catch (error) {
-    console.log('ERROR with updateProfileQuery');
+    console.log("ERROR with updateProfileQuery");
     throw error;
   }
 }
@@ -740,7 +766,7 @@ async function disconnectMailchimpAppOauth({
   mailchimpApiKeyId: keyId,
   workshopId,
 }) {
-  if (workshopId !== 'profile') {
+  if (workshopId !== "profile") {
     // just delete from works
     let updateGraphqlData;
 
@@ -769,7 +795,7 @@ async function disconnectMailchimpAppOauth({
         throw updateGraphqlData.data.errors;
       }
     } catch (error) {
-      console.log('ERROR with updateWorkshopQuery');
+      console.log("ERROR with updateWorkshopQuery");
       throw error;
     }
   } else {
@@ -777,7 +803,7 @@ async function disconnectMailchimpAppOauth({
     const profile = await ensureProfile({ email });
     const profileID = profile && profile.id;
     await saveApiKey(email, profileID, {
-      action: 'DELETE',
+      action: "DELETE",
       keyId,
     });
 
@@ -807,7 +833,7 @@ async function disconnectMailchimpAppOauth({
         throw updateGraphqlData.data.errors;
       }
     } catch (error) {
-      console.log('ERROR with updateProfileQuery');
+      console.log("ERROR with updateProfileQuery");
       throw error;
     }
   }
@@ -942,9 +968,9 @@ async function getMailchimpMember({
   }
   let member;
   const subscriber_hash = crypto
-    .createHash('md5')
+    .createHash("md5")
     .update(emailAddress.toLowerCase())
-    .digest('hex');
+    .digest("hex");
 
   try {
     member = await mailchimp.lists.getListMember(listId, subscriber_hash);
@@ -976,21 +1002,21 @@ async function addMailchimpMember({
     emailAddress,
   });
 
-  if (member && member.status === 'subscribed') {
+  if (member && member.status === "subscribed") {
     member = await updateMailchimpMemberTags({
       emailAddress,
       apiKeyName,
       serverPrefix,
       listId,
-      tags: [{ name: 'OUT', status: 'inactive' }],
+      tags: [{ name: "OUT", status: "inactive" }],
     });
   } else {
     try {
       const subscriber_hash = getSubscriberHash(emailAddress);
       member = await mailchimp.lists.setListMember(listId, subscriber_hash, {
         email_address: emailAddress,
-        status: 'subscribed',
-        status_if_new: 'subscribed',
+        status: "subscribed",
+        status_if_new: "subscribed",
       });
     } catch (error) {
       console.log(`error with mailchimp addListMember`);
@@ -1003,9 +1029,9 @@ async function addMailchimpMember({
 
 function getSubscriberHash(emailAddress) {
   return crypto
-    .createHash('md5')
+    .createHash("md5")
     .update(emailAddress.toLowerCase())
-    .digest('hex');
+    .digest("hex");
 }
 
 async function updateMailchimpMemberTags({
@@ -1032,7 +1058,7 @@ async function updateMailchimpMemberTags({
       tags,
     });
   } catch (error) {
-    console.log('error with mailchimp updateListMemberTags');
+    console.log("error with mailchimp updateListMemberTags");
     console.log(error);
   }
   return getMailchimpMember({ apiKeyName, serverPrefix, listId, emailAddress });
@@ -1046,7 +1072,7 @@ const appSyncClient = new AWSAppSyncClient({
   auth: {
     // type: 'AWS_IAM',
     credentials,
-    type: 'API_KEY',
+    type: "API_KEY",
     apiKey: process.env.API_MEWAPP_GRAPHQLAPIKEYOUTPUT,
   },
   disableOffline: true,
@@ -1102,7 +1128,7 @@ async function ensureProfile({ email, sub, name }) {
       }
       profile = createGraphqlData.data.createProfile;
     } catch (error) {
-      console.log('ERROR with createProfileQuery');
+      console.log("ERROR with createProfileQuery");
       throw error;
     }
   }
@@ -1134,7 +1160,7 @@ async function ensureProfile({ email, sub, name }) {
       }
       profile = updateGraphqlData.data.updateProfile;
     } catch (error) {
-      console.log('ERROR with updateProfileQuery');
+      console.log("ERROR with updateProfileQuery");
       throw error;
     }
   }
@@ -1158,11 +1184,13 @@ exports.handler = async (event) => {
   let getWorkshopResult;
   let enableMailchimpIntegration;
 
-  if (workshopId !== 'profile') {
+  if (workshopId !== "profile") {
     getWorkshopResult = await appSyncClient.query({
       query: getWorkshop,
       variables,
     });
+
+    console.log({ getWorkshopResult });
 
     // get Workshop
     enableMailchimpIntegration =
@@ -1178,7 +1206,7 @@ exports.handler = async (event) => {
   let serverPrefix;
   let listId;
   let mailchimpMembers;
-  let sessionTag = '';
+  let sessionTag = "";
 
   if (enableMailchimpIntegration) {
     const mailchimpSettings =
@@ -1193,7 +1221,7 @@ exports.handler = async (event) => {
     try {
       await addUserToGroup({ groupName, userName: cognitoUser.Username });
     } catch (error) {
-      console.log('error with adding user to member group');
+      console.log("error with adding user to member group");
       console.log(error);
     }
   }
@@ -1203,13 +1231,13 @@ exports.handler = async (event) => {
       email: emailAddress,
       name: fullName,
     });
-    if (cognitoUser && cognitoUser.UserStatus != 'CONFIRMED') {
-      console.log('a user exists but is not confirmed.');
+    if (cognitoUser && cognitoUser.UserStatus != "CONFIRMED") {
+      console.log("a user exists but is not confirmed.");
       console.log({ cognitoUser });
       try {
         await setUserPassword({ userName: cognitoUser.Username });
       } catch (error) {
-        console.log('error with setting user password');
+        console.log("error with setting user password");
         console.log(error);
       }
       if (groupName) {
@@ -1239,7 +1267,7 @@ exports.handler = async (event) => {
   async function addOrUpdateMembership({
     emailAddress,
     fullName,
-    status = 'ACTIVE',
+    status = "ACTIVE",
     mailchimpStatus,
     mailchimpTags,
     mailchimpId,
@@ -1310,12 +1338,12 @@ exports.handler = async (event) => {
   async function disableMembership({ emailAddress }) {
     const member = getMemberFromEmail({ emailAddress });
     if (!member) {
-      console.log('cannot disable membership. not a member!');
+      console.log("cannot disable membership. not a member!");
       return;
     }
     // update membership
     const updateMembershipVariables = {
-      status: 'OUT',
+      status: "OUT",
       membershipId: member.id,
     };
 
@@ -1347,11 +1375,11 @@ exports.handler = async (event) => {
       ensureProfileResult.memberships &&
       ensureProfileResult.memberships.items &&
       ensureProfileResult.memberships.items.filter(
-        (item) => item.status === 'ACTIVE'
+        (item) => item.status === "ACTIVE"
       ).length < 1
     ) {
       try {
-        await removeFromGroup({ emailAddress, groupName: 'member' });
+        await removeFromGroup({ emailAddress, groupName: "member" });
       } catch (error) {
         console.log(`Error with removeFromGroup`);
         console.log(error);
@@ -1385,7 +1413,7 @@ exports.handler = async (event) => {
         mailchimpId,
         mailchimpStatus,
         uniqueEmailId,
-        status: 'ACTIVE',
+        status: "ACTIVE",
         mailchimpTags,
       });
     }
@@ -1399,7 +1427,7 @@ exports.handler = async (event) => {
       apiKeyName,
       serverPrefix,
       listId,
-      tags: [{ name: 'OUT', status: 'active' }],
+      tags: [{ name: "OUT", status: "active" }],
     });
 
     console.log({ updatedMember });
@@ -1422,7 +1450,7 @@ exports.handler = async (event) => {
         mailchimpId,
         mailchimpStatus,
         uniqueEmailId,
-        status: 'OUT',
+        status: "OUT",
         mailchimpTags,
       });
     }
@@ -1434,12 +1462,18 @@ exports.handler = async (event) => {
     );
   }
 
+  function getMemberFromId({ id }) {
+    return getWorkshopResult.data.getWorkshop.memberships.items.find(
+      (item) => item.id === id
+    );
+  }
+
   async function removeFromGroup({ emailAddress, groupName }) {
     return removeUserFromGroup({ groupName, userName: emailAddress });
   }
 
   switch (action) {
-    case 'SYNC_MEMBERS_WITH_MAILCHIMP':
+    case "SYNC_MEMBERS_WITH_MAILCHIMP":
       if (!enableMailchimpIntegration) break;
       mailchimpMembers = await getMailchimpMembers({
         apiKeyName,
@@ -1461,7 +1495,7 @@ exports.handler = async (event) => {
             item.name && item.name.toUpperCase() === sessionTag.toUpperCase()
         );
         const hasOutTag = mailchimpTags.some(
-          (item) => item.name && item.name.toUpperCase() === 'OUT'
+          (item) => item.name && item.name.toUpperCase() === "OUT"
         );
         const filtered = sessionTag && !hasSessionTag;
 
@@ -1469,7 +1503,7 @@ exports.handler = async (event) => {
           const isActive = sessionTag
             ? hasSessionTag && !hasOutTag
             : !hasOutTag;
-          const status = isActive ? 'ACTIVE' : 'OUT';
+          const status = isActive ? "ACTIVE" : "OUT";
           console.log({
             hasSessionTag,
             hasOutTag,
@@ -1480,7 +1514,7 @@ exports.handler = async (event) => {
           const cognitoUser = await addLogin({
             emailAddress,
             fullName,
-            groupName: 'member',
+            groupName: "member",
           });
           if (cognitoUser) {
             await addOrUpdateMembership({
@@ -1498,52 +1532,52 @@ exports.handler = async (event) => {
       }
       break;
 
-    case 'ADD_MEMBERSHIP':
+    case "ADD_MEMBERSHIP":
       for await (const payload of payloads) {
         // must ensure cognito login and group first
-        const cognitoUser = await addLogin({ ...payload, groupName: 'member' });
+        const cognitoUser = await addLogin({ ...payload, groupName: "member" });
         if (cognitoUser) {
           await addOrUpdateMembership(payload);
         }
       }
       break;
 
-    case 'DISABLE_MEMBERSHIP':
+    case "DISABLE_MEMBERSHIP":
       for await (const payload of payloads) {
         await disableMembership(payload);
       }
       break;
 
-    case 'ADD_MAILCHIMP_SUBSCRIPTION':
+    case "ADD_MAILCHIMP_SUBSCRIPTION":
       for await (const payload of payloads) {
         await addMailchimpSubscription(payload);
       }
       break;
 
-    case 'DISABLE_MAILCHIMP_SUBSCRIPTION':
+    case "DISABLE_MAILCHIMP_SUBSCRIPTION":
       for await (const payload of payloads) {
         await disableMailchimpSubscription(payload);
       }
       break;
 
-    case 'ADD_LOGIN':
+    case "ADD_LOGIN":
       for await (const payload of payloads) {
         await addLogin(payload);
       }
       break;
 
-    case 'ADD_PROFILE':
+    case "ADD_PROFILE":
       for await (const payload of payloads) {
         await ensureProfile(payload);
       }
       break;
-    case 'DISABLE_LOGIN':
+    case "DISABLE_LOGIN":
       for await (const payload of payloads) {
         await disableLogin(payload);
       }
       break;
 
-    case 'CONNECT_MAILCHIMP':
+    case "CONNECT_MAILCHIMP":
       await connectMailchimpAppOauth(payloads[0]);
       // {
       // emailAddress
@@ -1552,12 +1586,62 @@ exports.handler = async (event) => {
       // mailchimpClientId
       // }
       break;
-    case 'DISCONNECT_MAILCHIMP':
+    case "DISCONNECT_MAILCHIMP":
       await disconnectMailchimpAppOauth({ ...payloads[0], workshopId });
       // {
       // emailAddress
       // mailchimpApiKeyId;
       // }
+      break;
+
+    case "ADD_MEMBERS_TO_BREAKOUT_GROUP":
+      for await (const payload of payloads) {
+        for await (const memberId of payload.members) {
+          try {
+            const member = getMemberFromId({ id: memberId });
+            console.log({
+              member,
+              memberships: getWorkshopResult.data.getWorkshop.memberships.items,
+            });
+            const prefix = workshopId.split("-")[0];
+            const existingTagsToDeactivate = member.tags
+              ? member.tags
+                  .filter(
+                    (tag) =>
+                      tag.name.startsWith(prefix) &&
+                      tag.name !== payload.breakoutGroupId
+                  )
+                  .map((t) => ({ name: t.name, status: "inactive" }))
+              : [];
+
+            await updateMailchimpMemberTags({
+              emailAddress: member.email,
+              apiKeyName,
+              serverPrefix,
+              listId,
+              tags: [
+                ...existingTagsToDeactivate,
+                { name: payload.breakoutGroupId, status: "active" },
+              ],
+            });
+
+            await appSyncClient.mutate({
+              mutation: updateMembershipBreakoutGroup,
+              variables: {
+                membershipId: memberId,
+                breakoutGroupId: payload.breakoutGroupId,
+              },
+            });
+          } catch (error) {
+            console.log(error);
+            console.log(
+              `error with adding member to breakout group`,
+              memberId,
+              payload.breakoutGroupId
+            );
+          }
+        }
+      }
       break;
 
     default:
@@ -1571,6 +1655,6 @@ exports.handler = async (event) => {
     //      "Access-Control-Allow-Origin": "*",
     //      "Access-Control-Allow-Headers": "*"
     //  },
-    body: JSON.stringify('Hello from Lambda!'),
+    body: JSON.stringify("Hello from Lambda!"),
   };
 };
