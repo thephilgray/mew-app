@@ -72,11 +72,11 @@ export default function FileRequestSubmissionUpdateForm(props) {
     const queryData = async () => {
       const record = idProp
         ? (
-          await API.graphql({
-            query: getFileRequestSubmission.replaceAll("__typename", ""),
-            variables: { id: idProp },
-          })
-        )?.data?.getFileRequestSubmission
+            await API.graphql({
+              query: getFileRequestSubmission.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getFileRequestSubmission
         : fileRequestSubmissionModelProp;
       setFileRequestSubmissionRecord(record);
     };
@@ -338,7 +338,7 @@ export default function FileRequestSubmissionUpdateForm(props) {
         {...getOverrideProps(overrides, "rating")}
       ></TextField>
       <TextField
-        label="Liner Notes"
+        label="Lyrics"
         isRequired={false}
         isReadOnly={false}
         value={lyrics}

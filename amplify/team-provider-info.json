@@ -107,5 +107,98 @@
         "AdminQueries": {}
       }
     }
+  },
+  "qa": {
+    "awscloudformation": {},
+    "categories": {
+      "function": {
+        "AdminQueriesd92d7feb": {},
+        "membershipService": {},
+        "mewProfileService": {},
+        "mewappacdc5d0eCreateAuthChallenge": {},
+        "mewappacdc5d0eDefineAuthChallenge": {},
+        "mewappacdc5d0ePreSignup": {},
+        "mewappacdc5d0eVerifyAuthChallengeResponse": {},
+        "populateMembers": {},
+        "runProcessAudioTask": {},
+        "zipmewsubmissions": {},
+        "mewappacdc5d0e": {},
+        "mewapp": {},
+        "userPoolGroups": {}
+      }
+    }
+  },
+  "develop": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mewapp-develop-c7bb8-authRole",
+      "UnauthRoleArn": "arn:aws:iam::856562418824:role/amplify-mewapp-develop-c7bb8-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::856562418824:role/amplify-mewapp-develop-c7bb8-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+      "UnauthRoleName": "amplify-mewapp-develop-c7bb8-unauthRole",
+      "StackName": "amplify-mewapp-develop-c7bb8",
+      "StackId": "arn:aws:cloudformation:us-east-1:856562418824:stack/amplify-mewapp-develop-c7bb8/8f910a20-601d-11ef-baf1-0e6c7dd1c56d",
+      "AmplifyAppId": "d1yi6qc6rnncji"
+    },
+    "categories": {
+      "auth": {
+        "mewappacdc5d0e": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "AdminQueriesd92d7feb": {
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/AdminQueriesd92d7feb-71666f4666445632756a-build.zip"
+        },
+        "membershipService": {
+          "secretsPathAmplifyAppId": "d1yi6qc6rnncji",
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/membershipService-4d54532f4f6462353772-build.zip"
+        },
+        "mewProfileService": {
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/mewProfileService-50365969727153614937-build.zip"
+        },
+        "mewappacdc5d0eCreateAuthChallenge": {
+          "secretsPathAmplifyAppId": "d1yi6qc6rnncji",
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0eCreateAuthChallenge-4e70334a467378353966-build.zip"
+        },
+        "mewappacdc5d0eDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0eDefineAuthChallenge-54754432493365614130-build.zip"
+        },
+        "mewappacdc5d0ePreSignup": {
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0ePreSignup-594f3732366f53723775-build.zip"
+        },
+        "mewappacdc5d0eVerifyAuthChallengeResponse": {
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0eVerifyAuthChallengeResponse-704c6f2f484363666336-build.zip"
+        },
+        "populateMembers": {
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/populateMembers-505530475664766b5379-build.zip"
+        },
+        "runProcessAudioTask": {
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/runProcessAudioTask-46596373556d70667633-build.zip"
+        },
+        "zipmewsubmissions": {
+          "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
+          "s3Key": "amplify-builds/zipmewsubmissions-7565364d7a6f476c6c37-build.zip"
+        },
+        "mewappacdc5d0e": {},
+        "mewapp": {},
+        "userPoolGroups": {}
+      },
+      "api": {
+        "AdminQueries": {},
+        "mewapp": {}
+      },
+      "storage": {
+        "mewapp": {}
+      }
+    }
   }
 }

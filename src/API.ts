@@ -61,6 +61,7 @@ export type ModelAPIKeyConditionInput = {
   and?: Array< ModelAPIKeyConditionInput | null > | null,
   or?: Array< ModelAPIKeyConditionInput | null > | null,
   not?: ModelAPIKeyConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -478,6 +479,8 @@ export type ModelExtensionConditionInput = {
   and?: Array< ModelExtensionConditionInput | null > | null,
   or?: Array< ModelExtensionConditionInput | null > | null,
   not?: ModelExtensionConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type UpdateExtensionInput = {
@@ -526,6 +529,7 @@ export type ModelFileRequestConditionInput = {
   and?: Array< ModelFileRequestConditionInput | null > | null,
   or?: Array< ModelFileRequestConditionInput | null > | null,
   not?: ModelFileRequestConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   fileRequestPlaylistId?: ModelIDInput | null,
 };
 
@@ -587,6 +591,8 @@ export type ModelFileRequestSubmissionConditionInput = {
   and?: Array< ModelFileRequestSubmissionConditionInput | null > | null,
   or?: Array< ModelFileRequestSubmissionConditionInput | null > | null,
   not?: ModelFileRequestSubmissionConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ModelIntInput = {
@@ -633,6 +639,8 @@ export type ModelTrackConditionInput = {
   and?: Array< ModelTrackConditionInput | null > | null,
   or?: Array< ModelTrackConditionInput | null > | null,
   not?: ModelTrackConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   playlistTracksId?: ModelIDInput | null,
   trackSubmissionId?: ModelIDInput | null,
 };
@@ -667,6 +675,7 @@ export type ModelPlaylistConditionInput = {
   and?: Array< ModelPlaylistConditionInput | null > | null,
   or?: Array< ModelPlaylistConditionInput | null > | null,
   not?: ModelPlaylistConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   profilePlaylistsId?: ModelIDInput | null,
   playlistOwnerId?: ModelIDInput | null,
 };
@@ -711,6 +720,8 @@ export type ModelMembershipConditionInput = {
   and?: Array< ModelMembershipConditionInput | null > | null,
   or?: Array< ModelMembershipConditionInput | null > | null,
   not?: ModelMembershipConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type UpdateMembershipInput = {
@@ -761,6 +772,8 @@ export type ModelWorkshopConditionInput = {
   and?: Array< ModelWorkshopConditionInput | null > | null,
   or?: Array< ModelWorkshopConditionInput | null > | null,
   not?: ModelWorkshopConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type UpdateWorkshopInput = {
@@ -813,6 +826,8 @@ export type ModelProfileConditionInput = {
   and?: Array< ModelProfileConditionInput | null > | null,
   or?: Array< ModelProfileConditionInput | null > | null,
   not?: ModelProfileConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type UpdateProfileInput = {
@@ -856,6 +871,7 @@ export type ModelCommentConditionInput = {
   and?: Array< ModelCommentConditionInput | null > | null,
   or?: Array< ModelCommentConditionInput | null > | null,
   not?: ModelCommentConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type UpdateCommentInput = {
@@ -910,6 +926,7 @@ export type ModelStemConditionInput = {
   and?: Array< ModelStemConditionInput | null > | null,
   or?: Array< ModelStemConditionInput | null > | null,
   not?: ModelStemConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type UpdateStemInput = {
@@ -952,6 +969,7 @@ export type ModelPromptConditionInput = {
   and?: Array< ModelPromptConditionInput | null > | null,
   or?: Array< ModelPromptConditionInput | null > | null,
   not?: ModelPromptConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type UpdatePromptInput = {
@@ -979,6 +997,8 @@ export type ModelSubmissionStemsConditionInput = {
   and?: Array< ModelSubmissionStemsConditionInput | null > | null,
   or?: Array< ModelSubmissionStemsConditionInput | null > | null,
   not?: ModelSubmissionStemsConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type UpdateSubmissionStemsInput = {
@@ -997,6 +1017,7 @@ export type ModelAPIKeyFilterInput = {
   createdAt?: ModelStringInput | null,
   profileID?: ModelIDInput | null,
   email?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelAPIKeyFilterInput | null > | null,
   or?: Array< ModelAPIKeyFilterInput | null > | null,
   not?: ModelAPIKeyFilterInput | null,
@@ -1006,6 +1027,8 @@ export type ModelExtensionFilterInput = {
   id?: ModelIDInput | null,
   expiration?: ModelStringInput | null,
   assignmentId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelExtensionFilterInput | null > | null,
   or?: Array< ModelExtensionFilterInput | null > | null,
   not?: ModelExtensionFilterInput | null,
@@ -1029,6 +1052,7 @@ export type ModelFileRequestFilterInput = {
   playlistExternalUrl?: ModelStringInput | null,
   type?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelFileRequestFilterInput | null > | null,
   or?: Array< ModelFileRequestFilterInput | null > | null,
   not?: ModelFileRequestFilterInput | null,
@@ -1058,6 +1082,8 @@ export type ModelFileRequestSubmissionFilterInput = {
   requestFeedback?: ModelBooleanInput | null,
   duration?: ModelIntInput | null,
   workshopId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelFileRequestSubmissionFilterInput | null > | null,
   or?: Array< ModelFileRequestSubmissionFilterInput | null > | null,
   not?: ModelFileRequestSubmissionFilterInput | null,
@@ -1065,6 +1091,9 @@ export type ModelFileRequestSubmissionFilterInput = {
 
 export type ModelTrackFilterInput = {
   order?: ModelIntInput | null,
+  id?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelTrackFilterInput | null > | null,
   or?: Array< ModelTrackFilterInput | null > | null,
   not?: ModelTrackFilterInput | null,
@@ -1077,6 +1106,8 @@ export type ModelPlaylistFilterInput = {
   title?: ModelStringInput | null,
   type?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelPlaylistFilterInput | null > | null,
   or?: Array< ModelPlaylistFilterInput | null > | null,
   not?: ModelPlaylistFilterInput | null,
@@ -1089,6 +1120,8 @@ export type ModelMembershipFilterInput = {
   workshopId?: ModelIDInput | null,
   email?: ModelStringInput | null,
   status?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMembershipFilterInput | null > | null,
   or?: Array< ModelMembershipFilterInput | null > | null,
   not?: ModelMembershipFilterInput | null,
@@ -1103,6 +1136,8 @@ export type ModelWorkshopFilterInput = {
   description?: ModelStringInput | null,
   startDate?: ModelStringInput | null,
   endDate?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelWorkshopFilterInput | null > | null,
   or?: Array< ModelWorkshopFilterInput | null > | null,
   not?: ModelWorkshopFilterInput | null,
@@ -1116,6 +1151,8 @@ export type ModelProfileFilterInput = {
   avatar?: ModelStringInput | null,
   bio?: ModelStringInput | null,
   sub?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelProfileFilterInput | null > | null,
   or?: Array< ModelProfileFilterInput | null > | null,
   not?: ModelProfileFilterInput | null,
@@ -1137,6 +1174,7 @@ export type ModelCommentFilterInput = {
   parentId?: ModelIDInput | null,
   type?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelCommentFilterInput | null > | null,
   or?: Array< ModelCommentFilterInput | null > | null,
   not?: ModelCommentFilterInput | null,
@@ -1158,6 +1196,7 @@ export type ModelStemFilterInput = {
   artist?: ModelStringInput | null,
   type?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelStemFilterInput | null > | null,
   or?: Array< ModelStemFilterInput | null > | null,
   not?: ModelStemFilterInput | null,
@@ -1170,6 +1209,7 @@ export type ModelPromptFilterInput = {
   authorEmail?: ModelStringInput | null,
   type?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelPromptFilterInput | null > | null,
   or?: Array< ModelPromptFilterInput | null > | null,
   not?: ModelPromptFilterInput | null,
@@ -1179,6 +1219,8 @@ export type ModelSubmissionStemsFilterInput = {
   id?: ModelIDInput | null,
   fileRequestSubmissionID?: ModelIDInput | null,
   stemID?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelSubmissionStemsFilterInput | null > | null,
   or?: Array< ModelSubmissionStemsFilterInput | null > | null,
   not?: ModelSubmissionStemsFilterInput | null,
@@ -1190,6 +1232,7 @@ export type ModelSubscriptionAPIKeyFilterInput = {
   createdAt?: ModelSubscriptionStringInput | null,
   profileID?: ModelSubscriptionIDInput | null,
   email?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAPIKeyFilterInput | null > | null,
   or?: Array< ModelSubscriptionAPIKeyFilterInput | null > | null,
 };
@@ -1228,6 +1271,8 @@ export type ModelSubscriptionExtensionFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   expiration?: ModelSubscriptionStringInput | null,
   assignmentId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionExtensionFilterInput | null > | null,
   or?: Array< ModelSubscriptionExtensionFilterInput | null > | null,
 };
@@ -1244,8 +1289,10 @@ export type ModelSubscriptionFileRequestFilterInput = {
   playlistExternalUrl?: ModelSubscriptionStringInput | null,
   type?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionFileRequestFilterInput | null > | null,
   or?: Array< ModelSubscriptionFileRequestFilterInput | null > | null,
+  fileRequestPlaylistId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionBooleanInput = {
@@ -1266,6 +1313,8 @@ export type ModelSubscriptionFileRequestSubmissionFilterInput = {
   requestFeedback?: ModelSubscriptionBooleanInput | null,
   duration?: ModelSubscriptionIntInput | null,
   workshopId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionFileRequestSubmissionFilterInput | null > | null,
   or?: Array< ModelSubscriptionFileRequestSubmissionFilterInput | null > | null,
 };
@@ -1284,8 +1333,12 @@ export type ModelSubscriptionIntInput = {
 
 export type ModelSubscriptionTrackFilterInput = {
   order?: ModelSubscriptionIntInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionTrackFilterInput | null > | null,
   or?: Array< ModelSubscriptionTrackFilterInput | null > | null,
+  trackSubmissionId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionPlaylistFilterInput = {
@@ -1293,8 +1346,12 @@ export type ModelSubscriptionPlaylistFilterInput = {
   title?: ModelSubscriptionStringInput | null,
   type?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPlaylistFilterInput | null > | null,
   or?: Array< ModelSubscriptionPlaylistFilterInput | null > | null,
+  playlistTracksId?: ModelSubscriptionIDInput | null,
+  playlistOwnerId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionMembershipFilterInput = {
@@ -1302,6 +1359,8 @@ export type ModelSubscriptionMembershipFilterInput = {
   workshopId?: ModelSubscriptionIDInput | null,
   email?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMembershipFilterInput | null > | null,
   or?: Array< ModelSubscriptionMembershipFilterInput | null > | null,
 };
@@ -1315,6 +1374,8 @@ export type ModelSubscriptionWorkshopFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   startDate?: ModelSubscriptionStringInput | null,
   endDate?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionWorkshopFilterInput | null > | null,
   or?: Array< ModelSubscriptionWorkshopFilterInput | null > | null,
 };
@@ -1327,8 +1388,11 @@ export type ModelSubscriptionProfileFilterInput = {
   avatar?: ModelSubscriptionStringInput | null,
   bio?: ModelSubscriptionStringInput | null,
   sub?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionProfileFilterInput | null > | null,
   or?: Array< ModelSubscriptionProfileFilterInput | null > | null,
+  profilePlaylistsId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionCommentFilterInput = {
@@ -1341,6 +1405,7 @@ export type ModelSubscriptionCommentFilterInput = {
   parentId?: ModelSubscriptionIDInput | null,
   type?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCommentFilterInput | null > | null,
   or?: Array< ModelSubscriptionCommentFilterInput | null > | null,
 };
@@ -1361,6 +1426,7 @@ export type ModelSubscriptionStemFilterInput = {
   artist?: ModelSubscriptionStringInput | null,
   type?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionStemFilterInput | null > | null,
   or?: Array< ModelSubscriptionStemFilterInput | null > | null,
 };
@@ -1372,6 +1438,7 @@ export type ModelSubscriptionPromptFilterInput = {
   authorEmail?: ModelSubscriptionStringInput | null,
   type?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPromptFilterInput | null > | null,
   or?: Array< ModelSubscriptionPromptFilterInput | null > | null,
 };
@@ -1380,6 +1447,8 @@ export type ModelSubscriptionSubmissionStemsFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   fileRequestSubmissionID?: ModelSubscriptionIDInput | null,
   stemID?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSubmissionStemsFilterInput | null > | null,
   or?: Array< ModelSubscriptionSubmissionStemsFilterInput | null > | null,
 };
