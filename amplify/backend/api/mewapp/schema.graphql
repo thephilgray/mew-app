@@ -160,7 +160,7 @@ type Track
   @model
   @auth(
     rules: [
-      { allow: private, provider: identityPool }
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
@@ -175,7 +175,7 @@ type Playlist
   @model
   @auth(
     rules: [
-      { allow: private, provider: identityPool }
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
@@ -226,7 +226,7 @@ type BreakoutGroup
   @model
   @auth(
     rules: [
-      { allow: private, provider: identityPool }
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
@@ -265,7 +265,7 @@ type Membership
   @model
   @auth(
     rules: [
-      { allow: private, provider: identityPool }
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
@@ -301,7 +301,7 @@ type Workshop
   @model
   @auth(
     rules: [
-      { allow: private, provider: identityPool }
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
@@ -340,7 +340,7 @@ type Profile
   @model
   @auth(
     rules: [
-      { allow: private, provider: identityPool }
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       {
@@ -420,7 +420,7 @@ type Comment
   @model
   @auth(
     rules: [
-      { allow: private, provider: identityPool }
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
@@ -453,7 +453,7 @@ type Stem
   @model
   @auth(
     rules: [
-      { allow: private, provider: identityPool }
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
     ]
@@ -488,7 +488,7 @@ type Prompt
   @model
   @auth(
     rules: [
-      { allow: private, provider: identityPool }
+      { allow: private, provider: iam }
       { allow: private, operations: [read, create, update, delete] }
       { allow: public, operations: [create, read, update, delete] } # todo turn off public access once transition to auth-only complete
       # { allow: groups, groups: ["admin", "editor"], operations: [read, create, update, delete] }
