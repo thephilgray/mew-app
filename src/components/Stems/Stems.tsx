@@ -17,7 +17,7 @@ import { useDownload } from '../AudioPlayer/audio-player.context';
 import {
   // createSavedStems,
   deleteStem as deleteStemMutation
-} from '../../graphql/mutations';
+} from '../../graphql/d3/mutations';
 import { useProfile, useViewAdmin } from '../../auth/hooks';
 
 const DownloadStem = ({ stem }) => {

@@ -69,6 +69,7 @@ export const getWorkshop = /* GraphQL */ `
               id
             }
           }
+          breakoutGroupId
         }
       }
       status
@@ -114,6 +115,27 @@ export const getWorkshop = /* GraphQL */ `
             displayName
             avatar
             email
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+        }
+      }
+      breakoutGroups {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+          members{
+            items {
+              id
+              email
+            }
           }
         }
       }

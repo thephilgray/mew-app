@@ -1,20 +1,16 @@
 /* eslint-disable react/display-name */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, navigate } from 'gatsby';
 import {
     Alert,
     Badge,
-    Box,
     Button,
-    Checkbox,
     CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
-    FormControlLabel,
-    FormGroup,
     Grid,
     IconButton,
     Snackbar,
@@ -52,7 +48,7 @@ import { uniqBy, pipe, map } from 'lodash/fp';
 import AppBreadcrumbs from '../AppBreadcrumbs';
 import Error from '../Error';
 import Menu from '../Menu';
-import { deleteFileRequestSubmission, processDownload, runProcessAudioTask } from '../../graphql/mutations';
+import { processDownload, runProcessAudioTask } from '../../graphql/d3/mutations';
 import { getFileRequest } from '../../graphql/queries';
 import ExtensionsDialog from './ExtensionsDialog';
 import { useUser, useViewAdmin } from '../../auth/hooks';
@@ -65,6 +61,7 @@ import Loading from '../Loading';
 import SimplePlayer, { SimplePlayerButton } from '../AudioPlayer/SimplePlayer';
 import { DataGridWrapper } from '../DataGridWrapper';
 import { getCloudFrontURL } from '../../utils';
+import { deleteFileRequestSubmission } from './submissions.queries';
 
 const Submissions: React.FC<{ assignmentId: string }> = ({
     assignmentId = '',
@@ -89,21 +86,16 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     const [deleteSubmissionLoading, setDeleteSubmissionLoading] = useState(false)
     const [rowToDelete, setRowToDelete] = useState(null)
     const [deleteSubmissionError, setDeleteSubmissionError] = useState(null)
+    const [deleted, setDeleted] = useState([])
     const handleCloseDeleteSubmissionConfirm = () => {
         setRowToDelete(null)
         setDeleteSubmissionError(null)
         setDeleteSubmissionLoading(false)
         setOpenDeleteSubmissionConfirm(false)
     }
-    const audioRef = useRef();
-    const [audioSrc, setAudioSrc] = useState(null)
-    const previousSrc = usePrevious(audioSrc)
-    const [isPlaying, setIsPlaying] = useState(false)
     const user = useUser();
     const [viewAdmin] = useViewAdmin();
     const breakpoint = useBreakpoint()
-    const sm = breakpoint === "S"
-    const lg = breakpoint === "L"
     const xs = breakpoint === "XS"
 
     const [deleteFileRequestSubmissionRequest] = useMutation(gql(deleteFileRequestSubmission),)
@@ -157,8 +149,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
 
     React.useEffect(() => {
         refetch();
-    }, []);
 
+    }, [deleted]);
     const rows = (data?.getFileRequest?.submissions?.items || []).filter(
         (item) => {
             if (viewAdmin) return item;
@@ -249,6 +241,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                         email,
                         name,
                         createdAt,
+                        breakoutGroup,
                     }: {
                         artist: string;
                         email: string;
@@ -259,6 +252,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                             artist,
                             email,
                             name,
+                            breakoutGroup,
                             format(new Date(createdAt), 'MM/dd/yyyy H:mm'),
                         ].map((str?: string) => (str === null ? '' : `\"${str}\"`))
                 )
@@ -321,6 +315,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             })
 
             setOpenDeleteSubmissionConfirm(false)
+            setDeleted([...deleted, id])
 
         } catch (err) {
             setDeleteSubmissionError(err)
@@ -348,6 +343,12 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
             headerName: 'Song Title',
             width: 300,
         },
+        ...(!!viewAdmin && !!data?.getFileRequest?.workshop?.breakoutGroups?.items?.length ? [{
+            field: 'breakoutGroup',
+            headerName: 'Breakout Group',
+            width: 300,
+            valueFormatter: ({ value = {} }) => value?.name
+        }] : []),
         ...(!!viewAdmin ? [{
             field: 'email',
             headerName: 'Email',
@@ -416,7 +417,7 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
     if (!loading && !data?.getFileRequest?.submissions?.items)
         return <p>Assignment does not exist or has been deleted.</p>;
 
-    
+
     const menuItems = [
         {
             icon: <Assessment />,
@@ -720,8 +721,8 @@ const Submissions: React.FC<{ assignmentId: string }> = ({
                     </If>
 
                     {data.getFileRequest.submissions.items.length && (!!viewAdmin || isExpired) ? (
-                            <Menu size="medium" items={menuItems.filter(item => !!viewAdmin || !item.admin)} />
-                ) : null}
+                        <Menu size="medium" items={menuItems.filter(item => !!viewAdmin || !item.admin)} />
+                    ) : null}
                 </Grid>
                 <If condition={!isExpired}>
 

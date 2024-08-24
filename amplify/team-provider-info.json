@@ -153,7 +153,7 @@
         "membershipService": {
           "secretsPathAmplifyAppId": "d1yi6qc6rnncji",
           "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
-          "s3Key": "amplify-builds/membershipService-4d54532f4f6462353772-build.zip"
+          "s3Key": "amplify-builds/membershipService-675279356e7577445176-build.zip"
         },
         "mewProfileService": {
           "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",

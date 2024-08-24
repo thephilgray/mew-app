@@ -20,7 +20,7 @@ import AppBreadcrumbs from '../AppBreadcrumbs';
 import { useCopyToClipboard } from 'react-use';
 import ImagePicker, { uploadImage } from '../ImagePicker';
 import { v4 as uuidv4 } from 'uuid';
-import { createFileRequest as createFileRequestMutation } from '../../graphql/mutations';
+import { createFileRequest as createFileRequestMutation } from './assignment.queries';
 import { ROUTES } from '../../constants';
 import { getWorkshop } from '../../graphql/queries';
 import { formatDateTimeInDefaultTimeZone } from '../../utils';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Box, Button, CircularProgress, Divider, Grid, Icon, IconButton, InputBase, InputLabel, Link, List, ListItem, Paper, TextField, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui';
-import { updateMembershipService, updateProfile, updateProfileService } from '../../graphql/mutations'
+import { updateMembershipService, updateProfile, updateProfileService } from '../../graphql/d3/mutations'
 import gql from 'graphql-tag'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { useFieldArray, useForm } from 'react-hook-form'

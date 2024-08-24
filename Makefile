@@ -1,6 +1,7 @@
 codegen: 
 	yq --version || brew install yq
 	rm -rf src/graphql/d3
+	rm src/API.ts
 	yq '.projects.mewapp.extensions.amplify.maxDepth'=3 -i  .graphqlconfig.yml
 	amplify codegen
 	mkdir d3

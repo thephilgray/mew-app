@@ -202,6 +202,7 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -244,6 +245,10 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -292,6 +297,16 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -359,6 +374,7 @@ export const listFileRequests = /* GraphQL */ `query ListFileRequests(
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -435,6 +451,7 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `query FileRequestsByWorks
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -513,6 +530,7 @@ export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -579,6 +597,7 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -693,6 +712,41 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
     lyrics
     requestFeedback
     duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     workshopId
     createdAt
     updatedAt
@@ -767,6 +821,16 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -848,6 +912,16 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -929,6 +1003,16 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -941,6 +1025,97 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
 ` as GeneratedQuery<
   APITypes.SubmissionsByEmailQueryVariables,
   APITypes.SubmissionsByEmailQuery
+>;
+export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBreakoutGroupId(
+  $breakoutGroupId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelFileRequestSubmissionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  submissionsByBreakoutGroupId(
+    breakoutGroupId: $breakoutGroupId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SubmissionsByBreakoutGroupIdQueryVariables,
+  APITypes.SubmissionsByBreakoutGroupIdQuery
 >;
 export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorkshopId(
   $workshopId: ID!
@@ -1010,6 +1185,16 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -1080,6 +1265,16 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -1108,6 +1303,16 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -1147,6 +1352,7 @@ export const listTracks = /* GraphQL */ `query ListTracks(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -1155,6 +1361,7 @@ export const listTracks = /* GraphQL */ `query ListTracks(
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -1255,6 +1462,41 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
       credit
       __typename
     }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     type
     createdAt
     id
@@ -1299,6 +1541,16 @@ export const listPlaylists = /* GraphQL */ `query ListPlaylists(
         credit
         __typename
       }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       type
       createdAt
       id
@@ -1314,6 +1566,71 @@ export const listPlaylists = /* GraphQL */ `query ListPlaylists(
 ` as GeneratedQuery<
   APITypes.ListPlaylistsQueryVariables,
   APITypes.ListPlaylistsQuery
+>;
+export const playlistsByBreakoutGroupId = /* GraphQL */ `query PlaylistsByBreakoutGroupId(
+  $breakoutGroupId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelPlaylistFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  playlistsByBreakoutGroupId(
+    breakoutGroupId: $breakoutGroupId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      tracks {
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.PlaylistsByBreakoutGroupIdQueryVariables,
+  APITypes.PlaylistsByBreakoutGroupIdQuery
 >;
 export const playlistsByDate = /* GraphQL */ `query PlaylistsByDate(
   $type: String!
@@ -1356,6 +1673,16 @@ export const playlistsByDate = /* GraphQL */ `query PlaylistsByDate(
         credit
         __typename
       }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       type
       createdAt
       id
@@ -1372,11 +1699,267 @@ export const playlistsByDate = /* GraphQL */ `query PlaylistsByDate(
   APITypes.PlaylistsByDateQueryVariables,
   APITypes.PlaylistsByDateQuery
 >;
+export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) {
+  getBreakoutGroup(id: $id) {
+    id
+    name
+    description
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetBreakoutGroupQueryVariables,
+  APITypes.GetBreakoutGroupQuery
+>;
+export const listBreakoutGroups = /* GraphQL */ `query ListBreakoutGroups(
+  $filter: ModelBreakoutGroupFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBreakoutGroups(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBreakoutGroupsQueryVariables,
+  APITypes.ListBreakoutGroupsQuery
+>;
+export const breakoutGroupsByWorkshopId = /* GraphQL */ `query BreakoutGroupsByWorkshopId(
+  $workshopId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelBreakoutGroupFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  breakoutGroupsByWorkshopId(
+    workshopId: $workshopId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.BreakoutGroupsByWorkshopIdQueryVariables,
+  APITypes.BreakoutGroupsByWorkshopIdQuery
+>;
 export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
   getMembership(id: $id) {
     id
     workshopId
     email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
     status
     workshop {
       id
@@ -1412,6 +1995,10 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -1505,6 +2092,7 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -1532,6 +2120,16 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
       id
       workshopId
       email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
       status
       workshop {
         id
@@ -1601,6 +2199,16 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
       id
       workshopId
       email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
       status
       workshop {
         id
@@ -1670,6 +2278,16 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
       id
       workshopId
       email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
       status
       workshop {
         id
@@ -1721,6 +2339,85 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
   APITypes.MembershipsByEmailQueryVariables,
   APITypes.MembershipsByEmailQuery
 >;
+export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGroupId(
+  $breakoutGroupId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelMembershipFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  membersByBreakoutGroupId(
+    breakoutGroupId: $breakoutGroupId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      workshopId
+      email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
+      status
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        createdAt
+        updatedAt
+        __typename
+      }
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.MembersByBreakoutGroupIdQueryVariables,
+  APITypes.MembersByBreakoutGroupIdQuery
+>;
 export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
   getWorkshop(id: $id) {
     id
@@ -1759,6 +2456,7 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -1841,6 +2539,19 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
       updatedAt
       __typename
     }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     startDate
     endDate
     memberships {
@@ -1848,6 +2559,7 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
         id
         workshopId
         email
+        breakoutGroupId
         status
         createdAt
         updatedAt
@@ -1905,6 +2617,10 @@ export const listWorkshops = /* GraphQL */ `query ListWorkshops(
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -1983,6 +2699,7 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -1996,6 +2713,7 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
         id
         workshopId
         email
+        breakoutGroupId
         status
         createdAt
         updatedAt
@@ -2019,6 +2737,7 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
       items {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -2347,6 +3066,16 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -2391,6 +3120,7 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
       playlist {
         public
         title
+        breakoutGroupId
         type
         createdAt
         id
@@ -2442,6 +3172,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         sub
         createdAt
         updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
         __typename
       }
       startDate
@@ -2500,6 +3234,7 @@ export const listComments = /* GraphQL */ `query ListComments(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -2595,6 +3330,7 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt
@@ -3046,6 +3782,16 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -3117,6 +3863,7 @@ export const listSubmissionStems = /* GraphQL */ `query ListSubmissionStems(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
         workshopId
         createdAt
         updatedAt

@@ -13,7 +13,12 @@ import AudioPlayer from '../AudioPlayer/AudioPlayer'
 
 export const useBreakpoint = createBreakpoint({ L: 1200, S: 600, XS: 0 })
 
-const InnerLayout = ({ children, siteTitle }) => {
+interface InnerLayoutProps {
+    children: React.ReactNode;
+    siteTitle: string;
+}
+
+const InnerLayout: React.FC<InnerLayoutProps> = ({ children, siteTitle }) => {
     const user = useUser()
     const [drawerOpen] = useLayout()
     const breakpoint = useBreakpoint()
@@ -49,7 +54,11 @@ const InnerLayout = ({ children, siteTitle }) => {
     </Box >
 }
 
-const Layout: React.FC = ({ children = [] }) => {
+type LayoutProps = {
+    children: React.ReactNode;
+};
+
+const Layout: React.FC<LayoutProps> = ({ children = [] }) => {
     return <StaticQuery
         query={graphql`
             query SiteTitleQuery {

@@ -169,6 +169,10 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -237,6 +241,16 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -250,6 +264,16 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -331,6 +355,16 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -512,6 +546,10 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -580,6 +618,16 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -593,6 +641,16 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -674,6 +732,16 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -855,6 +923,10 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -923,6 +995,16 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -936,6 +1018,16 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -1017,6 +1109,16 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -1222,6 +1324,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -1336,6 +1439,41 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -1387,6 +1525,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -1461,6 +1600,16 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -1546,6 +1695,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -1559,6 +1709,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -1582,6 +1733,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -1639,6 +1791,44 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
         updatedAt
         __typename
       }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       startDate
       endDate
       memberships {
@@ -1646,6 +1836,16 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -1725,6 +1925,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -1733,6 +1934,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -1808,6 +2010,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -1821,6 +2024,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -1844,6 +2048,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -1907,6 +2112,118 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -1989,6 +2306,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -2103,6 +2421,41 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -2154,6 +2507,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -2228,6 +2582,16 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -2313,6 +2677,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -2326,6 +2691,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -2349,6 +2715,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -2406,6 +2773,44 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
         updatedAt
         __typename
       }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       startDate
       endDate
       memberships {
@@ -2413,6 +2818,16 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -2492,6 +2907,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -2500,6 +2916,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -2575,6 +2992,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -2588,6 +3006,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -2611,6 +3030,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -2674,6 +3094,118 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -2756,6 +3288,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -2870,6 +3403,41 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -2921,6 +3489,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -2995,6 +3564,16 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -3080,6 +3659,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -3093,6 +3673,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -3116,6 +3697,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -3173,6 +3755,44 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
         updatedAt
         __typename
       }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       startDate
       endDate
       memberships {
@@ -3180,6 +3800,16 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -3259,6 +3889,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -3267,6 +3898,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -3342,6 +3974,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -3355,6 +3988,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -3378,6 +4012,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -3441,6 +4076,118 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -3539,6 +4286,16 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -3584,6 +4341,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -3666,6 +4424,19 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           updatedAt
           __typename
         }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         startDate
         endDate
         memberships {
@@ -3673,6 +4444,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -3774,6 +4546,41 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           credit
           __typename
         }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         type
         createdAt
         id
@@ -3869,6 +4676,10 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -3937,6 +4748,16 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -3950,6 +4771,16 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -4031,6 +4862,16 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -4235,6 +5076,16 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -4279,6 +5130,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -4330,6 +5182,10 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -4410,6 +5266,16 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -4466,6 +5332,350 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
     lyrics
     requestFeedback
     duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      members {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     workshopId
     createdAt
     updatedAt
@@ -4551,6 +5761,16 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -4596,6 +5816,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -4678,6 +5899,19 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           updatedAt
           __typename
         }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         startDate
         endDate
         memberships {
@@ -4685,6 +5919,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -4786,6 +6021,41 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           credit
           __typename
         }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         type
         createdAt
         id
@@ -4881,6 +6151,10 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -4949,6 +6223,16 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -4962,6 +6246,16 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -5043,6 +6337,16 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -5247,6 +6551,16 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -5291,6 +6605,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -5342,6 +6657,10 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -5422,6 +6741,16 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -5478,6 +6807,350 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
     lyrics
     requestFeedback
     duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      members {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     workshopId
     createdAt
     updatedAt
@@ -5563,6 +7236,16 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -5608,6 +7291,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -5690,6 +7374,19 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           updatedAt
           __typename
         }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         startDate
         endDate
         memberships {
@@ -5697,6 +7394,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -5798,6 +7496,41 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           credit
           __typename
         }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         type
         createdAt
         id
@@ -5893,6 +7626,10 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -5961,6 +7698,16 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -5974,6 +7721,16 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -6055,6 +7812,16 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -6259,6 +8026,16 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -6303,6 +8080,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -6354,6 +8132,10 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -6434,6 +8216,16 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -6490,6 +8282,350 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
     lyrics
     requestFeedback
     duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      members {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     workshopId
     createdAt
     updatedAt
@@ -6535,6 +8671,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -6577,6 +8714,10 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -6625,6 +8766,16 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -6703,6 +8854,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -6716,6 +8868,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -6739,6 +8892,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -6829,6 +8983,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -6891,6 +9046,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -6931,6 +9087,118 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -6952,6 +9220,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -6960,6 +9229,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -7035,6 +9305,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -7048,6 +9319,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -7071,6 +9343,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -7134,6 +9407,118 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -7191,6 +9576,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -7233,6 +9619,10 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -7281,6 +9671,16 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -7359,6 +9759,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -7372,6 +9773,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -7395,6 +9797,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -7485,6 +9888,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -7547,6 +9951,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -7587,6 +9992,118 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -7608,6 +10125,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -7616,6 +10134,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -7691,6 +10210,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -7704,6 +10224,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -7727,6 +10248,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -7790,6 +10312,118 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -7847,6 +10481,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -7889,6 +10524,10 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -7937,6 +10576,16 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -8015,6 +10664,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -8028,6 +10678,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -8051,6 +10702,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -8141,6 +10793,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -8203,6 +10856,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -8243,6 +10897,118 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -8264,6 +11030,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -8272,6 +11039,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -8347,6 +11115,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -8360,6 +11129,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -8383,6 +11153,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -8446,6 +11217,118 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
         id
         path
         credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       type
@@ -8530,6 +11413,16 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -8558,6 +11451,16 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -8654,6 +11557,10 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -8722,6 +11629,16 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -8735,6 +11652,16 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -8816,6 +11743,16 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -8909,6 +11846,350 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
       id
       path
       credit
+      __typename
+    }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      members {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
     type
@@ -8986,6 +12267,16 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -9014,6 +12305,16 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -9110,6 +12411,10 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -9178,6 +12483,16 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -9191,6 +12506,16 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -9272,6 +12597,16 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -9365,6 +12700,350 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
       id
       path
       credit
+      __typename
+    }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      members {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
     type
@@ -9442,6 +13121,16 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -9470,6 +13159,16 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -9566,6 +13265,10 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -9634,6 +13337,16 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -9647,6 +13360,16 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -9728,6 +13451,16 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -9823,6 +13556,350 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
       credit
       __typename
     }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      members {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     type
     createdAt
     id
@@ -9836,15 +13913,15 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
   APITypes.DeletePlaylistMutationVariables,
   APITypes.DeletePlaylistMutation
 >;
-export const createMembership = /* GraphQL */ `mutation CreateMembership(
-  $input: CreateMembershipInput!
-  $condition: ModelMembershipConditionInput
+export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
+  $input: CreateBreakoutGroupInput!
+  $condition: ModelBreakoutGroupConditionInput
 ) {
-  createMembership(input: $input, condition: $condition) {
+  createBreakoutGroup(input: $input, condition: $condition) {
     id
+    name
+    description
     workshopId
-    email
-    status
     workshop {
       id
       name
@@ -9888,6 +13965,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -9962,6 +14040,16 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -10047,6 +14135,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -10060,6 +14149,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -10083,6 +14173,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -10140,6 +14231,44 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
         updatedAt
         __typename
       }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       startDate
       endDate
       memberships {
@@ -10147,6 +14276,3189 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBreakoutGroupMutationVariables,
+  APITypes.CreateBreakoutGroupMutation
+>;
+export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
+  $input: UpdateBreakoutGroupInput!
+  $condition: ModelBreakoutGroupConditionInput
+) {
+  updateBreakoutGroup(input: $input, condition: $condition) {
+    id
+    name
+    description
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBreakoutGroupMutationVariables,
+  APITypes.UpdateBreakoutGroupMutation
+>;
+export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
+  $input: DeleteBreakoutGroupInput!
+  $condition: ModelBreakoutGroupConditionInput
+) {
+  deleteBreakoutGroup(input: $input, condition: $condition) {
+    id
+    name
+    description
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        tracks {
+          items {
+            order
+            id
+            createdAt
+            updatedAt
+            playlistTracksId
+            trackSubmissionId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        owner {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        public
+        title
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBreakoutGroupMutationVariables,
+  APITypes.DeleteBreakoutGroupMutation
+>;
+export const createMembership = /* GraphQL */ `mutation CreateMembership(
+  $input: CreateMembershipInput!
+  $condition: ModelMembershipConditionInput
+) {
+  createMembership(input: $input, condition: $condition) {
+    id
+    workshopId
+    email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      members {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
+    status
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -10273,6 +17585,10 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -10341,6 +17657,16 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -10354,6 +17680,16 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -10435,6 +17771,16 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -10578,6 +17924,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -10692,6 +18039,41 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -10717,6 +18099,350 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
     id
     workshopId
     email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      members {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
     status
     workshop {
       id
@@ -10761,6 +18487,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -10835,6 +18562,16 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -10920,6 +18657,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -10933,6 +18671,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -10956,6 +18695,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -11013,6 +18753,44 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
         updatedAt
         __typename
       }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       startDate
       endDate
       memberships {
@@ -11020,6 +18798,16 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -11146,6 +18934,10 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -11214,6 +19006,16 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -11227,6 +19029,16 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -11308,6 +19120,16 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -11451,6 +19273,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -11565,6 +19388,41 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -11590,6 +19448,350 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
     id
     workshopId
     email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      playlists {
+        items {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      members {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
     status
     workshop {
       id
@@ -11634,6 +19836,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -11708,6 +19911,16 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -11793,6 +20006,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -11806,6 +20020,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -11829,6 +20044,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -11886,6 +20102,44 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
         updatedAt
         __typename
       }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       startDate
       endDate
       memberships {
@@ -11893,6 +20147,16 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -12019,6 +20283,10 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -12087,6 +20355,16 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -12100,6 +20378,16 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -12181,6 +20469,16 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -12324,6 +20622,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -12438,6 +20737,41 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -12490,6 +20824,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -12532,6 +20867,10 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -12580,6 +20919,16 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -12643,6 +20992,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -12757,6 +21107,41 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -12861,6 +21246,10 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -12929,6 +21318,16 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -12942,6 +21341,16 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -13023,6 +21432,16 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -13110,6 +21529,121 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
       updatedAt
       __typename
     }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     startDate
     endDate
     memberships {
@@ -13117,6 +21651,41 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
         id
         workshopId
         email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
         status
         workshop {
           id
@@ -13152,6 +21721,10 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -13245,6 +21818,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -13304,6 +21878,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -13346,6 +21921,10 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -13394,6 +21973,16 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -13457,6 +22046,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -13571,6 +22161,41 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -13675,6 +22300,10 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -13743,6 +22372,16 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -13756,6 +22395,16 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -13837,6 +22486,16 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -13924,6 +22583,121 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
       updatedAt
       __typename
     }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     startDate
     endDate
     memberships {
@@ -13931,6 +22705,41 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
         id
         workshopId
         email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
         status
         workshop {
           id
@@ -13966,6 +22775,10 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -14059,6 +22872,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -14118,6 +22932,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -14160,6 +22975,10 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -14208,6 +23027,16 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -14271,6 +23100,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -14385,6 +23215,41 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -14489,6 +23354,10 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -14557,6 +23426,16 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -14570,6 +23449,16 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -14651,6 +23540,16 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -14738,6 +23637,121 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
       updatedAt
       __typename
     }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     startDate
     endDate
     memberships {
@@ -14745,6 +23759,41 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
         id
         workshopId
         email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
         status
         workshop {
           id
@@ -14780,6 +23829,10 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -14873,6 +23926,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -15020,6 +24074,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -15102,6 +24157,19 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
           updatedAt
           __typename
         }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         startDate
         endDate
         memberships {
@@ -15109,6 +24177,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -15166,6 +24235,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -15280,6 +24350,41 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -15293,6 +24398,41 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
         id
         workshopId
         email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
         status
         workshop {
           id
@@ -15328,6 +24468,10 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -15421,6 +24565,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -15522,6 +24667,41 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
           id
           path
           credit
+          __typename
+        }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
           __typename
         }
         type
@@ -15829,6 +25009,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -15911,6 +25092,19 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
           updatedAt
           __typename
         }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         startDate
         endDate
         memberships {
@@ -15918,6 +25112,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -15975,6 +25170,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -16089,6 +25285,41 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -16102,6 +25333,41 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
         id
         workshopId
         email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
         status
         workshop {
           id
@@ -16137,6 +25403,10 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -16230,6 +25500,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -16331,6 +25602,41 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
           id
           path
           credit
+          __typename
+        }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
           __typename
         }
         type
@@ -16638,6 +25944,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -16720,6 +26027,19 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
           updatedAt
           __typename
         }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         startDate
         endDate
         memberships {
@@ -16727,6 +26047,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -16784,6 +26105,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -16898,6 +26220,41 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
         lyrics
         requestFeedback
         duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         workshopId
         createdAt
         updatedAt
@@ -16911,6 +26268,41 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
         id
         workshopId
         email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
         status
         workshop {
           id
@@ -16946,6 +26338,10 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -17039,6 +26435,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -17140,6 +26537,41 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
           id
           path
           credit
+          __typename
+        }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
           __typename
         }
         type
@@ -17408,6 +26840,10 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -17476,6 +26912,16 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -17489,6 +26935,16 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -17570,6 +27026,16 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -17687,6 +27153,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -17729,6 +27196,10 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -17777,6 +27248,16 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -17855,6 +27336,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -17868,6 +27350,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -17891,6 +27374,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -17981,6 +27465,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -18043,6 +27528,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -18083,6 +27569,118 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -18157,6 +27755,16 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -18202,6 +27810,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -18284,6 +27893,19 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           updatedAt
           __typename
         }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         startDate
         endDate
         memberships {
@@ -18291,6 +27913,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -18392,6 +28015,41 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           credit
           __typename
         }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         type
         createdAt
         id
@@ -18452,6 +28110,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -18526,6 +28185,16 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -18611,6 +28280,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -18624,6 +28294,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -18647,6 +28318,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -18704,6 +28376,44 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         updatedAt
         __typename
       }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       startDate
       endDate
       memberships {
@@ -18711,6 +28421,16 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -18856,6 +28576,10 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -18924,6 +28648,16 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -18937,6 +28671,16 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -19018,6 +28762,16 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -19135,6 +28889,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -19177,6 +28932,10 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -19225,6 +28984,16 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -19303,6 +29072,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -19316,6 +29086,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -19339,6 +29110,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -19429,6 +29201,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -19491,6 +29264,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -19531,6 +29305,118 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -19605,6 +29491,16 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -19650,6 +29546,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -19732,6 +29629,19 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           updatedAt
           __typename
         }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         startDate
         endDate
         memberships {
@@ -19739,6 +29649,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -19840,6 +29751,41 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           credit
           __typename
         }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         type
         createdAt
         id
@@ -19900,6 +29846,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -19974,6 +29921,16 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -20059,6 +30016,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -20072,6 +30030,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -20095,6 +30054,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -20152,6 +30112,44 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         updatedAt
         __typename
       }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       startDate
       endDate
       memberships {
@@ -20159,6 +30157,16 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -20304,6 +30312,10 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -20372,6 +30384,16 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -20385,6 +30407,16 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -20466,6 +30498,16 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -20583,6 +30625,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -20625,6 +30668,10 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -20673,6 +30720,16 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -20751,6 +30808,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -20764,6 +30822,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -20787,6 +30846,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -20877,6 +30937,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -20939,6 +31000,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -20979,6 +31041,118 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -21053,6 +31227,16 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -21098,6 +31282,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -21180,6 +31365,19 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           updatedAt
           __typename
         }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         startDate
         endDate
         memberships {
@@ -21187,6 +31385,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -21288,6 +31487,41 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           credit
           __typename
         }
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
         type
         createdAt
         id
@@ -21348,6 +31582,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           playlist {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -21422,6 +31657,16 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -21507,6 +31752,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -21520,6 +31766,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -21543,6 +31790,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -21600,6 +31848,44 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         updatedAt
         __typename
       }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       startDate
       endDate
       memberships {
@@ -21607,6 +31893,16 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -21739,6 +32035,16 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -21865,6 +32171,10 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -21933,6 +32243,16 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -21946,6 +32266,16 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -22027,6 +32357,16 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -22198,6 +32538,16 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -22324,6 +32674,10 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -22392,6 +32746,16 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -22405,6 +32769,16 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -22486,6 +32860,16 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -22657,6 +33041,16 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -22783,6 +33177,10 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -22851,6 +33249,16 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -22864,6 +33272,16 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -22945,6 +33363,16 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -23130,6 +33558,10 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -23198,6 +33630,16 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -23211,6 +33653,16 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -23292,6 +33744,16 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -23474,6 +33936,10 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -23542,6 +34008,16 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -23555,6 +34031,16 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -23636,6 +34122,16 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -23818,6 +34314,10 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
             updatedAt
             __typename
           }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
           startDate
           endDate
           memberships {
@@ -23886,6 +34386,16 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
           lyrics
           requestFeedback
           duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
           workshopId
           createdAt
           updatedAt
@@ -23899,6 +34409,16 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
           id
           workshopId
           email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
           status
           workshop {
             id
@@ -23980,6 +34500,16 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -24114,6 +34644,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -24156,6 +34687,10 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -24204,6 +34739,16 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -24282,6 +34827,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -24295,6 +34841,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -24318,6 +34865,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -24408,6 +34956,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -24470,6 +35019,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -24510,6 +35060,118 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -24540,6 +35202,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -24631,6 +35294,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -24644,6 +35308,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -24667,6 +35332,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -24778,6 +35444,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -24820,6 +35487,10 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -24868,6 +35539,16 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -24946,6 +35627,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -24959,6 +35641,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -24982,6 +35665,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -25072,6 +35756,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25134,6 +35819,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25174,6 +35860,118 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -25204,6 +36002,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25295,6 +36094,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25308,6 +36108,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -25331,6 +36132,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -25442,6 +36244,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25484,6 +36287,10 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             sub
             createdAt
             updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
             __typename
           }
           startDate
@@ -25532,6 +36339,16 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             id
             path
             credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
             __typename
           }
           type
@@ -25610,6 +36427,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25623,6 +36441,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -25646,6 +36465,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
@@ -25736,6 +36556,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25798,6 +36619,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25838,6 +36660,118 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
       lyrics
       requestFeedback
       duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       workshopId
       createdAt
       updatedAt
@@ -25868,6 +36802,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25959,6 +36894,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             lyrics
             requestFeedback
             duration
+            breakoutGroupId
             workshopId
             createdAt
             updatedAt
@@ -25972,6 +36908,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             id
             workshopId
             email
+            breakoutGroupId
             status
             createdAt
             updatedAt
@@ -25995,6 +36932,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
           items {
             public
             title
+            breakoutGroupId
             type
             createdAt
             id
