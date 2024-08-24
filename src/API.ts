@@ -1434,6 +1434,19 @@ export type ModelSubscriptionPlaylistFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPlaylistFilterInput | null > | null,
   or?: Array< ModelSubscriptionPlaylistFilterInput | null > | null,
+  playlistTracksId?: ModelSubscriptionIDInput | null,
+  playlistOwnerId?: ModelSubscriptionIDInput | null,
+};
+
+export type ModelSubscriptionBreakoutGroupFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  workshopId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBreakoutGroupFilterInput | null > | null,
+  or?: Array< ModelSubscriptionBreakoutGroupFilterInput | null > | null,
 };
 
 export type ModelSubscriptionMembershipFilterInput = {
