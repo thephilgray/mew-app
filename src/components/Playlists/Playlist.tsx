@@ -415,7 +415,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
     useEffect(() => {
         if (!data || !canView || addSongsToPlaylistLoading || !songsShouldLoad) return;
-        console.log({ addSongsToPlaylistLoading, data, canView, assignmentId, playlistId, songsShouldLoad })
         if (
             (data?.submissions?.items || data?.tracks?.items) &&
             (assignmentId || playlistId)
@@ -423,7 +422,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             setAddSongsToPlaylistLoading(true)
             addSongsToPlaylist()
             setSongsShouldLoad(false)
-            console.log({ addSongsToPlaylistLoading, data, canView, assignmentId, playlistId, songsShouldLoad })
         }
     }, [data, canView, audioLists, addSongsToPlaylistLoading, songsShouldLoad])
 
@@ -435,13 +433,11 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
     useEffect(() => {
         if (!data || !breakoutGroupId) return;
-        console.log({ breakoutGroupId, previousBreakoutGroupId, toggleBreakoutView, previousToggleBreakoutView })
         if (toggleBreakoutView !== previousToggleBreakoutView) {
             console.log('breakout group set or view toggled')
             setSongsShouldLoad(true)
             setAddSongsToPlaylistLoading(false)
             setAudioLists([])
-            console.log({ breakoutGroupId, previousBreakoutGroupId, toggleBreakoutView, previousToggleBreakoutView })
         }
 
     }, [toggleBreakoutView, breakoutGroupId, data])

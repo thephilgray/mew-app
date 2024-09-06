@@ -10,7 +10,7 @@ import useColorThief from 'use-color-thief'
 import { gql, useQuery } from '@apollo/react-hooks'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import { getBreakoutGroup, getBreakoutGroupByMembership, getBreakoutGroupName, getCloudFrontURL } from '../../utils'
+import { getBreakoutGroupByMembership, getBreakoutGroupName, getCloudFrontURL } from '../../utils'
 import { listComments } from '../feedback.queries'
 import mewAppLogo from '../../assets/mewlogo.png'
 import Error from '../Error'
@@ -27,7 +27,7 @@ export const GiveFeedback: React.FC<{
   setShowPlaylist,
   showPlaylist
 }) => {
-    const MAX_FEEDBACK = 3; // TODO: move to an admin setting
+    const MAX_FEEDBACK = fileRequestData?.workshop?.maxFeedback || 3;
     const [currentIndex, setCurrentIndex] = useState(0)
     const [feedbackGivenOnLoad, setFeedbackGivenOnLoad] = useState(0)
     const assignmentId = fileRequestData?.id
@@ -45,7 +45,6 @@ export const GiveFeedback: React.FC<{
     const { breakoutGroupId } = useMemo((): { breakoutGroupName?: string, breakoutGroupId?: string } => {
       if (fileRequestData) {
         const workshop = fileRequestData?.workshop
-        console.log({ workshop, user })
         return {
           breakoutGroupName: getBreakoutGroupName(workshop, user),
           breakoutGroupId: getBreakoutGroupByMembership(workshop, user)?.id
@@ -56,7 +55,6 @@ export const GiveFeedback: React.FC<{
 
     }, [fileRequestData, user])
 
-    console.log({ breakoutGroupId })
 
     const PLAYLIST_ARTWORK = fileRequestData?.artwork?.path && getCloudFrontURL(fileRequestData.artwork.path) || mewAppLogo;
     const { color, palette } = useColorThief(PLAYLIST_ARTWORK, {
@@ -76,7 +74,6 @@ export const GiveFeedback: React.FC<{
 
     const submissions = fileRequestData?.submissions?.items;
 
-    console.log({ submissions, feedbackGivenCounts, feedbackGivenOnLoad, feedbackGiven, user, breakoutGroupId })
     const sortedSubmissions = sortBy(
       submissions.filter(o =>
         o.email !== user.email &&
@@ -120,7 +117,7 @@ export const GiveFeedback: React.FC<{
     // @ts-ignore
     if (!commentsLoading && !fileRequestData?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
     if (!selectedSongs.length) return <Alert severity="warning">
-      <Typography variant='body1'>No more feedback to give! If you've given feedback for {MAX_FEEDBACK} tracks, wait for the playlist. Otherwise, check back later.</Typography>
+      <Typography variant='body1'>No more feedback to give! If you've already given feedback for {MAX_FEEDBACK} tracks, wait for the playlist. Otherwise, check back later.</Typography>
     </Alert>
     if (!selectedSongs.length) return <>
       <Typography variant='body1'>Sorry. No one has requested feedback yet. Maybe you're the first!</Typography>

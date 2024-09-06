@@ -118,7 +118,7 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                             helperText={`${90 - (formState?.artworkCredit?.length || 0)} characters remaining.`}
                         />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
                         <TextField
                             variant="standard"
                             id="outlined-number"
@@ -126,6 +126,20 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                             type="number"
                             name="passes"
                             value={formState.passes}
+                            onChange={onFieldChange}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            variant="standard"
+                            id="outlined-number"
+                            label="Max Feedback"
+                            type="number"
+                            name="maxFeedback"
+                            value={formState.maxFeedback}
                             onChange={onFieldChange}
                             InputLabelProps={{
                                 shrink: true,

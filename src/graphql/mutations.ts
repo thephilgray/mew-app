@@ -179,6 +179,7 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -284,6 +285,7 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -556,6 +558,7 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -661,6 +664,7 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -933,6 +937,7 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -1038,6 +1043,7 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1312,6 +1318,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1454,6 +1461,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1513,6 +1521,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1675,6 +1684,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1806,6 +1816,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1856,6 +1867,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1892,6 +1904,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -1990,6 +2003,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2166,6 +2180,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -2294,6 +2309,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2436,6 +2452,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2495,6 +2512,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2657,6 +2675,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2788,6 +2807,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2838,6 +2858,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2874,6 +2895,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -2972,6 +2994,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3148,6 +3171,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -3276,6 +3300,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3418,6 +3443,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3477,6 +3503,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3639,6 +3666,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3770,6 +3798,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3820,6 +3849,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3856,6 +3886,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -3954,6 +3985,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -4130,6 +4162,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -4453,6 +4486,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -4561,6 +4595,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -4686,6 +4721,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -4791,6 +4827,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -5118,6 +5155,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -5194,6 +5232,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -5487,6 +5526,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -5636,6 +5676,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -5928,6 +5969,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -6036,6 +6078,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -6161,6 +6204,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -6266,6 +6310,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -6593,6 +6638,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -6669,6 +6715,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -6962,6 +7009,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -7111,6 +7159,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -7403,6 +7452,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -7511,6 +7561,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -7636,6 +7687,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -7741,6 +7793,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -8068,6 +8121,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -8144,6 +8198,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -8437,6 +8492,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -8586,6 +8642,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -8726,6 +8783,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -8834,6 +8892,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -9016,6 +9075,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -9139,6 +9199,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -9285,6 +9346,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -9461,6 +9523,7 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -9631,6 +9694,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -9739,6 +9803,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -9921,6 +9986,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -10044,6 +10110,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -10190,6 +10257,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -10366,6 +10434,7 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -10536,6 +10605,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -10644,6 +10714,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -10826,6 +10897,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -10949,6 +11021,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -11095,6 +11168,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -11271,6 +11345,7 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -11567,6 +11642,7 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -11672,6 +11748,7 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -12003,6 +12080,7 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -12152,6 +12230,7 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -12421,6 +12500,7 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -12526,6 +12606,7 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -12857,6 +12938,7 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -13006,6 +13088,7 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -13275,6 +13358,7 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -13380,6 +13464,7 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -13711,6 +13796,7 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -13860,6 +13946,7 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -13953,6 +14040,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14115,6 +14203,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14246,6 +14335,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14296,6 +14386,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14332,6 +14423,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -14366,6 +14458,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14508,6 +14601,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14628,6 +14722,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14678,6 +14773,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14746,6 +14842,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -14896,6 +14993,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15058,6 +15156,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15189,6 +15288,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15239,6 +15339,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15275,6 +15376,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -15309,6 +15411,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15451,6 +15554,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15571,6 +15675,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15621,6 +15726,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15689,6 +15795,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -15839,6 +15946,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16001,6 +16109,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16132,6 +16241,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16182,6 +16292,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16218,6 +16329,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -16252,6 +16364,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16394,6 +16507,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16514,6 +16628,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16564,6 +16679,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16632,6 +16748,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -16904,6 +17021,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -17053,6 +17171,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17126,6 +17245,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17288,6 +17408,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17419,6 +17540,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17469,6 +17591,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17505,6 +17628,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -17595,6 +17719,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -17700,6 +17825,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17912,6 +18038,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18054,6 +18181,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18253,6 +18381,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -18402,6 +18531,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18475,6 +18605,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18637,6 +18768,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18768,6 +18900,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18818,6 +18951,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18854,6 +18988,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -18944,6 +19079,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -19049,6 +19185,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19261,6 +19398,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19403,6 +19541,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19602,6 +19741,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -19751,6 +19891,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19824,6 +19965,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19986,6 +20128,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20117,6 +20260,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20167,6 +20311,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20203,6 +20348,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -20293,6 +20439,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -20398,6 +20545,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20610,6 +20758,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20752,6 +20901,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20879,6 +21029,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -20980,6 +21131,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -21122,6 +21274,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -21256,6 +21409,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -21361,6 +21515,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -21581,6 +21736,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -21665,6 +21821,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -21733,6 +21890,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -21834,6 +21992,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
       nextToken
       __typename
     }
+    maxFeedback
     createdAt
     updatedAt
     __typename
@@ -21933,6 +22092,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -22034,6 +22194,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -22176,6 +22337,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -22310,6 +22472,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -22415,6 +22578,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -22635,6 +22799,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -22719,6 +22884,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -22787,6 +22953,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -22888,6 +23055,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
       nextToken
       __typename
     }
+    maxFeedback
     createdAt
     updatedAt
     __typename
@@ -22987,6 +23155,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -23088,6 +23257,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -23230,6 +23400,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -23364,6 +23535,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -23469,6 +23641,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -23689,6 +23862,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -23773,6 +23947,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -23841,6 +24016,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -23942,6 +24118,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
       nextToken
       __typename
     }
+    maxFeedback
     createdAt
     updatedAt
     __typename
@@ -24186,6 +24363,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -24223,6 +24401,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -24365,6 +24544,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -24412,6 +24592,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -24480,6 +24661,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -24684,6 +24866,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -25121,6 +25304,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -25158,6 +25342,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -25300,6 +25485,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -25347,6 +25533,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -25415,6 +25602,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -25619,6 +25807,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -26056,6 +26245,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -26093,6 +26283,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -26235,6 +26426,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -26282,6 +26474,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -26350,6 +26543,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -26554,6 +26748,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -26850,6 +27045,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -26955,6 +27151,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -27208,6 +27405,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -27316,6 +27514,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -27498,6 +27697,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -27621,6 +27821,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -27922,6 +28123,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -28030,6 +28232,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28098,6 +28301,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28260,6 +28464,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28391,6 +28596,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28441,6 +28647,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28477,6 +28684,7 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -28586,6 +28794,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -28691,6 +28900,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28944,6 +29154,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -29052,6 +29263,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -29234,6 +29446,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -29357,6 +29570,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -29658,6 +29872,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -29766,6 +29981,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -29834,6 +30050,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -29996,6 +30213,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30127,6 +30345,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30177,6 +30396,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30213,6 +30433,7 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -30322,6 +30543,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -30427,6 +30649,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30680,6 +30903,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -30788,6 +31012,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30970,6 +31195,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31093,6 +31319,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -31394,6 +31621,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -31502,6 +31730,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31570,6 +31799,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31732,6 +31962,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31863,6 +32094,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31913,6 +32145,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31949,6 +32182,7 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -32181,6 +32415,7 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -32286,6 +32521,7 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -32684,6 +32920,7 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -32789,6 +33026,7 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -33187,6 +33425,7 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -33292,6 +33531,7 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -33568,6 +33808,7 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -33673,6 +33914,7 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -33946,6 +34188,7 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -34051,6 +34294,7 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -34324,6 +34568,7 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -34429,6 +34674,7 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -34699,6 +34945,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -34807,6 +35054,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -34989,6 +35237,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -35112,6 +35361,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -35274,6 +35524,7 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -35499,6 +35750,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -35607,6 +35859,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -35789,6 +36042,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -35912,6 +36166,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -36074,6 +36329,7 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -36299,6 +36555,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -36407,6 +36664,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -36589,6 +36847,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -36712,6 +36971,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -36874,6 +37134,7 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename

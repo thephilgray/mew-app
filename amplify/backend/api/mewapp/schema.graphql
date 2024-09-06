@@ -334,6 +334,7 @@ type Workshop
   endDate: AWSDateTime
   memberships: [Membership]
     @hasMany(indexName: "membershipsByWorkshopId", fields: ["id"], limit: 1000)
+  maxFeedback: Int
 }
 
 type Profile

@@ -75,7 +75,6 @@ const NewPublicSubmission: React.FC<
     const { breakoutGroupId } = useMemo((): { breakoutGroupId?: string } => {
         if (fileRequestData) {
             const workshop = fileRequestData?.workshop
-            console.log({ fileRequestData, workshop, user, breakoutGroup: getBreakoutGroupByMembership(workshop, user), breakoutGroup2: workshop?.memberships?.items })
             return {
                 breakoutGroupId: getBreakoutGroupByMembership(workshop, user)?.id
             }
@@ -84,7 +83,6 @@ const NewPublicSubmission: React.FC<
         }
 
     }, [fileRequestData, user])
-    console.log({ breakoutGroupId })
 
     const {
         register,

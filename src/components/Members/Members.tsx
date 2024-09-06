@@ -264,7 +264,6 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     const handleAddMembersToBreakoutGroup = async (e) => {
         e.preventDefault()
         if (!breakoutGroupValue || !rowSelectionModel.length) return;
-        console.log('add members to breakout group', breakoutGroupValue.id, rowSelectionModel)
         setAddMembersToBreakGroupLoading(true)
         await onUpdateMembershipService({
             action: 'ADD_MEMBERS_TO_BREAKOUT_GROUP',

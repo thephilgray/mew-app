@@ -28,6 +28,7 @@ export default function WorkshopCreateForm(props) {
     description: "",
     startDate: "",
     endDate: "",
+    maxFeedback: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [status, setStatus] = React.useState(initialValues.status);
@@ -37,6 +38,9 @@ export default function WorkshopCreateForm(props) {
   );
   const [startDate, setStartDate] = React.useState(initialValues.startDate);
   const [endDate, setEndDate] = React.useState(initialValues.endDate);
+  const [maxFeedback, setMaxFeedback] = React.useState(
+    initialValues.maxFeedback
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
@@ -45,6 +49,7 @@ export default function WorkshopCreateForm(props) {
     setDescription(initialValues.description);
     setStartDate(initialValues.startDate);
     setEndDate(initialValues.endDate);
+    setMaxFeedback(initialValues.maxFeedback);
     setErrors({});
   };
   const validations = {
@@ -54,6 +59,7 @@ export default function WorkshopCreateForm(props) {
     description: [],
     startDate: [],
     endDate: [],
+    maxFeedback: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -104,6 +110,7 @@ export default function WorkshopCreateForm(props) {
           description,
           startDate,
           endDate,
+          maxFeedback,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -172,6 +179,7 @@ export default function WorkshopCreateForm(props) {
               description,
               startDate,
               endDate,
+              maxFeedback,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -201,6 +209,7 @@ export default function WorkshopCreateForm(props) {
               description,
               startDate,
               endDate,
+              maxFeedback,
             };
             const result = onChange(modelFields);
             value = result?.status ?? value;
@@ -234,6 +243,7 @@ export default function WorkshopCreateForm(props) {
               description,
               startDate,
               endDate,
+              maxFeedback,
             };
             const result = onChange(modelFields);
             value = result?.passes ?? value;
@@ -263,6 +273,7 @@ export default function WorkshopCreateForm(props) {
               description: value,
               startDate,
               endDate,
+              maxFeedback,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -294,6 +305,7 @@ export default function WorkshopCreateForm(props) {
               description,
               startDate: value,
               endDate,
+              maxFeedback,
             };
             const result = onChange(modelFields);
             value = result?.startDate ?? value;
@@ -325,6 +337,7 @@ export default function WorkshopCreateForm(props) {
               description,
               startDate,
               endDate: value,
+              maxFeedback,
             };
             const result = onChange(modelFields);
             value = result?.endDate ?? value;
@@ -338,6 +351,40 @@ export default function WorkshopCreateForm(props) {
         errorMessage={errors.endDate?.errorMessage}
         hasError={errors.endDate?.hasError}
         {...getOverrideProps(overrides, "endDate")}
+      ></TextField>
+      <TextField
+        label="Max feedback"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={maxFeedback}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              status,
+              passes,
+              description,
+              startDate,
+              endDate,
+              maxFeedback: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.maxFeedback ?? value;
+          }
+          if (errors.maxFeedback?.hasError) {
+            runValidationTasks("maxFeedback", value);
+          }
+          setMaxFeedback(value);
+        }}
+        onBlur={() => runValidationTasks("maxFeedback", maxFeedback)}
+        errorMessage={errors.maxFeedback?.errorMessage}
+        hasError={errors.maxFeedback?.hasError}
+        {...getOverrideProps(overrides, "maxFeedback")}
       ></TextField>
       <Flex
         justifyContent="space-between"
