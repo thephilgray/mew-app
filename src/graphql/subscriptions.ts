@@ -101,6 +101,7 @@ export const onCreateAPIKey = /* GraphQL */ `subscription OnCreateAPIKey($filter
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -206,6 +207,7 @@ export const onCreateAPIKey = /* GraphQL */ `subscription OnCreateAPIKey($filter
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -475,6 +477,7 @@ export const onUpdateAPIKey = /* GraphQL */ `subscription OnUpdateAPIKey($filter
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -580,6 +583,7 @@ export const onUpdateAPIKey = /* GraphQL */ `subscription OnUpdateAPIKey($filter
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -849,6 +853,7 @@ export const onDeleteAPIKey = /* GraphQL */ `subscription OnDeleteAPIKey($filter
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -954,6 +959,7 @@ export const onDeleteAPIKey = /* GraphQL */ `subscription OnDeleteAPIKey($filter
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1218,6 +1224,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1360,6 +1367,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1419,6 +1427,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1581,6 +1590,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1712,6 +1722,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1762,6 +1773,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -1798,6 +1810,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -1896,6 +1909,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2072,6 +2086,7 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -2199,6 +2214,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2341,6 +2357,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2400,6 +2417,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2562,6 +2580,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2693,6 +2712,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2743,6 +2763,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -2779,6 +2800,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -2877,6 +2899,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3053,6 +3076,7 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -3180,6 +3204,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3322,6 +3347,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3381,6 +3407,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3543,6 +3570,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3674,6 +3702,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3724,6 +3753,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -3760,6 +3790,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -3858,6 +3889,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -4034,6 +4066,7 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -4356,6 +4389,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -4464,6 +4498,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -4589,6 +4624,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -4694,6 +4730,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -5021,6 +5058,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -5097,6 +5135,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -5390,6 +5429,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -5539,6 +5579,7 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -5830,6 +5871,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -5938,6 +5980,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -6063,6 +6106,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -6168,6 +6212,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -6495,6 +6540,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -6571,6 +6617,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -6864,6 +6911,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -7013,6 +7061,7 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -7304,6 +7353,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -7412,6 +7462,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -7537,6 +7588,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -7642,6 +7694,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -7969,6 +8022,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -8045,6 +8099,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -8338,6 +8393,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -8487,6 +8543,7 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -8624,6 +8681,7 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -8732,6 +8790,7 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -8914,6 +8973,7 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -9037,6 +9097,7 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -9183,6 +9244,7 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -9359,6 +9421,7 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -9526,6 +9589,7 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -9634,6 +9698,7 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -9816,6 +9881,7 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -9939,6 +10005,7 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -10085,6 +10152,7 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -10261,6 +10329,7 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -10428,6 +10497,7 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -10536,6 +10606,7 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -10718,6 +10789,7 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -10841,6 +10913,7 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -10987,6 +11060,7 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -11163,6 +11237,7 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -11456,6 +11531,7 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -11561,6 +11637,7 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -11892,6 +11969,7 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -12041,6 +12119,7 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -12307,6 +12386,7 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -12412,6 +12492,7 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -12743,6 +12824,7 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -12892,6 +12974,7 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -13158,6 +13241,7 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -13263,6 +13347,7 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -13594,6 +13679,7 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -13743,6 +13829,7 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -13835,6 +13922,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -13997,6 +14085,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14128,6 +14217,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14178,6 +14268,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14214,6 +14305,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -14248,6 +14340,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14390,6 +14483,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14510,6 +14604,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14560,6 +14655,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14628,6 +14724,7 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -14777,6 +14874,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -14939,6 +15037,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15070,6 +15169,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15120,6 +15220,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15156,6 +15257,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -15190,6 +15292,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15332,6 +15435,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15452,6 +15556,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15502,6 +15607,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15570,6 +15676,7 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -15719,6 +15826,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -15881,6 +15989,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16012,6 +16121,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16062,6 +16172,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16098,6 +16209,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -16132,6 +16244,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16274,6 +16387,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16394,6 +16508,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16444,6 +16559,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -16512,6 +16628,7 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -16783,6 +16900,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -16932,6 +17050,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17005,6 +17124,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17167,6 +17287,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17298,6 +17419,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17348,6 +17470,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17384,6 +17507,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -17474,6 +17598,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -17579,6 +17704,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17791,6 +17917,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -17933,6 +18060,7 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18131,6 +18259,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -18280,6 +18409,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18353,6 +18483,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18515,6 +18646,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18646,6 +18778,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18696,6 +18829,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -18732,6 +18866,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -18822,6 +18957,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -18927,6 +19063,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19139,6 +19276,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19281,6 +19419,7 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19479,6 +19618,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -19628,6 +19768,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19701,6 +19842,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19863,6 +20005,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -19994,6 +20137,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20044,6 +20188,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20080,6 +20225,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -20170,6 +20316,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -20275,6 +20422,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20487,6 +20635,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20629,6 +20778,7 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20753,6 +20903,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -20854,6 +21005,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -20996,6 +21148,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -21130,6 +21283,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -21235,6 +21389,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -21455,6 +21610,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -21539,6 +21695,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -21607,6 +21764,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -21708,6 +21866,7 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
       nextToken
       __typename
     }
+    maxFeedback
     createdAt
     updatedAt
     __typename
@@ -21804,6 +21963,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -21905,6 +22065,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -22047,6 +22208,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -22181,6 +22343,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -22286,6 +22449,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -22506,6 +22670,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -22590,6 +22755,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -22658,6 +22824,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -22759,6 +22926,7 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
       nextToken
       __typename
     }
+    maxFeedback
     createdAt
     updatedAt
     __typename
@@ -22855,6 +23023,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -22956,6 +23125,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -23098,6 +23268,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -23232,6 +23403,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -23337,6 +23509,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -23557,6 +23730,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -23641,6 +23815,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -23709,6 +23884,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -23810,6 +23986,7 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
       nextToken
       __typename
     }
+    maxFeedback
     createdAt
     updatedAt
     __typename
@@ -24051,6 +24228,7 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -24088,6 +24266,7 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -24230,6 +24409,7 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -24277,6 +24457,7 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -24345,6 +24526,7 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -24549,6 +24731,7 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -24983,6 +25166,7 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -25020,6 +25204,7 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -25162,6 +25347,7 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -25209,6 +25395,7 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -25277,6 +25464,7 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -25481,6 +25669,7 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -25915,6 +26104,7 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -25952,6 +26142,7 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -26094,6 +26285,7 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -26141,6 +26333,7 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -26209,6 +26402,7 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -26413,6 +26607,7 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -26706,6 +26901,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -26811,6 +27007,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -27064,6 +27261,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -27172,6 +27370,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -27354,6 +27553,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -27477,6 +27677,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -27778,6 +27979,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -27886,6 +28088,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -27954,6 +28157,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28116,6 +28320,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28247,6 +28452,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28297,6 +28503,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28333,6 +28540,7 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -28439,6 +28647,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -28544,6 +28753,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -28797,6 +29007,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -28905,6 +29116,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -29087,6 +29299,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -29210,6 +29423,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -29511,6 +29725,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -29619,6 +29834,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -29687,6 +29903,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -29849,6 +30066,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -29980,6 +30198,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30030,6 +30249,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30066,6 +30286,7 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -30172,6 +30393,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -30277,6 +30499,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30530,6 +30753,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -30638,6 +30862,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30820,6 +31045,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -30943,6 +31169,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -31244,6 +31471,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
           nextToken
           __typename
         }
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -31352,6 +31580,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31420,6 +31649,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31582,6 +31812,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31713,6 +31944,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31763,6 +31995,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -31799,6 +32032,7 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -32028,6 +32262,7 @@ export const onCreateStem = /* GraphQL */ `subscription OnCreateStem($filter: Mo
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -32133,6 +32368,7 @@ export const onCreateStem = /* GraphQL */ `subscription OnCreateStem($filter: Mo
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -32528,6 +32764,7 @@ export const onUpdateStem = /* GraphQL */ `subscription OnUpdateStem($filter: Mo
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -32633,6 +32870,7 @@ export const onUpdateStem = /* GraphQL */ `subscription OnUpdateStem($filter: Mo
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -33028,6 +33266,7 @@ export const onDeleteStem = /* GraphQL */ `subscription OnDeleteStem($filter: Mo
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -33133,6 +33372,7 @@ export const onDeleteStem = /* GraphQL */ `subscription OnDeleteStem($filter: Mo
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -33406,6 +33646,7 @@ export const onCreatePrompt = /* GraphQL */ `subscription OnCreatePrompt($filter
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -33511,6 +33752,7 @@ export const onCreatePrompt = /* GraphQL */ `subscription OnCreatePrompt($filter
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -33781,6 +34023,7 @@ export const onUpdatePrompt = /* GraphQL */ `subscription OnUpdatePrompt($filter
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -33886,6 +34129,7 @@ export const onUpdatePrompt = /* GraphQL */ `subscription OnUpdatePrompt($filter
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -34156,6 +34400,7 @@ export const onDeletePrompt = /* GraphQL */ `subscription OnDeletePrompt($filter
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -34261,6 +34506,7 @@ export const onDeletePrompt = /* GraphQL */ `subscription OnDeletePrompt($filter
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -34530,6 +34776,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -34638,6 +34885,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -34820,6 +35068,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -34943,6 +35192,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -35105,6 +35355,7 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -35329,6 +35580,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -35437,6 +35689,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -35619,6 +35872,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -35742,6 +35996,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -35904,6 +36159,7 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -36128,6 +36384,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -36236,6 +36493,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -36418,6 +36676,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename
@@ -36541,6 +36800,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             nextToken
             __typename
           }
+          maxFeedback
           createdAt
           updatedAt
           __typename
@@ -36703,6 +36963,7 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             description
             startDate
             endDate
+            maxFeedback
             createdAt
             updatedAt
             __typename

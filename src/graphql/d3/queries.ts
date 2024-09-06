@@ -257,6 +257,7 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -362,6 +363,7 @@ export const listFileRequests = /* GraphQL */ `query ListFileRequests(
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -439,6 +441,7 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `query FileRequestsByWorks
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -518,6 +521,7 @@ export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -585,6 +589,7 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -727,6 +732,7 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -1477,6 +1483,7 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -1751,6 +1758,7 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -1836,6 +1844,7 @@ export const listBreakoutGroups = /* GraphQL */ `query ListBreakoutGroups(
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -1892,6 +1901,7 @@ export const breakoutGroupsByWorkshopId = /* GraphQL */ `query BreakoutGroupsByW
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -1939,6 +1949,7 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -2007,6 +2018,7 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -2140,6 +2152,7 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -2219,6 +2232,7 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -2298,6 +2312,7 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -2377,6 +2392,7 @@ export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGr
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -2568,6 +2584,7 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
       nextToken
       __typename
     }
+    maxFeedback
     createdAt
     updatedAt
     __typename
@@ -2629,6 +2646,7 @@ export const listWorkshops = /* GraphQL */ `query ListWorkshops(
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -2679,6 +2697,7 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -3108,6 +3127,7 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -3184,6 +3204,7 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         nextToken
         __typename
       }
+      maxFeedback
       createdAt
       updatedAt
       __typename
@@ -3267,6 +3288,7 @@ export const listComments = /* GraphQL */ `query ListComments(
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename
@@ -3363,6 +3385,7 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
         description
         startDate
         endDate
+        maxFeedback
         createdAt
         updatedAt
         __typename

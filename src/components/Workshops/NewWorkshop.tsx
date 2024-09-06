@@ -21,6 +21,7 @@ export default function NewWorkshop() {
         description: '',
         status: 'Active',
         passes: 0,
+        maxFeedback: 3,
         startDate: new Date(),
         endDate: add(new Date(), { months: 3 }),
         email: user?.email || '',
@@ -77,6 +78,8 @@ export default function NewWorkshop() {
 
                     // @ts-ignore
                     passes: parseInt(formState.passes),
+                    // @ts-ignore
+                    maxFeedback: parseInt(formState.maxFeedback),
                     ...(formState.enableMailchimpIntegration && {
                         features: {
                             mailchimp: {

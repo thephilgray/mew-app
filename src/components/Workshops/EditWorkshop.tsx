@@ -28,6 +28,7 @@ export default function EditWorkshop({ workshopId = '' }) {
         description: '',
         status: 'Active',
         passes: 0,
+        maxFeedback: 3,
         startDate: new Date(),
         endDate: add(new Date(), { months: 3 }),
         email: user?.email || '',
@@ -69,6 +70,7 @@ export default function EditWorkshop({ workshopId = '' }) {
                 artwork: data.getWorkshop.artwork,
                 status: data.getWorkshop.status,
                 passes: data.getWorkshop.passes || 0,
+                maxFeedback: data.getWorkshop.maxFeedback || 3,
                 listId: data.getWorkshop.features?.mailchimp?.listId || '',
                 sessionTag: data.getWorkshop.features?.mailchimp?.sessionTag || '',
                 enableMailchimpIntegration: data.getWorkshop.features?.mailchimp?.enabled || false,
@@ -103,6 +105,8 @@ export default function EditWorkshop({ workshopId = '' }) {
                     endDate: formState.endDate,
                     // @ts-ignore
                     passes: parseInt(formState.passes),
+                    // @ts-ignore
+                    maxFeedback: parseInt(formState.maxFeedback),
                     ...formState.image && !formState.image.includes(ARTWORK_DOWNLOAD_PATH) && {
                         artwork: {
                             id: ID,

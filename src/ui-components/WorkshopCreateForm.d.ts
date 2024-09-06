@@ -28,6 +28,7 @@ export declare type WorkshopCreateFormInputValues = {
     description?: string;
     startDate?: string;
     endDate?: string;
+    maxFeedback?: number;
 };
 export declare type WorkshopCreateFormValidationValues = {
     name?: ValidationFunction<string>;
@@ -36,6 +37,7 @@ export declare type WorkshopCreateFormValidationValues = {
     description?: ValidationFunction<string>;
     startDate?: ValidationFunction<string>;
     endDate?: ValidationFunction<string>;
+    maxFeedback?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type WorkshopCreateFormOverridesProps = {
@@ -46,6 +48,7 @@ export declare type WorkshopCreateFormOverridesProps = {
     description?: PrimitiveOverrideProps<TextFieldProps>;
     startDate?: PrimitiveOverrideProps<TextFieldProps>;
     endDate?: PrimitiveOverrideProps<TextFieldProps>;
+    maxFeedback?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type WorkshopCreateFormProps = React.PropsWithChildren<{
     overrides?: WorkshopCreateFormOverridesProps | undefined | null;
