@@ -6,7 +6,7 @@ import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, Edit } from '@mui/
 import { useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import { green } from '@mui/material/colors'
-import { isPast } from 'date-fns/esm'
+import { isPast, isFuture } from 'date-fns/esm'
 import { useBeforeUnload } from 'react-use'
 import { v4 as uuidv4 } from 'uuid'
 import ConfettiExplosion from 'react-confetti-explosion';
@@ -70,6 +70,7 @@ const NewPublicSubmission: React.FC<
     const [feedbackGiven, setFeedbackGiven] = useState<number>(0)
     const [submitters, setSubmitters] = useState([])
     const [duration, setDuration] = useState(0)
+    const [extensionCodeActive, setExtensionCodeActive] = useState<boolean>(false)
     // const [stemsUsed, setStemsUsed] = useState([])
 
     const { breakoutGroupId } = useMemo((): { breakoutGroupId?: string } => {
@@ -123,7 +124,7 @@ const NewPublicSubmission: React.FC<
     }
 
     const hasStarted = fileRequestData?.startDate ? isPast(new Date(fileRequestData?.startDate)) : true
-    const isValid = viewAdmin || Boolean(expiration && !isPast(new Date(expiration)) && hasStarted)
+    const isValid = viewAdmin || extensionCodeActive || Boolean(expiration && !isPast(new Date(expiration)) && hasStarted)
     const previousUserSubmission = fileRequestData?.submissions?.items?.find(item => item.email === (profile?.email || watch('email')))
 
     useEffect(() => {
@@ -156,6 +157,10 @@ const NewPublicSubmission: React.FC<
                             (x: { id: string }) => x.id === extensionCode,
                         )
                         setExpiration(currentExtension.expiration || data.getFileRequest.expiration)
+                        if (currentExtension && isFuture(new Date(currentExtension.expiration))) {
+                            setExtensionCodeActive(true);
+                        }
+                
                     } else {
                         setExpiration(data.getFileRequest.expiration)
                     }
