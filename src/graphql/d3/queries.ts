@@ -65,6 +65,13 @@ export const getAPIKey = /* GraphQL */ `query GetAPIKey($id: ID!) {
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -193,6 +200,7 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -619,6 +627,65 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
       fileRequestPlaylistId
       __typename
     }
+    membershipId
+    membership {
+      id
+      workshopId
+      email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
+      status
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     artist
     name
     email
@@ -672,6 +739,13 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -685,6 +759,7 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
         content
         email
         submissionId
+        recipientEmail
         assignmentId
         workshopId
         parentId
@@ -792,6 +867,17 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
         fileRequestPlaylistId
         __typename
       }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       artist
       name
       email
@@ -883,6 +969,17 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
         fileRequestPlaylistId
         __typename
       }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       artist
       name
       email
@@ -941,6 +1038,108 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
   APITypes.SubmissionsByFileRequestIdQueryVariables,
   APITypes.SubmissionsByFileRequestIdQuery
 >;
+export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembershipId(
+  $membershipId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelFileRequestSubmissionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  submissionsByMembershipId(
+    membershipId: $membershipId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SubmissionsByMembershipIdQueryVariables,
+  APITypes.SubmissionsByMembershipIdQuery
+>;
 export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
   $email: String!
   $sortDirection: ModelSortDirection
@@ -972,6 +1171,17 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist
@@ -1065,6 +1275,17 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
         fileRequestPlaylistId
         __typename
       }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       artist
       name
       email
@@ -1156,6 +1377,17 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
         fileRequestPlaylistId
         __typename
       }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       artist
       name
       email
@@ -1234,6 +1466,17 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist
@@ -1349,6 +1592,7 @@ export const listTracks = /* GraphQL */ `query ListTracks(
       submission {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -1454,6 +1698,13 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -1767,6 +2018,7 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -2073,6 +2325,13 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2095,6 +2354,7 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -2463,6 +2723,7 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -2549,6 +2810,13 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -2709,6 +2977,7 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -2810,6 +3079,32 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
       longitude
       __typename
     }
+    notificationSettings {
+      emailDigest {
+        enabled
+        frequency
+        __typename
+      }
+      __typename
+    }
+    receivedComments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -2881,6 +3176,13 @@ export const listProfiles = /* GraphQL */ `query ListProfiles(
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -2959,6 +3261,13 @@ export const profileByProfileId = /* GraphQL */ `query ProfileByProfileId(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -3026,6 +3335,13 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -3048,6 +3364,17 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist
@@ -3096,6 +3423,68 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         __typename
       }
       workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    recipientEmail
+    recipient {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -3246,6 +3635,7 @@ export const listComments = /* GraphQL */ `query ListComments(
       submission {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -3257,6 +3647,19 @@ export const listComments = /* GraphQL */ `query ListComments(
         duration
         breakoutGroupId
         workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      recipientEmail
+      recipient {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
         createdAt
         updatedAt
         __typename
@@ -3343,6 +3746,7 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
       submission {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -3354,6 +3758,19 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
         duration
         breakoutGroupId
         workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      recipientEmail
+      recipient {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
         createdAt
         updatedAt
         __typename
@@ -3476,6 +3893,13 @@ export const getStem = /* GraphQL */ `query GetStem($id: ID!) {
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -3653,6 +4077,13 @@ export const getPrompt = /* GraphQL */ `query GetPrompt($id: ID!) {
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -3770,6 +4201,17 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
         fileRequestPlaylistId
         __typename
       }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       artist
       name
       email
@@ -3877,6 +4319,7 @@ export const listSubmissionStems = /* GraphQL */ `query ListSubmissionStems(
       fileRequestSubmission {
         id
         fileRequestId
+        membershipId
         artist
         name
         email

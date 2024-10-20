@@ -81,6 +81,12 @@ export const getProfile = /* GraphQL */ `
           serverPrefix
         }
       }
+      notificationSettings {
+        emailDigest {
+          enabled
+          frequency
+        }
+      }
       playlists {
         items {
           tracks {

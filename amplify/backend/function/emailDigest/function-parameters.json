@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "api": {
+      "mewapp": [
+        "read",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "mailerSendApiKey",
+      "environmentVariableName": "MAILER_SEND_API_KEY"
+    },
+    {
+      "cloudFormationParameterName": "gatsbyCloudfrontDistribution",
+      "environmentVariableName": "GATSBY_CLOUDFRONT_DISTRIBUTION"
+    },
+    {
+      "cloudFormationParameterName": "gatsbyAppUrl",
+      "environmentVariableName": "GATSBY_APP_URL"
+    }
+  ]
+}

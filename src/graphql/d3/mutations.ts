@@ -76,6 +76,17 @@ export const runProcessAudioTask = /* GraphQL */ `mutation RunProcessAudioTask(
   APITypes.RunProcessAudioTaskMutationVariables,
   APITypes.RunProcessAudioTaskMutation
 >;
+export const emailDigest = /* GraphQL */ `mutation EmailDigest($workshopId: ID!) {
+  emailDigest(workshopId: $workshopId) {
+    statusCode
+    body
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.EmailDigestMutationVariables,
+  APITypes.EmailDigestMutation
+>;
 export const populateMembers = /* GraphQL */ `mutation PopulateMembers {
   populateMembers
 }
@@ -141,6 +152,13 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -215,6 +233,13 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -285,6 +310,13 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -371,6 +403,7 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -530,6 +563,7 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -689,6 +723,7 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -890,6 +925,65 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
       fileRequestPlaylistId
       __typename
     }
+    membershipId
+    membership {
+      id
+      workshopId
+      email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
+      status
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     artist
     name
     email
@@ -943,6 +1037,13 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -956,6 +1057,7 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
         content
         email
         submissionId
+        recipientEmail
         assignmentId
         workshopId
         parentId
@@ -1097,6 +1199,65 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
       fileRequestPlaylistId
       __typename
     }
+    membershipId
+    membership {
+      id
+      workshopId
+      email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
+      status
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     artist
     name
     email
@@ -1150,6 +1311,13 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1163,6 +1331,7 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
         content
         email
         submissionId
+        recipientEmail
         assignmentId
         workshopId
         parentId
@@ -1304,6 +1473,65 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
       fileRequestPlaylistId
       __typename
     }
+    membershipId
+    membership {
+      id
+      workshopId
+      email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
+      status
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     artist
     name
     email
@@ -1357,6 +1585,13 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1370,6 +1605,7 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
         content
         email
         submissionId
+        recipientEmail
         assignmentId
         workshopId
         parentId
@@ -1471,6 +1707,17 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist
@@ -1603,6 +1850,17 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
         fileRequestPlaylistId
         __typename
       }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       artist
       name
       email
@@ -1731,6 +1989,17 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist
@@ -1906,6 +2175,13 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2033,6 +2309,13 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -2164,6 +2447,13 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2289,6 +2579,7 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -2410,6 +2701,7 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -2531,6 +2823,7 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -2734,6 +3027,13 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2756,6 +3056,7 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -2929,6 +3230,13 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2951,6 +3259,7 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -3124,6 +3433,13 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -3146,6 +3462,7 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -3205,6 +3522,7 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -3291,6 +3609,13 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -3368,6 +3693,7 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -3454,6 +3780,13 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -3531,6 +3864,7 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -3617,6 +3951,13 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -3715,6 +4056,7 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -3814,6 +4156,32 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
     location {
       latitude
       longitude
+      __typename
+    }
+    notificationSettings {
+      emailDigest {
+        enabled
+        frequency
+        __typename
+      }
+      __typename
+    }
+    receivedComments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
       __typename
     }
     createdAt
@@ -3878,6 +4246,7 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -3977,6 +4346,32 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
     location {
       latitude
       longitude
+      __typename
+    }
+    notificationSettings {
+      emailDigest {
+        enabled
+        frequency
+        __typename
+      }
+      __typename
+    }
+    receivedComments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
       __typename
     }
     createdAt
@@ -4041,6 +4436,7 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
       items {
         id
         fileRequestId
+        membershipId
         artist
         name
         email
@@ -4140,6 +4536,32 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
     location {
       latitude
       longitude
+      __typename
+    }
+    notificationSettings {
+      emailDigest {
+        enabled
+        frequency
+        __typename
+      }
+      __typename
+    }
+    receivedComments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
       __typename
     }
     createdAt
@@ -4209,6 +4631,13 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -4231,6 +4660,17 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist
@@ -4279,6 +4719,68 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         __typename
       }
       workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    recipientEmail
+    recipient {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -4461,6 +4963,13 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -4483,6 +4992,17 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist
@@ -4531,6 +5051,68 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         __typename
       }
       workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    recipientEmail
+    recipient {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -4713,6 +5295,13 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -4735,6 +5324,17 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist
@@ -4783,6 +5383,68 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         __typename
       }
       workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    recipientEmail
+    recipient {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -4984,6 +5646,13 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -5076,6 +5745,13 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -5172,6 +5848,13 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -5248,6 +5931,13 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -5319,6 +6009,13 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
       location {
         latitude
         longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
         __typename
       }
       createdAt
@@ -5394,6 +6091,13 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
         longitude
         __typename
       }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -5433,6 +6137,17 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist
@@ -5556,6 +6271,17 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
         fileRequestPlaylistId
         __typename
       }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       artist
       name
       email
@@ -5675,6 +6401,17 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
         createdAt
         updatedAt
         fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
         __typename
       }
       artist

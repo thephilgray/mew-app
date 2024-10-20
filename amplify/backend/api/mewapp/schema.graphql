@@ -16,6 +16,15 @@ type Features {
   mailchimp: MailchimpIntegration
 }
 
+type EmailDigestNotificationSettings  {
+  enabled: Boolean
+  frequency: String
+}
+
+type UserNotificationSettings {
+  emailDigest: EmailDigestNotificationSettings
+}
+
 type Location {
   latitude: String
   longitude: String
@@ -127,6 +136,12 @@ type FileRequestSubmission
       queryField: "submissionsByFileRequestId"
     )
   fileRequest: FileRequest @belongsTo(fields: ["fileRequestId"])
+  membershipId: ID
+    @index(
+      name: "submissionsByMembershipId"
+      queryField: "submissionsByMembershipId"
+    )
+  membership: Membership @belongsTo(fields: ["membershipId"])
   artist: String
   name: String
   email: String
@@ -373,6 +388,8 @@ type Profile
   prompts: [Prompt] @hasMany(indexName: "promptsByEmail", fields: ["email"])
   # downloadedStems: [Stem] @manyToMany(relationName: "SavedStems")
   location: Location
+  notificationSettings: UserNotificationSettings
+  receivedComments: [Comment] @hasMany(indexName: "commentsByRecipientEmail", fields: ["email"])
   # mentions: [Mentions] @hasMany(indexName: "mentionsByEmail", fields: ["email"])
 }
 
@@ -433,6 +450,8 @@ type Comment
   profile: Profile @hasOne(fields: ["email"])
   submissionId: ID @index(name: "bySubmission", sortKeyFields: ["content"])
   submission: FileRequestSubmission @belongsTo(fields: ["submissionId"])
+  recipientEmail: String @index(name: "commentsByRecipientEmail")
+  recipient: Profile @belongsTo(fields: ["recipientEmail"])
   assignmentId: ID
   assignment: FileRequest @hasOne(fields: ["assignmentId"])
   workshopId: ID
@@ -586,6 +605,9 @@ type Mutation {
     email: String!
     options: DownloadLinkOptions
   ): String @function(name: "runProcessAudioTask-${env}")
+
+  emailDigest(workshopId: ID!): Response
+    @function(name: "emailDigest-${env}")
 
   populateMembers: [String] @function(name: "populateMembers-${env}")
 }

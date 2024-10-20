@@ -348,7 +348,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 // @ts-ignore
                 for (let index = 0; index < data.submissions.items.length; index++) {
                     // @ts-ignore
-                    const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup } = data.submissions.items[index]
+                    const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email } = data.submissions.items[index]
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId) && (!breakoutGroupId || (toggleBreakoutView && breakoutGroupId === breakoutGroup?.id)) || (!toggleBreakoutView)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -787,10 +787,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         fallbackContent={<Alert severity="info">
                             <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for comments and more content and features.
                         </Alert>}>
+                        {console.log(audioLists?.[currentIndex]?.profile)}
                         <FeedbackSection
                             requestedFeedback={!!audioLists?.[currentIndex]?.requestFeedback}
                             assignmentId={assignmentId || audioLists?.[currentIndex]?.assignmentId}
                             submissionId={audioLists?.[currentIndex]?.submissionId}
+                            recipientEmail={audioLists?.[currentIndex]?.profile?.email}
                             workshopId={data?.workshopId || audioLists?.[currentIndex]?.workshopId}
                             showToggle={false}
                         />

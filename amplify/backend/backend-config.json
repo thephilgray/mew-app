@@ -156,6 +156,22 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "emailDigest": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "mewapp"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "membershipService": {
       "build": true,
       "dependsOn": [
@@ -273,6 +289,46 @@
         {
           "category": "function",
           "resourceName": "AdminQueriesd92d7feb"
+        }
+      ]
+    },
+    "AMPLIFY_function_emailDigest_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emailDigest"
+        }
+      ]
+    },
+    "AMPLIFY_function_emailDigest_gatsbyAppUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emailDigest"
+        }
+      ]
+    },
+    "AMPLIFY_function_emailDigest_gatsbyCloudfrontDistribution": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emailDigest"
+        }
+      ]
+    },
+    "AMPLIFY_function_emailDigest_mailerSendApiKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emailDigest"
+        }
+      ]
+    },
+    "AMPLIFY_function_emailDigest_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emailDigest"
         }
       ]
     },

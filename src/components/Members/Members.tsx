@@ -1,3 +1,5 @@
+import { Email } from '@mui/icons-material';
+
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { Alert, Autocomplete, Avatar, Button, Chip, CircularProgress, createFilterOptions, FormControl, FormControlLabel, FormHelperText, Grid, IconButton, Input, InputAdornment, InputBase, InputLabel, MenuItem, OutlinedInput, Select, Switch, TextField, Typography } from '@mui/material'
@@ -140,6 +142,15 @@ const GET_WORKSHOP = gql`
     }
 `
 
+const SEND_EMAIL_DIGEST = gql`
+    mutation SendEmailDigest($workshopId: ID!) {
+        emailDigest(workshopId: $workshopId) {
+            statusCode
+            body
+        }
+    }
+`;
+
 type Inputs = {
     breakoutGroupName: string
 }
@@ -166,7 +177,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
 
     const [createBreakoutGroupMutation, { error: createBreakoutGroupError, data: createBreakoutGroupData }] = useMutation(gql(createBreakoutGroup));
     const [deleteBreakoutGroupMutation, { error: deleteBreakoutGroupError, data: deleteBreakoutGroupData }] = useMutation(gql(deleteBreakoutGroup));
-
+    const [sendEmailDigest, { loading: emailDigestLoading }] = useMutation(SEND_EMAIL_DIGEST);
 
     const {
         register,
@@ -214,6 +225,17 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
 
     if (error) return <Error errorMessage={error} />
     if (loading) return <Loading />
+
+
+    const handleSendEmailDigest = async () => {
+        try {
+            await sendEmailDigest({ variables: { workshopId } });
+            alert('Email digest sent successfully');
+        } catch (error) {
+            console.error('Error sending email digest:', error);
+            alert('Failed to send email digest');
+        }
+    };
 
     const onSyncWithMailchimp = async () => {
         await requestUpdateMembershipService({
@@ -706,7 +728,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 </Grid>
             </If>
             <If condition={!showAddBreakoutGroups}>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6}>
                     <StyledChip label={`All Assignments: ${totalAssignments}`} />
                     <StyledChip label={`Required: ${workshopRequiredAssignments}`} />
                     <StyledChip label={`Active: ${activeAssignments}`} />
@@ -714,6 +736,19 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                     <StyledChip label={`Required Past Due: ${expiredAndDueAssignments}`} />
                 </Grid>
             </If>
+            <Grid item xs={12} md={6} justifyContent="flex-end">
+                <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    style={{float: 'right', maxWidth: '300px'}}
+                    onClick={handleSendEmailDigest}
+                    disabled={emailDigestLoading}
+                    startIcon={emailDigestLoading ? <CircularProgress size="1rem" /> : <Email />}
+                >
+                    Send Email Digest
+                </Button>
+                    </Grid>
             <Grid item xs={12}>
                 <DataGridWrapper>
                     <StyledDataGrid
