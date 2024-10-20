@@ -15,7 +15,7 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "codegen": "make codegen",
-    "amplify:emailDigest": "cd amplify/backend/function/emailDigest && tsc -p ./tsconfig.json && cd -"
+    "amplify:emailDigest": "cd amplify/backend/function/emailDigest/lib && npm i && cd ../ && tsc -p ./tsconfig.json && cd -"
 
   },
   "dependencies": {
