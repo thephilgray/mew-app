@@ -13,6 +13,19 @@ export const listComments = /* GraphQL */ `
         id
         content
         email
+        recipientEmail
+        recipient{
+          email
+          id
+          name
+          displayName
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          __typename
+        }
         profile {
           email
           id
@@ -106,6 +119,19 @@ export const commentsByDate = /* GraphQL */ `
         id
         content
         email
+        recipientEmail
+        recipient{
+          email
+          id
+          name
+          displayName
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          __typename
+        }
         profile {
           email
           id
@@ -213,6 +239,19 @@ export const getFileRequestSubmission = /* GraphQL */ `
           id
           content
           email
+          recipientEmail
+        recipient{
+          email
+          id
+          name
+          displayName
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          __typename
+        }
           profile {
             email
             id
@@ -293,6 +332,19 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
     id
     content
     email
+    recipientEmail
+        recipient{
+          email
+          id
+          name
+          displayName
+          avatar
+          bio
+          sub
+          createdAt
+          updatedAt
+          __typename
+        }
     profile {
       email
       id

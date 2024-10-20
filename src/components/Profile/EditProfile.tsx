@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Box, Button, CircularProgress, Divider, Grid, Icon, IconButton, InputBase, InputLabel, Link, List, ListItem, Paper, TextField, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Box, Button, CircularProgress, Divider, Grid,  IconButton,  InputLabel, Link, Paper, TextField, Typography, Switch, FormControlLabel } from '@mui/material'
 import { makeStyles } from 'tss-react/mui';
 import { updateMembershipService, updateProfile, updateProfileService } from '../../graphql/d3/mutations'
 import gql from 'graphql-tag'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Add, Close, Delete, Launch, Mail, OpenInNew, Save } from '@mui/icons-material'
+import {  GridColDef } from '@mui/x-data-grid';
+import { Add, Delete,  OpenInNew, Save } from '@mui/icons-material'
 import { format } from 'date-fns/esm'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group, ROUTES } from '../../constants'
@@ -39,6 +39,11 @@ type EditProfileForm = {
     links: [Link]
     avatar: string
     bio: string
+    notificationSettings: {
+        emailDigest: {
+            enabled: boolean
+        }
+    }
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -52,7 +57,6 @@ const useStyles = makeStyles()((theme) => ({
         marginBottom: theme.spacing(2),
     },
 }));
-
 
 const EditProfile = (): JSX.Element => {
     const { classes } = useStyles()
@@ -77,7 +81,6 @@ const EditProfile = (): JSX.Element => {
     } = useQuery(gql(getProfile), {
         variables: { email: user.email },
         fetchPolicy: 'network-only'
-
     })
     const profile = getProfileData?.getProfile || profileInState
     const AVATAR_DOWNLOAD_PATH = profile?.avatar;
@@ -98,12 +101,17 @@ const EditProfile = (): JSX.Element => {
                 bio: '',
                 displayName: '',
                 name: '',
+                notificationSettings: {
+                    emailDigest: {
+                        enabled: true
+                    }
+                }
             }
         })
 
     const { fields: linkFields, append: appendLink, prepend, remove: removeLink, swap, move, insert } = useFieldArray({
-        control: editProfileFormControl, // control props comes from useForm (optional: if you are using FormContext)
-        name: "links", // unique name for your Field Array
+        control: editProfileFormControl,
+        name: "links",
     });
 
     const [apiKeyFormActive, setApiKeyFormActive] = useState<boolean>(false)
@@ -115,8 +123,6 @@ const EditProfile = (): JSX.Element => {
             errors: apiKeyErrors,
         },
     } = useForm<APIKeyForm>()
-
-
 
     const [
         updateProfileRequest,
@@ -167,16 +173,13 @@ const EditProfile = (): JSX.Element => {
                             mailchimpOauthCode: code,
                             mailchimpOauthCallback: OAUTH_CALLBACK,
                             mailchimpClientId: MAILCHIMP_CLIENT_ID
-
                         }
                     ]
-
                 }
             }).then(() => getProfileRefetch().then(() => {
                 setConnectLoading(false)
                 navigate(location.pathname)
             }))
-
         }
     }, [updateMembershipServiceRequestCalled, code])
 
@@ -197,7 +200,8 @@ const EditProfile = (): JSX.Element => {
                 displayName: inputData.displayName,
                 ...imageUpdated && { avatar: AVATAR_UPLOAD_PATH },
                 bio: inputData.bio,
-                ...inputData?.links && { links: inputData?.links?.map(({ id, url, text }) => ({ id, url, text })) } // don't submit _typename
+                notificationSettings: inputData.notificationSettings,
+                ...inputData?.links && { links: inputData?.links?.map(({ id, url, text }) => ({ id, url, text })) }
             }
         }
 
@@ -241,7 +245,6 @@ const EditProfile = (): JSX.Element => {
         return updateProfileServiceRequest({ variables })
     }
 
-
     const columns: GridColDef[] = [
         {
             field: 'keyName',
@@ -254,24 +257,8 @@ const EditProfile = (): JSX.Element => {
             type: 'date',
             headerName: 'Created',
             width: 200,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
             valueFormatter: ({ value = '' }: ColDef) => value && format(new Date(value), 'MM/dd/yyyy H:mm'),
         },
-        // {
-        //     field: 'actions',
-        //     headerName: 'Actions',
-        //     width: 200,
-        //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //     // @ts-ignore
-        //     renderCell: ({row}) => {
-        //         return (
-        //             <IconButton onClick={() => onDeleteApiKey(row.keyName, row.id)} size="large">
-        //                 <Delete />
-        //             </IconButton>
-        //         )
-        //     },
-        // },
     ]
 
     const keyNameFormatter = (str: string) => str.toUpperCase().replace(/[^a-zA-Z0-9_.-]/g, '_')
@@ -373,11 +360,9 @@ const EditProfile = (): JSX.Element => {
                                     <TextField {...registerEditProfileForm(`links.${index}.url`, {
                                         required: "Valid URL is required",
                                         pattern: {
-                                            // https://www.freecodecamp.org/news/how-to-write-a-regular-expression-for-a-url/
                                             value: /(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?/,
                                             message: "Valid URL is required"
                                         },
-
                                     })}
                                         error={!!editProfileFormErrors?.links?.[index]}
                                         helperText={editProfileFormErrors?.links?.[index] && editProfileFormErrors.links[index]?.url?.message}
@@ -398,6 +383,23 @@ const EditProfile = (): JSX.Element => {
                             <Button type="button" variant="outlined" aria-label="add" onClick={() => appendLink({ url: '', text: '', id: uuidv4() })} startIcon={<Add />}>
                                 Add Link
                             </Button>
+                            <Grid item xs={12}>
+                                <section className={classes.section}>
+                                    <Typography variant="h5" component="h2">
+                                        Notification Settings
+                                    </Typography>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch
+                                                {...registerEditProfileForm('notificationSettings.emailDigest.enabled')}
+                                                color="primary"
+                                                checked={watch('notificationSettings.emailDigest.enabled')}
+                                            />
+                                        }
+                                        label="Email Digests"
+                                    />
+                                </section>
+                            </Grid>
                             <Button
                                 type="submit"
                                 color="primary"
@@ -432,100 +434,8 @@ const EditProfile = (): JSX.Element => {
                     </Grid>
                 </section>
             </Grid>
-            {/* <Grid item xs={12}>
-                <section className={classes.section}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            <Typography variant="h5" component="h2">
-                                Your API Keys
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} style={{ textAlign: 'right' }}>
-                            <Button
-                                variant="contained"
-                                disabled={apiKeyFormActive}
-                                onClick={() => setApiKeyFormActive(true)}
-                            >
-                                Add Key
-                            </Button>
-                        </Grid>
-                        {profile && profile.apiKeys && profile.apiKeys.items.length > 0 && (
-                            <Grid item xs={12} className={classes.tableWrapper}>
-                                <DataGrid
-                                    rows={profile?.apiKeys?.items || []}
-                                    columns={columns}
-                                    disableRowSelectionOnClick={true}
-                                    disableColumnSelector
-                                    autoHeight
-                                />
-                            </Grid>
-                        )}
-                    </Grid>
-                    {apiKeyFormActive && (
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <Box
-                                    component="form"
-                                    sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        width: '100%',
-                                        borderRadius: 1,
-                                        bgcolor: 'background.paper',
-                                        color: 'text.secondary',
-                                        '& svg': {
-                                            m: 1.5,
-                                        },
-                                        '& hr': {
-                                            mx: 0.5,
-                                        },
-                                        '& > :not(style)': { m: 1 },
-                                    }}
-                                    noValidate
-                                    autoComplete="off"
-                                >
-                                    <TextField
-                                        label="Key Name"
-                                        autoFocus
-                                        value={keyName}
-                                        onChange={(e) => setKeyName(keyNameFormatter(e.target.value))}
-                                        fullWidth
-                                        variant="standard"
-                                        margin="normal"
-                                    />
-                                    <TextField
-                                        label="Key Value"
-                                        value={key}
-                                        onChange={(e) => setKey(e.target.value)}
-                                        fullWidth
-                                        variant="standard"
-                                        margin="normal"
-                                    />
-                                    <IconButton
-                                        type="button"
-                                        color="secondary"
-                                        aria-label="Close"
-                                        onClick={onDismissApiKeyForm}
-                                        size="large">
-                                        <Close />
-                                    </IconButton>
-                                    <Divider orientation="vertical" flexItem />
-                                    <IconButton
-                                        type="button"
-                                        color="primary"
-                                        onClick={handleApiKeySubmit(onSubmitApiKeyForm)}
-                                        aria-label="Save"
-                                        size="large">
-                                        <Save />
-                                    </IconButton>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    )}
-                </section>
-            </Grid> */}
         </GroupGuard>
-    </Grid >;
+    </Grid>;
 }
 
 export default EditProfile

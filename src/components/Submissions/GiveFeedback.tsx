@@ -86,7 +86,7 @@ export const GiveFeedback: React.FC<{
     ).slice(0, MAX_FEEDBACK - feedbackGivenOnLoad)
 
     const selectedSongs = sortedSubmissions.map(submission => {
-      const { name, fileId, artist, id, artwork, lyrics, workshopId } = submission
+      const { name, fileId, artist, id, artwork, lyrics, workshopId, email } = submission
       const songFilePath = `${assignmentId}/${fileId}`
       if (songFilePath) {
         const cloudFrontURL = getCloudFrontURL(songFilePath)
@@ -100,7 +100,8 @@ export const GiveFeedback: React.FC<{
           fileId,
           id,
           lyrics,
-          workshopId
+          workshopId,
+          email
         }
       }
     })
@@ -199,6 +200,7 @@ export const GiveFeedback: React.FC<{
             showByMe={true}
             showAll={false}
             onSuccess={onFeedbackSuccess}
+            recipientEmail={currentSong?.email}
           />
         </Grid>
       </If>

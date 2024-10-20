@@ -6,7 +6,7 @@
     ".react-email"
   ],
   "scripts": {
-    "dev": "email dev",
+    "dev": "npx dotenv-cli -e ../.env.development -- email dev",
     "export": "email export"
   },
   "dependencies": {

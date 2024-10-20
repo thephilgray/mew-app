@@ -53,6 +53,21 @@ const NewPublicSubmission: React.FC<
         title: string
         details: string
         workshopId: string
+        workshop: {
+            id: string;
+            name: string;
+            memberships: {
+                items: {
+                    id: string;
+                    profile: {
+                        email: string;
+                        displayName: string;
+                        name: string;
+                        avatar: string;
+                    };
+                }[];
+            };
+        };
     } | null>(null)
 
     const user = useUser()
@@ -72,6 +87,18 @@ const NewPublicSubmission: React.FC<
     const [duration, setDuration] = useState(0)
     const [extensionCodeActive, setExtensionCodeActive] = useState<boolean>(false)
     // const [stemsUsed, setStemsUsed] = useState([])
+
+    const [membershipId, setMembershipId] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (fileRequestData && user) {
+            const workshop = fileRequestData.workshop;
+            const membership = workshop.memberships.items.find(item => item.profile.email === user.email);
+            if (membership?.id) {
+                setMembershipId(membership.id);
+            }
+        }
+    }, [fileRequestData, user]);
 
     const { breakoutGroupId } = useMemo((): { breakoutGroupId?: string } => {
         if (fileRequestData) {
@@ -307,7 +334,8 @@ const NewPublicSubmission: React.FC<
                                 }
                             },
                             lyrics,
-                            requestFeedback
+                            requestFeedback,
+                            ...membershipId && { membershipId }
                         },
                     }),
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -18,9 +18,21 @@ export const wrapRootElement = ({ element }) => {
         type: awsconfig.aws_appsync_authenticationType,
         jwtToken: async () => (await Auth.currentSession()).getAccessToken().getJwtToken(),
     }
+    
     const httpLink = new HttpLink({ uri: url });
 
+    const cleanTypeName = new ApolloLink((operation, forward) => {
+        if (operation.variables) {
+          const omitTypename = (key, value) => (key === '__typename' ? undefined : value);
+          operation.variables = JSON.parse(JSON.stringify(operation.variables), omitTypename);
+        }
+        return forward(operation).map((data) => {
+          return data;
+        });
+      });
+
     const link = ApolloLink.from([
+        cleanTypeName,
         createAuthLink({ url, region, auth }),
         createSubscriptionHandshakeLink({ url, region, auth }, httpLink),
     ]);

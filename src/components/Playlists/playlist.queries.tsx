@@ -50,6 +50,7 @@ export const getFileRequest = /* GraphQL */ `
             displayName
             avatar
             bio
+            email
           }
           fileId
           fileExtension
@@ -292,6 +293,9 @@ export const listPlaylists = /* GraphQL */ `
               workshopId
               createdAt
               updatedAt
+              profile {
+                email
+              }
             }
             id
             createdAt
@@ -363,6 +367,9 @@ export const playlistsByDate = /* GraphQL */ `
               workshopId
               createdAt
               updatedAt
+              profile {
+                email
+              }
             }
             id
             createdAt
@@ -427,6 +434,9 @@ export const listFileRequests = /* GraphQL */ `
         submissions {
           items {
             id
+            profile {
+              email
+            }
           }
         }
         workshopId

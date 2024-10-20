@@ -150,7 +150,8 @@ const Comment = ({ writeCommentFunctions, comment, currentTrackMetaData, childre
                   parentId: comment.id,
                   assignmentId: comment?.assignmentId,
                   submissionId: comment.submission.id,
-                  workshopId: comment?.workshopId
+                  workshopId: comment?.workshopId,
+                  recipientEmail: replying ? comment?.email : comment?.submission?.email
                 })(content)(e)
               setShowWriteComment(false)
               setEditing(false)
@@ -221,6 +222,7 @@ const FeedbackSection = ({
   assignmentId,
   submissionId,
   requestedFeedback,
+  recipientEmail,
   showAll = true,
   showToggle = true,
   showByMe = false,
@@ -382,7 +384,7 @@ const FeedbackSection = ({
   }, [createCommentRequestData])
 
 
-  const submitComment = ({ parentId, submissionId: parentSubmissionId, assignmentId: parentAssignmentId, workshopId: parentWorkshopId }) =>
+  const submitComment = ({ parentId, submissionId: parentSubmissionId, assignmentId: parentAssignmentId, workshopId: parentWorkshopId, recipientEmail }) =>
     (content = '') => (e) => {
       e.preventDefault()
       const input = {
@@ -392,7 +394,8 @@ const FeedbackSection = ({
         content,
         parentId,
         workshopId: workshopId || parentWorkshopId,
-        type: "Comment"
+        type: "Comment",
+        recipientEmail
       }
       return createCommentRequest({ variables: { input } })
       // .then((resp) => {
@@ -463,7 +466,7 @@ const FeedbackSection = ({
             </ToggleButtonGroup>
           </If>
           <If condition={!!submissionId}>
-            <WriteComment submitComment={submitComment({ submissionId, assignmentId, workshopId })} />
+            <WriteComment submitComment={submitComment({ submissionId, assignmentId, workshopId, recipientEmail })} />
           </If>
           {parentComments && parentComments
             .map(comment => (

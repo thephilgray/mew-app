@@ -14,7 +14,9 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "codegen": "make codegen"
+    "codegen": "make codegen",
+    "amplify:emailDigest": "cd amplify/backend/function/emailDigest && tsc -p ./tsconfig.json && cd -"
+
   },
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
