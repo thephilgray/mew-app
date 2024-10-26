@@ -1,16 +1,14 @@
-import { Email } from '@mui/icons-material';
-
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Alert, Autocomplete, Avatar, Button, Chip, CircularProgress, createFilterOptions, FormControl, FormControlLabel, FormHelperText, Grid, IconButton, Input, InputAdornment, InputBase, InputLabel, MenuItem, OutlinedInput, Select, Switch, TextField, Typography } from '@mui/material'
+import { Alert, Autocomplete, Avatar, Button, Chip, CircularProgress, createFilterOptions, FormControl, FormControlLabel, Grid, IconButton, Switch, TextField, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { isPast } from 'date-fns/esm'
 import gql from 'graphql-tag'
 import { countBy, entries, groupBy, head, keyBy, last, maxBy, uniqBy } from 'lodash'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
-import { Add, Delete, GroupAdd, Save, Sync } from '@mui/icons-material'
-import { updateMembershipService } from '../../graphql/d3/mutations'
+import { Add, Delete, GroupAdd, Sync, Email } from '@mui/icons-material'
+import { updateMembershipService, createBreakoutGroup, deleteBreakoutGroup, updateProfile } from '../../graphql/d3/mutations'
 import { Group, ROUTES } from '../../constants';
 import Loading from '../Loading';
 import { DataGridWrapper } from '../DataGridWrapper';
@@ -21,7 +19,6 @@ import { lighten, styled } from '@mui/material/styles';
 import If from '../If';
 import { useUserInAtLeastOneOfTheseGroups } from '../../auth/hooks';
 import { useForm } from 'react-hook-form';
-import { createBreakoutGroup, deleteBreakoutGroup } from '../../graphql/d3/mutations';
 
 const isExpired = (expiration: string | Date): boolean => Boolean(isPast(new Date(expiration as string)))
 
@@ -111,6 +108,12 @@ const GET_WORKSHOP = gql`
                         sub
                         id
                         avatar
+                        notificationSettings {
+                            emailDigest { 
+                                enabled
+                                frequency
+                            }
+                        }
                     }
                     mailchimp {
                         fullName
@@ -177,7 +180,9 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
 
     const [createBreakoutGroupMutation, { error: createBreakoutGroupError, data: createBreakoutGroupData }] = useMutation(gql(createBreakoutGroup));
     const [deleteBreakoutGroupMutation, { error: deleteBreakoutGroupError, data: deleteBreakoutGroupData }] = useMutation(gql(deleteBreakoutGroup));
+    const [updateProfileMutation, { loading: updateProfileLoading }] = useMutation(gql(updateProfile));
     const [sendEmailDigest, { loading: emailDigestLoading }] = useMutation(SEND_EMAIL_DIGEST);
+    const [updatingEmailDigestFor, setUpdatingEmailDigestFor] = useState<string | null>(null)
 
     const {
         register,
@@ -296,6 +301,32 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
         })
         setAddMembersToBreakGroupLoading(false)
         setBreakoutGroupValue(null)
+    }
+
+    const handleToggleEmailDigestEnabled = async (email: string, enabled: boolean) => {
+        setUpdatingEmailDigestFor(email);
+        try {
+            await updateProfileMutation({
+                variables: {
+                    input: {
+                        email: email,
+                        notificationSettings: {
+                            emailDigest: {
+                                enabled: !enabled,
+                            },
+                        },
+                    },
+                },
+            })
+            refetch();
+
+        } catch (error) {
+            // TODO: error handling
+            console.log(error);
+        }
+        finally {
+            setUpdatingEmailDigestFor(null);
+        }
     }
 
 
@@ -575,6 +606,22 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 </>
             ),
         },
+        {
+            field: 'emailDigestEnabled',
+            headerName: 'Email Digest',
+            renderCell: ({ row, id}) => (
+                (!updateProfileLoading || row.email !== updatingEmailDigestFor) ? (
+                    <Switch
+                        checked={!!(row?.profile?.notificationSettings?.emailDigest?.enabled)}
+                        onChange={async () => {
+                            await handleToggleEmailDigestEnabled(row.email, row?.profile?.notificationSettings?.emailDigest?.enabled)
+                        }}
+                    />
+                ) : (
+                    <CircularProgress />
+                )
+            )
+        }
 
     ]
 
