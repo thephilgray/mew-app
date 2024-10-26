@@ -234,6 +234,7 @@ const FeedbackSection = ({
   const [showAllComments, setShowAllComments] = useState(showAll)
   const [loading, setLoading] = useState(false)
   const [commentsForMe, setCommentsForMe] = useState([])
+  const [lastVisit, setLastVisit] = useState<Date | null>(null)
 
   const [
     createCommentRequest,
@@ -260,6 +261,16 @@ const FeedbackSection = ({
   const isDefaultPlaylistPage = assignmentId && submissionId;
   const isCustomPlaylistPage = !assignmentId && submissionId;
   const isGiveFeedbackPage = assignmentId && submissionId;
+
+  useEffect(() => {
+    if (isFeedbackPage) {
+      const lastVisitFromLocalStorage = localStorage.getItem('lastFeedbackVisit');
+      if (lastVisitFromLocalStorage) {
+        setLastVisit(new Date(lastVisitFromLocalStorage));
+      }
+      localStorage.setItem('lastFeedbackVisit', new Date().toISOString());
+    }
+  }, [isFeedbackPage]);
 
   useEffect(() => {
     if (!profile) return;
@@ -447,9 +458,13 @@ const FeedbackSection = ({
       <Grid item xs={12} >
         <Typography variant="h6" component="h3">
           Feedback{' '}
-          <Badge badgeContent={filteredComments.length || 0} color="secondary">
+            <Badge badgeContent={
+            isFeedbackPage && lastVisit ? 
+              filteredComments.filter(comment => new Date(comment.createdAt) > new Date(lastVisit)).length : 
+              filteredComments.length || 0
+            } color="secondary">
             <CommentIcon />
-          </Badge>
+            </Badge>
         </Typography>
         <If condition={!loading} fallbackContent={<CircularProgress />}>
           {/* JUST allow comments on any track for now. */}
