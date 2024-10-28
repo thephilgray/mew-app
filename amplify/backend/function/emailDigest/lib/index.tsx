@@ -145,6 +145,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
                         id
                         title
                         expiration
+                        title
                         workshop {
                             artwork {
                                 path
@@ -158,6 +159,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
                             artwork {
                                 path
                             }
+                            title
                         }
                         workshopId
                         playlistExternalUrl
@@ -246,7 +248,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     const getActiveMembers = async (): Promise<Member[]> => {
         const query = `
             query ListMembers($filter: ModelMembershipFilterInput) {
-                listMemberships(filter: $filter) {
+                listMemberships(filter: $filter, limit: 1000) {
                     items {
                         id
                         email
@@ -311,9 +313,21 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         }
     }
 
+    let emailsSent = [];
+    let emailsFailed = [];
+    let emailContent;
     for (const [email, { comments, groupComments, breakoutGroupMembers, breakoutGroupName, mostRecentAssignment }] of Object.entries(emailCommentsMap)) {
-        const emailContent = await generateEmailContent(mostRecentAssignment!, comments.slice(0, 5), groupComments.slice(0, 5), breakoutGroupMembers, breakoutGroupName);
-        await sendEmail(email, `Your Weekly Digest`, emailContent);
+        try {
+            emailContent = null;
+            emailContent = await generateEmailContent(mostRecentAssignment!, comments.slice(0, 5), groupComments.slice(0, 5), breakoutGroupMembers, breakoutGroupName);
+            await sendEmail(email, `Your Weekly Digest`, emailContent);
+            console.log(`Sent email to ${email}: ${emailContent}`);
+            emailsSent.push({email, emailContent});
+            
+        } catch (error) {
+            console.log(error);
+            emailsFailed.push({email, emailContent, error});
+        }
     }
 
     return {
@@ -323,6 +337,6 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         //     "Access-Control-Allow-Origin": "*",
         //     "Access-Control-Allow-Headers": "*"
         // },
-        body: JSON.stringify('Hello from Lambda!'),
+        body: JSON.stringify({emailsSent, numberOfEmailsSent: emailsSent.length, emailsFailed, numberOfEmailsFailed: emailsFailed.length}),
     };
 };

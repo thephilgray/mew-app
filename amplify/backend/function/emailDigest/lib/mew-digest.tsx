@@ -7,11 +7,13 @@ const appUrl = `${process.env.GATSBY_APP_URL}/app`;
 type Assignment = {
   id?: string;
   playlistExternalUrl?: string;
+  title?: string;
   playlist?: {
     id?: string;
     artwork?: {
       path?: string;
     };
+    title?: string;
   };
   artwork?: {
     path?: string;
@@ -84,13 +86,15 @@ const MewDigest = ({ assignment = {}, comments = [], groupComments = [], breakou
           </header>
           <main style={{ padding: '20px' }}>
             <section style={{ marginBottom: '20px', textAlign: 'center' }}>
-              <Heading as="h2" style={{ textAlign: 'center', color: '#333' }}>Check out the latest MEW playlist!</Heading>
+              <Heading as="h2" style={{ textAlign: 'center', color: '#333' }}>Check out the latest activity on the MEW app!</Heading>
               <Link href={assignment?.playlistExternalUrl || assignment?.playlist?.id ? `${appUrl}/playlists/${assignment?.playlist?.id}` : `${appUrl}/assignments/${assignment?.id}/playlist`} style={{ textDecoration: 'none', color: '#333' }}>
               <Img src={`${baseUrl}/public/${assignment?.playlist?.artwork?.path || assignment?.artwork?.path || assignment?.workshop?.artwork?.path}`} alt="Playlist Cover" style={{ width: '100%', maxWidth: '600px', borderRadius: '10px', display: 'block', margin: '0 auto' }} />
+              <Text>{assignment?.playlist?.title || assignment?.title}</Text>
               </Link>
             </section>
             { comments.length > 0 && (<section>
               <Heading as="h3" style={{ color: '#333' }}>Recent Feedback for You</Heading>
+              <Text>(Below is a selection of {comments.length > 5 ? 5 : comments.length} of the most recent comments. <Link href={`${appUrl}/feedback`} style={{ textDecoration: 'none', color: '#E092A2' }}>See more in the Feed app.</Link>)</Text>
                 <ul style={{ listStyleType: 'none', padding: 0, width: '100%' }}>
                 {comments.map((comment, index) => (
                   <li key={index} style={{ marginBottom: '20px', borderBottom: '1px solid #eaeaea', paddingBottom: '10px', width: '100%' }}>
@@ -120,6 +124,7 @@ const MewDigest = ({ assignment = {}, comments = [], groupComments = [], breakou
             </section>)}
             {groupComments.length > 0 && (<section>
               <Heading as="h3" style={{ color: '#333' }}>Recent Activity From Your Group</Heading>
+              <Text>(Below is just a selection of {groupComments.length > 5 ? 5 : groupComments.length} of the most recent comments. <Link href={`${appUrl}/feedback`} style={{ textDecoration: 'none', color: '#E092A2' }}>See more in the app.</Link>)</Text>
                 <ul style={{ listStyleType: 'none', padding: 0, width: '100%' }}>
                 {groupComments.map((comment, index) => (
                   <li key={index} style={{ marginBottom: '20px', borderBottom: '1px solid #eaeaea', paddingBottom: '10px', width: '100%' }}>
