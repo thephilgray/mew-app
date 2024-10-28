@@ -145,6 +145,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
                         id
                         title
                         expiration
+                        title
                         workshop {
                             artwork {
                                 path
@@ -158,6 +159,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
                             artwork {
                                 path
                             }
+                            title
                         }
                         workshopId
                         playlistExternalUrl
