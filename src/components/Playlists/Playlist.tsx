@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState, useMemo, PropsWithChildren, useContext, useRef } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert } from '@mui/material'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert, Badge } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
@@ -15,7 +15,7 @@ import { ROUTES } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
-import { Close, CopyAll, Edit, MoreVert, Pause, PauseCircleRounded, PlayArrow as PlayArrowIcon, PlayArrowOutlined, PlayArrowRounded, PlaylistAdd, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, Speaker } from '@mui/icons-material'
+import { Close, CopyAll, Edit, Forum, MoreVert, Pause, PauseCircleRounded, PlayArrow as PlayArrowIcon, PlayArrowOutlined, PlayArrowRounded, PlaylistAdd, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, Speaker } from '@mui/icons-material'
 import isNumber from 'lodash/isNumber'
 import sum from 'lodash/sum'
 import isPast from 'date-fns/isPast'
@@ -213,7 +213,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     setToggleTrackView(true)
                 }
             } else {
-                setToggleTrackView(true)
+                setToggleTrackView(false)
             }
         }
     }, [audioLists, currentIndex])
@@ -348,7 +348,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 // @ts-ignore
                 for (let index = 0; index < data.submissions.items.length; index++) {
                     // @ts-ignore
-                    const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email } = data.submissions.items[index]
+                    const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments } = data.submissions.items[index]
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId) && (!breakoutGroupId || (toggleBreakoutView && breakoutGroupId === breakoutGroup?.id)) || (!toggleBreakoutView)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -368,6 +368,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             workshopId,
                             assignmentId,
                             requestFeedback,
+                            commentsCount: comments?.items?.length
                         })
                         seenFileIds.push(fileId)
                     }
@@ -381,7 +382,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 for (let index = 0; index < data.tracks.items.length; index++) {
                     // @ts-ignore
                     const { submission, order } = data.tracks.items[index];
-                    const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile } = submission
+                    const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile, comments } = submission
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -402,6 +403,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             assignmentId,
                             workshopId,
                             requestFeedback,
+                            commentsCount: comments?.items?.length
                         })
                         seenFileIds.push(fileId)
                     }
@@ -635,13 +637,21 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                 </Grid>
                                 <Grid item xs={12} sx={{ pb: '100px' }}>
                                     <Typography variant="h6">Tracks</Typography>
-                                    <If condition={!!audioLists?.length} fallbackContent={addSongsToPlaylistLoading ? <CircularProgress /> : <Typography>Playlist has no tracks.</Typography>}>
+                                    <If condition={!!audioLists?.length} fallbackContent={addSongsToPlaylistLoading ? <CircularProgress /> : <Typography>No tracks in {toggleBreakoutView ? 'breakout view of ' : ''} playlist.</Typography>}>
                                         <Stack direction="column" sx={{ minWidth: 0 }}>
                                             {audioLists.map((item, index) => (
                                                 <TrackListItem
                                                     isCurrentIndex={index === currentIndex}
                                                     key={item.submissionId} onClick={() => {
                                                         setCurrentIndex(index)
+                                                        if(isPlaying) {
+                                                            playerRef?.current?.pause()
+                                                            setIsPlaying(false)
+                                                        } else {
+                                                            playerRef?.current?.play()
+                                                            setIsPlaying(true)
+                                                        }
+                                                            
                                                     }}>
                                                     <Box sx={{
                                                         display: 'flex',
@@ -659,10 +669,21 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                                             }}></div>
                                                         </Box>
                                                         <Typography noWrap sx={{ marginRight: 'auto' }}>
-                                                            {index + 1} {item.name} - {item.singer}
+                                                            {index + 1} {item.singer} – {item.name}
                                                         </Typography>
+                                                        <IconButton
+                                                            onClick={(e) => {
+                                                                e.stopPropagation()
+                                                                setToggleTrackView(true)
+                                                            }}
+                                                            sx={{ mr: 2 }}
+                                                        >
+                                                            <Badge badgeContent={audioLists[currentIndex]?.commentsCount} color="secondary">
+                                                                <Forum />
+                                                            </Badge>
+                                                        </IconButton>
                                                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                                            {isPlaying && currentIndex === index ? <PlayArrowIcon /> : <PlayArrowOutlined />}
+                                                            {isPlaying && currentIndex === index ? <Pause /> : <PlayArrowOutlined /> }
                                                             <If condition={trackDurations.length}>
                                                                 <Typography variant='caption'>
                                                                     {formatAudioDuration(item.trackDuration || trackDurations[index])}
@@ -691,11 +712,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 < AudioPlayer />
             </If>
             {/* </If> */}
-            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView} fallbackContent={
+            <If condition={toggleTrackView}>
+            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex]} fallbackContent={
                 <Grid item xs={12}>
                     <p>No tracks in {toggleBreakoutView ? 'breakout view of ' : ''} playlist.</p>
                 </Grid>
-            }>
+            } >
                 <Grid item xs={12}>
                     <Card sx={{
                         display: 'flex',
@@ -772,7 +794,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     </Card>
                 </Grid >
             </If>
-            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex] && toggleTrackView}>
+            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex]}>
                 <If condition={!!audioLists?.[currentIndex]?.lyrics}>
                     <Grid item xs={12}>
                         <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
@@ -799,6 +821,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     </If>
                 </Grid>
             </If >
+            </If>
             <Snackbar
                 anchorOrigin={{
                     vertical: 'top',
