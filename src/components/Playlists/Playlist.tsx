@@ -212,7 +212,11 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     setCurrentIndex(trackIndex)
                     setToggleTrackView(true)
                 }
-            } else {
+            } else if(toggleTrackView){
+                // do nothing if it's already in track view
+                // setToggleTrackView(true)
+            } 
+            else {
                 setToggleTrackView(false)
             }
         }
@@ -642,7 +646,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                             {audioLists.map((item, index) => (
                                                 <TrackListItem
                                                     isCurrentIndex={index === currentIndex}
-                                                    key={item.submissionId} onClick={() => {
+                                                    key={item.submissionId} 
+                                                    onClick={() => {
                                                         setCurrentIndex(index)
                                                         if(isPlaying) {
                                                             playerRef?.current?.pause()
@@ -674,11 +679,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                                         <IconButton
                                                             onClick={(e) => {
                                                                 e.stopPropagation()
+                                                                setCurrentIndex(index)
                                                                 setToggleTrackView(true)
                                                             }}
                                                             sx={{ mr: 2 }}
                                                         >
-                                                            <Badge badgeContent={audioLists[currentIndex]?.commentsCount} color="secondary">
+                                                            <Badge badgeContent={audioLists[index]?.commentsCount} color="secondary">
                                                                 <Forum />
                                                             </Badge>
                                                         </IconButton>
@@ -809,7 +815,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         fallbackContent={<Alert severity="info">
                             <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for comments and more content and features.
                         </Alert>}>
-                        {console.log(audioLists?.[currentIndex]?.profile)}
                         <FeedbackSection
                             requestedFeedback={!!audioLists?.[currentIndex]?.requestFeedback}
                             assignmentId={assignmentId || audioLists?.[currentIndex]?.assignmentId}
