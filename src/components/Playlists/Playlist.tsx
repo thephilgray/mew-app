@@ -95,15 +95,19 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const { setClonedPlaylistItems } = useClonePlaylist()
 
 
-    const { breakoutGroupName, breakoutGroupId } = useMemo((): { breakoutGroupName?: string, breakoutGroupId?: string } => {
+    const { breakoutGroupName, breakoutGroupId, breakoutGroupHasTracks } = useMemo((): { breakoutGroupName?: string, breakoutGroupId?: string } => {
         if (fetchGetFileRequestData) {
             const workshop = fetchGetFileRequestData.getFileRequest?.workshop
-            return {
-                breakoutGroupName: getBreakoutGroupName(workshop, user),
-                breakoutGroupId: getBreakoutGroup(workshop, user)?.id
+            const userSubmission = fetchGetFileRequestData.getFileRequest?.submissions?.items?.find(submission => submission.email === user?.email)
+            const userBreakoutGroupFromSubmission = userSubmission?.breakoutGroup
+            const result =  {
+                breakoutGroupName: userBreakoutGroupFromSubmission?.name || getBreakoutGroupName(workshop, user),
+                breakoutGroupId: userBreakoutGroupFromSubmission?.id || getBreakoutGroup(workshop, user)?.id
             }
+            const breakoutGroupHasTracks = fetchGetFileRequestData.getFileRequest?.submissions?.items?.some(submission => submission.breakoutGroup?.id === result.breakoutGroupId)
+            return {...result, breakoutGroupHasTracks};
         } else {
-            return { breakoutGroupName: '', breakoutGroupId: '' }
+            return { breakoutGroupName: '', breakoutGroupId: '', breakoutGroupHasTracks: false }
         }
 
     }, [fetchGetFileRequestData, user])
@@ -432,7 +436,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     }, [data, canView, audioLists, addSongsToPlaylistLoading, songsShouldLoad])
 
     useEffect(() => {
-        if (breakoutGroupId && toggleBreakoutView === null) {
+        if (breakoutGroupId && toggleBreakoutView === null && breakoutGroupHasTracks) {
             setToggleBreakoutView(true);
         }
     }, [breakoutGroupId])
