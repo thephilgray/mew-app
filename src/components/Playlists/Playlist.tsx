@@ -437,7 +437,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     }, [data, canView, audioLists, addSongsToPlaylistLoading, songsShouldLoad])
 
     useEffect(() => {
-
         if (breakoutGroupId && toggleBreakoutView === null && breakoutGroupHasTracks && !trackFromParams) {
             setToggleBreakoutView(true);
         }
