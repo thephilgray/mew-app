@@ -114,6 +114,9 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
 
     const previousBreakoutGroupId = usePrevious(breakoutGroupId)
 
+    const params = new URLSearchParams(window.location.search)
+    const trackFromParams = params.get('track') // track is actually submissionId
+
     // clones playlist or current track to a new playlist
     // TODO: rename, confusing
     const handleClonePlaylist = (currentTrack = false) => {
@@ -208,10 +211,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     useEffect(() => {
         // still very hacky and somewhat glitchy but seems to work in most cases
         if (audioLists.length > 0) {
-            const params = new URLSearchParams(window.location.search)
-            const track = params.get('track') // track is actually submissionId
-            if (track) {
-                const trackIndex = audioLists.findIndex(item => item.submissionId === track)
+            if (trackFromParams) {
+                const trackIndex = audioLists.findIndex(item => item.submissionId === trackFromParams)
                 if (trackIndex > -1) {
                     setCurrentIndex(trackIndex)
                     setToggleTrackView(true)
@@ -436,7 +437,8 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     }, [data, canView, audioLists, addSongsToPlaylistLoading, songsShouldLoad])
 
     useEffect(() => {
-        if (breakoutGroupId && toggleBreakoutView === null && breakoutGroupHasTracks) {
+
+        if (breakoutGroupId && toggleBreakoutView === null && breakoutGroupHasTracks && !trackFromParams) {
             setToggleBreakoutView(true);
         }
     }, [breakoutGroupId])
