@@ -102,6 +102,10 @@ export const getAPIKey = /* GraphQL */ `query GetAPIKey($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -186,6 +190,10 @@ export const getAPIKey = /* GraphQL */ `query GetAPIKey($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -1037,6 +1045,18 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
           __typename
         }
         workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -1185,6 +1205,10 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -1497,6 +1521,41 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          workshopID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1801,6 +1860,10 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -1979,6 +2042,10 @@ export const listFileRequests = /* GraphQL */ `query ListFileRequests(
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -2144,6 +2211,18 @@ export const listFileRequests = /* GraphQL */ `query ListFileRequests(
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -2408,6 +2487,10 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `query FileRequestsByWorks
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -2573,6 +2656,18 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `query FileRequestsByWorks
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -2839,6 +2934,10 @@ export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -3004,6 +3103,18 @@ export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -3164,6 +3275,320 @@ export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
   APITypes.FileRequestsByDateQueryVariables,
   APITypes.FileRequestsByDateQuery
 >;
+export const getFeedbackCategory = /* GraphQL */ `query GetFeedbackCategory($id: ID!) {
+  getFeedbackCategory(id: $id) {
+    id
+    name
+    title
+    description
+    submissions {
+      items {
+        id
+        feedbackCategoryID
+        fileRequestSubmissionID
+        feedbackCategory {
+          id
+          name
+          title
+          description
+          submissions {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileRequestSubmission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          membershipId
+          membership {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        feedbackCategoryID
+        workshopID
+        feedbackCategory {
+          id
+          name
+          title
+          description
+          submissions {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetFeedbackCategoryQueryVariables,
+  APITypes.GetFeedbackCategoryQuery
+>;
+export const listFeedbackCategories = /* GraphQL */ `query ListFeedbackCategories(
+  $filter: ModelFeedbackCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFeedbackCategories(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      title
+      description
+      submissions {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          feedbackCategoryID
+          workshopID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListFeedbackCategoriesQueryVariables,
+  APITypes.ListFeedbackCategoriesQuery
+>;
 export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmission($id: ID!) {
   getFileRequestSubmission(id: $id) {
     id
@@ -3258,6 +3683,10 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -3423,6 +3852,18 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -3632,6 +4073,10 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -3853,6 +4298,18 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -4129,6 +4586,10 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -4230,6 +4691,10 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -4314,6 +4779,10 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -4760,6 +5229,10 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -4931,6 +5404,10 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -5025,6 +5502,10 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -5244,6 +5725,18 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -5325,6 +5818,10 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -5446,6 +5943,119 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
       __typename
     }
     workshopId
+    selectedFeedbackCategories {
+      items {
+        id
+        feedbackCategoryID
+        fileRequestSubmissionID
+        feedbackCategory {
+          id
+          name
+          title
+          description
+          submissions {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileRequestSubmission {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          membershipId
+          membership {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -5551,6 +6161,10 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -5708,6 +6322,10 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -6204,6 +6822,10 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -6266,6 +6888,46 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -6378,6 +7040,10 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -6535,6 +7201,10 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -7031,6 +7701,10 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -7093,6 +7767,46 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -7205,6 +7919,10 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -7362,6 +8080,10 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -7858,6 +8580,10 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -7920,6 +8646,46 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -8032,6 +8798,10 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -8189,6 +8959,10 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -8685,6 +9459,10 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -8747,6 +9525,46 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -8859,6 +9677,10 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -9016,6 +9838,10 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -9512,6 +10338,10 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -9574,6 +10404,46 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -9686,6 +10556,10 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -9843,6 +10717,10 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -10339,6 +11217,10 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -10401,6 +11283,46 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -10502,6 +11424,10 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -10659,6 +11585,10 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -11155,6 +12085,10 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -11217,6 +12151,46 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -11508,6 +12482,10 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -11855,6 +12833,18 @@ export const listTracks = /* GraphQL */ `query ListTracks(
           __typename
         }
         workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -12082,6 +13072,10 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -12226,6 +13220,10 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -12310,6 +13308,10 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -12782,6 +13784,18 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -12863,6 +13877,10 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -13289,6 +14307,10 @@ export const listPlaylists = /* GraphQL */ `query ListPlaylists(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -13667,6 +14689,10 @@ export const playlistsByBreakoutGroupId = /* GraphQL */ `query PlaylistsByBreako
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -14047,6 +15073,10 @@ export const playlistsByDate = /* GraphQL */ `query PlaylistsByDate(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -14271,6 +15301,10 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -14583,6 +15617,41 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          workshopID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -14849,6 +15918,18 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
           __typename
         }
         workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -15076,6 +16157,10 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -15363,6 +16448,18 @@ export const listBreakoutGroups = /* GraphQL */ `query ListBreakoutGroups(
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -15444,6 +16541,10 @@ export const listBreakoutGroups = /* GraphQL */ `query ListBreakoutGroups(
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -15749,6 +16850,18 @@ export const breakoutGroupsByWorkshopId = /* GraphQL */ `query BreakoutGroupsByW
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -15830,6 +16943,10 @@ export const breakoutGroupsByWorkshopId = /* GraphQL */ `query BreakoutGroupsByW
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -16126,6 +17243,18 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -16207,6 +17336,10 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -16470,6 +17603,10 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -16782,6 +17919,41 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          workshopID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -16873,6 +18045,10 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -16957,6 +18133,10 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -17533,6 +18713,18 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
           __typename
         }
         workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -17611,6 +18803,10 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -17832,6 +19028,18 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -18108,6 +19316,10 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -18197,6 +19409,10 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -18418,6 +19634,18 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -18694,6 +19922,10 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -18783,6 +20015,10 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -19004,6 +20240,18 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -19280,6 +20528,10 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -19369,6 +20621,10 @@ export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGr
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -19590,6 +20846,18 @@ export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGr
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -19866,6 +21134,10 @@ export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGr
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -19974,6 +21246,10 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -20307,6 +21583,18 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
           __typename
         }
         workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -20421,6 +21709,10 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -20505,6 +21797,10 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -20858,6 +22154,10 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -21013,6 +22313,10 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -21123,6 +22427,90 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
       __typename
     }
     maxFeedback
+    feedbackCategories {
+      items {
+        id
+        feedbackCategoryID
+        workshopID
+        feedbackCategory {
+          id
+          name
+          title
+          description
+          submissions {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -21279,6 +22667,10 @@ export const listWorkshops = /* GraphQL */ `query ListWorkshops(
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -21591,6 +22983,41 @@ export const listWorkshops = /* GraphQL */ `query ListWorkshops(
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          workshopID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -21851,6 +23278,18 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -22120,6 +23559,18 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
           __typename
         }
         workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -22216,6 +23667,10 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -22794,6 +24249,10 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -22965,6 +24424,10 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -23088,6 +24551,10 @@ export const listProfiles = /* GraphQL */ `query ListProfiles(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -23172,6 +24639,10 @@ export const listProfiles = /* GraphQL */ `query ListProfiles(
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -23581,6 +25052,10 @@ export const profileByProfileId = /* GraphQL */ `query ProfileByProfileId(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -23665,6 +25140,10 @@ export const profileByProfileId = /* GraphQL */ `query ProfileByProfileId(
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -24065,6 +25544,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -24149,6 +25632,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -24536,6 +26023,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -24693,6 +26184,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -25189,6 +26684,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -25251,6 +26750,46 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -25343,6 +26882,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -25427,6 +26970,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -25818,6 +27365,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -25983,6 +27534,18 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -26277,6 +27840,10 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -26589,6 +28156,41 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          workshopID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -27057,6 +28659,18 @@ export const listComments = /* GraphQL */ `query ListComments(
           __typename
         }
         workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -27327,6 +28941,10 @@ export const listComments = /* GraphQL */ `query ListComments(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -27554,6 +29172,18 @@ export const listComments = /* GraphQL */ `query ListComments(
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -28035,6 +29665,18 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
           __typename
         }
         workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -28305,6 +29947,10 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -28532,6 +30178,18 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
           __typename
         }
         maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -28640,6 +30298,10 @@ export const getStem = /* GraphQL */ `query GetStem($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -28776,6 +30438,10 @@ export const getStem = /* GraphQL */ `query GetStem($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -28860,6 +30526,10 @@ export const getStem = /* GraphQL */ `query GetStem($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -29798,6 +31468,10 @@ export const getPrompt = /* GraphQL */ `query GetPrompt($id: ID!) {
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -29882,6 +31556,10 @@ export const getPrompt = /* GraphQL */ `query GetPrompt($id: ID!) {
             __typename
           }
           workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -30609,11 +32287,95 @@ export const promptsByDate = /* GraphQL */ `query PromptsByDate(
   APITypes.PromptsByDateQueryVariables,
   APITypes.PromptsByDateQuery
 >;
-export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: ID!) {
-  getSubmissionStems(id: $id) {
+export const getSubmissionFeedbackCategories = /* GraphQL */ `query GetSubmissionFeedbackCategories($id: ID!) {
+  getSubmissionFeedbackCategories(id: $id) {
     id
+    feedbackCategoryID
     fileRequestSubmissionID
-    stemID
+    feedbackCategory {
+      id
+      name
+      title
+      description
+      submissions {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          feedbackCategoryID
+          workshopID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     fileRequestSubmission {
       id
       fileRequestId
@@ -30700,6 +32462,10 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -30857,6 +32623,10 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -31353,6 +33123,10 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             __typename
           }
           maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -31415,6 +33189,2080 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetSubmissionFeedbackCategoriesQueryVariables,
+  APITypes.GetSubmissionFeedbackCategoriesQuery
+>;
+export const listSubmissionFeedbackCategories = /* GraphQL */ `query ListSubmissionFeedbackCategories(
+  $filter: ModelSubmissionFeedbackCategoriesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSubmissionFeedbackCategories(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      feedbackCategoryID
+      fileRequestSubmissionID
+      feedbackCategory {
+        id
+        name
+        title
+        description
+        submissions {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileRequestSubmission {
+        id
+        fileRequestId
+        fileRequest {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        membershipId
+        membership {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        artist
+        name
+        email
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          notificationSettings {
+            __typename
+          }
+          receivedComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        fileId
+        fileExtension
+        rating
+        comments {
+          items {
+            id
+            content
+            email
+            submissionId
+            recipientEmail
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        stems {
+          items {
+            id
+            fileRequestSubmissionID
+            stemID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListSubmissionFeedbackCategoriesQueryVariables,
+  APITypes.ListSubmissionFeedbackCategoriesQuery
+>;
+export const getWorkshopFeedbackCategories = /* GraphQL */ `query GetWorkshopFeedbackCategories($id: ID!) {
+  getWorkshopFeedbackCategories(id: $id) {
+    id
+    feedbackCategoryID
+    workshopID
+    feedbackCategory {
+      id
+      name
+      title
+      description
+      submissions {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      workshops {
+        items {
+          id
+          feedbackCategoryID
+          workshopID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        items {
+          id
+          startDate
+          expiration
+          title
+          details
+          required
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          extensions {
+            nextToken
+            __typename
+          }
+          playlist {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          playlistStartDate
+          playlistExternalUrl
+          type
+          createdAt
+          updatedAt
+          fileRequestPlaylistId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      submissions {
+        items {
+          id
+          fileRequestId
+          fileRequest {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          membershipId
+          membership {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          artist
+          name
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileId
+          fileExtension
+          rating
+          comments {
+            nextToken
+            __typename
+          }
+          stems {
+            nextToken
+            __typename
+          }
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          lyrics
+          requestFeedback
+          duration
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshopId
+          selectedFeedbackCategories {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        mailchimp {
+          enabled
+          apiKeyName
+          listId
+          sessionTag
+          serverPrefix
+          __typename
+        }
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        notificationSettings {
+          emailDigest {
+            enabled
+            frequency
+            __typename
+          }
+          __typename
+        }
+        receivedComments {
+          items {
+            id
+            content
+            email
+            submissionId
+            recipientEmail
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        items {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        items {
+          id
+          workshopId
+          email
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroupId
+          status
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          mailchimp {
+            id
+            emailAddress
+            status
+            fullName
+            uniqueEmailId
+            contactId
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      maxFeedback
+      feedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          workshopID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetWorkshopFeedbackCategoriesQueryVariables,
+  APITypes.GetWorkshopFeedbackCategoriesQuery
+>;
+export const listWorkshopFeedbackCategories = /* GraphQL */ `query ListWorkshopFeedbackCategories(
+  $filter: ModelWorkshopFeedbackCategoriesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listWorkshopFeedbackCategories(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      feedbackCategoryID
+      workshopID
+      feedbackCategory {
+        id
+        name
+        title
+        description
+        submissions {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        fileRequests {
+          items {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        status
+        passes
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        description
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        host {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          notificationSettings {
+            __typename
+          }
+          receivedComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroups {
+          items {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        startDate
+        endDate
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        maxFeedback
+        feedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            workshopID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListWorkshopFeedbackCategoriesQueryVariables,
+  APITypes.ListWorkshopFeedbackCategoriesQuery
+>;
+export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: ID!) {
+  getSubmissionStems(id: $id) {
+    id
+    fileRequestSubmissionID
+    stemID
+    fileRequestSubmission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        artwork {
+          id
+          path
+          credit
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        workshopId
+        extensions {
+          items {
+            id
+            expiration
+            assignmentId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlist {
+          tracks {
+            nextToken
+            __typename
+          }
+          owner {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          public
+          title
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          breakoutGroupId
+          breakoutGroup {
+            id
+            name
+            description
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          type
+          createdAt
+          id
+          updatedAt
+          profilePlaylistsId
+          playlistOwnerId
+          __typename
+        }
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroup {
+          id
+          name
+          description
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          members {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        breakoutGroupId
+        status
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        profile {
+          email
+          id
+          name
+          displayName
+          links {
+            id
+            text
+            url
+            __typename
+          }
+          avatar
+          bio
+          sub
+          apiKeys {
+            nextToken
+            __typename
+          }
+          workshops {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          memberships {
+            nextToken
+            __typename
+          }
+          features {
+            __typename
+          }
+          playlists {
+            nextToken
+            __typename
+          }
+          uploadedStems {
+            nextToken
+            __typename
+          }
+          prompts {
+            nextToken
+            __typename
+          }
+          location {
+            latitude
+            longitude
+            __typename
+          }
+          notificationSettings {
+            __typename
+          }
+          receivedComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        mailchimp {
+          id
+          emailAddress
+          status
+          fullName
+          uniqueEmailId
+          contactId
+          tags {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        links {
+          id
+          text
+          url
+          __typename
+        }
+        avatar
+        bio
+        sub
+        apiKeys {
+          items {
+            id
+            keyName
+            createdAt
+            profileID
+            email
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        workshops {
+          items {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        memberships {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        features {
+          mailchimp {
+            enabled
+            apiKeyName
+            listId
+            sessionTag
+            serverPrefix
+            __typename
+          }
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        uploadedStems {
+          items {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        prompts {
+          items {
+            id
+            title
+            content
+            authorEmail
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        location {
+          latitude
+          longitude
+          __typename
+        }
+        notificationSettings {
+          emailDigest {
+            enabled
+            frequency
+            __typename
+          }
+          __typename
+        }
+        receivedComments {
+          items {
+            id
+            content
+            email
+            submissionId
+            recipientEmail
+            assignmentId
+            workshopId
+            parentId
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        items {
+          id
+          content
+          email
+          profile {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          submissionId
+          submission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          recipientEmail
+          recipient {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          assignmentId
+          assignment {
+            id
+            startDate
+            expiration
+            title
+            details
+            required
+            workshopId
+            playlistStartDate
+            playlistExternalUrl
+            type
+            createdAt
+            updatedAt
+            fileRequestPlaylistId
+            __typename
+          }
+          workshopId
+          workshop {
+            id
+            name
+            email
+            status
+            passes
+            description
+            startDate
+            endDate
+            maxFeedback
+            createdAt
+            updatedAt
+            __typename
+          }
+          parentId
+          type
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stems {
+        items {
+          id
+          fileRequestSubmissionID
+          stemID
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          stem {
+            id
+            title
+            bpm
+            key
+            scale
+            instruments
+            notes
+            fileSize
+            fileExtension
+            creatorEmail
+            stemGroupId
+            filePath
+            artist
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        workshop {
+          id
+          name
+          email
+          fileRequests {
+            nextToken
+            __typename
+          }
+          submissions {
+            nextToken
+            __typename
+          }
+          status
+          passes
+          features {
+            __typename
+          }
+          description
+          artwork {
+            id
+            path
+            credit
+            __typename
+          }
+          host {
+            email
+            id
+            name
+            displayName
+            avatar
+            bio
+            sub
+            createdAt
+            updatedAt
+            __typename
+          }
+          breakoutGroups {
+            nextToken
+            __typename
+          }
+          startDate
+          endDate
+          memberships {
+            nextToken
+            __typename
+          }
+          maxFeedback
+          feedbackCategories {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        submissions {
+          items {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        playlists {
+          items {
+            public
+            title
+            breakoutGroupId
+            type
+            createdAt
+            id
+            updatedAt
+            profilePlaylistsId
+            playlistOwnerId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        members {
+          items {
+            id
+            workshopId
+            email
+            breakoutGroupId
+            status
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      selectedFeedbackCategories {
+        items {
+          id
+          feedbackCategoryID
+          fileRequestSubmissionID
+          feedbackCategory {
+            id
+            name
+            title
+            description
+            createdAt
+            updatedAt
+            __typename
+          }
+          fileRequestSubmission {
+            id
+            fileRequestId
+            membershipId
+            artist
+            name
+            email
+            fileId
+            fileExtension
+            rating
+            lyrics
+            requestFeedback
+            duration
+            breakoutGroupId
+            workshopId
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -31949,6 +35797,18 @@ export const listSubmissionStems = /* GraphQL */ `query ListSubmissionStems(
           __typename
         }
         workshopId
+        selectedFeedbackCategories {
+          items {
+            id
+            feedbackCategoryID
+            fileRequestSubmissionID
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename

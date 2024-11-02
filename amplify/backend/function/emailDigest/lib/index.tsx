@@ -208,8 +208,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 
     const getCommentsOnSubmissions = async (email: string, onlyUserOrExclude: boolean): Promise<Comment[]> => {
         const query = `
-            query GetCommentsOnSubmissions($filter: ModelCommentFilterInput) {
-                listComments(filter: $filter) {
+            query commentsByDate($filter: ModelCommentFilterInput, $limit: Int) {
+                commentsByDate(filter: $filter, sortDirection: DESC, type: "Comment", limit: $limit) {
                     items {
                         content
                         submission {
@@ -239,10 +239,21 @@ export const handler: APIGatewayProxyHandler = async (event) => {
                 email: { ne: email },
                 recipientEmail: onlyUserOrExclude ? { eq: email } : { ne: email },
                 workshopId: { eq: workshopId }
-            }
+            },
+            limit: 500
         };
-        const response = await queryGraphQL(query, variables);
-        return response.listComments.items;
+        let response: { commentsByDate?: { items: Comment[] } } | null = null;
+        try {
+            response = await queryGraphQL(query, variables);
+            if (!response || !response.commentsByDate) {
+                console.log('Invalid response:', response);
+                throw new Error('Invalid response structure');
+            }
+        } catch (error) {
+            console.error('Error fetching comments on submissions:', error);
+            throw error;
+        }
+        return response?.commentsByDate?.items || [];
     };
 
     const getActiveMembers = async (): Promise<Member[]> => {
@@ -284,42 +295,61 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     const pastDueAssignments = await getPastDueAssignments(days);
     const activeMembers = await getActiveMembers();
 
-    const emailCommentsMap: { [email: string]: { comments: Comment[], groupComments: Comment[], breakoutGroupMembers: Member[], breakoutGroupName?: string, mostRecentAssignment: Assignment | null } } = {};
-
-    for (const assignment of pastDueAssignments) {
-        for (const submission of assignment.submissions.items) {
+    const emailCommentsMap = pastDueAssignments.reduce((acc, assignment) => {
+        assignment.submissions.items.forEach(submission => {
             const email = submission.profile.email;
-            const emailDigestEnabled = submission.profile.notificationSettings && submission.profile.notificationSettings.emailDigest && submission.profile.notificationSettings.emailDigest.enabled;
+            const emailDigestEnabled = submission.profile.notificationSettings?.emailDigest?.enabled;
             const member = activeMembers.find(m => m.email === email);
             if (member && emailDigestEnabled) {
-                if (!emailCommentsMap[email]) {
-                    emailCommentsMap[email] = { comments: [], groupComments: [], breakoutGroupMembers: [], mostRecentAssignment: null };
+                if (!acc[email]) {
+                    acc[email] = { comments: [], groupComments: [], breakoutGroupMembers: [], assignments: [], member };
                 }
-                const comments = await getCommentsOnSubmissions(email, true);
-                const groupComments = await getCommentsOnSubmissions(email, false);
-                const userBreakoutGroupId = member.breakoutGroupId;
-                // don't include user's own comments in group comments
-                let filteredSortedGroupComments = groupComments.filter(c => c.email !== email);
-                // if the user is in a breakout group, sort the group comments so that the user's group comments are shown first
-                if (userBreakoutGroupId) {
-                    filteredSortedGroupComments = groupComments.sort((a, b) => (a.submission?.breakoutGroupId === userBreakoutGroupId ? -1 : 1) - (b.submission?.breakoutGroupId === userBreakoutGroupId ? -1 : 1));
-                    emailCommentsMap[email].breakoutGroupMembers = activeMembers.filter(m => m.breakoutGroupId === userBreakoutGroupId).filter(m => m.email !== email);
-                    emailCommentsMap[email].breakoutGroupName = member.breakoutGroup.name;
-                }
-                emailCommentsMap[email].comments.push(...comments);
-                emailCommentsMap[email].groupComments.push(...filteredSortedGroupComments);
-                emailCommentsMap[email].mostRecentAssignment = assignment;
+                acc[email].assignments.push(assignment);
             }
-        }
-    }
+        });
+        return acc;
+    }, {} as { [email: string]: { comments: Comment[], groupComments: Comment[], breakoutGroupMembers: Member[], breakoutGroupName?: string, member: Member, assignments: Assignment[] } });
 
     let emailsSent = [];
     let emailsFailed = [];
-    let emailContent;
-    for (const [email, { comments, groupComments, breakoutGroupMembers, breakoutGroupName, mostRecentAssignment }] of Object.entries(emailCommentsMap)) {
+    let emailContent = null;
+    await Promise.all(Object.entries(emailCommentsMap).map(async ([email, { assignments, member }]) => {
         try {
-            emailContent = null;
-            emailContent = await generateEmailContent(mostRecentAssignment!, comments.slice(0, 5), groupComments.slice(0, 5), breakoutGroupMembers, breakoutGroupName);
+            const mostRecentAssignment = assignments.find(a => a.expiration === assignments.reduce((a, b) => new Date(a.expiration) > new Date(b.expiration) ? a : b).expiration);
+            let comments = [];
+            let groupComments = [];
+            try {
+                comments = await getCommentsOnSubmissions(email, true);
+                
+            } catch (error) {
+                console.log(`Error fetching comments for ${email}: ${error}`);
+            }
+            try {
+                groupComments = await getCommentsOnSubmissions(email, false);
+            } catch (error) {
+                console.log(`Error fetching group comments for ${email}: ${error}`);
+            }
+            
+            const userBreakoutGroupId = member.breakoutGroupId;
+            // don't include user's own comments in group comments
+            let filteredSortedGroupComments = groupComments.filter(c => c.email !== email);
+            // if the user is in a breakout group, sort the group comments so that the user's group comments are shown first
+            if (userBreakoutGroupId) {
+                filteredSortedGroupComments = groupComments.sort((a, b) => (a.submission?.breakoutGroupId === userBreakoutGroupId ? -1 : 1) - (b.submission?.breakoutGroupId === userBreakoutGroupId ? -1 : 1));
+                emailCommentsMap[email].breakoutGroupMembers = activeMembers.filter(m => m.breakoutGroupId === userBreakoutGroupId).filter(m => m.email !== email);
+                emailCommentsMap[email].breakoutGroupName = member.breakoutGroup.name;
+            }
+            emailCommentsMap[email].comments.push(...comments);
+            emailCommentsMap[email].groupComments.push(...filteredSortedGroupComments);
+
+            emailContent = await generateEmailContent(
+                mostRecentAssignment, 
+                emailCommentsMap[email].comments.slice(0, 5), 
+                emailCommentsMap[email].groupComments.slice(0, 5), 
+                emailCommentsMap[email].breakoutGroupMembers, 
+                emailCommentsMap[email].breakoutGroupName
+            );
+
             await sendEmail(email, `Your Weekly Digest`, emailContent);
             console.log(`Sent email to ${email}: ${emailContent}`);
             emailsSent.push({email, emailContent});
@@ -328,7 +358,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
             console.log(error);
             emailsFailed.push({email, emailContent, error});
         }
-    }
+    }));
 
     return {
         statusCode: 200,
