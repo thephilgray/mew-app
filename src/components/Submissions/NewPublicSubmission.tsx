@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from 'react'
-import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert } from '@mui/material'
+import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert, FormControl } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
 import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, Edit } from '@mui/icons-material'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import { green } from '@mui/material/colors'
 import { isPast, isFuture } from 'date-fns/esm'
@@ -25,6 +25,17 @@ import { Link, navigate } from 'gatsby'
 import { ACCEPTED_FILETYPES, ROUTES } from '../../constants'
 import Loading from '../Loading'
 import { StyledFileDropWrapper } from './StyledFileDropWrapper'
+import { createSubmissionFeedbackCategories } from '../../graphql/d3/mutations'
+import gql from 'graphql-tag'
+import { GraphQLResult } from '@aws-amplify/api-graphql'
+import Observable from 'zen-observable-ts'
+
+type FeedbackCategory = {
+    id: string
+    name: string
+    title: string
+    description?: string
+}
 
 type Inputs = {
     name: string
@@ -40,6 +51,7 @@ type Inputs = {
     lyrics: string
     addArtwork: boolean
     addLyrics: boolean
+    feedbackCategories?: FeedbackCategory[]
 }
 
 type AudioFileBlob = Blob & { name: string }
@@ -67,6 +79,12 @@ const NewPublicSubmission: React.FC<
                     };
                 }[];
             };
+            feedbackCategories: {
+                id: string;
+                name: string;
+                title: string;
+                description?: string;
+            }[];
         };
     } | null>(null)
 
@@ -128,6 +146,7 @@ const NewPublicSubmission: React.FC<
                 email: user?.email || '',
                 artist: getDisplayName(profile),
                 requestFeedback: !!user,
+                feedbackCategories: [],
                 // addStems: false
             }
         }, [user])
@@ -284,12 +303,13 @@ const NewPublicSubmission: React.FC<
 
     const onSubmit = async (values: Inputs) => {
         setSubmitLoading(true)
-        const { name, artist, email, lyrics, requestFeedback } = values
+        const { name, artist, email, lyrics, requestFeedback, feedbackCategories } = values
         const fileId = uuidv4()
         const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
         const emails = !!profile ? submitters.map(item => item.email) : email.split(',').map((email) => email.toLowerCase().trim())
         const fileExtension = upload?.name.split('.').pop()
+        let submissionResult: GraphQLResult<any> | Observable<object>
 
         let ARTWORK_UPLOAD_PATH
         let ID
@@ -310,10 +330,10 @@ const NewPublicSubmission: React.FC<
             setError(err)
             return
         }
-
+        
         for (let index = 0; index < emails.length; index++) {
             try {
-                await API.graphql({
+                submissionResult = await API.graphql({
                     ...graphqlOperation(createFileRequestSubmission, {
                         input: {
                             fileId,
@@ -335,21 +355,42 @@ const NewPublicSubmission: React.FC<
                             },
                             lyrics,
                             requestFeedback,
-                            ...membershipId && { membershipId }
+                            ...membershipId && { membershipId },
                         },
                     }),
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     authMode: 'API_KEY',
                 })
+                
             } catch (err) {
                 setLoading(false)
                 // @ts-ignore
                 setError(err)
                 return
             }
+
+            if((feedbackCategories ?? []).length > 0 && submissionResult?.data?.createFileRequestSubmission?.id) {
+                const feedbackCategoryIds = (feedbackCategories ?? []).map(({ id }) => id)
+                const mutations = feedbackCategoryIds.map((id, idx) => `
+                    createSubmissionFeedbackCategories${idx}: createSubmissionFeedbackCategories(input: {
+                        feedbackCategoryID: "${id}",
+                        fileRequestSubmissionID: "${submissionResult.data.createFileRequestSubmission.id}"
+                    }) {
+                        id
+                    }`).join('\n');
+    
+                const mutationString = gql`
+                mutation {
+                    ${mutations}
+                }`;
+    
+                await API.graphql(graphqlOperation(mutationString))   
+            }
+
             // TODO: createSubmissionStems for each submission
         }
+
 
         setUploadSuccess(true)
         setSubmitLoading(false)
@@ -570,6 +611,58 @@ const NewPublicSubmission: React.FC<
                                 helperText={`${5000 - (watch('lyrics')?.length || 0)} characters remaining`}
 
                             />
+                        </Grid>
+                    </If>
+                    <If condition={watch("requestFeedback") && !!fileRequestData?.workshop?.feedbackCategories?.items?.length}>
+                        <Grid item xs={12}>
+                            <FormControl fullWidth>
+                                <Controller
+                                    name="feedbackCategories"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Autocomplete
+                                            {...field}
+                                            multiple
+                                            filterSelectedOptions
+                                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                                            filterOptions={(options, params) => {
+                                                const filtered = options.filter(option => {
+                                                    const selectedIds = field?.value?.map((selected) => selected.id) || [];
+                                                    return options.filter((option) => !selectedIds?.includes(option.id));
+                                                })
+                                                return filtered
+                                            }}
+                                            options={fileRequestData?.workshop?.feedbackCategories?.items?.map(item => item.feedbackCategory) || []}
+                                            getOptionLabel={(option) => option?.title}
+                                            renderOption={(props, option) => (
+                                                <li {...props}>
+                                                    <div>
+                                                        <strong>{option?.title}</strong>
+                                                        <Typography variant="body2" color="textSecondary">
+                                                                <>
+                                                                    {option?.description?.split('\n').map((line, index) => (
+                                                                        <div key={index}>
+                                                                            {line}
+                                                                        </div>
+                                                                    ))}
+                                                                </>
+                                                        </Typography>
+                                                    </div>
+                                                </li>
+                                            )}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    variant="standard"
+                                                    label="Feedback Categories"
+                                                    placeholder="Select categories"
+                                                />
+                                            )}
+                                            onChange={(_, data) => field.onChange(data)}
+                                        />
+                                    )}
+                                />
+                            </FormControl>
                         </Grid>
                     </If>
                     <Grid item xs={12}>

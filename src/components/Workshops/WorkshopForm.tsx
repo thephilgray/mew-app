@@ -11,7 +11,7 @@ import {
     Typography,
 } from '@mui/material'
 import { listProfiles } from '../../graphql/d3/queries'
-import { useQuery } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import GroupGuard from '../Auth/GroupGuard'
 import { Group } from '../../constants'
@@ -21,6 +21,9 @@ import { getCloudFrontURL, getDisplayName, searchMembersFilterOptions } from '..
 import { DatePicker } from '@mui/x-date-pickers'
 import If from '../If'
 import ConnectMailchimpButton from '../ConnectMailchimpButton'
+import { listFeedbackCategories } from '../../graphql/queries'
+import { createFeedbackCategory } from '../../graphql/d3/mutations'
+import { camelCase } from 'lodash'
 
 export default function WorkshopForm({ onSubmit, setFormState, formState, loading }) {
     const { profile, refetch: refetchProfile } = useProfile()
@@ -36,7 +39,32 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
         })
     }
 
+    const [newFeedbackCategoryDescription, setNewFeedbackCategoryDescription] = useState('')
+    const [newFeedbackCategoryTitle, setNewFeedbackCategoryTitle] = useState('')
+    const [newFeedbackCategoryName, setNewFeedbackCategoryName] = useState('')
+
     const { loading: listProfilesLoading, error: listProfilesError, data: listProfilesData } = useQuery(gql(listProfiles), { variables: { limit: 1000 } })
+
+    const { loading: listFeedbackCategoriesLoading, error: listFeedbackCategoriesError, data: listFeedbackCategoriesData, refetch: refetchListFeedbackCategories } = useQuery(gql(listFeedbackCategories), { variables: { limit: 1000 } })
+    const [addFeedbackCategory, { loading: addFeedbackCategoryLoading, error: addFeedbackCategoryError }] = useMutation(gql(createFeedbackCategory), {
+        onCompleted: (data) => {
+            console.log('Feedback category added:', data)
+            // Optionally refetch or update local state
+        },
+        onError: (error) => {
+            console.error('Error adding feedback category:', error)
+        }
+    })
+
+    const getNewFeedbackCategoryName = (categoryName, categoryTitle) => {
+        let newName = camelCase(categoryTitle)
+        let counter = 1
+        while (listFeedbackCategoriesData?.listFeedbackCategories?.items.some(category => category.name === newName)) {
+            newName = `${camelCase(categoryTitle)}${counter}`
+            counter++
+        }
+        return newName
+    }
 
     useEffect(() => {
         refetchProfile()
@@ -183,6 +211,115 @@ export default function WorkshopForm({ onSubmit, setFormState, formState, loadin
                             value={formState?.endDate}
                         />
                     </Grid>
+                    <Grid item xs={12}>
+                        <Autocomplete
+                            multiple
+                            freeSolo
+                            filterSelectedOptions
+                            filterOptions={(options, params) => options.filter(option => !formState.feedbackCategories.some(category => category.id === option.id || category.id === option?.feedbackCategory?.id))}
+                            options={listFeedbackCategoriesData?.listFeedbackCategories?.items || []}
+                            getOptionLabel={(option) => option?.title}
+                            renderOption={(props, option) => (
+                                <li {...props} key={option.id}>
+                                    <div>
+                                        <strong>{option?.title}</strong> (<em>{option?.name}</em>)
+                                        <Typography variant="body2" color="textSecondary">
+                                            <>
+                                                {option?.description?.split('\n').map((line, index) => (
+                                                    <div key={index}>
+                                                        {line}
+                                                    </div>
+                                                ))}
+                                            </>
+                                        </Typography>
+                                    </div>
+                                </li>
+                            )}
+                            value={formState.feedbackCategories}
+                            onChange={(event, newValue: any[]) => {
+                                console.log({newValue})
+                                if (typeof newValue[newValue.length - 1] === 'string') {
+                                    setNewFeedbackCategoryTitle(newValue[newValue.length - 1])
+                                } else {
+                                    updateForm({ feedbackCategories: newValue })
+                                }
+                            }}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Feedback Categories"
+                                    variant="standard"
+                                />
+                            )}
+                        />
+                    </Grid>
+                    {newFeedbackCategoryTitle && (
+                        <>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="standard"
+                                    fullWidth
+                                    required
+                                    multiline
+                                    rows={4}
+                                    name="newFeedbackCategoryDescription"
+                                    label="New Feedback Category Description"
+                                    value={newFeedbackCategoryDescription}
+                                    onChange={(e) => setNewFeedbackCategoryDescription(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="standard"
+                                    fullWidth
+                                    required
+                                    name="newFeedbackCategoryName"
+                                    label="New Feedback Category Name"
+                                    value={newFeedbackCategoryName || getNewFeedbackCategoryName(newFeedbackCategoryName, newFeedbackCategoryTitle)}
+                                    onChange={(e) => setNewFeedbackCategoryName(e.target.value)}
+                                    helperText="Default value is the camelCase of the title. If not unique, a number will be appended."
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => {
+                                        const title = newFeedbackCategoryTitle
+                                        const description = newFeedbackCategoryDescription
+                                        const name = getNewFeedbackCategoryName(newFeedbackCategoryName, title)
+                                    
+                                        addFeedbackCategory({
+                                            variables: { input: { title, description, name } }
+                                        }).then((result) => {
+                                            if(result.data.createFeedbackCategory?.id) {
+                                            updateForm({ feedbackCategories: [...formState.feedbackCategories, { title, description, name, id: result.data.createFeedbackCategory?.id }] })
+                                            setNewFeedbackCategoryDescription('')
+                                            setNewFeedbackCategoryTitle('')
+                                            setNewFeedbackCategoryName('')
+                                            refetchListFeedbackCategories()
+                                        }
+                                        })
+                                    }}
+                                    disabled={addFeedbackCategoryLoading}
+                                >
+                                    Add Feedback Category
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    color="secondary"
+                                    onClick={() => {
+                                        setNewFeedbackCategoryDescription('')
+                                        setNewFeedbackCategoryTitle('')
+                                        setNewFeedbackCategoryName('')
+                                    }}
+                                    disabled={addFeedbackCategoryLoading}
+                                >
+                                    Cancel
+                                </Button>
+                            </Grid>
+                        </>
+                    )}
 
                     <GroupGuard groups={[Group.admin]}>
                         <Grid item xs={12}>

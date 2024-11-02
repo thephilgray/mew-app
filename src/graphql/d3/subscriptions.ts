@@ -364,6 +364,10 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -523,6 +527,10 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -682,6 +690,10 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -754,6 +766,129 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
 ` as GeneratedSubscription<
   APITypes.OnDeleteFileRequestSubscriptionVariables,
   APITypes.OnDeleteFileRequestSubscription
+>;
+export const onCreateFeedbackCategory = /* GraphQL */ `subscription OnCreateFeedbackCategory(
+  $filter: ModelSubscriptionFeedbackCategoryFilterInput
+) {
+  onCreateFeedbackCategory(filter: $filter) {
+    id
+    name
+    title
+    description
+    submissions {
+      items {
+        id
+        feedbackCategoryID
+        fileRequestSubmissionID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        feedbackCategoryID
+        workshopID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateFeedbackCategorySubscriptionVariables,
+  APITypes.OnCreateFeedbackCategorySubscription
+>;
+export const onUpdateFeedbackCategory = /* GraphQL */ `subscription OnUpdateFeedbackCategory(
+  $filter: ModelSubscriptionFeedbackCategoryFilterInput
+) {
+  onUpdateFeedbackCategory(filter: $filter) {
+    id
+    name
+    title
+    description
+    submissions {
+      items {
+        id
+        feedbackCategoryID
+        fileRequestSubmissionID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        feedbackCategoryID
+        workshopID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateFeedbackCategorySubscriptionVariables,
+  APITypes.OnUpdateFeedbackCategorySubscription
+>;
+export const onDeleteFeedbackCategory = /* GraphQL */ `subscription OnDeleteFeedbackCategory(
+  $filter: ModelSubscriptionFeedbackCategoryFilterInput
+) {
+  onDeleteFeedbackCategory(filter: $filter) {
+    id
+    name
+    title
+    description
+    submissions {
+      items {
+        id
+        feedbackCategoryID
+        fileRequestSubmissionID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        feedbackCategoryID
+        workshopID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteFeedbackCategorySubscriptionVariables,
+  APITypes.OnDeleteFeedbackCategorySubscription
 >;
 export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreateFileRequestSubmission(
   $filter: ModelSubscriptionFileRequestSubmissionFilterInput
@@ -1019,6 +1154,18 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
       __typename
     }
     workshopId
+    selectedFeedbackCategories {
+      items {
+        id
+        feedbackCategoryID
+        fileRequestSubmissionID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -1292,6 +1439,18 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
       __typename
     }
     workshopId
+    selectedFeedbackCategories {
+      items {
+        id
+        feedbackCategoryID
+        fileRequestSubmissionID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -1565,6 +1724,18 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
       __typename
     }
     workshopId
+    selectedFeedbackCategories {
+      items {
+        id
+        feedbackCategoryID
+        fileRequestSubmissionID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -1653,6 +1824,10 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1791,6 +1966,10 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1929,6 +2108,10 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2442,6 +2625,10 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2563,6 +2750,10 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2684,6 +2875,10 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -2841,6 +3036,10 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -3043,6 +3242,10 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -3245,6 +3448,10 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -3515,6 +3722,18 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
       __typename
     }
     maxFeedback
+    feedbackCategories {
+      items {
+        id
+        feedbackCategoryID
+        workshopID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -3683,6 +3902,18 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
       __typename
     }
     maxFeedback
+    feedbackCategories {
+      items {
+        id
+        feedbackCategoryID
+        workshopID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -3851,6 +4082,18 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
       __typename
     }
     maxFeedback
+    feedbackCategories {
+      items {
+        id
+        feedbackCategoryID
+        workshopID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -4564,6 +4807,10 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -4735,6 +4982,10 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -4893,6 +5144,10 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -5064,6 +5319,10 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -5222,6 +5481,10 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -5393,6 +5656,10 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
         __typename
       }
       maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -5933,6 +6200,621 @@ export const onDeletePrompt = /* GraphQL */ `subscription OnDeletePrompt($filter
   APITypes.OnDeletePromptSubscriptionVariables,
   APITypes.OnDeletePromptSubscription
 >;
+export const onCreateSubmissionFeedbackCategories = /* GraphQL */ `subscription OnCreateSubmissionFeedbackCategories(
+  $filter: ModelSubscriptionSubmissionFeedbackCategoriesFilterInput
+) {
+  onCreateSubmissionFeedbackCategories(filter: $filter) {
+    id
+    feedbackCategoryID
+    fileRequestSubmissionID
+    feedbackCategory {
+      id
+      name
+      title
+      description
+      submissions {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    fileRequestSubmission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateSubmissionFeedbackCategoriesSubscriptionVariables,
+  APITypes.OnCreateSubmissionFeedbackCategoriesSubscription
+>;
+export const onUpdateSubmissionFeedbackCategories = /* GraphQL */ `subscription OnUpdateSubmissionFeedbackCategories(
+  $filter: ModelSubscriptionSubmissionFeedbackCategoriesFilterInput
+) {
+  onUpdateSubmissionFeedbackCategories(filter: $filter) {
+    id
+    feedbackCategoryID
+    fileRequestSubmissionID
+    feedbackCategory {
+      id
+      name
+      title
+      description
+      submissions {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    fileRequestSubmission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateSubmissionFeedbackCategoriesSubscriptionVariables,
+  APITypes.OnUpdateSubmissionFeedbackCategoriesSubscription
+>;
+export const onDeleteSubmissionFeedbackCategories = /* GraphQL */ `subscription OnDeleteSubmissionFeedbackCategories(
+  $filter: ModelSubscriptionSubmissionFeedbackCategoriesFilterInput
+) {
+  onDeleteSubmissionFeedbackCategories(filter: $filter) {
+    id
+    feedbackCategoryID
+    fileRequestSubmissionID
+    feedbackCategory {
+      id
+      name
+      title
+      description
+      submissions {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    fileRequestSubmission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteSubmissionFeedbackCategoriesSubscriptionVariables,
+  APITypes.OnDeleteSubmissionFeedbackCategoriesSubscription
+>;
+export const onCreateWorkshopFeedbackCategories = /* GraphQL */ `subscription OnCreateWorkshopFeedbackCategories(
+  $filter: ModelSubscriptionWorkshopFeedbackCategoriesFilterInput
+) {
+  onCreateWorkshopFeedbackCategories(filter: $filter) {
+    id
+    feedbackCategoryID
+    workshopID
+    feedbackCategory {
+      id
+      name
+      title
+      description
+      submissions {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateWorkshopFeedbackCategoriesSubscriptionVariables,
+  APITypes.OnCreateWorkshopFeedbackCategoriesSubscription
+>;
+export const onUpdateWorkshopFeedbackCategories = /* GraphQL */ `subscription OnUpdateWorkshopFeedbackCategories(
+  $filter: ModelSubscriptionWorkshopFeedbackCategoriesFilterInput
+) {
+  onUpdateWorkshopFeedbackCategories(filter: $filter) {
+    id
+    feedbackCategoryID
+    workshopID
+    feedbackCategory {
+      id
+      name
+      title
+      description
+      submissions {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateWorkshopFeedbackCategoriesSubscriptionVariables,
+  APITypes.OnUpdateWorkshopFeedbackCategoriesSubscription
+>;
+export const onDeleteWorkshopFeedbackCategories = /* GraphQL */ `subscription OnDeleteWorkshopFeedbackCategories(
+  $filter: ModelSubscriptionWorkshopFeedbackCategoriesFilterInput
+) {
+  onDeleteWorkshopFeedbackCategories(filter: $filter) {
+    id
+    feedbackCategoryID
+    workshopID
+    feedbackCategory {
+      id
+      name
+      title
+      description
+      submissions {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      feedbackCategories {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteWorkshopFeedbackCategoriesSubscriptionVariables,
+  APITypes.OnDeleteWorkshopFeedbackCategoriesSubscription
+>;
 export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmissionStems(
   $filter: ModelSubscriptionSubmissionStemsFilterInput
 ) {
@@ -6016,6 +6898,10 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -6147,6 +7033,10 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -6278,6 +7168,10 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
         __typename
       }
       workshopId
+      selectedFeedbackCategories {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename

@@ -120,6 +120,28 @@ type FileRequest
   createdAt: String
 }
 
+type FeedbackCategory
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, update, delete] }
+      { allow: public, operations: [create, read, update, delete] }
+      {
+        allow: groups
+        groups: ["admin", "editor"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  name: String
+  title: String
+  description: String
+  submissions: [FileRequestSubmission]
+    @manyToMany(relationName: "SubmissionFeedbackCategories")
+  workshops: [Workshop] @manyToMany(relationName: "WorkshopFeedbackCategories")
+}
+
 type FileRequestSubmission
   @model
   @auth(
@@ -169,6 +191,8 @@ type FileRequestSubmission
       queryField: "submissionsByWorkshopId"
     )
     @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
+  selectedFeedbackCategories: [FeedbackCategory] @manyToMany(relationName: "SubmissionFeedbackCategories")
+  
 }
 
 type Track
@@ -350,6 +374,7 @@ type Workshop
   memberships: [Membership]
     @hasMany(indexName: "membershipsByWorkshopId", fields: ["id"], limit: 1000)
   maxFeedback: Int
+  feedbackCategories: [FeedbackCategory] @manyToMany(relationName: "WorkshopFeedbackCategories")
 }
 
 type Profile

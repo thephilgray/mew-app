@@ -3,7 +3,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react'
 import If from '../If'
-import { Alert, Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, IconButton, LinearProgress, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Alert, Box, Button, Card, CardContent, CardMedia, Chip, CircularProgress, Grid, IconButton, LinearProgress, Stack, Typography } from '@mui/material'
 import { SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, CheckCircleTwoTone } from '@mui/icons-material'
 import { FeedbackSection } from '../Feedback'
 import useColorThief from 'use-color-thief'
@@ -41,7 +41,6 @@ export const GiveFeedback: React.FC<{
     })
 
 
-
     const { breakoutGroupId } = useMemo((): { breakoutGroupName?: string, breakoutGroupId?: string } => {
       if (fileRequestData) {
         const workshop = fileRequestData?.workshop
@@ -72,11 +71,12 @@ export const GiveFeedback: React.FC<{
       }
     }, [user, feedbackGivenCounts])
 
+
     const submissions = fileRequestData?.submissions?.items;
 
     const sortedSubmissions = sortBy(
       submissions.filter(o =>
-        o.email !== user.email &&
+        o.email !== user.email && 
         (!breakoutGroupId || breakoutGroupId === o.breakoutGroupId) &&
         o.requestFeedback &&
         uniqBy(o.comments.items, 'email').length < MAX_FEEDBACK &&
@@ -86,7 +86,7 @@ export const GiveFeedback: React.FC<{
     ).slice(0, MAX_FEEDBACK - feedbackGivenOnLoad)
 
     const selectedSongs = sortedSubmissions.map(submission => {
-      const { name, fileId, artist, id, artwork, lyrics, workshopId, email } = submission
+      const { name, fileId, artist, id, artwork, lyrics, workshopId, email, selectedFeedbackCategories } = submission
       const songFilePath = `${assignmentId}/${fileId}`
       if (songFilePath) {
         const cloudFrontURL = getCloudFrontURL(songFilePath)
@@ -101,16 +101,18 @@ export const GiveFeedback: React.FC<{
           id,
           lyrics,
           workshopId,
-          email
+          email,
+          selectedFeedbackCategories: selectedFeedbackCategories?.items?.map(item => item.feedbackCategory) || []
         }
       }
     })
 
+    const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number | null>(null);
     const nextIndex = currentIndex < selectedSongs.length - 1 ? currentIndex + 1 : 0
     const previousIndex = currentIndex > 0 ? currentIndex - 1 : selectedSongs.length - 1
 
     const onFeedbackSuccess = () => {
-      setFeedbackGiven(feedbackGiven + 1)
+      setFeedbackGiven(prev => prev + 1)
     }
 
     if (commentsError) return <Error errorMessage={commentsError} />
@@ -182,6 +184,59 @@ export const GiveFeedback: React.FC<{
             src={currentSong?.src}
           />
         </Grid >
+        <If condition={!!currentSong?.selectedFeedbackCategories?.length}>
+                <Grid item xs={12}>
+                    <Box sx={{ p: 2, borderRadius: 1 }}>
+                        <Typography variant="body2">Type of Feedback Requested</Typography>
+                        <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+                            {currentSong?.selectedFeedbackCategories?.map((category, index) => (
+                                <Chip
+                                    key={index}
+                                    label={category.title}
+                                    color={index === selectedCategoryIndex ? 'primary' : 'default'}
+                                    onClick={() => setSelectedCategoryIndex(selectedCategoryIndex !== index ? index : null)}
+                                />
+                            ))}
+                        </Stack>
+                    </Box>
+                </Grid>
+                <If condition={selectedCategoryIndex !== null}>
+                    <Grid item xs={12}>
+                        <Box sx={{ 
+                            background: 'linear-gradient(to bottom, #f9f9f9, #e0e0e0)', 
+                            p: 2, 
+                            borderRadius: 1,
+                            position: 'relative',
+                            overflow: 'hidden'
+                        }}>
+                            <Box sx={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                backgroundImage: `url(${mewAppLogo})`,
+                                backgroundSize: '20px 20px',
+                                opacity: 0.2,
+                                zIndex: 0
+                            }} />
+                            <Accordion expanded sx={{ position: 'relative', zIndex: 1 }}>
+                                <AccordionSummary
+                                    aria-controls={`panel${selectedCategoryIndex}-content`}
+                                    id={`panel${selectedCategoryIndex}-header`}
+                                >
+                                    <Typography>{selectedCategoryIndex !== null ? currentSong?.selectedFeedbackCategories?.[selectedCategoryIndex]?.title : ''}</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                                    <Typography>{selectedCategoryIndex !== null ? currentSong?.selectedFeedbackCategories?.[selectedCategoryIndex]?.description : ''}</Typography>
+                                </pre>
+                                </AccordionDetails>
+                            </Accordion>
+                        </Box>
+                    </Grid>
+                </If>
+            </If>
         <If condition={!!currentSong?.lyrics}></If>
         <Grid item xs={12}>
           <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
