@@ -46,9 +46,9 @@ var render_1 = require("@react-email/render");
 var mew_digest_1 = __importDefault(require("./mew-digest"));
 var react_1 = __importDefault(require("react"));
 var handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var workshopId, GRAPHQL_ENDPOINT, GRAPHQL_API_KEY, MAILER_SEND_API_KEY, generateEmailContent, queryGraphQL, sendEmail, getPastDueAssignments, getCommentsOnSubmissions, getActiveMembers, days, pastDueAssignments, activeMembers, emailCommentsMap, _i, pastDueAssignments_1, assignment, _loop_1, _a, _b, submission, emailsSent, emailsFailed, emailContent;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
+    var workshopId, GRAPHQL_ENDPOINT, GRAPHQL_API_KEY, MAILER_SEND_API_KEY, generateEmailContent, queryGraphQL, sendEmail, getPastDueAssignments, getCommentsOnSubmissions, getActiveMembers, days, pastDueAssignments, activeMembers, emailCommentsMap, emailsSent, emailsFailed, emailContent;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
                 console.log("EVENT: ".concat(JSON.stringify(event)));
                 workshopId = event.arguments.workshopId;
@@ -181,29 +181,25 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                 days = 7;
                 return [4 /*yield*/, getPastDueAssignments(days)];
             case 1:
-                pastDueAssignments = _c.sent();
+                pastDueAssignments = _a.sent();
                 return [4 /*yield*/, getActiveMembers()];
             case 2:
-                activeMembers = _c.sent();
-                emailCommentsMap = {};
-                for (_i = 0, pastDueAssignments_1 = pastDueAssignments; _i < pastDueAssignments_1.length; _i++) {
-                    assignment = pastDueAssignments_1[_i];
-                    _loop_1 = function (submission) {
+                activeMembers = _a.sent();
+                emailCommentsMap = pastDueAssignments.reduce(function (acc, assignment) {
+                    assignment.submissions.items.forEach(function (submission) {
+                        var _a, _b;
                         var email = submission.profile.email;
-                        var emailDigestEnabled = submission.profile.notificationSettings && submission.profile.notificationSettings.emailDigest && submission.profile.notificationSettings.emailDigest.enabled;
+                        var emailDigestEnabled = (_b = (_a = submission.profile.notificationSettings) === null || _a === void 0 ? void 0 : _a.emailDigest) === null || _b === void 0 ? void 0 : _b.enabled;
                         var member = activeMembers.find(function (m) { return m.email === email; });
                         if (member && emailDigestEnabled) {
-                            if (!emailCommentsMap[email]) {
-                                emailCommentsMap[email] = { comments: [], groupComments: [], breakoutGroupMembers: [], assignments: [], member: member };
+                            if (!acc[email]) {
+                                acc[email] = { comments: [], groupComments: [], breakoutGroupMembers: [], assignments: [], member: member };
                             }
-                            emailCommentsMap[email].assignments.push(assignment);
+                            acc[email].assignments.push(assignment);
                         }
-                    };
-                    for (_a = 0, _b = assignment.submissions.items; _a < _b.length; _a++) {
-                        submission = _b[_a];
-                        _loop_1(submission);
-                    }
-                }
+                    });
+                    return acc;
+                }, {});
                 emailsSent = [];
                 emailsFailed = [];
                 emailContent = null;
@@ -269,7 +265,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                         });
                     }); }))];
             case 3:
-                _c.sent();
+                _a.sent();
                 return [2 /*return*/, {
                         statusCode: 200,
                         // Uncomment below to enable CORS requests

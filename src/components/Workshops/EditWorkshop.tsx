@@ -3,8 +3,8 @@ import { CircularProgress, Grid, Typography } from '@mui/material'
 import { navigate } from 'gatsby'
 import gql from 'graphql-tag'
 import React, { useEffect, useState } from 'react'
-import { updateMembershipService, updateWorkshop, updateWorkshopFeedbackCategories } from '../../graphql/d3/mutations'
-import { getWorkshop } from '../../graphql/queries'
+import { updateMembershipService, updateWorkshop } from '../../graphql/d3/mutations'
+import { getWorkshop } from '../../graphql/d3/queries'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import WorkshopForm from './WorkshopForm'
 import { add } from 'date-fns'
@@ -13,8 +13,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { uploadImage } from '../ImagePicker'
 import { ROUTES } from '../../constants'
 import Loading from '../Loading'
-import { isEqual } from 'lodash'
-import { API, graphqlOperation } from 'aws-amplify'
 
 export default function EditWorkshop({ workshopId = '' }) {
     const { loading, error, data, refetch } = useQuery(gql(getWorkshop), {
@@ -40,7 +38,6 @@ export default function EditWorkshop({ workshopId = '' }) {
         listId: '',
         sessionTag: '',
         enableMailchimpIntegration: false,
-        feedbackCategories: [],
     }
 
     const [formState, setFormState] = useState(initialState)
@@ -77,7 +74,6 @@ export default function EditWorkshop({ workshopId = '' }) {
                 listId: data.getWorkshop.features?.mailchimp?.listId || '',
                 sessionTag: data.getWorkshop.features?.mailchimp?.sessionTag || '',
                 enableMailchimpIntegration: data.getWorkshop.features?.mailchimp?.enabled || false,
-                feedbackCategories: data.getWorkshop.feedbackCategories?.items.map(item => item.feedbackCategory) || [],
             })
         }
     }, [data])
@@ -142,45 +138,7 @@ export default function EditWorkshop({ workshopId = '' }) {
             },
         })
 
-        if (formState.feedbackCategories && 
-            !isEqual(
-                data?.getWorkshop?.feedbackCategories?.items.map(category => category.id),
-                formState.feedbackCategories.map(category => category.id)
-        )) {
-            const previousFeedbackCategoryIds = data?.getWorkshop?.feedbackCategories?.items.map(category => category.id) || [];
-            const currentFeedbackCategoryIds = formState.feedbackCategories.map(category => category.id);
 
-            const feedbackCategoryIdsToAdd = currentFeedbackCategoryIds.filter(id => !previousFeedbackCategoryIds.includes(id));
-            const feedbackCategoryIdsToRemove = previousFeedbackCategoryIds.filter(id => !currentFeedbackCategoryIds.includes(id));
-
-            const feedbackCategoryMutationsToAdd = feedbackCategoryIdsToAdd.map((id, idx) => `
-                createWorkshopFeedbackCategories${idx}: createWorkshopFeedbackCategories(input: {
-                    workshopID: "${workshopId}",
-                    feedbackCategoryID: "${id}"
-                }) {
-                    id
-                }
-            `).join('\n');
-
-            const feedbackCategoryMutationsToRemove = feedbackCategoryIdsToRemove.map((id, idx) => `
-                deleteWorkshopFeedbackCategories${idx}: deleteWorkshopFeedbackCategories(input: {
-                    id: "${id}"
-                }) {
-                    id
-                }
-            `).join('\n');
-
-
-            const feedbackCategoryMutation = gql`
-                mutation {
-                    ${feedbackCategoryMutationsToAdd}
-                    ${feedbackCategoryMutationsToRemove}
-                }
-            `;
-
-            await API.graphql(graphqlOperation(feedbackCategoryMutation));
-            
-        }
 
 
         if (formState.enableMailchimpIntegration) {

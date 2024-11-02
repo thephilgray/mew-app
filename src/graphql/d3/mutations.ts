@@ -469,10 +469,6 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -633,10 +629,6 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -797,10 +789,6 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -873,132 +861,6 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
 ` as GeneratedMutation<
   APITypes.DeleteFileRequestMutationVariables,
   APITypes.DeleteFileRequestMutation
->;
-export const createFeedbackCategory = /* GraphQL */ `mutation CreateFeedbackCategory(
-  $input: CreateFeedbackCategoryInput!
-  $condition: ModelFeedbackCategoryConditionInput
-) {
-  createFeedbackCategory(input: $input, condition: $condition) {
-    id
-    name
-    title
-    description
-    submissions {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    workshops {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateFeedbackCategoryMutationVariables,
-  APITypes.CreateFeedbackCategoryMutation
->;
-export const updateFeedbackCategory = /* GraphQL */ `mutation UpdateFeedbackCategory(
-  $input: UpdateFeedbackCategoryInput!
-  $condition: ModelFeedbackCategoryConditionInput
-) {
-  updateFeedbackCategory(input: $input, condition: $condition) {
-    id
-    name
-    title
-    description
-    submissions {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    workshops {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateFeedbackCategoryMutationVariables,
-  APITypes.UpdateFeedbackCategoryMutation
->;
-export const deleteFeedbackCategory = /* GraphQL */ `mutation DeleteFeedbackCategory(
-  $input: DeleteFeedbackCategoryInput!
-  $condition: ModelFeedbackCategoryConditionInput
-) {
-  deleteFeedbackCategory(input: $input, condition: $condition) {
-    id
-    name
-    title
-    description
-    submissions {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    workshops {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteFeedbackCategoryMutationVariables,
-  APITypes.DeleteFeedbackCategoryMutation
 >;
 export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileRequestSubmission(
   $input: CreateFileRequestSubmissionInput!
@@ -1265,18 +1127,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
       __typename
     }
     workshopId
-    selectedFeedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -1551,18 +1401,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
       __typename
     }
     workshopId
-    selectedFeedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -1837,18 +1675,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
       __typename
     }
     workshopId
-    selectedFeedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -1940,10 +1766,6 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -2085,10 +1907,6 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -2230,10 +2048,6 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -2757,10 +2571,6 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -2883,10 +2693,6 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -3009,10 +2815,6 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -3171,10 +2973,6 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -3378,10 +3176,6 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -3585,10 +3379,6 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -3862,18 +3652,6 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
       __typename
     }
     maxFeedback
-    feedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -4045,18 +3823,6 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
       __typename
     }
     maxFeedback
-    feedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -4228,18 +3994,6 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
       __typename
     }
     maxFeedback
-    feedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -4965,10 +4719,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -5140,10 +4890,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -5305,10 +5051,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -5480,10 +5222,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -5645,10 +5383,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -5820,10 +5554,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -6382,627 +6112,6 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
   APITypes.DeletePromptMutationVariables,
   APITypes.DeletePromptMutation
 >;
-export const createSubmissionFeedbackCategories = /* GraphQL */ `mutation CreateSubmissionFeedbackCategories(
-  $input: CreateSubmissionFeedbackCategoriesInput!
-  $condition: ModelSubmissionFeedbackCategoriesConditionInput
-) {
-  createSubmissionFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    fileRequestSubmissionID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    fileRequestSubmission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      membershipId
-      membership {
-        id
-        workshopId
-        email
-        breakoutGroupId
-        status
-        createdAt
-        updatedAt
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        nextToken
-        __typename
-      }
-      stems {
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      breakoutGroupId
-      breakoutGroup {
-        id
-        name
-        description
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateSubmissionFeedbackCategoriesMutationVariables,
-  APITypes.CreateSubmissionFeedbackCategoriesMutation
->;
-export const updateSubmissionFeedbackCategories = /* GraphQL */ `mutation UpdateSubmissionFeedbackCategories(
-  $input: UpdateSubmissionFeedbackCategoriesInput!
-  $condition: ModelSubmissionFeedbackCategoriesConditionInput
-) {
-  updateSubmissionFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    fileRequestSubmissionID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    fileRequestSubmission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      membershipId
-      membership {
-        id
-        workshopId
-        email
-        breakoutGroupId
-        status
-        createdAt
-        updatedAt
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        nextToken
-        __typename
-      }
-      stems {
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      breakoutGroupId
-      breakoutGroup {
-        id
-        name
-        description
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateSubmissionFeedbackCategoriesMutationVariables,
-  APITypes.UpdateSubmissionFeedbackCategoriesMutation
->;
-export const deleteSubmissionFeedbackCategories = /* GraphQL */ `mutation DeleteSubmissionFeedbackCategories(
-  $input: DeleteSubmissionFeedbackCategoriesInput!
-  $condition: ModelSubmissionFeedbackCategoriesConditionInput
-) {
-  deleteSubmissionFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    fileRequestSubmissionID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    fileRequestSubmission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      membershipId
-      membership {
-        id
-        workshopId
-        email
-        breakoutGroupId
-        status
-        createdAt
-        updatedAt
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        nextToken
-        __typename
-      }
-      stems {
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      breakoutGroupId
-      breakoutGroup {
-        id
-        name
-        description
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteSubmissionFeedbackCategoriesMutationVariables,
-  APITypes.DeleteSubmissionFeedbackCategoriesMutation
->;
-export const createWorkshopFeedbackCategories = /* GraphQL */ `mutation CreateWorkshopFeedbackCategories(
-  $input: CreateWorkshopFeedbackCategoriesInput!
-  $condition: ModelWorkshopFeedbackCategoriesConditionInput
-) {
-  createWorkshopFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    workshopID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    workshop {
-      id
-      name
-      email
-      fileRequests {
-        nextToken
-        __typename
-      }
-      submissions {
-        nextToken
-        __typename
-      }
-      status
-      passes
-      features {
-        __typename
-      }
-      description
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      host {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      breakoutGroups {
-        nextToken
-        __typename
-      }
-      startDate
-      endDate
-      memberships {
-        nextToken
-        __typename
-      }
-      maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateWorkshopFeedbackCategoriesMutationVariables,
-  APITypes.CreateWorkshopFeedbackCategoriesMutation
->;
-export const updateWorkshopFeedbackCategories = /* GraphQL */ `mutation UpdateWorkshopFeedbackCategories(
-  $input: UpdateWorkshopFeedbackCategoriesInput!
-  $condition: ModelWorkshopFeedbackCategoriesConditionInput
-) {
-  updateWorkshopFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    workshopID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    workshop {
-      id
-      name
-      email
-      fileRequests {
-        nextToken
-        __typename
-      }
-      submissions {
-        nextToken
-        __typename
-      }
-      status
-      passes
-      features {
-        __typename
-      }
-      description
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      host {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      breakoutGroups {
-        nextToken
-        __typename
-      }
-      startDate
-      endDate
-      memberships {
-        nextToken
-        __typename
-      }
-      maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateWorkshopFeedbackCategoriesMutationVariables,
-  APITypes.UpdateWorkshopFeedbackCategoriesMutation
->;
-export const deleteWorkshopFeedbackCategories = /* GraphQL */ `mutation DeleteWorkshopFeedbackCategories(
-  $input: DeleteWorkshopFeedbackCategoriesInput!
-  $condition: ModelWorkshopFeedbackCategoriesConditionInput
-) {
-  deleteWorkshopFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    workshopID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    workshop {
-      id
-      name
-      email
-      fileRequests {
-        nextToken
-        __typename
-      }
-      submissions {
-        nextToken
-        __typename
-      }
-      status
-      passes
-      features {
-        __typename
-      }
-      description
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      host {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      breakoutGroups {
-        nextToken
-        __typename
-      }
-      startDate
-      endDate
-      memberships {
-        nextToken
-        __typename
-      }
-      maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteWorkshopFeedbackCategoriesMutationVariables,
-  APITypes.DeleteWorkshopFeedbackCategoriesMutation
->;
 export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionStems(
   $input: CreateSubmissionStemsInput!
   $condition: ModelSubmissionStemsConditionInput
@@ -7087,10 +6196,6 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -7223,10 +6328,6 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -7359,10 +6460,6 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename

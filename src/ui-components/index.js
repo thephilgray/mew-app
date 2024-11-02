@@ -8,8 +8,6 @@ export { default as APIKeyCreateForm } from "./APIKeyCreateForm";
 export { default as APIKeyUpdateForm } from "./APIKeyUpdateForm";
 export { default as BreakoutGroupCreateForm } from "./BreakoutGroupCreateForm";
 export { default as BreakoutGroupUpdateForm } from "./BreakoutGroupUpdateForm";
-export { default as FeedbackCategoryCreateForm } from "./FeedbackCategoryCreateForm";
-export { default as FeedbackCategoryUpdateForm } from "./FeedbackCategoryUpdateForm";
 export { default as FileRequestCreateForm } from "./FileRequestCreateForm";
 export { default as FileRequestSubmissionCreateForm } from "./FileRequestSubmissionCreateForm";
 export { default as FileRequestSubmissionUpdateForm } from "./FileRequestSubmissionUpdateForm";

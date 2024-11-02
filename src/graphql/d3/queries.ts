@@ -266,10 +266,6 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -571,80 +567,6 @@ export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
   APITypes.FileRequestsByDateQueryVariables,
   APITypes.FileRequestsByDateQuery
 >;
-export const getFeedbackCategory = /* GraphQL */ `query GetFeedbackCategory($id: ID!) {
-  getFeedbackCategory(id: $id) {
-    id
-    name
-    title
-    description
-    submissions {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    workshops {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetFeedbackCategoryQueryVariables,
-  APITypes.GetFeedbackCategoryQuery
->;
-export const listFeedbackCategories = /* GraphQL */ `query ListFeedbackCategories(
-  $filter: ModelFeedbackCategoryFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listFeedbackCategories(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      name
-      title
-      description
-      submissions {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListFeedbackCategoriesQueryVariables,
-  APITypes.ListFeedbackCategoriesQuery
->;
 export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmission($id: ID!) {
   getFileRequestSubmission(id: $id) {
     id
@@ -907,18 +829,6 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
       __typename
     }
     workshopId
-    selectedFeedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -1014,10 +924,6 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1120,10 +1026,6 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1226,10 +1128,6 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1332,10 +1230,6 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1438,10 +1332,6 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1544,10 +1434,6 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1639,10 +1525,6 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -2128,10 +2010,6 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -2393,10 +2271,6 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -2979,18 +2853,6 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
       __typename
     }
     maxFeedback
-    feedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -3053,10 +2915,6 @@ export const listWorkshops = /* GraphQL */ `query ListWorkshops(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -3565,10 +3423,6 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -3740,10 +3594,6 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -4327,310 +4177,6 @@ export const promptsByDate = /* GraphQL */ `query PromptsByDate(
   APITypes.PromptsByDateQueryVariables,
   APITypes.PromptsByDateQuery
 >;
-export const getSubmissionFeedbackCategories = /* GraphQL */ `query GetSubmissionFeedbackCategories($id: ID!) {
-  getSubmissionFeedbackCategories(id: $id) {
-    id
-    feedbackCategoryID
-    fileRequestSubmissionID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    fileRequestSubmission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        workshopId
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      membershipId
-      membership {
-        id
-        workshopId
-        email
-        breakoutGroupId
-        status
-        createdAt
-        updatedAt
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        nextToken
-        __typename
-      }
-      stems {
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      breakoutGroupId
-      breakoutGroup {
-        id
-        name
-        description
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetSubmissionFeedbackCategoriesQueryVariables,
-  APITypes.GetSubmissionFeedbackCategoriesQuery
->;
-export const listSubmissionFeedbackCategories = /* GraphQL */ `query ListSubmissionFeedbackCategories(
-  $filter: ModelSubmissionFeedbackCategoriesFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listSubmissionFeedbackCategories(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      feedbackCategoryID
-      fileRequestSubmissionID
-      feedbackCategory {
-        id
-        name
-        title
-        description
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileRequestSubmission {
-        id
-        fileRequestId
-        membershipId
-        artist
-        name
-        email
-        fileId
-        fileExtension
-        rating
-        lyrics
-        requestFeedback
-        duration
-        breakoutGroupId
-        workshopId
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListSubmissionFeedbackCategoriesQueryVariables,
-  APITypes.ListSubmissionFeedbackCategoriesQuery
->;
-export const getWorkshopFeedbackCategories = /* GraphQL */ `query GetWorkshopFeedbackCategories($id: ID!) {
-  getWorkshopFeedbackCategories(id: $id) {
-    id
-    feedbackCategoryID
-    workshopID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        nextToken
-        __typename
-      }
-      workshops {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    workshop {
-      id
-      name
-      email
-      fileRequests {
-        nextToken
-        __typename
-      }
-      submissions {
-        nextToken
-        __typename
-      }
-      status
-      passes
-      features {
-        __typename
-      }
-      description
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      host {
-        email
-        id
-        name
-        displayName
-        avatar
-        bio
-        sub
-        createdAt
-        updatedAt
-        __typename
-      }
-      breakoutGroups {
-        nextToken
-        __typename
-      }
-      startDate
-      endDate
-      memberships {
-        nextToken
-        __typename
-      }
-      maxFeedback
-      feedbackCategories {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetWorkshopFeedbackCategoriesQueryVariables,
-  APITypes.GetWorkshopFeedbackCategoriesQuery
->;
-export const listWorkshopFeedbackCategories = /* GraphQL */ `query ListWorkshopFeedbackCategories(
-  $filter: ModelWorkshopFeedbackCategoriesFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listWorkshopFeedbackCategories(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      feedbackCategoryID
-      workshopID
-      feedbackCategory {
-        id
-        name
-        title
-        description
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshop {
-        id
-        name
-        email
-        status
-        passes
-        description
-        startDate
-        endDate
-        maxFeedback
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListWorkshopFeedbackCategoriesQueryVariables,
-  APITypes.ListWorkshopFeedbackCategoriesQuery
->;
 export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: ID!) {
   getSubmissionStems(id: $id) {
     id
@@ -4712,10 +4258,6 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GiveFeedback } from './GiveFeedback';
 import { gql, useQuery } from '@apollo/react-hooks';
-import { getFileRequest } from './giveFeedback.queries';
+import { getFileRequest } from '../../graphql/queries';
 import If from '../If';
 import AppBreadcrumbs from '../AppBreadcrumbs';
 import { Grid } from '@mui/material';
