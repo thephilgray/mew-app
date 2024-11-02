@@ -193,7 +193,7 @@
         "userPoolGroups": {},
         "emailDigest": {
           "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
-          "s3Key": "amplify-builds/emailDigest-4f595a72684b44467356-build.zip",
+          "s3Key": "amplify-builds/emailDigest-74366b507275494a6867-build.zip",
           "mailerSendApiKey": "mlsn.244faa2b420ef1cbbfbce9027cb8f9bd0646bd742851954eca67f140036627c7",
           "gatsbyCloudfrontDistribution": "https://djd8nzekpzdba.cloudfront.net",
           "gatsbyAppUrl": "http://localhost:8000"

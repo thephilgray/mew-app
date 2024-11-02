@@ -46,9 +46,9 @@ var render_1 = require("@react-email/render");
 var mew_digest_1 = __importDefault(require("./mew-digest"));
 var react_1 = __importDefault(require("react"));
 var handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var workshopId, GRAPHQL_ENDPOINT, GRAPHQL_API_KEY, MAILER_SEND_API_KEY, generateEmailContent, queryGraphQL, sendEmail, getPastDueAssignments, getCommentsOnSubmissions, getActiveMembers, days, pastDueAssignments, activeMembers, emailCommentsMap, _i, pastDueAssignments_1, assignment, _loop_1, _a, _b, submission, emailsSent, emailsFailed, emailContent;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
+    var workshopId, GRAPHQL_ENDPOINT, GRAPHQL_API_KEY, MAILER_SEND_API_KEY, generateEmailContent, queryGraphQL, sendEmail, getPastDueAssignments, getCommentsOnSubmissions, getActiveMembers, days, pastDueAssignments, activeMembers, emailCommentsMap, _i, pastDueAssignments_1, assignment, _loop_1, _a, _b, submission, _c, _d, _e, email, _f, comments, groupComments, breakoutGroupMembers, breakoutGroupName, mostRecentAssignment, emailContent;
+    return __generator(this, function (_g) {
+        switch (_g.label) {
             case 0:
                 console.log("EVENT: ".concat(JSON.stringify(event)));
                 workshopId = event.arguments.workshopId;
@@ -106,7 +106,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                query = "\n            query listAssignments($filter: ModelFileRequestFilterInput) {\n                listFileRequests(filter: $filter) {\n                    items {\n                        id\n                        title\n                        expiration\n                        title\n                        workshop {\n                            artwork {\n                                path\n                            }\n                        }\n                        artwork {\n                            path\n                        }\n                        playlist {\n                            id\n                            artwork {\n                                path\n                            }\n                            title\n                        }\n                        workshopId\n                        playlistExternalUrl\n                        submissions {\n                            items {\n                                breakoutGroupId\n                                breakoutGroup {\n                                    id\n                                    name\n                                }\n                                profile {\n                                    id\n                                    email\n                                    displayName\n                                    avatar\n                                    name\n                                    memberships {\n                                        items {\n                                            id\n                                            workshopId\n                                        }\n                                    }\n                                    notificationSettings {\n                                        emailDigest {\n                                            enabled\n                                        }\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        ";
+                                query = "\n            query listAssignments($filter: ModelFileRequestFilterInput) {\n                listFileRequests(filter: $filter) {\n                    items {\n                        id\n                        title\n                        expiration\n                        workshop {\n                            artwork {\n                                path\n                            }\n                        }\n                        artwork {\n                            path\n                        }\n                        playlist {\n                            id\n                            artwork {\n                                path\n                            }\n                        }\n                        workshopId\n                        playlistExternalUrl\n                        submissions {\n                            items {\n                                breakoutGroupId\n                                breakoutGroup {\n                                    id\n                                    name\n                                }\n                                profile {\n                                    id\n                                    email\n                                    displayName\n                                    avatar\n                                    name\n                                    memberships {\n                                        items {\n                                            id\n                                            workshopId\n                                        }\n                                    }\n                                    notificationSettings {\n                                        emailDigest {\n                                            enabled\n                                        }\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        ";
                                 variables = {
                                     filter: {
                                         expiration: {
@@ -123,37 +123,22 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                     });
                 }); };
                 getCommentsOnSubmissions = function (email, onlyUserOrExclude) { return __awaiter(void 0, void 0, void 0, function () {
-                    var query, variables, response, error_1;
-                    var _a;
-                    return __generator(this, function (_b) {
-                        switch (_b.label) {
+                    var query, variables, response;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
                             case 0:
-                                query = "\n            query commentsByDate($filter: ModelCommentFilterInput, $limit: Int) {\n                commentsByDate(filter: $filter, sortDirection: DESC, type: \"Comment\", limit: $limit) {\n                    items {\n                        content\n                        submission {\n                            id\n                            name\n                            breakoutGroup {\n                                id\n                                name\n                            }\n                            breakoutGroupId\n                        }\n                        submissionId\n                        createdAt\n                        profile {\n                            id\n                            email\n                            displayName\n                            name\n                            avatar\n                        }\n                    }\n                }\n            }\n        ";
+                                query = "\n            query GetCommentsOnSubmissions($filter: ModelCommentFilterInput) {\n                listComments(filter: $filter) {\n                    items {\n                        content\n                        submission {\n                            id\n                            name\n                            breakoutGroup {\n                                id\n                                name\n                            }\n                            breakoutGroupId\n                        }\n                        submissionId\n                        createdAt\n                        profile {\n                            id\n                            email\n                            displayName\n                            name\n                            avatar\n                        }\n                    }\n                }\n            }\n        ";
                                 variables = {
                                     filter: {
                                         email: { ne: email },
                                         recipientEmail: onlyUserOrExclude ? { eq: email } : { ne: email },
                                         workshopId: { eq: workshopId }
-                                    },
-                                    limit: 500
+                                    }
                                 };
-                                response = null;
-                                _b.label = 1;
-                            case 1:
-                                _b.trys.push([1, 3, , 4]);
                                 return [4 /*yield*/, queryGraphQL(query, variables)];
-                            case 2:
-                                response = _b.sent();
-                                if (!response || !response.commentsByDate) {
-                                    console.log('Invalid response:', response);
-                                    throw new Error('Invalid response structure');
-                                }
-                                return [3 /*break*/, 4];
-                            case 3:
-                                error_1 = _b.sent();
-                                console.error('Error fetching comments on submissions:', error_1);
-                                throw error_1;
-                            case 4: return [2 /*return*/, ((_a = response === null || response === void 0 ? void 0 : response.commentsByDate) === null || _a === void 0 ? void 0 : _a.items) || []];
+                            case 1:
+                                response = _a.sent();
+                                return [2 /*return*/, response.listComments.items];
                         }
                     });
                 }); };
@@ -162,7 +147,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                query = "\n            query ListMembers($filter: ModelMembershipFilterInput) {\n                listMemberships(filter: $filter, limit: 1000) {\n                    items {\n                        id\n                        email\n                        profile {\n                            id\n                            avatar\n                            displayName\n                            name\n                        }\n                        breakoutGroupId\n                        breakoutGroup {\n                            id\n                            name\n                        }\n                    }\n                }\n            }\n        ";
+                                query = "\n            query ListMembers($filter: ModelMembershipFilterInput) {\n                listMemberships(filter: $filter) {\n                    items {\n                        id\n                        email\n                        profile {\n                            id\n                            avatar\n                            displayName\n                            name\n                        }\n                        breakoutGroupId\n                        breakoutGroup {\n                            id\n                            name\n                        }\n                    }\n                }\n            }\n        ";
                                 variables = {
                                     filter: {
                                         status: {
@@ -181,104 +166,91 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                 days = 7;
                 return [4 /*yield*/, getPastDueAssignments(days)];
             case 1:
-                pastDueAssignments = _c.sent();
+                pastDueAssignments = _g.sent();
                 return [4 /*yield*/, getActiveMembers()];
             case 2:
-                activeMembers = _c.sent();
+                activeMembers = _g.sent();
                 emailCommentsMap = {};
-                for (_i = 0, pastDueAssignments_1 = pastDueAssignments; _i < pastDueAssignments_1.length; _i++) {
-                    assignment = pastDueAssignments_1[_i];
-                    _loop_1 = function (submission) {
-                        var email = submission.profile.email;
-                        var emailDigestEnabled = submission.profile.notificationSettings && submission.profile.notificationSettings.emailDigest && submission.profile.notificationSettings.emailDigest.enabled;
-                        var member = activeMembers.find(function (m) { return m.email === email; });
-                        if (member && emailDigestEnabled) {
-                            if (!emailCommentsMap[email]) {
-                                emailCommentsMap[email] = { comments: [], groupComments: [], breakoutGroupMembers: [], assignments: [], member: member };
-                            }
-                            emailCommentsMap[email].assignments.push(assignment);
-                        }
-                    };
-                    for (_a = 0, _b = assignment.submissions.items; _a < _b.length; _a++) {
-                        submission = _b[_a];
-                        _loop_1(submission);
-                    }
-                }
-                emailsSent = [];
-                emailsFailed = [];
-                emailContent = null;
-                return [4 /*yield*/, Promise.all(Object.entries(emailCommentsMap).map(function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
-                        var mostRecentAssignment, comments, groupComments, error_2, error_3, userBreakoutGroupId_1, filteredSortedGroupComments, error_4;
-                        var _c, _d;
-                        var email = _b[0], _e = _b[1], assignments = _e.assignments, member = _e.member;
-                        return __generator(this, function (_f) {
-                            switch (_f.label) {
-                                case 0:
-                                    _f.trys.push([0, 10, , 11]);
-                                    mostRecentAssignment = assignments.find(function (a) { return a.expiration === assignments.reduce(function (a, b) { return new Date(a.expiration) > new Date(b.expiration) ? a : b; }).expiration; });
-                                    comments = [];
-                                    groupComments = [];
-                                    _f.label = 1;
-                                case 1:
-                                    _f.trys.push([1, 3, , 4]);
-                                    return [4 /*yield*/, getCommentsOnSubmissions(email, true)];
-                                case 2:
-                                    comments = _f.sent();
-                                    return [3 /*break*/, 4];
-                                case 3:
-                                    error_2 = _f.sent();
-                                    console.log("Error fetching comments for ".concat(email, ": ").concat(error_2));
-                                    return [3 /*break*/, 4];
-                                case 4:
-                                    _f.trys.push([4, 6, , 7]);
-                                    return [4 /*yield*/, getCommentsOnSubmissions(email, false)];
-                                case 5:
-                                    groupComments = _f.sent();
-                                    return [3 /*break*/, 7];
-                                case 6:
-                                    error_3 = _f.sent();
-                                    console.log("Error fetching group comments for ".concat(email, ": ").concat(error_3));
-                                    return [3 /*break*/, 7];
-                                case 7:
-                                    userBreakoutGroupId_1 = member.breakoutGroupId;
-                                    filteredSortedGroupComments = groupComments.filter(function (c) { return c.email !== email; });
-                                    // if the user is in a breakout group, sort the group comments so that the user's group comments are shown first
-                                    if (userBreakoutGroupId_1) {
-                                        filteredSortedGroupComments = groupComments.sort(function (a, b) { var _a, _b; return (((_a = a.submission) === null || _a === void 0 ? void 0 : _a.breakoutGroupId) === userBreakoutGroupId_1 ? -1 : 1) - (((_b = b.submission) === null || _b === void 0 ? void 0 : _b.breakoutGroupId) === userBreakoutGroupId_1 ? -1 : 1); });
-                                        emailCommentsMap[email].breakoutGroupMembers = activeMembers.filter(function (m) { return m.breakoutGroupId === userBreakoutGroupId_1; }).filter(function (m) { return m.email !== email; });
-                                        emailCommentsMap[email].breakoutGroupName = member.breakoutGroup.name;
-                                    }
-                                    (_c = emailCommentsMap[email].comments).push.apply(_c, comments);
-                                    (_d = emailCommentsMap[email].groupComments).push.apply(_d, filteredSortedGroupComments);
-                                    return [4 /*yield*/, generateEmailContent(mostRecentAssignment, emailCommentsMap[email].comments.slice(0, 5), emailCommentsMap[email].groupComments.slice(0, 5), emailCommentsMap[email].breakoutGroupMembers, emailCommentsMap[email].breakoutGroupName)];
-                                case 8:
-                                    emailContent = _f.sent();
-                                    return [4 /*yield*/, sendEmail(email, "Your Weekly Digest", emailContent)];
-                                case 9:
-                                    _f.sent();
-                                    console.log("Sent email to ".concat(email, ": ").concat(emailContent));
-                                    emailsSent.push({ email: email, emailContent: emailContent });
-                                    return [3 /*break*/, 11];
-                                case 10:
-                                    error_4 = _f.sent();
-                                    console.log(error_4);
-                                    emailsFailed.push({ email: email, emailContent: emailContent, error: error_4 });
-                                    return [3 /*break*/, 11];
-                                case 11: return [2 /*return*/];
-                            }
-                        });
-                    }); }))];
+                _i = 0, pastDueAssignments_1 = pastDueAssignments;
+                _g.label = 3;
             case 3:
-                _c.sent();
-                return [2 /*return*/, {
-                        statusCode: 200,
-                        // Uncomment below to enable CORS requests
-                        // headers: {
-                        //     "Access-Control-Allow-Origin": "*",
-                        //     "Access-Control-Allow-Headers": "*"
-                        // },
-                        body: JSON.stringify({ emailsSent: emailsSent, numberOfEmailsSent: emailsSent.length, emailsFailed: emailsFailed, numberOfEmailsFailed: emailsFailed.length }),
-                    }];
+                if (!(_i < pastDueAssignments_1.length)) return [3 /*break*/, 8];
+                assignment = pastDueAssignments_1[_i];
+                _loop_1 = function (submission) {
+                    var email, emailDigestEnabled, member, comments, groupComments, userBreakoutGroupId_1, filteredSortedGroupComments;
+                    var _h, _j;
+                    return __generator(this, function (_k) {
+                        switch (_k.label) {
+                            case 0:
+                                email = submission.profile.email;
+                                emailDigestEnabled = submission.profile.notificationSettings && submission.profile.notificationSettings.emailDigest && submission.profile.notificationSettings.emailDigest.enabled;
+                                member = activeMembers.find(function (m) { return m.email === email; });
+                                if (!(member && emailDigestEnabled)) return [3 /*break*/, 3];
+                                if (!emailCommentsMap[email]) {
+                                    emailCommentsMap[email] = { comments: [], groupComments: [], breakoutGroupMembers: [], mostRecentAssignment: null };
+                                }
+                                return [4 /*yield*/, getCommentsOnSubmissions(email, true)];
+                            case 1:
+                                comments = _k.sent();
+                                return [4 /*yield*/, getCommentsOnSubmissions(email, false)];
+                            case 2:
+                                groupComments = _k.sent();
+                                userBreakoutGroupId_1 = member.breakoutGroupId;
+                                filteredSortedGroupComments = groupComments.filter(function (c) { return c.email !== email; });
+                                // if the user is in a breakout group, sort the group comments so that the user's group comments are shown first
+                                if (userBreakoutGroupId_1) {
+                                    filteredSortedGroupComments = groupComments.sort(function (a, b) { var _a, _b; return (((_a = a.submission) === null || _a === void 0 ? void 0 : _a.breakoutGroupId) === userBreakoutGroupId_1 ? -1 : 1) - (((_b = b.submission) === null || _b === void 0 ? void 0 : _b.breakoutGroupId) === userBreakoutGroupId_1 ? -1 : 1); });
+                                    emailCommentsMap[email].breakoutGroupMembers = activeMembers.filter(function (m) { return m.breakoutGroupId === userBreakoutGroupId_1; }).filter(function (m) { return m.email !== email; });
+                                    emailCommentsMap[email].breakoutGroupName = member.breakoutGroup.name;
+                                }
+                                (_h = emailCommentsMap[email].comments).push.apply(_h, comments);
+                                (_j = emailCommentsMap[email].groupComments).push.apply(_j, filteredSortedGroupComments);
+                                emailCommentsMap[email].mostRecentAssignment = assignment;
+                                _k.label = 3;
+                            case 3: return [2 /*return*/];
+                        }
+                    });
+                };
+                _a = 0, _b = assignment.submissions.items;
+                _g.label = 4;
+            case 4:
+                if (!(_a < _b.length)) return [3 /*break*/, 7];
+                submission = _b[_a];
+                return [5 /*yield**/, _loop_1(submission)];
+            case 5:
+                _g.sent();
+                _g.label = 6;
+            case 6:
+                _a++;
+                return [3 /*break*/, 4];
+            case 7:
+                _i++;
+                return [3 /*break*/, 3];
+            case 8:
+                _c = 0, _d = Object.entries(emailCommentsMap);
+                _g.label = 9;
+            case 9:
+                if (!(_c < _d.length)) return [3 /*break*/, 13];
+                _e = _d[_c], email = _e[0], _f = _e[1], comments = _f.comments, groupComments = _f.groupComments, breakoutGroupMembers = _f.breakoutGroupMembers, breakoutGroupName = _f.breakoutGroupName, mostRecentAssignment = _f.mostRecentAssignment;
+                return [4 /*yield*/, generateEmailContent(mostRecentAssignment, comments.slice(0, 5), groupComments.slice(0, 5), breakoutGroupMembers, breakoutGroupName)];
+            case 10:
+                emailContent = _g.sent();
+                return [4 /*yield*/, sendEmail(email, "Your Weekly Digest", emailContent)];
+            case 11:
+                _g.sent();
+                _g.label = 12;
+            case 12:
+                _c++;
+                return [3 /*break*/, 9];
+            case 13: return [2 /*return*/, {
+                    statusCode: 200,
+                    // Uncomment below to enable CORS requests
+                    // headers: {
+                    //     "Access-Control-Allow-Origin": "*",
+                    //     "Access-Control-Allow-Headers": "*"
+                    // },
+                    body: JSON.stringify('Hello from Lambda!'),
+                }];
         }
     });
 }); };

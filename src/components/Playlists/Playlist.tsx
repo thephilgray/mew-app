@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState, useMemo, PropsWithChildren, useContext, useRef } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert, Badge, Chip, Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert, Badge } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
@@ -15,14 +15,14 @@ import { ROUTES } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
-import { Close, CopyAll, Edit, Forum, MoreVert, Pause, PauseCircleRounded, PlayArrow as PlayArrowIcon, PlayArrowOutlined, PlayArrowRounded, PlaylistAdd, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon } from '@mui/icons-material'
+import { Close, CopyAll, Edit, Forum, MoreVert, Pause, PauseCircleRounded, PlayArrow as PlayArrowIcon, PlayArrowOutlined, PlayArrowRounded, PlaylistAdd, SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, Speaker } from '@mui/icons-material'
 import isNumber from 'lodash/isNumber'
 import sum from 'lodash/sum'
 import isPast from 'date-fns/isPast'
 import { FeedbackSection } from '../Feedback'
 import { getFileRequest, getPlaylist, playlistsByDate, createTrack } from './playlist.queries'
 import If from '../If';
-import { formatAudioDuration, getBreakoutGroupName, getCloudFrontURL, getBreakoutGroup } from '../../utils';
+import { formatAudioDuration, getBreakoutGroupName, hasBreakoutGroup, getCloudFrontURL, getBreakoutGroup } from '../../utils';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import { AudioPlayerContext, useClonePlaylist } from '../AudioPlayer/audio-player.context';
 import { Link, navigate } from 'gatsby';
@@ -65,7 +65,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
     const loggedIn = !!user
     const { profile } = useProfile()
     const [addToPlaylistSelection, setAddToPlaylistSelection] = useState('new')
-    const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number | null>(null)
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [trackDurations, setTrackDurations] = useState([])
     const [viewAdmin] = useViewAdmin()
@@ -228,11 +227,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
         }
     }, [audioLists, currentIndex])
 
-    // reset the feedback categories selected when the current index changes
-    useEffect(() => {
-        setSelectedCategoryIndex(null)
-    }, [currentIndex])
-
     // Authenticated user access
     useEffect(() => {
         if (loggedIn) {
@@ -363,7 +357,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 // @ts-ignore
                 for (let index = 0; index < data.submissions.items.length; index++) {
                     // @ts-ignore
-                    const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments, selectedFeedbackCategories } = data.submissions.items[index]
+                    const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments } = data.submissions.items[index]
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId) && (!breakoutGroupId || (toggleBreakoutView && breakoutGroupId === breakoutGroup?.id)) || (!toggleBreakoutView)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -383,8 +377,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             workshopId,
                             assignmentId,
                             requestFeedback,
-                            commentsCount: comments?.items?.length,
-                            selectedFeedbackCategories: selectedFeedbackCategories?.items?.map(item => item.feedbackCategory)
+                            commentsCount: comments?.items?.length
                         })
                         seenFileIds.push(fileId)
                     }
@@ -398,7 +391,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 for (let index = 0; index < data.tracks.items.length; index++) {
                     // @ts-ignore
                     const { submission, order } = data.tracks.items[index];
-                    const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile, comments, selectedFeedbackCategories } = submission
+                    const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile, comments } = submission
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -419,8 +412,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             assignmentId,
                             workshopId,
                             requestFeedback,
-                            commentsCount: comments?.items?.length,
-                            selectedFeedbackCategories: selectedFeedbackCategories?.items?.map(item => item.feedbackCategory)
+                            commentsCount: comments?.items?.length
                         })
                         seenFileIds.push(fileId)
                     }
@@ -813,59 +805,6 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     </Card>
                 </Grid >
             </If>
-            <If condition={!!audioLists?.[currentIndex]?.selectedFeedbackCategories?.length}>
-                <Grid item xs={12}>
-                    <Box sx={{ p: 2, borderRadius: 1 }}>
-                        <Typography variant="body2">Type of Feedback Requested</Typography>
-                        <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
-                            {audioLists[currentIndex]?.selectedFeedbackCategories?.map((category, index) => (
-                                <Chip
-                                    key={index}
-                                    label={category.title}
-                                    color={index === selectedCategoryIndex ? 'primary' : 'default'}
-                                    onClick={() => setSelectedCategoryIndex(selectedCategoryIndex !== index ? index : null)}
-                                />
-                            ))}
-                        </Stack>
-                    </Box>
-                </Grid>
-                <If condition={selectedCategoryIndex !== null}>
-                    <Grid item xs={12}>
-                        <Box sx={{ 
-                            background: 'linear-gradient(to bottom, #f9f9f9, #e0e0e0)', 
-                            p: 2, 
-                            borderRadius: 1,
-                            position: 'relative',
-                            overflow: 'hidden'
-                        }}>
-                            <Box sx={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100%',
-                                backgroundImage: `url(${mewAppLogo})`,
-                                backgroundSize: '20px 20px',
-                                opacity: 0.2,
-                                zIndex: 0
-                            }} />
-                            <Accordion expanded sx={{ position: 'relative', zIndex: 1 }}>
-                                <AccordionSummary
-                                    aria-controls={`panel${selectedCategoryIndex}-content`}
-                                    id={`panel${selectedCategoryIndex}-header`}
-                                >
-                                    <Typography>{selectedCategoryIndex !== null ? audioLists[currentIndex]?.selectedFeedbackCategories[selectedCategoryIndex]?.title : ''}</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-                                    <Typography>{selectedCategoryIndex !== null ? audioLists[currentIndex]?.selectedFeedbackCategories[selectedCategoryIndex]?.description : ''}</Typography>
-                                </pre>
-                                </AccordionDetails>
-                            </Accordion>
-                        </Box>
-                    </Grid>
-                </If>
-            </If>
             <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex]}>
                 <If condition={!!audioLists?.[currentIndex]?.lyrics}>
                     <Grid item xs={12}>
@@ -891,7 +830,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         />
                     </If>
                 </Grid>
-            </If>
+            </If >
             </If>
             <Snackbar
                 anchorOrigin={{

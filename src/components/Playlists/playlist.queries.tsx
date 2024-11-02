@@ -55,16 +55,6 @@ export const getFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
-          selectedFeedbackCategories {
-            items {
-              feedbackCategory {
-                id
-                name
-                title
-                description
-              }
-            }
-          }
           comments {
             items {
               id

@@ -8,8 +8,8 @@ var components_1 = require("@react-email/components");
 var baseUrl = process.env.GATSBY_CLOUDFRONT_DISTRIBUTION;
 var appUrl = "".concat(process.env.GATSBY_APP_URL, "/app");
 var MewDigest = function (_a) {
-    var _b, _c, _d, _e, _f, _g, _h, _j;
-    var _k = _a.assignment, assignment = _k === void 0 ? {} : _k, _l = _a.comments, comments = _l === void 0 ? [] : _l, _m = _a.groupComments, groupComments = _m === void 0 ? [] : _m, _o = _a.breakoutGroupMembers, breakoutGroupMembers = _o === void 0 ? [] : _o, breakoutGroupName = _a.breakoutGroupName;
+    var _b, _c, _d, _e, _f, _g, _h;
+    var _j = _a.assignment, assignment = _j === void 0 ? {} : _j, _k = _a.comments, comments = _k === void 0 ? [] : _k, _l = _a.groupComments, groupComments = _l === void 0 ? [] : _l, _m = _a.breakoutGroupMembers, breakoutGroupMembers = _m === void 0 ? [] : _m, breakoutGroupName = _a.breakoutGroupName;
     return (react_1.default.createElement(components_1.Html, null,
         react_1.default.createElement(components_1.Head, null),
         react_1.default.createElement(components_1.Body, { style: { fontFamily: 'Arial, sans-serif', color: '#333' } },
@@ -18,18 +18,11 @@ var MewDigest = function (_a) {
                     react_1.default.createElement(components_1.Img, { src: "".concat(baseUrl, "/public/media/mewlogo.png"), width: "212", height: "212", alt: "MEW", style: logo })),
                 react_1.default.createElement("main", { style: { padding: '20px' } },
                     react_1.default.createElement("section", { style: { marginBottom: '20px', textAlign: 'center' } },
-                        react_1.default.createElement(components_1.Heading, { as: "h2", style: { textAlign: 'center', color: '#333' } }, "Check out the latest activity on the MEW app!"),
+                        react_1.default.createElement(components_1.Heading, { as: "h2", style: { textAlign: 'center', color: '#333' } }, "Check out the latest MEW playlist!"),
                         react_1.default.createElement(components_1.Link, { href: (assignment === null || assignment === void 0 ? void 0 : assignment.playlistExternalUrl) || ((_b = assignment === null || assignment === void 0 ? void 0 : assignment.playlist) === null || _b === void 0 ? void 0 : _b.id) ? "".concat(appUrl, "/playlists/").concat((_c = assignment === null || assignment === void 0 ? void 0 : assignment.playlist) === null || _c === void 0 ? void 0 : _c.id) : "".concat(appUrl, "/assignments/").concat(assignment === null || assignment === void 0 ? void 0 : assignment.id, "/playlist"), style: { textDecoration: 'none', color: '#333' } },
-                            react_1.default.createElement(components_1.Img, { src: "".concat(baseUrl, "/public/").concat(((_e = (_d = assignment === null || assignment === void 0 ? void 0 : assignment.playlist) === null || _d === void 0 ? void 0 : _d.artwork) === null || _e === void 0 ? void 0 : _e.path) || ((_f = assignment === null || assignment === void 0 ? void 0 : assignment.artwork) === null || _f === void 0 ? void 0 : _f.path) || ((_h = (_g = assignment === null || assignment === void 0 ? void 0 : assignment.workshop) === null || _g === void 0 ? void 0 : _g.artwork) === null || _h === void 0 ? void 0 : _h.path)), alt: "Playlist Cover", style: { width: '100%', maxWidth: '600px', borderRadius: '10px', display: 'block', margin: '0 auto' } }),
-                            react_1.default.createElement(components_1.Text, null, ((_j = assignment === null || assignment === void 0 ? void 0 : assignment.playlist) === null || _j === void 0 ? void 0 : _j.title) || (assignment === null || assignment === void 0 ? void 0 : assignment.title)))),
+                            react_1.default.createElement(components_1.Img, { src: "".concat(baseUrl, "/public/").concat(((_e = (_d = assignment === null || assignment === void 0 ? void 0 : assignment.playlist) === null || _d === void 0 ? void 0 : _d.artwork) === null || _e === void 0 ? void 0 : _e.path) || ((_f = assignment === null || assignment === void 0 ? void 0 : assignment.artwork) === null || _f === void 0 ? void 0 : _f.path) || ((_h = (_g = assignment === null || assignment === void 0 ? void 0 : assignment.workshop) === null || _g === void 0 ? void 0 : _g.artwork) === null || _h === void 0 ? void 0 : _h.path)), alt: "Playlist Cover", style: { width: '100%', maxWidth: '600px', borderRadius: '10px', display: 'block', margin: '0 auto' } }))),
                     comments.length > 0 && (react_1.default.createElement("section", null,
                         react_1.default.createElement(components_1.Heading, { as: "h3", style: { color: '#333' } }, "Recent Feedback for You"),
-                        react_1.default.createElement(components_1.Text, null,
-                            "(Below is a selection of ",
-                            comments.length > 5 ? 5 : comments.length,
-                            " of the most recent comments. ",
-                            react_1.default.createElement(components_1.Link, { href: "".concat(appUrl, "/feedback"), style: { textDecoration: 'none', color: '#E092A2' } }, "See more in the Feed app."),
-                            ")"),
                         react_1.default.createElement("ul", { style: { listStyleType: 'none', padding: 0, width: '100%' } }, comments.map(function (comment, index) {
                             var _a, _b, _c, _d, _e, _f, _g, _h;
                             return (react_1.default.createElement("li", { key: index, style: { marginBottom: '20px', borderBottom: '1px solid #eaeaea', paddingBottom: '10px', width: '100%' } },
@@ -48,12 +41,6 @@ var MewDigest = function (_a) {
                         })))),
                     groupComments.length > 0 && (react_1.default.createElement("section", null,
                         react_1.default.createElement(components_1.Heading, { as: "h3", style: { color: '#333' } }, "Recent Activity From Your Group"),
-                        react_1.default.createElement(components_1.Text, null,
-                            "(Below is just a selection of ",
-                            groupComments.length > 5 ? 5 : groupComments.length,
-                            " of the most recent comments. ",
-                            react_1.default.createElement(components_1.Link, { href: "".concat(appUrl, "/feedback"), style: { textDecoration: 'none', color: '#E092A2' } }, "See more in the app."),
-                            ")"),
                         react_1.default.createElement("ul", { style: { listStyleType: 'none', padding: 0, width: '100%' } }, groupComments.map(function (comment, index) {
                             var _a, _b, _c, _d, _e, _f, _g, _h;
                             return (react_1.default.createElement("li", { key: index, style: { marginBottom: '20px', borderBottom: '1px solid #eaeaea', paddingBottom: '10px', width: '100%' } },

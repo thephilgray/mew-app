@@ -191,10 +191,6 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -279,10 +275,6 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -688,10 +680,6 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -776,10 +764,6 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -1185,10 +1169,6 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -1273,10 +1253,6 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -1915,18 +1891,6 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -2075,10 +2039,6 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -2391,41 +2351,6 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -2730,10 +2655,6 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -3095,18 +3016,6 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -3255,10 +3164,6 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -3571,41 +3476,6 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -3910,10 +3780,6 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -4275,18 +4141,6 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -4435,10 +4289,6 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -4751,41 +4601,6 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -5090,10 +4905,6 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -5175,651 +4986,6 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
 ` as GeneratedMutation<
   APITypes.DeleteFileRequestMutationVariables,
   APITypes.DeleteFileRequestMutation
->;
-export const createFeedbackCategory = /* GraphQL */ `mutation CreateFeedbackCategory(
-  $input: CreateFeedbackCategoryInput!
-  $condition: ModelFeedbackCategoryConditionInput
-) {
-  createFeedbackCategory(input: $input, condition: $condition) {
-    id
-    name
-    title
-    description
-    submissions {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileRequestSubmission {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          membershipId
-          membership {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            nextToken
-            __typename
-          }
-          stems {
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    workshops {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateFeedbackCategoryMutationVariables,
-  APITypes.CreateFeedbackCategoryMutation
->;
-export const updateFeedbackCategory = /* GraphQL */ `mutation UpdateFeedbackCategory(
-  $input: UpdateFeedbackCategoryInput!
-  $condition: ModelFeedbackCategoryConditionInput
-) {
-  updateFeedbackCategory(input: $input, condition: $condition) {
-    id
-    name
-    title
-    description
-    submissions {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileRequestSubmission {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          membershipId
-          membership {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            nextToken
-            __typename
-          }
-          stems {
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    workshops {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateFeedbackCategoryMutationVariables,
-  APITypes.UpdateFeedbackCategoryMutation
->;
-export const deleteFeedbackCategory = /* GraphQL */ `mutation DeleteFeedbackCategory(
-  $input: DeleteFeedbackCategoryInput!
-  $condition: ModelFeedbackCategoryConditionInput
-) {
-  deleteFeedbackCategory(input: $input, condition: $condition) {
-    id
-    name
-    title
-    description
-    submissions {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileRequestSubmission {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          membershipId
-          membership {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            nextToken
-            __typename
-          }
-          stems {
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    workshops {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteFeedbackCategoryMutationVariables,
-  APITypes.DeleteFeedbackCategoryMutation
 >;
 export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileRequestSubmission(
   $input: CreateFileRequestSubmissionInput!
@@ -5918,10 +5084,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -6087,18 +5249,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -6308,10 +5458,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -6533,18 +5679,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -6821,10 +5955,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -6926,10 +6056,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -7014,10 +6140,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -7464,10 +6586,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -7639,10 +6757,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -7737,10 +6851,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -7960,18 +7070,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -8053,10 +7151,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -8178,119 +7272,6 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
       __typename
     }
     workshopId
-    selectedFeedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileRequestSubmission {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          membershipId
-          membership {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            nextToken
-            __typename
-          }
-          stems {
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -8397,10 +7378,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -8566,18 +7543,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -8787,10 +7752,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -9012,18 +7973,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -9300,10 +8249,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -9405,10 +8350,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -9493,10 +8434,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -9943,10 +8880,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -10118,10 +9051,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -10216,10 +9145,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -10439,18 +9364,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -10532,10 +9445,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -10657,119 +9566,6 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
       __typename
     }
     workshopId
-    selectedFeedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileRequestSubmission {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          membershipId
-          membership {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            nextToken
-            __typename
-          }
-          stems {
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -10876,10 +9672,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -11045,18 +9837,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -11266,10 +10046,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -11491,18 +10267,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -11779,10 +10543,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -11884,10 +10644,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -11972,10 +10728,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -12422,10 +11174,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -12597,10 +11345,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -12695,10 +11439,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -12918,18 +11658,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -13011,10 +11739,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -13136,119 +11860,6 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
       __typename
     }
     workshopId
-    selectedFeedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        fileRequestSubmissionID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        fileRequestSubmission {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          membershipId
-          membership {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            nextToken
-            __typename
-          }
-          stems {
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -13350,10 +11961,6 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -13511,10 +12118,6 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -14011,10 +12614,6 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -14077,46 +12676,6 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -14408,10 +12967,6 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -14585,10 +13140,6 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -14746,10 +13297,6 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -15246,10 +13793,6 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -15312,46 +13855,6 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -15643,10 +14146,6 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -15820,10 +14319,6 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -15981,10 +14476,6 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -16481,10 +14972,6 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -16547,46 +15034,6 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -16878,10 +15325,6 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -17047,10 +15490,6 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -17195,10 +15634,6 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -17283,10 +15718,6 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -17759,18 +16190,6 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -17852,10 +16271,6 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -18073,10 +16488,6 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -18221,10 +16632,6 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -18309,10 +16716,6 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -18785,18 +17188,6 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -18878,10 +17269,6 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -19099,10 +17486,6 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -19247,10 +17630,6 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -19335,10 +17714,6 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -19811,18 +18186,6 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -19904,10 +18267,6 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -20191,10 +18550,6 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -20507,41 +18862,6 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -20808,18 +19128,6 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -21047,10 +19355,6 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -21319,10 +19623,6 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -21635,41 +19935,6 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -21936,18 +20201,6 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -22175,10 +20428,6 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -22447,10 +20696,6 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -22763,41 +21008,6 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -23064,18 +21274,6 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -23303,10 +21501,6 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -23596,18 +21790,6 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -23689,10 +21871,6 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -23956,10 +22134,6 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -24272,41 +22446,6 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -24398,10 +22537,6 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -24486,10 +22621,6 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -25066,18 +23197,6 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -25265,18 +23384,6 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -25358,10 +23465,6 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -25625,10 +23728,6 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -25941,41 +24040,6 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -26067,10 +24131,6 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -26155,10 +24215,6 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -26735,18 +24791,6 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -26934,18 +24978,6 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -27027,10 +25059,6 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -27294,10 +25322,6 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -27610,41 +25634,6 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -27736,10 +25725,6 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -27824,10 +25809,6 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -28404,18 +26385,6 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -28524,10 +26493,6 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -28861,18 +26826,6 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -28987,10 +26940,6 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -29075,10 +27024,6 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -29432,10 +27377,6 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -29591,10 +27532,6 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -29705,90 +27642,6 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
       __typename
     }
     maxFeedback
-    feedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -29890,10 +27743,6 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -30227,18 +28076,6 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -30353,10 +28190,6 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -30441,10 +28274,6 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -30798,10 +28627,6 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -30957,10 +28782,6 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -31071,90 +28892,6 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
       __typename
     }
     maxFeedback
-    feedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -31256,10 +28993,6 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -31593,18 +29326,6 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -31719,10 +29440,6 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -31807,10 +29524,6 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -32164,10 +29877,6 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -32323,10 +30032,6 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -32437,90 +30142,6 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
       __typename
     }
     maxFeedback
-    feedbackCategories {
-      items {
-        id
-        feedbackCategoryID
-        workshopID
-        feedbackCategory {
-          id
-          name
-          title
-          description
-          submissions {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -32781,18 +30402,6 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -33062,18 +30671,6 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -33170,10 +30767,6 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -33752,10 +31345,6 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -33927,10 +31516,6 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -34204,18 +31789,6 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -34485,18 +32058,6 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -34593,10 +32154,6 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -35175,10 +32732,6 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -35350,10 +32903,6 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -35627,18 +33176,6 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -35908,18 +33445,6 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
           __typename
         }
         workshopId
-        selectedFeedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            fileRequestSubmissionID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -36016,10 +33541,6 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -36598,10 +34119,6 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -36773,10 +34290,6 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -36894,10 +34407,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -36982,10 +34491,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -37373,10 +34878,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -37534,10 +35035,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -38034,10 +35531,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -38100,46 +35593,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -38232,10 +35685,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -38320,10 +35769,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -38715,10 +36160,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -38884,18 +36325,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -39190,10 +36619,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -39506,41 +36931,6 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -39651,10 +37041,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -39739,10 +37125,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -40130,10 +37512,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -40291,10 +37669,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -40791,10 +38165,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -40857,46 +38227,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -40989,10 +38319,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -41077,10 +38403,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -41472,10 +38794,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -41641,18 +38959,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -41947,10 +39253,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -42263,41 +39565,6 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -42408,10 +39675,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -42496,10 +39759,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -42887,10 +40146,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -43048,10 +40303,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -43548,10 +40799,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -43614,46 +40861,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -43746,10 +40953,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -43834,10 +41037,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -44229,10 +41428,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -44398,18 +41593,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
           __typename
         }
         maxFeedback
-        feedbackCategories {
-          items {
-            id
-            feedbackCategoryID
-            workshopID
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -44704,10 +41887,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -45020,41 +42199,6 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         __typename
       }
       maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -45163,10 +42307,6 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -45303,10 +42443,6 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -45391,10 +42527,6 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -45801,10 +42933,6 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -45941,10 +43069,6 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -46029,10 +43153,6 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -46439,10 +43559,6 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -46579,10 +43695,6 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -46667,10 +43779,6 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -47080,10 +44188,6 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -47168,10 +44272,6 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -47578,10 +44678,6 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -47666,10 +44762,6 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -48076,10 +45168,6 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -48164,10 +45252,6 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
             __typename
           }
           workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -48478,4671 +45562,6 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
   APITypes.DeletePromptMutationVariables,
   APITypes.DeletePromptMutation
 >;
-export const createSubmissionFeedbackCategories = /* GraphQL */ `mutation CreateSubmissionFeedbackCategories(
-  $input: CreateSubmissionFeedbackCategoriesInput!
-  $condition: ModelSubmissionFeedbackCategoriesConditionInput
-) {
-  createSubmissionFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    fileRequestSubmissionID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      workshops {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    fileRequestSubmission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshopId
-        extensions {
-          items {
-            id
-            expiration
-            assignmentId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        playlist {
-          tracks {
-            nextToken
-            __typename
-          }
-          owner {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          public
-          title
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          type
-          createdAt
-          id
-          updatedAt
-          profilePlaylistsId
-          playlistOwnerId
-          __typename
-        }
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      membershipId
-      membership {
-        id
-        workshopId
-        email
-        breakoutGroup {
-          id
-          name
-          description
-          workshopId
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          playlists {
-            nextToken
-            __typename
-          }
-          members {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        breakoutGroupId
-        status
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          memberships {
-            nextToken
-            __typename
-          }
-          features {
-            __typename
-          }
-          playlists {
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            nextToken
-            __typename
-          }
-          prompts {
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          notificationSettings {
-            __typename
-          }
-          receivedComments {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        mailchimp {
-          id
-          emailAddress
-          status
-          fullName
-          uniqueEmailId
-          contactId
-          tags {
-            id
-            name
-            __typename
-          }
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            fileSize
-            fileExtension
-            creatorEmail
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        prompts {
-          items {
-            id
-            title
-            content
-            authorEmail
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        notificationSettings {
-          emailDigest {
-            enabled
-            frequency
-            __typename
-          }
-          __typename
-        }
-        receivedComments {
-          items {
-            id
-            content
-            email
-            submissionId
-            recipientEmail
-            assignmentId
-            workshopId
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        items {
-          id
-          content
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissionId
-          submission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          recipientEmail
-          recipient {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          assignmentId
-          assignment {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          workshopId
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          parentId
-          type
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      stems {
-        items {
-          id
-          fileRequestSubmissionID
-          stemID
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          stem {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            fileSize
-            fileExtension
-            creatorEmail
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      breakoutGroupId
-      breakoutGroup {
-        id
-        name
-        description
-        workshopId
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        playlists {
-          items {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        members {
-          items {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateSubmissionFeedbackCategoriesMutationVariables,
-  APITypes.CreateSubmissionFeedbackCategoriesMutation
->;
-export const updateSubmissionFeedbackCategories = /* GraphQL */ `mutation UpdateSubmissionFeedbackCategories(
-  $input: UpdateSubmissionFeedbackCategoriesInput!
-  $condition: ModelSubmissionFeedbackCategoriesConditionInput
-) {
-  updateSubmissionFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    fileRequestSubmissionID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      workshops {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    fileRequestSubmission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshopId
-        extensions {
-          items {
-            id
-            expiration
-            assignmentId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        playlist {
-          tracks {
-            nextToken
-            __typename
-          }
-          owner {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          public
-          title
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          type
-          createdAt
-          id
-          updatedAt
-          profilePlaylistsId
-          playlistOwnerId
-          __typename
-        }
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      membershipId
-      membership {
-        id
-        workshopId
-        email
-        breakoutGroup {
-          id
-          name
-          description
-          workshopId
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          playlists {
-            nextToken
-            __typename
-          }
-          members {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        breakoutGroupId
-        status
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          memberships {
-            nextToken
-            __typename
-          }
-          features {
-            __typename
-          }
-          playlists {
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            nextToken
-            __typename
-          }
-          prompts {
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          notificationSettings {
-            __typename
-          }
-          receivedComments {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        mailchimp {
-          id
-          emailAddress
-          status
-          fullName
-          uniqueEmailId
-          contactId
-          tags {
-            id
-            name
-            __typename
-          }
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            fileSize
-            fileExtension
-            creatorEmail
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        prompts {
-          items {
-            id
-            title
-            content
-            authorEmail
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        notificationSettings {
-          emailDigest {
-            enabled
-            frequency
-            __typename
-          }
-          __typename
-        }
-        receivedComments {
-          items {
-            id
-            content
-            email
-            submissionId
-            recipientEmail
-            assignmentId
-            workshopId
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        items {
-          id
-          content
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissionId
-          submission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          recipientEmail
-          recipient {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          assignmentId
-          assignment {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          workshopId
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          parentId
-          type
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      stems {
-        items {
-          id
-          fileRequestSubmissionID
-          stemID
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          stem {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            fileSize
-            fileExtension
-            creatorEmail
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      breakoutGroupId
-      breakoutGroup {
-        id
-        name
-        description
-        workshopId
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        playlists {
-          items {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        members {
-          items {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateSubmissionFeedbackCategoriesMutationVariables,
-  APITypes.UpdateSubmissionFeedbackCategoriesMutation
->;
-export const deleteSubmissionFeedbackCategories = /* GraphQL */ `mutation DeleteSubmissionFeedbackCategories(
-  $input: DeleteSubmissionFeedbackCategoriesInput!
-  $condition: ModelSubmissionFeedbackCategoriesConditionInput
-) {
-  deleteSubmissionFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    fileRequestSubmissionID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      workshops {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    fileRequestSubmission {
-      id
-      fileRequestId
-      fileRequest {
-        id
-        startDate
-        expiration
-        title
-        details
-        required
-        artwork {
-          id
-          path
-          credit
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        workshopId
-        extensions {
-          items {
-            id
-            expiration
-            assignmentId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        playlist {
-          tracks {
-            nextToken
-            __typename
-          }
-          owner {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          public
-          title
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          type
-          createdAt
-          id
-          updatedAt
-          profilePlaylistsId
-          playlistOwnerId
-          __typename
-        }
-        playlistStartDate
-        playlistExternalUrl
-        type
-        createdAt
-        updatedAt
-        fileRequestPlaylistId
-        __typename
-      }
-      membershipId
-      membership {
-        id
-        workshopId
-        email
-        breakoutGroup {
-          id
-          name
-          description
-          workshopId
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          playlists {
-            nextToken
-            __typename
-          }
-          members {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        breakoutGroupId
-        status
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        profile {
-          email
-          id
-          name
-          displayName
-          links {
-            id
-            text
-            url
-            __typename
-          }
-          avatar
-          bio
-          sub
-          apiKeys {
-            nextToken
-            __typename
-          }
-          workshops {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          memberships {
-            nextToken
-            __typename
-          }
-          features {
-            __typename
-          }
-          playlists {
-            nextToken
-            __typename
-          }
-          uploadedStems {
-            nextToken
-            __typename
-          }
-          prompts {
-            nextToken
-            __typename
-          }
-          location {
-            latitude
-            longitude
-            __typename
-          }
-          notificationSettings {
-            __typename
-          }
-          receivedComments {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        mailchimp {
-          id
-          emailAddress
-          status
-          fullName
-          uniqueEmailId
-          contactId
-          tags {
-            id
-            name
-            __typename
-          }
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      artist
-      name
-      email
-      profile {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            fileSize
-            fileExtension
-            creatorEmail
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        prompts {
-          items {
-            id
-            title
-            content
-            authorEmail
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        notificationSettings {
-          emailDigest {
-            enabled
-            frequency
-            __typename
-          }
-          __typename
-        }
-        receivedComments {
-          items {
-            id
-            content
-            email
-            submissionId
-            recipientEmail
-            assignmentId
-            workshopId
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      fileId
-      fileExtension
-      rating
-      comments {
-        items {
-          id
-          content
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissionId
-          submission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          recipientEmail
-          recipient {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          assignmentId
-          assignment {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          workshopId
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          parentId
-          type
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      stems {
-        items {
-          id
-          fileRequestSubmissionID
-          stemID
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          stem {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            fileSize
-            fileExtension
-            creatorEmail
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      lyrics
-      requestFeedback
-      duration
-      breakoutGroupId
-      breakoutGroup {
-        id
-        name
-        description
-        workshopId
-        workshop {
-          id
-          name
-          email
-          fileRequests {
-            nextToken
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          status
-          passes
-          features {
-            __typename
-          }
-          description
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          host {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroups {
-            nextToken
-            __typename
-          }
-          startDate
-          endDate
-          memberships {
-            nextToken
-            __typename
-          }
-          maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        playlists {
-          items {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        members {
-          items {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteSubmissionFeedbackCategoriesMutationVariables,
-  APITypes.DeleteSubmissionFeedbackCategoriesMutation
->;
-export const createWorkshopFeedbackCategories = /* GraphQL */ `mutation CreateWorkshopFeedbackCategories(
-  $input: CreateWorkshopFeedbackCategoriesInput!
-  $condition: ModelWorkshopFeedbackCategoriesConditionInput
-) {
-  createWorkshopFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    workshopID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      workshops {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    workshop {
-      id
-      name
-      email
-      fileRequests {
-        items {
-          id
-          startDate
-          expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            nextToken
-            __typename
-          }
-          playlist {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
-          createdAt
-          updatedAt
-          fileRequestPlaylistId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      submissions {
-        items {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          membershipId
-          membership {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            nextToken
-            __typename
-          }
-          stems {
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      status
-      passes
-      features {
-        mailchimp {
-          enabled
-          apiKeyName
-          listId
-          sessionTag
-          serverPrefix
-          __typename
-        }
-        __typename
-      }
-      description
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      host {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            fileSize
-            fileExtension
-            creatorEmail
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        prompts {
-          items {
-            id
-            title
-            content
-            authorEmail
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        notificationSettings {
-          emailDigest {
-            enabled
-            frequency
-            __typename
-          }
-          __typename
-        }
-        receivedComments {
-          items {
-            id
-            content
-            email
-            submissionId
-            recipientEmail
-            assignmentId
-            workshopId
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      breakoutGroups {
-        items {
-          id
-          name
-          description
-          workshopId
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          playlists {
-            nextToken
-            __typename
-          }
-          members {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      startDate
-      endDate
-      memberships {
-        items {
-          id
-          workshopId
-          email
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroupId
-          status
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          mailchimp {
-            id
-            emailAddress
-            status
-            fullName
-            uniqueEmailId
-            contactId
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateWorkshopFeedbackCategoriesMutationVariables,
-  APITypes.CreateWorkshopFeedbackCategoriesMutation
->;
-export const updateWorkshopFeedbackCategories = /* GraphQL */ `mutation UpdateWorkshopFeedbackCategories(
-  $input: UpdateWorkshopFeedbackCategoriesInput!
-  $condition: ModelWorkshopFeedbackCategoriesConditionInput
-) {
-  updateWorkshopFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    workshopID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      workshops {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    workshop {
-      id
-      name
-      email
-      fileRequests {
-        items {
-          id
-          startDate
-          expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            nextToken
-            __typename
-          }
-          playlist {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
-          createdAt
-          updatedAt
-          fileRequestPlaylistId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      submissions {
-        items {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          membershipId
-          membership {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            nextToken
-            __typename
-          }
-          stems {
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      status
-      passes
-      features {
-        mailchimp {
-          enabled
-          apiKeyName
-          listId
-          sessionTag
-          serverPrefix
-          __typename
-        }
-        __typename
-      }
-      description
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      host {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            fileSize
-            fileExtension
-            creatorEmail
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        prompts {
-          items {
-            id
-            title
-            content
-            authorEmail
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        notificationSettings {
-          emailDigest {
-            enabled
-            frequency
-            __typename
-          }
-          __typename
-        }
-        receivedComments {
-          items {
-            id
-            content
-            email
-            submissionId
-            recipientEmail
-            assignmentId
-            workshopId
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      breakoutGroups {
-        items {
-          id
-          name
-          description
-          workshopId
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          playlists {
-            nextToken
-            __typename
-          }
-          members {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      startDate
-      endDate
-      memberships {
-        items {
-          id
-          workshopId
-          email
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroupId
-          status
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          mailchimp {
-            id
-            emailAddress
-            status
-            fullName
-            uniqueEmailId
-            contactId
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateWorkshopFeedbackCategoriesMutationVariables,
-  APITypes.UpdateWorkshopFeedbackCategoriesMutation
->;
-export const deleteWorkshopFeedbackCategories = /* GraphQL */ `mutation DeleteWorkshopFeedbackCategories(
-  $input: DeleteWorkshopFeedbackCategoriesInput!
-  $condition: ModelWorkshopFeedbackCategoriesConditionInput
-) {
-  deleteWorkshopFeedbackCategories(input: $input, condition: $condition) {
-    id
-    feedbackCategoryID
-    workshopID
-    feedbackCategory {
-      id
-      name
-      title
-      description
-      submissions {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      workshops {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    workshop {
-      id
-      name
-      email
-      fileRequests {
-        items {
-          id
-          startDate
-          expiration
-          title
-          details
-          required
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          extensions {
-            nextToken
-            __typename
-          }
-          playlist {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          playlistStartDate
-          playlistExternalUrl
-          type
-          createdAt
-          updatedAt
-          fileRequestPlaylistId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      submissions {
-        items {
-          id
-          fileRequestId
-          fileRequest {
-            id
-            startDate
-            expiration
-            title
-            details
-            required
-            workshopId
-            playlistStartDate
-            playlistExternalUrl
-            type
-            createdAt
-            updatedAt
-            fileRequestPlaylistId
-            __typename
-          }
-          membershipId
-          membership {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          artist
-          name
-          email
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileId
-          fileExtension
-          rating
-          comments {
-            nextToken
-            __typename
-          }
-          stems {
-            nextToken
-            __typename
-          }
-          artwork {
-            id
-            path
-            credit
-            __typename
-          }
-          lyrics
-          requestFeedback
-          duration
-          breakoutGroupId
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshopId
-          selectedFeedbackCategories {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      status
-      passes
-      features {
-        mailchimp {
-          enabled
-          apiKeyName
-          listId
-          sessionTag
-          serverPrefix
-          __typename
-        }
-        __typename
-      }
-      description
-      artwork {
-        id
-        path
-        credit
-        __typename
-      }
-      host {
-        email
-        id
-        name
-        displayName
-        links {
-          id
-          text
-          url
-          __typename
-        }
-        avatar
-        bio
-        sub
-        apiKeys {
-          items {
-            id
-            keyName
-            createdAt
-            profileID
-            email
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        workshops {
-          items {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        submissions {
-          items {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        memberships {
-          items {
-            id
-            workshopId
-            email
-            breakoutGroupId
-            status
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        features {
-          mailchimp {
-            enabled
-            apiKeyName
-            listId
-            sessionTag
-            serverPrefix
-            __typename
-          }
-          __typename
-        }
-        playlists {
-          items {
-            public
-            title
-            breakoutGroupId
-            type
-            createdAt
-            id
-            updatedAt
-            profilePlaylistsId
-            playlistOwnerId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        uploadedStems {
-          items {
-            id
-            title
-            bpm
-            key
-            scale
-            instruments
-            notes
-            fileSize
-            fileExtension
-            creatorEmail
-            stemGroupId
-            filePath
-            artist
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        prompts {
-          items {
-            id
-            title
-            content
-            authorEmail
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        location {
-          latitude
-          longitude
-          __typename
-        }
-        notificationSettings {
-          emailDigest {
-            enabled
-            frequency
-            __typename
-          }
-          __typename
-        }
-        receivedComments {
-          items {
-            id
-            content
-            email
-            submissionId
-            recipientEmail
-            assignmentId
-            workshopId
-            parentId
-            type
-            createdAt
-            updatedAt
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      breakoutGroups {
-        items {
-          id
-          name
-          description
-          workshopId
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          playlists {
-            nextToken
-            __typename
-          }
-          members {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      startDate
-      endDate
-      memberships {
-        items {
-          id
-          workshopId
-          email
-          breakoutGroup {
-            id
-            name
-            description
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          breakoutGroupId
-          status
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          profile {
-            email
-            id
-            name
-            displayName
-            avatar
-            bio
-            sub
-            createdAt
-            updatedAt
-            __typename
-          }
-          mailchimp {
-            id
-            emailAddress
-            status
-            fullName
-            uniqueEmailId
-            contactId
-            __typename
-          }
-          submissions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      maxFeedback
-      feedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          workshopID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          workshop {
-            id
-            name
-            email
-            status
-            passes
-            description
-            startDate
-            endDate
-            maxFeedback
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteWorkshopFeedbackCategoriesMutationVariables,
-  APITypes.DeleteWorkshopFeedbackCategoriesMutation
->;
 export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionStems(
   $input: CreateSubmissionStemsInput!
   $condition: ModelSubmissionStemsConditionInput
@@ -53237,10 +45656,6 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -53398,10 +45813,6 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -53898,10 +46309,6 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -53964,46 +46371,6 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -54361,10 +46728,6 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -54522,10 +46885,6 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -55022,10 +47381,6 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -55088,46 +47443,6 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -55485,10 +47800,6 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -55646,10 +47957,6 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -56146,10 +48453,6 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             __typename
           }
           maxFeedback
-          feedbackCategories {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -56212,46 +48515,6 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
         __typename
       }
       workshopId
-      selectedFeedbackCategories {
-        items {
-          id
-          feedbackCategoryID
-          fileRequestSubmissionID
-          feedbackCategory {
-            id
-            name
-            title
-            description
-            createdAt
-            updatedAt
-            __typename
-          }
-          fileRequestSubmission {
-            id
-            fileRequestId
-            membershipId
-            artist
-            name
-            email
-            fileId
-            fileExtension
-            rating
-            lyrics
-            requestFeedback
-            duration
-            breakoutGroupId
-            workshopId
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
