@@ -35,9 +35,9 @@ type Comment = {
   createdAt: string;
   content: string;
   assignment?: {
-    playlist?: {
-      id: string;
-    };
+    id: string;
+    playlistExternalUrl?: string;
+    fileRequestPlaylistId?: string;
   };
   assignmentId?: string;
   submission?: {
@@ -108,7 +108,7 @@ const MewDigest = ({ assignment = {}, comments = [], groupComments = [], breakou
                     <Column style={{ flex: '1', padding: '0 10px' }}>
                       <strong>{comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}</strong>
                       <Text style={{ margin: 0, color: '#999' }}>{new Date(comment?.createdAt).toLocaleDateString()}</Text>
-                      <Link style={link} href={assignment?.playlist ? `${appUrl}/playlists/${assignment.playlist.id}?track=${comment?.submission?.id}` : `${appUrl}/assignments/${assignment?.id}/playlist?track=${comment?.submission?.id}`}>
+                      <Link style={link} href={comment?.assignment?.playlistExternalUrl || (comment.assignment?.fileRequestPlaylistId ? `${appUrl}/playlists/${comment.assignment?.fileRequestPlaylistId}?track=${comment?.submission?.id}` : `${appUrl}/assignments/${comment.assignment?.id}/playlist?track=${comment?.submission?.id}`)}>
                       <Text>{comment?.submission?.name}</Text>
                       </Link>
                     </Column>                    
@@ -138,7 +138,7 @@ const MewDigest = ({ assignment = {}, comments = [], groupComments = [], breakou
                     <Column style={{ flex: '1', padding: '0 10px' }}>
                       <strong>{comment?.profile?.displayName || comment?.profile?.name || 'Anonymous'}</strong>
                       <Text style={{ margin: 0, color: '#999' }}>{new Date(comment?.createdAt).toLocaleDateString()}</Text>
-                      <Link style={link} href={assignment?.playlist ? `${appUrl}/playlists/${assignment.playlist.id}?track=${comment?.submission?.id}` : `${appUrl}/assignments/${assignment?.id}/playlist?track=${comment?.submission?.id}`}>
+                      <Link style={link} href={comment?.assignment?.playlistExternalUrl || (comment.assignment?.fileRequestPlaylistId ? `${appUrl}/playlists/${comment.assignment?.fileRequestPlaylistId}?track=${comment?.submission?.id}` : `${appUrl}/assignments/${comment.assignment?.id}/playlist?track=${comment?.submission?.id}`)}>
                       <Text>{comment?.submission?.name}</Text>
                       </Link>
                     </Column>

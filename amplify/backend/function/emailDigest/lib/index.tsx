@@ -72,6 +72,11 @@ interface Comment {
         id: string;
         name: string;
     };
+    assignment: {
+        id: string;
+        fileRequestPlaylistId: string;
+        playlistExternalUrl: string;
+    };
     submissionId: string;
     createdAt: string;
     profile: {
@@ -220,6 +225,11 @@ export const handler: APIGatewayProxyHandler = async (event) => {
                                 name
                             }
                             breakoutGroupId
+                        }
+                        assignment {
+                            id
+                            fileRequestPlaylistId
+                            playlistExternalUrl
                         }
                         submissionId
                         createdAt
