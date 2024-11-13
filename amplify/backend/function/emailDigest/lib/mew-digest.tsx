@@ -94,7 +94,7 @@ const MewDigest = ({ assignment = {}, comments = [], groupComments = [], breakou
             </section>
             { comments.length > 0 && (<section>
               <Heading as="h3" style={{ color: '#333' }}>Recent Feedback for You</Heading>
-              <Text>(Below is a selection of {comments.length > 5 ? 5 : comments.length} of the most recent comments. <Link href={`${appUrl}/feedback`} style={{ textDecoration: 'none', color: '#E092A2' }}>See more in the Feed app.</Link>)</Text>
+              <Text>(Below is a selection of {comments.length > 5 ? 5 : comments.length} of the most recent comments. <Link href={`${appUrl}/feedback`} style={{ textDecoration: 'none', color: '#E092A2' }}>See more in the app.</Link>)</Text>
                 <ul style={{ listStyleType: 'none', padding: 0, width: '100%' }}>
                 {comments.map((comment, index) => (
                   <li key={index} style={{ marginBottom: '20px', borderBottom: '1px solid #eaeaea', paddingBottom: '10px', width: '100%' }}>
