@@ -301,7 +301,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         return response.listMemberships.items;
     };
 
-    const days = 7; // Number of days to look back for past due assignments
+    const days = 14; // Number of days to look back for past due assignments
     const pastDueAssignments = await getPastDueAssignments(days);
     const activeMembers = await getActiveMembers();
 
