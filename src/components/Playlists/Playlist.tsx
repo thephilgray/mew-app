@@ -100,12 +100,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             const workshop = fetchGetFileRequestData.getFileRequest?.workshop
             const userSubmission = fetchGetFileRequestData.getFileRequest?.submissions?.items?.find(submission => submission.email === user?.email)
             const userBreakoutGroupFromSubmission = userSubmission?.breakoutGroup
-            const result =  {
+            const result = {
                 breakoutGroupName: userBreakoutGroupFromSubmission?.name || getBreakoutGroupName(workshop, user),
                 breakoutGroupId: userBreakoutGroupFromSubmission?.id || getBreakoutGroup(workshop, user)?.id
             }
             const breakoutGroupHasTracks = fetchGetFileRequestData.getFileRequest?.submissions?.items?.some(submission => submission.breakoutGroup?.id === result.breakoutGroupId)
-            return {...result, breakoutGroupHasTracks};
+            return { ...result, breakoutGroupHasTracks };
         } else {
             return { breakoutGroupName: '', breakoutGroupId: '', breakoutGroupHasTracks: false }
         }
@@ -217,10 +217,10 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     setCurrentIndex(trackIndex)
                     setToggleTrackView(true)
                 }
-            } else if(toggleTrackView){
+            } else if (toggleTrackView) {
                 // do nothing if it's already in track view
                 // setToggleTrackView(true)
-            } 
+            }
             else {
                 setToggleTrackView(false)
             }
@@ -355,16 +355,24 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             // @ts-ignore
             if (data?.submissions?.items) {
                 // @ts-ignore
-                for (let index = 0; index < data.submissions.items.length; index++) {
+                const sortedSubmissions = orderBy(data.submissions.items, 'createdAt', 'asc')
+                    .map(
+                        (submission, index) => ({
+                            ...submission,
+                            order: index,
+                        })
+                    );
+                for (let index = 0; index < sortedSubmissions.length; index++) {
                     // @ts-ignore
-                    const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments } = data.submissions.items[index]
+                    const { name, order, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments } = sortedSubmissions[index];
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId) && (!breakoutGroupId || (toggleBreakoutView && breakoutGroupId === breakoutGroup?.id)) || (!toggleBreakoutView)) {
-                        const songFilePath = `${assignmentId}/${fileId}`
-                        const musicSrc = getCloudFrontURL(songFilePath)
+                        const songFilePath = `${assignmentId}/${fileId}`;
+                        const musicSrc = getCloudFrontURL(songFilePath);
                         // const trackDuration = await fetchDuration(musicSrc)
                         // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
                         songs.push({
+                            order,
                             musicSrc,
                             trackDuration: duration,
                             name,
@@ -378,12 +386,14 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             assignmentId,
                             requestFeedback,
                             commentsCount: comments?.items?.length
-                        })
-                        seenFileIds.push(fileId)
+                        });
+                        seenFileIds.push(fileId);
                     }
                 }
-                setAudioLists(songs)
+                const initiallySorted = orderBy(songs, 'commentsCount', 'asc');
+                setAudioLists(initiallySorted);
             }
+
         } else if (playlistId) {
             // @ts-ignore
             if (data?.tracks?.items) {
@@ -645,23 +655,44 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                     </If>
                                 </Grid>
                                 <Grid item xs={12} sx={{ pb: '100px' }}>
-                                    <Typography variant="h6">Tracks</Typography>
+                                    <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" flexWrap="wrap">
+                                        <Typography variant="h6">Tracks</Typography>
+                                        <If condition={!!assignmentId}>
+                                            <Stack direction="row" spacing={1} alignItems="center" flexShrink={0}>
+                                                <Typography>Original order</Typography>
+                                                <Switch
+                                                    defaultChecked={true}
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            const sortedByComments = orderBy(audioLists, 'commentsCount', 'asc');
+                                                            setAudioLists(sortedByComments);
+                                                        } else {
+                                                            const originalOrder = orderBy(audioLists, 'order');
+                                                            setAudioLists(originalOrder);
+                                                        }
+                                                    }}
+                                                    inputProps={{ 'aria-label': 'Sort toggle' }}
+                                                />
+                                                <Typography>Least reviewed</Typography>
+                                            </Stack>
+                                        </If>
+                                    </Stack>
                                     <If condition={!!audioLists?.length} fallbackContent={addSongsToPlaylistLoading ? <CircularProgress /> : <Typography>No tracks in {toggleBreakoutView ? 'breakout view of ' : ''} playlist.</Typography>}>
                                         <Stack direction="column" sx={{ minWidth: 0 }}>
                                             {audioLists.map((item, index) => (
                                                 <TrackListItem
                                                     isCurrentIndex={index === currentIndex}
-                                                    key={item.submissionId} 
+                                                    key={item.submissionId}
                                                     onClick={() => {
                                                         setCurrentIndex(index)
-                                                        if(isPlaying) {
+                                                        if (isPlaying) {
                                                             playerRef?.current?.pause()
                                                             setIsPlaying(false)
                                                         } else {
                                                             playerRef?.current?.play()
                                                             setIsPlaying(true)
                                                         }
-                                                            
+
                                                     }}>
                                                     <Box sx={{
                                                         display: 'flex',
@@ -679,7 +710,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                                             }}></div>
                                                         </Box>
                                                         <Typography noWrap sx={{ marginRight: 'auto' }}>
-                                                            {index + 1} {item.singer} – {item.name}
+                                                            {item.order !== undefined ? item.order + 1 : index + 1} {item.singer} – {item.name}
                                                         </Typography>
                                                         <IconButton
                                                             onClick={(e) => {
@@ -694,7 +725,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                                             </Badge>
                                                         </IconButton>
                                                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                                            {isPlaying && currentIndex === index ? <Pause /> : <PlayArrowOutlined /> }
+                                                            {isPlaying && currentIndex === index ? <Pause /> : <PlayArrowOutlined />}
                                                             <If condition={trackDurations.length}>
                                                                 <Typography variant='caption'>
                                                                     {formatAudioDuration(item.trackDuration || trackDurations[index])}
@@ -724,113 +755,113 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             </If>
             {/* </If> */}
             <If condition={toggleTrackView}>
-            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex]} fallbackContent={
-                <Grid item xs={12}>
-                    <p>No tracks in {toggleBreakoutView ? 'breakout view of ' : ''} playlist.</p>
-                </Grid>
-            } >
-                <Grid item xs={12}>
-                    <Card sx={{
-                        display: 'flex',
-                        height: '380px',
-                        backgroundImage: palette ? `linear-gradient(${palette[0]}80, ${palette[1]}80), url(${PLAYLIST_ARTWORK})` : `url(${PLAYLIST_ARTWORK})`,
-                        backgroundSize: 'cover'
-                    }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                            <CardContent sx={{ flex: '1 0 auto' }}>
-                                <Typography component="h2" variant="h5" color="white" style={{ lineHeight: "37px", backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, padding: "4px 7px" }}>
-                                    {audioLists?.[currentIndex]?.name?.toString()}
-                                </Typography>
-                                <If condition={audioLists?.[currentIndex]?.profile?.id} fallbackContent={
-                                    <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
-                                        {audioLists?.[currentIndex]?.singer?.toString()}
+                <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex]} fallbackContent={
+                    <Grid item xs={12}>
+                        <p>No tracks in {toggleBreakoutView ? 'breakout view of ' : ''} playlist.</p>
+                    </Grid>
+                } >
+                    <Grid item xs={12}>
+                        <Card sx={{
+                            display: 'flex',
+                            height: '380px',
+                            backgroundImage: palette ? `linear-gradient(${palette[0]}80, ${palette[1]}80), url(${PLAYLIST_ARTWORK})` : `url(${PLAYLIST_ARTWORK})`,
+                            backgroundSize: 'cover'
+                        }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <CardContent sx={{ flex: '1 0 auto' }}>
+                                    <Typography component="h2" variant="h5" color="white" style={{ lineHeight: "37px", backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, padding: "4px 7px" }}>
+                                        {audioLists?.[currentIndex]?.name?.toString()}
                                     </Typography>
-                                }>
-                                    <Link to={ROUTES.viewProfile.getPath({ profileId: audioLists?.[currentIndex]?.profile?.id })} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <If condition={audioLists?.[currentIndex]?.profile?.id} fallbackContent={
                                         <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
                                             {audioLists?.[currentIndex]?.singer?.toString()}
                                         </Typography>
-                                    </Link>
-                                </If>
-                            </CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)", width: '150px' }}>
-                                <IconButton aria-label="previous" onClick={() => playerRef.current.playPrev()}>
-                                    {theme.direction === 'rtl' ? <SkipNextIcon sx={{ color: "#fff" }} /> : <SkipPreviousIcon sx={{ color: "#fff" }} />}
-                                </IconButton>
-                                {
-                                    !!isPlaying ?
-                                        <IconButton aria-label="pause" onClick={() => {
-                                            playerRef.current.pause()
-                                        }
-                                        }>
-                                            <Pause sx={{ color: "#fff", height: 38, width: 38 }} />
-                                        </IconButton>
-                                        : <IconButton aria-label="play" onClick={() => {
-                                            playerRef.current.play()
+                                    }>
+                                        <Link to={ROUTES.viewProfile.getPath({ profileId: audioLists?.[currentIndex]?.profile?.id })} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
+                                                {audioLists?.[currentIndex]?.singer?.toString()}
+                                            </Typography>
+                                        </Link>
+                                    </If>
+                                </CardContent>
+                                <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)", width: '150px' }}>
+                                    <IconButton aria-label="previous" onClick={() => playerRef.current.playPrev()}>
+                                        {theme.direction === 'rtl' ? <SkipNextIcon sx={{ color: "#fff" }} /> : <SkipPreviousIcon sx={{ color: "#fff" }} />}
+                                    </IconButton>
+                                    {
+                                        !!isPlaying ?
+                                            <IconButton aria-label="pause" onClick={() => {
+                                                playerRef.current.pause()
+                                            }
+                                            }>
+                                                <Pause sx={{ color: "#fff", height: 38, width: 38 }} />
+                                            </IconButton>
+                                            : <IconButton aria-label="play" onClick={() => {
+                                                playerRef.current.play()
+                                            }}>
+                                                <PlayArrowIcon sx={{ color: "#fff", height: 38, width: 38 }} />
+                                            </IconButton>
+
+
+                                    }
+                                    <IconButton aria-label="next" onClick={() => playerRef.current.playNext()}>
+                                        {theme.direction === 'rtl' ? <SkipPreviousIcon sx={{ color: "#fff" }} /> : <SkipNextIcon sx={{ color: "#fff" }} />}
+                                    </IconButton>
+                                </Box>
+                            </Box>
+                            <Box sx={{ alignSelf: 'center', marginLeft: 'auto', paddingRight: '0.5em' }}>
+                                <CardMedia
+                                    component="img"
+                                    image={SONG_ARTWORK}
+                                    alt={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
+                                        currentIndex
+                                    ]?.singer?.toString()}`}
+                                />
+
+                            </Box>
+                            <If condition={loggedIn}>
+                                <Box sx={{ float: 'right', m: 1 }}>
+                                    <IconButton
+                                        onClick={() => setPlaylistMenuOpen(!playlistMenuOpen)}
+                                        ref={trackPlaylistMenuRef}
+                                        sx={{
+                                            backgroundColor: 'rgba(0,0,0,.75)',
+                                            '&:hover': { backgroundColor: 'rgba(255,255,255,1)' }
                                         }}>
-                                            <PlayArrowIcon sx={{ color: "#fff", height: 38, width: 38 }} />
-                                        </IconButton>
-
-
-                                }
-                                <IconButton aria-label="next" onClick={() => playerRef.current.playNext()}>
-                                    {theme.direction === 'rtl' ? <SkipPreviousIcon sx={{ color: "#fff" }} /> : <SkipNextIcon sx={{ color: "#fff" }} />}
-                                </IconButton>
-                            </Box>
-                        </Box>
-                        <Box sx={{ alignSelf: 'center', marginLeft: 'auto', paddingRight: '0.5em' }}>
-                            <CardMedia
-                                component="img"
-                                image={SONG_ARTWORK}
-                                alt={`${audioLists?.[currentIndex]?.name?.toString()} by ${audioLists?.[
-                                    currentIndex
-                                ]?.singer?.toString()}`}
-                            />
-
-                        </Box>
-                        <If condition={loggedIn}>
-                            <Box sx={{ float: 'right', m: 1 }}>
-                                <IconButton
-                                    onClick={() => setPlaylistMenuOpen(!playlistMenuOpen)}
-                                    ref={trackPlaylistMenuRef}
-                                    sx={{
-                                        backgroundColor: 'rgba(0,0,0,.75)',
-                                        '&:hover': { backgroundColor: 'rgba(255,255,255,1)' }
-                                    }}>
-                                    <MoreVert color='secondary'></MoreVert>
-                                </IconButton>
-                                <PlaylistMenu menuRef={trackPlaylistMenuRef} />
-                            </Box>
-                        </If>
-                    </Card>
-                </Grid >
-            </If>
-            <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex]}>
-                <If condition={!!audioLists?.[currentIndex]?.lyrics}>
-                    <Grid item xs={12}>
-                        <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-                            <Typography variant="body2">
-                                {audioLists?.[currentIndex]?.lyrics}
-                            </Typography>
-                        </pre>
-                    </Grid>
+                                        <MoreVert color='secondary'></MoreVert>
+                                    </IconButton>
+                                    <PlaylistMenu menuRef={trackPlaylistMenuRef} />
+                                </Box>
+                            </If>
+                        </Card>
+                    </Grid >
                 </If>
-                <Grid item xs={12} sx={{ pb: '100px' }}>
-                    <If condition={!!loggedIn}
-                        fallbackContent={<Alert severity="info">
-                            <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for comments and more content and features.
-                        </Alert>}>
-                        <FeedbackSection
-                            requestedFeedback={!!audioLists?.[currentIndex]?.requestFeedback}
-                            assignmentId={assignmentId || audioLists?.[currentIndex]?.assignmentId}
-                            submissionId={audioLists?.[currentIndex]?.submissionId}
-                            recipientEmail={audioLists?.[currentIndex]?.profile?.email}
-                            workshopId={data?.workshopId || audioLists?.[currentIndex]?.workshopId}
-                            showToggle={false}
-                        />
+                <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex]}>
+                    <If condition={!!audioLists?.[currentIndex]?.lyrics}>
+                        <Grid item xs={12}>
+                            <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                                <Typography variant="body2">
+                                    {audioLists?.[currentIndex]?.lyrics}
+                                </Typography>
+                            </pre>
+                        </Grid>
                     </If>
-                </Grid>
-            </If >
+                    <Grid item xs={12} sx={{ pb: '100px' }}>
+                        <If condition={!!loggedIn}
+                            fallbackContent={<Alert severity="info">
+                                <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for comments and more content and features.
+                            </Alert>}>
+                            <FeedbackSection
+                                requestedFeedback={!!audioLists?.[currentIndex]?.requestFeedback}
+                                assignmentId={assignmentId || audioLists?.[currentIndex]?.assignmentId}
+                                submissionId={audioLists?.[currentIndex]?.submissionId}
+                                recipientEmail={audioLists?.[currentIndex]?.profile?.email}
+                                workshopId={data?.workshopId || audioLists?.[currentIndex]?.workshopId}
+                                showToggle={false}
+                            />
+                        </If>
+                    </Grid>
+                </If >
             </If>
             <Snackbar
                 anchorOrigin={{
