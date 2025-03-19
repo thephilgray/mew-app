@@ -355,10 +355,16 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
             // @ts-ignore
             if (data?.submissions?.items) {
                 // @ts-ignore
-                const sortedSubmissions = orderBy(data.submissions.items, 'submissionDate', 'asc');
+                const sortedSubmissions = orderBy(data.submissions.items, 'createdAt', 'asc')
+                    .map(
+                        (submission, index) => ({
+                            ...submission,
+                            order: index,
+                        })
+                    );
                 for (let index = 0; index < sortedSubmissions.length; index++) {
                     // @ts-ignore
-                    const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments } = sortedSubmissions[index];
+                    const { name, order, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments } = sortedSubmissions[index];
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId) && (!breakoutGroupId || (toggleBreakoutView && breakoutGroupId === breakoutGroup?.id)) || (!toggleBreakoutView)) {
                         const songFilePath = `${assignmentId}/${fileId}`;
@@ -366,7 +372,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         // const trackDuration = await fetchDuration(musicSrc)
                         // const fileAccessURL = await Storage.get(songFilePath, { expires: 86400 })
                         songs.push({
-                            order: index,
+                            order,
                             musicSrc,
                             trackDuration: duration,
                             name,
