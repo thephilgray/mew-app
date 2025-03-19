@@ -421,7 +421,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         seenFileIds.push(fileId)
                     }
                 }
-                const sortedSongs = orderBy(songs, 'commentsCount', 'asc')
+                const sortedSongs = orderBy(songs, 'order')
                 setAudioLists(sortedSongs)
             }
         }
