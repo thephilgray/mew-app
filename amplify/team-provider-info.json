@@ -23,17 +23,52 @@
         },
         "runProcessAudioTask": {
           "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
-          "s3Key": "amplify-builds/runProcessAudioTask-436547654c62375a3735-build.zip"
+          "s3Key": "amplify-builds/runProcessAudioTask-46596373556d70667633-build.zip"
         },
         "mewappacdc5d0eCreateAuthChallenge": {
-          "secretsPathAmplifyAppId": "d1yi6qc6rnncji"
+          "secretsPathAmplifyAppId": "d1yi6qc6rnncji",
+          "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0eCreateAuthChallenge-4e70334a467378353966-build.zip"
         },
         "membershipService": {
-          "secretsPathAmplifyAppId": "d1yi6qc6rnncji"
+          "secretsPathAmplifyAppId": "d1yi6qc6rnncji",
+          "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
+          "s3Key": "amplify-builds/membershipService-675279356e7577445176-build.zip"
+        },
+        "emailDigest": {
+          "gatsbyAppUrl": "https://www.musiceveryweek.org",
+          "gatsbyCloudfrontDistribution": "https://d8qefxpi8k87w.cloudfront.net",
+          "mailerSendApiKey": "mlsn.244faa2b420ef1cbbfbce9027cb8f9bd0646bd742851954eca67f140036627c7",
+          "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
+          "s3Key": "amplify-builds/emailDigest-614832734a79682f4d56-build.zip"
+        },
+        "AdminQueriesd92d7feb": {
+          "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
+          "s3Key": "amplify-builds/AdminQueriesd92d7feb-71666f4666445632756a-build.zip"
+        },
+        "mewProfileService": {
+          "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
+          "s3Key": "amplify-builds/mewProfileService-50365969727153614937-build.zip"
+        },
+        "mewappacdc5d0eDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0eDefineAuthChallenge-54754432493365614130-build.zip"
+        },
+        "mewappacdc5d0ePreSignup": {
+          "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0ePreSignup-594f3732366f53723775-build.zip"
+        },
+        "mewappacdc5d0eVerifyAuthChallengeResponse": {
+          "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
+          "s3Key": "amplify-builds/mewappacdc5d0eVerifyAuthChallengeResponse-704c6f2f484363666336-build.zip"
         }
       },
       "auth": {
-        "mewappacdc5d0e": {}
+        "mewappacdc5d0e": {},
+        "userPoolGroups": {}
+      },
+      "storage": {
+        "mewapp": {}
       }
     }
   },
@@ -193,7 +228,7 @@
         "userPoolGroups": {},
         "emailDigest": {
           "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
-          "s3Key": "amplify-builds/emailDigest-75784772466739672b71-build.zip",
+          "s3Key": "amplify-builds/emailDigest-614832734a79682f4d56-build.zip",
           "mailerSendApiKey": "mlsn.244faa2b420ef1cbbfbce9027cb8f9bd0646bd742851954eca67f140036627c7",
           "gatsbyCloudfrontDistribution": "https://djd8nzekpzdba.cloudfront.net",
           "gatsbyAppUrl": "http://localhost:8000"

@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.handler = void 0;
 var axios_1 = __importDefault(require("axios"));
 var mailersend_1 = require("mailersend");
@@ -59,7 +59,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                     var html;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
-                            case 0: return [4 /*yield*/, (0, render_1.render)(react_1.default.createElement(mew_digest_1.default, { assignment: assignment, comments: comments, groupComments: groupComments, breakoutGroupMembers: breakoutGroupMembers, breakoutGroupName: breakoutGroupName }))];
+                            case 0: return [4 /*yield*/, (0, render_1.render)(react_1["default"].createElement(mew_digest_1["default"], { assignment: assignment, comments: comments, groupComments: groupComments, breakoutGroupMembers: breakoutGroupMembers, breakoutGroupName: breakoutGroupName }))];
                             case 1:
                                 html = _a.sent();
                                 return [2 /*return*/, html];
@@ -70,10 +70,10 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                     var response;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
-                            case 0: return [4 /*yield*/, axios_1.default.post(GRAPHQL_ENDPOINT, { query: query, variables: variables }, {
+                            case 0: return [4 /*yield*/, axios_1["default"].post(GRAPHQL_ENDPOINT, { query: query, variables: variables }, {
                                     headers: {
-                                        'x-api-key': GRAPHQL_API_KEY,
-                                    },
+                                        'x-api-key': GRAPHQL_API_KEY
+                                    }
                                 })];
                             case 1:
                                 response = _a.sent();
@@ -87,7 +87,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                         switch (_a.label) {
                             case 0:
                                 mailerSend = new mailersend_1.MailerSend({
-                                    apiKey: MAILER_SEND_API_KEY,
+                                    apiKey: MAILER_SEND_API_KEY
                                 });
                                 emailParams = new mailersend_1.EmailParams()
                                     .setFrom(new mailersend_1.Sender('support@musiceveryweek.org', 'MEW (Music Every Week)'))
@@ -128,7 +128,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                     return __generator(this, function (_b) {
                         switch (_b.label) {
                             case 0:
-                                query = "\n            query commentsByDate($filter: ModelCommentFilterInput, $limit: Int) {\n                commentsByDate(filter: $filter, sortDirection: DESC, type: \"Comment\", limit: $limit) {\n                    items {\n                        content\n                        submission {\n                            id\n                            name\n                            breakoutGroup {\n                                id\n                                name\n                            }\n                            breakoutGroupId\n                        }\n                        submissionId\n                        createdAt\n                        profile {\n                            id\n                            email\n                            displayName\n                            name\n                            avatar\n                        }\n                    }\n                }\n            }\n        ";
+                                query = "\n            query commentsByDate($filter: ModelCommentFilterInput, $limit: Int) {\n                commentsByDate(filter: $filter, sortDirection: DESC, type: \"Comment\", limit: $limit) {\n                    items {\n                        content\n                        submission {\n                            id\n                            name\n                            breakoutGroup {\n                                id\n                                name\n                            }\n                            breakoutGroupId\n                        }\n                        assignment {\n                            id\n                            fileRequestPlaylistId\n                            playlistExternalUrl\n                        }\n                        submissionId\n                        createdAt\n                        profile {\n                            id\n                            email\n                            displayName\n                            name\n                            avatar\n                        }\n                    }\n                }\n            }\n        ";
                                 variables = {
                                     filter: {
                                         email: { ne: email },
@@ -178,7 +178,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                         }
                     });
                 }); };
-                days = 7;
+                days = 14;
                 return [4 /*yield*/, getPastDueAssignments(days)];
             case 1:
                 pastDueAssignments = _a.sent();
@@ -203,67 +203,69 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                 emailsSent = [];
                 emailsFailed = [];
                 emailContent = null;
-                return [4 /*yield*/, Promise.all(Object.entries(emailCommentsMap).map(function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
-                        var mostRecentAssignment, comments, groupComments, error_2, error_3, userBreakoutGroupId_1, filteredSortedGroupComments, error_4;
-                        var _c, _d;
-                        var email = _b[0], _e = _b[1], assignments = _e.assignments, member = _e.member;
-                        return __generator(this, function (_f) {
-                            switch (_f.label) {
-                                case 0:
-                                    _f.trys.push([0, 10, , 11]);
-                                    mostRecentAssignment = assignments.find(function (a) { return a.expiration === assignments.reduce(function (a, b) { return new Date(a.expiration) > new Date(b.expiration) ? a : b; }).expiration; });
-                                    comments = [];
-                                    groupComments = [];
-                                    _f.label = 1;
-                                case 1:
-                                    _f.trys.push([1, 3, , 4]);
-                                    return [4 /*yield*/, getCommentsOnSubmissions(email, true)];
-                                case 2:
-                                    comments = _f.sent();
-                                    return [3 /*break*/, 4];
-                                case 3:
-                                    error_2 = _f.sent();
-                                    console.log("Error fetching comments for ".concat(email, ": ").concat(error_2));
-                                    return [3 /*break*/, 4];
-                                case 4:
-                                    _f.trys.push([4, 6, , 7]);
-                                    return [4 /*yield*/, getCommentsOnSubmissions(email, false)];
-                                case 5:
-                                    groupComments = _f.sent();
-                                    return [3 /*break*/, 7];
-                                case 6:
-                                    error_3 = _f.sent();
-                                    console.log("Error fetching group comments for ".concat(email, ": ").concat(error_3));
-                                    return [3 /*break*/, 7];
-                                case 7:
-                                    userBreakoutGroupId_1 = member.breakoutGroupId;
-                                    filteredSortedGroupComments = groupComments.filter(function (c) { return c.email !== email; });
-                                    // if the user is in a breakout group, sort the group comments so that the user's group comments are shown first
-                                    if (userBreakoutGroupId_1) {
-                                        filteredSortedGroupComments = groupComments.sort(function (a, b) { var _a, _b; return (((_a = a.submission) === null || _a === void 0 ? void 0 : _a.breakoutGroupId) === userBreakoutGroupId_1 ? -1 : 1) - (((_b = b.submission) === null || _b === void 0 ? void 0 : _b.breakoutGroupId) === userBreakoutGroupId_1 ? -1 : 1); });
-                                        emailCommentsMap[email].breakoutGroupMembers = activeMembers.filter(function (m) { return m.breakoutGroupId === userBreakoutGroupId_1; }).filter(function (m) { return m.email !== email; });
-                                        emailCommentsMap[email].breakoutGroupName = member.breakoutGroup.name;
-                                    }
-                                    (_c = emailCommentsMap[email].comments).push.apply(_c, comments);
-                                    (_d = emailCommentsMap[email].groupComments).push.apply(_d, filteredSortedGroupComments);
-                                    return [4 /*yield*/, generateEmailContent(mostRecentAssignment, emailCommentsMap[email].comments.slice(0, 5), emailCommentsMap[email].groupComments.slice(0, 5), emailCommentsMap[email].breakoutGroupMembers, emailCommentsMap[email].breakoutGroupName)];
-                                case 8:
-                                    emailContent = _f.sent();
-                                    return [4 /*yield*/, sendEmail(email, "Your Weekly Digest", emailContent)];
-                                case 9:
-                                    _f.sent();
-                                    console.log("Sent email to ".concat(email, ": ").concat(emailContent));
-                                    emailsSent.push({ email: email, emailContent: emailContent });
-                                    return [3 /*break*/, 11];
-                                case 10:
-                                    error_4 = _f.sent();
-                                    console.log(error_4);
-                                    emailsFailed.push({ email: email, emailContent: emailContent, error: error_4 });
-                                    return [3 /*break*/, 11];
-                                case 11: return [2 /*return*/];
-                            }
+                return [4 /*yield*/, Promise.all(Object.entries(emailCommentsMap).map(function (_a) {
+                        var email = _a[0], _b = _a[1], assignments = _b.assignments, member = _b.member;
+                        return __awaiter(void 0, void 0, void 0, function () {
+                            var mostRecentAssignment, comments, groupComments, error_2, error_3, userBreakoutGroupId_1, filteredSortedGroupComments, error_4;
+                            var _c, _d;
+                            return __generator(this, function (_e) {
+                                switch (_e.label) {
+                                    case 0:
+                                        _e.trys.push([0, 10, , 11]);
+                                        mostRecentAssignment = assignments.find(function (a) { return a.expiration === assignments.reduce(function (a, b) { return new Date(a.expiration) > new Date(b.expiration) ? a : b; }).expiration; });
+                                        comments = [];
+                                        groupComments = [];
+                                        _e.label = 1;
+                                    case 1:
+                                        _e.trys.push([1, 3, , 4]);
+                                        return [4 /*yield*/, getCommentsOnSubmissions(email, true)];
+                                    case 2:
+                                        comments = _e.sent();
+                                        return [3 /*break*/, 4];
+                                    case 3:
+                                        error_2 = _e.sent();
+                                        console.log("Error fetching comments for ".concat(email, ": ").concat(error_2));
+                                        return [3 /*break*/, 4];
+                                    case 4:
+                                        _e.trys.push([4, 6, , 7]);
+                                        return [4 /*yield*/, getCommentsOnSubmissions(email, false)];
+                                    case 5:
+                                        groupComments = _e.sent();
+                                        return [3 /*break*/, 7];
+                                    case 6:
+                                        error_3 = _e.sent();
+                                        console.log("Error fetching group comments for ".concat(email, ": ").concat(error_3));
+                                        return [3 /*break*/, 7];
+                                    case 7:
+                                        userBreakoutGroupId_1 = member.breakoutGroupId;
+                                        filteredSortedGroupComments = groupComments.filter(function (c) { return c.email !== email; });
+                                        // if the user is in a breakout group, sort the group comments so that the user's group comments are shown first
+                                        if (userBreakoutGroupId_1) {
+                                            filteredSortedGroupComments = groupComments.sort(function (a, b) { var _a, _b; return (((_a = a.submission) === null || _a === void 0 ? void 0 : _a.breakoutGroupId) === userBreakoutGroupId_1 ? -1 : 1) - (((_b = b.submission) === null || _b === void 0 ? void 0 : _b.breakoutGroupId) === userBreakoutGroupId_1 ? -1 : 1); });
+                                            emailCommentsMap[email].breakoutGroupMembers = activeMembers.filter(function (m) { return m.breakoutGroupId === userBreakoutGroupId_1; }).filter(function (m) { return m.email !== email; });
+                                            emailCommentsMap[email].breakoutGroupName = member.breakoutGroup.name;
+                                        }
+                                        (_c = emailCommentsMap[email].comments).push.apply(_c, comments);
+                                        (_d = emailCommentsMap[email].groupComments).push.apply(_d, filteredSortedGroupComments);
+                                        return [4 /*yield*/, generateEmailContent(mostRecentAssignment, emailCommentsMap[email].comments.slice(0, 5), emailCommentsMap[email].groupComments.slice(0, 5), emailCommentsMap[email].breakoutGroupMembers, emailCommentsMap[email].breakoutGroupName)];
+                                    case 8:
+                                        emailContent = _e.sent();
+                                        return [4 /*yield*/, sendEmail(email, "Your Weekly Digest", emailContent)];
+                                    case 9:
+                                        _e.sent();
+                                        console.log("Sent email to ".concat(email, ": ").concat(emailContent));
+                                        emailsSent.push({ email: email, emailContent: emailContent });
+                                        return [3 /*break*/, 11];
+                                    case 10:
+                                        error_4 = _e.sent();
+                                        console.log(error_4);
+                                        emailsFailed.push({ email: email, emailContent: emailContent, error: error_4 });
+                                        return [3 /*break*/, 11];
+                                    case 11: return [2 /*return*/];
+                                }
+                            });
                         });
-                    }); }))];
+                    }))];
             case 3:
                 _a.sent();
                 return [2 /*return*/, {
@@ -273,7 +275,7 @@ var handler = function (event) { return __awaiter(void 0, void 0, void 0, functi
                         //     "Access-Control-Allow-Origin": "*",
                         //     "Access-Control-Allow-Headers": "*"
                         // },
-                        body: JSON.stringify({ emailsSent: emailsSent, numberOfEmailsSent: emailsSent.length, emailsFailed: emailsFailed, numberOfEmailsFailed: emailsFailed.length }),
+                        body: JSON.stringify({ emailsSent: emailsSent, numberOfEmailsSent: emailsSent.length, emailsFailed: emailsFailed, numberOfEmailsFailed: emailsFailed.length })
                     }];
         }
     });
