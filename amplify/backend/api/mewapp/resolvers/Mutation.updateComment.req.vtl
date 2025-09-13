@@ -1,0 +1,34 @@
+## Automatically set the updatedAt timestamp.
+$util.qr($ctx.args.input.put("updatedAt", $util.time.nowISO8601()))
+
+## Create a copy of the input, adding the version field.
+#set( $input = $util.copy($ctx.args.input) )
+$util.qr($input.put("version", 1))
+
+## TransactWriteItems Update.
+{
+  "version": "2018-05-29",
+  "operation": "UpdateItem",
+  "key": {
+    "id": $util.dynamodb.toDynamoDBJson($ctx.args.input.id)
+  },
+  "update": {
+    "expression": "SET #version = :version, #updatedAt = :updatedAt, #content = :content",
+    "expressionNames": {
+      "#version": "version",
+      "#updatedAt": "updatedAt",
+      "#content": "content"
+    },
+    "expressionValues": {
+      ":version": $util.dynamodb.toDynamoDBJson(1),
+      ":updatedAt": $util.dynamodb.toDynamoDBJson($ctx.args.input.updatedAt),
+      ":content": $util.dynamodb.toDynamoDBJson($ctx.args.input.content)
+    }
+  },
+  "condition": {
+    "expression": "attribute_exists(#id)",
+    "expressionNames": {
+      "#id": "id"
+    }
+  }
+}
