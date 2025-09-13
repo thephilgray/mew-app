@@ -36,9 +36,6 @@
           "s3Key": "amplify-builds/membershipService-675279356e7577445176-build.zip"
         },
         "emailDigest": {
-          "gatsbyAppUrl": "https://www.musiceveryweek.org",
-          "gatsbyCloudfrontDistribution": "https://d8qefxpi8k87w.cloudfront.net",
-          "mailerSendApiKey": "mlsn.244faa2b420ef1cbbfbce9027cb8f9bd0646bd742851954eca67f140036627c7",
           "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
           "s3Key": "amplify-builds/emailDigest-614832734a79682f4d56-build.zip"
         },
@@ -229,9 +226,7 @@
         "emailDigest": {
           "deploymentBucketName": "amplify-mewapp-develop-c7bb8-deployment",
           "s3Key": "amplify-builds/emailDigest-614832734a79682f4d56-build.zip",
-          "mailerSendApiKey": "mlsn.244faa2b420ef1cbbfbce9027cb8f9bd0646bd742851954eca67f140036627c7",
-          "gatsbyCloudfrontDistribution": "https://djd8nzekpzdba.cloudfront.net",
-          "gatsbyAppUrl": "http://localhost:8000"
+          "secretsPathAmplifyAppId": "d1yi6qc6rnncji"
         }
       },
       "api": {

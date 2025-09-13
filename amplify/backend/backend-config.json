@@ -300,31 +300,15 @@
         }
       ]
     },
-    "AMPLIFY_function_emailDigest_gatsbyAppUrl": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "emailDigest"
-        }
-      ]
-    },
-    "AMPLIFY_function_emailDigest_gatsbyCloudfrontDistribution": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "emailDigest"
-        }
-      ]
-    },
-    "AMPLIFY_function_emailDigest_mailerSendApiKey": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "emailDigest"
-        }
-      ]
-    },
     "AMPLIFY_function_emailDigest_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emailDigest"
+        }
+      ]
+    },
+    "AMPLIFY_function_emailDigest_secretsPathAmplifyAppId": {
       "usedBy": [
         {
           "category": "function",
