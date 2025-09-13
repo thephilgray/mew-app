@@ -37,7 +37,8 @@
         },
         "emailDigest": {
           "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
-          "s3Key": "amplify-builds/emailDigest-614832734a79682f4d56-build.zip"
+          "s3Key": "amplify-builds/emailDigest-614832734a79682f4d56-build.zip",
+          "secretsPathAmplifyAppId": "d1yi6qc6rnncji"
         },
         "AdminQueriesd92d7feb": {
           "deploymentBucketName": "amplify-mewapp-production-15126-deployment",
@@ -65,6 +66,10 @@
         "userPoolGroups": {}
       },
       "storage": {
+        "mewapp": {}
+      },
+      "api": {
+        "AdminQueries": {},
         "mewapp": {}
       }
     }
