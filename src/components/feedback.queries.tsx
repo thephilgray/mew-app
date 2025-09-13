@@ -584,3 +584,158 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
   }
 }
 `
+export const commentsByDateLight = /* GraphQL */ `
+  query CommentsByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    commentsByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        content
+        email
+        parentId
+        type
+        createdAt
+        updatedAt
+        profile {
+          id
+          name
+          displayName
+          avatar
+        }
+        submissionId
+        submission {
+          id
+          artist
+          name
+          email
+        }
+        assignmentId
+        assignment {
+          id
+          playlistStartDate
+          fileRequestPlaylistId
+        }
+        workshopId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+
+export const onCreateCommentLight = /* GraphQL */ `subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onCreateComment(filter: $filter) {
+    id
+    content
+    email
+    parentId
+    type
+    createdAt
+    updatedAt
+    profile {
+      id
+      name
+      displayName
+      avatar
+    }
+    submissionId
+    submission {
+      id
+      artist
+      name
+      email
+    }
+    assignmentId
+    assignment {
+      id
+      playlistStartDate
+      fileRequestPlaylistId
+    }
+    workshopId
+    __typename
+  }
+}
+`;
+
+export const onUpdateCommentLight = /* GraphQL */ `subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onUpdateComment(filter: $filter) {
+    id
+    content
+    email
+    parentId
+    type
+    createdAt
+    updatedAt
+    profile {
+      id
+      name
+      displayName
+      avatar
+    }
+    submissionId
+    submission {
+      id
+      artist
+      name
+      email
+    }
+    assignmentId
+    assignment {
+      id
+      playlistStartDate
+      fileRequestPlaylistId
+    }
+    workshopId
+    __typename
+  }
+}
+`;
+
+export const getCommentLight = /* GraphQL */ `
+  query GetComment($id: ID!) {
+    getComment(id: $id) {
+      id
+      content
+      email
+      parentId
+      type
+      createdAt
+      updatedAt
+      profile {
+        id
+        name
+        displayName
+        avatar
+      }
+      submissionId
+      submission {
+        id
+        artist
+        name
+        email
+      }
+      assignmentId
+      assignment {
+        id
+        playlistStartDate
+        fileRequestPlaylistId
+      }
+      workshopId
+      __typename
+    }
+  }
+`;
