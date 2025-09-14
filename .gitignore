@@ -69,7 +69,7 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
-
+amplify-backup/
 amplify/mock-api-resources
 migrations/
 youtube/
