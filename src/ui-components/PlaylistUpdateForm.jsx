@@ -35,7 +35,7 @@ export default function PlaylistUpdateForm(props) {
     type: "",
     createdAt: "",
   };
-  const [public1, setPublic1] = React.useState(initialValues.public);
+  const [isPublic, setIsPublic] = React.useState(initialValues.public);
   const [title, setTitle] = React.useState(initialValues.title);
   const [type, setType] = React.useState(initialValues.type);
   const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
@@ -44,7 +44,7 @@ export default function PlaylistUpdateForm(props) {
     const cleanValues = playlistRecord
       ? { ...initialValues, ...playlistRecord }
       : initialValues;
-    setPublic1(cleanValues.public);
+    setIsPublic(cleanValues.public);
     setTitle(cleanValues.title);
     setType(cleanValues.type);
     setCreatedAt(cleanValues.createdAt);
@@ -98,7 +98,7 @@ export default function PlaylistUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          public: public ?? null,
+          public: isPublic ?? null,
           title: title ?? null,
           type: type ?? null,
           createdAt: createdAt ?? null,
@@ -157,7 +157,7 @@ export default function PlaylistUpdateForm(props) {
         label="Public"
         defaultChecked={false}
         isDisabled={false}
-        isChecked={public1}
+        isChecked={isPublic}
         onChange={(e) => {
           let value = e.target.checked;
           if (onChange) {
@@ -173,9 +173,9 @@ export default function PlaylistUpdateForm(props) {
           if (errors.public?.hasError) {
             runValidationTasks("public", value);
           }
-          setPublic1(value);
+          setIsPublic(value);
         }}
-        onBlur={() => runValidationTasks("public", public1)}
+        onBlur={() => runValidationTasks("public", isPublic)}
         errorMessage={errors.public?.errorMessage}
         hasError={errors.public?.hasError}
         {...getOverrideProps(overrides, "public")}
@@ -189,7 +189,7 @@ export default function PlaylistUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              public: public1,
+              public: isPublic,
               title: value,
               type,
               createdAt,
@@ -216,7 +216,7 @@ export default function PlaylistUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              public: public1,
+              public: isPublic,
               title,
               type: value,
               createdAt,
@@ -243,7 +243,7 @@ export default function PlaylistUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              public: public1,
+              public: isPublic,
               title,
               type,
               createdAt: value,
