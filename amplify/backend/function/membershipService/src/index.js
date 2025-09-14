@@ -391,42 +391,6 @@ const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
 
 /** COGNITO FUNCTIONS */
 
-const listCognitoUsers = async () => {
-  // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#listUsers-property
-
-  const listUsersParams = {
-    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID /* required */,
-    // AttributesToGet: ['email', 'sub', 'name'],
-    AttributesToGet: null, // get all attributes
-    // Filter: 'STRING_VALUE',
-    Limit: 60,
-    // PaginationToken: 'STRING_VALUE',
-  };
-  let users = [];
-  let more = true;
-
-  while (more) {
-    try {
-      const response = await cognitoidentityserviceprovider
-        .listUsers(listUsersParams)
-        .promise();
-
-      users = users.concat(response.Users);
-
-      if (response.PaginationToken) {
-        listUsersParams.PaginationToken = response.PaginationToken;
-      } else {
-        more = false;
-      }
-    } catch (error) {
-      more = false;
-      console.log(`error with listUsers`);
-      console.log(error);
-    }
-  }
-  return users;
-};
-
 const signupUser = async ({ email, name }) => {
   var params = {
     UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID,
@@ -447,19 +411,16 @@ const signupUser = async ({ email, name }) => {
       },
     ],
   };
-  let result;
 
   try {
-    result = await cognitoidentityserviceprovider
+    const result = await cognitoidentityserviceprovider
       .adminCreateUser(params)
       .promise();
+    return result;
   } catch (error) {
-    console.log(`error with adminCreateUser`);
-    console.log(error);
+    console.log(`error with adminCreateUser for ${email}: ${error}`);
+    throw error;
   }
-
-  // maybe we need to adminSetUserPassword?
-  return result;
 };
 
 const disableUserLogin = async ({ email }) => {
@@ -518,39 +479,45 @@ const removeUserFromGroup = async ({ groupName, userName }) => {
   return result;
 };
 
-let cognitoUsers;
 async function ensureCognitoUser({ email, name }) {
-  if (!cognitoUsers) {
-    try {
-      console.log("getting cognito users");
-      cognitoUsers = await listCognitoUsers();
-      console.log("success: getting cognito users");
-    } catch (error) {
-      console.log("error getting cognito users");
-      console.log(error);
-      return undefined;
+  const getUserParams = {
+    UserPoolId: process.env.AUTH_MEWAPPACDC5D0E_USERPOOLID,
+    Username: email,
+  };
+
+  try {
+    const user = await cognitoidentityserviceprovider.adminGetUser(getUserParams).promise();
+    return user;
+  } catch (error) {
+    if (error.code !== "UserNotFoundException") {
+      console.log(`Error getting user ${email}:`, error);
+      throw error;
     }
   }
 
-  let currentCognitoUser = cognitoUsers.find((user) =>
-    user.Attributes.some((attribute) => attribute.Value === email)
-  );
-
-  if (!currentCognitoUser) {
-    try {
-      console.log("attempting to sign up user.");
-      const currentCognitoUserResult = await signupUser({ email, name });
-      currentCognitoUser = currentCognitoUserResult.User;
-      console.log("success: sign up user.");
-    } catch (error) {
-      console.log("error signing up user");
-      console.log(error);
-      return undefined;
+  try {
+    console.log(`User ${email} not found, attempting to create.`);
+    const signUpResult = await signupUser({ email, name });
+    if (signUpResult && signUpResult.User) {
+      console.log(`Successfully created user ${email}.`);
+      return signUpResult.User;
     }
-    // push into local state
-    cognitoUsers.push(currentCognitoUser);
+  } catch (error) {
+    if (error.code !== 'UsernameExistsException') {
+        console.log(`Error signing up user ${email}:`, error);
+        throw error; // It's a real error, not a race condition.
+    }
+    // if UsernameExistsException, it was a race condition. Proceed to get user again.
   }
-  return currentCognitoUser;
+
+  try {
+    console.log(`Trying to get user ${email} again after signup attempt.`);
+    const user = await cognitoidentityserviceprovider.adminGetUser(getUserParams).promise();
+    return user;
+  } catch (error) {
+    console.log(`Still could not get user ${email} after signup attempt:`, error);
+    throw error;
+  }
 }
 
 async function setUserPassword({ userName }) {
@@ -1093,6 +1060,7 @@ async function ensureProfile({ email, sub, name }) {
   const graphqlData = await appSyncClient.query({
     query: getProfile,
     variables: { email },
+    fetchPolicy: 'network-only',
   });
 
   profile = graphqlData && graphqlData.data && graphqlData.data.getProfile;
@@ -1287,77 +1255,105 @@ exports.handler = async (event) => {
       }),
     };
 
-    const member = getMemberFromEmail({ emailAddress });
-    console.log({ member });
+    const members = getMembersFromEmail({ emailAddress });
 
-    if (!member) {
-      // create membership
-      const createMembershipVariables = {
-        ...baseMembershipVariables,
-        workshopId,
-      };
-
-      let createMembershipResult;
+    if (members.length === 0) {
+      // CREATE
+      const createMembershipVariables = { ...baseMembershipVariables, workshopId };
       try {
-        createMembershipResult = await appSyncClient.mutate({
+        const createMembershipResult = await appSyncClient.mutate({
           mutation: createMembership,
           variables: createMembershipVariables,
         });
         console.log({ createMembershipResult });
+        if (createMembershipResult.data.createMembership) {
+            getWorkshopResult.data.getWorkshop.memberships.items.push(createMembershipResult.data.createMembership);
+        }
       } catch (error) {
-        console.log(`Error with createMembership`);
-        console.log(error);
+        console.log(`Error with createMembership for ${emailAddress}:`, error);
       }
     } else {
-      // if a member but mailchimp info not saved && !member.mailchimp
-      // or just update membership
-      // update membership
-      const updateMembershipVariables = {
-        ...baseMembershipVariables,
-        membershipId: member.id,
-      };
+      // UPDATE & CONSOLIDATE
+      const activeMembers = members.filter(m => m.status === 'ACTIVE');
+      const outMembers = members.filter(m => m.status !== 'ACTIVE');
 
-      console.log({ updateMembershipVariables });
+      let memberToUpdate;
+      let otherMembersToDeactivate = [];
 
-      let updateMembershipResult;
-      try {
-        updateMembershipResult = await appSyncClient.mutate({
-          mutation: updateMembership,
-          variables: updateMembershipVariables,
-        });
-        console.log({
-          updateMembershipResult: updateMembershipResult.data.updateMembership,
-        });
-      } catch (error) {
-        console.log(`Error with updateMembership`);
-        console.log(error);
+      if (activeMembers.length > 0) {
+        memberToUpdate = activeMembers[0];
+        otherMembersToDeactivate = [...activeMembers.slice(1), ...outMembers];
+      } else {
+        memberToUpdate = outMembers[0];
+        otherMembersToDeactivate = outMembers.slice(1);
       }
+
+      try {
+        // 1. Update the chosen member
+        const updateMembershipVariables = {
+          ...baseMembershipVariables,
+          status,
+          membershipId: memberToUpdate.id,
+        };
+        await appSyncClient.mutate({
+            mutation: updateMembership,
+            variables: updateMembershipVariables,
+        });
+
+        // 2. Deactivate all other memberships for this email
+        for (const member of otherMembersToDeactivate) {
+            if (member.status !== 'OUT') {
+              const deactivateVariables = { status: 'OUT', membershipId: member.id };
+              await appSyncClient.mutate({
+                  mutation: updateMembership,
+                  variables: deactivateVariables,
+              });
+            }
+        }
+      } catch (error) {
+          console.log(`Error consolidating memberships for ${emailAddress}:`, error);
+      }
+      
+      // 3. Update local cache to reflect changes
+      const membersToDeactivateIds = new Set(otherMembersToDeactivate.map(m => m.id));
+      getWorkshopResult.data.getWorkshop.memberships.items.forEach(item => {
+          if (item.id === memberToUpdate.id) {
+              item.status = status;
+              if(item.mailchimp) {
+                  item.mailchimp.status = mailchimpStatus;
+                  item.mailchimp.tags = mailchimpTags;
+              }
+          } else if (membersToDeactivateIds.has(item.id)) {
+              item.status = 'OUT';
+          }
+      });
     }
   }
 
   async function disableMembership({ emailAddress }) {
-    const member = getMemberFromEmail({ emailAddress });
-    if (!member) {
+    const members = getMembersFromEmail({ emailAddress });
+    if (members.length === 0) {
       console.log("cannot disable membership. not a member!");
       return;
     }
-    // update membership
-    const updateMembershipVariables = {
-      status: "OUT",
-      membershipId: member.id,
-    };
 
-    let updateMembershipResult;
+    for (const member of members) {
+        if (member.status !== 'OUT') {
+            const updateMembershipVariables = {
+                status: "OUT",
+                membershipId: member.id,
+            };
 
-    try {
-      updateMembershipResult = await appSyncClient.mutate({
-        mutation: updateMembership,
-        variables: updateMembershipVariables,
-      });
-      console.log({ updateMembershipResult });
-    } catch (error) {
-      console.log(`Error with updateMembership`);
-      console.log(error);
+            try {
+                await appSyncClient.mutate({
+                    mutation: updateMembership,
+                    variables: updateMembershipVariables,
+                });
+            } catch (error) {
+                console.log(`Error with updateMembership for id ${member.id}`);
+                console.log(error);
+            }
+        }
     }
 
     let ensureProfileResult;
@@ -1456,9 +1452,10 @@ exports.handler = async (event) => {
     }
   }
 
-  function getMemberFromEmail({ emailAddress }) {
-    return getWorkshopResult.data.getWorkshop.memberships.items.find(
-      (item) => item.email === emailAddress
+  function getMembersFromEmail({ emailAddress }) {
+    if (!getWorkshopResult.data.getWorkshop.memberships.items) return [];
+    return getWorkshopResult.data.getWorkshop.memberships.items.filter(
+      (item) => item.email && item.email.toLowerCase() === emailAddress.toLowerCase()
     );
   }
 
@@ -1480,54 +1477,78 @@ exports.handler = async (event) => {
         serverPrefix,
         listId,
       });
-      // console.log({ mailchimpMembers });
-      for await (const {
-        id: mailchimpId,
-        tags: mailchimpTags,
-        email_address: emailAddress,
-        unique_email_id: uniqueEmailId,
-        contact_id: contactId,
-        full_name: fullName,
-        status: mailchimpStatus,
-      } of mailchimpMembers) {
-        const hasSessionTag = mailchimpTags.some(
-          (item) =>
-            item.name && item.name.toUpperCase() === sessionTag.toUpperCase()
-        );
-        const hasOutTag = mailchimpTags.some(
-          (item) => item.name && item.name.toUpperCase() === "OUT"
-        );
-        const filtered = sessionTag && !hasSessionTag;
+      
+      if (!mailchimpMembers) {
+        console.log("Could not retrieve mailchimp members. Aborting sync.");
+        break;
+      }
 
-        if (!filtered) {
-          const isActive = sessionTag
-            ? hasSessionTag && !hasOutTag
-            : !hasOutTag;
-          const status = isActive ? "ACTIVE" : "OUT";
-          console.log({
-            hasSessionTag,
-            hasOutTag,
-            mailchimpTags,
-            isActive,
-            status,
-          });
-          const cognitoUser = await addLogin({
-            emailAddress,
-            fullName,
-            groupName: "member",
-          });
-          if (cognitoUser) {
-            await addOrUpdateMembership({
-              contactId,
-              emailAddress,
-              fullName,
-              mailchimpId,
-              mailchimpStatus,
-              uniqueEmailId,
-              status,
-              mailchimpTags,
-            });
+      // De-duplicate by email address to prevent race conditions within this run
+      const uniqueMailchimpMembers = [];
+      const seenEmails = new Set();
+      for (const member of mailchimpMembers) {
+          if (member && member.email_address && !seenEmails.has(member.email_address.toLowerCase())) {
+              uniqueMailchimpMembers.push(member);
+              seenEmails.add(member.email_address.toLowerCase());
           }
+      }
+
+      for await (const member of uniqueMailchimpMembers) {
+        try {
+            const {
+                id: mailchimpId,
+                tags: mailchimpTags,
+                email_address: emailAddress,
+                unique_email_id: uniqueEmailId,
+                contact_id: contactId,
+                full_name: fullName,
+                status: mailchimpStatus,
+            } = member;
+
+            const hasSessionTag = mailchimpTags.some(
+            (item) =>
+                item.name && item.name.toUpperCase() === sessionTag.toUpperCase()
+            );
+            const hasOutTag = mailchimpTags.some(
+            (item) => item.name && item.name.toUpperCase() === "OUT"
+            );
+            const filtered = sessionTag && !hasSessionTag;
+
+            if (!filtered) {
+                const isActive = sessionTag
+                    ? hasSessionTag && !hasOutTag
+                    : !hasOutTag;
+                const status = isActive ? "ACTIVE" : "OUT";
+                console.log({
+                    emailAddress,
+                    hasSessionTag,
+                    hasOutTag,
+                    mailchimpTags,
+                    isActive,
+                    status,
+                });
+                const cognitoUser = await addLogin({
+                    emailAddress,
+                    fullName,
+                    groupName: "member",
+                });
+                if (cognitoUser) {
+                    await addOrUpdateMembership({
+                    contactId,
+                    emailAddress,
+                    fullName,
+                    mailchimpId,
+                    mailchimpStatus,
+                    uniqueEmailId,
+                    status,
+                    mailchimpTags,
+                    });
+                } else {
+                    console.log(`Could not create or find cognito user for ${emailAddress}, skipping membership.`);
+                }
+            }
+        } catch (error) {
+            console.log(`Failed to process member ${member.email_address}. Error:`, error);
         }
       }
       break;
@@ -1658,3 +1679,4 @@ exports.handler = async (event) => {
     body: JSON.stringify("Hello from Lambda!"),
   };
 };
+;
