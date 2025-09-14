@@ -7,7 +7,7 @@ import gql from 'graphql-tag'
 import { countBy, entries, groupBy, head, keyBy, last, maxBy, uniqBy } from 'lodash'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import Error from '../Error'
-import { Add, Delete, GroupAdd, Sync, Email } from '@mui/icons-material'
+import { Add, Delete, GroupAdd, Sync, Email, Refresh } from '@mui/icons-material'
 import { updateMembershipService, createBreakoutGroup, deleteBreakoutGroup, updateProfile } from '../../graphql/d3/mutations'
 import { Group, ROUTES } from '../../constants';
 import Loading from '../Loading';
@@ -171,6 +171,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     const [showAddBreakoutGroups, setShowBreakoutGroups] = useState(false);
     const isCognitoAdmin = useUserInAtLeastOneOfTheseGroups([Group.cognito_admin])
     const [addMembersToBreakGroupLoading, setAddMembersToBreakGroupLoading] = useState(false)
+    const [showSyncMessage, setShowSyncMessage] = useState(false)
 
     const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
 
@@ -200,13 +201,6 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
 
     const [requestUpdateMembershipService, updateMembershipServiceResponse] = useMutation(gql(updateMembershipService))
 
-    // const [sortModel, setSortModel] = React.useState([
-    //     {
-    //         field: 'status',
-    //         sort: 'asc',
-    //     },
-    // ])
-
     useEffect(() => {
         if (data?.getWorkshop?.features?.mailchimp?.enabled) {
             // and sync not called
@@ -214,19 +208,6 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
             // console.log('syncMembers')
         }
     }, [data])
-
-    useEffect(() => {
-        if (
-            updateMembershipServiceResponse &&
-            updateMembershipServiceResponse.called &&
-            updateMembershipServiceResponse.data &&
-            updateMembershipServiceResponse.data.updateMembershipService &&
-            updateMembershipServiceResponse.data.updateMembershipService.statusCode &&
-            updateMembershipServiceResponse.data.updateMembershipService.statusCode === 200
-        ) {
-            refetch()
-        }
-    }, [updateMembershipServiceResponse])
 
     if (error) return <Error errorMessage={error} />
     if (loading) return <Loading />
@@ -243,6 +224,7 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
     };
 
     const onSyncWithMailchimp = async () => {
+        setShowSyncMessage(true);
         await requestUpdateMembershipService({
             variables: {
                 workshopId,
@@ -636,8 +618,11 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                 />
             </Grid>
             <Grid item xs={8}>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h5" component="h2" sx={{ display: 'flex', alignItems: 'center' }}>
                     Members
+                    <IconButton onClick={() => refetch()} aria-label="refresh list" disabled={loading}>
+                        <Refresh />
+                    </IconButton>
                 </Typography>
             </Grid>
             {data?.getWorkshop?.features?.mailchimp?.enabled && (
@@ -645,6 +630,24 @@ const Members: React.FC<{ workshopId: string }> = ({ workshopId = '' }) => {
                     <Button onClick={onSyncWithMailchimp} endIcon={updateMembershipServiceResponse.loading || updateMembershipServiceResponse.called && loading ? <CircularProgress size="1rem" /> : <Sync />} style={{ float: 'right' }}>
                         Sync from Mailchimp
                     </Button>
+                </Grid>
+            )}
+            {showSyncMessage && !updateMembershipServiceResponse.loading && (
+                <Grid item xs={12}>
+                    <Alert
+                        severity="info"
+                        onClose={() => setShowSyncMessage(false)}
+                        action={
+                            <Button color="inherit" size="small" onClick={() => {
+                                refetch();
+                                setShowSyncMessage(false);
+                            }}>
+                                Refresh
+                            </Button>
+                        }
+                    >
+                        Sync started. It may take several minutes for all members to appear. Click refresh to check for updates.
+                    </Alert>
                 </Grid>
             )}
             <Grid item xs={12}>
