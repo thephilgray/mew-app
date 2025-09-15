@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, CircularProgress, Divider, Grid,  IconButton,  InputLabel, Link, Paper, TextField, Typography, Switch, FormControlLabel } from '@mui/material'
+import { Autocomplete, Box, Button, CircularProgress, Divider, Grid,  IconButton,  InputLabel, Link, Paper, TextField, Typography, Switch, FormControlLabel } from '@mui/material'
 import { makeStyles } from 'tss-react/mui';
 import { updateMembershipService, updateProfile, updateProfileService } from '../../graphql/d3/mutations'
 import gql from 'graphql-tag'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { useFieldArray, useForm } from 'react-hook-form'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import {  GridColDef } from '@mui/x-data-grid';
 import { Add, Delete,  OpenInNew, Save } from '@mui/icons-material'
 import { format } from 'date-fns/esm'
@@ -44,6 +44,8 @@ type EditProfileForm = {
             enabled: boolean
         }
     }
+    featuredSubmissions: any[]
+    curatedPlaylists: any[]
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -78,7 +80,72 @@ const EditProfile = (): JSX.Element => {
         error: getProfileError,
         data: getProfileData,
         refetch: getProfileRefetch,
-    } = useQuery(gql(getProfile), {
+    } = useQuery(gql`
+    query GetProfile($email: String!) {
+      getProfile(email: $email) {
+        id
+        email
+        name
+        displayName
+        links {
+          id
+          text
+          url
+        }
+        avatar
+        bio
+        sub
+        notificationSettings {
+          emailDigest {
+            enabled
+          }
+        }
+        features {
+          mailchimp {
+            enabled
+          }
+        }
+        apiKeys {
+          items {
+            id
+            keyName
+            profileID
+            email
+            createdAt
+          }
+        }
+        submissions {
+          items {
+            id
+            name
+            artist
+          }
+        }
+        playlists {
+          items {
+            id
+            title
+          }
+        }
+        featuredSubmissions {
+          items {
+            id
+            fileRequestSubmission {
+              id
+            }
+          }
+        }
+        curatedPlaylists {
+          items {
+            id
+            playlist {
+              id
+            }
+          }
+        }
+      }
+    }
+  `, {
         variables: { email: user.email },
         fetchPolicy: 'network-only'
     })
@@ -93,10 +160,10 @@ const EditProfile = (): JSX.Element => {
         handleSubmit: handleEditProfileForm,
         setValue: setEditProfileFormValue,
         watch,
+        reset,
         formState: {
             errors: editProfileFormErrors,
         } } = useForm<EditProfileForm>({
-            values: profile,
             defaultValues: {
                 bio: '',
                 displayName: '',
@@ -105,9 +172,23 @@ const EditProfile = (): JSX.Element => {
                     emailDigest: {
                         enabled: true
                     }
-                }
+                },
+                featuredSubmissions: [],
+                curatedPlaylists: []
             }
         })
+
+    useEffect(() => {
+        if (profile) {
+            const featuredSubmissions = profile?.submissions?.items
+                .filter(submission => profile?.featuredSubmissions?.items
+                    .some(featured => featured.fileRequestSubmission.id === submission.id)) || []
+            const curatedPlaylists = profile?.playlists?.items
+                .filter(playlist => profile?.curatedPlaylists?.items
+                    .some(curated => curated.playlist.id === playlist.id)) || []
+            reset({ ...profile, featuredSubmissions, curatedPlaylists });
+        }
+    }, [profile, reset]);
 
     const { fields: linkFields, append: appendLink, prepend, remove: removeLink, swap, move, insert } = useFieldArray({
         control: editProfileFormControl,
@@ -138,6 +219,27 @@ const EditProfile = (): JSX.Element => {
         updateMembershipServiceRequest,
         { error: updateMembershipServiceError, data: updateMembershipServiceData, called: updateMembershipServiceRequestCalled },
     ] = useMutation(gql(updateMembershipService))
+
+    const [createProfileFeaturedSubmissions] = useMutation(gql`
+        mutation CreateProfileFeaturedSubmissions($input: CreateProfileFeaturedSubmissionsInput!) {
+            createProfileFeaturedSubmissions(input: $input) { id }
+        }
+    `)
+    const [deleteProfileFeaturedSubmissions] = useMutation(gql`
+        mutation DeleteProfileFeaturedSubmissions($input: DeleteProfileFeaturedSubmissionsInput!) {
+            deleteProfileFeaturedSubmissions(input: $input) { id }
+        }
+    `)
+    const [createProfileCuratedPlaylists] = useMutation(gql`
+        mutation CreateProfileCuratedPlaylists($input: CreateProfileCuratedPlaylistsInput!) {
+            createProfileCuratedPlaylists(input: $input) { id }
+        }
+    `)
+    const [deleteProfileCuratedPlaylists] = useMutation(gql`
+        mutation DeleteProfileCuratedPlaylists($input: DeleteProfileCuratedPlaylistsInput!) {
+            deleteProfileCuratedPlaylists(input: $input) { id }
+        }
+    `)
 
     useEffect(() => {
         refetchProfile()
@@ -204,6 +306,22 @@ const EditProfile = (): JSX.Element => {
                 ...inputData?.links && { links: inputData?.links?.map(({ id, url, text }) => ({ id, url, text })) }
             }
         }
+
+        const initialFeaturedSubmissions = profile?.featuredSubmissions?.items || []
+        const newFeaturedSubmissions = inputData.featuredSubmissions || []
+        const submissionsToAdd = newFeaturedSubmissions.filter(s => !initialFeaturedSubmissions.some(i => i.fileRequestSubmission.id === s.id))
+        const submissionsToRemove = initialFeaturedSubmissions.filter(i => !newFeaturedSubmissions.some(s => s.id === i.fileRequestSubmission.id))
+
+        await Promise.all(submissionsToAdd.map(s => createProfileFeaturedSubmissions({ variables: { input: { profileId: profile.id, fileRequestSubmissionId: s.id } } })))
+        await Promise.all(submissionsToRemove.map(s => deleteProfileFeaturedSubmissions({ variables: { input: { id: s.id } } })))
+
+        const initialCuratedPlaylists = profile?.curatedPlaylists?.items || []
+        const newCuratedPlaylists = inputData.curatedPlaylists || []
+        const playlistsToAdd = newCuratedPlaylists.filter(p => !initialCuratedPlaylists.some(i => i.playlist.id === p.id))
+        const playlistsToRemove = initialCuratedPlaylists.filter(i => !newCuratedPlaylists.some(p => p.id === i.playlist.id))
+
+        await Promise.all(playlistsToAdd.map(p => createProfileCuratedPlaylists({ variables: { input: { profileId: profile.id, playlistId: p.id } } })))
+        await Promise.all(playlistsToRemove.map(p => deleteProfileCuratedPlaylists({ variables: { input: { id: p.id } } })))
 
         return updateProfileRequest({ variables }).then(() =>
             navigate(ROUTES.profile.path))
@@ -352,6 +470,62 @@ const EditProfile = (): JSX.Element => {
                                 InputLabelProps={{ shrink: true }}
                                 inputProps={{ maxLength: 1000 }}
                                 helperText={`${1000 - (watch('bio')?.length || 0)} characters remaining.`}
+                            />
+
+                            <Controller
+                                name="featuredSubmissions"
+                                control={editProfileFormControl}
+                                render={({ field }) => {
+                                    const { onChange, value } = field;
+                                    return (
+                                        <Autocomplete
+                                            multiple
+                                            options={profile?.submissions?.items || []}
+                                            getOptionLabel={(option) => `${option.artist} - ${option.name}`}
+                                            value={value || []}
+                                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                                            onChange={(e, newValue) => {
+                                                onChange(newValue);
+                                            }}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    variant="standard"
+                                                    label="Featured Tracks"
+                                                    placeholder="Select tracks"
+                                                />
+                                            )}
+                                        />
+                                    );
+                                }}
+                            />
+
+                            <Controller
+                                name="curatedPlaylists"
+                                control={editProfileFormControl}
+                                render={({ field }) => {
+                                    const { onChange, value } = field;
+                                    return (
+                                        <Autocomplete
+                                            multiple
+                                            options={profile?.playlists?.items || []}
+                                            getOptionLabel={(option) => option.title}
+                                            value={value || []}
+                                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                                            onChange={(e, newValue) => {
+                                                onChange(newValue);
+                                            }}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    variant="standard"
+                                                    label="Curated Playlists"
+                                                    placeholder="Select playlists"
+                                                />
+                                            )}
+                                        />
+                                    );
+                                }}
                             />
 
                             <InputLabel>Links</InputLabel>
