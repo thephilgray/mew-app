@@ -5,7 +5,7 @@ import { Delete, Edit, Send, Comment as CommentIcon, Person, People, Save } from
 import { Link } from "@reach/router"
 import { gql, useMutation } from "@apollo/client"
 import { API, graphqlOperation } from "aws-amplify"
-import { getCommentLight, getFileRequestSubmission, commentsByDateLight, onCreateCommentLight, onUpdateCommentLight } from "./feedback.queries"
+import { getCommentLight, getFileRequestSubmission, commentsByDateLight, onCreateCommentLight, onUpdateCommentLight, commentsByRecipientEmail } from "./feedback.queries"
 import { onDeleteComment } from "../graphql/d3/subscriptions"
 import { compareDesc, formatDistanceToNow, isPast } from "date-fns"
 import { getCloudFrontURL, getDisplayName } from "../utils"
@@ -387,10 +387,12 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   const user = useUser()
   const { profile } = useProfile()
   const [comments, setComments] = useState<CommentType[]>([])
+  const [nextToken, setNextToken] = useState<string | null>(null)
   const [showAllComments, setShowAllComments] = useState(showAll)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [lastVisit, setLastVisit] = useState<Date | null>(null)
   const [activeReplyId, setActiveReplyId] = useState<string | null>(null);
+  const loader = useRef(null);
 
   const [
     createCommentRequest,
@@ -479,56 +481,106 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
     }
   }, [isFeedbackPage]);
 
-  // Effect for fetching data
-  useEffect(() => {
+  const fetchComments = useCallback(async (token) => {
     if (!profile) return;
+    setLoading(true);
 
-    let query: string = commentsByDateLight;
-    let variables: object = {};
+    let query: string;
+    let variables: object;
 
     if (isFeedbackPage) {
-      const workshopIds = profile?.memberships?.items
-        ?.filter(item => item?.status === "ACTIVE")
-        .map(item => item!.workshopId) || [];
-      query = commentsByDateLight;
-      variables = {
-        limit: 50,
-        type: "Comment",
-        sortDirection: "DESC",
-        filter: { or: workshopIds.map(id => ({ workshopId: { eq: id } })) }
-      };
+      if (showAllComments) {
+        const workshopIds = profile?.memberships?.items
+          ?.filter(item => item?.status === "ACTIVE")
+          .map(item => item!.workshopId) || [];
+        query = commentsByDateLight;
+        variables = {
+          limit: 20,
+          type: "Comment",
+          sortDirection: "DESC",
+          filter: { or: workshopIds.map(id => ({ workshopId: { eq: id } })) },
+          nextToken: token,
+        };
+      } else {
+        query = commentsByRecipientEmail;
+        variables = {
+          limit: 20,
+          recipientEmail: profile.email,
+          sortDirection: "DESC",
+          nextToken: token,
+        };
+      }
     } else if (isSubmissionsPage) {
       query = commentsByDateLight;
       variables = {
+        limit: 20,
         type: "Comment",
         sortDirection: "DESC",
-        filter: { assignmentId: { eq: assignmentId } }
+        filter: { assignmentId: { eq: assignmentId } },
+        nextToken: token,
       };
     } else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
       query = getFileRequestSubmission;
       variables = { id: submissionId };
+    } else {
+      return;
     }
 
-    const fetchComments = async () => {
-      setLoading(true);
-      try {
-        const result = await API.graphql({ query, variables }) as { data: any };
-        if (isFeedbackPage || isSubmissionsPage) {
-          setComments(result?.data?.commentsByDate?.items || []);
-        } else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
-          setComments(result?.data?.getFileRequestSubmission?.comments?.items || []);
-        } else {
-          const result = await API.graphql({ query, variables }) as { data: any };
-          setComments(result?.data?.listComments?.items || []);
-        }
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-      }
-      setLoading(false);
-    };
+    try {
+      const result = await API.graphql({ query, variables }) as { data: any };
+      let newComments = [];
+      let newNextToken = null;
 
-    fetchComments();
-  }, [profile, assignmentId, submissionId, isFeedbackPage, isSubmissionsPage, isCustomPlaylistPage, isDefaultPlaylistPage, isGiveFeedbackPage]);
+      if (isFeedbackPage) {
+        if (showAllComments) {
+          newComments = result?.data?.commentsByDate?.items || [];
+          newNextToken = result?.data?.commentsByDate?.nextToken;
+        } else {
+          newComments = result?.data?.commentsByRecipientEmail?.items || [];
+          newNextToken = result?.data?.commentsByRecipientEmail?.nextToken;
+        }
+      } else if (isSubmissionsPage) {
+        newComments = result?.data?.commentsByDate?.items || [];
+        newNextToken = result?.data?.commentsByDate?.nextToken;
+      } else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
+        newComments = result?.data?.getFileRequestSubmission?.comments?.items || [];
+      }
+
+      setComments(prev => token ? [...prev, ...newComments] : newComments);
+      setNextToken(newNextToken);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+    setLoading(false);
+  }, [profile, assignmentId, submissionId, isFeedbackPage, isSubmissionsPage, isCustomPlaylistPage, isDefaultPlaylistPage, isGiveFeedbackPage, showAllComments]);
+
+  const handleObserver = useCallback((entities) => {
+    const target = entities[0];
+    if (target.isIntersecting && nextToken && !loading) {
+      fetchComments(nextToken);
+    }
+  }, [nextToken, loading, fetchComments]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0
+    });
+    if (loader.current) {
+      observer.observe(loader.current);
+    }
+    return () => {
+      if (loader.current) {
+        observer.unobserve(loader.current);
+      }
+    };
+  }, [handleObserver]);
+
+  // Effect for fetching data
+  useEffect(() => {
+    fetchComments(null);
+  }, [fetchComments]);
 
   // Effect for subscriptions
   useEffect(() => {
@@ -690,33 +742,36 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
             <CommentIcon />
           </Badge>
         </Typography>
-        <If condition={!loading} fallbackContent={<CircularProgress />}>
-          <If condition={!!showToggle}>
-            <ToggleButtonGroup
-              exclusive
-              value={!!showAllComments ? "all" : "me"}
-              onChange={(_, value) => setShowAllComments(value === "all")}
-              sx={{ float: "right" }}>
-              <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
-              <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
-            </ToggleButtonGroup>
-          </If>
-          <If condition={!!submissionId}>
-            <WriteComment onDismiss={() => {}} submitComment={submitComment({ submissionId, assignmentId, workshopId, recipientEmail })} editing={false} replying={false} />
-          </If>
-          {parentComments && parentComments
-            .map(comment => (
-              <MyComment
-                key={comment.id}
-                writeCommentFunctions={{ submitComment, removeComment, editComment }}
-                comment={comment}
-                commentsByParentId={commentsByParentId}
-                activeReplyId={activeReplyId}
-                setActiveReplyId={setActiveReplyId} />
-            )
-            )}
+        <If condition={!!showToggle}>
+          <ToggleButtonGroup
+            exclusive
+            value={!!showAllComments ? "all" : "me"}
+            onChange={(_, value) => {
+              setShowAllComments(value === "all");
+              fetchComments(null);
+            }}
+            sx={{ float: "right" }}>
+            <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
+            <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
+          </ToggleButtonGroup>
         </If>
-
+        <If condition={!!submissionId}>
+          <WriteComment onDismiss={() => {}} submitComment={submitComment({ submissionId, assignmentId, workshopId, recipientEmail })} editing={false} replying={false} />
+        </If>
+        {parentComments && parentComments
+          .map(comment => (
+            <MyComment
+              key={comment.id}
+              writeCommentFunctions={{ submitComment, removeComment, editComment }}
+              comment={comment}
+              commentsByParentId={commentsByParentId}
+              activeReplyId={activeReplyId}
+              setActiveReplyId={setActiveReplyId} />
+          )
+          )}
+        <div ref={loader}>
+          {loading && <CircularProgress />}
+        </div>
       </Grid>
 
     </Grid>)
