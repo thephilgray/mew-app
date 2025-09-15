@@ -1,11 +1,8 @@
 import React from 'react';
+import HomePageSettings from './HomePageSettings';
 
-type SiteSettingsProps = {
-
+const SiteSettings: React.FC = () => {
+  return <HomePageSettings />;
 };
 
-const SiteSettings: React.FC<SiteSettingsProps> = () => {
-
-  return <div>TODO: Site Settings</div>
-}
 export default SiteSettings;
