@@ -3,7 +3,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react'
 import If from '../If'
-import { Alert, Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, IconButton, LinearProgress, Typography } from '@mui/material'
+import { Alert, Box, Button, Card, CardContent, CardMedia, Chip, CircularProgress, Grid, IconButton, LinearProgress, Tooltip, Typography } from '@mui/material'
 import { SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, CheckCircleTwoTone } from '@mui/icons-material'
 import { FeedbackSection } from '../Feedback'
 import useColorThief from 'use-color-thief'
@@ -13,6 +13,7 @@ import 'react-h5-audio-player/lib/styles.css';
 import { getBreakoutGroupByMembership, getBreakoutGroupName, getCloudFrontURL } from '../../utils'
 import { listComments } from '../feedback.queries'
 import mewAppLogo from '../../assets/mewlogo.png'
+import { FEEDBACK_CATEGORIES } from '../../constants'
 import Error from '../Error'
 import { FileRequest } from '../../models'
 import { countBy, sortBy, uniqBy } from 'lodash'
@@ -86,7 +87,7 @@ export const GiveFeedback: React.FC<{
     ).slice(0, MAX_FEEDBACK - feedbackGivenOnLoad)
 
     const selectedSongs = sortedSubmissions.map(submission => {
-      const { name, fileId, artist, id, artwork, lyrics, workshopId, email } = submission
+      const { name, fileId, artist, id, artwork, lyrics, workshopId, email, feedbackRequestCategories } = submission
       const songFilePath = `${assignmentId}/${fileId}`
       if (songFilePath) {
         const cloudFrontURL = getCloudFrontURL(songFilePath)
@@ -101,7 +102,8 @@ export const GiveFeedback: React.FC<{
           id,
           lyrics,
           workshopId,
-          email
+          email,
+          feedbackRequestCategories
         }
       }
     })
@@ -184,6 +186,19 @@ export const GiveFeedback: React.FC<{
         </Grid >
         <If condition={!!currentSong?.lyrics}></If>
         <Grid item xs={12}>
+          <If condition={!!currentSong?.feedbackRequestCategories?.length}>
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="h6">Feedback requested on</Typography>
+              {currentSong.feedbackRequestCategories.map((cat) => {
+                const category = FEEDBACK_CATEGORIES.find(c => c.label === cat)
+                return (
+                  <Tooltip title={category?.description || ''} key={category.label}>
+                    <Chip label={category.label} sx={{ m: 0.5 }} />
+                  </Tooltip>
+                )
+              })}
+            </Box>
+          </If>
           <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
             <Typography variant="body2">
               {currentSong?.lyrics}

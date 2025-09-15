@@ -156,6 +156,7 @@ type FileRequestSubmission
   artwork: Artwork
   lyrics: String
   requestFeedback: Boolean
+  feedbackRequestCategories: [String]
   duration: Int
   breakoutGroupId: ID
     @index(

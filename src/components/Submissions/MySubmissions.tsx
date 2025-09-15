@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { submissionsByEmail } from '../../graphql/d3/queries'
 import { useUser } from '../../auth/hooks'
 import { gql, useQuery } from '@apollo/react-hooks'
-import { Button, Grid, IconButton, SortDirection } from '@mui/material'
+import { Box, Button, Chip, Grid, IconButton, SortDirection, Tooltip } from '@mui/material'
 import { DataGridWrapper } from '../DataGridWrapper'
 import { DataGrid, GridOverlay, GridColDef } from '@mui/x-data-grid'
 import { Typography } from '@mui/material'
@@ -15,7 +15,7 @@ import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player'
 import mewAppLogo from '../../assets/mewlogo.png'
 import { AudioPlayerContext } from '../AudioPlayer/audio-player.context'
 import { Link } from 'gatsby'
-import { ROUTES } from '../../constants'
+import { FEEDBACK_CATEGORIES, ROUTES } from '../../constants'
 
 function MySubmissions() {
   const user = useUser()
@@ -38,7 +38,7 @@ function MySubmissions() {
 
       const sortedSongs = data.submissionsByEmail.items.reduce((acc, curr, index) => {
         // @ts-ignore
-        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, fileRequestId, workshop, createdAt, fileRequest } = curr
+        const { name, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, fileRequestId, workshop, createdAt, fileRequest, feedbackRequestCategories } = curr
         // don't add nonexistent or duplicate files to the playlist
         if (fileId && !seenFileIds.includes(fileId)) {
           const songFilePath = `${fileRequestId}/${fileId}`
@@ -61,7 +61,8 @@ function MySubmissions() {
             assignmentId: fileRequestId,
             requestFeedback,
             createdAt,
-            assignmentTitle: fileRequest?.title
+            assignmentTitle: fileRequest?.title,
+            feedbackRequestCategories
           }
           seenFileIds.push(fileId)
           return acc.concat(song)
@@ -146,6 +147,23 @@ function MySubmissions() {
       field: 'lyrics',
       headerName: 'Lyrics',
       width: 200,
+    },
+    {
+      field: 'feedbackRequestCategories',
+      headerName: 'Feedback Categories',
+      width: 300,
+      renderCell: ({ value = [] }) => (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+          {value.map((cat) => {
+            const category = FEEDBACK_CATEGORIES.find(c => c.label === cat)
+            return (
+              <Tooltip title={category?.description || ''} key={category.label}>
+                <Chip label={category.label} size="small" />
+              </Tooltip>
+            )
+          })}
+        </Box>
+      )
     }
   ];
 

@@ -3,7 +3,7 @@ import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress,
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
 import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, Edit } from '@mui/icons-material'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import { green } from '@mui/material/colors'
 import { isPast, isFuture } from 'date-fns/esm'
@@ -22,7 +22,7 @@ import { GiveFeedback } from './GiveFeedback'
 import { getBreakoutGroupByMembership, getCloudFrontURL, getDisplayName, getFileDuration, searchMembersFilterOptions } from '../../utils'
 import uniqBy from 'lodash/uniqBy'
 import { Link, navigate } from 'gatsby'
-import { ACCEPTED_FILETYPES, ROUTES } from '../../constants'
+import { ACCEPTED_FILETYPES, FEEDBACK_CATEGORIES, ROUTES } from '../../constants'
 import Loading from '../Loading'
 import { StyledFileDropWrapper } from './StyledFileDropWrapper'
 
@@ -32,6 +32,7 @@ type Inputs = {
     email: string
     upload: AudioFileBlob
     requestFeedback: boolean
+    feedbackRequestCategories: { label: string; group: string; }[];
     artwork: {
         id: string
         path: string
@@ -284,7 +285,7 @@ const NewPublicSubmission: React.FC<
 
     const onSubmit = async (values: Inputs) => {
         setSubmitLoading(true)
-        const { name, artist, email, lyrics, requestFeedback } = values
+        const { name, artist, email, lyrics, requestFeedback, feedbackRequestCategories } = values
         const fileId = uuidv4()
         const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
@@ -335,6 +336,7 @@ const NewPublicSubmission: React.FC<
                             },
                             lyrics,
                             requestFeedback,
+                            ...feedbackRequestCategories && { feedbackRequestCategories: feedbackRequestCategories.map(c => c.label) },
                             ...membershipId && { membershipId }
                         },
                     }),
@@ -401,6 +403,32 @@ const NewPublicSubmission: React.FC<
                                 {/* <FormControlLabel control={<Switch {...register("addStems")} color="secondary" />} label="Add stems used" /> */}
                                 <FormControlLabel control={<Switch defaultChecked={true} {...register("requestFeedback")} color="secondary" />} label="Request feedback" />
                             </FormGroup>
+                        </Grid>
+                    </If>
+                    <If condition={watch("requestFeedback")}>
+                        <Grid item xs={12}>
+                            <Controller
+                                name="feedbackRequestCategories"
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                    <Autocomplete
+                                        multiple
+                                        options={FEEDBACK_CATEGORIES}
+                                        groupBy={(option) => option.group}
+                                        getOptionLabel={(option) => option.label}
+                                        onChange={(e, newValue) => onChange(newValue)}
+                                        value={value || []}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                variant="standard"
+                                                label="Feedback Categories"
+                                                placeholder="Select categories"
+                                            />
+                                        )}
+                                    />
+                                )}
+                            />
                         </Grid>
                     </If>
                     <Grid item xs={12} >

@@ -408,3 +408,76 @@ export const MAPPED_ROUTE_CONFIGS = Object.entries(ROUTES).map(([routeName, conf
 // TODO: ADD Storage Paths with dynamic getters similar to ROUTES above
 
 export const DEFAULT_WORKSHOP_TIMEZONE = 'America/Los_Angeles';
+
+export const FEEDBACK_CATEGORIES = [
+    {
+        label: 'Instrumental/Vocal Technique',
+        group: 'Performance',
+        description: 'Assess the musicianship and proficiency of the performers, including their technical skills, tone quality, intonation, timing, and expressiveness.',
+    },
+    {
+        label: 'Emotional Delivery',
+        group: 'Performance',
+        description: "Evaluate the performers' ability to convey emotion and connect with the audience through their interpretation of the music.",
+    },
+    {
+        label: 'Audio Quality',
+        group: 'Production Quality',
+        description: 'Evaluate the clarity, balance, and fidelity of the audio recording, including factors such as recording techniques, microphone placement, and room acoustics.',
+    },
+    {
+        label: 'Mixing and Mastering',
+        group: 'Production Quality',
+        description: 'Assess the balance and coherence of individual tracks within the mix, as well as the overall sonic cohesion achieved through mixing and mastering processes.',
+    },
+    {
+        label: 'Songwriting',
+        group: 'Composition and Arrangement',
+        description: 'Evaluate the strength of the composition, including melody, harmony, rhythm, structure, and lyrics (if applicable).',
+    },
+    {
+        label: 'Arrangement',
+        group: 'Composition and Arrangement',
+        description: 'Assess how well the various musical elements (e.g., instrumentation, vocal harmonies, dynamics) are arranged and integrated within the composition.',
+    },
+    {
+        label: 'Innovation',
+        group: 'Creativity and Originality',
+        description: 'Evaluate the creativity and originality of the music, including unique stylistic elements, innovative techniques, or unconventional approaches to composition and production.',
+    },
+    {
+        label: 'Individuality',
+        group: 'Creativity and Originality',
+        description: "Consider whether the recording showcases the artist's distinct voice, personality, or artistic vision, and whether it offers something new or different within its genre or style.",
+    },
+    {
+        label: 'Impact',
+        group: 'Audience Engagement',
+        description: "Assess the overall impact and effectiveness of the recording in capturing the listener's attention, evoking emotion, and creating a memorable experience.",
+    },
+    {
+        label: 'Accessibility',
+        group: 'Audience Engagement',
+        description: 'Consider the accessibility of the music to a broader audience, including factors such as appeal, relevance, and potential for commercial success.',
+    },
+    {
+        label: 'Editing',
+        group: 'Technical Considerations',
+        description: 'Evaluate the precision and cleanliness of any edits made to the recording, such as splicing, comping, or pitch correction.',
+    },
+    {
+        label: 'Technical Issues',
+        group: 'Technical Considerations',
+        description: 'Identify any technical issues or flaws in the recording, such as background noise, distortion, clipping, or timing discrepancies.',
+    },
+    {
+        label: 'Alignment with Intent',
+        group: 'Artistic Intent and Vision',
+        description: "Assess how well the recording aligns with the artist's intended vision, artistic goals, and thematic concepts.",
+    },
+    {
+        label: 'Coherence and Consistency',
+        group: 'Artistic Intent and Vision',
+        description: 'Consider whether the recording maintains a cohesive and consistent artistic identity throughout its duration.',
+    },
+];
