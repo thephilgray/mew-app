@@ -1,0 +1,6232 @@
+# this is an auto generated file. This will be overwritten
+
+subscription OnCreateAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
+  onCreateAPIKey(filter: $filter) {
+    id
+    keyName
+    createdAt
+    profileID
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
+  onUpdateAPIKey(filter: $filter) {
+    id
+    keyName
+    createdAt
+    profileID
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteAPIKey($filter: ModelSubscriptionAPIKeyFilterInput) {
+  onDeleteAPIKey(filter: $filter) {
+    id
+    keyName
+    createdAt
+    profileID
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateExtension($filter: ModelSubscriptionExtensionFilterInput) {
+  onCreateExtension(filter: $filter) {
+    id
+    expiration
+    assignmentId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateExtension($filter: ModelSubscriptionExtensionFilterInput) {
+  onUpdateExtension(filter: $filter) {
+    id
+    expiration
+    assignmentId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteExtension($filter: ModelSubscriptionExtensionFilterInput) {
+  onDeleteExtension(filter: $filter) {
+    id
+    expiration
+    assignmentId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateFileRequest(
+  $filter: ModelSubscriptionFileRequestFilterInput
+) {
+  onCreateFileRequest(filter: $filter) {
+    id
+    startDate
+    expiration
+    title
+    details
+    required
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshopId
+    extensions {
+      items {
+        id
+        expiration
+        assignmentId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlist {
+      tracks {
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    playlistStartDate
+    playlistExternalUrl
+    type
+    createdAt
+    updatedAt
+    fileRequestPlaylistId
+    __typename
+  }
+}
+
+subscription OnUpdateFileRequest(
+  $filter: ModelSubscriptionFileRequestFilterInput
+) {
+  onUpdateFileRequest(filter: $filter) {
+    id
+    startDate
+    expiration
+    title
+    details
+    required
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshopId
+    extensions {
+      items {
+        id
+        expiration
+        assignmentId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlist {
+      tracks {
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    playlistStartDate
+    playlistExternalUrl
+    type
+    createdAt
+    updatedAt
+    fileRequestPlaylistId
+    __typename
+  }
+}
+
+subscription OnDeleteFileRequest(
+  $filter: ModelSubscriptionFileRequestFilterInput
+) {
+  onDeleteFileRequest(filter: $filter) {
+    id
+    startDate
+    expiration
+    title
+    details
+    required
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshopId
+    extensions {
+      items {
+        id
+        expiration
+        assignmentId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlist {
+      tracks {
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    playlistStartDate
+    playlistExternalUrl
+    type
+    createdAt
+    updatedAt
+    fileRequestPlaylistId
+    __typename
+  }
+}
+
+subscription OnCreateFileRequestSubmission(
+  $filter: ModelSubscriptionFileRequestSubmissionFilterInput
+) {
+  onCreateFileRequestSubmission(filter: $filter) {
+    id
+    fileRequestId
+    fileRequest {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      extensions {
+        nextToken
+        __typename
+      }
+      playlist {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    membershipId
+    membership {
+      id
+      workshopId
+      email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
+      status
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    artist
+    name
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    fileId
+    fileExtension
+    rating
+    comments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    stems {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    lyrics
+    requestFeedback
+    duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshopId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateFileRequestSubmission(
+  $filter: ModelSubscriptionFileRequestSubmissionFilterInput
+) {
+  onUpdateFileRequestSubmission(filter: $filter) {
+    id
+    fileRequestId
+    fileRequest {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      extensions {
+        nextToken
+        __typename
+      }
+      playlist {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    membershipId
+    membership {
+      id
+      workshopId
+      email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
+      status
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    artist
+    name
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    fileId
+    fileExtension
+    rating
+    comments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    stems {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    lyrics
+    requestFeedback
+    duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshopId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteFileRequestSubmission(
+  $filter: ModelSubscriptionFileRequestSubmissionFilterInput
+) {
+  onDeleteFileRequestSubmission(filter: $filter) {
+    id
+    fileRequestId
+    fileRequest {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      extensions {
+        nextToken
+        __typename
+      }
+      playlist {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    membershipId
+    membership {
+      id
+      workshopId
+      email
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroupId
+      status
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      mailchimp {
+        id
+        emailAddress
+        status
+        fullName
+        uniqueEmailId
+        contactId
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    artist
+    name
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    fileId
+    fileExtension
+    rating
+    comments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    stems {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    lyrics
+    requestFeedback
+    duration
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    workshopId
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateTrack($filter: ModelSubscriptionTrackFilterInput) {
+  onCreateTrack(filter: $filter) {
+    order
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    playlist {
+      tracks {
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    playlistTracksId
+    trackSubmissionId
+    __typename
+  }
+}
+
+subscription OnUpdateTrack($filter: ModelSubscriptionTrackFilterInput) {
+  onUpdateTrack(filter: $filter) {
+    order
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    playlist {
+      tracks {
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    playlistTracksId
+    trackSubmissionId
+    __typename
+  }
+}
+
+subscription OnDeleteTrack($filter: ModelSubscriptionTrackFilterInput) {
+  onDeleteTrack(filter: $filter) {
+    order
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    playlist {
+      tracks {
+        nextToken
+        __typename
+      }
+      owner {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      public
+      title
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      type
+      createdAt
+      id
+      updatedAt
+      profilePlaylistsId
+      playlistOwnerId
+      __typename
+    }
+    id
+    createdAt
+    updatedAt
+    playlistTracksId
+    trackSubmissionId
+    __typename
+  }
+}
+
+subscription OnCreatePlaylist($filter: ModelSubscriptionPlaylistFilterInput) {
+  onCreatePlaylist(filter: $filter) {
+    tracks {
+      items {
+        order
+        id
+        createdAt
+        updatedAt
+        playlistTracksId
+        trackSubmissionId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    owner {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    public
+    title
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    type
+    createdAt
+    id
+    updatedAt
+    profilePlaylistsId
+    playlistOwnerId
+    __typename
+  }
+}
+
+subscription OnUpdatePlaylist($filter: ModelSubscriptionPlaylistFilterInput) {
+  onUpdatePlaylist(filter: $filter) {
+    tracks {
+      items {
+        order
+        id
+        createdAt
+        updatedAt
+        playlistTracksId
+        trackSubmissionId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    owner {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    public
+    title
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    type
+    createdAt
+    id
+    updatedAt
+    profilePlaylistsId
+    playlistOwnerId
+    __typename
+  }
+}
+
+subscription OnDeletePlaylist($filter: ModelSubscriptionPlaylistFilterInput) {
+  onDeletePlaylist(filter: $filter) {
+    tracks {
+      items {
+        order
+        id
+        createdAt
+        updatedAt
+        playlistTracksId
+        trackSubmissionId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    owner {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    public
+    title
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    breakoutGroupId
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    type
+    createdAt
+    id
+    updatedAt
+    profilePlaylistsId
+    playlistOwnerId
+    __typename
+  }
+}
+
+subscription OnCreateBreakoutGroup(
+  $filter: ModelSubscriptionBreakoutGroupFilterInput
+) {
+  onCreateBreakoutGroup(filter: $filter) {
+    id
+    name
+    description
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateBreakoutGroup(
+  $filter: ModelSubscriptionBreakoutGroupFilterInput
+) {
+  onUpdateBreakoutGroup(filter: $filter) {
+    id
+    name
+    description
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteBreakoutGroup(
+  $filter: ModelSubscriptionBreakoutGroupFilterInput
+) {
+  onDeleteBreakoutGroup(filter: $filter) {
+    id
+    name
+    description
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    members {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateMembership(
+  $filter: ModelSubscriptionMembershipFilterInput
+) {
+  onCreateMembership(filter: $filter) {
+    id
+    workshopId
+    email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
+    status
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    mailchimp {
+      id
+      emailAddress
+      status
+      fullName
+      uniqueEmailId
+      contactId
+      tags {
+        id
+        name
+        __typename
+      }
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateMembership(
+  $filter: ModelSubscriptionMembershipFilterInput
+) {
+  onUpdateMembership(filter: $filter) {
+    id
+    workshopId
+    email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
+    status
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    mailchimp {
+      id
+      emailAddress
+      status
+      fullName
+      uniqueEmailId
+      contactId
+      tags {
+        id
+        name
+        __typename
+      }
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteMembership(
+  $filter: ModelSubscriptionMembershipFilterInput
+) {
+  onDeleteMembership(filter: $filter) {
+    id
+    workshopId
+    email
+    breakoutGroup {
+      id
+      name
+      description
+      workshopId
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      members {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroupId
+    status
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    mailchimp {
+      id
+      emailAddress
+      status
+      fullName
+      uniqueEmailId
+      contactId
+      tags {
+        id
+        name
+        __typename
+      }
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
+  onCreateWorkshop(filter: $filter) {
+    id
+    name
+    email
+    fileRequests {
+      items {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    status
+    passes
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    description
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    host {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    startDate
+    endDate
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    maxFeedback
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
+  onUpdateWorkshop(filter: $filter) {
+    id
+    name
+    email
+    fileRequests {
+      items {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    status
+    passes
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    description
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    host {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    startDate
+    endDate
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    maxFeedback
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteWorkshop($filter: ModelSubscriptionWorkshopFilterInput) {
+  onDeleteWorkshop(filter: $filter) {
+    id
+    name
+    email
+    fileRequests {
+      items {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    status
+    passes
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    description
+    artwork {
+      id
+      path
+      credit
+      __typename
+    }
+    host {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    breakoutGroups {
+      items {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    startDate
+    endDate
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    maxFeedback
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateHomePageSettings(
+  $filter: ModelSubscriptionHomePageSettingsFilterInput
+) {
+  onCreateHomePageSettings(filter: $filter) {
+    id
+    projectExplanation
+    featuredWorkshopID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateHomePageSettings(
+  $filter: ModelSubscriptionHomePageSettingsFilterInput
+) {
+  onUpdateHomePageSettings(filter: $filter) {
+    id
+    projectExplanation
+    featuredWorkshopID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteHomePageSettings(
+  $filter: ModelSubscriptionHomePageSettingsFilterInput
+) {
+  onDeleteHomePageSettings(filter: $filter) {
+    id
+    projectExplanation
+    featuredWorkshopID
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
+  onCreateProfile(filter: $filter) {
+    email
+    id
+    name
+    displayName
+    links {
+      id
+      text
+      url
+      __typename
+    }
+    avatar
+    bio
+    sub
+    apiKeys {
+      items {
+        id
+        keyName
+        createdAt
+        profileID
+        email
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    uploadedStems {
+      items {
+        id
+        title
+        bpm
+        key
+        scale
+        instruments
+        notes
+        fileSize
+        fileExtension
+        creatorEmail
+        stemGroupId
+        filePath
+        artist
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    prompts {
+      items {
+        id
+        title
+        content
+        authorEmail
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    location {
+      latitude
+      longitude
+      __typename
+    }
+    notificationSettings {
+      emailDigest {
+        enabled
+        frequency
+        __typename
+      }
+      __typename
+    }
+    receivedComments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
+  onUpdateProfile(filter: $filter) {
+    email
+    id
+    name
+    displayName
+    links {
+      id
+      text
+      url
+      __typename
+    }
+    avatar
+    bio
+    sub
+    apiKeys {
+      items {
+        id
+        keyName
+        createdAt
+        profileID
+        email
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    uploadedStems {
+      items {
+        id
+        title
+        bpm
+        key
+        scale
+        instruments
+        notes
+        fileSize
+        fileExtension
+        creatorEmail
+        stemGroupId
+        filePath
+        artist
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    prompts {
+      items {
+        id
+        title
+        content
+        authorEmail
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    location {
+      latitude
+      longitude
+      __typename
+    }
+    notificationSettings {
+      emailDigest {
+        enabled
+        frequency
+        __typename
+      }
+      __typename
+    }
+    receivedComments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
+  onDeleteProfile(filter: $filter) {
+    email
+    id
+    name
+    displayName
+    links {
+      id
+      text
+      url
+      __typename
+    }
+    avatar
+    bio
+    sub
+    apiKeys {
+      items {
+        id
+        keyName
+        createdAt
+        profileID
+        email
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    workshops {
+      items {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    submissions {
+      items {
+        id
+        fileRequestId
+        membershipId
+        artist
+        name
+        email
+        fileId
+        fileExtension
+        rating
+        lyrics
+        requestFeedback
+        duration
+        breakoutGroupId
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    memberships {
+      items {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    features {
+      mailchimp {
+        enabled
+        apiKeyName
+        listId
+        sessionTag
+        serverPrefix
+        __typename
+      }
+      __typename
+    }
+    playlists {
+      items {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    uploadedStems {
+      items {
+        id
+        title
+        bpm
+        key
+        scale
+        instruments
+        notes
+        fileSize
+        fileExtension
+        creatorEmail
+        stemGroupId
+        filePath
+        artist
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    prompts {
+      items {
+        id
+        title
+        content
+        authorEmail
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    location {
+      latitude
+      longitude
+      __typename
+    }
+    notificationSettings {
+      emailDigest {
+        enabled
+        frequency
+        __typename
+      }
+      __typename
+    }
+    receivedComments {
+      items {
+        id
+        content
+        email
+        submissionId
+        recipientEmail
+        assignmentId
+        workshopId
+        parentId
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onCreateComment(filter: $filter) {
+    id
+    content
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    recipientEmail
+    recipient {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    assignmentId
+    assignment {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      extensions {
+        nextToken
+        __typename
+      }
+      playlist {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    parentId
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onUpdateComment(filter: $filter) {
+    id
+    content
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    recipientEmail
+    recipient {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    assignmentId
+    assignment {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      extensions {
+        nextToken
+        __typename
+      }
+      playlist {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    parentId
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
+  onDeleteComment(filter: $filter) {
+    id
+    content
+    email
+    profile {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    submissionId
+    submission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    recipientEmail
+    recipient {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    assignmentId
+    assignment {
+      id
+      startDate
+      expiration
+      title
+      details
+      required
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      workshop {
+        id
+        name
+        email
+        status
+        passes
+        description
+        startDate
+        endDate
+        maxFeedback
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      extensions {
+        nextToken
+        __typename
+      }
+      playlist {
+        public
+        title
+        breakoutGroupId
+        type
+        createdAt
+        id
+        updatedAt
+        profilePlaylistsId
+        playlistOwnerId
+        __typename
+      }
+      playlistStartDate
+      playlistExternalUrl
+      type
+      createdAt
+      updatedAt
+      fileRequestPlaylistId
+      __typename
+    }
+    workshopId
+    workshop {
+      id
+      name
+      email
+      fileRequests {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      status
+      passes
+      features {
+        __typename
+      }
+      description
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      host {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      breakoutGroups {
+        nextToken
+        __typename
+      }
+      startDate
+      endDate
+      memberships {
+        nextToken
+        __typename
+      }
+      maxFeedback
+      createdAt
+      updatedAt
+      __typename
+    }
+    parentId
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateStem($filter: ModelSubscriptionStemFilterInput) {
+  onCreateStem(filter: $filter) {
+    id
+    title
+    bpm
+    key
+    scale
+    instruments
+    notes
+    submissions {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    fileSize
+    fileExtension
+    creatorEmail
+    creator {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    stemGroupId
+    filePath
+    artist
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateStem($filter: ModelSubscriptionStemFilterInput) {
+  onUpdateStem(filter: $filter) {
+    id
+    title
+    bpm
+    key
+    scale
+    instruments
+    notes
+    submissions {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    fileSize
+    fileExtension
+    creatorEmail
+    creator {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    stemGroupId
+    filePath
+    artist
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteStem($filter: ModelSubscriptionStemFilterInput) {
+  onDeleteStem(filter: $filter) {
+    id
+    title
+    bpm
+    key
+    scale
+    instruments
+    notes
+    submissions {
+      items {
+        id
+        fileRequestSubmissionID
+        stemID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    fileSize
+    fileExtension
+    creatorEmail
+    creator {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    stemGroupId
+    filePath
+    artist
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreatePrompt($filter: ModelSubscriptionPromptFilterInput) {
+  onCreatePrompt(filter: $filter) {
+    id
+    title
+    content
+    authorEmail
+    author {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdatePrompt($filter: ModelSubscriptionPromptFilterInput) {
+  onUpdatePrompt(filter: $filter) {
+    id
+    title
+    content
+    authorEmail
+    author {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeletePrompt($filter: ModelSubscriptionPromptFilterInput) {
+  onDeletePrompt(filter: $filter) {
+    id
+    title
+    content
+    authorEmail
+    author {
+      email
+      id
+      name
+      displayName
+      links {
+        id
+        text
+        url
+        __typename
+      }
+      avatar
+      bio
+      sub
+      apiKeys {
+        nextToken
+        __typename
+      }
+      workshops {
+        nextToken
+        __typename
+      }
+      submissions {
+        nextToken
+        __typename
+      }
+      memberships {
+        nextToken
+        __typename
+      }
+      features {
+        __typename
+      }
+      playlists {
+        nextToken
+        __typename
+      }
+      uploadedStems {
+        nextToken
+        __typename
+      }
+      prompts {
+        nextToken
+        __typename
+      }
+      location {
+        latitude
+        longitude
+        __typename
+      }
+      notificationSettings {
+        __typename
+      }
+      receivedComments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    type
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateSubmissionStems(
+  $filter: ModelSubscriptionSubmissionStemsFilterInput
+) {
+  onCreateSubmissionStems(filter: $filter) {
+    id
+    fileRequestSubmissionID
+    stemID
+    fileRequestSubmission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    stem {
+      id
+      title
+      bpm
+      key
+      scale
+      instruments
+      notes
+      submissions {
+        nextToken
+        __typename
+      }
+      fileSize
+      fileExtension
+      creatorEmail
+      creator {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      stemGroupId
+      filePath
+      artist
+      type
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateSubmissionStems(
+  $filter: ModelSubscriptionSubmissionStemsFilterInput
+) {
+  onUpdateSubmissionStems(filter: $filter) {
+    id
+    fileRequestSubmissionID
+    stemID
+    fileRequestSubmission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    stem {
+      id
+      title
+      bpm
+      key
+      scale
+      instruments
+      notes
+      submissions {
+        nextToken
+        __typename
+      }
+      fileSize
+      fileExtension
+      creatorEmail
+      creator {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      stemGroupId
+      filePath
+      artist
+      type
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteSubmissionStems(
+  $filter: ModelSubscriptionSubmissionStemsFilterInput
+) {
+  onDeleteSubmissionStems(filter: $filter) {
+    id
+    fileRequestSubmissionID
+    stemID
+    fileRequestSubmission {
+      id
+      fileRequestId
+      fileRequest {
+        id
+        startDate
+        expiration
+        title
+        details
+        required
+        workshopId
+        playlistStartDate
+        playlistExternalUrl
+        type
+        createdAt
+        updatedAt
+        fileRequestPlaylistId
+        __typename
+      }
+      membershipId
+      membership {
+        id
+        workshopId
+        email
+        breakoutGroupId
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
+      artist
+      name
+      email
+      profile {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      fileId
+      fileExtension
+      rating
+      comments {
+        nextToken
+        __typename
+      }
+      stems {
+        nextToken
+        __typename
+      }
+      artwork {
+        id
+        path
+        credit
+        __typename
+      }
+      lyrics
+      requestFeedback
+      duration
+      breakoutGroupId
+      breakoutGroup {
+        id
+        name
+        description
+        workshopId
+        createdAt
+        updatedAt
+        __typename
+      }
+      workshopId
+      createdAt
+      updatedAt
+      __typename
+    }
+    stem {
+      id
+      title
+      bpm
+      key
+      scale
+      instruments
+      notes
+      submissions {
+        nextToken
+        __typename
+      }
+      fileSize
+      fileExtension
+      creatorEmail
+      creator {
+        email
+        id
+        name
+        displayName
+        avatar
+        bio
+        sub
+        createdAt
+        updatedAt
+        __typename
+      }
+      stemGroupId
+      filePath
+      artist
+      type
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}

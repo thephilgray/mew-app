@@ -352,6 +352,23 @@ type Workshop
   maxFeedback: Int
 }
 
+type HomePageSettings
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read] }
+      {
+        allow: groups
+        groups: ["admin"]
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  projectExplanation: String
+  featuredWorkshopID: ID
+}
+
 type Profile
   @model
   @auth(
