@@ -838,47 +838,49 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                         </Card>
                     </Grid >
                 </If>
-                <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex]}>
-                    <Grid item xs={12}>
-                        <If condition={!!audioLists?.[currentIndex]?.feedbackRequestCategories?.length}>
-                            <Box sx={{ mb: 2 }}>
-                                <Typography variant="h6">Feedback requested on</Typography>
-                                {audioLists?.[currentIndex].feedbackRequestCategories.map((cat) => {
-                                    const category = FEEDBACK_CATEGORIES.find(c => c.label === cat)
-                                    return (
-                                        <Tooltip title={category?.description || ''} key={category.label}>
-                                            <Chip label={category.label} sx={{ m: 0.5 }} />
-                                        </Tooltip>
-                                    )
-                                })}
-                            </Box>
-                        </If>
-                    </Grid>
-                    <If condition={!!audioLists?.[currentIndex]?.lyrics}>
+                {isNumber(currentIndex) && audioLists?.[currentIndex] && (
+                    <>
                         <Grid item xs={12}>
-                            <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-                                <Typography variant="body2">
-                                    {audioLists?.[currentIndex]?.lyrics}
-                                </Typography>
-                            </pre>
+                            {!!audioLists[currentIndex].feedbackRequestCategories?.length && (
+                                <Box sx={{ mb: 2 }}>
+                                    <Typography variant="h6">Feedback requested on</Typography>
+                                    {audioLists[currentIndex].feedbackRequestCategories.map((cat) => {
+                                        const category = FEEDBACK_CATEGORIES.find(c => c.label === cat)
+                                        return (
+                                            <Tooltip title={category?.description || ''} key={category.label}>
+                                                <Chip label={category.label} sx={{ m: 0.5 }} />
+                                            </Tooltip>
+                                        )
+                                    })}
+                                </Box>
+                            )}
                         </Grid>
-                    </If>
-                    <Grid item xs={12} sx={{ pb: '100px' }}>
-                        <If condition={!!loggedIn}
-                            fallbackContent={<Alert severity="info">
-                                <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for comments and more content and features.
-                            </Alert>}>
-                            <FeedbackSection
-                                requestedFeedback={!!audioLists?.[currentIndex]?.requestFeedback}
-                                assignmentId={assignmentId || audioLists?.[currentIndex]?.assignmentId}
-                                submissionId={audioLists?.[currentIndex]?.submissionId}
-                                recipientEmail={audioLists?.[currentIndex]?.profile?.email}
-                                workshopId={data?.workshopId || audioLists?.[currentIndex]?.workshopId}
-                                showToggle={false}
-                            />
-                        </If>
-                    </Grid>
-                </If >
+                        {!!audioLists[currentIndex].lyrics && (
+                            <Grid item xs={12}>
+                                <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                                    <Typography variant="body2">
+                                        {audioLists[currentIndex].lyrics}
+                                    </Typography>
+                                </pre>
+                            </Grid>
+                        )}
+                        <Grid item xs={12} sx={{ pb: '100px' }}>
+                            <If condition={!!loggedIn}
+                                fallbackContent={<Alert severity="info">
+                                    <Link to={ROUTES.assignment.getPath({ assignmentId })}>Sign in</Link> for comments and more content and features.
+                                </Alert>}>
+                                <FeedbackSection
+                                    requestedFeedback={!!audioLists[currentIndex].requestFeedback}
+                                    assignmentId={assignmentId || audioLists[currentIndex].assignmentId}
+                                    submissionId={audioLists[currentIndex].submissionId}
+                                    recipientEmail={audioLists[currentIndex].profile?.email}
+                                    workshopId={data?.workshopId || audioLists[currentIndex].workshopId}
+                                    showToggle={false}
+                                />
+                            </If>
+                        </Grid>
+                    </>
+                )}
             </If>
             <Snackbar
                 anchorOrigin={{
