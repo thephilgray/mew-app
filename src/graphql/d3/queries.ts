@@ -912,7 +912,6 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
       }
       lyrics
       requestFeedback
-      feedbackRequestCategories
       duration
       breakoutGroupId
       breakoutGroup {

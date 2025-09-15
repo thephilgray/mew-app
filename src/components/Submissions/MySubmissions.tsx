@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { submissionsByEmail } from '../../graphql/d3/queries'
+import { submissionsByEmail } from './MySubmissions.queries'
 import { useUser } from '../../auth/hooks'
 import { gql, useQuery } from '@apollo/react-hooks'
 import { Box, Button, Chip, Grid, IconButton, SortDirection, Tooltip } from '@mui/material'
