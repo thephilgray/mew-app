@@ -421,6 +421,7 @@ export const getAPIKey = /* GraphQL */ `query GetAPIKey($id: ID!) {
             rating
             lyrics
             requestFeedback
+            feedbackRequestCategories
             duration
             breakoutGroupId
             workshopId
@@ -561,6 +562,7 @@ export const listAPIKeys = /* GraphQL */ `query ListAPIKeys(
             rating
             lyrics
             requestFeedback
+            feedbackRequestCategories
             duration
             breakoutGroupId
             workshopId
@@ -999,6 +1001,7 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
         }
         lyrics
         requestFeedback
+        feedbackRequestCategories
         duration
         breakoutGroupId
         breakoutGroup {
@@ -1270,6 +1273,7 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             rating
             lyrics
             requestFeedback
+            feedbackRequestCategories
             duration
             breakoutGroupId
             workshopId
@@ -1530,6 +1534,7 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             rating
             lyrics
             requestFeedback
+            feedbackRequestCategories
             duration
             breakoutGroupId
             workshopId
@@ -1617,6 +1622,7 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             rating
             lyrics
             requestFeedback
+            feedbackRequestCategories
             duration
             breakoutGroupId
             workshopId
@@ -6150,6 +6156,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
       }
       lyrics
       requestFeedback
+      feedbackRequestCategories
       duration
       breakoutGroupId
       breakoutGroup {
@@ -6221,6 +6228,7 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             rating
             lyrics
             requestFeedback
+            feedbackRequestCategories
             duration
             breakoutGroupId
             workshopId
