@@ -169,6 +169,7 @@ type FileRequestSubmission
       queryField: "submissionsByWorkshopId"
     )
     @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
+  featuredInProfiles: [Profile] @manyToMany(relationName: "ProfileFeaturedSubmissions")
 }
 
 type Track
@@ -214,6 +215,7 @@ type Playlist
       sortKeyFields: ["createdAt"]
     )
   createdAt: String
+  featuredInProfiles: [Profile] @manyToMany(relationName: "ProfileCuratedPlaylists")
 }
 
 type MailchimpTag {
