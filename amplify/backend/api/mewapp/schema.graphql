@@ -390,6 +390,9 @@ type Profile
   location: Location
   notificationSettings: UserNotificationSettings
   receivedComments: [Comment] @hasMany(indexName: "commentsByRecipientEmail", fields: ["email"])
+  featuredSubmissions: [FileRequestSubmission]
+    @manyToMany(relationName: "ProfileFeaturedSubmissions")
+  curatedPlaylists: [Playlist] @manyToMany(relationName: "ProfileCuratedPlaylists")
   # mentions: [Mentions] @hasMany(indexName: "mentionsByEmail", fields: ["email"])
 }
 
