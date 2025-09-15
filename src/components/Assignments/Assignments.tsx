@@ -73,7 +73,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId, fileRequests }) =
   const handleObserver = useCallback((entities) => {
     const target = entities[0];
     if (target.isIntersecting) {
-      if (fetchAssignmentsData?.listFileRequests?.nextToken) {
+      if (fetchAssignmentsData?.listFileRequests?.nextToken && !fetchAssignmentsLoading) {
         fetchMore({
           variables: {
             nextToken: fetchAssignmentsData.listFileRequests.nextToken
@@ -92,7 +92,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId, fileRequests }) =
         });
       }
     }
-  }, [fetchAssignmentsData, fetchMore]);
+  }, [fetchAssignmentsData, fetchAssignmentsLoading, fetchMore]);
 
   useEffect(() => {
     var options = {

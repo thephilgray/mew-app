@@ -389,7 +389,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   const [comments, setComments] = useState<CommentType[]>([])
   const [nextToken, setNextToken] = useState<string | null>(null)
   const [showAllComments, setShowAllComments] = useState(showAll)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [lastVisit, setLastVisit] = useState<Date | null>(null)
   const [activeReplyId, setActiveReplyId] = useState<string | null>(null);
   const loader = useRef(null);
@@ -556,10 +556,10 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
 
   const handleObserver = useCallback((entities) => {
     const target = entities[0];
-    if (target.isIntersecting && nextToken) {
+    if (target.isIntersecting && nextToken && !loading) {
       fetchComments(nextToken);
     }
-  }, [nextToken, fetchComments]);
+  }, [nextToken, loading, fetchComments]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, {
@@ -580,7 +580,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   // Effect for fetching data
   useEffect(() => {
     fetchComments(null);
-  }, [showAllComments, fetchComments]);
+  }, [fetchComments]);
 
   // Effect for subscriptions
   useEffect(() => {
@@ -742,32 +742,33 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
             <CommentIcon />
           </Badge>
         </Typography>
-        <If condition={!loading} fallbackContent={<CircularProgress />}>
-          <If condition={!!showToggle}>
-            <ToggleButtonGroup
-              exclusive
-              value={!!showAllComments ? "all" : "me"}
-              onChange={(_, value) => setShowAllComments(value === "all")}
-              sx={{ float: "right" }}>
-              <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
-              <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
-            </ToggleButtonGroup>
-          </If>
-          <If condition={!!submissionId}>
-            <WriteComment onDismiss={() => {}} submitComment={submitComment({ submissionId, assignmentId, workshopId, recipientEmail })} editing={false} replying={false} />
-          </If>
-          {parentComments && parentComments
-            .map(comment => (
-              <MyComment
-                key={comment.id}
-                writeCommentFunctions={{ submitComment, removeComment, editComment }}
-                comment={comment}
-                commentsByParentId={commentsByParentId}
-                activeReplyId={activeReplyId}
-                setActiveReplyId={setActiveReplyId} />
-            )
-            )}
+        <If condition={!!showToggle}>
+          <ToggleButtonGroup
+            exclusive
+            value={!!showAllComments ? "all" : "me"}
+            onChange={(_, value) => {
+              setShowAllComments(value === "all");
+              fetchComments(null);
+            }}
+            sx={{ float: "right" }}>
+            <ToggleButton value="me" aria-label="For Me">For Me <Person /></ToggleButton>
+            <ToggleButton value="all" aria-label="Show All" disabled={!showAll}>All <People /></ToggleButton>
+          </ToggleButtonGroup>
         </If>
+        <If condition={!!submissionId}>
+          <WriteComment onDismiss={() => {}} submitComment={submitComment({ submissionId, assignmentId, workshopId, recipientEmail })} editing={false} replying={false} />
+        </If>
+        {parentComments && parentComments
+          .map(comment => (
+            <MyComment
+              key={comment.id}
+              writeCommentFunctions={{ submitComment, removeComment, editComment }}
+              comment={comment}
+              commentsByParentId={commentsByParentId}
+              activeReplyId={activeReplyId}
+              setActiveReplyId={setActiveReplyId} />
+          )
+          )}
         <div ref={loader}>
           {loading && <CircularProgress />}
         </div>

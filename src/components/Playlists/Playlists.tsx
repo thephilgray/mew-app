@@ -40,7 +40,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
   const handleObserver = useCallback((entities) => {
     const target = entities[0];
     if (target.isIntersecting) {
-      if (data?.playlistsByDate?.nextToken) {
+      if (data?.playlistsByDate?.nextToken && !loading) {
         fetchMore({
           variables: {
             nextToken: data.playlistsByDate.nextToken
@@ -58,7 +58,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
           }
         });
       }
-      if (fetchAssignmentsData?.listFileRequests?.nextToken) {
+      if (fetchAssignmentsData?.listFileRequests?.nextToken && !fetchAssignmentsLoading) {
         fetchMoreAssignments({
           variables: {
             nextToken: fetchAssignmentsData.listFileRequests.nextToken
@@ -77,7 +77,7 @@ const Playlists: React.FC<PlaylistsProps> = () => {
         });
       }
     }
-  }, [data, fetchAssignmentsData, fetchMore, fetchMoreAssignments]);
+  }, [data, loading, fetchAssignmentsData, fetchAssignmentsLoading, fetchMore, fetchMoreAssignments]);
 
   useEffect(() => {
     var options = {
