@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Button, CardActions, Grid, Typography } from '@mui/material'
+import React, { useEffect, useRef, useCallback } from 'react';
+import { Button, CardActions, Grid, Typography, CircularProgress } from '@mui/material'
 import { Add, Assignment, AssignmentTurnedInRounded, OpenInBrowser, PlayArrowTwoTone } from '@mui/icons-material'
 import { SvgSkullCrossbonesSolid } from 'react-line-awesome-svg'
 import CardGrid, { SkeletonCardGrid } from '../CardGrid';
@@ -65,9 +65,46 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId, fileRequests }) =
   const user = useUser()
   const { profile } = useProfile()
   const [viewAdmin] = useViewAdmin()
-  const [fetchAssignments, { data: fetchAssignmentsData, loading: fetchAssignmentsLoading, error: fetchAssignmentsError }] = useLazyQuery(
+  const loader = useRef(null);
+  const [fetchAssignments, { data: fetchAssignmentsData, loading: fetchAssignmentsLoading, error: fetchAssignmentsError, fetchMore }] = useLazyQuery(
     gql(listFileRequests)
   )
+
+  const handleObserver = useCallback((entities) => {
+    const target = entities[0];
+    if (target.isIntersecting) {
+      if (fetchAssignmentsData?.listFileRequests?.nextToken) {
+        fetchMore({
+          variables: {
+            nextToken: fetchAssignmentsData.listFileRequests.nextToken
+          },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            return {
+              ...prev,
+              listFileRequests: {
+                ...prev.listFileRequests,
+                items: [...prev.listFileRequests.items, ...fetchMoreResult.listFileRequests.items],
+                nextToken: fetchMoreResult.listFileRequests.nextToken
+              }
+            };
+          }
+        });
+      }
+    }
+  }, [fetchAssignmentsData, fetchMore]);
+
+  useEffect(() => {
+    var options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0
+    };
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (loader.current) {
+      observer.observe(loader.current)
+    }
+  }, [handleObserver]);
 
 
   useEffect(() => {
@@ -77,8 +114,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId, fileRequests }) =
         ?.map(item => item.workshopId) || []
       fetchAssignments({
         variables: {
-          // TODO: do not limit, paginate
-          limit: 500,
+          limit: 20,
           filter: {
             or: workshopIds.map(workshopId => ({ workshopId: { eq: workshopId } })),
           },
@@ -234,6 +270,9 @@ const Assignments: React.FC<AssignmentsProps> = ({ workshopId, fileRequests }) =
         </Grid>
       </Grid>
     ) : null}
+    <div ref={loader}>
+      {fetchAssignmentsLoading && <CircularProgress />}
+    </div>
   </Grid>
 }
 export default Assignments;

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { gql, useLazyQuery, useQuery } from '@apollo/react-hooks';
+import React, { useEffect, useRef, useCallback } from 'react';
+import { gql, useLazyQuery } from '@apollo/react-hooks';
 import { useProfile, useViewAdmin } from '../../auth/hooks';
 import CardGrid, { SkeletonCardGrid } from '../CardGrid';
 import If from '../If';
 import { ROUTES } from '../../constants';
-import { Alert, Button, Chip, Divider, Grid, IconButton, Typography } from '@mui/material';
+import { Alert, Button, Divider, Grid, IconButton, Typography, CircularProgress } from '@mui/material';
 import { format } from 'date-fns'
 import isPast from 'date-fns/isPast'
 import { Link, navigate } from 'gatsby';
@@ -12,16 +12,16 @@ import { compareDesc } from "date-fns"
 import { EditRounded } from '@mui/icons-material';
 import { listFileRequests, playlistsByDate } from './playlist.queries';
 
-type PlaylistsProps = {
-
-};
+type PlaylistsProps = {};
 
 const Playlists: React.FC<PlaylistsProps> = () => {
   const { profile } = useProfile()
   const [viewAdmin] = useViewAdmin()
-  const [fetchPlaylistsByDate, { data, loading, error }] = useLazyQuery(gql(playlistsByDate), {
+  const loader = useRef(null);
+
+  const [fetchPlaylistsByDate, { data, loading, error, fetchMore }] = useLazyQuery(gql(playlistsByDate), {
     variables: {
-      limit: 500,
+      limit: 20,
       type: "Playlist",
       sortDirection: "DESC",
       filter: {
@@ -31,20 +31,74 @@ const Playlists: React.FC<PlaylistsProps> = () => {
         ]
       }
     }
-  })
+  });
 
-  const [fetchAssignments, { data: fetchAssignmentsData, loading: fetchAssignmentsLoading, error: fetchAssignmentsError }] = useLazyQuery(
+  const [fetchAssignments, { data: fetchAssignmentsData, loading: fetchAssignmentsLoading, error: fetchAssignmentsError, fetchMore: fetchMoreAssignments }] = useLazyQuery(
     gql(listFileRequests)
-  )
+  );
+
+  const handleObserver = useCallback((entities) => {
+    const target = entities[0];
+    if (target.isIntersecting) {
+      if (data?.playlistsByDate?.nextToken) {
+        fetchMore({
+          variables: {
+            nextToken: data.playlistsByDate.nextToken
+          },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            return {
+              ...prev,
+              playlistsByDate: {
+                ...prev.playlistsByDate,
+                items: [...prev.playlistsByDate.items, ...fetchMoreResult.playlistsByDate.items],
+                nextToken: fetchMoreResult.playlistsByDate.nextToken
+              }
+            };
+          }
+        });
+      }
+      if (fetchAssignmentsData?.listFileRequests?.nextToken) {
+        fetchMoreAssignments({
+          variables: {
+            nextToken: fetchAssignmentsData.listFileRequests.nextToken
+          },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            return {
+              ...prev,
+              listFileRequests: {
+                ...prev.listFileRequests,
+                items: [...prev.listFileRequests.items, ...fetchMoreResult.listFileRequests.items],
+                nextToken: fetchMoreResult.listFileRequests.nextToken
+              }
+            };
+          }
+        });
+      }
+    }
+  }, [data, fetchAssignmentsData, fetchMore, fetchMoreAssignments]);
+
+  useEffect(() => {
+    var options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0
+    };
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (loader.current) {
+      observer.observe(loader.current)
+    }
+  }, [handleObserver]);
+
 
   const fetchMyAssignments = () => {
     const workshopIds = profile?.memberships?.items
       ?.filter(item => item.status === "ACTIVE")
       ?.map(item => item.workshopId) || []
-    // variables: { filter: { workshopId: { eq: workshopId } } },
     return fetchAssignments({
       variables: {
-        limit: 500,
+        limit: 20,
         filter: {
           or: workshopIds.map(workshopId => ({ workshopId: { eq: workshopId } })),
         }
@@ -189,6 +243,9 @@ const Playlists: React.FC<PlaylistsProps> = () => {
 
       </Grid>
     </If>
+    <div ref={loader}>
+      {(loading || fetchAssignmentsLoading) && <CircularProgress />}
+    </div>
   </Grid >
 }
 export default Playlists;

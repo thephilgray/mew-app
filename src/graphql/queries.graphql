@@ -1,14 +1,6 @@
-/* tslint:disable */
-/* eslint-disable */
-// this is an auto generated file. This will be overwritten
+# this is an auto generated file. This will be overwritten
 
-import * as APITypes from "../../API";
-type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
-};
-
-export const getAPIKey = /* GraphQL */ `query GetAPIKey($id: ID!) {
+query GetAPIKey($id: ID!) {
   getAPIKey(id: $id) {
     id
     keyName
@@ -490,8 +482,8 @@ export const getAPIKey = /* GraphQL */ `query GetAPIKey($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetAPIKeyQueryVariables, APITypes.GetAPIKeyQuery>;
-export const listAPIKeys = /* GraphQL */ `query ListAPIKeys(
+
+query ListAPIKeys(
   $filter: ModelAPIKeyFilterInput
   $limit: Int
   $nextToken: String
@@ -691,11 +683,8 @@ export const listAPIKeys = /* GraphQL */ `query ListAPIKeys(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListAPIKeysQueryVariables,
-  APITypes.ListAPIKeysQuery
->;
-export const getExtension = /* GraphQL */ `query GetExtension($id: ID!) {
+
+query GetExtension($id: ID!) {
   getExtension(id: $id) {
     id
     expiration
@@ -705,11 +694,8 @@ export const getExtension = /* GraphQL */ `query GetExtension($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetExtensionQueryVariables,
-  APITypes.GetExtensionQuery
->;
-export const listExtensions = /* GraphQL */ `query ListExtensions(
+
+query ListExtensions(
   $filter: ModelExtensionFilterInput
   $limit: Int
   $nextToken: String
@@ -727,11 +713,8 @@ export const listExtensions = /* GraphQL */ `query ListExtensions(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListExtensionsQueryVariables,
-  APITypes.ListExtensionsQuery
->;
-export const extensionsByFileRequestId = /* GraphQL */ `query ExtensionsByFileRequestId(
+
+query ExtensionsByFileRequestId(
   $assignmentId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelExtensionFilterInput
@@ -757,11 +740,8 @@ export const extensionsByFileRequestId = /* GraphQL */ `query ExtensionsByFileRe
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ExtensionsByFileRequestIdQueryVariables,
-  APITypes.ExtensionsByFileRequestIdQuery
->;
-export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
+
+query GetFileRequest($id: ID!) {
   getFileRequest(id: $id) {
     id
     startDate
@@ -1879,11 +1859,8 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetFileRequestQueryVariables,
-  APITypes.GetFileRequestQuery
->;
-export const listFileRequests = /* GraphQL */ `query ListFileRequests(
+
+query ListFileRequests(
   $filter: ModelFileRequestFilterInput
   $limit: Int
   $nextToken: String
@@ -2300,11 +2277,8 @@ export const listFileRequests = /* GraphQL */ `query ListFileRequests(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListFileRequestsQueryVariables,
-  APITypes.ListFileRequestsQuery
->;
-export const fileRequestsByWorkshopId = /* GraphQL */ `query FileRequestsByWorkshopId(
+
+query FileRequestsByWorkshopId(
   $workshopId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelFileRequestFilterInput
@@ -2729,11 +2703,8 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `query FileRequestsByWorks
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.FileRequestsByWorkshopIdQueryVariables,
-  APITypes.FileRequestsByWorkshopIdQuery
->;
-export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
+
+query FileRequestsByDate(
   $type: String!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -3160,11 +3131,8 @@ export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.FileRequestsByDateQueryVariables,
-  APITypes.FileRequestsByDateQuery
->;
-export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmission($id: ID!) {
+
+query GetFileRequestSubmission($id: ID!) {
   getFileRequestSubmission(id: $id) {
     id
     fileRequestId
@@ -5451,11 +5419,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetFileRequestSubmissionQueryVariables,
-  APITypes.GetFileRequestSubmissionQuery
->;
-export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSubmissions(
+
+query ListFileRequestSubmissions(
   $filter: ModelFileRequestSubmissionFilterInput
   $limit: Int
   $nextToken: String
@@ -6274,11 +6239,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListFileRequestSubmissionsQueryVariables,
-  APITypes.ListFileRequestSubmissionsQuery
->;
-export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFileRequestId(
+
+query SubmissionsByFileRequestId(
   $fileRequestId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelFileRequestSubmissionFilterInput
@@ -7101,11 +7063,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.SubmissionsByFileRequestIdQueryVariables,
-  APITypes.SubmissionsByFileRequestIdQuery
->;
-export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembershipId(
+
+query SubmissionsByMembershipId(
   $membershipId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelFileRequestSubmissionFilterInput
@@ -7928,11 +7887,8 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.SubmissionsByMembershipIdQueryVariables,
-  APITypes.SubmissionsByMembershipIdQuery
->;
-export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
+
+query SubmissionsByEmail(
   $email: String!
   $sortDirection: ModelSortDirection
   $filter: ModelFileRequestSubmissionFilterInput
@@ -8755,11 +8711,8 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.SubmissionsByEmailQueryVariables,
-  APITypes.SubmissionsByEmailQuery
->;
-export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBreakoutGroupId(
+
+query SubmissionsByBreakoutGroupId(
   $breakoutGroupId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelFileRequestSubmissionFilterInput
@@ -9582,11 +9535,8 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.SubmissionsByBreakoutGroupIdQueryVariables,
-  APITypes.SubmissionsByBreakoutGroupIdQuery
->;
-export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorkshopId(
+
+query SubmissionsByWorkshopId(
   $workshopId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelFileRequestSubmissionFilterInput
@@ -10409,11 +10359,8 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.SubmissionsByWorkshopIdQueryVariables,
-  APITypes.SubmissionsByWorkshopIdQuery
->;
-export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
+
+query GetTrack($id: ID!) {
   getTrack(id: $id) {
     order
     submission {
@@ -11585,8 +11532,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetTrackQueryVariables, APITypes.GetTrackQuery>;
-export const listTracks = /* GraphQL */ `query ListTracks(
+
+query ListTracks(
   $filter: ModelTrackFilterInput
   $limit: Int
   $nextToken: String
@@ -11997,11 +11944,8 @@ export const listTracks = /* GraphQL */ `query ListTracks(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListTracksQueryVariables,
-  APITypes.ListTracksQuery
->;
-export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
+
+query GetPlaylist($id: ID!) {
   getPlaylist(id: $id) {
     tracks {
       items {
@@ -12992,11 +12936,8 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetPlaylistQueryVariables,
-  APITypes.GetPlaylistQuery
->;
-export const listPlaylists = /* GraphQL */ `query ListPlaylists(
+
+query ListPlaylists(
   $filter: ModelPlaylistFilterInput
   $limit: Int
   $nextToken: String
@@ -13362,11 +13303,8 @@ export const listPlaylists = /* GraphQL */ `query ListPlaylists(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListPlaylistsQueryVariables,
-  APITypes.ListPlaylistsQuery
->;
-export const playlistsByBreakoutGroupId = /* GraphQL */ `query PlaylistsByBreakoutGroupId(
+
+query PlaylistsByBreakoutGroupId(
   $breakoutGroupId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelPlaylistFilterInput
@@ -13740,11 +13678,8 @@ export const playlistsByBreakoutGroupId = /* GraphQL */ `query PlaylistsByBreako
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.PlaylistsByBreakoutGroupIdQueryVariables,
-  APITypes.PlaylistsByBreakoutGroupIdQuery
->;
-export const playlistsByDate = /* GraphQL */ `query PlaylistsByDate(
+
+query PlaylistsByDate(
   $type: String!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -14120,11 +14055,8 @@ export const playlistsByDate = /* GraphQL */ `query PlaylistsByDate(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.PlaylistsByDateQueryVariables,
-  APITypes.PlaylistsByDateQuery
->;
-export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) {
+
+query GetBreakoutGroup($id: ID!) {
   getBreakoutGroup(id: $id) {
     id
     name
@@ -15190,11 +15122,8 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetBreakoutGroupQueryVariables,
-  APITypes.GetBreakoutGroupQuery
->;
-export const listBreakoutGroups = /* GraphQL */ `query ListBreakoutGroups(
+
+query ListBreakoutGroups(
   $filter: ModelBreakoutGroupFilterInput
   $limit: Int
   $nextToken: String
@@ -15568,11 +15497,8 @@ export const listBreakoutGroups = /* GraphQL */ `query ListBreakoutGroups(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListBreakoutGroupsQueryVariables,
-  APITypes.ListBreakoutGroupsQuery
->;
-export const breakoutGroupsByWorkshopId = /* GraphQL */ `query BreakoutGroupsByWorkshopId(
+
+query BreakoutGroupsByWorkshopId(
   $workshopId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelBreakoutGroupFilterInput
@@ -15954,11 +15880,8 @@ export const breakoutGroupsByWorkshopId = /* GraphQL */ `query BreakoutGroupsByW
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.BreakoutGroupsByWorkshopIdQueryVariables,
-  APITypes.BreakoutGroupsByWorkshopIdQuery
->;
-export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
+
+query GetMembership($id: ID!) {
   getMembership(id: $id) {
     id
     workshopId
@@ -17545,11 +17468,8 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetMembershipQueryVariables,
-  APITypes.GetMembershipQuery
->;
-export const listMemberships = /* GraphQL */ `query ListMemberships(
+
+query ListMemberships(
   $filter: ModelMembershipFilterInput
   $limit: Int
   $nextToken: String
@@ -18123,11 +18043,8 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListMembershipsQueryVariables,
-  APITypes.ListMembershipsQuery
->;
-export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorkshopId(
+
+query MembershipsByWorkshopId(
   $workshopId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelMembershipFilterInput
@@ -18709,11 +18626,8 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.MembershipsByWorkshopIdQueryVariables,
-  APITypes.MembershipsByWorkshopIdQuery
->;
-export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
+
+query MembershipsByEmail(
   $email: String!
   $sortDirection: ModelSortDirection
   $filter: ModelMembershipFilterInput
@@ -19295,11 +19209,8 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.MembershipsByEmailQueryVariables,
-  APITypes.MembershipsByEmailQuery
->;
-export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGroupId(
+
+query MembersByBreakoutGroupId(
   $breakoutGroupId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelMembershipFilterInput
@@ -19881,11 +19792,8 @@ export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGr
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.MembersByBreakoutGroupIdQueryVariables,
-  APITypes.MembersByBreakoutGroupIdQuery
->;
-export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
+
+query GetWorkshop($id: ID!) {
   getWorkshop(id: $id) {
     id
     name
@@ -21128,11 +21036,8 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetWorkshopQueryVariables,
-  APITypes.GetWorkshopQuery
->;
-export const listWorkshops = /* GraphQL */ `query ListWorkshops(
+
+query ListWorkshops(
   $filter: ModelWorkshopFilterInput
   $limit: Int
   $nextToken: String
@@ -21599,11 +21504,8 @@ export const listWorkshops = /* GraphQL */ `query ListWorkshops(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListWorkshopsQueryVariables,
-  APITypes.ListWorkshopsQuery
->;
-export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
+
+query GetProfile($email: String!) {
   getProfile(email: $email) {
     email
     id
@@ -22983,11 +22885,8 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetProfileQueryVariables,
-  APITypes.GetProfileQuery
->;
-export const listProfiles = /* GraphQL */ `query ListProfiles(
+
+query ListProfiles(
   $email: String
   $filter: ModelProfileFilterInput
   $limit: Int
@@ -23476,11 +23375,8 @@ export const listProfiles = /* GraphQL */ `query ListProfiles(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListProfilesQueryVariables,
-  APITypes.ListProfilesQuery
->;
-export const profileByProfileId = /* GraphQL */ `query ProfileByProfileId(
+
+query ProfileByProfileId(
   $id: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelProfileFilterInput
@@ -23969,11 +23865,8 @@ export const profileByProfileId = /* GraphQL */ `query ProfileByProfileId(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ProfileByProfileIdQueryVariables,
-  APITypes.ProfileByProfileIdQuery
->;
-export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
+
+query GetComment($id: ID!) {
   getComment(id: $id) {
     id
     content
@@ -26600,11 +26493,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetCommentQueryVariables,
-  APITypes.GetCommentQuery
->;
-export const listComments = /* GraphQL */ `query ListComments(
+
+query ListComments(
   $filter: ModelCommentFilterInput
   $limit: Int
   $nextToken: String
@@ -27568,11 +27458,8 @@ export const listComments = /* GraphQL */ `query ListComments(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListCommentsQueryVariables,
-  APITypes.ListCommentsQuery
->;
-export const commentsByDate = /* GraphQL */ `query CommentsByDate(
+
+query CommentsByDate(
   $type: String!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -28546,11 +28433,8 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.CommentsByDateQueryVariables,
-  APITypes.CommentsByDateQuery
->;
-export const getStem = /* GraphQL */ `query GetStem($id: ID!) {
+
+query GetStem($id: ID!) {
   getStem(id: $id) {
     id
     title
@@ -29169,8 +29053,8 @@ export const getStem = /* GraphQL */ `query GetStem($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetStemQueryVariables, APITypes.GetStemQuery>;
-export const listStems = /* GraphQL */ `query ListStems(
+
+query ListStems(
   $filter: ModelStemFilterInput
   $limit: Int
   $nextToken: String
@@ -29430,8 +29314,8 @@ export const listStems = /* GraphQL */ `query ListStems(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListStemsQueryVariables, APITypes.ListStemsQuery>;
-export const stemsByDate = /* GraphQL */ `query StemsByDate(
+
+query StemsByDate(
   $type: String!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -29701,11 +29585,8 @@ export const stemsByDate = /* GraphQL */ `query StemsByDate(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.StemsByDateQueryVariables,
-  APITypes.StemsByDateQuery
->;
-export const getPrompt = /* GraphQL */ `query GetPrompt($id: ID!) {
+
+query GetPrompt($id: ID!) {
   getPrompt(id: $id) {
     id
     title
@@ -30188,8 +30069,8 @@ export const getPrompt = /* GraphQL */ `query GetPrompt($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetPromptQueryVariables, APITypes.GetPromptQuery>;
-export const listPrompts = /* GraphQL */ `query ListPrompts(
+
+query ListPrompts(
   $filter: ModelPromptFilterInput
   $limit: Int
   $nextToken: String
@@ -30390,11 +30271,8 @@ export const listPrompts = /* GraphQL */ `query ListPrompts(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListPromptsQueryVariables,
-  APITypes.ListPromptsQuery
->;
-export const promptsByDate = /* GraphQL */ `query PromptsByDate(
+
+query PromptsByDate(
   $type: String!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -30605,11 +30483,8 @@ export const promptsByDate = /* GraphQL */ `query PromptsByDate(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.PromptsByDateQueryVariables,
-  APITypes.PromptsByDateQuery
->;
-export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: ID!) {
+
+query GetSubmissionStems($id: ID!) {
   getSubmissionStems(id: $id) {
     id
     fileRequestSubmissionID
@@ -31674,11 +31549,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetSubmissionStemsQueryVariables,
-  APITypes.GetSubmissionStemsQuery
->;
-export const listSubmissionStems = /* GraphQL */ `query ListSubmissionStems(
+
+query ListSubmissionStems(
   $filter: ModelSubmissionStemsFilterInput
   $limit: Int
   $nextToken: String
@@ -32053,7 +31925,3 @@ export const listSubmissionStems = /* GraphQL */ `query ListSubmissionStems(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListSubmissionStemsQueryVariables,
-  APITypes.ListSubmissionStemsQuery
->;

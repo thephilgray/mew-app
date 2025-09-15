@@ -98,6 +98,59 @@ export const listComments = /* GraphQL */ `
     }
   }
 `;
+
+export const commentsByRecipientEmail = /* GraphQL */ `
+  query CommentsByRecipientEmail(
+    $recipientEmail: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    commentsByRecipientEmail(
+      recipientEmail: $recipientEmail
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        content
+        email
+        parentId
+        type
+        createdAt
+        updatedAt
+        profile {
+          id
+          name
+          displayName
+          avatar
+        }
+        submissionId
+        submission {
+          id
+          artist
+          name
+          email
+        }
+        assignmentId
+        assignment {
+          id
+          playlistStartDate
+          fileRequestPlaylistId
+        }
+        workshopId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const commentsByDate = /* GraphQL */ `
   query CommentsByDate(
     $type: String!
