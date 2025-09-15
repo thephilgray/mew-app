@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState, useMemo, PropsWithChildren, useContext, useRef } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert, Badge } from '@mui/material'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert, Badge, Tooltip, Chip } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
@@ -11,7 +11,7 @@ import 'react-jinke-music-player/lib/styles/index.less'
 import './playlist.css'
 import mewAppLogo from '../../assets/mewlogo.png'
 import orderBy from 'lodash/orderBy'
-import { ROUTES } from '../../constants'
+import { FEEDBACK_CATEGORIES, ROUTES } from '../../constants'
 import Error from '../Error'
 import AppBreadcrumbs from '../AppBreadcrumbs'
 import { useProfile, useUser, useViewAdmin } from '../../auth/hooks'
@@ -364,7 +364,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     );
                 for (let index = 0; index < sortedSubmissions.length; index++) {
                     // @ts-ignore
-                    const { name, order, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments } = sortedSubmissions[index];
+                    const { name, order, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments, feedbackRequestCategories } = sortedSubmissions[index];
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId) && (!breakoutGroupId || (toggleBreakoutView && breakoutGroupId === breakoutGroup?.id)) || (!toggleBreakoutView)) {
                         const songFilePath = `${assignmentId}/${fileId}`;
@@ -385,6 +385,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             workshopId,
                             assignmentId,
                             requestFeedback,
+                            feedbackRequestCategories,
                             commentsCount: comments?.items?.length
                         });
                         seenFileIds.push(fileId);
@@ -401,7 +402,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                 for (let index = 0; index < data.tracks.items.length; index++) {
                     // @ts-ignore
                     const { submission, order } = data.tracks.items[index];
-                    const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile, comments } = submission
+                    const { name, fileId, artist, id, artwork, lyrics, fileRequestId: assignmentId, workshopId, duration, requestFeedback, profile, comments, feedbackRequestCategories } = submission
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId)) {
                         const songFilePath = `${assignmentId}/${fileId}`
@@ -422,6 +423,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             assignmentId,
                             workshopId,
                             requestFeedback,
+                            feedbackRequestCategories,
                             commentsCount: comments?.items?.length
                         })
                         seenFileIds.push(fileId)
@@ -837,6 +839,21 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     </Grid >
                 </If>
                 <If condition={isNumber(currentIndex) && !!audioLists?.[currentIndex]}>
+                    <Grid item xs={12}>
+                        <If condition={!!audioLists?.[currentIndex]?.feedbackRequestCategories?.length}>
+                            <Box sx={{ mb: 2 }}>
+                                <Typography variant="h6">Feedback requested on</Typography>
+                                {audioLists?.[currentIndex].feedbackRequestCategories.map((cat) => {
+                                    const category = FEEDBACK_CATEGORIES.find(c => c.label === cat)
+                                    return (
+                                        <Tooltip title={category?.description || ''} key={category.label}>
+                                            <Chip label={category.label} sx={{ m: 0.5 }} />
+                                        </Tooltip>
+                                    )
+                                })}
+                            </Box>
+                        </If>
+                    </Grid>
                     <If condition={!!audioLists?.[currentIndex]?.lyrics}>
                         <Grid item xs={12}>
                             <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>

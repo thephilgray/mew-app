@@ -231,6 +231,7 @@ export const getPlaylist = /* GraphQL */ `
             }
             lyrics
             requestFeedback
+            feedbackRequestCategories
             duration
             workshopId
             createdAt
