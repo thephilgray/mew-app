@@ -42,11 +42,16 @@ export function useAudioPlayerContextState() {
   }
 }
 
+interface CustomAudioListProps extends ReactJkMusicPlayerAudioListProps {
+  completionStage?: string;
+  feedbackAreas?: string[];
+}
+
 interface AudioPlayerContextState {
   isPlaying: boolean
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>
-  audioLists: Array<ReactJkMusicPlayerAudioListProps> | []
-  setAudioLists: React.Dispatch<React.SetStateAction<Array<ReactJkMusicPlayerAudioListProps> | []>>
+  audioLists: Array<CustomAudioListProps> | []
+  setAudioLists: React.Dispatch<React.SetStateAction<Array<CustomAudioListProps> | []>>
   currentIndex: number
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>
   playerRef: React.RefObject<HTMLAudioElement>

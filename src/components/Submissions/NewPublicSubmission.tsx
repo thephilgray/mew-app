@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from 'react'
-import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert, FormControl, Select, MenuItem, ListSubheader, OutlinedInput, Box } from '@mui/material'
+import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert, FormControl, Select, MenuItem, ListSubheader, OutlinedInput, Box, FormHelperText } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
 import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, Edit, Cancel } from '@mui/icons-material'
@@ -22,7 +22,7 @@ import { GiveFeedback } from './GiveFeedback'
 import { getBreakoutGroupByMembership, getCloudFrontURL, getDisplayName, getFileDuration, searchMembersFilterOptions } from '../../utils'
 import uniqBy from 'lodash/uniqBy'
 import { Link, navigate } from 'gatsby'
-import { ACCEPTED_FILETYPES, ROUTES } from '../../constants'
+import { ACCEPTED_FILETYPES, ROUTES, completionStageOptions, feedbackAreaOptions } from '../../constants'
 import Loading from '../Loading'
 import { StyledFileDropWrapper } from './StyledFileDropWrapper'
 
@@ -46,35 +46,7 @@ type Inputs = {
 
 type AudioFileBlob = Blob & { name: string }
 
-const completionStageOptions = [
-    'Seed of an Idea',
-    'First Draft / Demo',
-    'In Production / Full Arrangement',
-    'Ready for Mixing',
-    'Final Polish / Mastering',
-];
 
-const feedbackAreaOptions = {
-    'Songwriting & Composition': [
-        'Lyrics',
-        'Melody',
-        'Harmony / Chords',
-    ],
-    'Arrangement & Structure': [
-        'Song Structure',
-        'Instrumentation',
-        'Dynamics / Pacing',
-    ],
-    'Performance': [
-        'Vocal Performance',
-        'Instrumental Performance',
-    ],
-    'Production & Mix': [
-        'Recording Quality',
-        'Mixing',
-        'Sound Design / Vibe',
-    ],
-};
 
 const NewPublicSubmission: React.FC<
     PropsWithChildren<RouteComponentProps<{ assignmentId: string; extensionCode?: string }>>
@@ -498,12 +470,17 @@ const NewPublicSubmission: React.FC<
                                                 {Object.entries(feedbackAreaOptions).map(([group, options]) => [
                                                     <ListSubheader key={group}>{group}</ListSubheader>,
                                                     ...options.map((option) => (
-                                                        <MenuItem key={option} value={option}>
+                                                        <MenuItem
+                                                            key={option}
+                                                            value={option}
+                                                            disabled={field.value.length >= 5 && !field.value.includes(option)}
+                                                        >
                                                             {option}
                                                         </MenuItem>
                                                     )),
                                                 ])}
                                             </Select>
+                                            <FormHelperText>Select up to 5 areas.</FormHelperText>
                                         </FormControl>
                                     )}
                                 />

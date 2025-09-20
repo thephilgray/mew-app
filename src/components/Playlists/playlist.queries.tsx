@@ -55,6 +55,8 @@ export const getFileRequest = /* GraphQL */ `
           fileId
           fileExtension
           rating
+          feedbackAreas
+          completionStage
           comments {
             items {
               id
@@ -233,6 +235,8 @@ export const getPlaylist = /* GraphQL */ `
             requestFeedback
             duration
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
           }

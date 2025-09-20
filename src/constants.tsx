@@ -408,3 +408,34 @@ export const MAPPED_ROUTE_CONFIGS = Object.entries(ROUTES).map(([routeName, conf
 // TODO: ADD Storage Paths with dynamic getters similar to ROUTES above
 
 export const DEFAULT_WORKSHOP_TIMEZONE = 'America/Los_Angeles';
+
+export const completionStageOptions = [
+    'Seed of an Idea',
+    'First Draft / Demo',
+    'In Production / Full Arrangement',
+    'Ready for Mixing',
+    'Final Polish / Mastering',
+    'All or Mostly AI',
+];
+
+export const feedbackAreaOptions = {
+    'Songwriting & Composition': [
+        'Lyrics',
+        'Melody',
+        'Harmony / Chords',
+    ],
+    'Arrangement & Structure': [
+        'Song Structure',
+        'Instrumentation',
+        'Dynamics / Pacing',
+    ],
+    'Performance': [
+        'Vocal Performance',
+        'Instrumental Performance',
+    ],
+    'Production & Mix': [
+        'Recording Quality',
+        'Mixing',
+        'Sound Design / Vibe',
+    ],
+};
