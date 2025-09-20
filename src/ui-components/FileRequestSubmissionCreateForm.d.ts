@@ -30,6 +30,8 @@ export declare type FileRequestSubmissionCreateFormInputValues = {
     lyrics?: string;
     requestFeedback?: boolean;
     duration?: number;
+    completionStage?: string;
+    feedbackAreas?: string[];
 };
 export declare type FileRequestSubmissionCreateFormValidationValues = {
     artist?: ValidationFunction<string>;
@@ -40,6 +42,8 @@ export declare type FileRequestSubmissionCreateFormValidationValues = {
     lyrics?: ValidationFunction<string>;
     requestFeedback?: ValidationFunction<boolean>;
     duration?: ValidationFunction<number>;
+    completionStage?: ValidationFunction<string>;
+    feedbackAreas?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type FileRequestSubmissionCreateFormOverridesProps = {
@@ -52,6 +56,8 @@ export declare type FileRequestSubmissionCreateFormOverridesProps = {
     lyrics?: PrimitiveOverrideProps<TextFieldProps>;
     requestFeedback?: PrimitiveOverrideProps<SwitchFieldProps>;
     duration?: PrimitiveOverrideProps<TextFieldProps>;
+    completionStage?: PrimitiveOverrideProps<TextFieldProps>;
+    feedbackAreas?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type FileRequestSubmissionCreateFormProps = React.PropsWithChildren<{
     overrides?: FileRequestSubmissionCreateFormOverridesProps | undefined | null;

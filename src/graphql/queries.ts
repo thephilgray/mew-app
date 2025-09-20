@@ -186,6 +186,8 @@ export const getAPIKey = /* GraphQL */ `query GetAPIKey($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -424,6 +426,8 @@ export const getAPIKey = /* GraphQL */ `query GetAPIKey($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -564,6 +568,8 @@ export const listAPIKeys = /* GraphQL */ `query ListAPIKeys(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -1037,6 +1043,8 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -1185,6 +1193,8 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -1273,6 +1283,8 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -1533,6 +1545,8 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -1620,6 +1634,8 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -1821,6 +1837,8 @@ export const getFileRequest = /* GraphQL */ `query GetFileRequest($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -1979,6 +1997,8 @@ export const listFileRequests = /* GraphQL */ `query ListFileRequests(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -2026,6 +2046,8 @@ export const listFileRequests = /* GraphQL */ `query ListFileRequests(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -2408,6 +2430,8 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `query FileRequestsByWorks
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -2455,6 +2479,8 @@ export const fileRequestsByWorkshopId = /* GraphQL */ `query FileRequestsByWorks
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -2839,6 +2865,8 @@ export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -2886,6 +2914,8 @@ export const fileRequestsByDate = /* GraphQL */ `query FileRequestsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3258,6 +3288,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -3305,6 +3337,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3652,6 +3686,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3735,6 +3771,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3918,6 +3956,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4129,6 +4169,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -4314,6 +4356,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -4552,6 +4596,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4760,6 +4806,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -5025,6 +5073,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -5126,6 +5176,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5325,6 +5377,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -5446,6 +5500,8 @@ export const getFileRequestSubmission = /* GraphQL */ `query GetFileRequestSubmi
       __typename
     }
     workshopId
+    completionStage
+    feedbackAreas
     createdAt
     updatedAt
     __typename
@@ -5497,6 +5553,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5803,6 +5861,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5878,6 +5938,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6034,6 +6096,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6112,6 +6176,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6224,6 +6290,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6266,6 +6334,8 @@ export const listFileRequestSubmissions = /* GraphQL */ `query ListFileRequestSu
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -6324,6 +6394,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6630,6 +6702,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6705,6 +6779,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6861,6 +6937,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6939,6 +7017,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7051,6 +7131,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7093,6 +7175,8 @@ export const submissionsByFileRequestId = /* GraphQL */ `query SubmissionsByFile
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -7151,6 +7235,8 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7457,6 +7543,8 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7532,6 +7620,8 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7688,6 +7778,8 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7766,6 +7858,8 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7878,6 +7972,8 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7920,6 +8016,8 @@ export const submissionsByMembershipId = /* GraphQL */ `query SubmissionsByMembe
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -7978,6 +8076,8 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8284,6 +8384,8 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8359,6 +8461,8 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8515,6 +8619,8 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8593,6 +8699,8 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8705,6 +8813,8 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8747,6 +8857,8 @@ export const submissionsByEmail = /* GraphQL */ `query SubmissionsByEmail(
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -8805,6 +8917,8 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9111,6 +9225,8 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9186,6 +9302,8 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9342,6 +9460,8 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9420,6 +9540,8 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9532,6 +9654,8 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9574,6 +9698,8 @@ export const submissionsByBreakoutGroupId = /* GraphQL */ `query SubmissionsByBr
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -9632,6 +9758,8 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9938,6 +10066,8 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10013,6 +10143,8 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10169,6 +10301,8 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10247,6 +10381,8 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10359,6 +10495,8 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10401,6 +10539,8 @@ export const submissionsByWorkshopId = /* GraphQL */ `query SubmissionsByWorksho
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -10448,6 +10588,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10754,6 +10896,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10829,6 +10973,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10985,6 +11131,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11063,6 +11211,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11175,6 +11325,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11217,6 +11369,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -11240,6 +11394,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11327,6 +11483,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11528,6 +11686,8 @@ export const getTrack = /* GraphQL */ `query GetTrack($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11855,6 +12015,8 @@ export const listTracks = /* GraphQL */ `query ListTracks(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -12082,6 +12244,8 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -12310,6 +12474,8 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -12548,6 +12714,8 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12664,6 +12832,8 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12863,6 +13033,8 @@ export const getPlaylist = /* GraphQL */ `query GetPlaylist($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -13021,6 +13193,8 @@ export const listPlaylists = /* GraphQL */ `query ListPlaylists(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13108,6 +13282,8 @@ export const listPlaylists = /* GraphQL */ `query ListPlaylists(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13309,6 +13485,8 @@ export const listPlaylists = /* GraphQL */ `query ListPlaylists(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13399,6 +13577,8 @@ export const playlistsByBreakoutGroupId = /* GraphQL */ `query PlaylistsByBreako
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13486,6 +13666,8 @@ export const playlistsByBreakoutGroupId = /* GraphQL */ `query PlaylistsByBreako
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13687,6 +13869,8 @@ export const playlistsByBreakoutGroupId = /* GraphQL */ `query PlaylistsByBreako
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13779,6 +13963,8 @@ export const playlistsByDate = /* GraphQL */ `query PlaylistsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13866,6 +14052,8 @@ export const playlistsByDate = /* GraphQL */ `query PlaylistsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14067,6 +14255,8 @@ export const playlistsByDate = /* GraphQL */ `query PlaylistsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14271,6 +14461,8 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -14359,6 +14551,8 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14849,6 +15043,8 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -15171,6 +15367,8 @@ export const getBreakoutGroup = /* GraphQL */ `query GetBreakoutGroup($id: ID!) 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15245,6 +15443,8 @@ export const listBreakoutGroups = /* GraphQL */ `query ListBreakoutGroups(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15444,6 +15644,8 @@ export const listBreakoutGroups = /* GraphQL */ `query ListBreakoutGroups(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -15631,6 +15833,8 @@ export const breakoutGroupsByWorkshopId = /* GraphQL */ `query BreakoutGroupsByW
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15830,6 +16034,8 @@ export const breakoutGroupsByWorkshopId = /* GraphQL */ `query BreakoutGroupsByW
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -16008,6 +16214,8 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -16207,6 +16415,8 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -16470,6 +16680,8 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -16558,6 +16770,8 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -16957,6 +17171,8 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -17195,6 +17411,8 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -17533,6 +17751,8 @@ export const getMembership = /* GraphQL */ `query GetMembership($id: ID!) {
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -17631,6 +17851,8 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -17714,6 +17936,8 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -17897,6 +18121,8 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -18108,6 +18334,8 @@ export const listMemberships = /* GraphQL */ `query ListMemberships(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -18217,6 +18445,8 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -18300,6 +18530,8 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -18483,6 +18715,8 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -18694,6 +18928,8 @@ export const membershipsByWorkshopId = /* GraphQL */ `query MembershipsByWorksho
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -18803,6 +19039,8 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -18886,6 +19124,8 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -19069,6 +19309,8 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -19280,6 +19522,8 @@ export const membershipsByEmail = /* GraphQL */ `query MembershipsByEmail(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -19389,6 +19633,8 @@ export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGr
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -19472,6 +19718,8 @@ export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGr
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -19655,6 +19903,8 @@ export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGr
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -19866,6 +20116,8 @@ export const membersByBreakoutGroupId = /* GraphQL */ `query MembersByBreakoutGr
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -19920,6 +20172,8 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -20307,6 +20561,8 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -20505,6 +20761,8 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -20743,6 +21001,8 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -20878,6 +21138,8 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -21108,6 +21370,8 @@ export const getWorkshop = /* GraphQL */ `query GetWorkshop($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -21279,6 +21543,8 @@ export const listWorkshops = /* GraphQL */ `query ListWorkshops(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -21367,6 +21633,8 @@ export const listWorkshops = /* GraphQL */ `query ListWorkshops(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -21733,6 +22001,8 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -22120,6 +22390,8 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -22311,6 +22583,8 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -22794,6 +23068,8 @@ export const getProfile = /* GraphQL */ `query GetProfile($email: String!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -23172,6 +23448,8 @@ export const listProfiles = /* GraphQL */ `query ListProfiles(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -23410,6 +23688,8 @@ export const listProfiles = /* GraphQL */ `query ListProfiles(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -23665,6 +23945,8 @@ export const profileByProfileId = /* GraphQL */ `query ProfileByProfileId(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -23903,6 +24185,8 @@ export const profileByProfileId = /* GraphQL */ `query ProfileByProfileId(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -24149,6 +24433,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -24387,6 +24673,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -24482,6 +24770,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -24788,6 +25078,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -24863,6 +25155,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -25019,6 +25313,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -25097,6 +25393,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -25209,6 +25507,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -25251,6 +25551,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -25427,6 +25729,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -25665,6 +25969,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -25818,6 +26124,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -25865,6 +26173,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -26277,6 +26587,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -26365,6 +26677,8 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -26675,6 +26989,8 @@ export const listComments = /* GraphQL */ `query ListComments(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27057,6 +27373,8 @@ export const listComments = /* GraphQL */ `query ListComments(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -27123,6 +27441,8 @@ export const listComments = /* GraphQL */ `query ListComments(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27273,6 +27593,8 @@ export const listComments = /* GraphQL */ `query ListComments(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27436,6 +27758,8 @@ export const listComments = /* GraphQL */ `query ListComments(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27653,6 +27977,8 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28035,6 +28361,8 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -28101,6 +28429,8 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28251,6 +28581,8 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28414,6 +28746,8 @@ export const commentsByDate = /* GraphQL */ `query CommentsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28640,6 +28974,8 @@ export const getStem = /* GraphQL */ `query GetStem($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -28860,6 +29196,8 @@ export const getStem = /* GraphQL */ `query GetStem($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -29098,6 +29436,8 @@ export const getStem = /* GraphQL */ `query GetStem($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29204,6 +29544,8 @@ export const listStems = /* GraphQL */ `query ListStems(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29298,6 +29640,8 @@ export const listStems = /* GraphQL */ `query ListStems(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29475,6 +29819,8 @@ export const stemsByDate = /* GraphQL */ `query StemsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29569,6 +29915,8 @@ export const stemsByDate = /* GraphQL */ `query StemsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29882,6 +30230,8 @@ export const getPrompt = /* GraphQL */ `query GetPrompt($id: ID!) {
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -30120,6 +30470,8 @@ export const getPrompt = /* GraphQL */ `query GetPrompt($id: ID!) {
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -30261,6 +30613,8 @@ export const listPrompts = /* GraphQL */ `query ListPrompts(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -30476,6 +30830,8 @@ export const promptsByDate = /* GraphQL */ `query PromptsByDate(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -30646,6 +31002,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -30952,6 +31310,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31027,6 +31387,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31183,6 +31545,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31261,6 +31625,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31373,6 +31739,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31415,6 +31783,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -31447,6 +31817,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31541,6 +31913,8 @@ export const getSubmissionStems = /* GraphQL */ `query GetSubmissionStems($id: I
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31949,6 +32323,8 @@ export const listSubmissionStems = /* GraphQL */ `query ListSubmissionStems(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename

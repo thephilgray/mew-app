@@ -169,6 +169,8 @@ type FileRequestSubmission
       queryField: "submissionsByWorkshopId"
     )
     @default(value: "c9443826-b0c3-4def-91d1-503ce4a27c7d")
+  completionStage: String
+  feedbackAreas: [String]
 }
 
 type Track

@@ -186,6 +186,8 @@ export const onCreateAPIKey = /* GraphQL */ `subscription OnCreateAPIKey($filter
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -424,6 +426,8 @@ export const onCreateAPIKey = /* GraphQL */ `subscription OnCreateAPIKey($filter
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -672,6 +676,8 @@ export const onUpdateAPIKey = /* GraphQL */ `subscription OnUpdateAPIKey($filter
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -910,6 +916,8 @@ export const onUpdateAPIKey = /* GraphQL */ `subscription OnUpdateAPIKey($filter
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -1158,6 +1166,8 @@ export const onDeleteAPIKey = /* GraphQL */ `subscription OnDeleteAPIKey($filter
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -1396,6 +1406,8 @@ export const onDeleteAPIKey = /* GraphQL */ `subscription OnDeleteAPIKey($filter
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -1786,6 +1798,8 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -1934,6 +1948,8 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -2022,6 +2038,8 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -2282,6 +2300,8 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -2369,6 +2389,8 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -2570,6 +2592,8 @@ export const onCreateFileRequest = /* GraphQL */ `subscription OnCreateFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -2910,6 +2934,8 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -3058,6 +3084,8 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -3146,6 +3174,8 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3406,6 +3436,8 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3493,6 +3525,8 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3694,6 +3728,8 @@ export const onUpdateFileRequest = /* GraphQL */ `subscription OnUpdateFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4034,6 +4070,8 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -4182,6 +4220,8 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -4270,6 +4310,8 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4530,6 +4572,8 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4617,6 +4661,8 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4818,6 +4864,8 @@ export const onDeleteFileRequest = /* GraphQL */ `subscription OnDeleteFileReque
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4976,6 +5024,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -5023,6 +5073,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5370,6 +5422,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5453,6 +5507,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5636,6 +5692,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5847,6 +5905,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -6032,6 +6092,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -6270,6 +6332,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6478,6 +6542,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -6743,6 +6809,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -6844,6 +6912,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7043,6 +7113,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -7164,6 +7236,8 @@ export const onCreateFileRequestSubmission = /* GraphQL */ `subscription OnCreat
       __typename
     }
     workshopId
+    completionStage
+    feedbackAreas
     createdAt
     updatedAt
     __typename
@@ -7269,6 +7343,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -7316,6 +7392,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7663,6 +7741,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7746,6 +7826,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7929,6 +8011,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8140,6 +8224,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -8325,6 +8411,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -8563,6 +8651,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8771,6 +8861,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -9036,6 +9128,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -9137,6 +9231,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9336,6 +9432,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -9457,6 +9555,8 @@ export const onUpdateFileRequestSubmission = /* GraphQL */ `subscription OnUpdat
       __typename
     }
     workshopId
+    completionStage
+    feedbackAreas
     createdAt
     updatedAt
     __typename
@@ -9562,6 +9662,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -9609,6 +9711,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9956,6 +10060,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10039,6 +10145,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10222,6 +10330,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10433,6 +10543,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -10618,6 +10730,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -10856,6 +10970,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11064,6 +11180,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -11329,6 +11447,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -11430,6 +11550,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11629,6 +11751,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -11750,6 +11874,8 @@ export const onDeleteFileRequestSubmission = /* GraphQL */ `subscription OnDelet
       __typename
     }
     workshopId
+    completionStage
+    feedbackAreas
     createdAt
     updatedAt
     __typename
@@ -11794,6 +11920,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12100,6 +12228,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12175,6 +12305,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12331,6 +12463,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12409,6 +12543,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12521,6 +12657,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12563,6 +12701,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -12586,6 +12726,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12673,6 +12815,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12874,6 +13018,8 @@ export const onCreateTrack = /* GraphQL */ `subscription OnCreateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12970,6 +13116,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13276,6 +13424,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13351,6 +13501,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13507,6 +13659,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13585,6 +13739,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13697,6 +13853,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13739,6 +13897,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -13762,6 +13922,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13849,6 +14011,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14050,6 +14214,8 @@ export const onUpdateTrack = /* GraphQL */ `subscription OnUpdateTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14146,6 +14312,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14452,6 +14620,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14527,6 +14697,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14683,6 +14855,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14761,6 +14935,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14873,6 +15049,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14915,6 +15093,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -14938,6 +15118,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15025,6 +15207,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15226,6 +15410,8 @@ export const onDeleteTrack = /* GraphQL */ `subscription OnDeleteTrack($filter: 
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15368,6 +15554,8 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -15596,6 +15784,8 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -15834,6 +16024,8 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15950,6 +16142,8 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -16149,6 +16343,8 @@ export const onCreatePlaylist = /* GraphQL */ `subscription OnCreatePlaylist($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -16363,6 +16559,8 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -16591,6 +16789,8 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -16829,6 +17029,8 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -16945,6 +17147,8 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -17144,6 +17348,8 @@ export const onUpdatePlaylist = /* GraphQL */ `subscription OnUpdatePlaylist($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -17358,6 +17564,8 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -17586,6 +17794,8 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -17824,6 +18034,8 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -17940,6 +18152,8 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -18139,6 +18353,8 @@ export const onDeletePlaylist = /* GraphQL */ `subscription OnDeletePlaylist($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -18421,6 +18637,8 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -18509,6 +18727,8 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -18999,6 +19219,8 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -19321,6 +19543,8 @@ export const onCreateBreakoutGroup = /* GraphQL */ `subscription OnCreateBreakou
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -19493,6 +19717,8 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -19581,6 +19807,8 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -20071,6 +20299,8 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -20393,6 +20623,8 @@ export const onUpdateBreakoutGroup = /* GraphQL */ `subscription OnUpdateBreakou
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -20565,6 +20797,8 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -20653,6 +20887,8 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -21143,6 +21379,8 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -21465,6 +21703,8 @@ export const onDeleteBreakoutGroup = /* GraphQL */ `subscription OnDeleteBreakou
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -21540,6 +21780,8 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -21739,6 +21981,8 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -22002,6 +22246,8 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -22090,6 +22336,8 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -22489,6 +22737,8 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -22727,6 +22977,8 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -23065,6 +23317,8 @@ export const onCreateMembership = /* GraphQL */ `subscription OnCreateMembership
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -23133,6 +23387,8 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -23332,6 +23588,8 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -23595,6 +23853,8 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -23683,6 +23943,8 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -24082,6 +24344,8 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -24320,6 +24584,8 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -24658,6 +24924,8 @@ export const onUpdateMembership = /* GraphQL */ `subscription OnUpdateMembership
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -24726,6 +24994,8 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -24925,6 +25195,8 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -25188,6 +25460,8 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -25276,6 +25550,8 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -25675,6 +25951,8 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -25913,6 +26191,8 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -26251,6 +26531,8 @@ export const onDeleteMembership = /* GraphQL */ `subscription OnDeleteMembership
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -26302,6 +26584,8 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -26689,6 +26973,8 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -26887,6 +27173,8 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -27125,6 +27413,8 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27260,6 +27550,8 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27490,6 +27782,8 @@ export const onCreateWorkshop = /* GraphQL */ `subscription OnCreateWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27549,6 +27843,8 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27936,6 +28232,8 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -28134,6 +28432,8 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -28372,6 +28672,8 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28507,6 +28809,8 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28737,6 +29041,8 @@ export const onUpdateWorkshop = /* GraphQL */ `subscription OnUpdateWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28796,6 +29102,8 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29183,6 +29491,8 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -29381,6 +29691,8 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -29619,6 +29931,8 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29754,6 +30068,8 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29984,6 +30300,8 @@ export const onDeleteWorkshop = /* GraphQL */ `subscription OnDeleteWorkshop($fi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -30138,6 +30456,8 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -30525,6 +30845,8 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -30716,6 +31038,8 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31199,6 +31523,8 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -31522,6 +31848,8 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31909,6 +32237,8 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -32100,6 +32430,8 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -32583,6 +32915,8 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -32906,6 +33240,8 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -33293,6 +33629,8 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -33484,6 +33822,8 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -33967,6 +34307,8 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -34336,6 +34678,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -34574,6 +34918,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -34669,6 +35015,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -34975,6 +35323,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35050,6 +35400,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35206,6 +35558,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35284,6 +35638,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35396,6 +35752,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35438,6 +35796,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -35614,6 +35974,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -35852,6 +36214,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -36005,6 +36369,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -36052,6 +36418,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -36464,6 +36832,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -36552,6 +36922,8 @@ export const onCreateComment = /* GraphQL */ `subscription OnCreateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -36967,6 +37339,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -37205,6 +37579,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37300,6 +37676,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37606,6 +37984,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37681,6 +38061,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37837,6 +38219,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37915,6 +38299,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -38027,6 +38413,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -38069,6 +38457,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -38245,6 +38635,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -38483,6 +38875,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -38636,6 +39030,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -38683,6 +39079,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -39095,6 +39493,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -39183,6 +39583,8 @@ export const onUpdateComment = /* GraphQL */ `subscription OnUpdateComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -39598,6 +40000,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -39836,6 +40240,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -39931,6 +40337,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40237,6 +40645,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40312,6 +40722,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40468,6 +40880,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40546,6 +40960,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40658,6 +41074,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40700,6 +41118,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -40876,6 +41296,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -41114,6 +41536,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -41267,6 +41691,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -41314,6 +41740,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -41726,6 +42154,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -41814,6 +42244,8 @@ export const onDeleteComment = /* GraphQL */ `subscription OnDeleteComment($filt
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -42143,6 +42575,8 @@ export const onCreateStem = /* GraphQL */ `subscription OnCreateStem($filter: Mo
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -42363,6 +42797,8 @@ export const onCreateStem = /* GraphQL */ `subscription OnCreateStem($filter: Mo
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -42601,6 +43037,8 @@ export const onCreateStem = /* GraphQL */ `subscription OnCreateStem($filter: Mo
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -42766,6 +43204,8 @@ export const onUpdateStem = /* GraphQL */ `subscription OnUpdateStem($filter: Mo
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -42986,6 +43426,8 @@ export const onUpdateStem = /* GraphQL */ `subscription OnUpdateStem($filter: Mo
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -43224,6 +43666,8 @@ export const onUpdateStem = /* GraphQL */ `subscription OnUpdateStem($filter: Mo
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -43389,6 +43833,8 @@ export const onDeleteStem = /* GraphQL */ `subscription OnDeleteStem($filter: Mo
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -43609,6 +44055,8 @@ export const onDeleteStem = /* GraphQL */ `subscription OnDeleteStem($filter: Mo
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -43847,6 +44295,8 @@ export const onDeleteStem = /* GraphQL */ `subscription OnDeleteStem($filter: Mo
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -44099,6 +44549,8 @@ export const onCreatePrompt = /* GraphQL */ `subscription OnCreatePrompt($filter
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -44337,6 +44789,8 @@ export const onCreatePrompt = /* GraphQL */ `subscription OnCreatePrompt($filter
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -44586,6 +45040,8 @@ export const onUpdatePrompt = /* GraphQL */ `subscription OnUpdatePrompt($filter
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -44824,6 +45280,8 @@ export const onUpdatePrompt = /* GraphQL */ `subscription OnUpdatePrompt($filter
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -45073,6 +45531,8 @@ export const onDeletePrompt = /* GraphQL */ `subscription OnDeletePrompt($filter
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -45311,6 +45771,8 @@ export const onDeletePrompt = /* GraphQL */ `subscription OnDeletePrompt($filter
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -45422,6 +45884,8 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -45728,6 +46192,8 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -45803,6 +46269,8 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -45959,6 +46427,8 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46037,6 +46507,8 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46149,6 +46621,8 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46191,6 +46665,8 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -46223,6 +46699,8 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46317,6 +46795,8 @@ export const onCreateSubmissionStems = /* GraphQL */ `subscription OnCreateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46493,6 +46973,8 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46799,6 +47281,8 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46874,6 +47358,8 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47030,6 +47516,8 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47108,6 +47596,8 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47220,6 +47710,8 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47262,6 +47754,8 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -47294,6 +47788,8 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47388,6 +47884,8 @@ export const onUpdateSubmissionStems = /* GraphQL */ `subscription OnUpdateSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47564,6 +48062,8 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47870,6 +48370,8 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47945,6 +48447,8 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48101,6 +48605,8 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48179,6 +48685,8 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48291,6 +48799,8 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48333,6 +48843,8 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -48365,6 +48877,8 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48459,6 +48973,8 @@ export const onDeleteSubmissionStems = /* GraphQL */ `subscription OnDeleteSubmi
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
