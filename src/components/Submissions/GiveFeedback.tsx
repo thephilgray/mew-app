@@ -1,9 +1,6 @@
-
-
-
 import React, { useEffect, useMemo, useState } from 'react'
 import If from '../If'
-import { Alert, Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, IconButton, LinearProgress, Typography } from '@mui/material'
+import { Alert, Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, IconButton, LinearProgress, Typography, Select, MenuItem, ListSubheader, OutlinedInput, Chip, FormControl, InputLabel, FormHelperText } from '@mui/material'
 import { SkipNext as SkipNextIcon, SkipPrevious as SkipPreviousIcon, CheckCircleTwoTone } from '@mui/icons-material'
 import { FeedbackSection } from '../Feedback'
 import useColorThief from 'use-color-thief'
@@ -17,6 +14,8 @@ import Error from '../Error'
 import { FileRequest } from '../../models'
 import { countBy, sortBy, uniqBy } from 'lodash'
 import { useUser } from '../../auth/hooks'
+import { feedbackAreaOptions } from '../../constants'
+import { Controller, useForm } from 'react-hook-form'
 
 export const GiveFeedback: React.FC<{
   fileRequestData: FileRequest
@@ -27,11 +26,18 @@ export const GiveFeedback: React.FC<{
   setShowPlaylist,
   showPlaylist
 }) => {
-    const MAX_FEEDBACK = fileRequestData?.workshop?.maxFeedback || 3;
+    const MAX_FEEDBACK = fileRequestData?.workshop?.maxFeedback || 5;
     const [currentIndex, setCurrentIndex] = useState(0)
     const [feedbackGivenOnLoad, setFeedbackGivenOnLoad] = useState(0)
+    const [feedbackAreas, setFeedbackAreas] = useState<string[] | null>(null);
     const assignmentId = fileRequestData?.id
     const user = useUser()
+
+    const { control, watch, handleSubmit } = useForm({
+        defaultValues: {
+            feedbackAreas: []
+        }
+    });
 
     const { data: commentsData, loading: commentsLoading, error: commentsError } = useQuery(gql(listComments), {
       variables: {
@@ -39,8 +45,6 @@ export const GiveFeedback: React.FC<{
       },
       fetchPolicy: 'no-cache'
     })
-
-
 
     const { breakoutGroupId } = useMemo((): { breakoutGroupName?: string, breakoutGroupId?: string } => {
       if (fileRequestData) {
@@ -74,19 +78,20 @@ export const GiveFeedback: React.FC<{
 
     const submissions = fileRequestData?.submissions?.items;
 
-    const sortedSubmissions = sortBy(
+    const sortedSubmissions = useMemo(() => sortBy(
       submissions.filter(o =>
         o.email !== user.email &&
         (!breakoutGroupId || breakoutGroupId === o.breakoutGroupId) &&
         o.requestFeedback &&
-        uniqBy(o.comments.items, 'email').length < MAX_FEEDBACK &&
-        o.comments.items.filter(c => c.email === user.email).length === 0
+        uniqBy(o.comments.items, 'email').length < 2 &&
+        o.comments.items.filter(c => c.email === user.email).length === 0 &&
+        (feedbackAreas && feedbackAreas.length > 0 ? o.feedbackAreas?.some(area => feedbackAreas.includes(area)) : true)
       ),
-      o => feedbackGivenCounts[o.email]
-    ).slice(0, MAX_FEEDBACK - feedbackGivenOnLoad)
+      o => uniqBy(o.comments.items, 'email').length
+    ).slice(0, MAX_FEEDBACK - feedbackGivenOnLoad), [submissions, user, breakoutGroupId, feedbackAreas, MAX_FEEDBACK, feedbackGivenOnLoad]);
 
     const selectedSongs = sortedSubmissions.map(submission => {
-      const { name, fileId, artist, id, artwork, lyrics, workshopId, email } = submission
+      const { name, fileId, artist, id, artwork, lyrics, workshopId, email, feedbackAreas, completionStage } = submission
       const songFilePath = `${assignmentId}/${fileId}`
       if (songFilePath) {
         const cloudFrontURL = getCloudFrontURL(songFilePath)
@@ -101,7 +106,9 @@ export const GiveFeedback: React.FC<{
           id,
           lyrics,
           workshopId,
-          email
+          email,
+          feedbackAreas,
+          completionStage
         }
       }
     })
@@ -113,20 +120,90 @@ export const GiveFeedback: React.FC<{
       setFeedbackGiven(feedbackGiven + 1)
     }
 
+    const onSubmit = (values: { feedbackAreas: string[] }) => {
+        setFeedbackAreas(values.feedbackAreas);
+    }
+
     if (commentsError) return <Error errorMessage={commentsError} />
     if (commentsLoading) return <CircularProgress />
     // @ts-ignore
     if (!commentsLoading && !fileRequestData?.submissions?.items) return <p>Assignment does not exist or has been deleted.</p>
+
+    if (!feedbackAreas) {
+        return (
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Typography variant="h6">What areas of feedback are you interested in giving?</Typography>
+                        <Typography variant="body2">Leave blank to be shown all available tracks.</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Controller
+                            name="feedbackAreas"
+                            control={control}
+                            defaultValue={[]}
+                            render={({ field }) => (
+                                <FormControl fullWidth>
+                                    <InputLabel id="feedback-areas-label">What areas do you want to give feedback on?</InputLabel>
+                                    <Select
+                                        {...field}
+                                        labelId="feedback-areas-label"
+                                        multiple
+                                        input={<OutlinedInput label="What areas do you want to give feedback on?" />}
+                                        renderValue={(selected) => (
+                                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                                {selected.map((value) => (
+                                                    <Chip
+                                                        key={value}
+                                                        label={value}
+                                                        onDelete={() => {
+                                                            const newValues = field.value.filter((v) => v !== value);
+                                                            field.onChange(newValues);
+                                                        }}
+                                                        onMouseDown={(event) => {
+                                                            event.stopPropagation();
+                                                        }}
+                                                    />
+                                                ))}
+                                            </Box>
+                                        )}
+                                        MenuProps={{
+                                            PaperProps: {
+                                                style: {
+                                                    maxHeight: 300,
+                                                },
+                                            },
+                                        }}
+                                    >
+                                        {Object.entries(feedbackAreaOptions).map(([group, options]) => [
+                                            <ListSubheader key={group}>{group}</ListSubheader>,
+                                            ...options.map((option) => (
+                                                <MenuItem
+                                                    key={option}
+                                                    value={option}
+                                                    disabled={field.value.length >= 5 && !field.value.includes(option)}
+                                                >
+                                                    {option}
+                                                </MenuItem>
+                                            )),
+                                        ])}
+                                    </Select>
+                                    <FormHelperText>Select up to 5 areas.</FormHelperText>
+                                </FormControl>
+                            )}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button type="submit" variant="contained">Start Giving Feedback</Button>
+                    </Grid>
+                </Grid>
+            </form>
+        )
+    }
+
     if (!selectedSongs.length) return <Alert severity="warning">
       <Typography variant='body1'>No more feedback to give! If you've already given feedback for {MAX_FEEDBACK} tracks, wait for the playlist. Otherwise, check back later.</Typography>
     </Alert>
-    if (!selectedSongs.length) return <>
-      <Typography variant='body1'>Sorry. No one has requested feedback yet. Maybe you're the first!</Typography>
-      <If condition={showPlaylist}>
-        <Button sx={{ mt: 1 }} onClick={() => setShowPlaylist(false)} variant='contained' color='warning'>Quit</Button>
-      </If>
-    </>
-
 
     const currentSong = selectedSongs[currentIndex]
 
@@ -166,6 +243,12 @@ export const GiveFeedback: React.FC<{
                 <Typography component="h3" variant="subtitle1" color="#ccc" style={{ lineHeight: 1.2, backgroundColor: "rgba(0,0,0,.8)", fontWeight: 100, marginTop: "4px", padding: "2px 7px 3px" }}>
                   {currentSong?.singer}
                 </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
+                  {currentSong?.completionStage && <Chip label={currentSong.completionStage} size="small" sx={{ backgroundColor: 'rgba(0,0,0,0.8)', color: 'white' }} />}
+                  {currentSong?.feedbackAreas?.map((area) => (
+                    <Chip key={area} label={area} size="small" sx={{ backgroundColor: 'rgba(0,0,0,0.8)', color: 'white' }} />
+                  ))}
+                </Box>
               </CardContent>
             </Box>
             <Box sx={{ alignSelf: 'center', marginLeft: 'auto', paddingRight: '0.5em' }}>

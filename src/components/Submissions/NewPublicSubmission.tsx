@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, PropsWithChildren, useMemo } from 'react'
-import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert } from '@mui/material'
+import { Grid, TextField, IconButton, Button, Paper, Typography, LinearProgress, FormGroup, FormControlLabel, Switch, InputLabel, Autocomplete, Chip, Avatar, Alert, FormControl, Select, MenuItem, ListSubheader, OutlinedInput, Box, FormHelperText } from '@mui/material'
 import { API, graphqlOperation, Storage } from 'aws-amplify'
 import { RouteComponentProps } from '@reach/router'
-import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, Edit } from '@mui/icons-material'
-import { useForm } from 'react-hook-form'
+import { CloudUpload, CheckCircle, WarningRounded, PlayArrow, Edit, Cancel } from '@mui/icons-material'
+import { Controller, useForm } from 'react-hook-form'
 import { FileDrop } from 'react-file-drop'
 import { green } from '@mui/material/colors'
 import { isPast, isFuture } from 'date-fns/esm'
@@ -22,7 +22,7 @@ import { GiveFeedback } from './GiveFeedback'
 import { getBreakoutGroupByMembership, getCloudFrontURL, getDisplayName, getFileDuration, searchMembersFilterOptions } from '../../utils'
 import uniqBy from 'lodash/uniqBy'
 import { Link, navigate } from 'gatsby'
-import { ACCEPTED_FILETYPES, ROUTES } from '../../constants'
+import { ACCEPTED_FILETYPES, ROUTES, completionStageOptions, feedbackAreaOptions } from '../../constants'
 import Loading from '../Loading'
 import { StyledFileDropWrapper } from './StyledFileDropWrapper'
 
@@ -40,9 +40,13 @@ type Inputs = {
     lyrics: string
     addArtwork: boolean
     addLyrics: boolean
+    completionStage: string
+    feedbackAreas: string[]
 }
 
 type AudioFileBlob = Blob & { name: string }
+
+
 
 const NewPublicSubmission: React.FC<
     PropsWithChildren<RouteComponentProps<{ assignmentId: string; extensionCode?: string }>>
@@ -128,6 +132,7 @@ const NewPublicSubmission: React.FC<
                 email: user?.email || '',
                 artist: getDisplayName(profile),
                 requestFeedback: !!user,
+                feedbackAreas: [],
                 // addStems: false
             }
         }, [user])
@@ -284,7 +289,7 @@ const NewPublicSubmission: React.FC<
 
     const onSubmit = async (values: Inputs) => {
         setSubmitLoading(true)
-        const { name, artist, email, lyrics, requestFeedback } = values
+        const { name, artist, email, lyrics, requestFeedback, completionStage, feedbackAreas } = values
         const fileId = uuidv4()
         const keyValues = [assignmentId, fileId]
         const key = keyValues.map(encodeURIComponent).join('/')
@@ -335,6 +340,8 @@ const NewPublicSubmission: React.FC<
                             },
                             lyrics,
                             requestFeedback,
+                            completionStage,
+                            feedbackAreas,
                             ...membershipId && { membershipId }
                         },
                     }),
@@ -403,6 +410,83 @@ const NewPublicSubmission: React.FC<
                             </FormGroup>
                         </Grid>
                     </If>
+                    {watch("requestFeedback") &&
+                        <>
+                            <Grid item xs={12}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="completion-stage-label">What stage is this track in?</InputLabel>
+                                    <Select
+                                        labelId="completion-stage-label"
+                                        {...register('completionStage')}
+                                        defaultValue=""
+                                        label="What stage is this track in?"
+                                    >
+                                        {completionStageOptions.map((option) => (
+                                            <MenuItem key={option} value={option}>
+                                                {option}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Controller
+                                    name="feedbackAreas"
+                                    control={control}
+                                    defaultValue={[]}
+                                    render={({ field }) => (
+                                        <FormControl fullWidth>
+                                            <InputLabel id="feedback-areas-label">What areas do you want feedback on?</InputLabel>
+                                            <Select
+                                                {...field}
+                                                labelId="feedback-areas-label"
+                                                multiple
+                                                input={<OutlinedInput label="What areas do you want feedback on?" />}
+                                                renderValue={(selected) => (
+                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                                        {selected.map((value) => (
+                                                            <Chip
+                                                                key={value}
+                                                                label={value}
+                                                                onDelete={() => {
+                                                                    const newValues = field.value.filter((v) => v !== value);
+                                                                    field.onChange(newValues);
+                                                                }}
+                                                                onMouseDown={(event) => {
+                                                                    event.stopPropagation();
+                                                                }}
+                                                            />
+                                                        ))}
+                                                    </Box>
+                                                )}
+                                                MenuProps={{
+                                                    PaperProps: {
+                                                        style: {
+                                                            maxHeight: 300,
+                                                        },
+                                                    },
+                                                }}
+                                            >
+                                                {Object.entries(feedbackAreaOptions).map(([group, options]) => [
+                                                    <ListSubheader key={group}>{group}</ListSubheader>,
+                                                    ...options.map((option) => (
+                                                        <MenuItem
+                                                            key={option}
+                                                            value={option}
+                                                            disabled={field.value.length >= 5 && !field.value.includes(option)}
+                                                        >
+                                                            {option}
+                                                        </MenuItem>
+                                                    )),
+                                                ])}
+                                            </Select>
+                                            <FormHelperText>Select up to 5 areas.</FormHelperText>
+                                        </FormControl>
+                                    )}
+                                />
+                            </Grid>
+                        </>
+                    }
                     <Grid item xs={12} >
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={watch("addArtwork") ? 6 : 12} >

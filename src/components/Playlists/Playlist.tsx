@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState, useMemo, PropsWithChildren, useContext, useRef } from 'react'
-import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert, Badge } from '@mui/material'
+import { CircularProgress, Grid, Typography, Card, CardContent, CardMedia, Box, IconButton, useTheme, ButtonGroup, Button, Menu, MenuItem, Modal, Select, InputLabel, FormControl, Snackbar, Stack, Paper, styled, Switch, Alert, Badge, Chip } from '@mui/material'
 import { RouteComponentProps } from '@reach/router'
 import useColorThief from 'use-color-thief';
 import gql from 'graphql-tag'
@@ -364,7 +364,7 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                     );
                 for (let index = 0; index < sortedSubmissions.length; index++) {
                     // @ts-ignore
-                    const { name, order, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments } = sortedSubmissions[index];
+                    const { name, order, fileId, artist, id, artwork, lyrics, workshopId, duration, requestFeedback, profile, breakoutGroup, email, comments, feedbackAreas, completionStage } = sortedSubmissions[index];
                     // don't add nonexistent or duplicate files to the playlist
                     if (fileId && !seenFileIds.includes(fileId) && (!breakoutGroupId || (toggleBreakoutView && breakoutGroupId === breakoutGroup?.id)) || (!toggleBreakoutView)) {
                         const songFilePath = `${assignmentId}/${fileId}`;
@@ -385,7 +385,9 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                             workshopId,
                             assignmentId,
                             requestFeedback,
-                            commentsCount: comments?.items?.length
+                            commentsCount: comments?.items?.length,
+                            feedbackAreas,
+                            completionStage
                         });
                         seenFileIds.push(fileId);
                     }
@@ -783,6 +785,12 @@ const Playlist: React.FC<PropsWithChildren<RouteComponentProps<{ assignmentId: s
                                             </Typography>
                                         </Link>
                                     </If>
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
+                                        {audioLists?.[currentIndex]?.completionStage && <Chip label={audioLists?.[currentIndex]?.completionStage} size="small" sx={{ backgroundColor: 'rgba(0,0,0,0.8)', color: 'white' }} />}
+                                        {audioLists?.[currentIndex]?.feedbackAreas?.map((area) => (
+                                            <Chip key={area} label={area} size="small" sx={{ backgroundColor: 'rgba(0,0,0,0.8)', color: 'white' }} />
+                                        ))}
+                                    </Box>
                                 </CardContent>
                                 <Box sx={{ display: 'flex', alignItems: 'center', ml: 2, mb: 2, pl: 1, backgroundColor: "rgba(0,0,0,.8)", width: '150px' }}>
                                     <IconButton aria-label="previous" onClick={() => playerRef.current.playPrev()}>

@@ -275,6 +275,8 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -513,6 +515,8 @@ export const createAPIKey = /* GraphQL */ `mutation CreateAPIKey(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -764,6 +768,8 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -1002,6 +1008,8 @@ export const updateAPIKey = /* GraphQL */ `mutation UpdateAPIKey(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -1253,6 +1261,8 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -1491,6 +1501,8 @@ export const deleteAPIKey = /* GraphQL */ `mutation DeleteAPIKey(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -1891,6 +1903,8 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -2039,6 +2053,8 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -2127,6 +2143,8 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -2387,6 +2405,8 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -2474,6 +2494,8 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -2675,6 +2697,8 @@ export const createFileRequest = /* GraphQL */ `mutation CreateFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3016,6 +3040,8 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -3164,6 +3190,8 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -3252,6 +3280,8 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3512,6 +3542,8 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3599,6 +3631,8 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -3800,6 +3834,8 @@ export const updateFileRequest = /* GraphQL */ `mutation UpdateFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4141,6 +4177,8 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -4289,6 +4327,8 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -4377,6 +4417,8 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4637,6 +4679,8 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4724,6 +4768,8 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -4925,6 +4971,8 @@ export const deleteFileRequest = /* GraphQL */ `mutation DeleteFileRequest(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5084,6 +5132,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -5131,6 +5181,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5478,6 +5530,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5561,6 +5615,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5744,6 +5800,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -5955,6 +6013,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -6140,6 +6200,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -6378,6 +6440,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -6586,6 +6650,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -6851,6 +6917,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -6952,6 +7020,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7151,6 +7221,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -7272,6 +7344,8 @@ export const createFileRequestSubmission = /* GraphQL */ `mutation CreateFileReq
       __typename
     }
     workshopId
+    completionStage
+    feedbackAreas
     createdAt
     updatedAt
     __typename
@@ -7378,6 +7452,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -7425,6 +7501,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7772,6 +7850,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -7855,6 +7935,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8038,6 +8120,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8249,6 +8333,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -8434,6 +8520,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -8672,6 +8760,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -8880,6 +8970,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -9145,6 +9237,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -9246,6 +9340,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -9445,6 +9541,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -9566,6 +9664,8 @@ export const updateFileRequestSubmission = /* GraphQL */ `mutation UpdateFileReq
       __typename
     }
     workshopId
+    completionStage
+    feedbackAreas
     createdAt
     updatedAt
     __typename
@@ -9672,6 +9772,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -9719,6 +9821,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10066,6 +10170,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10149,6 +10255,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10332,6 +10440,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -10543,6 +10653,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -10728,6 +10840,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -10966,6 +11080,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11174,6 +11290,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -11439,6 +11557,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -11540,6 +11660,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -11739,6 +11861,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -11860,6 +11984,8 @@ export const deleteFileRequestSubmission = /* GraphQL */ `mutation DeleteFileReq
       __typename
     }
     workshopId
+    completionStage
+    feedbackAreas
     createdAt
     updatedAt
     __typename
@@ -11907,6 +12033,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12213,6 +12341,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12288,6 +12418,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12444,6 +12576,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12522,6 +12656,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12634,6 +12770,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12676,6 +12814,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -12699,6 +12839,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12786,6 +12928,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -12987,6 +13131,8 @@ export const createTrack = /* GraphQL */ `mutation CreateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13086,6 +13232,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13392,6 +13540,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13467,6 +13617,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13623,6 +13775,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13701,6 +13855,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13813,6 +13969,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13855,6 +14013,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -13878,6 +14038,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -13965,6 +14127,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14166,6 +14330,8 @@ export const updateTrack = /* GraphQL */ `mutation UpdateTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14265,6 +14431,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14571,6 +14739,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14646,6 +14816,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14802,6 +14974,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14880,6 +15054,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -14992,6 +15168,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15034,6 +15212,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -15057,6 +15237,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15144,6 +15326,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15345,6 +15529,8 @@ export const deleteTrack = /* GraphQL */ `mutation DeleteTrack(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -15490,6 +15676,8 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -15718,6 +15906,8 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -15956,6 +16146,8 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -16072,6 +16264,8 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -16271,6 +16465,8 @@ export const createPlaylist = /* GraphQL */ `mutation CreatePlaylist(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -16488,6 +16684,8 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -16716,6 +16914,8 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -16954,6 +17154,8 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -17070,6 +17272,8 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -17269,6 +17473,8 @@ export const updatePlaylist = /* GraphQL */ `mutation UpdatePlaylist(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -17486,6 +17692,8 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -17714,6 +17922,8 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -17952,6 +18162,8 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -18068,6 +18280,8 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -18267,6 +18481,8 @@ export const deletePlaylist = /* GraphQL */ `mutation DeletePlaylist(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -18550,6 +18766,8 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -18638,6 +18856,8 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -19128,6 +19348,8 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -19450,6 +19672,8 @@ export const createBreakoutGroup = /* GraphQL */ `mutation CreateBreakoutGroup(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -19623,6 +19847,8 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -19711,6 +19937,8 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -20201,6 +20429,8 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -20523,6 +20753,8 @@ export const updateBreakoutGroup = /* GraphQL */ `mutation UpdateBreakoutGroup(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -20696,6 +20928,8 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -20784,6 +21018,8 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -21274,6 +21510,8 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -21596,6 +21834,8 @@ export const deleteBreakoutGroup = /* GraphQL */ `mutation DeleteBreakoutGroup(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -21672,6 +21912,8 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -21871,6 +22113,8 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -22134,6 +22378,8 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -22222,6 +22468,8 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -22621,6 +22869,8 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -22859,6 +23109,8 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -23197,6 +23449,8 @@ export const createMembership = /* GraphQL */ `mutation CreateMembership(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -23266,6 +23520,8 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -23465,6 +23721,8 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -23728,6 +23986,8 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -23816,6 +24076,8 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -24215,6 +24477,8 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -24453,6 +24717,8 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -24791,6 +25057,8 @@ export const updateMembership = /* GraphQL */ `mutation UpdateMembership(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -24860,6 +25128,8 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -25059,6 +25329,8 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -25322,6 +25594,8 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -25410,6 +25684,8 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -25809,6 +26085,8 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -26047,6 +26325,8 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -26385,6 +26665,8 @@ export const deleteMembership = /* GraphQL */ `mutation DeleteMembership(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -26439,6 +26721,8 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -26826,6 +27110,8 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -27024,6 +27310,8 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -27262,6 +27550,8 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27397,6 +27687,8 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27627,6 +27919,8 @@ export const createWorkshop = /* GraphQL */ `mutation CreateWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -27689,6 +27983,8 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28076,6 +28372,8 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -28274,6 +28572,8 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -28512,6 +28812,8 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28647,6 +28949,8 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28877,6 +29181,8 @@ export const updateWorkshop = /* GraphQL */ `mutation UpdateWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -28939,6 +29245,8 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29326,6 +29634,8 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -29524,6 +29834,8 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -29762,6 +30074,8 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -29897,6 +30211,8 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -30127,6 +30443,8 @@ export const deleteWorkshop = /* GraphQL */ `mutation DeleteWorkshop(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -30284,6 +30602,8 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -30671,6 +30991,8 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -30862,6 +31184,8 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -31345,6 +31669,8 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -31671,6 +31997,8 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -32058,6 +32386,8 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -32249,6 +32579,8 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -32732,6 +33064,8 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -33058,6 +33392,8 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -33445,6 +33781,8 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
           __typename
         }
         workshopId
+        completionStage
+        feedbackAreas
         createdAt
         updatedAt
         __typename
@@ -33636,6 +33974,8 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -34119,6 +34459,8 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -34491,6 +34833,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -34729,6 +35073,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -34824,6 +35170,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35130,6 +35478,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35205,6 +35555,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35361,6 +35713,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35439,6 +35793,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35551,6 +35907,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -35593,6 +35951,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -35769,6 +36129,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -36007,6 +36369,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -36160,6 +36524,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -36207,6 +36573,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -36619,6 +36987,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -36707,6 +37077,8 @@ export const createComment = /* GraphQL */ `mutation CreateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37125,6 +37497,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -37363,6 +37737,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37458,6 +37834,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37764,6 +38142,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37839,6 +38219,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -37995,6 +38377,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -38073,6 +38457,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -38185,6 +38571,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -38227,6 +38615,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -38403,6 +38793,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -38641,6 +39033,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -38794,6 +39188,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -38841,6 +39237,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -39253,6 +39651,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -39341,6 +39741,8 @@ export const updateComment = /* GraphQL */ `mutation UpdateComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -39759,6 +40161,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -39997,6 +40401,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40092,6 +40498,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40398,6 +40806,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40473,6 +40883,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40629,6 +41041,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40707,6 +41121,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40819,6 +41235,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -40861,6 +41279,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -41037,6 +41457,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -41275,6 +41697,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -41428,6 +41852,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -41475,6 +41901,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -41887,6 +42315,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -41975,6 +42405,8 @@ export const deleteComment = /* GraphQL */ `mutation DeleteComment(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -42307,6 +42739,8 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -42527,6 +42961,8 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -42765,6 +43201,8 @@ export const createStem = /* GraphQL */ `mutation CreateStem(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -42933,6 +43371,8 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -43153,6 +43593,8 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -43391,6 +43833,8 @@ export const updateStem = /* GraphQL */ `mutation UpdateStem(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -43559,6 +44003,8 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -43779,6 +44225,8 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -44017,6 +44465,8 @@ export const deleteStem = /* GraphQL */ `mutation DeleteStem(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -44272,6 +44722,8 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -44510,6 +44962,8 @@ export const createPrompt = /* GraphQL */ `mutation CreatePrompt(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -44762,6 +45216,8 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -45000,6 +45456,8 @@ export const updatePrompt = /* GraphQL */ `mutation UpdatePrompt(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -45252,6 +45710,8 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
             __typename
           }
           workshopId
+          completionStage
+          feedbackAreas
           createdAt
           updatedAt
           __typename
@@ -45490,6 +45950,8 @@ export const deletePrompt = /* GraphQL */ `mutation DeletePrompt(
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -45602,6 +46064,8 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -45908,6 +46372,8 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -45983,6 +46449,8 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46139,6 +46607,8 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46217,6 +46687,8 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46329,6 +46801,8 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46371,6 +46845,8 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -46403,6 +46879,8 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46497,6 +46975,8 @@ export const createSubmissionStems = /* GraphQL */ `mutation CreateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46674,6 +47154,8 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -46980,6 +47462,8 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47055,6 +47539,8 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47211,6 +47697,8 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47289,6 +47777,8 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47401,6 +47891,8 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47443,6 +47935,8 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -47475,6 +47969,8 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47569,6 +48065,8 @@ export const updateSubmissionStems = /* GraphQL */ `mutation UpdateSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -47746,6 +48244,8 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48052,6 +48552,8 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48127,6 +48629,8 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48283,6 +48787,8 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48361,6 +48867,8 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48473,6 +48981,8 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48515,6 +49025,8 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
         __typename
       }
       workshopId
+      completionStage
+      feedbackAreas
       createdAt
       updatedAt
       __typename
@@ -48547,6 +49059,8 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
@@ -48641,6 +49155,8 @@ export const deleteSubmissionStems = /* GraphQL */ `mutation DeleteSubmissionSte
             duration
             breakoutGroupId
             workshopId
+            completionStage
+            feedbackAreas
             createdAt
             updatedAt
             __typename
