@@ -374,6 +374,20 @@ const MyComment: React.FC<MyCommentProps> = ({ writeCommentFunctions, comment, c
   )
 }
 
+const useInfiniteScroll = (callback: () => void, hasMore: boolean) => {
+  const observer = useRef<IntersectionObserver | null>(null);
+  const ref = useCallback(node => {
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        callback();
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [callback, hasMore]);
+  return ref;
+}
+
 const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   workshopId,
   assignmentId,
@@ -389,6 +403,8 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   const [comments, setComments] = useState<CommentType[]>([])
   const [showAllComments, setShowAllComments] = useState(showAll)
   const [loading, setLoading] = useState(false)
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [nextToken, setNextToken] = useState<string | null>(null);
   const [lastVisit, setLastVisit] = useState<Date | null>(null)
   const [activeReplyId, setActiveReplyId] = useState<string | null>(null);
 
@@ -479,56 +495,91 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
     }
   }, [isFeedbackPage]);
 
-  // Effect for fetching data
-  useEffect(() => {
-    if (!profile) return;
+  const mySubmissionIds = useMemo(() =>
+    profile?.submissions?.items
+      ?.filter((item): item is NonNullable<typeof item> => !!item)
+      .map((item) => item.id) || [],
+    [profile]
+  );
+
+  const fetchComments = async (token: string | null = null) => {
+    if (!profile || loadingMore) return;
+
+    const loader = token ? setLoadingMore : setLoading;
+    loader(true);
 
     let query: string = commentsByDateLight;
-    let variables: object = {};
+    let variables: any = {};
 
     if (isFeedbackPage) {
       const workshopIds = profile?.memberships?.items
         ?.filter(item => item?.status === "ACTIVE")
         .map(item => item!.workshopId) || [];
+      
+      let filter: any = { or: workshopIds.map(id => ({ workshopId: { eq: id } })) };
+      if (!showAllComments) {
+        if (mySubmissionIds.length === 0) {
+            setComments([]);
+            setNextToken(null);
+            loader(false);
+            return;
+        }
+        filter = { or: mySubmissionIds.map(id => ({ submissionId: { eq: id } })) };
+      }
+
       query = commentsByDateLight;
       variables = {
         limit: 50,
         type: "Comment",
         sortDirection: "DESC",
-        filter: { or: workshopIds.map(id => ({ workshopId: { eq: id } })) }
+        filter,
+        nextToken: token
       };
     } else if (isSubmissionsPage) {
       query = commentsByDateLight;
       variables = {
         type: "Comment",
         sortDirection: "DESC",
-        filter: { assignmentId: { eq: assignmentId } }
+        filter: { assignmentId: { eq: assignmentId } },
+        nextToken: token
       };
     } else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
       query = getFileRequestSubmission;
       variables = { id: submissionId };
     }
 
-    const fetchComments = async () => {
-      setLoading(true);
-      try {
-        const result = await API.graphql({ query, variables }) as { data: any };
-        if (isFeedbackPage || isSubmissionsPage) {
-          setComments(result?.data?.commentsByDate?.items || []);
-        } else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
-          setComments(result?.data?.getFileRequestSubmission?.comments?.items || []);
-        } else {
-          const result = await API.graphql({ query, variables }) as { data: any };
-          setComments(result?.data?.listComments?.items || []);
-        }
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-      }
-      setLoading(false);
-    };
+    try {
+      const result = await API.graphql({ query, variables }) as { data: any };
+      let newComments = [];
+      let newNextToken = null;
 
+      if (isFeedbackPage || isSubmissionsPage) {
+        newComments = result?.data?.commentsByDate?.items || [];
+        newNextToken = result?.data?.commentsByDate?.nextToken;
+      } else if (isCustomPlaylistPage || isDefaultPlaylistPage || isGiveFeedbackPage) {
+        newComments = result?.data?.getFileRequestSubmission?.comments?.items || [];
+        newNextToken = result?.data?.getFileRequestSubmission?.comments?.nextToken;
+      } else {
+        newComments = result?.data?.listComments?.items || [];
+        newNextToken = result?.data?.listComments?.nextToken;
+      }
+
+      setComments(prevComments => token ? [...prevComments, ...newComments] : newComments);
+      setNextToken(newNextToken);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+    loader(false);
+  };
+
+  const infiniteScrollRef = useInfiniteScroll(() => fetchComments(nextToken), !!nextToken);
+
+  // Effect for fetching initial data
+  useEffect(() => {
+    setComments([]);
+    setNextToken(null);
     fetchComments();
-  }, [profile, assignmentId, submissionId, isFeedbackPage, isSubmissionsPage, isCustomPlaylistPage, isDefaultPlaylistPage, isGiveFeedbackPage]);
+  }, [profile, assignmentId, submissionId, isFeedbackPage, isSubmissionsPage, isCustomPlaylistPage, isDefaultPlaylistPage, isGiveFeedbackPage, showAllComments]);
 
   // Effect for subscriptions
   useEffect(() => {
@@ -640,42 +691,18 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
     updateCommentRequest({ variables: { input } });
   };
 
-  const mySubmissionIds = useMemo(() =>
-    profile?.submissions?.items
-      ?.filter((item): item is NonNullable<typeof item> => !!item)
-      .map((item) => item.id) || [],
-    [profile]
-  );
-
-  const commentsForMe = useMemo(() =>
-    comments.filter(c => c.submissionId && mySubmissionIds.includes(c.submissionId)),
-    [comments, mySubmissionIds]
-  );
-
-  const filteredComments = (isFeedbackPage && !showAllComments) ? commentsForMe :
-    comments.filter(item => {
-      if (showAllComments) return true;
-      if (showByMe) {
-        return item?.email === user.email;
-      }
-      else if (item?.submission?.email === user.email) {
-        return true;
-      }
-      return false;
-    }).sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)));
-
   const commentsByParentId = useMemo(() => {
     const map = new Map<string, CommentType[]>();
-    filteredComments.forEach(comment => {
+    comments.forEach(comment => {
       if (!comment.parentId) return;
       const children = map.get(comment.parentId) || [];
       children.push(comment);
       map.set(comment.parentId, children);
     });
     return map;
-  }, [filteredComments]);
+  }, [comments]);
 
-  const parentComments = filteredComments.filter(c => c.parentId == null);
+  const parentComments = comments.filter(c => c.parentId == null);
 
   return (
     <Grid container sx={{ mt: 2, pb: 6 }}>
@@ -684,8 +711,8 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           Feedback{' '}
           <Badge badgeContent={
             isFeedbackPage && lastVisit ?
-              filteredComments.filter(comment => new Date(comment.createdAt) > new Date(lastVisit)).length :
-              filteredComments.length || 0
+              comments.filter(comment => new Date(comment.createdAt) > new Date(lastVisit)).length :
+              comments.length || 0
           } color="secondary">
             <CommentIcon />
           </Badge>
@@ -705,7 +732,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
             <WriteComment onDismiss={() => {}} submitComment={submitComment({ submissionId, assignmentId, workshopId, recipientEmail })} editing={false} replying={false} />
           </If>
           {parentComments && parentComments
-            .map(comment => (
+            .map((comment, index) => (
               <MyComment
                 key={comment.id}
                 writeCommentFunctions={{ submitComment, removeComment, editComment }}
@@ -716,7 +743,8 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
             )
             )}
         </If>
-
+        <div ref={infiniteScrollRef} style={{ height: '1px' }} />
+        {loadingMore && <CircularProgress sx={{ display: 'block', margin: '20px auto' }} />}
       </Grid>
 
     </Grid>)

@@ -3933,6 +3933,11 @@
   resolved "https://registry.yarnpkg.com/@expo/sudo-prompt/-/sudo-prompt-9.3.2.tgz#0fd2813402a42988e49145cab220e25bea74b308"
   integrity sha512-HHQigo3rQWKMDzYDLkubN5WQOYXJJE2eNqIQC2axC2iO3mHdwnIR7FgZVvHWtBwAdzBgAP0ECp8KqS8TiMKvgw==
 
+"@faker-js/faker@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-10.0.0.tgz#df11f0ba2b2d7243574e34364948d6a25163c6f4"
+  integrity sha512-UollFEUkVXutsaP+Vndjxar40Gs5JL2HeLcl8xO1QAjJgOdhc3OmBFWyEylS+RddWaaBiAzH+5/17PLQJwDiLw==
+
 "@floating-ui/core@^0.7.3":
   version "0.7.3"
   resolved "https://registry.npmjs.org/@floating-ui/core/-/core-0.7.3.tgz"

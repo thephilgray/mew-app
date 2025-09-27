@@ -16,7 +16,6 @@
     "typecheck": "tsc --noEmit",
     "codegen": "make codegen",
     "amplify:emailDigest": "cd amplify/backend/function/emailDigest/lib && npm i && cd ../ && tsc -p ./tsconfig.json && cd -"
-
   },
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
@@ -67,6 +66,7 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.0.0",
     "@types/lodash": "^4.17.7",
     "@types/node": "^18.15.3",
     "@types/object-hash": "^3.0.6",
